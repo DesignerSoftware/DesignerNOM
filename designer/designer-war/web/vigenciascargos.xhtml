@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Vigencias Cargos</title>       
+    </h:head> 
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="body">
+                <h:form id="form">
+                    <p:panel id="PanelTotal" header="Historicos Cargos Desempeñados" style=" font-size: 12px; position: absolute; width: 685px; height: 530px;" >  
+
+
+                        <h:outputText style="position: absolute; width: 450px; left: 150px; height: 22px; top: 100px; font-size: 12px; font-family: Arial, Helvetica, sans-serif; text-align: justify" value="Ingrese el cargo asignado al empleado, todo cargo debe estar asignado a una estructura, de esta forma podemos comparar los cargos asignados, contra los cargos artorizados por estructura." id="jgj"/>
+                        <h:outputText value=" " style="position: absolute; left: 70px; top: 100px; background-image: url(Imagenes/interrogacion.jpg); width:50px ;height:50px; background-repeat: no-repeat; background-size: 100% 100%;  " id="jgg"/> 
+                        <p:inputText style="position: absolute; left: 9px; top: 160px; width: 200px; height: 12px;position: absolute; " disabled="true" id="T_EMPLEADO" value="#{ctrlVigenciasCargos.empleado.persona.primerapellido} #{ctrlVigenciasCargos.empleado.persona.segundoapellido} #{ctrlVigenciasCargos.empleado.persona.nombre}"/>  
+
+                        <h:commandLink  style="position: absolute; left: 590px; top: 170px">  
+                            <p:graphicImage value="Imagenes/XML.jpg"  width="30" height="30"/>  
+                            <p:dataExporter type="xml" target="datosVCEmpleado" fileName="VigenciasCargos"/> 
+                        </h:commandLink> 
+
+                        <h:commandLink  style="position: absolute; left: 625px; top: 170px">  
+                            <p:graphicImage value="Imagenes/excel.png"  width="30" height="30"/>  
+                            <p:dataExporter type="xls" target="datosVCEmpleado" fileName="VigenciasCargos"/> 
+                        </h:commandLink>
+
+                        <fieldset style="position: absolute; left: 10px; top: 200px; font-size: 10px; width: 645px; height: 180px;border-radius: 10px;">
+                            <legend style="font-size: 14px; color: blue"><strong>Cargos del empleado</strong></legend>
+
+                            <p:growl id="msgs" showDetail="true"/> 
+                            <p:dataTable id="datosVCEmpleado" style="font-size: 10px; " var="info" value="#{ctrlVigenciasCargos.vigenciasCargosEmpleados}" 
+                                         rowKey="#{info.secuencia}" filteredValue="#{ctrlVigenciasCargos.filtradoVigenciasCargosEmpleados}"
+                                         widgetVar="tablaVC" scrollable="true" scrollWidth="645" scrollHeight="150" >                     
+
+                                <p:column id="vcFecha" width="150" sortBy="#{info.fechavigencia}"  filterBy="#{info.fechavigencia}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >  
+                                    <f:facet name="header">  
+                                        <h:outputText value="Fecha" />  
+                                    </f:facet> 
+                                    <p:calendar value="#{info.fechavigencia}" id="editFecha" showOn="button" navigator="true" showButtonPanel="true" locale="co" pattern="dd/MM/yyyy">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>                                    
+                                    </p:calendar>
+                                </p:column>                        
+
+                                <p:column id="vcEstructura" width="127" sortBy="#{info.estructura.nombre}"  filterBy="#{info.estructura.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >                                                             
+                                    <f:facet name="header">  
+                                        <h:outputText value="Estructura" />  
+                                    </f:facet> 
+                                    <p:inputText value="#{info.estructura.nombre}" id="editEstructura"  style="width: 117px; height: 14px;" />                             
+                                </p:column>  
+
+                                <p:column id="vcMotivo" width="150" sortBy="#{info.motivocambiocargo.nombre}"  filterBy="#{info.motivocambiocargo.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                                               
+                                    <f:facet name="header">  
+                                        <h:outputText value="Motivo" />  
+                                    </f:facet> 
+                                    <p:inputText value="#{info.motivocambiocargo.nombre}" id="editMotivo" readonly="true" style="width: 140px;height: 14px" />                              
+                                </p:column>  
+
+                                <p:column id="vcNombreCargo" headerText="Nombre_Cargo" width="150" sortBy="#{info.cargo.nombre}"  filterBy="#{info.cargo.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                                              
+                                    <f:facet name="header">  
+                                        <h:outputText value="Nombre Cargo" />  
+                                    </f:facet> 
+                                    <p:inputText value="#{info.cargo.nombre}" id="editNombreCargo" readonly="true" style="width: 140px;height: 14px"/>                            
+                                </p:column>  
+
+                                <p:column id="vcCentrosC" headerText="Centro_Costo" width="150" sortBy="#{info.estructura.centrocosto.nombre}"  filterBy="#{info.estructura.centrocosto.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                                              
+                                    <f:facet name="header">  
+                                        <h:outputText value="Centro Costo" />  
+                                    </f:facet> 
+                                    <p:inputText value="#{info.estructura.centrocosto.codigo}-#{info.estructura.centrocosto.nombre}" id="editCentroCosto" readonly="true" style="width: 140px;height: 14px"/>                                                        
+                                </p:column>  
+
+                                <p:column id="vcNombreJefe" headerText="Nombre_Jefe" width="150" sortBy="#{info.empleadojefe.persona.nombre}"  filterBy="#{info.empleadojefe.persona.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                                              
+                                    <f:facet name="header">  
+                                        <h:outputText value="Nombre Jefe" />  
+                                    </f:facet> 
+                                    <p:inputText value="#{info.empleadojefe.persona.nombre}" id="editNombreJefe" readonly="true" style="width: 140px;height: 14px"/>                                                        
+                                </p:column>
+
+                                <p:column headerText="R" width="26" exportable="false">  
+                                    <p:commandButton style="background-image: url(Imagenes/revertir.gif); width:16px; height: 14px"/>                                
+                                </p:column>
+
+                                <p:column headerText="..." width="26" exportable="false">  
+                                    <p:commandButton id="selectButton" update=":form:display" oncomplete="datosDialog.show()" icon="ui-icon-search" title="View">  
+                                        <f:setPropertyActionListener value="#{info}" target="#{ctrlVigenciasCargos.vigenciaSeleccionada}" />  
+                                    </p:commandButton>  
+                                </p:column>  
+
+                            </p:dataTable>
+
+
+                            <p:dialog header="Detalles Vigencias Cargos" widgetVar="datosDialog" resizable="false" id="detallesDlg"  
+                                      showEffect="fade" hideEffect="fade" modal="true">  
+
+                                <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+                                    <h:outputText value="Fecha:" />  
+                                    <h:outputText value="#{ctrlVigenciasCargos.vigenciaSeleccionada.fechavigencia}" style="font-weight:bold">     
+                                        <f:convertDateTime pattern="dd-MM-yyyy"/>
+                                    </h:outputText>  
+
+                                    <h:outputText value="Estructura:" />  
+                                    <h:outputText value="#{ctrlVigenciasCargos.vigenciaSeleccionada.estructura.nombre}" style="font-weight:bold"/>  
+
+                                    <h:outputText value="Motivo:" />  
+                                    <h:outputText value="#{ctrlVigenciasCargos.vigenciaSeleccionada.motivocambiocargo.nombre}" style="font-weight:bold"/>  
+
+                                    <h:outputText value="NombreCargo:" />  
+                                    <h:outputText value="#{ctrlVigenciasCargos.vigenciaSeleccionada.cargo.nombre}" style="font-weight:bold"/>  
+
+                                    <h:outputText value="CentroCosto:" />  
+                                    <h:outputText value="#{ctrlVigenciasCargos.vigenciaSeleccionada.estructura.centrocosto.codigo}-#{ctrlVigenciasCargos.vigenciaSeleccionada.estructura.centrocosto.nombre}" style="font-weight:bold"/> 
+
+                                    <h:outputText value="NombreJefe:" />  
+                                    <h:outputText value="#{ctrlVigenciasCargos.vigenciaSeleccionada.empleadojefe.persona.nombre}" style="font-weight:bold"/> 
+                                </h:panelGrid>  
+                            </p:dialog>  
+
+                        </fieldset>
+
+
+                        <p:commandButton  style="position: absolute; left: 530px; top: 400px; font-size: 10px; font-family: Arial, Helvetica, sans-serif;" id="ACEPTAR" value="Guardar" actionListener="#{ctrlVigenciasCargos.modificarVC()}"/>
+                        <p:commandButton style="position: absolute; left: 596px; top: 400px; font-size: 10px; font-family: Arial, Helvetica, sans-serif;" id="CANCELAR" value="Atras" action="nomina" />
+                    </p:panel>
+                    <p:hotkey bind="ctrl+f11" actionListener="#{ctrlVigenciasCargos.activar()}"/> 
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

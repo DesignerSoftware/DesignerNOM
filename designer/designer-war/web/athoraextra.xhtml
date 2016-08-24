@@ -1,0 +1,1020 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <f:loadBundle basename="Recursos.athoraextra" var="msg" />
+                    <p:growl id="growl" showDetail="true"/>
+
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="position: absolute; width: 874px; height: 510px; text-align: left">
+
+                        <p:toolbar style=" position: absolute; top: 37px; left: 12px; height: 24px">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " actionListener="#{controlATHoraExtra.guardadoGeneral()}" process="@this" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATHoraExtra.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATHoraExtra.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATHoraExtra.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false" actionListener="#{controlATHoraExtra.exportXLS()}" />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  ajax="false">
+                                    <p:dataExporter type="xml"  target="#{controlATHoraExtra.obtenerTablaXML()}" fileName="#{controlATHoraExtra.obtenerNombreArchivoXML()}" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATHoraExtra.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATHoraExtra.dispararDialogoNuevoRegistro()}" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATHoraExtra.borrarRegistro()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATHoraExtra.duplicarRegistro()}"  process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATHoraExtra.validarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATHoraExtra.cancelarModificacion()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATHoraExtra.salir()}" action="#{controlATHoraExtra.redirigir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+
+                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 105px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style=" color: blue;text-align:left"><strong>#{msg['empleados']}</strong></legend>
+
+                            <p:dataTable id="datosEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style=" border: 1px; text-align: left; width: 600px"                           
+                                         value="#{controlATHoraExtra.listaEmpleados}" scrollable="true" scrollHeight="#{controlATHoraExtra.altoTablaEmpleado}"  scrollWidth="615"
+                                         filteredValue="#{controlATHoraExtra.filtrarListaEmpleados}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" selection="#{controlATHoraExtra.empleadoSeleccionado}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlATHoraExtra.eventoFiltrar()}"/>
+
+                                <p:column  headerText="#{msg['codigo']}" sortBy="#{info.codigoempleadoSTR}" filterBy="#{info.codigoempleadoSTR}" filterMatchMode="contains"  
+                                           width="50" id="empleadoCodigo" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.codigoempleadoSTR}" >
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText onclick="select();" value="#{info.codigoempleadoSTR}" id="editarCodigoEmpleado" 
+                                                         style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
+                                                         onselect="posicionEmpleado([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);"> 
+                                            </p:inputText>
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['nombreEmpleado']}" sortBy="#{info.persona.nombreCompleto}" filterBy="#{info.persona.nombreCompleto}" filterMatchMode="contains" 
+                                           width="250" id="empleadoNombre"  filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.persona.nombreCompleto}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText onclick="select();" value="#{info.persona.nombreCompleto}" id="editarNombreEmpleadoEmpleado" 
+                                                         style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
+                                                         onselect="posicionEmpleado([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);"> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                </p:column>
+
+                            </p:dataTable>
+
+                            <p:commandButton style="position: absolute; left: 683px; top: 30px;  " id="BUSCAR" value="#{msg['buscarEmpleados']}" actionListener="#{controlATHoraExtra.dispararDialogoBuscarEmpleados()}" disabled="#{controlATHoraExtra.activarBuscar}" process="@this" />
+                            <p:commandButton style="position: absolute; left: 690px; top: 70px;  " id="MOSTRARTODOS"  value="#{msg['mostrarTodos']}" actionListener="#{controlATHoraExtra.mostrarTodosEmpleados()}" disabled="#{controlATHoraExtra.activarMostrarTodos}" process="@this" />
+                        </fieldset> 
+
+                        <p:remoteCommand name="posicionEmpleado" actionListener="#{controlATHoraExtra.posicionEmpleado()}"/>
+
+                        <fieldset style="position: absolute;top: 200px;left: 10px;height: 120px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style=" color: blue;text-align:left"><strong>#{msg['horasExtras']}</strong></legend>
+
+                            <p:dataTable id="datosHoraExtra" var="infoHE" rowKey="#{infoHE.secuencia}" rowIndexVar="indiceHE" style=" border: 1px; text-align: left; width: 815px"                           
+                                         value="#{controlATHoraExtra.listaTurnosEmpleados}" scrollable="true" scrollHeight="#{controlATHoraExtra.altoTablaHorasExtras}"  scrollWidth="830"
+                                         filteredValue="#{controlATHoraExtra.filtrarListaTurnosEmpleados}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" selection="#{controlATHoraExtra.turnoEmpleadoSeleccionado}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlATHoraExtra.eventoFiltrar()}"/>
+
+
+                                <p:column headerText="#{msg['p']}"  filterMatchMode="contains" 
+                                          id="horaExtraProcesado" width="15" filterStyle="display: none; visibility: hidden;" style="padding-left: 5px;padding: 0px" >                                                              
+                                    <f:facet name="header">
+                                        <h:outputText id="textP" value="#{msg['p']}"/>
+                                        <p:tooltip for="textP" value="#{msg['textP']}"/>
+                                    </f:facet>
+
+                                    <p:selectBooleanCheckbox value="#{infoHE.procesado}" >  
+                                        <p:ajax listener="#{controlATHoraExtra.modificarTurnoEmpleado(indiceHE)}" update="@this"/>  
+                                    </p:selectBooleanCheckbox> 
+                                    <f:facet name="footer">
+                                    </f:facet>
+                                </p:column>
+
+
+                                <p:column  headerText="#{msg['fechaInicial']}" sortBy="#{infoHE.fechainicial}" filterBy="#{infoHE.fechainicial}" filterMatchMode="contains"  
+                                           width="80" id="horaExtraFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoHE.fechainicial}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="editarFechaInicialHoraExtra" value="#{infoHE.fechainicial}" > 
+                                                <p:ajax event="dateSelect" listener="#{controlATHoraExtra.modificarFechaTurno(indiceHE,1)}" update="editarFechaInicialHoraExtra" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlATHoraExtra.modificarFechaTurno(indiceHE,1)}" update="editarFechaInicialHoraExtra" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE,1)}" process="@this"/> 
+                                            </lnk:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['fechaFinal']}" sortBy="#{infoHE.fechafinal}" filterBy="#{infoHE.fechafinal}" filterMatchMode="contains"  
+                                           width="80" id="horaExtraFechaFinal" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoHE.fechafinal}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="editarFechaFinalHoraExtra" value="#{infoHE.fechafinal}" > 
+                                                <p:ajax event="dateSelect" listener="#{controlATHoraExtra.modificarFechaTurno(indiceHE,2)}" update="editarFechaInicialHoraExtra" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlATHoraExtra.modificarFechaTurno(indiceHE,2)}" update="editarFechaInicialHoraExtra" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE,2)}" process="@this"/> 
+                                            </lnk:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['motivoTurno']}" sortBy="#{infoHE.motivoturno.nombre}" filterBy="#{infoHE.motivoturno.nombre}" filterMatchMode="contains" 
+                                           width="120" id="horaExtraMotivo"  filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoHE.motivoturno.nombre}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoHE.motivoturno.nombre}" id="editarMotivoTurnoHoraExtra" style=" border-radius: 0px; width: 98%; text-transform: uppercase; " > 
+                                                <p:ajax event="change" listener="#{controlATHoraExtra.modificarTurnoEmpleado(indiceHE, 'MOTIVO', infoHE.motivoturno.nombre)}"/>
+                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE, 3)}" />
+                                                <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 0, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 320px; margin: -14px; height: 26px;  border: none; color: blue"  value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['nha']}" sortBy="#{infoHE.descuentahorasalimentacion}" filterBy="#{infoHE.descuentahorasalimentacion}" filterMatchMode="contains" 
+                                           width="70" id="horaExtraNHA"  filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="textNHA" value="#{msg['nha']}"/>
+                                        <p:tooltip for="textNHA" value="#{msg['textNHA']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoHE.descuentahorasalimentacion}" style="width: 100px;  text-transform: uppercase"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoHE.descuentahorasalimentacion}" id="editarNHAHoraExtra" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
+                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE, 4)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlATHoraExtra.modificarTurnoEmpleado(indiceHE)}" process="@this" update="editarNHAHoraExtra"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                    </f:facet>
+                                </p:column>
+                                
+                                <p:column  headerText="#{msg['nva']}" sortBy="#{infoHE.pagavalesalimentacion}" filterBy="#{infoHE.pagavalesalimentacion}" filterMatchMode="contains" 
+                                           width="70" id="horaExtraNVA"  filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="textNVA" value="#{msg['nva']}"/>
+                                        <p:tooltip for="textNVA" value="#{msg['textNVA']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoHE.pagavalesalimentacion}" style="width: 100px;  text-transform: uppercase"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoHE.pagavalesalimentacion}" id="editarNVAHoraExtra" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
+                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE, 5)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlATHoraExtra.modificarTurnoEmpleado(indiceHE)}" process="@this" update="editarNVAHoraExtra"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                    </f:facet>
+                                </p:column>
+                                
+                                <p:column headerText="#{msg['p']}"  filterMatchMode="contains" 
+                                          id="horaExtraPagaVale" width="15" filterStyle="display: none; visibility: hidden;" style="padding-left: 5px;padding: 0px" >                                                              
+                                    <f:facet name="header">
+                                        <h:outputText id="textP2" value="#{msg['p']}"/>
+                                        <p:tooltip for="textP2" value="#{msg['textP2']}"/>
+                                    </f:facet>
+
+                                    <p:selectBooleanCheckbox value="#{infoHE.pagasolovale}" >  
+                                        <p:ajax listener="#{controlATHoraExtra.modificarTurnoEmpleado(indiceHE)}" update="@this"/>  
+                                    </p:selectBooleanCheckbox>   
+                                    <f:facet name="footer">
+                                    </f:facet>
+                                </p:column>
+                                
+                                <p:column  headerText="#{msg['estructuraAprobacion']}" sortBy="#{infoHE.estructuraaprueba.nombre}" filterBy="#{infoHE.estructuraaprueba.nombre}" filterMatchMode="contains" 
+                                           width="160" id="horaExtraEstructura"  filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{nfoHE.estructuraaprueba.nombre}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{nfoHE.estructuraaprueba.nombre}" id="editarEstructuraHoraExtra" style=" border-radius: 0px; width: 98%; text-transform: uppercase; " > 
+                                                <p:ajax event="change" listener="#{controlATHoraExtra.modificarTurnoEmpleado(indiceHE, 'ESTRUCTURA', nfoHE.estructuraaprueba.nombre)}"/>
+                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE, 7)}" />
+                                                <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 1, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['comentario']}" sortBy="#{infoHE.comentario}" filterBy="#{infoHE.comentario}" filterMatchMode="contains" 
+                                           width="400" id="horaExtraComentario"  filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoHE.comentario}" style="width: 100px;  text-transform: uppercase"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoHE.comentario}" id="editarComentarioHoraExtra" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
+                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE, 8)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlATHoraExtra.modificarTurnoEmpleado(indiceHE)}" process="@this" update="editarComentarioHoraExtra"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </fieldset> 
+
+                        <fieldset style="position: absolute;top: 335px;left: 10px;height: 128px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style=" color: blue;text-align:left"><strong>#{msg['detallesHorasExtras']}</strong></legend>
+
+                            
+                            <p:dataTable id="datosDetalle" var="infoD" rowKey="#{infoD.eerdetalle}" rowIndexVar="indiceD" style=" border: 1px; text-align: left; width: 815px"                           
+                                         value="#{controlATHoraExtra.listaVWEstadosExtras}" scrollable="true" scrollHeight="#{controlATHoraExtra.altoTablaDetalleHoraExtra}"  scrollWidth="830"
+                                         filteredValue="#{controlATHoraExtra.filtrarListaVWEstadosExtras}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" selection="#{controlATHoraExtra.detalleSeleccionado}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlATHoraExtra.eventoFiltrar()}"/>
+
+                                <p:column  headerText="#{msg['concepto']}" sortBy="#{infoD.conceptodescripcion}" filterBy="#{infoD.conceptodescripcion}" filterMatchMode="contains"  
+                                           width="350" id="detalleConcepto" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoD.conceptodescripcion}" >
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText onclick="select();" value="#{infoD.conceptodescripcion}" id="editarConceptoDetalle" 
+                                                         style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
+                                                         onselect="posicionDetalleHoraExtra([{name: 'n', value: '0'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                            </p:inputText>
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['fechaPago']}" sortBy="#{infoD.fechapago}" filterBy="#{infoD.fechapago}" filterMatchMode="contains" 
+                                           width="100" id="detalleFechaPago"  filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoD.fechapago}" >
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText onclick="select();" value="#{infoD.fechapago}" id="editarFechaPagoDetalle" 
+                                                         style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
+                                                         onselect="posicionDetalleHoraExtra([{name: 'n', value: '1'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                </p:column>
+                                
+                                <p:column  headerText="#{msg['horas']}" sortBy="#{infoD.horas}" filterBy="#{infoD.horas}" filterMatchMode="contains"  
+                                           width="100" id="detalleHoras" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoD.horas}" >
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText onclick="select();" value="#{infoD.horas}" id="editarHorasDetalle" 
+                                                         style=" border-radius: 0px; width: 99%;" readonly="true"
+                                                         onselect="posicionDetalleHoraExtra([{name: 'n', value: '2'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                            </p:inputText>
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                </p:column>
+                                
+                                <p:column  headerText="#{msg['minutos']}" sortBy="#{infoD.minutos}" filterBy="#{infoD.minutos}" filterMatchMode="contains"  
+                                           width="100" id="detalleMinutos" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoD.minutos}" >
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText onclick="select();" value="#{infoD.minutos}" id="editarMinutosDetalle" 
+                                                         style=" border-radius: 0px; width: 99%;" readonly="true"
+                                                         onselect="posicionDetalleHoraExtra([{name: 'n', value: '3'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                            </p:inputText>
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                </p:column>
+                                
+                                <p:column  headerText="#{msg['aprobado']}" sortBy="#{infoD.aprobado}" filterBy="#{infoD.aprobado}" filterMatchMode="contains"  
+                                           width="100" id="detalleAprobado" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoD.aprobado}" >
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText onclick="select();" value="#{infoD.aprobado}" id="editarApobadoDetalle" 
+                                                         style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
+                                                         onselect="posicionDetalleHoraExtra([{name: 'n', value: '4'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                            </p:inputText>
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                </p:column>
+                                
+                                <p:column  headerText="#{msg['descripcion']}" sortBy="#{infoD.descripcion}" filterBy="#{infoD.descripcion}" filterMatchMode="contains"  
+                                           width="200" id="detalleDescripcion" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoD.descripcion}" >
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText onclick="select();" value="#{infoD.descripcion}" id="editarDescripcionDetalle" 
+                                                         style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
+                                                         onselect="posicionDetalleHoraExtra([{name: 'n', value: '5'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                            </p:inputText>
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                </p:column>
+                                
+                                <p:column  headerText="#{msg['opcion']}" sortBy="#{infoD.opcion}" filterBy="#{infoD.opcion}" filterMatchMode="contains"  
+                                           width="100" id="detalleOpcion" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoD.opcion}" >
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText onclick="select();" value="#{infoD.opcion}" id="editarOpcionDetalle" 
+                                                         style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
+                                                         onselect="posicionDetalleHoraExtra([{name: 'n', value: '6'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                            </p:inputText>
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                </p:column>
+
+                            </p:dataTable>
+                            
+                            <p:remoteCommand name="posicionDetalleHoraExtra" actionListener="#{controlATHoraExtra.posicionDetalleHoraExtra()}"/>
+                            
+                            
+                            <strong><h:outputText value="#{msg['totales']}" style="position: absolute; left: 520px; top: 120px;"/></strong>
+                            
+                            <strong><h:outputText value="#{msg['hor']}" style="position: absolute; left: 585px; top: 120px;"/></strong>
+                            <p:inputText readonly="true" id="totalHoras" value="#{controlATHoraExtra.totalHoras}" style="position: absolute; left: 620px; top: 115px; width: 70px;text-align: right" />
+                            
+                            <strong><h:outputText value="#{msg['min']}" style="position: absolute; left: 720px; top: 120px;"/></strong>
+                            <p:inputText readonly="true" id="totalMinutos" value="#{controlATHoraExtra.totalMinutos}" style="position: absolute; left: 750px; top: 115px; width: 70px;text-align: right" />
+
+                        </fieldset> 
+
+
+                        <p:commandButton style="position: absolute; left: 10px; top: 480px;  " id="CARGUEHEPLANO" value="#{msg['carguePlanoHE']}" process="@this" />
+                        <p:commandButton style="position: absolute; left: 290px; top: 480px;  " id="INTERFASE" value="#{msg['interfase']}" process="@this" />
+                        
+                        <p:commandButton style="position: absolute; left: 683px; top: 480px;  " id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="confirmarGuardarSalida.show();" update=":form:datosEmpleado" process="@this" disabled="#{controlATHoraExtra.guardado}"/>
+                        <p:commandButton style="position: absolute; left: 775px; top: 480px;  " id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlATHoraExtra.salir()}" action="#{controlATHoraExtra.redirigir()}" process="@this" />
+
+                    </p:panel>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATHoraExtra.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATHoraExtra.cancelarModificacion()}"  style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlATHoraExtra.guardarSalir()}" action="#{controlATHoraExtra.redirigir()}" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlATHoraExtra.cancelarSalir()}" action="#{controlATHoraExtra.redirigir()}" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+
+
+                    <!-- EMPLEADO -->
+
+
+
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'Empleados', 'rastroATHoraExtra')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Empleados', 'rastroATHoraExtra')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'Empleados', 'rastroATHoraExtra')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    
+                    <!-- HORA EXTRA -->
+
+
+
+                    <p:dialog id="confirmarRastro_HE" header="#{msg['atencion']}" widgetVar="confirmarRastro_HE"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro_HE']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro_HE.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'TurnosEmpleados', 'rastroATHoraExtra')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro_HE.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico_HE" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico_HE"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico_HE']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico_HE.hide();" actionListener="#{controlRastro.historicosTabla('TurnosEmpleados', 'rastroATHoraExtra')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico_HE.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB_HE" header="#{msg['atencion']}" widgetVar="errorObjetosDB_HE"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB_HE']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro_HE" header="#{msg['atencion']}" widgetVar="errorTablaConRastro_HE"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro_HE']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro_HE.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'TurnosEmpleados', 'rastroATHoraExtra')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro_HE.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <!-- -->
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+                    
+                    <p:dialog id="errorFechaTurno" header="#{msg['atencion']}" widgetVar="errorFechaTurno"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorFechaTurno']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+                    
+                    <p:dialog id="errorNullTurno" header="#{msg['atencion']}" widgetVar="errorNullTurno"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorNullTurno']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+                    
+                    <p:dialog id="infoDetalleHoraExtra" header="#{msg['atencion']}" widgetVar="infoDetalleHoraExtra"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/interrogacion.jpg" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['infoDetalleHoraExtra']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlATHoraExtra.activarCtrlF11()}"/> 
+                    
+                    <p:dialog header="#{msg['motivoturnoM']}" widgetVar="MotivoTurnoDialogo" draggable="false" resizable="false" closable="false" id="MotivoTurnoDialogo"  
+                              showEffect="fade" hideEffect="fade" width="460" modal="true" >
+                        <p:dataTable id="lovMotivoTurno" liveScroll="true" scrollRows="25" style="width: 430px" var="motivoT" value="#{controlATHoraExtra.lovMotivosTurnos}" rowKey="#{motivoT.secuencia}"
+                                     selection="#{controlATHoraExtra.motivoSeleccionado}" selectionMode="single" widgetVar="lovMotivoTurno" scrollable="true" scrollWidth="445" scrollHeight="250"
+                                     filteredValue="#{controlATHoraExtra.filtrarLovMotivosTurnos}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlATHoraExtra.activarAceptar()}" update=":form:aceptarMT"/>
+                            <p:ajax event="rowDblselect" listener="#{controlATHoraExtra.actualizarMotivoTurno()}" process="@this" />
+
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarMT']}" style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovMotivoTurno.filter();" style="width:150px; position: relative; left: 30px;" />  
+                            </f:facet>
+                            <p:column filterBy="#{motivoT.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="#{msg['codigo']}" />
+                                </f:facet>
+                                <h:outputText  value="#{motivoT.codigo}" />
+                            </p:column>
+                            <p:column filterBy="#{motivoT.nombre}" width="200"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombre']}" />
+                                </f:facet>
+                                <h:outputText value="#{motivoT.nombre}" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroMotivo" value="#{controlATHoraExtra.infoRegistroMotivo}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+
+                        <p:commandButton id="aceptarMT" style="position: relative; left: 265px" value="#{msg['aceptar']}" disabled="#{controlATHoraExtra.aceptar}" actionListener="#{controlATHoraExtra.actualizarMotivoTurno()}" process="@this" icon="ui-icon-check"/>
+                        
+                        <p:commandButton id="atrasMT" style="position: relative; left: 265px" value="#{msg['atras']}" actionListener="#{controlATHoraExtra.cancelarCambioMotivoTurno()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                    </p:dialog> 
+                    
+                    <p:dialog header="#{msg['estructuraM']}" widgetVar="EstructuraDialogo" draggable="false" resizable="false" closable="false" id="EstructuraDialogo"  
+                              showEffect="fade" hideEffect="fade" width="460" modal="true" >
+                        <p:dataTable id="lovEstructura" liveScroll="true" scrollRows="25" style="width: 430px" var="estructuraA" value="#{controlATHoraExtra.lovEstructuras}" rowKey="#{estructuraA.secuencia}"
+                                     selection="#{controlATHoraExtra.estructuraSeleccionada}" selectionMode="single" widgetVar="lovEstructura" scrollable="true" scrollWidth="445" scrollHeight="250"
+                                     filteredValue="#{controlATHoraExtra.filtrarLovEstructuras}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlATHoraExtra.activarAceptar()}" update=":form:aceptarEA"/>
+                            <p:ajax event="rowDblselect" listener="#{controlATHoraExtra.actualizarEstructura()}" process="@this" />
+
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarEA']}" style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovEstructura.filter();" style="width:150px; position: relative; left: 30px;" />  
+                            </f:facet>
+                            <p:column filterBy="#{estructuraA.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="#{msg['codigo']}" />
+                                </f:facet>
+                                <h:outputText  value="#{estructuraA.codigo}" />
+                            </p:column>
+                            <p:column filterBy="#{estructuraA.nombre}" width="200"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombre']}" />
+                                </f:facet>
+                                <h:outputText value="#{estructuraA.nombre}" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroEstructura" value="#{controlATHoraExtra.infoRegistroEstructura}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+
+                        <p:commandButton id="aceptarEA" style="position: relative; left: 265px" value="#{msg['aceptar']}" disabled="#{controlATHoraExtra.aceptar}" actionListener="#{controlATHoraExtra.actualizarEstructura()}" process="@this" icon="ui-icon-check"/>
+                        
+                        <p:commandButton id="atrasEA" style="position: relative; left: 265px" value="#{msg['atras']}" actionListener="#{controlATHoraExtra.cancelarCambioEstructura()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                    </p:dialog> 
+
+
+                </h:form>
+
+                <h:form id="formEmpleado">
+
+                    <p:dialog header="#{msg['empleadoM']}" widgetVar="EmpleadoDialogo" draggable="false" resizable="false" closable="false" id="EmpleadoDialogo"  
+                              showEffect="fade" hideEffect="fade" width="460" modal="true" >
+                        <p:dataTable id="lovEmpleado" liveScroll="true" scrollRows="25" style=" width: 430px" var="empleados" value="#{controlATHoraExtra.lovEmpleados}" rowKey="#{empleados.secuencia}"
+                                     selection="#{controlATHoraExtra.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleado" scrollable="true" scrollWidth="445" scrollHeight="250"
+                                     filteredValue="#{controlATHoraExtra.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlATHoraExtra.activarAceptar()}" update=":formEmpleado:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlATHoraExtra.actualizarEmpleado()}" process="@this" />
+
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarE']}" style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovEmpleado.filter();" style="width:150px; position: relative; left: 30px;" />  
+                            </f:facet>
+                            <p:column filterBy="#{empleados.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="#{msg['codigo']}" />
+                                </f:facet>
+                                <h:outputText  value="#{empleados.codigoempleado}" />
+                            </p:column>
+                            <p:column filterBy="#{empleados.persona.nombreCompleto}" width="200"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreEmpleado']}" />
+                                </f:facet>
+                                <h:outputText value="#{empleados.persona.nombreCompleto}" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroEmpleado" value="#{controlATHoraExtra.infoRegistroEmpleado}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+
+                        <p:commandButton id="aceptarE" style="position: relative; left: 265px" value="#{msg['aceptar']}" disabled="#{controlATHoraExtra.aceptar}" actionListener="#{controlATHoraExtra.actualizarEmpleado()}" process="@this" icon="ui-icon-check"/>
+                        
+                        <p:commandButton id="atrasE" style="position: relative; left: 265px" value="#{msg['atras']}" actionListener="#{controlATHoraExtra.cancelarCambioEmpleado()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                    </p:dialog> 
+
+                </h:form>
+
+
+                <h:form id="formularioDialogos" >
+                    
+                    <p:dialog id="NuevoRegistroTurno" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroTurno" closable="false" resizable="false"  draggable="false" modal="true" height="400" width="400" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevaTurno" style="border: none;">
+                            
+                            <strong><h:outputText value="#{msg['procesaN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
+                            <p:selectBooleanCheckbox value="#{controlATHoraExtra.nuevaTurno.procesado}" style="position: absolute; top: 70px; left: 200px;" >  
+                                <p:ajax update="@this"/>  
+                            </p:selectBooleanCheckbox> 
+
+                            <strong><h:outputText value="#{msg['fechaInicialN']}" style=" position: absolute; top: 105px; left: 50px" /></strong>
+                            <div id="posicionFechaIniNuevoReg" style=" position: absolute; top: 100px; left: 200px">
+                                <lnk:calendar id="nuevaFechaInicialHoraExtra" value="#{controlATHoraExtra.nuevaTurno.fechainicial}" >
+                                    <p:ajax event="dateSelect" update="nuevaFechaInicialHoraExtra" process="@this"/>
+                                    <p:ajax event="change" update="nuevaFechaInicialHoraExtra" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+                            
+                            <strong><h:outputText value="#{msg['fechaFinalN']}" style=" position: absolute; top: 135px; left: 50px" /></strong>
+                            <div id="posicionFechaFinNuevoReg" style=" position: absolute; top: 130px; left: 200px">
+                                <lnk:calendar id="nuevaFechaFinalHoraExtra" value="#{controlATHoraExtra.nuevaTurno.fechafinal}" >
+                                    <p:ajax event="dateSelect" update="nuevaFechaFinalHoraExtra" process="@this"/>
+                                    <p:ajax event="change" update="nuevaFechaFinalHoraExtra" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <strong><h:outputText value="#{msg['motivoTurnoN']}" style=" position: absolute; top: 165px; left: 50px" /></strong>
+                            <p:inputText id="nuevaMotivoTurnoHoraExtra" value="#{controlATHoraExtra.nuevaTurno.motivoturno.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="click" listener="#{controlATHoraExtra.valoresBackupAutocompletar(1, 'MOTIVO')}" />
+                                <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('MOTIVO', controlATHoraExtra.nuevaTurno.motivoturno.nombre, 1)}" />
+                                <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 0 , 1)}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 160px;  " id="btnNuevaMotivo" icon="ui-icon-search" process="@this"  actionListener="#{controlATHoraExtra.asignarIndex(indiceHE, 0 , 1)}"/>   
+                            <p:watermark for="nuevaMotivoTurnoHoraExtra" value="#{msg['motivoTurno']}" />
+
+
+                            <strong><h:outputText value="#{msg['nhaN']}" style=" position: absolute; top: 195px; left: 50px" /></strong>
+                            <p:inputText id="nuevaNHAHoraExtra"  value="#{controlATHoraExtra.nuevaTurno.descuentahorasalimentacion}" style=" width: 122px; position: absolute; left: 200px; top: 190px;">
+                                <p:ajax event="change" process="@this" update="@this" />
+                            </p:inputText>
+                            <p:watermark for="nuevaNHAHoraExtra" value="#{msg['nha']}" />
+                            
+                            <strong><h:outputText value="#{msg['nvaN']}" style=" position: absolute; top: 225px; left: 50px" /></strong>
+                            <p:inputText id="nuevaNVAHoraExtra"  value="#{controlATHoraExtra.nuevaTurno.pagavalesalimentacion}" style=" width: 122px; position: absolute; left: 200px; top: 220px;">
+                                <p:ajax event="change" process="@this" update="@this" />
+                            </p:inputText>
+                            <p:watermark for="nuevaNVAHoraExtra" value="#{msg['nva']}" />
+
+                            <strong><h:outputText value="#{msg['pagaN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
+                            <p:selectBooleanCheckbox value="#{controlATHoraExtra.nuevaTurno.pagasolovale}" style="position: absolute; top: 250px; left: 200px;" >  
+                                <p:ajax update="@this"/>  
+                            </p:selectBooleanCheckbox> 
+                            
+                            <strong><h:outputText value="#{msg['estructuraAprobacionN']}" style=" position: absolute; top: 285px; left: 50px" /></strong>
+                            <p:inputText id="nuevaEstructuraHoraExtra" value="#{controlATHoraExtra.nuevaTurno.estructuraaprueba.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="click" listener="#{controlATHoraExtra.valoresBackupAutocompletar(1, 'ESTRUCTURA')}" />
+                                <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('ESTRUCTURA', controlATHoraExtra.nuevaTurno.estructuraaprueba.nombre, 1)}" />
+                                <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 1 , 1)}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 280px;  " id="btnNuevaEstructura" icon="ui-icon-search" process="@this"  actionListener="#{controlATHoraExtra.asignarIndex(indiceHE, 1 , 1)}"/>   
+                            <p:watermark for="nuevaEstructuraHoraExtra" value="#{msg['estructuraAprobacion']}" />
+                            
+                            <strong><h:outputText value="#{msg['comentarioN']}" style=" position: absolute; top: 315px; left: 50px" /></strong>
+                            <p:inputText id="nuevaComentarioHoraExtra"  value="#{controlATHoraExtra.nuevaTurno.comentario}" style=" width: 122px; position: absolute; left: 200px; top: 310px;">
+                                <p:ajax event="change" process="@this" update="@this" />
+                            </p:inputText>
+                            <p:watermark for="nuevaComentarioHoraExtra" value="#{msg['comentario']}" />
+                            
+                            <p:commandButton id="limpiarTE" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 350px;" icon="ui-icon-trash" actionListener="#{controlATHoraExtra.limpiarNuevaHoraExtra()}" update="nuevaTurno" process="@this"/>
+                            <p:commandButton id="agregarTE" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 350px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlATHoraExtra.agregarNuevaExtra()}"   />
+                            <p:commandButton id="cancelarTE" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 350px;" icon="ui-icon-circle-close" actionListener="#{controlATHoraExtra.limpiarNuevaHoraExtra()}" update="nuevaTurno" onclick="NuevoRegistroTurno.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="DuplicarRegistroTurno" header="#{msg['nuevoregistro']}" widgetVar="DuplicarRegistroTurno" closable="false" resizable="false"  draggable="false" modal="true" height="400" width="400" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarTurno" style="border: none;">
+
+                            <strong><h:outputText value="#{msg['procesaN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
+                            <p:selectBooleanCheckbox value="#{controlATHoraExtra.duplicarTurno.procesado}" style="position: absolute; top: 70px; left: 200px;" >  
+                                <p:ajax update="@this"/>  
+                            </p:selectBooleanCheckbox> 
+
+                            <strong><h:outputText value="#{msg['fechaInicialN']}" style=" position: absolute; top: 105px; left: 50px" /></strong>
+                            <div id="posicionFechaIniNuevoReg" style=" position: absolute; top: 100px; left: 200px">
+                                <lnk:calendar id="duplicarFechaInicialHoraExtra" value="#{controlATHoraExtra.duplicarTurno.fechainicial}" >
+                                    <p:ajax event="dateSelect" update="duplicarFechaInicialHoraExtra" process="@this"/>
+                                    <p:ajax event="change" update="duplicarFechaInicialHoraExtra" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+                            
+                            <strong><h:outputText value="#{msg['fechaFinalN']}" style=" position: absolute; top: 135px; left: 50px" /></strong>
+                            <div id="posicionFechaFinNuevoReg" style=" position: absolute; top: 130px; left: 200px">
+                                <lnk:calendar id="duplicarFechaFinalHoraExtra" value="#{controlATHoraExtra.duplicarTurno.fechafinal}" >
+                                    <p:ajax event="dateSelect" update="duplicarFechaFinalHoraExtra" process="@this"/>
+                                    <p:ajax event="change" update="duplicarFechaFinalHoraExtra" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <strong><h:outputText value="#{msg['motivoTurnoN']}" style=" position: absolute; top: 165px; left: 50px" /></strong>
+                            <p:inputText id="duplicarMotivoTurnoHoraExtra" value="#{controlATHoraExtra.duplicarTurno.motivoturno.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="click" listener="#{controlATHoraExtra.valoresBackupAutocompletar(2, 'MOTIVO')}" />
+                                <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('MOTIVO', controlATHoraExtra.duplicarTurno.motivoturno.nombre, 2)}" />
+                                <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 0 , 2)}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 160px;  " id="btnDuplicarMotivo" icon="ui-icon-search" process="@this"  actionListener="#{controlATHoraExtra.asignarIndex(indiceHE, 0 , 2)}"/>   
+                            <p:watermark for="duplicarMotivoTurnoHoraExtra" value="#{msg['motivoTurno']}" />
+
+
+                            <strong><h:outputText value="#{msg['nhaN']}" style=" position: absolute; top: 195px; left: 50px" /></strong>
+                            <p:inputText id="duplicarNHAHoraExtra"  value="#{controlATHoraExtra.duplicarTurno.descuentahorasalimentacion}" style=" width: 122px; position: absolute; left: 200px; top: 190px;">
+                                <p:ajax event="change" process="@this" update="@this" />
+                            </p:inputText>
+                            <p:watermark for="duplicarNHAHoraExtra" value="#{msg['nha']}" />
+                            
+                            <strong><h:outputText value="#{msg['nvaN']}" style=" position: absolute; top: 225px; left: 50px" /></strong>
+                            <p:inputText id="duplicarNVAHoraExtra"  value="#{controlATHoraExtra.duplicarTurno.pagavalesalimentacion}" style=" width: 122px; position: absolute; left: 200px; top: 220px;">
+                                <p:ajax event="change" process="@this" update="@this" />
+                            </p:inputText>
+                            <p:watermark for="duplicarNVAHoraExtra" value="#{msg['nva']}" />
+
+                            <strong><h:outputText value="#{msg['pagaN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
+                            <p:selectBooleanCheckbox value="#{controlATHoraExtra.duplicarTurno.pagasolovale}" style="position: absolute; top: 250px; left: 200px;" >  
+                                <p:ajax update="@this"/>  
+                            </p:selectBooleanCheckbox> 
+                            
+                            <strong><h:outputText value="#{msg['estructuraAprobacionN']}" style=" position: absolute; top: 285px; left: 50px" /></strong>
+                            <p:inputText id="duplicarEstructuraHoraExtra" value="#{controlATHoraExtra.duplicarTurno.estructuraaprueba.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="click" listener="#{controlATHoraExtra.valoresBackupAutocompletar(2, 'ESTRUCTURA')}" />
+                                <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('ESTRUCTURA', controlATHoraExtra.duplicarTurno.estructuraaprueba.nombre, 2)}" />
+                                <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 1 , 2)}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 280px;  " id="btnDuplicarEstructura" icon="ui-icon-search" process="@this"  actionListener="#{controlATHoraExtra.asignarIndex(indiceHE, 1 , 2)}"/>   
+                            <p:watermark for="duplicarEstructuraHoraExtra" value="#{msg['estructuraAprobacion']}" />
+                            
+                            <strong><h:outputText value="#{msg['comentarioN']}" style=" position: absolute; top: 315px; left: 50px" /></strong>
+                            <p:inputText id="duplicarComentarioHoraExtra"  value="#{controlATHoraExtra.duplicarTurno.comentario}" style=" width: 122px; position: absolute; left: 200px; top: 31x;">
+                                <p:ajax event="change" process="@this" update="@this" />
+                            </p:inputText>
+                            <p:watermark for="duplicarComentarioHoraExtra" value="#{msg['comentario']}" />
+                            
+                            <p:commandButton id="limpiarDuplicarTE" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 350px;" icon="ui-icon-trash" actionListener="#{controlATHoraExtra.limpiarDuplicarHoraExtra()}" update="duplicarTurno" process="@this"/>
+                            <p:commandButton id="agregarDuplicarTE" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 350px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlATHoraExtra.confirmarDuplicarHoraExtra()}"   />
+                            <p:commandButton id="cancelarDuplicarTE" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 350px;" icon="ui-icon-circle-close" actionListener="#{controlATHoraExtra.limpiarDuplicarHoraExtra()}" update="duplicarTurno" onclick="DuplicarRegistroTurno.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+                    
+
+                    <p:dialog id="editarEmpleadoCodigo" header="#{msg['editarEmpleadoCodigo']}" widgetVar="editarEmpleadoCodigo" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlATHoraExtra.empleadoActual.codigoempleadoSTR}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarEmpleadoNombre" header="#{msg['editarEmpleadoNombre']}" widgetVar="editarEmpleadoNombre" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlATHoraExtra.empleadoActual.persona.nombreCompleto}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    
+                    
+                    <!-- -->
+
+                    <p:dialog id="editarHoraExtraFechaInicial" header="#{msg['editarHoraExtraFechaInicial']}" widgetVar="editarHoraExtraFechaInicial" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlATHoraExtra.editarTurnoEmpleado.fechainicial}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarHoraExtraFechaFinal" header="#{msg['editarHoraExtraFechaFinal']}" widgetVar="editarHoraExtraFechaFinal" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlATHoraExtra.editarTurnoEmpleado.fechafinal}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarHoraExtraMotivo" header="#{msg['editarHoraExtraMotivo']}" widgetVar="editarHoraExtraMotivo" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlATHoraExtra.editarTurnoEmpleado.motivoturno.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarHoraExtraNHA" header="#{msg['editarHoraExtraNHA']}" widgetVar="editarHoraExtraNHA" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlATHoraExtra.editarTurnoEmpleado.descuentahorasalimentacion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarHoraExtraNVA" header="#{msg['editarHoraExtraNVA']}" widgetVar="editarHoraExtraNVA" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlATHoraExtra.editarTurnoEmpleado.pagavalesalimentacion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarHoraExtraEstructura" header="#{msg['editarHoraExtraEstructura']}" widgetVar="editarHoraExtraEstructura" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlATHoraExtra.editarTurnoEmpleado.estructuraaprueba.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarHoraExtraComentario" header="#{msg['editarHoraExtraComentario']}" widgetVar="editarHoraExtraComentario" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlATHoraExtra.editarTurnoEmpleado.comentario}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    <!-- -->
+
+                    <p:dialog id="editarDetalleConcepto" header="#{msg['editarDetalleConcepto']}" widgetVar="editarDetalleConcepto" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlATHoraExtra.editarDetalleTurno.conceptodescripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarDetalleFechaPago" header="#{msg['editarDetalleFechaPago']}" widgetVar="editarDetalleFechaPago" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlATHoraExtra.editarDetalleTurno.fechapago}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarDetalleHoras" header="#{msg['editarDetalleHoras']}" widgetVar="editarDetalleHoras" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlATHoraExtra.editarDetalleTurno.horas}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarDetalleMinutos" header="#{msg['editarDetalleMinutos']}" widgetVar="editarDetalleMinutos" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlATHoraExtra.editarDetalleTurno.minutos}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarDetalleAprobado" header="#{msg['editarDetalleAprobado']}" widgetVar="editarDetalleAprobado" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlATHoraExtra.editarDetalleTurno.aprobado}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarDetalleDescripcion" header="#{msg['editarDetalleDescripcion']}" widgetVar="editarDetalleDescripcion" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlATHoraExtra.editarDetalleTurno.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarDetalleOpcion" header="#{msg['editarDetalleOpcion']}" widgetVar="editarDetalleOpcion" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlATHoraExtra.editarDetalleTurno.opcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                </h:form>
+                <h:form id="formExportar">
+                    <p:dataTable id="datosEmpleadoExportar" var="infoExpE" style="visibility: hidden; display: none;"                           
+                                 value="#{controlATHoraExtra.listaEmpleados}"> 
+
+                        <p:column headerText="#{msg['codigoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExpE.codigoempleadoSTR}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['nombreEmpleadoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['nombreEmpleadoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExpE.persona.nombreCompleto}" />
+                        </p:column>  
+
+                    </p:dataTable>
+                    
+                    <p:dataTable id="datosHoraExtraExportar" var="infoExpHE" style="visibility: hidden; display: none;"                           
+                                 value="#{controlATHoraExtra.listaTurnosEmpleados}"> 
+
+                        <p:column headerText="#{msg['procesadoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['procesadoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExpHE.codigoempleadoSTR}" />
+                        </p:column>
+                        
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaInicialXX']}" />
+                            </f:facet>
+                            <h:outputText value="#{infoExpHE.fechainicial}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaFinalXX']}" />
+                            </f:facet>
+                            <h:outputText value="#{infoExpHE.fechafinal}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['motivoTurnoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['motivoTurnoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExpHE.motivoturno.nombre}" />
+                        </p:column>  
+                        
+                        <p:column headerText="#{msg['nhaX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['nhaX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExpHE.descuentahorasalimentacion}" />
+                        </p:column>
+                        
+                        <p:column headerText="#{msg['nvaX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['nvaX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExpHE.pagavalesalimentacion}" />
+                        </p:column>  
+                        
+                        <p:column headerText="#{msg['pagavaleXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['pagavaleX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExpHE.pagasolovale}" />
+                        </p:column>  
+                        
+                        <p:column headerText="#{msg['estructuraAprobacionXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['estructuraAprobacionX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExpHE.estructuraaprueba.nombre}" />
+                        </p:column>  
+                        
+                        <p:column headerText="#{msg['comentarioX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['comentarioX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExpHE.comentario}" />
+                        </p:column>  
+
+                    </p:dataTable>
+                    
+                    <p:dataTable id="datosDetalleExportar" var="infoExpDHE" style="visibility: hidden; display: none;"                           
+                                 value="#{controlATHoraExtra.listaVWEstadosExtras}"> 
+
+                        <p:column headerText="#{msg['conceptoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['conceptoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExpDHE.conceptodescripcion}" />
+                        </p:column>
+                        
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaPagoXX']}" />
+                            </f:facet>
+                            <h:outputText value="#{infoExpDHE.fechapago}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['horasX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['horasX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExpDHE.horas}" />
+                        </p:column>  
+                        
+                        <p:column headerText="#{msg['minutosX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['minutosX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExpDHE.minutos}" />
+                        </p:column>
+                        
+                        <p:column headerText="#{msg['aprobadoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['aprobadoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExpDHE.aprobado}" />
+                        </p:column>  
+                        
+                        <p:column headerText="#{msg['descripcionX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['descripcionX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExpDHE.descripcion}" />
+                        </p:column>  
+                        
+                        <p:column headerText="#{msg['opcionX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['opcionX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExpDHE.opcion}" />
+                        </p:column>  
+
+                    </p:dataTable>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

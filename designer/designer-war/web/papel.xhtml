@@ -1,0 +1,371 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="true"/> 
+                    <p:panel  id="PanelTotal" header="Papeles" style="position: absolute; width: 874px; height: 510px; text-align: left">   
+                        <h:outputText id="outEmpresaNombre" value="Empresa : " style="position: absolute; left: 20px; top: 85px; width:70px ;height:55px; color: darkblue;font-weight: bold "/> 
+                        <h:outputText id="nombreEmpresa" value="#{controlPapeles.empresaSeleccionada.nombre}" style="position: absolute; left: 90px; top: 85px; width:300px ;height:50px; color: #BF1A1A;font-weight: bold " />
+                        <h:outputText id="outEmpresaNit" value="Nit : " style="position: absolute; left: 400px; top: 85px; width:50px ;height:50px; color: darkblue;font-weight: bold "/> 
+                        <h:outputText id="nitEmpresa" value="#{controlPapeles.empresaSeleccionada.nit}" style="position: absolute; left: 228px; top: 85px; position: absolute; color: #BF1A1A; font-weight: bold; width: 285px; text-align: right; "/>
+
+                        <fieldset style="position: absolute;top: 110px;left: 10px;height: 340px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 14px; color: blue"><strong>Papeles</strong></legend>
+                            <!-- TABLA EMPLVIGENCIACARGO -->
+
+                            <p:dataTable id="datosPapeles" rowKey="#{info.secuencia}" var="info" rowIndexVar="indice" style="width: 830px ; border: 1px;"                      
+                                         value="#{controlPapeles.listPapelesPorEmpresa}" scrollable="true" scrollHeight="#{controlPapeles.tamano}"  scrollWidth="830"
+                                         filteredValue="#{controlPapeles.filtrarPapeles}" emptyMessage="No se encontrarón resultados para la búsqueda"
+                                         editable="true" editMode="cell" 
+                                         selectionMode="single"
+                                         selection="#{controlPapeles.papelinho}">
+
+                                <p:ajax event="filter" listener="#{controlPapeles.eventoFiltrar()}"/>
+
+
+                                <p:column headerText="Codigo" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigoCC" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output" ><h:outputText value="#{info.codigo}" style="text-transform: uppercase"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.codigo}" maxlength="30" id="editarCodigoCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
+                                                <p:ajax  event="change" listener="#{controlPapeles.modificandoPapel(indice, 'N', info.codigo)}" update="@this"/>
+                                                <p:ajax event="select" listener="#{controlPapeles.cambiarIndice(indice,0)}" /> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>  
+                                <p:tooltip style="" for="fooCodigoCC" value="Codigo" />
+
+                                <p:column headerText="Descripcion" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains"  id="nombrePapel" width="200" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.descripcion}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="editarNombreCentroCoso" maxlength="200" value="#{info.descripcion}" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase">
+                                                <p:ajax event="change" listener="#{controlPapeles.modificandoPapel(indice, 'N', info.descripcion)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlPapeles.cambiarIndice(indice, 1)}" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="Codigo Alternativo" sortBy="#{info.codigoalternativo}" filterBy="#{info.codigoalternativo}" filterMatchMode="contains" id="codigoAT" width="70" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigoalternativo}" style="text-transform: uppercase"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.codigoalternativo}" maxlength="50" id="editarCodigoAT" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                                <p:ajax event="change" listener="#{controlPapeles.modificandoPapel(indice, 'N', info.codigoalternativo )}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlPapeles.cambiarIndice(indice, 2)}" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+                            </p:dataTable> 
+                        </fieldset>
+
+                        <p:toolbar style=" position: absolute; top: 40px; left: 20px; height: 24px">  
+                            <p:toolbarGroup align="left">
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " actionListener="#{controlPapeles.guardarCambiosPapel()}" process="@this" />
+                                <p:tooltip style="" for="guardarRapido" value="Guardado Rapido" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlPapeles.editarCelda()}" process="@this"/>
+                                <p:tooltip style="" for="editar" value="Editar" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlPapeles.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="Lista de Valores" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlPapeles.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="filtrar" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false" actionListener="#{controlPapeles.exportXLS()}" />
+                                <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlPapeles.limpiarNuevoPapeles()}" ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosPapelesExportar" fileName="Papeles" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlPapeles.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " oncomplete="NuevoRegistroPapeles.show()" update=":formularioDialogos:nuevoPapeles" process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="Agregar Papel" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlPapeles.verificarBorrado()}" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="Eliminar Papel" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlPapeles.duplicandoPapeles()}"  process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="duplicar Papel" />
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlPapeles.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="" for="rastro" value="Rastro"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlPapeles.cancelarModificacion()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="Refrescar"/>
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlPapeles.salir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="Salir"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <h:outputText id="informacionRegistro" value="#{controlPapeles.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
+                        <p:commandButton style=" position: absolute; left: 688px; top: 475px;" icon="ui-icon-check" id="ACEPTAR" value="Aceptar" disabled="#{controlPapeles.guardado}" onclick="confirmarGuardar.show();" update=":form:datosPapeles" process="@this" />
+                        <p:commandButton style=" position: absolute; left: 785px; top: 475px;" icon="ui-icon-closethick" id="ATRAS" value="Atras" actionListener="#{controlPapel.salir()}" action="nomina" process="@this" />
+
+                    </p:panel>
+
+                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="65" height="70" style="position: absolute; left: 20px; top: 15px;"  />
+                        <h:outputText value="Necesita : #{controlPapeles.mensajeValidacion}" style="position: absolute; left: 100px; top: 15px; width: 300px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 50px; left: 280px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="77" width="330px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value=" #{controlPapeles.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 40px; left: 230px" process="@this" />
+                    </p:dialog>
+                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"  />
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionBorrar.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="95" width="310px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="60" height="70" style="position: absolute; left: 20px; top: 15px;"  />
+                        <h:outputText value="Se han borrado #{controlPapeles.registrosBorrados}  Registros" style="position: absolute; left: 100px; top: 20px; width: 190px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="mostrarBorrados.hide();" style="position: absolute; top: 60px; left: 200px" process="@this" />
+                    </p:dialog>
+                    <p:dialog id="validacionNuevaPapel" header="ATENCIÓN...!" widgetVar="validacionNuevaPapel"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="Para agregar es necesario adicionar: #{controlPapeles.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionNuevaPapel.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="Si" onclick="confirmarGuardar.hide();" actionListener="#{controlPapeles.guardarCambiosPapel()}" action="normalaboralNominaF" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="confirmarGuardar.hide();" actionListener="#{controlPapeles.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+                    <p:dialog id="confirmarCambioEmpresa" header="ATENCIÓN...!" widgetVar="confirmarCambioEmpresa"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="¿Desea guardar los cambios realizados en Centros Costos de la empresa" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="Aceptar" onclick="confirmarCambioEmpresa.hide();" actionListener="#{controlPapeles.guardarCambiosPapel()}" style="position: absolute; top: 60px; left: 215px" process="@this" />
+                        <p:commandButton value="Cancelar" onclick="confirmarCambioEmpresa.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlPapeles.activarCtrlF11()}"/> 
+                    <p:hotkey bind="alt+p" actionListener="#{controlPapeles.lovEmpresas()}"/> 
+                </h:form>
+
+                <h:form id="formularioDialogos" >
+
+                    <p:dialog id="confirmarRastro" header="ATENCIÓN...!" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla 'PAPELES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="SI" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPapeles.secRegistro, 'Papeles', 'papel')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="NO" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN...!" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla PAPELES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="SI" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Papeles', 'papel')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="NO" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN...!" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN...!" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN...!" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="SI" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPapeles.secRegistro, 'Papeles', 'papel')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="NO" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN...!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN...!" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="ATENCIÓN...!" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla 'PAPELES' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog> 
+
+
+                    <p:dialog id="NuevoRegistroPapeles" header="Nuevo Registro" widgetVar="NuevoRegistroPapeles" closable="false" resizable="false"  draggable="false" modal="true" height="180" width="320" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="Ingresar Nuevo Papel" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevoPapeles" style="border: none;">
+
+                            <!--0-->
+                            <strong><h:outputText value="*Codigo:" style="left: 10px; position: absolute; top: 60px" /></strong>
+                            <p:inputText id="nuevaCodigoCC" maxlength="30" value="#{controlPapeles.nuevoPapel.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaCodigoCC" value="Codigo" />
+                            <!--1-->
+                            <strong><h:outputText value="*Descripcion:" style="left: 10px; position: absolute; top: 90px" /></strong>
+                            <p:inputText id="nuevaNombrePapeles" maxlength="200" value="#{controlPapeles.nuevoPapel.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaNombrePapeles" value="Descripcion" />
+                            <strong><h:outputText value="Codigo Alternativo:" style=" left: 10px;position: absolute; top: 120px" /></strong>
+                            <p:inputText id="nuevaCodigoAT" maxlength="50" value="#{controlPapeles.nuevoPapel.codigoalternativo}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaCodigoAT" value="CODIGO ALTERNATIVO" />
+
+
+                            <p:commandButton id="limpiar" value="Limpiar" icon="ui-icon-trash" style="  ;position: absolute; left: 10px; top: 150px;" actionListener="#{controlPapeles.limpiarNuevoPapeles()}" update="nuevoPapeles" process="@this"/>
+                            <p:commandButton id="agregarCC" value="Agregar" icon="ui-icon-circle-check" style=" position: absolute; left: 120px; top: 150px;"  process="@this" actionListener="#{controlPapeles.agregarNuevoPapeles()}"  />
+                            <p:commandButton id="cancelarCC" value="Cancelar" icon="ui-icon-circle-close" style=" position: absolute; left: 210px; top: 150px;" actionListener="#{controlPapeles.limpiarNuevoPapeles()}" update="nuevoPapeles" onclick="NuevoRegistroPapeles.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->                    
+                    <p:dialog id="DuplicarRegistroPapeles" header="Duplicar Registro" widgetVar="DuplicarRegistroPapeles" closable="false" resizable="false"  draggable="false" modal="true" height="180" width="320" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="Ingresar Informacion del Papel" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarPapeles" style="border: none;">
+                            <!--0-->
+                            <strong><h:outputText value="Codigo" style=" position: absolute; left: 10px; top:60px" /></strong>
+                            <p:inputText id="duplicarCodigoCC" maxlength="30" value="#{controlPapeles.duplicarPapel.codigo}" style="left: 150px; width: 140px; position: absolute;  top: 55px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCodigoCC" value="Codigo" />
+                            <!--1-->
+                            <strong><h:outputText value="Descripcion" style=" position: absolute;left: 10px; top: 90px" /></strong>
+                            <p:inputText id="duplicarNombrePapeles" maxlength="200" value="#{controlPapeles.duplicarPapel.descripcion}" style="left: 150px; width: 140px; position: absolute;  top: 85px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarNombrePapeles" value="Descripcion" />
+                            <!--4-->
+                            <strong><h:outputText value="Codigo Alternativo" style=" position: absolute; left: 10px; top: 120px" /></strong>
+                            <p:inputText id="duplicarCodigoAT" maxlength="50" value="#{controlPapeles.duplicarPapel.codigoalternativo}" style="left: 150px; width: 140px; position: absolute; top: 115px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCodigoAT" value="Codigo Alternativo" />
+
+                            <p:commandButton id="limpiarDuplicadoCC" value="Limpiar"  icon="ui-icon-trash" style="  position: absolute; left: 10px; top: 150px;" actionListener="#{controlPapeles.limpiarDuplicarPapeles()}" update="duplicarPapeles" process="@this"/>
+                            <p:commandButton id="agregarDuplicadoCC" value="Agregar" icon="ui-icon-circle-check" style=" position: absolute; left: 120px; top: 150px;"  process="@this" actionListener="#{controlPapeles.confirmarDuplicar()}"/>
+                            <p:commandButton id="cancelarDuplicadoCC" value="Cancelar" icon="ui-icon-circle-close" style=" position: absolute; left: 210px; top: 150px;" actionListener="#{controlPapeles.limpiarDuplicarPapeles()}" update="duplicarPapeles" onclick="DuplicarRegistroPapeles.hide();" process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+
+                    <!-- LOV EMPRESAS -->
+                    <p:dialog header="Empresas" widgetVar="EmpresasDialogo" draggable="false" resizable="false" closable="false" id="EmpresasDialogo"  
+                              showEffect="fade" hideEffect="fade" width="360" modal="true" style="">
+                        <p:dataTable id="lovEmpresas" style=" width: 320px" var="empresa" value="#{controlPapeles.listaEmpresas}" rowKey="#{empresa.secuencia}"
+                                     selection="#{controlPapeles.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="340" scrollHeight="120"
+                                     filteredValue="#{controlPapeles.filtradoListaEmpresas}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlPapeles.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlPapeles.cambiarEmpresa()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Empresa"  style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovEmpresas.filter();" style="width:100px; position: relative; left: 10px;" />  
+                            </f:facet>
+                            <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
+                                <f:facet name="header">
+                                    <h:outputText value="Nit" />
+                                </f:facet>
+                                <h:outputText  value="#{empresa.nit}" />
+                            </p:column>
+                            <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre" />
+                                </f:facet>
+                                <h:outputText  value="#{empresa.nombre}" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroEmpresas" value="#{controlPapeles.infoRegistroEmpresas}" style="position: absolute; left: 15px; top: 220px; font-weight: bold"/>
+
+                        <p:commandButton id="aceptarE" style="position: relative; left: 155px" icon="ui-icon-check" value="Aceptar" disabled="#{controlPapeles.aceptar}" actionListener="#{controlPapeles.cambiarEmpresa()}" process="@this"/>
+                        
+                        <p:commandButton id="atrasE" style="position: relative; left: 155px" icon="ui-icon-arrowreturnthick-1-w" value="Cancelar" actionListener="#{controlPapeles.cancelarCambioEmpresa()}" process="@this"/>
+                    </p:dialog>
+
+
+                    <!--0-->
+                    <p:dialog id="editarCCC" header="Codigo" widgetVar="editarCCC" resizable="false" draggable="false" modal="true" height="55" width="240" style="">  
+                        <p:inputTextarea value="#{controlPapeles.editarPapel.codigo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    <!--1-->
+                    <p:dialog id="editarNCC" header="Descripción" widgetVar="editarNCC" resizable="false" draggable="false" modal="true" height="55" width="240" style="">  
+                        <p:inputTextarea value="#{controlPapeles.editarPapel.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    <!--2-->
+                    <p:dialog id="editarTCC" header="Codigo Alternativo" widgetVar="editarTCC" resizable="false" draggable="false" modal="true" height="55" width="240" style="">  
+                        <p:inputTextarea value="#{controlPapeles.editarPapel.codigoalternativo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                </h:form>
+
+
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosPapelesExportar" var="info2" style="visibility: hidden; display: none;"                           
+                                 value="#{controlPapeles.listPapelesPorEmpresa}"> 
+                        <!--COLUMNAS TABLA DATOS VIGENCIAS TIPOS CONTRATOS DE UN EMPLEADO --> 
+                        <!--0-->
+                        <p:column headerText="Codigo">      
+                            <f:facet name="header"><h:outputText value="Codigo"/></f:facet>
+                            <h:outputText value="#{info2.codigo}" />
+                        </p:column>
+                        <!--1-->
+                        <p:column headerText="Descripcion">      
+                            <f:facet name="header"><h:outputText value="Descripcion"/></f:facet>
+                            <h:outputText value="#{info2.descripcion}" />
+                        </p:column>
+                        <!--2-->
+                        <p:column headerText="CodigoAlternativo">      
+                            <f:facet name="header"><h:outputText value="CodigoAlternativo"/></f:facet>
+                            <h:outputText value="#{info2.codigoalternativo}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
+

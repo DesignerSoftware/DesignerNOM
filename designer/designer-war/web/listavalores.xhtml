@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <h:head>
+        <title>Lista Valores</title>
+        <style type="text/css">
+
+            .hide
+            {
+                text-align: left;
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+
+        <form id="form">
+
+            <p:growl id="growl" showDetail="true"/>
+
+            <p:dataTable  id="lvBusquedaRapida" style="font-size: 11px; width: 700px" var="item" value="#{controlRemoto.busquedaRapida}"
+                          scrollable="true" scrollHeight="150" scrollWidth="720" widgetVar="busquedaR" 
+                          filteredValue="#{controlRemoto.filterBusquedaRapida}" emptyMessage="No se encontraron resultados con el criterio de busqueda."
+                         rowKey="#{item.empleado.secuencia}" selection="#{controlRemoto.emplSeleccionado}" selectionMode="single">
+
+                <p:ajax event="rowSelect" listener="#{controlRemoto.probar()}" />  
+
+
+                <f:facet name="header" >  
+                    <h:outputText value="Buscar Empleado: "  style="position: absolute; left: 22px; top: 18px"/>  
+                    <p:inputText id="globalFilter" onkeyup="busquedaR.filter()" style="width:150px; position: relative; left: -150px;" />  
+                </f:facet>
+
+                <p:column  headerText="Codigo Empleado" filterOptions="" filterBy="#{item.empleado.codigoempleado}" filterMatchMode="contains">  
+                    <h:outputText value="#{item.empleado.codigoempleado}" />  
+                </p:column>  
+
+                <p:column headerText="Primer Apellido" filterBy="#{item.empleado.persona.primerapellido}" filterMatchMode="contains">  
+                    <h:outputText value="#{item.empleado.persona.primerapellido}" />  
+                </p:column>  
+
+                <p:column headerText="Segundo Apellido" filterBy="#{item.empleado.persona.segundoapellido}" filterMatchMode="contains" >  
+                    <h:outputText value="#{item.empleado.persona.segundoapellido}" />  
+                </p:column>  
+
+                <p:column headerText="Nombre" width="160" filterBy="#{item.empleado.persona.nombre}" filterMatchMode="contains">  
+                    <h:outputText value="#{item.empleado.persona.nombre}" />  
+                </p:column>  
+
+                <p:column headerText="Tipo" filterBy="#{item.tipoTrabajador.tipo}" filterMatchMode="contains">  
+                    <h:outputText value="#{item.tipoTrabajador.tipo}" />  
+                </p:column> 
+
+            </p:dataTable> 
+
+        </form>
+
+    </h:body>
+</html>
+

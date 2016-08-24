@@ -1,0 +1,1162 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+
+                    <f:loadBundle basename="Recursos.interfasecontablesapbov8" var="msg" />
+                    <p:growl id="growl" showDetail="true"/>
+
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="position: absolute; width: 874px; height: 510px; text-align: left">
+
+                        <p:toolbar style=" position: absolute; top: 37px; left: 12px; height: 24px">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " actionListener="#{controlInterfaseContableSapBOV8.guardadoGeneral()}" process="@this" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlInterfaseContableSapBOV8.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlInterfaseContableSapBOV8.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlInterfaseContableSapBOV8.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false" actionListener="#{controlInterfaseContableSapBOV8.validarExportXLS()}" />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  ajax="false">
+                                    <p:dataExporter type="xml"  target="#{controlInterfaseContableSapBOV8.validarExportXML()}" fileName="#{controlInterfaseContableSapBOV8.validarNombreExportXML()}" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlInterfaseContableSapBOV8.validarExportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="insertar" disabled="#{controlInterfaseContableSapBOV8.activarAgregar}" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " oncomplete="NuevoRegistroPC.show()" update=":formularioDialogos:nuevaParametroContable" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" disabled="#{controlInterfaseContableSapBOV8.activarOtros}" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlInterfaseContableSapBOV8.borrarParametroContable()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "   process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlInterfaseContableSapBOV8.validarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlInterfaseContableSapBOV8.cancelarModificaciones()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlInterfaseContableSapBOV8.salir()}" action="#{controlInterfaseContableSapBOV8.redirigir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+
+                        <p:panel style="position: absolute;top: 70px;left: 5px; width: 864px; height: 75px;border: none" id="panelParametro">
+                            <fieldset style="position: absolute;top: -1px;left: 5px;height: 65px;width: 830px; border-radius: 10px; text-align: left">
+                                <legend style=" color: blue;text-align:left"><strong>#{msg['parametrosContables']}</strong></legend>
+                                
+                                <p:commandButton  value=" " style="position: absolute; top: 20px; left: 10px;text-align: left; width: 45px; height: 45px;"  actionListener="#{controlInterfaseContableSapBOV8.actionBtnRecontabilizar()}" process="@this"/>
+
+                                <strong><h:outputText value="#{msg['empresa']}" style="position: absolute; top: 20px; left: 60px"/></strong>
+                                <p:inputText id="parametroEmpresa" onclick="select();" value="#{controlInterfaseContableSapBOV8.parametroContableActual.empresaRegistro.nombre}" style="position: absolute; top: 15px; left: 120px;width: 180px;text-transform: uppercase">
+                                    <p:ajax event="change" listener="#{controlInterfaseContableSapBOV8.modificarParametroContable(controlInterfaseContableSapBOV8.parametroContableActual.empresaRegistro.nombre, 'EMPRESA')}" update="@this"/>
+                                    <p:ajax event="click" listener="#{controlInterfaseContableSapBOV8.cambiarIndiceParametro(0)}" />
+                                    <p:ajax event="dblclick" listener="#{controlInterfaseContableSapBOV8.asignarIndex(0, 0, 0)}"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['docContable']}" style="position: absolute; top: 20px; left: 320px"/></strong>
+                                <p:inputText maxlength="4" id="parametroDocContable" onclick="select();" value="#{controlInterfaseContableSapBOV8.parametroContableActual.documentoContable}" style="position: absolute; top: 15px; left: 420px;width: 40px;text-transform: uppercase">
+                                    <p:ajax event="change" listener="#{controlInterfaseContableSapBOV8.modificarParametroContable()}" update="@this"/>
+                                    <p:ajax event="click" listener="#{controlInterfaseContableSapBOV8.cambiarIndiceParametro(1)}" />
+                                </p:inputText>
+                                
+                                <strong><h:outputText value="#{msg['proceso']}" style="position: absolute; top: 50px; left: 60px"/></strong>
+                                <p:inputText id="parametroProceso" onclick="select();" value="#{controlInterfaseContableSapBOV8.parametroContableActual.proceso.descripcion}" style="position: absolute; top: 45px; left: 120px;width: 95px;text-transform: uppercase">
+                                    <p:ajax event="change" listener="#{controlInterfaseContableSapBOV8.modificarParametroContable(controlInterfaseContableSapBOV8.parametroContableActual.proceso.descripcion, 'PROCESO')}"  update="@this"/>
+                                    <p:ajax event="click" listener="#{controlInterfaseContableSapBOV8.cambiarIndiceParametro(2)}" />
+                                    <p:ajax event="dblclick" listener="#{controlInterfaseContableSapBOV8.asignarIndex(2, 1, 0)}"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['fechaInicial']}" style="position: absolute; top: 20px; left: 480px"/></strong>
+                                <div id="posicionFechaIni" style="position: absolute; top: 15px; left: 560px">
+                                    <lnk:calendar id="parametroFechaInicial"  value="#{controlInterfaseContableSapBOV8.parametroContableActual.fechainicialcontabilizacion}">
+                                        <p:ajax event="dateSelect" listener="#{controlInterfaseContableSapBOV8.modificarFechasParametro(3)}" update="@this"/>
+                                        <p:ajax event="change" listener="#{controlInterfaseContableSapBOV8.modificarFechasParametro(3)}" update="@this"/>
+                                        <p:ajax event="click" listener="#{controlInterfaseContableSapBOV8.cambiarIndiceParametro(3)}" />
+                                    </lnk:calendar>
+                                </div>
+
+                                <strong><h:outputText value="#{msg['fechaFinal']}" style="position: absolute; top: 50px; left: 480px"/></strong>
+                                <div id="posicionFechaFin" style="position: absolute; top: 45px; left: 560px">
+                                    <lnk:calendar id="parametroFechaFinal" value="#{controlInterfaseContableSapBOV8.parametroContableActual.fechafinalcontabilizacion}" >
+                                        <p:ajax event="dateSelect" listener="#{controlInterfaseContableSapBOV8.modificarFechasParametro(4)}" update="@this"/>
+                                        <p:ajax event="change" listener="#{controlInterfaseContableSapBOV8.modificarFechasParametro(4)}" update="@this"/>
+                                        <p:ajax event="click" listener="#{controlInterfaseContableSapBOV8.cambiarIndiceParametro(4)}" />
+                                    </lnk:calendar>
+                                </div>
+                                
+                                <strong><h:outputText value="#{msg['numDocumento']}" style="position: absolute; top: 50px; left: 235px"/></strong>
+                                <p:inputText id="parametroNumDocumento" onclick="select();" value="#{controlInterfaseContableSapBOV8.parametroContableActual.ultimonumerodocumento}" style="position: absolute; top: 45px; left: 360px;width: 100px;">
+                                    <p:ajax event="change" listener="#{controlInterfaseContableSapBOV8.modificarParametroContable()}" update="@this"/>
+                                    <p:ajax event="click" listener="#{controlInterfaseContableSapBOV8.cambiarIndiceParametro(5)}" />
+                                </p:inputText>
+                                
+                                <strong><h:outputText id="textFechaGenerada" value="#{msg['fechaGenerada']}" style="position: absolute; top: 50px; left: 700px"/></strong>
+                                <div id="posicionFechaGenerada" style="position: absolute; top: 45px; left: 740px">
+                                    <lnk:calendar id="parametroFechaGenerada" value="#{controlInterfaseContableSapBOV8.parametroContableActual.fechageneracion}" >
+                                        <p:ajax event="dateSelect" listener="#{controlInterfaseContableSapBOV8.cambiarIndiceParametro()}" update="@this"/>
+                                        <p:ajax event="change" listener="#{controlInterfaseContableSapBOV8.cambiarIndiceParametro()}" update="@this"/>
+                                        <p:ajax event="click" listener="#{controlInterfaseContableSapBOV8.cambiarIndiceParametro(6)}" />
+                                    </lnk:calendar>
+                                </div>
+                                <p:tooltip  for="textFechaGenerada" value="#{msg['textFechaGenerada']}" />
+                                
+
+                                <p:commandButton id="btnArriba" style="position: absolute; left: 650px; top: 22px; width: 20px; height: 20px; background-image: url(Imagenes/arriba.JPG); background-size: 100% 100%; background-repeat: no-repeat; " actionListener="#{controlInterfaseContableSapBOV8.anteriorParametro()}" value="" disabled="#{controlInterfaseContableSapBOV8.estadoBtnArriba}" process="@this" />
+                                <p:commandButton id="btnAbajo" style="position: absolute; left: 650px; top: 43px; width: 20px; height: 20px; background-image: url(Imagenes/abajo.JPG); background-size: 100% 100%; background-repeat: no-repeat; " value="" actionListener="#{controlInterfaseContableSapBOV8.siguienteParametro()}" disabled="#{controlInterfaseContableSapBOV8.estadoBtnAbajo}" process="@this" />
+
+                                <p:commandButton value="#{msg['actualizar']}" style="position: absolute; top: 10px; left: 680px;" icon="ui-icon-refresh"  process="@this" actionListener="#{controlInterfaseContableSapBOV8.actionBtnActualizar()}" onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"/>
+                                <p:commandButton id="btnAnular" value="." style="position: absolute; top: 10px; left: 781px;width: 10px; text-align: left" actionListener="#{controlInterfaseContableSapBOV8.anularComprobantesCerrados()}" />
+                                <p:tooltip  for="btnAnular" value="#{msg['btnAnular']}" />
+
+                                <p:commandButton id="btnErrores" value="E" style="position: absolute; top: 10px; left: 800px;text-align: left"  process="@this" actionListener="#{controlInterfaseContableSapBOV8.actionBtnErrores()}"/>
+                            </fieldset> 
+                        </p:panel>
+                        <fieldset style="position: absolute;top: 150px;left: 10px;height: 155px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style=" color: blue;text-align:left"><strong>#{msg['generados']}</strong></legend>
+
+                            <p:dataTable id="datosGenerados" var="infoG" rowKey="#{infoG.secuencia}" rowIndexVar="indiceG" style="width: 814px; border: 1px;"                           
+                                         value="#{controlInterfaseContableSapBOV8.listaGenerados}" scrollable="true" scrollHeight="#{controlInterfaseContableSapBOV8.altoTablaGenerada}" scrollWidth="830"
+                                         filteredValue="#{controlInterfaseContableSapBOV8.filtrarListaGenerados}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" liveScroll="true" scrollRows="25"
+                                         selection="#{controlInterfaseContableSapBOV8.generadoTablaSeleccionado}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlInterfaseContableSapBOV8.eventoFiltrar()}"/>
+
+                                <p:column headerText="#{msg['proceso']}" sortBy="#{infoG.proceso.descripcion}" filterBy="#{infoG.proceso.descripcion}"   width="133"
+                                          id="genProceso"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoG.proceso.descripcion}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="generadoProceso" readonly="true" value="#{infoG.proceso.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionGenerado([{name: 'n', value: '0'}, {name: 't', value: '#{indiceG}'}]);"/> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px;  border: none; color: blue" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{infoG.empleado.persona.nombreCompleto}" filterBy="#{infoG.empleado.persona.nombreCompleto}" filterMatchMode="contains"
+                                          id="genEmpleado" width="150" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoG.empleado.persona.nombreCompleto}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="generadoEmpleado" readonly="true" value="#{infoG.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionGenerado([{name: 'n', value: '1'}, {name: 't', value: '#{indiceG}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px;  border: none; color: blue" value=""/>
+                                    </f:facet>
+                                </p:column>  
+
+                                <p:column headerText="#{msg['cuentaCredito']}" sortBy="#{infoG.cuentac.codigo}" filterBy="#{infoG.cuentac.codigo}" filterMatchMode="contains" 
+                                          id="genCntCredito" width="133" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoG.cuentac.codigo}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="generadoCntCredito" readonly="true" value="#{infoG.cuentac.codigo}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionGenerado([{name: 'n', value: '2'}, {name: 't', value: '#{indiceG}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px;  border: none; color: blue" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['cuentaDebito']}" sortBy="#{infoG.cuentad.codigo}" filterBy="#{infoG.cuentad.codigo}" filterMatchMode="contains" 
+                                          id="genCntDebito" width="133" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoG.cuentad.codigo}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="generadoCntDebito" readonly="true" value="#{infoG.cuentad.codigo}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionGenerado([{name: 'n', value: '3'}, {name: 't', value: '#{indiceG}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px;  border: none; color: blue" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['tercero']}" sortBy="#{infoG.nit.nit}" filterBy="#{infoG.nit.nit}" filterMatchMode="contains" 
+                                          id="genTercero" width="133" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoG.nit.nit}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="generadoTercero" readonly="true" value="#{infoG.nit.nit}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionGenerado([{name: 'n', value: '4'}, {name: 't', value: '#{indiceG}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px;  border: none; color: blue" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['valor']}" sortBy="#{infoG.valor}" filterBy="#{infoG.valor}" filterMatchMode="contains" 
+                                          id="genValor" width="133" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoG.valor}" >
+                                                <f:convertNumber currencySymbol="$" type="currency" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="generadoValor" readonly="true" value="#{infoG.valor}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionGenerado([{name: 'n', value: '5'}, {name: 't', value: '#{indiceG}'}]);">
+                                                <f:convertNumber currencySymbol="$" type="currency" />
+                                            </p:inputText> 
+
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['concepto']}" sortBy="#{infoG.concepto.descripcion}" filterBy="#{infoG.concepto.descripcion}" filterMatchMode="contains"  
+                                          id="genConcepto" width="133" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoG.concepto.descripcion}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="generadoConcepto" readonly="true" value="#{infoG.concepto.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionGenerado([{name: 'n', value: '6'}, {name: 't', value: '#{indiceG}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px;  border: none; color: blue" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable> 
+
+                            <p:commandButton id="btnEnviar" disabled="#{controlInterfaseContableSapBOV8.activarEnviar}" value="#{msg['enviar']}"  style="position: absolute; top: 135px; left: 10px" actionListener="#{controlInterfaseContableSapBOV8.actionBtnEnviar()}" onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"/>
+                            <p:commandButton id="btnDeshacer" disabled="#{controlInterfaseContableSapBOV8.activarDeshacer}" value="#{msg['deshacer']}"  style="position: absolute; top: 135px; left: 115px"  onclick="procesoDeshacer.show()"/>
+                            <p:commandButton value="#{msg['reportecontrol']}"  style="position: absolute; top: 135px; left: 215px"/>
+
+                            <strong><h:outputText value="#{msg['totalC']}" style="position: absolute; top: 145px; left: 465px"/></strong>
+                            <p:inputText id="totalCGenerado" value="#{controlInterfaseContableSapBOV8.totalCGenerado}" readonly="true" style="position: absolute; top: 140px; left: 550px;width: 90px">
+                                <f:convertNumber currencySymbol="$" type="currency" />
+                            </p:inputText>
+
+                            <strong><h:outputText value="#{msg['totalD']}" style="position: absolute; top: 145px; left: 655px"/></strong>
+                            <p:inputText id="totalDGenerado" value="#{controlInterfaseContableSapBOV8.totalDGenerado}" readonly="true" style="position: absolute; top: 140px; left: 740px;width: 90px">
+                                <f:convertNumber currencySymbol="$" type="currency" />
+                            </p:inputText>
+
+                        </fieldset>
+
+                        <p:remoteCommand name="posicionGenerado" actionListener="#{controlInterfaseContableSapBOV8.posicionGenerado()}"/>
+                        <p:remoteCommand name="posicionIntercon" actionListener="#{controlInterfaseContableSapBOV8.posicionIntercon()}"/>
+
+                        <fieldset style="position: absolute;top: 320px;left: 10px;height: 145px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style=" color: blue;text-align:left"><strong>#{msg['contabilizadosSAP']}</strong></legend>
+
+                            <p:dataTable id="datosIntercon" var="infoI" rowKey="#{infoI.secuencia}" rowIndexVar="indiceI" style="width: 814px; border: 1px;"                           
+                                         value="#{controlInterfaseContableSapBOV8.listaInterconSapBO}" scrollable="true" scrollHeight="#{controlInterfaseContableSapBOV8.altoTablaIntercon}" scrollWidth="830"
+                                         filteredValue="#{controlInterfaseContableSapBOV8.filtrarListaInterconSapBO}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" liveScroll="true" scrollRows="25"
+                                         selection="#{controlInterfaseContableSapBOV8.interconTablaSeleccionada}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlInterfaseContableSapBOV8.eventoFiltrar()}"/>
+
+                                <p:column headerText="#{msg['empleado']}" sortBy="#{infoI.empleado.persona.nombreCompleto}" filterBy="#{infoI.empleado.persona.nombreCompleto}"   width="133"
+                                          id="interEmpleado"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.empleado.persona.nombreCompleto}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="interconEmpleado" readonly="true" value="#{infoI.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionIntercon([{name: 'n', value: '0'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px;  border: none; color: blue" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['tercero']}" sortBy="#{infoI.codigotercero}" filterBy="#{infoI.codigotercero}" filterMatchMode="contains"
+                                          id="interTercero" width="150" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.codigotercero}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="interconTercero" readonly="true" value="#{infoI.codigotercero}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionIntercon([{name: 'n', value: '1'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px;  border: none; color: blue" value=""/>
+                                    </f:facet>
+                                </p:column>  
+
+                                <p:column headerText="#{msg['cuenta']}" sortBy="#{infoI.cuenta.codigo}" filterBy="#{infoI.cuenta.codigo}" filterMatchMode="contains" 
+                                          id="interCuenta" width="133" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.cuenta.codigo}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="interconCuenta" readonly="true" value="#{infoI.cuenta.codigo}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionIntercon([{name: 'n', value: '2'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px;  border: none; color: blue" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['valorDebito']}" sortBy="#{infoI.valord}" filterBy="#{infoI.valord}" filterMatchMode="contains" 
+                                          id="interDebito" width="133" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.valord}" >
+                                                <f:convertNumber currencySymbol="$" type="currency" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="interconDebito" readonly="true" value="#{infoI.valord}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionIntercon([{name: 'n', value: '3'}, {name: 't', value: '#{indiceI}'}]);">
+                                                <f:convertNumber currencySymbol="$" type="currency" />
+                                            </p:inputText> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['valorCredito']}" sortBy="#{infoI.valorc}" filterBy="#{infoI.valorc}" filterMatchMode="contains" 
+                                          id="interCredito" width="133" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.valorc}" >
+                                                <f:convertNumber currencySymbol="$" type="currency" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="interconCredito" readonly="true" value="#{infoI.valorc}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionIntercon([{name: 'n', value: '4'}, {name: 't', value: '#{indiceI}'}]);">
+                                                <f:convertNumber currencySymbol="$" type="currency" />
+                                            </p:inputText> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['concepto']}" sortBy="#{infoI.concepto.descripcion}" filterBy="#{infoI.concepto.descripcion}" filterMatchMode="contains" 
+                                          id="interConcepto" width="133" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.concepto.descripcion}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="interconConcepto" readonly="true" value="#{infoI.concepto.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionIntercon([{name: 'n', value: '5'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px;  border: none; color: blue" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['centroCosto']}" sortBy="#{infoI.centrocosto.nombre}" filterBy="#{infoI.centrocosto.nombre}" filterMatchMode="contains"  
+                                          id="interCentroCosto" width="133" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.centrocosto.nombre}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="interconCentroCosto" readonly="true" value="#{infoI.centrocosto.nombre}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionIntercon([{name: 'n', value: '6'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px;  border: none; color: blue" value=""/>
+                                    </f:facet>
+                                </p:column>
+                                
+                                <p:column headerText="#{msg['proceso']}" sortBy="#{infoI.proceso.descripcion}" filterBy="#{infoI.proceso.descripcion}" filterMatchMode="contains"  
+                                          id="interProceso" width="133" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.proceso.descripcion}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="interconProceso" readonly="true" value="#{infoI.proceso.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionIntercon([{name: 'n', value: '7'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px;  border: none; color: blue" value=""/>
+                                    </f:facet>
+                                </p:column>
+                                
+                                <p:column headerText="#{msg['proyecto']}" sortBy="#{infoI.proyecto.nombreproyecto}" filterBy="#{infoI.proyecto.nombreproyecto}" filterMatchMode="contains"  
+                                          id="interProyecto" width="133" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.proyecto.nombreproyecto}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="interconProyecto" readonly="true" value="#{infoI.proyecto.nombreproyecto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionIntercon([{name: 'n', value: '8'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                
+                                <p:column headerText="#{msg['lote']}" sortBy="#{infoI.lote}" filterBy="#{infoI.lote}" filterMatchMode="contains"  
+                                          id="interLote" width="133" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.lote}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="interconLote" readonly="true" value="#{infoI.lote}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionIntercon([{name: 'n', value: '9'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                
+                                <p:column headerText="#{msg['fechaVencimiento']}" sortBy="#{infoI.fechavencimiento}" filterBy="#{infoI.fechavencimiento}" filterMatchMode="contains"  
+                                          id="interFechaVencimiento" width="133" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.fechavencimiento}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="interconFechaVencimiento" readonly="true" value="#{infoI.fechavencimiento}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionIntercon([{name: 'n', value: '10'}, {name: 't', value: '#{indiceI}'}]);">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </p:inputText> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable> 
+
+                            <strong><h:outputText value="#{msg['totalD']}" style="position: absolute; top: 140px; left: 470px"/></strong>
+                            <p:inputText id="totalDInter" readonly="true" value="#{controlInterfaseContableSapBOV8.totalDInter}" style="position: absolute; top: 135px; left: 555px;width: 90px;height: 10px">
+                                <f:convertNumber currencySymbol="$" type="currency" />
+                            </p:inputText>
+
+                            <strong><h:outputText value="#{msg['totalC']}" style="position: absolute; top: 140px; left: 660px"/></strong>
+                            <p:inputText id="totalCInter" readonly="true" value="#{controlInterfaseContableSapBOV8.totalCInter}" style="position: absolute; top: 135px; left: 745px;width: 90px;height: 10px">
+                                <f:convertNumber currencySymbol="$" type="currency" />
+                            </p:inputText>
+
+
+
+                        </fieldset>
+
+                        <p:dialog header="#{msg['procesoM']}" widgetVar="ProcesoDialogo" draggable="false" resizable="false" closable="false" id="ProcesoDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="460" modal="true" >
+                            <p:dataTable id="lovProceso" style=" width: 430px" var="proceso" value="#{controlInterfaseContableSapBOV8.lovProcesos}" rowKey="#{proceso.secuencia}"
+                                         selection="#{controlInterfaseContableSapBOV8.procesoSeleccionado}" selectionMode="single" widgetVar="lovProceso" scrollable="true" scrollWidth="445" scrollHeight="250"
+                                         filteredValue="#{controlInterfaseContableSapBOV8.filtrarLovProcesos}" emptyMessage="#{msg['lovvacio']}">              
+                                <p:ajax event="rowSelect" listener="#{controlInterfaseContableSapBOV8.activarAceptar()}" update=":form:aceptarP"/>
+                                <p:ajax event="rowDblselect" listener="#{controlInterfaseContableSapBOV8.actualizarProceso()}" process="@this" />
+
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarP']}" style="position: absolute; left: 27px; top: 14px"/>  
+                                    <p:inputText id="globalFilter" onkeyup="lovProceso.filter();" style="width:150px; position: relative; left: -10px;" />  
+                                </f:facet>
+                                <p:column filterBy="#{proceso.descripcion}" width="200"  filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['descripcion']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{proceso.descripcion}" />
+                                </p:column>
+                                <p:column filterBy="#{proceso.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center" value="#{msg['codigo']}" />
+                                    </f:facet>
+                                    <h:outputText  value="#{proceso.codigo}" />
+                                </p:column>
+                            </p:dataTable>
+
+                            <h:outputText id="infoRegistroProceso" value="#{controlInterfaseContableSapBOV8.infoRegistroProceso}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+
+                            <p:commandButton id="aceptarP" style="position: relative; left: 265px" value="#{msg['aceptar']}" disabled="#{controlInterfaseContableSapBOV8.aceptar}" actionListener="#{controlInterfaseContableSapBOV8.actualizarProceso()}" process="@this" icon="ui-icon-check"/>
+                            
+                            <p:commandButton id="atrasP" style="position: relative; left: 265px" value="#{msg['atras']}" actionListener="#{controlInterfaseContableSapBOV8.cancelarProceso()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            
+                        </p:dialog> 
+
+                        <p:dialog header="#{msg['empresaM']}" widgetVar="EmpresaDialogo" draggable="false" resizable="false" closable="false" id="EmpresaDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="460" modal="true" >
+                            <p:dataTable id="lovEmpresa" style=" width: 430px" var="empresa" value="#{controlInterfaseContableSapBOV8.lovEmpresas}" rowKey="#{empresa.secuencia}"
+                                         selection="#{controlInterfaseContableSapBOV8.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="445" scrollHeight="250"
+                                         filteredValue="#{controlInterfaseContableSapBOV8.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}">              
+                                <p:ajax event="rowSelect" listener="#{controlInterfaseContableSapBOV8.activarAceptar()}" update=":form:aceptarE"/>
+                                <p:ajax event="rowDblselect" listener="#{controlInterfaseContableSapBOV8.actualizarEmpresa()}" process="@this" />
+
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarE']}" style="position: absolute; left: 27px; top: 14px"/>  
+                                    <p:inputText id="globalFilter" onkeyup="lovEmpresa.filter();" style="width:150px; position: relative; left: -10px;" />  
+                                </f:facet>
+                                <p:column filterBy="#{empresa.nombre}" width="200"  filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['nombre']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{empresa.nombre}" />
+                                </p:column>
+                                <p:column filterBy="#{empresa.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center" value="#{msg['codigo']}" />
+                                    </f:facet>
+                                    <h:outputText  value="#{empresa.codigo}" />
+                                </p:column>
+                            </p:dataTable>
+
+                            <h:outputText id="infoRegistroEmpresa" value="#{controlInterfaseContableSapBOV8.infoRegistroEmpresa}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+
+                            <p:commandButton id="aceptarE" style="position: relative; left: 265px" value="#{msg['aceptar']}" disabled="#{controlInterfaseContableSapBOV8.aceptar}" actionListener="#{controlInterfaseContableSapBOV8.actualizarEmpresa()}" process="@this" icon="ui-icon-check"/>
+                            
+                            <p:commandButton id="atrasE" style="position: relative; left: 265px" value="#{msg['atras']}" actionListener="#{controlInterfaseContableSapBOV8.cancelarEmpresa()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            
+                        </p:dialog> 
+                        
+                        
+                        <p:dialog header="#{msg['erroresM']}" widgetVar="ErrorDialogo" draggable="false" resizable="false" closable="false" id="ErrorDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="660" modal="true" >
+                            <p:dataTable id="lovError" style=" width: 630px" var="error" value="#{controlInterfaseContableSapBOV8.lovProcesos}" rowKey="#{error.secuencia}"
+                                         selection="#{controlInterfaseContableSapBOV8.procesoSeleccionado}" selectionMode="single" widgetVar="lovError" scrollable="true" scrollWidth="645" scrollHeight="250"
+                                         filteredValue="#{controlInterfaseContableSapBOV8.filtrarLovProcesos}" emptyMessage="#{msg['lovvacio']}">              
+                                
+
+                                <p:column filterBy="#{error.descripcion}"  filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['consecutivo']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{error.descripcion}" />
+                                </p:column>
+                                <p:column filterBy="#{error.codigo}" filterMatchMode="contains" >
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center" value="#{msg['mensaje']}" />
+                                    </f:facet>
+                                    <h:outputText  value="#{error.codigo}" />
+                                </p:column>
+                                <p:column filterBy="#{error.codigo}" filterMatchMode="contains" >
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center" value="#{msg['empresaSAP']}" />
+                                    </f:facet>
+                                    <h:outputText  value="#{error.codigo}" />
+                                </p:column>
+                                <p:column filterBy="#{error.codigo}" filterMatchMode="contains" >
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center" value="#{msg['fecha']}" />
+                                    </f:facet>
+                                    <h:outputText  value="#{error.codigo}" />
+                                </p:column>
+                            </p:dataTable>
+
+                            <h:outputText id="infoRegistroError" value="#{controlInterfaseContableSapBOV8.infoRegistroProceso}" style="position: absolute; left: 20px; top: 315px; font-weight: bold"/>
+
+                            <p:commandButton id="atrasError" style="position: relative; left: 535px" value="#{msg['aceptar']}" onclick="ErrorDialogo.hide(), lovError.clearFilters();"  update="lovError" process="@this" icon="ui-icon-check">
+                                <p:resetInput target=":form:lovError:globalFilter"/>
+                            </p:commandButton>
+                        </p:dialog>
+                        
+                        <p:commandButton style="position: absolute; left: 15px; top: 482px;" id="enviarSAPBO" value="#{msg['enviarSAPBO']}"  disabled="#{controlInterfaseContableSapBOV8.activarDeshacer}" actionListener="#{controlInterfaseContableSapBOV8.actionBtnGenerarPlano()}" process="@this" />
+                        <p:commandButton style="position: absolute; left: 210px; top: 482px;" id="HISTORICO" value="#{msg['HISTORICO']}"  process="@this" />
+                        <p:separator style="position: absolute; left: 320px; top: 481px;width: 3px; height: 20px"/>
+                        <p:commandButton style="position: absolute; left: 325px; top: 482px; color: red;" id="CERRAR" value="#{msg['cerrarPeriodo']}" actionListener="#{controlInterfaseContableSapBOV8.inicioCerrarPeriodoContable()}" process="@this" />
+
+                        <p:commandButton style="position: absolute; left: 683px; top: 483px;" id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="confirmarGuardar.show();"  process="@this" disabled="#{controlInterfaseContableSapBOV8.guardado}"/>
+                        <p:commandButton style="position: absolute; left: 775px; top: 483px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlInterfaseContableSapBOV8.salir()}" action="nomina" process="@this" />
+
+                    </p:panel>
+
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlInterfaseContableSapBOV8.activarCtrlF11()}"/> 
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlInterfaseContableSapBOV8.guardarSalir()}" action="#{controlInterfaseContableSapBOV8.redirigir()}" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlInterfaseContableSapBOV8.cancelarSalir()}" action="#{controlInterfaseContableSapBOV8.redirigir()}" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardarSinSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSinSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSinSalida.hide();" actionListener="#{controlInterfaseContableSapBOV8.guardadoGeneral()}" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSinSalida.hide();" actionListener="#{controlInterfaseContableSapBOV8.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSinSalida.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableSapBOV8.backUpSecRegistro, 'InterconSapBO', 'interfaseBOV8Rastro')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('InterconSapBO', 'interfaseBOV8Rastro')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableSapBOV8.backUpSecRegistro, 'InterconSapBO', 'interfaseBOV8Rastro')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorFechasParametro" header="#{msg['atencion']}" widgetVar="errorFechasParametro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorFechasParametro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorNewRegNull" header="#{msg['atencion']}" widgetVar="errorNewRegNull"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorNewRegNull']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorFechasNull" header="#{msg['atencion']}" widgetVar="errorFechasNull"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorFechasNull']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorFechasParametros" header="#{msg['atencion']}" widgetVar="errorFechasParametros"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorFechasParametros']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="procesoSinDatos" header="#{msg['atencion']}" widgetVar="procesoSinDatos"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['procesoSinDatos']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="anteriorContabilizacion" header="#{msg['atencion']}" widgetVar="anteriorContabilizacion"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:outputText value="#{msg['anteriorContabilizacion']} #{controlInterfaseContableSapBOV8.msnFechasActualizar}" style="position: absolute; left: 20px; top: 10px; width: 235px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="nuncaContabilizo" header="#{msg['atencion']}" widgetVar="nuncaContabilizo"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['nuncaContabilizo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="anularComprobantesCerrados" header="#{msg['atencion']}" widgetVar="anularComprobantesCerrados"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['anularComprobantesCerrados']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="anularComprobantesCerrados.hide();" actionListener="#{controlInterfaseContableSapBOV8.anularComprobantesCerrados()}" style="position: absolute; top: 63px; left: 180px"  process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="anularComprobantesCerrados.hide();" style="position: absolute; top: 63px; left: 255px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="paso1Recon" header="#{msg['atencion']}" widgetVar="paso1Recon"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['paso1Recon']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="paso1Recon.hide();paso2Recon.show();"  style="position: absolute; top: 63px; left: 180px"  process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="paso1Recon.hide();" style="position: absolute; top: 63px; left: 255px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="paso2Recon" header="#{msg['atencion']}" widgetVar="paso2Recon"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['paso2Recon']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="paso2Recon.hide();" actionListener="#{controlInterfaseContableSapBOV8.ejecutarPaso3Recon()}" style="position: absolute; top: 63px; left: 180px"  process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="paso2Recon.hide();" style="position: absolute; top: 63px; left: 255px" process="@this" />
+                    </p:dialog>
+                    
+                    <p:dialog id="paso3Recon" header="#{msg['atencion']}" widgetVar="paso3Recon"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['paso3Recon1']}  #{controlInterfaseContableSapBOV8.fechaIniRecon} - #{controlInterfaseContableSapBOV8.fechaFinRecon}. #{msg['paso3Recon2']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="paso3Recon.hide();" actionListener="#{controlInterfaseContableSapBOV8.finalizarProcesoRecontabilizacion()}" style="position: absolute; top: 63px; left: 180px"  process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="paso3Recon.hide();" style="position: absolute; top: 63px; left: 255px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="paso1CerrarPeriodo" header="#{msg['atencion']}" widgetVar="paso1CerrarPeriodo"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['paso1CerrarPeriodo']} #{controlInterfaseContableSapBOV8.msnPaso1()}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="paso1CerrarPeriodo.hide();paso2CerrarPeriodo.show()" style="position: absolute; top: 63px; left: 180px"  process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="paso1CerrarPeriodo.hide();" style="position: absolute; top: 63px; left: 255px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="paso2CerrarPeriodo" header="#{msg['atencion']}" widgetVar="paso2CerrarPeriodo"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['paso2CerrarPeriodo']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="paso2CerrarPeriodo.hide();" actionListener="#{controlInterfaseContableSapBOV8.finCerrarPeriodoContable()}" style="position: absolute; top: 63px; left: 180px"  process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="paso2CerrarPeriodo.hide();" style="position: absolute; top: 63px; left: 255px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRecon" header="#{msg['atencion']}" widgetVar="errorRecon"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRecon']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+                    
+                    <p:dialog id="procesoDeshacer" header="#{msg['atencion']}" widgetVar="procesoDeshacer"  resizable="false" draggable="false" modal="true" height="100" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['procesoDeshacer']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; " />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="procesoDeshacer.hide();
+                                operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" actionListener="#{controlInterfaseContableSapBOVCA.actionBtnDeshacer()}" style="position: absolute; top: 63px; left: 180px"  process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="procesoDeshacer.hide();" style="position: absolute; top: 63px; left: 255px" process="@this" />
+                    </p:dialog>
+                    
+                </h:form>
+                <h:form id="formularioDialogos" >
+
+                    <p:dialog id="NuevoRegistroPC" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroPC" closable="false" resizable="false"  draggable="false" modal="true" height="320" width="400" style=" padding: 0px">  
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevaParametroContable" style="border: none;">
+
+                            <strong><h:outputText value="*#{msg['empresaN']}" style=" position: absolute; top: 75px; left: 50px" /></strong>
+                            <p:inputText id="nuevaEmpresaParametro" value="#{controlInterfaseContableSapBOV8.nuevoParametroContable.empresaRegistro.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
+                                <p:ajax event="dblclick" listener="#{controlInterfaseContableSapBOV8.asignarIndex(-1,0,1)}"/>
+                                <p:ajax event="click" listener="#{controlInterfaseContableSapBOV8.autocompletarNuevo('EMPRESA',controlInterfaseContableSapBOV8.nuevoParametroContable.empresaRegistro.nombre)}" />
+                                <p:ajax event="change" listener="#{controlInterfaseContableSapBOV8.valoresBackupAutocompletar()}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 70px;  " id="btnNuevaEmpresa" icon="ui-icon-search" process="@this"  actionListener="#{controlInterfaseContableSapBOV8.asignarIndex(-1,0,1)}"/>   
+                            <p:watermark for="nuevaEmpresaParametro" value="#{msg['empresa']}" />
+
+                            <strong><h:outputText value="#{msg['docContableN']}" style=" position: absolute; top: 105px; left: 50px" /></strong>
+                            <p:inputText id="nuevaDocContaParametro" maxlength="4" value="#{controlInterfaseContableSapBOV8.nuevoParametroContable.documentoContable}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaDocContaParametro" process="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaDocContaParametro" value="#{msg['docContable']}" />
+
+                            <strong><h:outputText value="#{msg['procesoN']}" style=" position: absolute; top: 135px; left: 50px" /></strong>
+                            <p:inputText id="nuevaProcesoParametro" value="#{controlInterfaseContableSapBOV8.nuevoParametroContable.proceso.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
+                                <p:ajax event="dblclick" listener="#{controlInterfaseContableSapBOV8.asignarIndex(-1,1,1)}"/>
+                                <p:ajax event="click" listener="#{controlInterfaseContableSapBOV8.autocompletarNuevo('PROCESO', controlInterfaseContableSapBOV8.nuevoParametroContable.proceso.descripcion)}" />
+                                <p:ajax event="change" listener="#{controlInterfaseContableSapBOV8.valoresBackupAutocompletar()}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 130px;  " id="btnNuevaProceso" icon="ui-icon-search" process="@this"  actionListener="#{controlInterfaseContableSapBOV8.asignarIndex(-1,1,1)}"/>   
+                            <p:watermark for="nuevaProcesoParametro" value="#{msg['proceso']}" />
+
+                            <strong><h:outputText value="*#{msg['fechaInicialN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
+                            <div id="posicionNuevaFechaInicial" style=" position: absolute; top: 160px; left: 200px">
+                                <lnk:calendar id="nuevaFechaInicialParametro" value="#{controlInterfaseContableSapBOV8.nuevoParametroContable.fechainicialcontabilizacion}" >
+                                    <p:ajax event="dateSelect" update="nuevaFechaInicialParametro" process="@this"/>
+                                    <p:ajax event="change" update="nuevaFechaInicialParametro" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <strong><h:outputText value="*#{msg['fechaFinalN']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
+                            <div id="posicionNuevaFechaFinal" style=" position: absolute; top: 190px; left: 200px">
+                                <lnk:calendar id="nuevaFechaFinalParametro" value="#{controlInterfaseContableSapBOV8.nuevoParametroContable.fechafinalcontabilizacion}" >
+                                    <p:ajax event="dateSelect" update="nuevaFechaFinalParametro" process="@this"/>
+                                    <p:ajax event="change" update="nuevaFechaFinalParametro" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+                            
+                            <strong><h:outputText value="#{msg['numDocumentoN']}" style=" position: absolute; top: 225px; left: 50px" /></strong>
+                            <p:inputText id="nuevaNumDocParametro" value="#{controlInterfaseContableSapBOV8.nuevoParametroContable.ultimonumerodocumento}" style=" width: 122px; position: absolute; left: 200px; top: 220px;text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaNumDocParametro" process="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaNumDocParametro" value="#{msg['numDocumento']}" />
+                            
+                            <strong><h:outputText value="#{msg['fechaGeneradaN']}" style=" position: absolute; top: 255px; left: 50px;" /></strong>
+                            <div id="posicionNuevaFechaGenerada" style=" position: absolute; top: 250px; left: 200px">
+                                <lnk:calendar id="nuevaFechaGenerada" value="#{controlInterfaseContableSapBOV8.nuevoParametroContable.fechageneracion}" >
+                                    <p:ajax event="dateSelect" update="nuevaFechaGenerada" process="@this"/>
+                                    <p:ajax event="change" update="nuevaFechaGenerada" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <p:commandButton id="limpiarPC" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 285px;" icon="ui-icon-trash" actionListener="#{controlInterfaseContableSapBOV8.limpiarNuevoParametro()}" update="nuevaParametroContable" process="@this"/>
+                            <p:commandButton id="agregarPC" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 285px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlInterfaseContableSapBOV8.agregarNuevoParametro()}"   />
+                            <p:commandButton id="cancelarPC" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 285px;" icon="ui-icon-circle-close" actionListener="#{controlInterfaseContableSapBOV8.limpiarNuevoParametro()}" update="nuevaParametroContable" onclick="NuevoRegistroPC.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+
+                    <p:dialog id="editarEmpresaParametro" header="#{msg['editarEmpresaParametro']}" widgetVar="editarEmpresaParametro" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.parametroContableActual.empresaRegistro.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarDocContableParametro" header="#{msg['editarDocContableParametro']}" widgetVar="editarDocContableParametro" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.parametroContableActual.documentoContable}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarProcesoParametro" header="#{msg['editarProcesoParametro']}" widgetVar="editarProcesoParametro" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.parametroContableActual.proceso.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaInicialParametro" header="#{msg['editarFechaInicialParametro']}" widgetVar="editarFechaInicialParametro" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.parametroContableActual.fechainicialcontabilizacion}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaFinalParametro" header="#{msg['editarFechaFinalParametro']}" widgetVar="editarFechaFinalParametro" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.parametroContableActual.fechafinalcontabilizacion}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarDocumentoParametro" header="#{msg['editarDocumentoParametro']}" widgetVar="editarDocumentoParametro" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.parametroContableActual.ultimonumerodocumento}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarFechaGeneracionParametro" header="#{msg['editarFechaGeneracionParametro']}" widgetVar="editarFechaGeneracionParametro" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.parametroContableActual.fechageneracion}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <!-- -->
+                    <p:dialog id="editarProcesoGenerado" header="#{msg['editarProcesoGenerado']}" widgetVar="editarProcesoGenerado" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarGenerado.proceso.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarEmpleadoGenerado" header="#{msg['editarEmpleadoGenerado']}" widgetVar="editarEmpleadoGenerado" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarGenerado.empleado.persona.nombreCompleto}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCreditoGenerado" header="#{msg['editarCreditoGenerado']}" widgetVar="editarCreditoGenerado" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarGenerado.cuentac.codigo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarDebitoGenerado" header="#{msg['editarDebitoGenerado']}" widgetVar="editarDebitoGenerado" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarGenerado.cuentad.codigo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarTerceroGenerado" header="#{msg['editarTerceroGenerado']}" widgetVar="editarTerceroGenerado" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarGenerado.nit.nit}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarValorGenerado" header="#{msg['editarValorGenerado']}" widgetVar="editarValorGenerado" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarGenerado.valor}" style="overflow: auto; width: 200px; height: 40px" readonly="true">
+                            <f:convertNumber currencySymbol="$" type="currency" />
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarConceptoGenerado" header="#{msg['editarConceptoGenerado']}" widgetVar="editarConceptoGenerado" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarGenerado.concepto.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <!-- -->
+                    <p:dialog id="editarEmpleadoIntercon" header="#{msg['editarEmpleadoIntercon']}" widgetVar="editarEmpleadoIntercon" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarIntercon.empleado.persona.nombreCompleto}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarTerceroIntercon" header="#{msg['editarTerceroIntercon']}" widgetVar="editarTerceroIntercon" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarIntercon.codigotercero}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCuentaIntercon" header="#{msg['editarCuentaIntercon']}" widgetVar="editarCuentaIntercon" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarIntercon.cuenta.codigo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarDebitoIntercon" header="#{msg['editarDebitoIntercon']}" widgetVar="editarDebitoIntercon" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarIntercon.valord}" style="overflow: auto; width: 200px; height: 40px" readonly="true">
+                            <f:convertNumber currencySymbol="$" type="currency" />
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarCreditoIntercon" header="#{msg['editarCreditoIntercon']}" widgetVar="editarCreditoIntercon" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarIntercon.valorc}" style="overflow: auto; width: 200px; height: 40px" readonly="true">
+                            <f:convertNumber currencySymbol="$" type="currency" />
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarConceptoIntercon" header="#{msg['editarConceptoIntercon']}" widgetVar="editarConceptoIntercon" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarIntercon.concepto.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCentroCostoIntercon" header="#{msg['editarCentroCostoIntercon']}" widgetVar="editarCentroCostoIntercon" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarIntercon.centrocosto.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarProcesoIntercon" header="#{msg['editarProcesoIntercon']}" widgetVar="editarProcesoIntercon" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarIntercon.proceso.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarProyectoIntercon" header="#{msg['editarProyectoIntercon']}" widgetVar="editarProyectoIntercon" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarIntercon.proyecto.nombreproyecto}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarLoteIntercon" header="#{msg['editarLoteIntercon']}" widgetVar="editarLoteIntercon" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarIntercon.lote}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarFechaVParametro" header="#{msg['editarFechaVParametro']}" widgetVar="editarFechaVParametro" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlInterfaseContableSapBOV8.editarIntercon.fechavencimiento}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+                    
+                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
+                    </p:dialog>
+                    
+                    
+                    <p:dialog id="planoGeneradoOK" header="#{msg['reporteExito']}" widgetVar="planoGeneradoOK"  resizable="false" draggable="false" modal="true" height="140" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['planoGeneradoOK']}" style="position: absolute; left: 70px; top: 15px; font-weight:bold;width: 250px;"  />
+                        <h:outputText value="#{msg['deseaGuardarTxt']}" style="position: absolute; left: 10px; top: 80px; font-weight:bold;width: 230px;"  />
+                        <p:inputText value="#{controlInterfaseContableSapBOV8.rutaArchivo}" style="position: absolute; left: 70px; top: 50px;text-transform: uppercase;width: 230px;" readonly="true"/>
+
+                        <p:commandButton id="downloadLink" value="#{msg['descargar']}" ajax="false" style="position: absolute; top: 80px; left: 240px" onclick="cerrarPaginaDescarga()" actionListener="#{controlInterfaseContableSapBOV8.descargarArchivoFTP()}">
+                            <p:fileDownload value="#{controlInterfaseContableSapBOV8.download}" />
+                        </p:commandButton>
+
+                        <p:commandButton icon="ui-icon-closethick" value="#{msg['salir']}" onclick="planoGeneradoOK.hide();" style="position: absolute; top: 110px; left: 255px" process="@this" />
+                    </p:dialog>
+                    
+                    <p:remoteCommand name="cerrarPaginaDescarga" actionListener="#{controlInterfaseContableSapBOV8.cerrarPaginaDescarga()}"/>
+
+
+                </h:form>
+                <h:form id="formExportar">
+                    <p:dataTable id="datosParametroExportar" var="infoEXP" style="visibility: hidden; display: none;"                           
+                                 value="#{controlInterfaseContableSapBOV8.listaParametrosContables}"> 
+
+                        <p:column headerText="#{msg['empresaX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['empresaX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXP.empresaRegistro.nombre}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['docContableX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['docContableX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXP.documentoContable}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['procesoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['procesoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXP.proceso.descripcion}" />
+                        </p:column>  
+                        
+                        <p:column headerText="#{msg['numDocumentoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['numDocumentoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXP.ultimonumerodocumento}" />
+                        </p:column>  
+
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaInicialX']}" />
+                            </f:facet>
+                            <h:outputText value="#{infoEXP.fechainicialcontabilizacion}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaFinalX']}" />
+                            </f:facet>
+                            <h:outputText value="#{infoEXP.fechafinalcontabilizacion}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaGeneracionXX']}" />
+                            </f:facet>
+                            <h:outputText value="#{infoEXP.fechageneracion}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:dataTable id="datosGenerarExportar" var="infoEXG" style="visibility: hidden; display: none;"                           
+                                 value="#{controlInterfaseContableSapBOV8.listaGenerados}"> 
+
+                        <p:column headerText="#{msg['procesoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['procesoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXG.proceso.descripcion}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['nombreEmpleadoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['nombreEmpleadoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXG.empleado.persona.nombreCompleto}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['cuentaCXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['cuentaCX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXG.cuentac.codigo}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['cuentaDXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['cuentaDX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXG.cuentad.codigo}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['terceroX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['terceroX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXG.nit.nit}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['valorX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['valorX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXG.valor}" >
+                                <f:convertNumber currencySymbol="$" type="currency" />
+                            </h:outputText>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['conceptoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['conceptoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXG.concepto.descripcion}" />
+                        </p:column>  
+
+                    </p:dataTable>
+
+                    <p:dataTable id="datosInterconExportar" var="infoEXI" style="visibility: hidden; display: none;"                           
+                                 value="#{controlInterfaseContableSapBOV8.listaInterconSapBO}"> 
+
+                        <p:column headerText="#{msg['empleadoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['empleadoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.empleado.persona.nombreCompleto}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['terceroX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['terceroX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.codigotercero}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['cuentaX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['cuentaX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.cuenta.codigo}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['debitoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['debitoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.valord}" >
+                                <f:convertNumber currencySymbol="$" type="currency" />
+                            </h:outputText>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['creditoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['creditoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.valorc}" >
+                                <f:convertNumber currencySymbol="$" type="currency" />
+                            </h:outputText>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['conceptoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['conceptoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.concepto.descripcion}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['centroCostoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['centroCostoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.centrocosto.nombre}" />
+                        </p:column>  
+                        
+                        <p:column headerText="#{msg['procesoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['procesoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.proceso.descripcion}" />
+                        </p:column>
+                        
+                        <p:column headerText="#{msg['proyectoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['proyectoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.proyecto.nombreproyecto}" />
+                        </p:column>
+                        
+                        <p:column headerText="#{msg['loteX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['loteX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.lote}" />
+                        </p:column>
+                        
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaVXX']}" />
+                            </f:facet>
+                            <h:outputText value="#{infoEXI.fechavencimiento}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

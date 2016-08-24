@@ -1,0 +1,419 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+    <h:head>
+        <title></title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="true"/>
+                    <f:loadBundle basename="Recursos.tipoformula" var="msg" />
+
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="position: absolute; width: 874px; height: 510px; text-align: left">  
+                        <p:commandButton style="position: absolute; left: 15px; top: 470px;" icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}" actionListener="#{controlTipoFormula.cancelarModificacion()}" process="@this" />
+                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 14px; color: #14388B"><strong>#{msg['formula']}</strong></legend>
+
+                            <p:dataTable id="datosTiposFormulas" var="tf" rowKey="#{tf.secuencia}" rowIndexVar="indice" style=" border: 1px;width: 830px"                          
+                                         value="#{controlTipoFormula.listaTiposFormulas}" scrollable="true" scrollWidth="830" scrollHeight="#{controlTipoFormula.altoTabla}"
+                                         filteredValue="#{controlTipoFormula.filtradosListaTiposFormulas}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" 
+                                         selectionMode="single" selection="#{controlTipoFormula.tipoFormulaSeleccionado}">
+                                <p:ajax listener="#{controlTipoFormula.eventoFiltrar()}" event="filter"/>
+
+                                <p:column headerText="#{msg['fechainicial']}" sortBy="#{tf.fechainicial}" filterBy="#{tf.fechainicial}" filterMatchMode="contains"  width="33%" id="tiposFormulasIniciales" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{tf.fechainicial}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="editFechaInicial" value="#{tf.fechainicial}" height="12" width="99">
+                                                <p:ajax event="dateSelect" listener="#{controlTipoFormula.modificarTiposFormulas(indice, 'N', tf.fechainicial)}" update="@this"/>
+                                                <p:ajax event="change" listener="#{controlTipoFormula.modificarTiposFormulas(indice, 'N', tf.fechainicial)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlTipoFormula.cambiarIndice(indice, 0)}" process="@this" />
+                                            </lnk:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['fechainicial']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['fechafinal']}" sortBy="#{tf.fechafinal}" filterBy="#{tf.fechafinal}" filterMatchMode="contains"  width="33%" id="tiposFormulasFinales" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{tf.fechafinal}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="editFechaFinal" value="#{tf.fechafinal}" height="12" width="99">
+                                                <p:ajax event="dateSelect" listener="#{controlTipoFormula.modificarTiposFormulas(indice, 'N', tf.fechafinal)}" update="@this"/>
+                                                <p:ajax event="change" listener="#{controlTipoFormula.modificarTiposFormulas(indice, 'N', tf.fechafinal)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlTipoFormula.cambiarIndice(indice, 1)}" process="@this" />
+                                            </lnk:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['fechafinal']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['formula']}" sortBy= "#{tf.formula.nombrecorto}" filterBy="#{tf.formula.nombrecorto}" filterMatchMode="contains" id="tiposFormulasFormula" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{tf.formula.nombrecorto}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{tf.formula.nombrecorto}" id="editarFormula" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
+                                                <p:ajax event="change" listener="#{controlTipoFormula.modificarTiposFormulas(indice, 'FORMULA', tf.formula.nombrecorto)}"/>
+                                                <p:ajax event="select" listener="#{controlTipoFormula.cambiarIndice(indice, 3)}" process="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlTipoFormula.asignarIndex(indice, 0, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px;  border: none; color: blue" id="fooFormula" value="#{msg['formula']}"/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['estado']}" sortBy="#{tf.formula.estado}" filterBy="#{tf.formula.estado}" filterMatchMode="contains" id="tiposFormulasEventos" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{tf.formula.estado}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText readonly="true" value="#{tf.formula.estado}" id="editarEstadoFormula" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px" > 
+                                                <p:ajax event="select" listener="#{controlTipoFormula.cambiarIndice(indice, 4)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['estado']}" />
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                        </fieldset>
+
+                        <p:toolbar style=" position: absolute; top: 40px; left: 20px; height: 24px">  
+                            <p:toolbarGroup align="left"> 
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " actionListener="#{controlTipoFormula.guardarCambiosTiposFormulas()}" process="@this" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTipoFormula.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " disabled="true" actionListener="#{controlTipoFormula.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTipoFormula.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false" actionListener="#{controlTipoFormula.exportXLS()}" />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTipoFormula.limpiarNuevoTiposFormulas()}" ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosTiposFormulasExportar" fileName="TiposFormulasXML" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTipoFormula.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " oncomplete="NuevoTipoFormula.show()" update=":formularioDialogos:nuevoTipoFormula" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTipoFormula.borrarTipoFormula()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTipoFormula.duplicarTF()}"  process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTipoFormula.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+
+                        <p:remoteCommand name="dirigirFormula" actionListener="#{controlFormula.recibirDatosTiposFormulas(controlTipoFormula.secuenciaTiposFormulas,controlTipoFormula.tiposFormulasRegistro)}" action="formula" process="@this"/>
+                        <p:commandButton style="background-image: url(Imagenes/proceso.jpg); background-size: 100% 100%; background-repeat: no-repeat;position: absolute; width: 28px; height: 28px; left: 800px; top: 430px;" id="FORMULAS" value="" process="@this" actionListener="#{controlTipoFormula.guardarVariables(controlTipoFormula.tiposFormulasRegistro.secuencia)}" />
+                        <p:tooltip  for="FORMULAS" value="#{msg['dirigirFormula']}" />
+                        <p:commandButton style="position: absolute; left: 700px; top: 470px;" icon="ui-icon-check" id="ACEPTAR" disabled="#{controlTipoFormula.cambiosPagina}" value="#{msg['aceptar']}" onclick="confirmarGuardar.show();" update=":form:datosTiposFormulas" process="@this" />
+                        <p:commandButton style="position: absolute; left: 783px; top: 470px;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}" actionListener="#{controlTipoFormula.salir()}" action="operando" process="@this" />
+
+                    </p:panel>
+                </h:form>
+
+                <h:form id="formularioDialogos">
+
+                    <!--HotKey-->
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlTipoFormula.activarCtrlF11()}" process="@this"/> 
+
+                    <!-- DIALOGOS EDITAR -->
+                    <p:dialog id="editarFechasIniciales" header="#{msg['editarFechasIniciales']}" widgetVar="editarFechasIniciales" resizable="false" draggable="false" modal="true" height="93" width="240" style=" padding: 0px">  
+                        <p:calendar   value="#{controlTipoFormula.editarTiposFormulas.fechainicial}" id="editarFechaInicial"  styleClass="ui-datepicker, myClass"  
+                                      navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
+                        </p:calendar>
+                        <p:commandButton id="cancelarFechasIniciales" value="#{msg['atras']}" onclick="editarFechasIniciales.hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechasFinales" header="#{msg['editarFechasFinales']}" widgetVar="editarFechasFinales" resizable="false" draggable="false" modal="true" height="93" width="240" >  
+                        <p:calendar   value="#{controlTipoFormula.editarTiposFormulas.fechafinal}" id="editarFechaFinal"  styleClass="ui-datepicker, myClass"  
+                                      navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
+                        </p:calendar><p:commandButton id="cancelarFechasFinales" value="#{msg['atras']}" onclick="editarFechasFinales.hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarFormulas" header="#{msg['editarFormulas']}" widgetVar="editarFormulas" resizable="false" draggable="false" modal="true" height="93" width="240" >  
+                        <p:inputTextarea value="#{controlTipoFormula.editarTiposFormulas.formula.nombrecorto}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                        <p:commandButton id="cancelarFormulas" value="#{msg['atras']}" onclick="editarFormulas.hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarEstados" header="#{msg['editarEstados']}" widgetVar="editarEstados" resizable="false" draggable="false" modal="true" height="93" width="240" >  
+                        <p:inputTextarea value="#{controlTipoFormula.editarTiposFormulas.formula.estado}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                        <p:commandButton id="cancelarEstado" value="#{msg['atras']}" onclick="editarEstados.hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlTipoFormula.guardarCambiosTiposFormulas()}" style="position: absolute; top: 60px; left: 215px" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 255px" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <!-- L.O.V FORMULA-->
+                    <p:dialog header="#{msg['formulasF']}" widgetVar="formulasDialogo" draggable="false" resizable="false" id="formulasDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="520" height="350" >
+
+                        <p:dataTable  id="LOVFormulas" style=" width: 480px" var="formulas" value="#{controlTipoFormula.lovListaFormulas}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="480" widgetVar="LOVFormulas" 
+                                      filteredValue="#{controlTipoFormula.lovFiltradosListaFormulas}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{formulas.secuencia}" selection="#{controlTipoFormula.seleccionFormulas}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{controlTipoFormula.activarAceptar()}" update=":formularioDialogos:aceptarF"/>
+                            <p:ajax event="rowDblselect" listener="#{controlTipoFormula.actualizarFormulas()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 15px;"/>  
+                                <p:inputText id="globalFilter" onkeyup="LOVFormulas.filter();" style="width: 200px; position: relative; left: 60px;" />  
+                            </f:facet>
+
+                            <p:column sortBy="#{formulas.estado}" filterBy="#{formulas.estado}" width="60" filterMatchMode="contains" filterStyle="width:40px" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['estadoF']}" />
+                                </f:facet>
+                                <h:outputText value="#{formulas.estado}" />  
+                            </p:column>
+
+                            <p:column sortBy="#{formulas.nombrecorto}" filterBy="#{formulas.nombrecorto}" width="60" filterMatchMode="contains" filterStyle="width:40px" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombrecortoF']}" />
+                                </f:facet>
+                                <h:outputText value="#{formulas.nombrecorto}" />  
+                            </p:column>
+
+                            <p:column sortBy="#{formulas.nombrelargo}" filterBy="#{formulas.nombrelargo}" width="200" filterMatchMode="contains" filterStyle="width:40px"> 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombrelargoF']}" />
+                                </f:facet>
+                                <h:outputText value="#{formulas.nombrelargo}" />  
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:commandButton id="aceptarF" value="#{msg['aceptar']}" disabled="#{controlTipoFormula.aceptar}" style="position: absolute; top: 305px; left: 150px" actionListener="#{controlTipoFormula.actualizarFormulas()}" process="@this"/>
+                        
+                        <p:commandButton id="atrasF" value="#{msg['atras']}" style="position: absolute; top: 305px; left: 250px" actionListener="#{controlTipoFormula.cancelarCambioFormulas()}" process="@this"/>
+
+                    </p:dialog>
+
+                    <!-- Nuevo Registro --> 
+
+                    <p:dialog id="NuevoTipoFormula" header="#{msg['nuevoregistro']}" widgetVar="NuevoTipoFormula" closable="false" resizable="false"  draggable="false" modal="true" height="350" width="400" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevoTipoFormula" style="border: none;">
+
+                            <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top: 65px" /></strong>
+                            <p:calendar  id="nuevaFechaInicial" style=" position: absolute; top: 65px; left: 180px;" value="#{controlTipoFormula.nuevoTipoFormula.fechainicial}"  styleClass="ui-datepicker, myClass2"  
+                                         navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
+                                <p:ajax event="dateSelect" update="nuevaFechaInicial"/>
+                                <p:ajax event="change" update="nuevaFechaInicial"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 105px" /></strong>
+                            <p:calendar  id="nuevaFechaFinal" style=" position: absolute; top: 105px; left: 180px;" value="#{controlTipoFormula.nuevoTipoFormula.fechafinal}"  styleClass="ui-datepicker, myClass2"  
+                                         navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
+                                <p:ajax event="dateSelect" update="nuevaFechaFinal"/>
+                                <p:ajax event="change" update="nuevaFechaFinal"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="#{msg['formulaN']}" style=" position: absolute; top: 145px;" /></strong>
+                            <p:inputText id="nuevaFormula" value="#{controlTipoFormula.nuevoTipoFormula.formula.nombrecorto}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="click" listener="#{controlTipoFormula.valoresBackupAutocompletar(1, 'FORMULA')}" />
+                                <p:ajax event="change" listener="#{controlTipoFormula.autocompletarNuevoyDuplicado('FORMULA', controlTipoFormula.nuevoTipoFormula.formula.nombrecorto, 1)}" />
+                                <p:ajax event="dblclick" listener="#{controlTipoFormula.asignarIndex(indice, 0, 1)}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 311px; top: 145px;  " id="btnNuevaFormula" actionListener="#{controlTipoFormula.asignarIndex(indice, 0, 1)}" icon="ui-icon-search" process="@this" />
+
+                            <strong><h:outputText value="#{msg['estadoN']}" style=" position: absolute; top: 185px" /></strong>
+                            <p:inputText readonly="true" id="nuevoEstado" value="#{controlTipoFormula.nuevoTipoFormula.formula.estado}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <p:commandButton id="limpiar" value="#{msg['limpiar']}" style=" position: absolute; left: 50px; top: 300px;" actionListener="#{controlTipoFormula.limpiarNuevoTiposFormulas()}" update="nuevoTipoFormula" process="@this"/>
+                            <p:commandButton id="agregarN" value="#{msg['agregar']}" style=" position: absolute; left: 250px; top: 300px;"  actionListener="#{controlTipoFormula.agregarNuevoTipoFormula()}" process="@this"/>
+                            <p:commandButton id="cancelarN" value="#{msg['cancelar']}" style=" position: absolute; left: 320px; top: 300px;" actionListener="#{controlTipoFormula.limpiarNuevoTiposFormulas()}" update="nuevoTipoFormula" onclick="NuevoTipoFormula.hide();" process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <!-- Duplicar Registro --> 
+
+                    <p:dialog id="DuplicarTipoFormula" header="#{msg['duplicarregistro']}" widgetVar="DuplicarTipoFormula" closable="false" resizable="false"  draggable="false" modal="true" height="350" width="400" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarTipoFormula" style="border: none;">
+
+                            <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top: 65px" /></strong>
+                            <p:calendar  id="duplicarFechaInicial" style=" position: absolute; top: 65px; left: 180px;" value="#{controlTipoFormula.duplicarTipoFormula.fechainicial}"  styleClass="ui-datepicker, myClass2"  
+                                         navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
+                                <p:ajax event="dateSelect" update="duplicarFechaInicial"/>
+                                <p:ajax event="change" update="duplicarFechaInicial"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 105px" /></strong>
+                            <p:calendar  id="duplicarFechaFinal" style=" position: absolute; top: 105px; left: 180px;" value="#{controlTipoFormula.duplicarTipoFormula.fechafinal}"  styleClass="ui-datepicker, myClass2"  
+                                         navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
+                                <p:ajax event="dateSelect" update="duplicarFechaFinal"/>
+                                <p:ajax event="change" update="duplicarFechaFinal"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="#{msg['formulaN']}" style=" position: absolute; top: 145px;" /></strong>
+                            <p:inputText id="duplicarFormula" value="#{controlTipoFormula.duplicarTipoFormula.formula.nombrecorto}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="click" listener="#{controlTipoFormula.valoresBackupAutocompletar(2, 'FORMULA')}" />
+                                <p:ajax event="change" listener="#{controlTipoFormula.autocompletarNuevoyDuplicado('FORMULA', controlTipoFormula.duplicarTipoFormula.formula.nombrecorto, 2)}" />
+                                <p:ajax event="dblclick" listener="#{controlTipoFormula.asignarIndex(indice, 0, 2)}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 311px; top: 145px;  " id="btnDuplicarFormula" actionListener="#{controlTipoFormula.asignarIndex(indice, 0, 2)}" icon="ui-icon-search" process="@this" />
+
+                            <strong><h:outputText value="#{msg['estadoN']}" style=" position: absolute; top: 185px" /></strong>
+                            <p:inputText readonly="true" id="duplicarEstado" value="#{controlTipoFormula.duplicarTipoFormula.formula.estado}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <p:commandButton id="limpiarD" value="#{msg['limpiar']}" style=" position: absolute; left: 50px; top: 300px;" actionListener="#{controlTipoFormula.limpiarduplicarTiposFormulas()}" update="duplicarTipoFormula" process="@this"/>
+                            <p:commandButton id="agregarD" value="#{msg['agregar']}" style=" position: absolute; left: 250px; top: 300px;"  actionListener="#{controlTipoFormula.confirmarDuplicar()}" process="@this"/>
+                            <p:commandButton id="cancelarD" value="#{msg['cancelar']}" style=" position: absolute; left: 320px; top: 300px;" actionListener="#{controlTipoFormula.limpiarduplicarTiposFormulas()}" update="duplicarTipoFormula" onclick="DuplicarTipoFormula.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="validacionNuevoTipoFormula" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoFormula"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['validacionNuevo']}  #{controlTipoFormula.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevoTipoFormula.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="95" width="400px" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="errorFechas.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <!-- DIALOGOS RASTROS -->
+
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoFormula.secRegistro, 'TiposFormulas', 'tiposformulas')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('TiposFormulas', 'tiposformulas')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoFormula.secRegistro, 'TiposFormulas', 'tiposformulas')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="formExportar">
+                    <p:dataTable id="datosTiposFormulasExportar" var="tF" style="visibility: hidden; display: none;"                           
+                                 value="#{controlTipoFormula.listaTiposFormulas}"> 
+                        <!--COLUMNAS TABLA Inforeportes--> 
+                        <p:column headerText="#{msg['fechainicialXX']}">  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechainicialX']}" />
+                            </f:facet>
+                            <h:outputText value="#{tF.fechainicial}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['fechafinalXX']}">  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechafinalX']}" />
+                            </f:facet>
+                            <h:outputText value="#{tF.fechafinal}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['formulaX']}">
+                            <f:facet name="header"><h:outputText value="#{msg['formulaX']}"/></f:facet>
+                            <h:outputText value="#{tF.formula.nombrecorto}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['estadoX']}">
+                            <f:facet name="header"><h:outputText value="#{msg['estadoX']}"/></f:facet>
+                            <h:outputText value="#{tF.formula.estado}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>            
+    </h:body>
+</html>
+

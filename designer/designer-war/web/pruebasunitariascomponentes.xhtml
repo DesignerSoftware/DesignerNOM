@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="true"/>
+
+                    <p:panel  id="PanelTotal" style="position: absolute; width: 874px; height: 510px; text-align: left;background-color: white">
+                        <div id="posicionFechaDesdeParametro" style="position: absolute; top: 7px; left: 90px;">
+                            <lnk:calendar value="#{controlPruebasUnitarias.fechaPrueba}" id="fechaDesdeParametroL"  width="70">
+                                <p:ajax event="change" listener="#{controlPruebasUnitarias.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
+                                <p:ajax event="dateSelect" listener="#{controlPruebasUnitarias.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
+                            </lnk:calendar> 
+                        </div>
+                        
+                        <p:calendar style="position: absolute; top: 37px; left: 90px;" id="prueba" value="#{controlPruebasUnitarias.fechaPrueba}" pattern="HH:mm a" timeOnly="true"/>
+                    </p:panel>   
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,930 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+                    <f:loadBundle basename="Recursos.emplmvrs" var="msg" />
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
+
+                        <p:toolbar styleClass="cssToolbar" style=" position: absolute; top: 37px; left: 12px; height: 24px">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-size: 100% 100%;background-image: url(Imagenes/Iconos/guardar.png) ;background-repeat: no-repeat; border: none; width: 25px; height: 25px;" 
+                                                 actionListener="#{controlEmplMvr.guardadoGeneral()}" process="@this" oncomplete="window.location.reload()"/>
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlEmplMvr.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton disabled="#{controlEmplMvr.activarLOV}" id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlEmplMvr.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlEmplMvr.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 ajax="false" actionListener="#{controlEmplMvr.verificarExportXLS()}" />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  
+                                                 ajax="false">
+                                    <p:dataExporter type="xml"  target="#{controlEmplMvr.exportXML()}" fileName="#{controlEmplMvr.nombreXML}" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlEmplMvr.validarExportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 oncomplete="NuevoRegistroPagina.show()" update=":formularioDialogos:nuevoRegistroPanel" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlEmplMvr.validarBorradoRegistro()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlEmplMvr.verificarDuplicarRegistro()}"  process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px" 
+                                                 actionListener="#{controlEmplMvr.verificarRastroTabla()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px" 
+                                                 actionListener="#{controlEmplMvr.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlEmplMvr.salir()}" action="nomina" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+
+                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+
+                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px" />
+                            <h:outputText id="nombreEmpleadot" value="#{controlEmplMvr.empleado.persona.nombreCompleto}" 
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+
+                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px" />
+                            <h:outputText id="docEmpleado" value="#{controlEmplMvr.empleado.codigoempleado}" 
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px" />
+                        </fieldset>
+
+                        <fieldset style="position: absolute;top: 105px;left: 10px;height: 178px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style=" color: blue"><strong>#{msg['menorvalor']}</strong></legend>
+                            <!-- TABLA EMPLVIGENCIALOCALIZACION -->
+
+                            <p:dataTable id="datosMvrEmpleado" widgetVar="datosMvrEmpleado" var="infoMvr" rowKey="#{infoMvr.secuencia}" rowIndexVar="indice" style=" border: 1px;width: 830px"   
+                                         value="#{controlEmplMvr.listMvrsEmpleado}" scrollable="true" scrollHeight="#{controlEmplMvr.altoTabla1}" scrollWidth="830"
+                                         filteredValue="#{controlEmplMvr.filtrarListMvrsEmpleado}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell"
+                                         selection="#{controlEmplMvr.mvrSeleccionado}" selectionMode="single">
+
+                                <p:ajax event="rowUnselect" listener="#{controlEmplMvr.deseleccionarRow()}" process="@this"/>
+                                <p:ajax event="filter" listener="#{controlEmplMvr.eventoFiltrarMVRS()}"/>
+                                <f:event type="preRenderView" listener="#{controlEmplMvr.recordarSeleccionMVR()}"/>
+
+                                <p:column  headerText="#{msg['inicial']}" sortBy="#{infoMvr.fechainicial}" filterBy="#{infoMvr.fechainicial}" filterMatchMode="contains" 
+                                           width="70" id="mvrFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoMvr.fechainicial}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="dateFechaInicialMvrs" value="#{infoMvr.fechainicial}" width="90"> 
+                                                <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,0)}" update="dateFechaInicialMvrs" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,0)}" update="dateFechaInicialMvrs" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,0)}" process="@this"/> 
+                                            </lnk:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="" style="width: 70px" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['final']}" sortBy="#{infoMvr.fechafinal}" filterBy="#{infoMvr.fechafinal}" 
+                                           filterMatchMode="contains"  width="70" id="mvrFechaFinal" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoMvr.fechafinal}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="dateFechaFinalMvrs" value="#{infoMvr.fechafinal}" width="90" > 
+                                                <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,1)}" update="dateFechaFinalMvrs" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,1)}" update="dateFechaFinalMvrs" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,1)}" process="@this"/> 
+                                            </lnk:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['valormensual']}" sortBy="#{infoMvr.valor}" filterBy="#{infoMvr.valor}" filterMatchMode="contains" id="mvrValor" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText id="valorText" value="#{infoMvr.valor}">
+                                                <f:convertNumber type="currency" currencySymbol="$"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoMvr.valor}" id="editarValorMvr" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                                <p:ajax event="change" listener="#{controlEmplMvr.modificarMvrs(infoMvr)}" update="editarValorMvr" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,2)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['motivo']}" sortBy="#{infoMvr.motivo.nombre}" filterBy="#{infoMvr.motivo.nombre}" width="200"
+                                           filterMatchMode="contains" id="mvrMotivo"  filterStyle="display: none; visibility: hidden" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoMvr.motivo.nombre}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoMvr.motivo.nombre}"  id="editarMotivoMvr" style=" border-radius: 0px; width: 98%;text-transform: uppercase; height: 12px"> 
+                                                <p:ajax event="change" listener="#{controlEmplMvr.modificarMvrs(infoMvr, 'MOTIVO', infoMvr.motivo.nombre)}" process="@this" update="editarMotivoMvr"/>
+                                                <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(infoMvr,0,0,0)}" process="@this" update="editarMotivoMvr"/>
+                                                <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,3)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 220px; height: inherit; border-radius: 0px; margin-left: -10px; margin-right: -10px " action="motivomvr" id="fooMotivo" actionListener="#{controlMotivosMvrs.recibirPaginaAnterior('atrasmotivomvr')}"  value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['valoranual']}" sortBy="#{infoMvr.valoranualoriginal}" filterBy="#{infoMvr.valoranualoriginal}" 
+                                           filterMatchMode="contains" id="mvrValorAnual" width="150" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText id="originalText" value="#{infoMvr.valoranualoriginal}">
+                                                <f:convertNumber type="currency" currencySymbol="$"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoMvr.valoranualoriginal}" id="editarValorAnualMvr" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                                <p:ajax event="change" listener="#{controlEmplMvr.modificarMvrs(infoMvr)}" update="editarValorAnualMvr" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,4)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable>
+                            <h:outputText id="informacionRegistroMVR" value="#{msg['infoRegistro']} #{controlEmplMvr.infoRegistroMVR}" style="position: relative; left: 15px; top: 0px; font-weight: bold"/>
+                        </fieldset>
+
+                        <fieldset style="position: absolute;top: 300px;left: 10px;height: 178px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style=" color: blue"><strong>#{msg['otros']}</strong></legend>
+                            <p:dataTable id="datosOCEmpleado" widgetVar="datosOCEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceOC" value="#{controlEmplMvr.listOCertificados}" 
+                                         filteredValue="#{controlEmplMvr.filtrarListOtrosCertificados}" editable="true" editMode="cell" 
+                                         scrollable="true" scrollHeight="#{controlEmplMvr.altoTabla2}" scrollWidth="830" emptyMessage="#{msg['vacio']}" style=" border: 1px;width: 830px"
+                                         selection="#{controlEmplMvr.otroCertificadoSeleccionado}" selectionMode="single">
+
+                                <p:ajax event="rowUnselect" listener="#{controlEmplMvr.deseleccionarRow()}" process="@this"/>
+                                <f:event type="preRenderView" listener="#{controlEmplMvr.recordarSeleccionOS()}"/>
+                                <p:ajax event="filter" listener="#{controlEmplMvr.eventoFiltrarOC()}"/>
+
+                                <p:column headerText="#{msg['inicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" 
+                                          filterMatchMode="contains" id="ocFechaInicial" width="70"
+                                          filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.fechainicial}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="dateFechaInicialOC" value="#{info.fechainicial}" width="99"> 
+                                                <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasOtros(info,0)}" update="dateFechaInicialOC" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasOtros(info,0)}" update="dateFechaInicialOC" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,0)}" process="@this"/> 
+                                            </lnk:calendar>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['final']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}"
+                                          filterMatchMode="contains" id="ocFechaFinal" width="70"
+                                          filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.fechafinal}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="dateFechaFinalOC" value="#{info.fechafinal}" width="99"> 
+                                                <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasOtros(info,1)}" update="dateFechaFinalOC" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasOtros(info,1)}" update="dateFechaFinalOC" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,1)}" process="@this"/> 
+                                            </lnk:calendar>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['valor']}" sortBy="#{info.valor}" filterBy="#{info.valor}" filterMatchMode="contains" 
+                                           id="ocValor" width="100"
+                                           filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.valor}" >
+                                                <f:convertNumber type="currency" currencySymbol="$"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.valor}" id="editarValorOC" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                                <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,2)}" process="@this"/> 
+                                                <p:ajax event="change" listener="#{controlEmplMvr.modificarOtrosCertificados(info)}" process="@this" update="editarValorOC"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column> 
+
+                                <p:column headerText="#{msg['estado']}" sortBy="#{info.estado}" filterBy="#{info.estado}" filterMatchMode="contains" 
+                                          id="ocEstado" width="130"
+                                          filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.estado}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.estado}" id="editarEstadoOC" style=" border-radius: 0px; width: 95%;text-transform: uppercase; height: 12px;" onselect="">
+                                              <!--  onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#/{indiceOC}'}]);" -->
+                                                <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,3)}" oncomplete="datosMvrEmpleado.unselectAllRows()" /> 
+                                                <p:ajax event="change" listener="#{controlEmplMvr.modificarEstado()}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column> 
+
+                                <p:column headerText="#{msg['certificado']}" sortBy="#{info.tipocertificado.descripcion}" filterBy="#{info.tipocertificado.descripcion}"
+                                          filterMatchMode="contains" id="ocCertificado" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.tipocertificado.descripcion}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.tipocertificado.descripcion}" id="editarCertificadoOC" style=" border-radius: 0px; width: 97%;text-transform: uppercase; height: 12px">
+                                                <!--onselect="posicionOtro([{name: 'n', value: '4'}, {name: 't', value: '#/{indiceOC}'}]);"-->
+
+                                                <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,4)}" process="@this"/> 
+                                                <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(info,0,0,1)}" process="@this" update="editarCertificadoOC"/>
+                                                <p:ajax event="change" listener="#{controlEmplMvr.modificarOtrosCertificados(info, 'CERTIFICADO', info.tipocertificado.descripcion)}" process="@this" update="editarCertificadoOC"/>                                                
+                                            </p:inputText>
+
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 110%; height: inherit; border-radius: 0px; margin-left: -10px; margin-right: -10px " action="tipocertificado" actionListener="#{controlTiposCertificados.recibirPagina('atrastipocertificado')}" id="fooCertificadosOC" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+
+                                <p:column  headerText="#{msg['dias']}" sortBy="#{info.diascontratados}" filterBy="#{info.diascontratados}" 
+                                           filterMatchMode="contains" id="ocDias" width="90"
+                                           filterStyle="display: none; visibility: hidden;"  style="width: 90px; ">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.diascontratados}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.diascontratados}" id="editarDiasOC" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                                <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,5)}" process="@this"/> 
+                                                <p:ajax event="change" listener="#{controlEmplMvr.modificarOtrosCertificados(info)}" process="@this" update="editarDiasOC"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column> 
+
+                            </p:dataTable>
+                            <h:outputText id="informacionRegistroOtroC" value="#{msg['infoRegistro']} #{controlEmplMvr.infoRegistroOtroC}" style="position: relative; left: 15px; top: 0px; font-weight: bold"/>
+                            <!--<p:remoteCommand name="posicionOtro" actionListener="#/{controlEmplMvr.posicionOtro()}"/>-->
+                        </fieldset>
+
+                        <p:commandButton style="position: absolute; left: 683px; top: 500px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/aceptar.png); 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; " id="ACEPTAR" value="" onclick="confirmarGuardar.show();" process="@this" disabled="#{controlEmplMvr.guardado}" />
+                        <p:commandButton style="position: absolute; left: 773px; top: 500px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/cancelar.png); 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; " id="ATRAS" value="" actionListener="#{controlEmplMvr.salir()}" action="nomina" process="@this" />
+
+                        <!-- DIALOGO L.O.V ESTATICO MOTIVO CAMBIO SUELDO     -->
+                        <p:dialog header="#{msg['mvrM']}" widgetVar="MotivoDialogo" draggable="false" resizable="false" closable="false" id="MotivoDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="450" modal="true" height="290">
+                            <p:dataTable id="lovMotivo" style=" width: 420px" var="motivo" value="#{controlEmplMvr.listMotivosMvrs}" rowKey="#{motivo.secuencia}"
+                                         selection="#{controlEmplMvr.motivoMvrSeleccionado}" selectionMode="single" widgetVar="lovMotivo" scrollable="true" scrollHeight="150" scrollWidth="435"
+                                         filteredValue="#{controlEmplMvr.filtrarListMotivosMvrs}" emptyMessage="#{msg['lovvacio']}">              
+
+                                <p:ajax event="filter" listener="#{controlEmplMvr.eventoFiltrarM()}"/>
+                                <p:ajax event="rowSelect" listener="#{controlEmplMvr.activarAceptar()}" update=":form:aceptarM"/>
+                                <p:ajax event="rowDblselect" listener="#{controlEmplMvr.actualizarMotivo()}" immediate="true"
+                                        oncomplete="lovMotivo.unselectAllRows(), lovMotivo.clearFilters()" update=":form:MotivoDialogo"/>
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                    <p:inputText id="globalFilter" onkeyup="lovMotivo.filter();" value="#{filtrado}" style="width:160px; position: relative; left: 5px;" />  
+                                </f:facet>
+                                <p:column filterBy="#{motivo.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85%">
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center" value="#{msg['codigoM']}" />
+                                    </f:facet>
+                                    <h:outputText  value="#{motivo.codigo}" />
+                                </p:column>
+                                <p:column filterBy="#{motivo.nombre}" filterMatchMode="contains" filterStyle="width: 85%">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['nombreM']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{motivo.nombre}" />
+                                </p:column>
+                            </p:dataTable>
+
+                            <h:outputText id="infoRegistroMotivoMVR" value="#{msg['infoRegistro']} #{controlEmplMvr.infoRegistroMotivoMVR}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+
+                            <p:commandButton id="aceptarM" icon="ui-icon-check" style="position: relative; left: 168px; top: 15px" value="#{msg['aceptar']}" disabled="#{controlEmplMvr.aceptar}" actionListener="#{controlEmplMvr.actualizarMotivo()}" 
+                                             oncomplete="MotivoDialogo.hide(), lovMotivo.unselectAllRows(), lovMotivo.clearFilters()" update=":form:MotivoDialogo" process="@this"/>
+
+                            <p:commandButton id="atrasM" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 170px; top: 15px" value="#{msg['atras']}" actionListener="#{controlEmplMvr.cancelarCambioMotivo()}" 
+                                             oncomplete="MotivoDialogo.hide(), lovMotivo.unselectAllRows(), lovMotivo.clearFilters()" update=":form:MotivoDialogo" process="@this"/>
+
+                        </p:dialog>
+
+                        <!-- DIALOGO L.O.V CERTIFICADOS-->
+                        <p:dialog header="#{msg['certificadosC']}" widgetVar="CertificadosDialogo" draggable="false" resizable="false" closable="false" id="CertificadosDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="450" modal="true" height="287">
+                            <p:dataTable id="lovCertificado" style=" width: 420px" var="tipoC" value="#{controlEmplMvr.listTiposCertificados}" rowKey="#{tipoC.secuencia}"
+                                         selection="#{controlEmplMvr.tipoCertificadoSeleccionado}" selectionMode="single" widgetVar="lovCertificado" scrollable="true" scrollWidth="435" scrollHeight="150"
+                                         filteredValue="#{controlEmplMvr.filtrarListTiposCertificados}" emptyMessage="#{msg['lovvacio']}">              
+
+                                <p:ajax event="filter" listener="#{controlEmplMvr.eventoFiltrarC()}"/>
+                                <p:ajax event="rowSelect" listener="#{controlEmplMvr.activarAceptar()}" update=":form:aceptarTC"/>
+                                <p:ajax event="rowDblselect" listener="#{controlEmplMvr.actualizarTipo()}" process="@this" 
+                                        oncomplete="CertificadosDialogo.hide(), lovCertificado.clearFilters()" update=":form:CertificadosDialogo"/>
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                    <p:inputText id="globalFilter" onkeyup="lovCertificado.filter();" value="#{filtrado}" style="width:170px; position: relative; left: 40px;" />  
+                                </f:facet>
+                                <p:column filterBy="#{tipoC.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85%">
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center" value="#{msg['codigoM']}" />
+                                    </f:facet>
+                                    <h:outputText  value="#{tipoC.codigo}" />
+                                </p:column>
+                                <p:column filterBy="#{tipoC.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85%">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['descripcionC']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{tipoC.descripcion}" />
+                                </p:column>
+                            </p:dataTable>
+
+                            <h:outputText id="infoRegistroCertificado" value="#{msg['infoRegistro']} #{controlEmplMvr.infoRegistroCertificado}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+
+                            <p:commandButton id="aceptarTC" icon="ui-icon-check" style="position: relative; left: 168px; top: 15px" value="#{msg['aceptar']}" disabled="#{controlEmplMvr.aceptar}"  actionListener="#{controlEmplMvr.actualizarTipo()}" 
+                                             oncomplete="CertificadosDialogo.hide(), lovCertificado.clearFilters()" update=":form:CertificadosDialogo" process="@this"/>
+
+                            <p:commandButton id="atrasTC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 170px; top: 15px" value="#{msg['atras']}" actionListener="#{controlEmplMvr.cancelarCambioTipo()}" 
+                                             oncomplete="CertificadosDialogo.hide(), lovCertificado.clearFilters()" update=":form:CertificadosDialogo" process="@this"/>
+
+                        </p:dialog>
+
+
+                    </p:panel>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEmplMvr.guardadoGeneral()}" action="nomina" style="position: absolute; top: 50px; left: 157px" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEmplMvr.salir()}" action="nomina" style="position: absolute; top: 50px; left: 218px" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 285px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rastros']}" resizable="false" draggable="false" modal="true" height="130" width="380px"  >
+                        <h:outputText value="#{msg['verificarRastrosTablas']}" style="width: 90%; text-align: center; position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
+                        <p:commandButton value="#{msg['mvr']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 90px; top: 50px; width: 200px; height: 30px" actionListener="#{controlEmplMvr.verificarRastroMvrHist()}" process="@this" />
+                        <p:commandButton value="#{msg['otros']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 90px; top: 90px; width: 200px; height: 30px" actionListener="#{controlEmplMvr.verificarRastroOCHist()}" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{controlEmplMvr.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplMvr.backUp, controlEmplMvr.nombreTablaRastro , 'mvrRastro')}" 
+                                         style="position: absolute; top: 63px; left: 205px" action="rastro" process="@this" /> 
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlEmplMvr.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 267px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{controlEmplMvr.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlEmplMvr.nombreTablaRastro , 'mvrRastro')}" 
+                                         style="position: absolute; top: 63px; left: 205px" action="rastro" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlEmplMvr.limpiarMSNRastros()}" 
+                                         style="position: absolute; top: 63px; left: 267px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplMvr.backUp, controlEmplMvr.nombreTablaRastro , 'mvrRastro')}" 
+                                         style="position: absolute; top: 68px; left: 205px" action="rastro" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 68px; left: 267px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegNewMvr" header="#{msg['error']}" widgetVar="errorRegNewMvr"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegNewMvr']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegNewOtro" header="#{msg['error']}" widgetVar="errorRegNewOtro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegNewOtro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorFechasOC" header="#{msg['error']}" widgetVar="errorFechasOC"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorFechasOC']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorEstado" header="#{msg['atencion']}" widgetVar="errorEstado"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorEstado']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="errorEstado.hide();" actionListener="#{controlEmplMvr.modificarEstado()}"
+                                         update=":form:datosOCEmpleado" style="position: absolute; top: 50px; left: 285px" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorFechasDuplicadas" header="#{msg['atencion']}" widgetVar="errorFechasDuplicadas"  resizable="false" draggable="false" modal="true" height="110" width="470px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorFechasDup']}" style="position: absolute; left: 100px; top: 20px; width: 350px;" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="errorFechasDuplicadas.hide();" style="position: absolute; top: 70px; left: 330px" process="@this" />
+                    </p:dialog>
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplMvr.activarCtrlF11()}"/> 
+                </h:form>
+
+                <h:form id="formularioDialogos" >
+
+                    <p:dialog id="NuevoRegistroPagina" header="#{msg['nuevoregistroparaingreso']}" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="false" modal="true" height="160" width="400" style=" padding: 0px">  
+                        <p:panel id="nuevoRegistroPanel" style="border: none;">
+                            <center><strong><h:outputText value="#{msg['seleccionar']}" style="font-size: 14px; color: blue; position: relative; top: 0px" /></strong></center> 
+
+                            <p:commandButton value="#{msg['mvrs']}" id="NuevoMvrs" style="position: absolute; left: 100px; top: 50px; width: 200px; height: 30px" 
+                                             oncomplete="NuevoRegistroMVRS.show()" update=":formularioDialogos:nuevaMVRS" onclick="NuevoRegistroPagina.hide();" process="@this"/>
+
+                            <p:commandButton value="#{msg['otros']}" id="NuevoOtrosC" style="position: absolute; left: 100px; top: 85px; width: 200px; height: 30px" 
+                                             oncomplete="NuevoRegistroOC.show()" update=":formularioDialogos:nuevaOC"  onclick="NuevoRegistroPagina.hide();" process="@this"/>
+
+                            <p:commandButton id="CancelarNuevosRegistros" onclick="NuevoRegistroPagina.hide();" icon="ui-icon-close"  process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 130px;left: 275px"/>
+
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="NuevoRegistroMVRS" header="#{msg['nuevoregistroMVRS']}" widgetVar="NuevoRegistroMVRS" closable="false" resizable="false"  draggable="false" modal="true" height="290" width="360" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoMVRS']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevaMVRS" style="border: none;">
+
+                            <strong><h:outputText value="*#{msg['inicialMVRS']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
+                            <div id="posicionFormulaFechaIniNuevoMvrReg" style=" position: absolute; top: 70px; left: 170px">
+                                <lnk:calendar id="nuevaFechaInicialMVRS" value="#{controlEmplMvr.nuevaMvrs.fechainicial}" >
+                                    <p:ajax event="dateSelect" update="nuevaFechaInicialMVRS" process="@this"/>
+                                    <p:ajax event="change" update="nuevaFechaInicialMVRS" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <strong><h:outputText value="#{msg['finalMVRS']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
+                            <div id="posicionFormulaFechaFinNuevoRegMvr" style=" position: absolute; top: 100px; left: 170px">
+                                <lnk:calendar id="nuevaFechaFinalMVRS" value="#{controlEmplMvr.nuevaMvrs.fechafinal}" >
+                                    <p:ajax event="dateSelect" update="nuevaFechaFinalMVRS" process="@this"/>
+                                    <p:ajax event="change" update="nuevaFechaFinalMVRS" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <strong><h:outputText value="#{msg['valormensualMVRS']}" style=" position: absolute; top: 135px; left: 50px" /></strong>
+                            <p:inputText id="nuevaValorMMVRS" value="#{controlEmplMvr.nuevaMvrs.valor}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaValorMMVRS"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaValorMMVRS" value="#{msg['valor']}" />
+
+                            <strong><h:outputText value="*#{msg['motivoMVRS']}" style=" position: absolute; top: 165px; left: 50px" /></strong>
+                            <p:inputText id="nuevaMotivoMVRS" value="#{controlEmplMvr.nuevaMvrs.motivo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,1,0)}"/>
+                                <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarMvr(1, 'MOTIVO')}" />
+                                <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoMvr('MOTIVO', controlEmplMvr.nuevaMvrs.motivo.nombre, 1)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 300px; top: 160px;"
+                                             id="btnNuevoMotivo" value="" process="@this"  actionListener="#{controlEmplMvr.asignarIndex(0,1,0)}" update="nuevaMotivoMVRS"/>   
+                            <p:watermark for="nuevaMotivoMVRS" value="#{msg['motivo']}" />
+
+                            <strong><h:outputText value="#{msg['valoranualMVRS']}" style=" position: absolute; top: 195px; left: 50px" /></strong>
+                            <p:inputText id="nuevaValorAMVRS" value="#{controlEmplMvr.nuevaMvrs.valoranualoriginal}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaValorAMVRS"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaValorAMVRS" value="#{msg['valor']}" />   
+
+
+                            <p:commandButton id="limpiarNM" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 255px;" actionListener="#{controlEmplMvr.limpiarNuevaMvr()}" update="nuevaMVRS" process="@this" icon="ui-icon-trash"/>
+                            <p:commandButton id="agregarNM" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 255px;"  process="@this" actionListener="#{controlEmplMvr.agregarNuevaMvr()}"  icon="ui-icon-circle-check"/>
+                            <p:commandButton id="cancelarNM" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 255px;" actionListener="#{controlEmplMvr.limpiarNuevaMvr()}" update="nuevaMVRS" onclick="NuevoRegistroMVRS.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="DuplicarRegistroMVRS" header="#{msg['duplicarregistroMVRS']}" widgetVar="DuplicarRegistroMVRS" closable="false" resizable="false"  draggable="false" modal="true" height="290" width="360" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoMVRS']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarMVRS" style="border: none;">
+
+
+                            <strong><h:outputText value="*#{msg['inicialMVRS']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
+                            <div id="posicionFormulaFechaIniDupliMvrReg" style=" position: absolute; top: 70px; left: 170px">
+                                <lnk:calendar id="duplicarFechaInicialMVRS" value="#{controlEmplMvr.duplicarMvrs.fechainicial}" >
+                                    <p:ajax event="dateSelect" update="duplicarFechaInicialMVRS" process="@this"/>
+                                    <p:ajax event="change" update="duplicarFechaInicialMVRS" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+
+                            <strong><h:outputText value="#{msg['finalMVRS']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
+                            <div id="posicionFormulaFechaFinDupliMvrReg" style=" position: absolute; top: 100px; left: 170px">
+                                <lnk:calendar id="duplicarFechaFinalMVRS" value="#{controlEmplMvr.duplicarMvrs.fechafinal}" >
+                                    <p:ajax event="dateSelect" update="duplicarFechaFinalMVRS" process="@this"/>
+                                    <p:ajax event="change" update="duplicarFechaFinalMVRS" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <strong><h:outputText value="#{msg['valormensualMVRS']}" style=" position: absolute; top: 135px; left: 50px" /></strong>
+                            <p:inputText id="duplicarValorMMVRS" value="#{controlEmplMvr.duplicarMvrs.valor}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
+                                <p:ajax event="change" update="duplicarValorMMVRS"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarValorMMVRS" value="#{msg['valor']}" />
+
+                            <strong><h:outputText value="*#{msg['motivoMVRS']}" style=" position: absolute; top: 165px; left: 50px" /></strong>
+                            <p:inputText id="duplicarMotivoMVRS" value="#{controlEmplMvr.duplicarMvrs.motivo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,2,0)}"/>
+                                <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarMvr(2, 'MOTIVO')}" />
+                                <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoMvr('MOTIVO', controlEmplMvr.duplicarMvrs.motivo.nombre, 2)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 300px; top: 160px;  " 
+                                             id="btnDuplicarMotivo" value="" process="@this"  actionListener="#{controlEmplMvr.asignarIndex(0,2,0)}" update="duplicarMotivoMVRS"/>   
+                            <p:watermark for="duplicarMotivoMVRS" value="#{msg['motivo']}" />
+
+                            <strong><h:outputText value="#{msg['valoranualMVRS']}" style=" position: absolute; top: 195px; left: 50px" /></strong>
+                            <p:inputText id="duplicarValorAMVRS" value="#{controlEmplMvr.duplicarMvrs.valoranualoriginal}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase">
+                                <p:ajax event="change" update="duplicarValorAMVRS"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarValorAMVRS" value="#{msg['valor']}" />   
+
+
+                            <p:commandButton id="limpiarDM" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 253px;" actionListener="#{controlEmplMvr.limpiarduplicarMvr()}" update="duplicarMVRS" process="@this" icon="ui-icon-trash"/>
+                            <p:commandButton id="agregarDM" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 253px;"  process="@this" actionListener="#{controlEmplMvr.confirmarDuplicar()}"  icon="ui-icon-circle-check"/>
+                            <p:commandButton id="cancelarDM" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 253px;" actionListener="#{controlEmplMvr.limpiarduplicarMvr()}" update="duplicarMVRS" onclick="DuplicarRegistroMVRS.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="NuevoRegistroOC" header="#{msg['nuevoregistroOC']}" widgetVar="NuevoRegistroOC" closable="false" resizable="false"  draggable="false" modal="true" height="310" width="360" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoOC']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevaOC" style="border: none;">
+
+                            <strong><h:outputText value="*#{msg['inicialOC']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
+                            <div id="posicionFormulaFechaIniNuevoRegOC" style=" position: absolute; top: 70px; left: 170px">
+                                <lnk:calendar id="nuevaFechaInicialOC" value="#{controlEmplMvr.nuevaOtroCertificado.fechainicial}" >
+                                    <p:ajax event="dateSelect" update="nuevaFechaInicialOC" process="@this"/>
+                                    <p:ajax event="change" update="nuevaFechaInicialOC" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+
+                            <strong><h:outputText value="*#{msg['finalOC']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
+                            <div id="posicionFormulaFechaFinNuevoRegOC" style=" position: absolute; top: 100px; left: 170px">
+                                <lnk:calendar id="nuevaFechaFinalOC" value="#{controlEmplMvr.nuevaOtroCertificado.fechafinal}" >
+                                    <p:ajax event="dateSelect" update="nuevaFechaFinalOC" process="@this"/>
+                                    <p:ajax event="change" update="nuevaFechaFinalOC" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <strong><h:outputText value="#{msg['valorOC']}" style=" position: absolute; top: 135px; left: 50px" /></strong>
+                            <p:inputText id="nuevaValorMOC" value="#{controlEmplMvr.nuevaOtroCertificado.valor}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaValorMOC"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaValorMOC" value="#{msg['valor']}" />
+
+                            <strong><h:outputText  value="*#{msg['estadoOC']}" style=" position: absolute; top: 165px; left: 50px" /></strong>
+                            <p:inputText disabled="true" id="nuevaEstadoOC" readonly="true" value="MANUAL" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaEstadoOC"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaEstadoOC" value="#{msg['estado']}" />
+
+                            <strong><h:outputText value="*#{msg['certificadoOC']}" style=" position: absolute; top: 195px; left: 50px" /></strong>
+                            <p:inputText maxlength="50" id="nuevaCertificadoOC" value="#{controlEmplMvr.nuevaOtroCertificado.tipocertificado.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,1,1)}"/>
+                                <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarOtrosCertificados(1, 'CERTIFICADOS')}" />
+                                <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoOtrosCertificados('CERTIFICADOS', controlEmplMvr.nuevaOtroCertificado.tipocertificado.descripcion, 1)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 300px; top: 190px;"
+                                             id="btnNuevoCertificados" value="" process="@this"  actionListener="#{controlEmplMvr.asignarIndex(0,1,1)}" update="nuevaCertificadoOC"/>   
+                            <p:watermark for="nuevaCertificadoOC" value="#{msg['certificado']}" />
+
+                            <strong><h:outputText value="#{msg['diasOC']}" style=" position: absolute; top: 225px; left: 50px" /></strong>
+                            <p:inputText id="nuevaDiasOC" value="#{controlEmplMvr.nuevaOtroCertificado.diascontratados}" style=" width: 122px; position: absolute; left: 170px; top: 220px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaDiasOC"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaDiasOC" value="#{msg['dias']}" />   
+
+
+                            <p:commandButton id="limpiarNOC" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 270px;" actionListener="#{controlEmplMvr.limpiarNuevaOtroC()}" update="nuevaOC" process="@this" icon="ui-icon-trash"/>
+                            <p:commandButton id="agregarNOC" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 270px;"  process="@this" actionListener="#{controlEmplMvr.agregarNuevaOtroC()}"  icon="ui-icon-circle-check"/>
+                            <p:commandButton id="cancelarNOC" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 270px;" actionListener="#{controlEmplMvr.limpiarNuevaOtroC()}" update="nuevaOC" onclick="NuevoRegistroOC.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="DuplicarRegistroOC" header="#{msg['duplicarregistroOC']}" widgetVar="DuplicarRegistroOC" closable="false" resizable="false"  draggable="false" modal="true" height="310" width="360" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoOC']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarOC" style="border: none;">
+
+
+                            <strong><h:outputText value="*#{msg['inicialOC']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
+                            <div id="posicionFormulaFechaIniDupliOCReg" style=" position: absolute; top: 70px; left: 170px">
+                                <lnk:calendar id="duplicarFechaInicialOC" value="#{controlEmplMvr.duplicarOtrosCertificados.fechainicial}" >
+                                    <p:ajax event="dateSelect" update="duplicarFechaInicialOC" process="@this"/>
+                                    <p:ajax event="change" update="duplicarFechaInicialOC" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+
+                            <strong><h:outputText value="*#{msg['finalOC']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
+                            <div id="posicionFormulaFechaFinDupliOCReg" style=" position: absolute; top: 100px; left: 170px">
+                                <lnk:calendar id="duplicarFechaFinalOC" value="#{controlEmplMvr.duplicarOtrosCertificados.fechafinal}" >
+                                    <p:ajax event="dateSelect" update="duplicarFechaFinalOC" process="@this"/>
+                                    <p:ajax event="change" update="duplicarFechaFinalOC" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <strong><h:outputText value="#{msg['valorOC']}" style=" position: absolute; top: 135px; left: 50px" /></strong>
+                            <p:inputText id="duplicarValorMOC" value="#{controlEmplMvr.duplicarOtrosCertificados.valor}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
+                                <p:ajax event="change" update="duplicarValorMOC"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarValorMOC" value="#{msg['valor']}" />
+
+                            <strong><h:outputText  value="*#{msg['estadoOC']}" style=" position: absolute; top: 165px; left: 50px" /></strong>
+                            <p:inputText id="duplicarEstadoOC" readonly="true" value="#{controlEmplMvr.duplicarOtrosCertificados.estado}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase">
+                                <p:ajax event="change" update="duplicarEstadoOC"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarEstadoOC" value="#{msg['estado']}" />
+
+                            <strong><h:outputText value="*#{msg['certificadoOC']}" style=" position: absolute; top: 195px; left: 50px" /></strong>
+                            <p:inputText maxlength="50" id="duplicarCertificadoOC" value="#{controlEmplMvr.duplicarOtrosCertificados.tipocertificado.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,2,1)}"/>
+                                <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarOtrosCertificados(2, 'CERTIFICADOS')}" />
+                                <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoOtrosCertificados('CERTIFICADOS', controlEmplMvr.duplicarOtrosCertificados.tipocertificado.descripcion, 2)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 300px; top: 190px;"
+                                             id="btnDuplicarCertificados" value="" process="@this"  actionListener="#{controlEmplMvr.asignarIndex(0,2,1)}" update="duplicarCertificadoOC"/>   
+                            <p:watermark for="duplicarCertificadoOC" value="#{msg['certificado']}" />
+
+                            <strong><h:outputText value="#{msg['dias']}" style=" position: absolute; top: 225px; left: 50px" /></strong>
+                            <p:inputText id="duplicarDiasOC" value="#{controlEmplMvr.duplicarOtrosCertificados.diascontratados}" style=" width: 122px; position: absolute; left: 170px; top: 220px; text-transform: uppercase">
+                                <p:ajax event="change" update="duplicarDiasOC"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarDiasOC" value="#{msg['dias']}" />   
+
+
+                            <p:commandButton id="limpiarDOC" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 270px;" actionListener="#{controlEmplMvr.limpiarduplicarOtroC()}" update="duplicarOC" process="@this" icon="ui-icon-trash"/>
+                            <p:commandButton id="agregarDOC" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 270px;"  process="@this" actionListener="#{controlEmplMvr.confirmarDuplicarOtroC()}" icon="ui-icon-circle-check"/>
+                            <p:commandButton id="cancelarDOC" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 270px;" actionListener="#{controlEmplMvr.limpiarduplicarOtroC()}" update="duplicarOC" onclick="DuplicarRegistroOC.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <!-- DIALOGOS DE EDITAR COLUMNAS -->
+                    <p:dialog id="editarFechaInicialMVRD" header="#{msg['inicialE']}" widgetVar="editarFechaInicialMVRD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplMvr.editarMvrs.fechainicial}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaFinalMVRD" header="#{msg['finalE']}" widgetVar="editarFechaFinalMVRD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplMvr.editarMvrs.fechafinal}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarValorMVRD" header="#{msg['valormensualE']}" widgetVar="editarValorMVRD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlEmplMvr.editarMvrs.valor}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                            <f:convertNumber type="currency" currencySymbol="$"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarMotivoMVRD" header="#{msg['motivoE']}" widgetVar="editarMotivoMVRD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlEmplMvr.editarMvrs.motivo.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarValorAMVRD" header="#{msg['valoranualE']}" widgetVar="editarValorAMVRD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlEmplMvr.editarMvrs.valoranualoriginal}" style="overflow: auto; width: 360px; height: 60px" readonly="true">
+                            <f:convertNumber type="currency" currencySymbol="$"/>
+                        </p:inputTextarea> 
+                    </p:dialog>
+
+                    <!--           -->
+
+                    <p:dialog id="editarFechaInicialOCD" header="#{msg['inicialEOC']}" widgetVar="editarFechaInicialOCD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplMvr.editarOtrosCertificados.fechainicial}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaFinalOCD" header="#{msg['finalEOC']}" widgetVar="editarFechaFinalOCD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplMvr.editarOtrosCertificados.fechafinal}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarValorOCD" header="#{msg['valorEOC']}" widgetVar="editarValorOCD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlEmplMvr.editarOtrosCertificados.valor}" style="overflow: auto; width: 360px; height: 60px" readonly="true">
+                            <f:convertNumber type="currency" currencySymbol="$"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarEstadoOCD" header="#{msg['estadoEOC']}" widgetVar="editarEstadoOCD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlEmplMvr.editarOtrosCertificados.estado}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCertificadoOCD" header="#{msg['certificadoEOC']}" widgetVar="editarCertificadoOCD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlEmplMvr.editarOtrosCertificados.tipocertificado.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarDiasOCD" header="#{msg['diasEOC']}" widgetVar="editarDiasOCD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlEmplMvr.editarOtrosCertificados.diascontratados}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+
+                </h:form>
+                <h:form id="formExportarMVR">
+                    <p:dataTable id="datosMvrEmpleadoExportar" var="infoMVR" style="visibility: hidden; display: none;"                           
+                                 value="#{controlEmplMvr.listMvrsEmpleado}"> 
+                        <!--COLUMNAS TABLA DATOS VIGENCIAS LOCALIZACIONES DE UN EMPLEADO --> 
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['inicialX']}" />
+                            </f:facet>
+                            <h:outputText value="#{infoMVR.fechainicial}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['finalX']}" />
+                            </f:facet>
+                            <h:outputText value="#{infoMVR.fechafinal}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['valorXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['valorX']}"/> </f:facet> 
+                            <h:outputText value="#{infoMVR.valor}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['motivoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['motivoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoMVR.motivo.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['valoranualXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['valoranualX']}"/> </f:facet> 
+                            <h:outputText value="#{infoMVR.valoranualoriginal}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+
+                <h:form id="formExportarOC">
+                    <p:dataTable id="datosOCEmpleadoExportar" var="infoOC" style="visibility: hidden; display: none;"                           
+                                 value="#{controlEmplMvr.listOCertificados}"> 
+                        <!--COLUMNAS TABLA DATOS VIGENCIAS PRORRATEOS DE UNA VIGENCIA --> 
+                        <p:column headerText="#{msg['inicialXXOC']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['inicialXOC']}"/> </f:facet> 
+                            <h:outputText value="#{infoOC.fechainicial}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['finalXXOC']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['finalXOC']}"/> </f:facet> 
+                            <h:outputText value="#{infoOC.fechafinal}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['valorXOC']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['valorXOC']}"/> </f:facet> 
+                            <h:outputText value="#{infoOC.valor}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['estadoXOC']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['estadoXOC']}"/> </f:facet> 
+                            <h:outputText value="#{infoOC.estado}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['certificadoXOC']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['certificadoXOC']}"/> </f:facet> 
+                            <h:outputText value="#{infoOC.tipocertificado.descripcion}">
+                            </h:outputText>
+                        </p:column>     
+
+                        <p:column headerText="#{msg['diasXOC']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['diasXOC']}"/> </f:facet> 
+                            <h:outputText value="#{infoOC.diascontratados}">
+                                <f:convertNumber type="number" />
+                            </h:outputText>
+                        </p:column>     
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

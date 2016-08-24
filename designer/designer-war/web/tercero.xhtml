@@ -1,0 +1,1204 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">
+                <h:form id="form">
+
+                    <f:loadBundle basename="Recursos.tercero" var="msg" />
+                    <p:growl id="growl" showDetail="true"/>
+
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
+
+                        <p:toolbar styleClass="cssToolbar" style="position: absolute; top: 37px; left: 12px; height: 23px">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-size: 100% 100%;background-image: url(Imagenes/Iconos/guardar.png) ;background-repeat: no-repeat; border: none; width: 25px; height: 25px;"  process="@this" actionListener="#{controlTercero.guardadoGeneral()}"/>
+                                <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTercero.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" disabled="#{controlTercero.activarLOV}" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTercero.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTercero.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 ajax="false" actionListener="#{controlTercero.verificarExportXLS()}" />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlTercero.limpiarNuevoTercero()}" ajax="false">
+                                    <p:dataExporter type="xml"  target="#{controlTercero.exportXML()}" fileName="#{controlTercero.nombreXML}" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlTercero.validarExportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " oncomplete="NuevoRegistroPagina.show()" update=":formularioDialogos:NuevoRegistroPagina" process="@this"/> 
+                                <p:tooltip for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTercero.validarBorradoRegistro()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  actionListener="#{controlTercero.validarDuplicadoRegistro()}" process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTercero.verificarRastroTabla()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTercero.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlTercero.salir()}" action="#{controlTercero.valorPaginaAnterior()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+
+
+                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+
+                            <h:outputText value="#{msg['empresa']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px" />
+                            <h:outputText id="nombreEmpresa" value="#{controlTercero.empresaActual.nombre}" 
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+
+                            <h:outputText value="#{msg['nit']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px" />
+                            <h:outputText id="nitEmpresa" value="#{controlTercero.empresaActual.nit}" style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px" />
+                        </fieldset>
+
+
+
+                        <fieldset style="position: absolute; left: 10px; top: 110px; width: 830px; height: 225px; border-radius: 10px; text-align: left">
+                            <legend style="color: blue"><strong>#{msg['terceros']}</strong></legend>
+
+                            <p:dataTable id="datosTerceros" var="infoT" widgetVar="datosTerceros" rowIndexVar="indice" style="border: 1px; width: 800px;"   
+                                         value="#{controlTercero.listTerceros}" scrollable="true" scrollHeight="#{controlTercero.altoTablaTercero}" scrollWidth="830"
+                                         filteredValue="#{controlTercero.filtrarListTercero}" emptyMessage="#{msg['vacio']}" rowKey="#{infoT.secuencia}" 
+                                         editable="true" editMode="cell" liveScroll="true" scrollRows="40" selectionMode="single" selection="#{controlTercero.terceroTablaSeleccionado}">
+
+                                <f:event type="preRenderView" listener="#{controlTercero.recordarSeleccionT()}"/>
+                                <p:ajax event="filter" listener="#{controlTercero.eventoFiltrarT()}"/>
+
+                                <p:column headerText="#{msg['nombre']}" sortBy="#{infoT.nombre}" filterBy="#{infoT.nombre}" 
+                                          filterMatchMode="contains" id="terceroNombre" width="133" filterStyle="display: none; visibility: hidden" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headNombre" value="#{msg['nombre']}"/>
+                                        <p:tooltip for="headNombre" value="#{msg['nombreTp']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>                                          
+                                        <f:facet name="output"><h:outputText value="#{infoT.nombre}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoT.nombre}" maxlength="30"  id="editarTerceroNombre" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 0)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="#{msg['Nit']}" sortBy="#{infoT.nit}" filterBy="#{infoT.nit}" filterMatchMode="contains" 
+                                          id="terceroNIT" width="133" filterStyle="display: none; visibility: hidden">                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headNit" value="#{msg['Nit']}"/>
+                                        <p:tooltip for="headNit" value="#{msg['nit']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoT.nit}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoT.nit}"  id="editarTerceroNIT" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 1)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="#{msg['digito']}" sortBy="#{infoT.digitoverificacion}" filterBy="#{infoT.digitoverificacion}" filterMatchMode="contains" 
+                                          id="terceroDigitoVerificacion" width="115" filterStyle="display: none; visibility: hidden"  >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headDigito" value="#{msg['digito']}"/>
+                                        <p:tooltip for="headDigito" value="#{msg['D']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoT.digitoverificacion}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoT.digitoverificacion}"  id="editarTerceroDigitoVerificacion" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 2)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="#{msg['nitalternativo']}" sortBy="#{infoT.nitalternativo}" filterBy="#{infoT.nitalternativo}" filterMatchMode="contains" 
+                                          id="terceroNITAlternativo" width="100" filterStyle="display: none; visibility: hidden" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headNitA" value="#{msg['nitalternativo']}"/>
+                                        <p:tooltip for="headNitA" value="#{msg['nitA']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoT.nitalternativo}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoT.nitalternativo}" maxlength="30" id="editarTerceroNITAlternativo" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 3)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="#{msg['css']}" sortBy="#{infoT.codigoss}" filterBy="#{infoT.codigoss}" filterMatchMode="contains" 
+                                          id="terceroCodigoSS" width="100" filterStyle="display: none; visibility: hidden">                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headcss" value="#{msg['css']}"/>
+                                        <p:tooltip for="headcss" value="#{msg['cssT']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoT.codigoss}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoT.codigoss}" maxlength="6" id="editarTerceroCodigoSS" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 4)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="#{msg['csp']}" sortBy="#{infoT.codigosp}" filterBy="#{infoT.codigosp}" filterMatchMode="contains" 
+                                          id="terceroCodigoSP" width="100" filterStyle="display: none; visibility: hidden" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headcsp" value="#{msg['csp']}"/>
+                                        <p:tooltip for="headcsp" value="#{msg['cspT']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoT.codigosp}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoT.codigosp}" maxlength="6" id="editarTerceroCodigoSP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 5)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="#{msg['csc']}" sortBy="#{infoT.codigosc}" filterBy="#{infoT.codigosc}" filterMatchMode="contains" 
+                                          id="terceroCodigoSC" width="100" filterStyle="display: none; visibility: hidden" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headcsc" value="#{msg['csc']}"/>
+                                        <p:tooltip for="headcsc" value="#{msg['cscT']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoT.codigosc}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoT.codigosc}" maxlength="6" id="editarTerceroCodigoSC" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 6)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="#{msg['consolidador']}" sortBy="#{infoT.terceroconsolidador.nombre}" filterBy="#{infoT.terceroconsolidador.nombre}" filterMatchMode="contains" 
+                                          id="terceroTConsolidador" width="133" filterStyle="display: none; visibility: hidden" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headconsolidador" value="#{msg['consolidador']}"/>
+                                        <p:tooltip for="headconsolidador" value="#{msg['tConsolidador']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoT.terceroconsolidador.nombre}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoT.terceroconsolidador.nombre}"  id="editarTConsolidador" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 7)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTerceroAutocompletar(infoT, 'TERCEROCONSOLIDADOR', infoT.terceroconsolidador.nombre)}" process="@this" update="editarTConsolidador"/>
+                                                <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoT,0,0,0)}" process="@this" update="editarTConsolidador"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="#{msg['consolida']}" sortBy="#{infoT.terceroconsolidador.nit}" filterBy="#{infoT.terceroconsolidador.nit}" filterMatchMode="contains" 
+                                          id="terceroNITConsolidado" width="100" filterStyle="display: none; visibility: hidden" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headconsolida" value="#{msg['consolida']}"/>
+                                        <p:tooltip for="headconsolida" value="#{msg['nitConsolida']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoT.terceroconsolidador.nit}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoT.terceroconsolidador.nit}"  id="editarTerceroNITConsolidado" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 8)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="#{msg['ciudad']}" sortBy="#{infoT.ciudad.nombre}" filterBy="#{infoT.ciudad.nombre}" filterMatchMode="contains" 
+                                          id="terceroCiudad" width="133" filterStyle="display: none; visibility: hidden">                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headciudad" value="#{msg['ciudad']}"/>
+                                        <p:tooltip for="headciudad" value="#{msg['ciudadTp']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoT.ciudad.nombre}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoT.ciudad.nombre}"  id="editarTerceroCiudad" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 9)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTerceroAutocompletar(infoT, 'CIUDAD', infoT.ciudad.nombre)}" process="@this" update="editarTerceroCiudad"/>
+                                                <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoT,1, 0,0)}" process="@this" update="editarTerceroCiudad"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooTerceroCiudad" action="ciudades" actionListener="#{controlCiudades.recibirPaginaEntrante('atrastercero')}" value=" "/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="#{msg['codigoalterno']}" sortBy="#{infoT.codigoalternativo}" filterBy="#{infoT.codigoalternativo}" filterMatchMode="contains" 
+                                          id="terceroCodigoAlterno" width="100" filterStyle="display: none; visibility: hidden">                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headcodigoalterno" value="#{msg['codigoalterno']}"/>
+                                        <p:tooltip for="headcodigoalterno" value="#{msg['codAlterno']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoT.codigoalternativo}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoT.codigoalternativo}"  id="editarTerceroCodigoAlterno" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 10)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column style="padding: 0px; text-align: center" sortBy="#{infoT.tiponit}" filterBy="#{infoT.tiponit}" 
+                                          filterMatchMode="contains" id="terceroTipoNIT" width="120" headerText="#{msg['tiponit']}" filterStyle="display: none; visibility: hidden;">                                                              
+                                    <p:cellEditor>   
+                                        <f:facet name="output"><h:outputText value="#{infoT.tiponit}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:selectOneMenu id="editarTerceroTipoNIT" value="#{infoT.tiponit}" style="text-align: left; width: 120px">  
+                                                <f:selectItem itemLabel=""/> 
+                                                <f:selectItem itemLabel="#{msg['natural']}" itemValue="N" />  
+                                                <f:selectItem itemLabel="#{msg['juridica']}" itemValue="J" />
+                                                <f:selectItem itemLabel="#{msg['cedula']}" itemValue="C" />  
+                                                <f:selectItem itemLabel="#{msg['tarjetadeidentidad']}" itemValue="T" />
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" update=":form:datosTerceros" />
+                                            </p:selectOneMenu>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>  
+
+                                <p:column style="padding: 0px; text-align: center" sortBy="#{infoT.codigotercerosap}" filterBy="#{infoT.codigotercerosap}" 
+                                          filterMatchMode="contains" id="terceroCodigoSAP" width="120" headerText="#{msg['codigosap']}" filterStyle="display: none; visibility: hidden;">                                                              
+                                    <p:cellEditor>   
+                                        <f:facet name="output"><h:outputText value="#{infoT.codigotercerosap}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:selectOneMenu id="editarTerceroCodigoSAP" value="#{infoT.codigotercerosap}" style="text-align: left; width: 120px">  
+                                                <f:selectItem itemLabel=""/> 
+                                                <f:selectItem itemLabel="#{msg['EPS']}" itemValue="EPS" />  
+                                                <f:selectItem itemLabel="#{msg['AFP']}" itemValue="AFP" />
+                                                <f:selectItem itemLabel="#{msg['FCP']}" itemValue="FCP" />  
+                                                <f:selectItem itemLabel="#{msg['PF']}" itemValue="PF" />
+                                                <f:selectItem itemLabel="#{msg['PN']}" itemValue="PN" />
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" update=":form:datosTerceros" />
+                                            </p:selectOneMenu>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>  
+
+                            </p:dataTable>
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlTercero.infoRegistroTercero}" style="position: relative; left: 10px; top: 10px; font-weight: bold; display: table"/>
+
+                            <p:commandButton id="btnBuscarTerceros" value="" style="position: relative ; top: -14px; left: 640px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" actionListener="#{controlTercero.dialogoSeleccionarTercero()}" process="@this"/>
+                            <p:commandButton id="btnMostrarTodos" value="" style="position: relative ;top: -14px; left: 650px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" actionListener="#{controlTercero.mostrarTodos()}" process="@this" />
+                        </fieldset>
+
+
+                        <fieldset style="position: absolute; left: 10px; top: 355px; width: 830px; height: 130px; border-radius: 10px; text-align: left">
+                            <legend style="color: blue"><strong>#{msg['sucursales']}</strong></legend>
+
+                            <p:dataTable id="datosTercerosSucursales" var="infoTS" rowKey="#{infoTS.secuencia}" rowIndexVar="indiceTS" style="border: 1px;width: 815px"   
+                                         value="#{controlTercero.listTercerosSucursales}" scrollable="true" scrollHeight="#{controlTercero.altoTablaSucursal}" scrollWidth="830"
+                                         filteredValue="#{controlTercero.filtrarListTercerosSucursales}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" liveScroll="true" scrollRows="8" selectionMode="single" selection="#{controlTercero.terceroSucursalTablaSeleccionado}">
+
+                                <f:event type="preRenderView" listener="#{controlTercero.recordarSeleccionTS()}"/>
+                                <p:ajax event="filter" listener="#{controlTercero.eventoFiltrarTS()}"/>
+
+                                <p:column  headerText="#{msg['sucursal']}" sortBy="#{infoTS.codigosucursal}" filterBy="#{infoTS.codigosucursal}" 
+                                           filterMatchMode="contains" id="terceroSucursalCodigo" width="133" filterStyle="display: none; visibility: hidden" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headsucursal" value="#{msg['sucursal']}"/>
+                                        <p:tooltip for="headsucursal" value="#{msg['sucursalTp']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoTS.codigosucursal}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoTS.codigosucursal}"  id="editarTerceroSucursalCodigo" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndiceTS(infoTS, 0)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTerceroSucursal(infoTS)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['patronal']}" sortBy="#{infoTS.codigopatronal}" filterBy="#{infoTS.codigopatronal}" filterMatchMode="contains" 
+                                           id="terceroSucursalPatronal" width="133" filterStyle="display: none; visibility: hidden" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headpatronal" value="#{msg['patronal']}"/>
+                                        <p:tooltip for="headpatronal" value="#{msg['patronalTp']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoTS.codigopatronal}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoTS.codigopatronal}"  id="editarTerceroSucursalPatronal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndiceTS(infoTS, 1)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTerceroSucursal(infoTS)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['observaciones']}" sortBy="#{infoTS.descripcion}" filterBy="#{infoTS.descripcion}" filterMatchMode="contains" 
+                                           id="terceroSucursalObservacion" width="133" filterStyle="display: none; visibility: hidden" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headobservaciones" value="#{msg['observaciones']}"/>
+                                        <p:tooltip for="headobservaciones" value="#{msg['observacion']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoTS.descripcion}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoTS.descripcion}" maxlength="200" id="editarTerceroSucursalObservacion" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndiceTS(infoTS, 2)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTerceroSucursal(infoTS)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['ciudad']}" sortBy="#{infoTS.ciudad.nombre}" filterBy="#{infoTS.ciudad.nombre}" filterMatchMode="contains" 
+                                           id="terceroSucursalCiudad" width="133" filterStyle="display: none; visibility: hidden" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headciudadS" value="#{msg['ciudad']}"/>
+                                        <p:tooltip for="headciudadS" value="#{msg['ciudadTp']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoTS.ciudad.nombre}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{infoTS.ciudad.nombre}"  id="editarTerceroSucursalCiudad" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndiceTS(infoTS, 3)}" process="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoTS,0,0,1)}" process="@this" update="editarTerceroSucursalCiudad"/>
+                                                <p:ajax event="change" listener="#{controlTercero.modificarTerceroSucursalAutocompletar(infoTS, 'CIUDAD', infoTS.ciudad.nombre)}" process="@this" update="editarTerceroSucursalCiudad"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="infoRegistroTerceroSucursal" value="#{msg['infoRegistro']} #{controlTercero.infoRegistroTerceroSucursal}" style="position: relative; left: 10px; top: 0px; font-weight: bold"/>
+                        </fieldset>
+                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 683px; top: 505px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                         value="" onclick="confirmarGuardarSalida.show();" update=":form:datosTerceros" disabled="#{controlTercero.guardado}" process="@this" />
+                        <p:commandButton id="ATRAS" style="position: absolute; left: 775px; top: 505px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                         value="" actionListener="#{controlTercero.salir()}" action="#{controlTercero.valorPaginaAnterior()}" process="@this" />
+                    </p:panel>
+
+                    <p:dialog header="#{msg['tercerosT']}" widgetVar="BuscarTerceroDialogo" draggable="false" resizable="false" closable="false" id="BuscarTerceroDialogo"  
+                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                        <p:dataTable id="lovBuscarTercero" liveScroll="true" scrollRows="20" style="width: 400px" var="tercero" value="#{controlTercero.listTercerosLOV}" rowKey="#{tercero.secuencia}"
+                                     selection="#{controlTercero.terceroLOVSeleccionado}" selectionMode="single" widgetVar="lovBuscarTercero" scrollable="true" scrollWidth="416" scrollHeight="250"
+                                     filteredValue="#{controlTercero.filtrarListTerceroLOV}" emptyMessage="#{msg['lovvacio']}">              
+
+                            <p:ajax event="filter" listener="#{controlTercero.eventoFiltrarLovTercero()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlTercero.activarAceptar()}" update=":form:aceptarBT"/>
+                            <p:ajax event="rowDblselect" listener="#{controlTercero.validarSeleccionTercero()}" update=":form:BuscarTerceroDialogo" process="@this" />
+
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovBuscarTercero.filter();" value="#{filtrado}" style="width:150px; position: relative; left: 20px;" />  
+                            </f:facet>
+                            <p:column filterBy="#{tercero.nit}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nitT']}" />
+                                </f:facet>
+                                <h:outputText value="#{tercero.nit}" />
+                            </p:column>
+                            <p:column filterBy="#{tercero.nombre}"  filterMatchMode="contains" >
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreT']}" />
+                                </f:facet>
+                                <h:outputText value="#{tercero.nombre}" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistro']} #{controlTercero.infoRegistroTercero}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+
+                        <p:commandButton id="aceptarBT" icon="ui-icon-check" style="position: relative; left: 230px" value="#{msg['aceptar']}" actionListener="#{controlTercero.validarSeleccionTercero()}" disabled="#{controlTercero.aceptar}" update=":form:BuscarTerceroDialogo" process="@this"/>
+                        <p:commandButton id="atrasBT" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px" value="#{msg['atras']}" actionListener="#{controlTercero.cancelarSeleccionTercero()}" update=":form:BuscarTerceroDialogo" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog header="#{msg['tercerosT']}" widgetVar="TerceroDialogo" draggable="false" resizable="false" closable="false" id="TerceroDialogo"  
+                              showEffect="fade" hideEffect="fade" width="431" modal="true">
+                        <p:dataTable id="lovTercero" liveScroll="true" scrollRows="20" style="width: 400px" var="tercero" value="#{controlTercero.listTerceroConsolidador}" rowKey="#{tercero.secuencia}"
+                                     selection="#{controlTercero.terceroCSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="416" scrollHeight="250"
+                                     filteredValue="#{controlTercero.filtrarListTerceroConsolidador}" emptyMessage="#{msg['lovvacio']}">              
+
+                            <p:ajax event="filter" listener="#{controlTercero.eventoFiltrarTerceroC()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlTercero.activarAceptar()}" update=":form:aceptarT"/>
+                            <p:ajax event="rowDblselect" listener="#{controlTercero.actualizarTerceros()}" update=":form:TerceroDialogo" process="@this" />
+
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovTercero.filter();" value="#{filtrado}" style="width:150px; position: relative; left: 20px;" />  
+                            </f:facet> 
+                            <p:column filterBy="#{tercero.nit}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nitT']}" />
+                                </f:facet>
+                                <h:outputText value="#{tercero.nit}" />
+                            </p:column>
+                            <p:column filterBy="#{tercero.nombre}"  filterMatchMode="contains" >
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="#{msg['nombreT']}" />
+                                </f:facet>
+                                <h:outputText  value="#{tercero.nombre}" />
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroTerceroConsolidador" value="#{msg['infoRegistro']} #{controlTercero.infoRegistroTerceroConsolidador}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+
+                        <p:commandButton id="aceptarT" icon="ui-icon-check" style="position: relative; left: 230px" value="#{msg['aceptar']}" actionListener="#{controlTercero.actualizarTerceros()}" disabled="#{controlTercero.aceptar}" update=":form:TerceroDialogo" process="@this"/>
+
+                        <p:commandButton id="atrasT" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px" value="#{msg['atras']}" actionListener="#{controlTercero.cancelarCambioTerceros()}" update=":form:TerceroDialogo" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadDialogo" draggable="false" resizable="false" closable="false" id="CiudadDialogo"  
+                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                        <p:dataTable id="lovCiudad" liveScroll="true" scrollRows="20" style="width: 400px" var="ciudad" value="#{controlTercero.listCiudades}" rowKey="#{ciudad.secuencia}"
+                                     selection="#{controlTercero.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudad" scrollable="true" scrollWidth="416" scrollHeight="250"
+                                     filteredValue="#{controlTercero.filtrarListCiudades}" emptyMessage="#{msg['lovvacio']}">              
+
+                            <p:ajax event="filter" listener="#{controlTercero.eventoFiltrarCiudadT()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlTercero.activarAceptar()}" update=":form:aceptarC"/>
+                            <p:ajax event="rowDblselect" listener="#{controlTercero.actualizarCiudad()}" update=":form:CiudadDialogo" process="@this" />
+
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovCiudad.filter();" value="#{filtrado}" style="width:150px; position: relative; left: 20px;" />  
+                            </f:facet>
+                            <p:column filterBy="#{ciudad.codigo}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['codigoC']}"/>
+                                </f:facet>
+                                <h:outputText value="#{ciudad.codigo}" />
+                            </p:column>
+                            <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains" >
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreC']}" />
+                                </f:facet>
+                                <h:outputText  value="#{ciudad.nombre}" />
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroCiudad1" value="#{msg['infoRegistro']} #{controlTercero.infoRegistroCiudad1}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+
+                        <p:commandButton id="aceptarC" icon="ui-icon-check" style="position: relative; left: 230px" value="#{msg['aceptar']}" actionListener="#{controlTercero.actualizarCiudad()}" disabled="#{controlTercero.aceptar}" update=":form:CiudadDialogo" process="@this"/>
+
+                        <p:commandButton id="atrasC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px" value="#{msg['atras']}" actionListener="#{controlTercero.cancelarCambioCiudad()}" update=":form:CiudadDialogo" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadTSDialogo" draggable="false" resizable="false" closable="false" id="CiudadTSDialogo"  
+                              showEffect="fade" hideEffect="fade" width="431" modal="true">
+                        <p:dataTable id="lovCiudadTS" liveScroll="true" scrollRows="20" style="width: 400px" var="ciudad" value="#{controlTercero.listCiudades}" rowKey="#{ciudad.secuencia}"
+                                     selection="#{controlTercero.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudadTS" scrollable="true" scrollWidth="416" scrollHeight="250"
+                                     filteredValue="#{controlTercero.filtrarListCiudades}" emptyMessage="#{msg['lovvacio']}">              
+
+                            <p:ajax event="filter" listener="#{controlTercero.eventoFiltrarCiudadTS()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlTercero.activarAceptar()}" update=":form:aceptarCTS"/>
+                            <p:ajax event="rowDblselect" listener="#{controlTercero.actualizarCiudadTS()}" update=":form:CiudadTSDialogo" process="@this" />
+
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" value="#{filtrado}" onkeyup="lovCiudadTS.filter();" style="width:150px; position: relative; left: 20px;" />  
+                            </f:facet> 
+                            <p:column filterBy="#{ciudad.codigo}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['codigoC']}" />
+                                </f:facet>
+                                <h:outputText value="#{ciudad.codigo}" />
+                            </p:column>
+                            <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains" >
+                                <f:facet name="header">
+                                    <h:outputText  value="#{msg['nombreC']}" />
+                                </f:facet>
+                                <h:outputText  value="#{ciudad.nombre}" />
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroCiudad2" value="#{msg['infoRegistro']} #{controlTercero.infoRegistroCiudad2}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+
+                        <p:commandButton id="aceptarCTS" icon="ui-icon-check" style="position: relative; left: 230px" value="#{msg['aceptar']}" actionListener="#{controlTercero.actualizarCiudadTS()}" disabled="#{controlTercero.aceptar}" update=":form:CiudadTSDialogo" process="@this"/>
+
+                        <p:commandButton id="atrasCTS" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px" value="#{msg['atras']}" actionListener="#{controlTercero.cancelarCambioCiudadTS()}" action="#{controlTercero.valorPaginaAnterior}" update=":form:CiudadTSDialogo" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rastrospara']}" resizable="false" draggable="false" modal="true" height="115" width="350" >
+                        <h:outputText value="#{msg['verificarRastrosTablas']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
+                        <p:commandButton value="#{msg['terceros']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 100px; top: 50px; width: 200px; height: 30px" actionListener="#{controlTercero.verificarRastroTercerosHist()}" process="@this" />
+                        <p:commandButton value="#{msg['sucursales']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 100px; top: 85px; width: 200px; height: 30px" actionListener="#{controlTercero.verificarRastroTercerosSucursalesHist()}" process="@this"/>
+                       </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{controlTercero.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTercero.backUp, controlTercero.nombreTablaRastro , 'terceroRastro')}" style="position: absolute; top: 63px; left: 200px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastro.hide();" actionListener="#{controlTercero.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{controlTercero.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlTercero.nombreTablaRastro , 'terceroRastro')}" style="position: absolute; top: 60px; left: 200px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlTercero.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTercero.backUp, controlTercero.nombreTablaRastro , 'terceroRastro')}" style="position: absolute; top: 70px; left: 190px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 70px; left: 260px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlTercero.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 171px" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlTercero.cancelarModificacion()}" style="position: absolute; top: 50px; left: 235px" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 305px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardarSalida" header="#{msg['precaucion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlTercero.guardadoGeneral()}" action="#{controlTercero.valorPaginaAnterior}" style="position: absolute; top: 50px; left: 171px" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlTercero.salir()}" action="#{controlTercero.valorPaginaAnterior}" style="position: absolute; top: 50px; left: 235px" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 305px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+                    <p:dialog id="errorBorradoTercero" header="#{msg['precaucion']}" widgetVar="errorBorradoTercero"  resizable="false" draggable="false" modal="true" height="95" width="400" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorBorradoTercero']}" style="position: absolute; left: 100px; top: 20px; width: 270px;text-align: center" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="errorBorradoTercero.hide();" style="position: absolute; top: 65px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorDatosNullSucursal" header="#{msg['error']}" widgetVar="errorDatosNullSucursal"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorDatosNullSucursal']}" style="position: absolute; left: 70px; top: 15px; width: 195px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorDatosNullTerceros" header="#{msg['error']}" widgetVar="errorDatosNullTerceros"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorDatosNullTerceros']}" style="position: absolute; left: 70px; top: 15px; width: 195px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                </h:form>
+
+
+                <h:form>
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlTercero.activarCtrlF11()}"/>
+                    <p:hotkey bind="alt+p" actionListener="#{controlTercero.lovEmpresas()}"/> 
+                </h:form>
+
+                <h:form id="formularioDialogos">
+
+      <!--           <p:dialog id="NuevoRegistroPagina" header="#{msg['nrpi']}" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="false" modal="true" height="160" width="400" style="padding: 0px">  
+                      <center><strong><h:outputText value="#{msg['seleccione']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <h:outputText value="#{msg['terceros']}" style="position: absolute; top: 47px;left: 60px"/>
+                        <p:commandButton id="NuevoVigenciaSueldo" icon="ui-icon-circle-check" style="position: absolute; top: 45px;left: 300px; height: 25px; width: 40px" oncomplete="NuevoRegistroTercero.show()" update=":formularioDialogos:nuevaT" onclick="NuevoRegistroPagina.hide();" process="@this"/>
+
+                        <h:outputText value="#{msg['sss']}" style="position: absolute; top: 92px;left: 60px"/>
+                        <p:commandButton id="NuevoVigenciaAfiliacion" icon="ui-icon-circle-check" style="position: absolute; top: 90px;left: 300px; height: 25px; width: 40px" oncomplete="NuevoRegistroTerceroSucursal.show()" update=":formularioDialogos:nuevaTS" onclick="NuevoRegistroPagina.hide();" process="@this"/>
+
+                        <p:commandButton id="CancelarNuevosRegistros" onclick="NuevoRegistroPagina.hide();"  process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 125px;left: 300px"/>
+                    </p:dialog>
+                    -->                     
+                    <p:dialog id="NuevoRegistroPagina" header="#{msg['nrpi']}" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="false" modal="true" height="150" width="400" style=" padding: 0px">  
+                        <center><strong><h:outputText value="#{msg['seleccione']}" style="font-size: 14px; color: blue; position: relative; top: 5px" /></strong></center> 
+                        <p:commandButton value="#{msg['terceros']}" id="NuevoTercero" style="position: absolute; left: 100px; top: 40px; width: 200px; height: 30px" oncomplete="NuevoRegistroTercero.show()" update=":formularioDialogos:nuevaT" onclick="NuevoRegistroPagina.hide();" process="@this"/>
+                        <p:commandButton value="#{msg['sss']}" id="NuevoTerceroSucursal" style="position: absolute; left: 100px; top: 75px; width: 200px; height: 30px" oncomplete="NuevoRegistroTerceroSucursal.show()" update=":formularioDialogos:nuevaTS" onclick="NuevoRegistroPagina.hide();" process="@this"/>
+                        <p:commandButton id="CancelarNuevosRegistros" onclick="NuevoRegistroPagina.hide();" icon="ui-icon-close"  process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 120px;left: 275px"/>
+                    </p:dialog>
+
+                    <p:dialog id="NuevoRegistroTercero" header="#{msg['nuevoregistrotercero']}" widgetVar="NuevoRegistroTercero" closable="false" resizable="false"  draggable="false" modal="true" height="330" width="730" style="padding: 0px">  
+                        <center><strong><h:outputText value="#{msg['ingresarnuevotercero']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <p:panel id="nuevaT" style="border: none;">
+
+                            <strong><h:outputText value="*#{msg['nombreNT']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <p:inputText id="nuevaNombreT" maxlength="30" value="#{controlTercero.nuevoTercero.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaNombreT"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaNombreT" value="#{msg['nombreWM']}" />
+                            <strong><h:outputText value="*#{msg['nitNT']}" style="position: absolute; top: 105px; left: 50px" /></strong>
+                            <p:inputText id="nuevaNITT" value="#{controlTercero.nuevoTercero.nit}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaNITT"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaNITT" value="#{msg['nitWM']}" />
+
+                            <strong><h:outputText value="#{msg['digitoNT']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <p:inputText id="nuevaDigitoVT" value="#{controlTercero.nuevoTercero.digitoverificacion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaDigitoVT"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaDigitoVT" value="#{msg['digitoWM']}" />
+
+                            <strong><h:outputText value="#{msg['nitalternativoNT']}:" style="position: absolute; top: 165px; left: 50px" /></strong>
+                            <p:inputText id="nuevaNITAT" maxlength="30" value="#{controlTercero.nuevoTercero.nitalternativo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaNITAT"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaNITAT" value="#{msg['nitalternativoWM']}" />
+
+                            <strong><h:outputText value="#{msg['codigossNT']}" style="position: absolute; top: 195px; left: 50px" /></strong>
+                            <p:inputText id="nuevaCSST" maxlength="6" value="#{controlTercero.nuevoTercero.codigoss}" style="width: 122px; position: absolute; left: 200px; top: 190px;; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaCSST"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaCSST" value="#{msg['codigossWM']}" />
+
+                            <strong><h:outputText value="#{msg['codigospNT']}" style="position: absolute; top: 225px; left: 50px" /></strong>
+                            <p:inputText id="nuevaCSPT" maxlength="6" value="#{controlTercero.nuevoTercero.codigosp}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaCSPT"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaCSPT" value="#{msg['codigospWM']}" />
+
+                            <strong><h:outputText value="#{msg['codigoscNT']}" style="position: absolute; top: 255px; left: 50px" /></strong>
+                            <p:inputText id="nuevaCSCT" maxlength="6" value="#{controlTercero.nuevoTercero.codigosc}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaCSCT"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaCSCT" value="#{msg['codigoscWM']}" />
+
+                            <strong><h:outputText value="#{msg['consolidadorNT']}" style="position: absolute; top: 75px; left: 360px" /></strong>
+                            <p:inputText id="nuevaTerceroCT" value="#{controlTercero.nuevoTercero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,1,0)}"/>
+                                <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(1, 'TERCEROCONSOLIDADOR',0)}" />
+                                <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('TERCEROCONSOLIDADOR', controlTercero.nuevoTercero.terceroconsolidador.nombre, 1)}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 670px; top: 70px;  " id="btnNuevoMotivoCambioSueldo" icon="ui-icon-search" process="@this"  actionListener="#{controlTercero.asignarIndex(indice,0,1,0)}" update="nuevaTerceroCT"/>   
+                            <p:watermark for="nuevaTerceroCT" value="#{msg['consolidadorWM']}" />
+
+                            <strong><h:outputText value="#{msg['nitconsolidadorNT']}" style="position: absolute; top: 105px; left: 360px" /></strong>
+                            <p:inputText id="nuevaTerceroCNITT" value="#{controlTercero.nuevoTercero.terceroconsolidador.nit}" style="width: 122px; position: absolute; left: 540px; top: 100px; text-transform: uppercase" readonly="true">
+                            </p:inputText>
+                            <p:watermark for="nuevaTerceroCNITT" value="#{msg['nitconsolidadorWM']}" />
+
+                            <strong><h:outputText value="#{msg['ciudadNT']}" style="position: absolute; top: 135px; left: 360px" /></strong>
+                            <p:inputText id="nuevaCiudadT" value="#{controlTercero.nuevoTercero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,1,1,0)}"/>
+                                <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(1, 'CIUDAD',0)}" />
+                                <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('CIUDAD', controlTercero.nuevoTercero.ciudad.nombre, 1)}" update="nuevaCiudadT"/>
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 670px; top: 130px;  " id="btnNuevoTipoSueldo" icon="ui-icon-search" process="@this"  actionListener="#{controlTercero.asignarIndex(indice,1,1,0)}"/>   
+                            <p:watermark for="nuevaCiudadT" value="#{msg['ciudadWM']}" />
+
+                            <strong><h:outputText value="#{msg['codigoalternativoNT']}" style="position: absolute; top: 165px; left: 360px" /></strong>
+                            <p:inputText id="nuevaCodigoAT" value="#{controlTercero.nuevoTercero.codigoalternativo}" style="width: 122px; position: absolute; left: 540px; top: 160px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaCodigoAT"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaCodigoAT" value="#{msg['codigoalternativoWM']}" />
+
+                            <strong><h:outputText value="#{msg['tiponitNT']}" style="position: absolute; top: 195px; left: 360px;"/></strong>
+                            <p:selectOneMenu id="nuevaTipoNITT" value="#{controlTercero.nuevoTercero.tiponit}" style="position: absolute;width: 153px; font-weight: bold;left: 540px;top: 190px;text-transform: uppercase" >
+                                <f:selectItem itemLabel="" itemValue="null" /> 
+                                <f:selectItem itemLabel="#{msg['natural']}" itemValue="N" />  
+                                <f:selectItem itemLabel="#{msg['juridica']}" itemValue="J" /> 
+                                <f:selectItem itemLabel="#{msg['cedula']}" itemValue="C" />
+                                <f:selectItem itemLabel="#{msg['tarjetadeidentidad']}" itemValue="T" />
+                                <p:ajax event="change" update="nuevaTipoNITT"/>
+                            </p:selectOneMenu>
+
+                            <strong><h:outputText value="#{msg['codigosapNT']}" style="position: absolute; top: 225px; left: 360px;"/></strong>
+                            <p:selectOneMenu id="nuevaCodigoSAPT" value="#{controlTercero.nuevoTercero.codigotercerosap}" style="position: absolute;width: 153px; font-weight: bold;left: 540px;top: 220px;text-transform: uppercase" >
+                                <f:selectItem itemLabel="" itemValue="null" /> 
+                                <f:selectItem itemLabel="#{msg['EPS']}" itemValue="EPS" />  
+                                <f:selectItem itemLabel="#{msg['AFP']}" itemValue="AFP" /> 
+                                <f:selectItem itemLabel="#{msg['FCP']}" itemValue="FCP" />
+                                <f:selectItem itemLabel="#{msg['PF']}" itemValue="PF" />
+                                <f:selectItem itemLabel="#{msg['PN']}" itemValue="PN" />
+                                <p:ajax event="change" update="nuevaCodigoSAPT"/>
+                            </p:selectOneMenu>
+
+                            <p:commandButton icon="ui-icon-trash" id="limpiarNT" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 290px;" actionListener="#{controlTercero.limpiarNuevoTercero()}" update="nuevaT" process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-check" id="agregarNT" value="#{msg['agregar']}" style="position: absolute; left: 500px; top: 290px;"  process="@this" actionListener="#{controlTercero.agregarNuevoTercero()}"  />
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNT" value="#{msg['cancelar']}" style="position: absolute; left: 610px; top: 290px;" actionListener="#{controlTercero.limpiarNuevoTercero()}" update="nuevaT" onclick="NuevoRegistroTercero.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="DuplicarRegistroTercero" header="#{msg['duplicarregistrotercero']}" widgetVar="DuplicarRegistroTercero" closable="false" resizable="false"  draggable="false" modal="true" height="330" width="730" style="padding: 0px">  
+                        <center><strong><h:outputText value="#{msg['ingresarnuevotercero']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <p:panel id="duplicarT" style="border: none;">
+
+                            <strong><h:outputText value="*#{msg['nombreNT']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <p:inputText id="duplicarTNombreT" maxlength="30" value="#{controlTercero.duplicarTecero.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase">
+                                <p:ajax event="change" update="duplicarTNombreT"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarTNombreT" value="#{msg['nombreWM']}" />
+
+                            <strong><h:outputText value="*#{msg['nitNT']}" style="position: absolute; top: 105px; left: 50px" /></strong>
+                            <p:inputText id="duplicarTNITT" value="#{controlTercero.duplicarTecero.nit}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase">
+                                <p:ajax event="change" update="duplicarTNITT"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarTNITT" value="#{msg['nitWM']}" />
+
+                            <strong><h:outputText value="#{msg['digitoNT']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <p:inputText id="duplicarTDigitoVT" value="#{controlTercero.duplicarTecero.digitoverificacion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase">
+                                <p:ajax event="change" update="duplicarTDigitoVT"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarTDigitoVT" value="#{msg['digitoWM']}" />
+
+                            <strong><h:outputText value="#{msg['nitalternativoNT']}:" style="position: absolute; top: 165px; left: 50px" /></strong>
+                            <p:inputText id="duplicarTNITAT" maxlength="30" value="#{controlTercero.duplicarTecero.nitalternativo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase">
+                                <p:ajax event="change" update="duplicarTNITAT"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarTNITAT" value="#{msg['nitalternativoWM']}" />
+
+                            <strong><h:outputText value="#{msg['codigossNT']}" style="position: absolute; top: 195px; left: 50px" /></strong>
+                            <p:inputText id="duplicarTCSST" maxlength="6" value="#{controlTercero.duplicarTecero.codigoss}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase">
+                                <p:ajax event="change" update="duplicarTCSST"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarTCSST" value="#{msg['codigossWM']}" />
+
+                            <strong><h:outputText value="#{msg['codigospNT']}" style="position: absolute; top: 225px; left: 50px" /></strong>
+                            <p:inputText id="duplicarTCSPT" maxlength="6" value="#{controlTercero.duplicarTecero.codigosp}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase">
+                                <p:ajax event="change" update="duplicarTCSPT"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarTCSPT" value="#{msg['codigospWM']}" />
+
+                            <strong><h:outputText value="#{msg['codigoscNT']}" style="position: absolute; top: 255px; left: 50px" /></strong>
+                            <p:inputText id="duplicarTCSCT" maxlength="6" value="#{controlTercero.duplicarTecero.codigosc}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase">
+                                <p:ajax event="change" update="duplicarTCSCT"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarTCSCT" value="#{msg['codigoscWM']}" />
+
+                            <strong><h:outputText value="#{msg['consolidadorNT']}" style="position: absolute; top: 75px; left: 360px" /></strong>
+                            <p:inputText id="duplicarTTerceroCT" value="#{controlTercero.duplicarTecero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,2,0)}"/>
+                                <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(2, 'TERCEROCONSOLIDADOR',0)}" />
+                                <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('TERCEROCONSOLIDADOR', controlTercero.duplicarTecero.terceroconsolidador.nombre, 2)}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 670px; top: 70px;  " id="btnDuplicarTerceroC" icon="ui-icon-search" process="@this"  actionListener="#{controlTercero.asignarIndex(indice,0,2,0)}" update="duplicarTTerceroCT"/>   
+                            <p:watermark for="duplicarTTerceroCT" value="#{msg['consolidadorWM']}" />
+
+                            <strong><h:outputText value="#{msg['nitconsolidadorNT']}" style="position: absolute; top: 105px; left: 360px" /></strong>
+                            <p:inputText id="duplicarTTerceroCNITT" value="#{controlTercero.duplicarTecero.terceroconsolidador.nit}" style="width: 122px; position: absolute; left: 540px; top: 100px; text-transform: uppercase" readonly="true">
+                            </p:inputText>
+                            <p:watermark for="duplicarTTerceroCNITT" value="#{msg['nitconsolidadorWM']}" />
+
+                            <strong><h:outputText value="#{msg['ciudadNT']}" style="position: absolute; top: 135px; left: 360px" /></strong>
+                            <p:inputText id="duplicarTCiudadT" value="#{controlTercero.duplicarTecero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,1,2,0)}"/>
+                                <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(2, 'CIUDAD',0)}" />
+                                <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('CIUDAD', controlTercero.duplicarTecero.ciudad.nombre, 2)}" update="duplicarTCiudadT"/>
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 670px; top: 130px;  " id="btnDuplicarCiudad" icon="ui-icon-search" process="@this"  actionListener="#{controlTercero.asignarIndex(indice,1,2,0)}"/>   
+                            <p:watermark for="duplicarTCiudadT" value="#{msg['ciudadWM']}"/>
+
+                            <strong><h:outputText value="#{msg['codigoalternativoNT']}" style="position: absolute; top: 165px; left: 360px" /></strong>
+                            <p:inputText id="duplicarTCodigoAT" value="#{controlTercero.duplicarTecero.codigoalternativo}" style="width: 122px; position: absolute; left: 540px; top: 160px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaCodigoAT"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarTCodigoAT" value="#{msg['codigoalternativoWM']}" />
+
+                            <strong><h:outputText value="#{msg['tiponitNT']}" style="position: absolute; top: 195px;left: 360px;"/></strong>
+                            <p:selectOneMenu id="duplicarTTipoNITT" value="#{controlTercero.duplicarTecero.tiponit}" style="position: absolute;width: 100px; font-weight: bold;left: 540px;top: 190px;text-transform: uppercase" >
+                                <f:selectItem itemLabel="" itemValue="null" /> 
+                                <f:selectItem itemLabel="#{msg['natural']}" itemValue="N" />  
+                                <f:selectItem itemLabel="#{msg['juridica']}" itemValue="J" /> 
+                                <f:selectItem itemLabel="#{msg['cedula']}" itemValue="C" />
+                                <f:selectItem itemLabel="#{msg['tarjetadeidentidad']}" itemValue="T" />
+                                <p:ajax event="change" update="duplicarTTipoNITT"/>
+                            </p:selectOneMenu>
+
+                            <strong><h:outputText value="#{msg['codigosapNT']}" style="position: absolute; top: 220px;left: 360px;"/></strong>
+                            <p:selectOneMenu id="duplicarTCodigoSAPT" value="#{controlTercero.duplicarTecero.codigotercerosap}" style="position: absolute;width: 100px; font-weight: bold;left: 540px;top: 220px;text-transform: uppercase" >
+                                <f:selectItem itemLabel="" itemValue="null" /> 
+                                <f:selectItem itemLabel="#{msg['EPS']}" itemValue="EPS" />  
+                                <f:selectItem itemLabel="#{msg['AFP']}" itemValue="AFP" /> 
+                                <f:selectItem itemLabel="#{msg['FCP']}" itemValue="FCP" />
+                                <f:selectItem itemLabel="#{msg['PF']}" itemValue="PF" />
+                                <f:selectItem itemLabel="#{msg['PN']}" itemValue="PN" />
+                                <p:ajax event="change" update="duplicarTCodigoSAPT"/>
+                            </p:selectOneMenu>
+
+                            <p:commandButton icon="ui-icon-trash" id="limpiarDT" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 300px;" actionListener="#{controlTercero.limpiarDuplicarTercero()}" update="nuevaT" process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-check" id="agregarDT" value="#{msg['agregar']}" style="position: absolute; left: 500px; top: 290px;"  process="@this" actionListener="#{controlTercero.confirmarDuplicar()}"  />
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDT" value="#{msg['cancelar']}" style="position: absolute; left: 610px; top: 290px;" actionListener="#{controlTercero.limpiarDuplicarTercero()}" update="nuevaT" onclick="DuplicarRegistroTercero.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="NuevoRegistroTerceroSucursal" header="#{msg['nuevoregistrosucursal']}" widgetVar="NuevoRegistroTerceroSucursal" closable="false" resizable="false"  draggable="false" modal="true" height="230" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="#{msg['ingresarnuevosucursal']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <p:panel id="nuevaTS" style="border: none;">
+
+                            <strong><h:outputText value="*#{msg['codigosucursalNS']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <p:inputText id="nuevaSucursalTS" value="#{controlTercero.nuevoTerceroSucursal.codigosucursal}" style="width: 122px; position: absolute; left: 220px; top: 70px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaSucursalTS" process="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaSucursalTS" value="#{msg['codigosucursalWM']}" />
+
+                            <strong><h:outputText value="#{msg['codigopatronalNS']}" style="position: absolute; top:105px; left: 50px" /></strong>
+                            <p:inputText id="nuevaPatronalTS" value="#{controlTercero.nuevoTerceroSucursal.codigopatronal}" style="width: 122px; position: absolute; left: 220px; top: 100px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaPatronalTS" process="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaPatronalTS" value="#{msg['codigopatronalWM']}" />
+
+                            <strong><h:outputText value="#{msg['observacionNS']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <p:inputText id="nuevaObservacionTS" maxlength="200" value="#{controlTercero.nuevoTerceroSucursal.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase">
+                                <p:ajax event="change" update="nuevaObservacionTS" process="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaObservacionTS" value="#{msg['observacionWM']}" />
+
+                            <strong><h:outputText value="#{msg['ciudadNS']}" style="position: absolute; top: 165px; left: 50px" /></strong>
+                            <p:inputText id="nuevaCiudadTS" value="#{controlTercero.nuevoTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,1,1)}"/>
+                                <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(1, 'CIUDAD',1)}" />
+                                <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTerceroSucursal('CIUDAD', controlTercero.nuevoTerceroSucursal.ciudad.nombre, 1)}" update="nuevaCiudadTS" process="@this"/>
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 350px; top: 160px;  " id="btnNuevaCiudadTS" icon="ui-icon-search" process="@this"  actionListener="#{controlTercero.asignarIndex(indice,0,1,1)}"/>   
+                            <p:watermark for="nuevaCiudadTS" value="#{msg['ciudadWM']}" />
+
+                            <p:commandButton icon="ui-icon-trash" id="limpiarNTS" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 200px;" actionListener="#{controlTercero.limpiarNuevoTerceroSucursal()}" update="nuevaTS" process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-check" id="agregarNTS" value="#{msg['agregar']}" style=" position: absolute; left: 170px; top: 200px;"  process="@this" actionListener="#{controlTercero.agregarNuevoTerceroSucursal()}"  />
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNTS" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 200px;" actionListener="#{controlTercero.limpiarNuevoTerceroSucursal()}" update="nuevaTS" onclick="NuevoRegistroTerceroSucursal.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="DuplicarRegistroTerceroSucursal" header="#{msg['duplicarregistrosucursal']}" widgetVar="DuplicarRegistroTerceroSucursal" closable="false" resizable="false"  draggable="false" modal="true" height="230" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="#{msg['ingresarnuevosucursal']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <p:panel id="duplicarTS" style="border: none;">
+
+                            <strong><h:outputText value="*#{msg['codigosucursalNS']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <p:inputText id="duplicarucursalTS" value="#{controlTercero.duplicarTerceroSucursal.codigosucursal}" style="width: 122px; position: absolute; left: 220px; top: 70px; text-transform: uppercase">
+                                <p:ajax event="change" update="duplicarucursalTS" process="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarucursalTS" value="#{msg['codigosucursalWM']}" />
+
+                            <strong><h:outputText value="#{msg['codigopatronalNS']}" style="position: absolute; top: 105px; left: 50px" /></strong>
+                            <p:inputText id="duplicarPatronalTS" value="#{controlTercero.duplicarTerceroSucursal.codigopatronal}" style="width: 122px; position: absolute; left: 220px; top: 100px; text-transform: uppercase">
+                                <p:ajax event="change" update="duplicarPatronalTS" process="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarPatronalTS" value="#{msg['codigopatronalWM']}" />
+
+                            <strong><h:outputText value="#{msg['observacionNS']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <p:inputText id="duplicarObservacionTS" maxlength="200" value="#{controlTercero.duplicarTerceroSucursal.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase">
+                                <p:ajax event="change" update="duplicarObservacionTS" process="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarObservacionTS" value="#{msg['observacionWM']}" />
+
+                            <strong><h:outputText value="#{msg['ciudadNS']}" style=" position: absolute; top: 165px; left: 50px" /></strong>
+                            <p:inputText id="duplicarCiudadTS" value="#{controlTercero.duplicarTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,2,1)}"/>
+                                <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(2, 'CIUDAD',1)}" />
+                                <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTerceroSucursal('CIUDAD', controlTercero.duplicarTerceroSucursal.ciudad.nombre, 1)}" update="duplicarCiudadTS" process="@this"/>
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 345px; top: 160px;  " id="btnDuplicarCiudadTS" icon="ui-icon-search" process="@this"  actionListener="#{controlTercero.asignarIndex(indice,0,2,1)}"/>   
+                            <p:watermark for="duplicarCiudadTS" value="#{msg['ciudadWM']}" />
+
+                            <p:commandButton icon="ui-icon-trash" id="limpiarDTS" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 200px;" actionListener="#{controlTercero.limpiarDuplicarTerceroSucursal()}" update="nuevaTS" process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-check" id="agregarDTS" value="#{msg['agregar']}" style="position: absolute; left: 170px; top: 200px;"  process="@this" actionListener="#{controlTercero.confirmarDuplicarTS()}"  />
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDTS" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 200px;" actionListener="#{controlTercero.limpiarDuplicarTerceroSucursal()}" update="nuevaTS" onclick="DuplicarRegistroTerceroSucursal.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <!-- LOV EMPRESAS -->
+                    <p:dialog header="#{msg['empresasE']}" widgetVar="EmpresasDialogo" draggable="false" resizable="false" closable="false" id="EmpresasDialogo"  
+                              showEffect="fade" hideEffect="fade" width="441" modal="true" >
+                        <p:dataTable id="lovEmpresas" style="width: 400px" var="empresa" value="#{controlTercero.listEmpresas}" rowKey="#{empresa.secuencia}"
+                                     selection="#{controlTercero.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="416" scrollHeight="250"
+                                     filteredValue="#{controlTercero.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}">              
+
+                            <p:ajax event="filter" listener="#{controlTercero.eventoFiltrarEmpresa()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlTercero.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlTercero.actualizarEmpresa()}" update=":formularioDialogos:EmpresasDialogo" process="@this" onstart="lovEmpresas.clearFilters()"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovEmpresas.filter();" value="#{filtrado}" style="width:100px; position: relative; left: 10px;" />  
+                            </f:facet>
+                            <p:column filterBy="#{empresa.nit}" width="90" filterMatchMode="contains" filterStyle="width: 80px">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nitE']}" />
+                                </f:facet>
+                                <h:outputText  value="#{empresa.nit}" />
+                            </p:column>
+                            <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreE']}" />
+                                </f:facet>
+                                <h:outputText  value="#{empresa.nombre}" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistro']} #{controlTercero.infoRegistroEmpresa}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+
+                        <p:commandButton id="aceptarE" style="position: relative; left: 230px" value="#{msg['aceptar']}" disabled="#{controlTercero.aceptar}" actionListener="#{controlTercero.actualizarEmpresa()}" icon="ui-icon-check" update="aceptarE" process="@this">
+                            <p:resetInput target=":formularioDialogos:lovEmpresas:globalFilter"/>
+                        </p:commandButton>
+                        <p:commandButton id="atrasE" style="position: relative; left: 230px" value="#{msg['atras']}" onclick="EmpresasDialogo.hide(), lovEmpresas.clearFilters();" actionListener="#{controlTercero.cancelarCambioEmpresa()}" icon="ui-icon-arrowreturnthick-1-w" update="lovEmpresas" process="@this">
+                            <p:resetInput target=":formularioDialogos:lovEmpresas:globalFilter"/>
+                        </p:commandButton>
+                    </p:dialog>
+
+                    <p:dialog id="editarNombreTerceroD" header="#{msg['editarNombreTerceroD']}" widgetVar="editarNombreTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlTercero.editarTercero.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarNitTerceroD" header="#{msg['editarNitTerceroD']}" widgetVar="editarNitTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlTercero.editarTercero.nit}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarDigtoVTerceroD" header="#{msg['editarDigtoVTerceroD']}" widgetVar="editarDigtoVTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlTercero.editarTercero.digitoverificacion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarNITATerceroD" header="#{msg['eidtarNITATerceroD']}" widgetVar="editarNITATerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlTercero.editarTercero.nitalternativo}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCSSTerceroD" header="#{msg['editarCSSTerceroD']}" widgetVar="editarCSSTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlTercero.editarTercero.codigoss}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCSPTerceroD" header="#{msg['editarCSPTerceroD']}" widgetVar="editarCSPTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlTercero.editarTercero.codigosp}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCSCTerceroD" header="#{msg['editarCSCTerceroD']}" widgetVar="editarCSCTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlTercero.editarTercero.codigosc}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarTCTerceroD" header="#{msg['editarTCTerceroD']}" widgetVar="editarTCTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlTercero.editarTercero.terceroconsolidador.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarNITTCTerceroD" header="#{msg['editarNITTCTerceroD']}" widgetVar="editarNITTCTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlTercero.editarTercero.terceroconsolidador.nit}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCiudadTerceroD" header="#{msg['editarCiudadTerceroD']}" widgetVar="editarCiudadTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlTercero.editarTercero.ciudad.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCodigoATerceroD" header="#{msg['editarCodigoATerceroD']}" widgetVar="editarCodigoATerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlTercero.editarTercero.codigoalternativo}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarSucursalTerceroSD" header="#{msg['editarSucursalTerceroSD']}" widgetVar="editarSucursalTerceroSD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlTercero.editarTerceroSucursal.codigosucursal}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarPatronalTerceroSD" header="#{msg['editarPatronalTerceroSD']}" widgetVar="editarPatronalTerceroSD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlTercero.editarTerceroSucursal.codigopatronal}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarObservacionesTerceroSD" header="#{msg['editarObservacionesTerceroSD']}" widgetVar="editarObservacionesTerceroSD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlTercero.editarTerceroSucursal.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCiudadTerceroSD" header="#{msg['editarCiudadTerceroSD']}" widgetVar="editarCiudadTerceroSD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlTercero.editarTerceroSucursal.ciudad.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+
+                </h:form>
+
+
+                <h:form id="formExportarTerceros">
+                    <p:dataTable id="datosTercerosExportar" var="infoTExp" style="visibility: hidden; display: none;"                           
+                                 value="#{controlTercero.listTerceros}"> 
+
+                        <p:column headerText="#{msg['nombreX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['nombreX']}"/> </f:facet> 
+                            <h:outputText value="#{infoTExp.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['nitX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['nitX']}"/> </f:facet> 
+                            <h:outputText value="#{infoTExp.nit}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['digitoverificacionXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['digitoverificacionX']}"/> </f:facet> 
+                            <h:outputText value="#{infoTExp.digitoverificacion}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['nitalternativoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['nitalternativoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoTExp.nitalternativo}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['cssX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['cssX']}"/> </f:facet> 
+                            <h:outputText value="#{infoTExp.codigoss}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['cspX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['cspX']}"/> </f:facet> 
+                            <h:outputText value="#{infoTExp.codigosp}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['cscX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['cscX']}"/> </f:facet> 
+                            <h:outputText value="#{infoTExp.codigosc}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['terceroconsolidadorXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['terceroconsolidadorX']}"/> </f:facet> 
+                            <h:outputText value="#{infoTExp.terceroconsolidador.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['nitconsolidaXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['nitconsolidaX']}"/> </f:facet> 
+                            <h:outputText value="#{infoTExp.terceroconsolidador.nit}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['ciudadX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['ciudadX']}"/> </f:facet> 
+                            <h:outputText value="#{infoTExp.ciudad.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['codigoalternativoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['codigoalternativoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoTExp.codigoalternativo}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['tiponitXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['tiponitX']}"/> </f:facet> 
+                            <h:outputText value="#{infoTExp.tiponit}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['codigosapXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['codigosapX']}"/> </f:facet> 
+                            <h:outputText value="#{infoTExp.codigotercerosap}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+
+                <h:form id="formExportarTercerosSucursales">
+                    <p:dataTable id="datosTercerosSucursalesExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                                 value="#{controlTercero.listTercerosSucursales}"> 
+
+                        <p:column headerText="#{msg['sucursalX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['sucursalX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.codigosucursal}" />
+                        </p:column>
+
+
+                        <p:column headerText="#{msg['patronalX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['patronalX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.codigopatronal}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['observacionesX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['observacionesX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.descripcion}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['ciudadX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['ciudadX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.ciudad.nombre}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

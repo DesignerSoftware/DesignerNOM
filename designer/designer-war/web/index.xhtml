@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Exporter</title> 
+    </h:head>
+    <h:body>
+        <h:form id="Contenedor">
+
+            <h:commandLink style="position: absolute; left: 700px;">  
+                <p:graphicImage value="Imagenes/excel.png"  width="50" height="50"/>  
+                <p:dataExporter type="xls" target="data1" fileName="Modulos" />  
+            </h:commandLink> 
+
+            <p:commandButton id="AcercaDe" value=" " actionListener="#{controlCarpetaDesigner.aja()}" style="position: absolute; width: 150px; height: 140px; background-image: url(Imagenes/b_designer.gif); background-repeat: no-repeat; background-size: 100% 100%; "/>
+
+            <fieldset id="contModulos"  style="position:absolute; width:440px; border-radius: 10px; left: 180px; top: 50px;">
+                <legend style="color: blue; font-size: 12px;"><strong>Módulos</strong></legend>
+
+                <p:dataTable id="data1" var="modulo" style="font-size: 11px; width: 370px; " value="#{controlCarpetaDesigner.listModulos}"
+                             rowKey="#{modulo.secuencia}" selection="#{controlCarpetaDesigner.selectModulo}" selectionMode="single"
+                             scrollable="true" scrollHeight="70" scrollWidth="446">   
+
+                    <p:ajax event="rowSelect" update=":Contenedor:Tablas" listener="#{controlCarpetaDesigner.cambiarTablas()}" />  
+
+                    <p:column  sortBy="#{modulo.nombrecorto}" width="50">
+                        <f:facet name="header">  
+                            <h:outputText value="Codigo" />  
+                        </f:facet> 
+                        <h:outputText value="#{modulo.nombrecorto}" />  
+                    </p:column>  
+
+                    <p:column headerText="Nombre Módulo" sortBy="#{modulo.nombre}" width="160">  
+                        <h:outputText value="#{modulo.nombre}" />  
+                    </p:column>  
+
+                    <p:column headerText="Observacion" sortBy="#{modulo.observacion}" width="160">  
+                        <h:outputText value="#{modulo.observacion}" />  
+                    </p:column>
+
+                </p:dataTable> 
+
+            </fieldset>
+
+
+            <fieldset id="contTablas"  style="position:absolute; border-radius: 10px; top: 180px;">
+                <legend style="color: blue; font-size: 12px;"><strong>Tablas del Sistema</strong></legend>
+
+                <p:dataTable id="Tablas"  var="tablas" style="font-size: 11px;" value="#{controlCarpetaDesigner.listTablas}"
+                             rowKey="#{tablas.secuencia}" selection="#{controlCarpetaDesigner.selectTabla}" selectionMode="single"
+                             scrollable="true" scrollHeight="231" emptyMessage="No se encontraron registros para la seleción">   
+
+                    <p:column  width="16">
+                        <p:commandButton id="desplegar"  value=""  actionListener="#{controlCarpetaDesigner.infoTablas(tablas)}" update="Tablas"
+                                         style=" width: 16px; height:16px ;background-image: url(Imagenes/revertir.gif); background-repeat: no-repeat; background-size: 100% 100%;" />
+                        <p:tooltip for="desplegar" value="Despliega este registro en una pantalla."/>
+
+                    </p:column>
+
+                    <p:column headerText="Codigo" sortBy="#{tablas.nombre}">  
+                        <h:outputText value="#{tablas.nombre}" />  
+                    </p:column>  
+
+                    <p:column headerText="Nombre Módulo" sortBy="#{tablas.descripcion}">  
+                        <h:outputText value="#{tablas.descripcion}" />  
+                    </p:column>  
+
+                </p:dataTable>
+            </fieldset>
+        </h:form>
+    </h:body>
+</html>
+

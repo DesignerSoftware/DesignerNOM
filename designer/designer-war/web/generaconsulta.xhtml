@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body onload="iniciarcomponentes()">
+        <f:metadata>
+            <f:viewParam name="secuencia" value="#{controlGeneraConsulta.secuencia}" />
+        </f:metadata>
+        <h:form id="principal">
+            <!-- <h:outputLabel id="valor" value="#{controlGeneraConsulta.secuencia}"/> -->
+            <!-- <h:commandButton id="btnTraerDatos" value="Traer Datos" 
+                             actionListener="#{controlGeneraConsulta.obtieneConsulta()}" 
+                             /> -->
+            <h:dataTable id="datos" value="#{controlGeneraConsulta.listaConsultas}" var="dato">
+                <h:column>    				
+                    <f:facet name="header">Dato</f:facet>    				
+                        #{dato}
+                </h:column>
+            </h:dataTable>
+            <p:remoteCommand name="iniciarcomponentes" actionListener="#{controlGeneraConsulta.obtieneConsulta()}"
+                             update=":principal:datos"/>
+        </h:form>
+    </h:body>
+</html>
+

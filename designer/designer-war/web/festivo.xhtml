@@ -1,0 +1,304 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="true"/> 
+                    <p:panel  id="PanelTotal" header="Históricos Normas Laborales" style="position: absolute; width: 874px; height: 510px; text-align: left">  
+
+                        <fieldset style="position: absolute; left: 10px; top: 90px;  width: 835px; height: 125px; border-radius: 10px; ">
+                            <legend style="font-size: 14px; color: blue"><strong>Paises</strong></legend>
+                            <p:dataTable id="lovTiposFamiliares" style=" width: 805px" var="tipofamiliar" value="#{controlFestivos.listPaises}" rowKey="#{tipofamiliar.secuencia}"
+                                         selection="#{controlFestivos.paisSeleccionado}" selectionMode="single" widgetVar="lovTiposFamiliares" scrollable="true" scrollWidth="825" scrollHeight="80"
+                                         filteredValue="#{controlFestivos.listPaisesFiltrar}">
+                                <p:ajax event="rowSelect" listener="#{controlFestivos.recibirPais()}" update="@this"/>
+                                <p:column  width="60px" >
+                                    <f:facet name="header">
+                                        <h:outputText value="Codigo" />
+                                    </f:facet>
+                                    <h:outputText value="#{tipofamiliar.codigo}" style="height: 10px;"/>
+                                </p:column>
+                                <p:column  width="120px" >
+                                    <f:facet name="header">
+                                        <h:outputText value="Nombre" style="height: 10px;" />
+                                    </f:facet>
+                                    <h:outputText value="#{tipofamiliar.nombre}"  />
+                                </p:column>
+                            </p:dataTable>
+                        </fieldset>
+                        <fieldset style="position: absolute; left: 10px; top: 230px;  width: 835px; height: 225px; border-radius: 10px; ">
+                            <legend style="font-size: 14px; color: blue"><strong>Festivo</strong></legend>
+
+                            <p:dataTable id="datosHvEntrevista" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                                         value="#{controlFestivos.listFestivosPorPais}" scrollable="true" scrollHeight="#{controlFestivos.tamano}"  scrollWidth="830"
+                                         filteredValue="#{controlFestivos.filtrarFestivosPorPais}" emptyMessage="No se encontrarón resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="false" 
+                                         selection="#{controlFestivos.festivoSeleccionado}"
+                                         selectionMode="single"
+                                         >
+                                <p:ajax event="filter" listener="#{controlFestivos.eventoFiltrar()}"/>
+
+                                <p:column headerText="Día" sortBy="#{info.dia}" filterBy="#{info.dia}" filterMatchMode="contains" 
+                                          id="fecha" width="200"
+                                          filterStyle="display: none; visibility: hidden;"  style="width: 100%; ">                                  
+                                    <p:cellEditor> 
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.dia}" style="width: 100%;">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="dateFechaInicial" height="12" value="#{info.dia}" > 
+                                                <p:ajax event="select" listener="#{controlFestivos.cambiarIndice(indice, 0)}" process="@this"/>  
+                                                <p:ajax event="change" listener="#{controlFestivos.mostrarInfo(indice,0)}" process="@this"/> 
+                                                <p:ajax event="dateSelect" listener="#{controlFestivos.mostrarInfo(indice,0)}" process="@this" update="editFecha"/>
+                                            </lnk:calendar>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                </p:column>
+                            </p:dataTable>
+
+                        </fieldset>
+
+                        <p:toolbar style=" position: absolute; top: 40px; left: 20px; height: 24px"> 
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " actionListener="#{controlFestivos.guardarFestivos()}" process="@this" />
+                                <p:tooltip style="" for="guardarRapido" value="Guardar" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFestivos.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="" for="editar" value="Editar" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFestivos.listaValoresBoton()}"   process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="Lista de Valores" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFestivos.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="Activar filtrado" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFestivos.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFestivos.limpiarNuevoFestivos()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosHvEntrevistaExportar" fileName="FESTIVOS" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFestivos.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
+
+                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg);  background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  oncomplete="nuevoRegistroEvalEmpresas.show()" update=":formularioDialogos:nuevaaEvalEmpresa" process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="Nueva Festivo" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  actionListener="#{controlFestivos.borrandoFestivos()}" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="Eliminar Festivo" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFestivos.duplicandoFestivos()}" process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="Duplicar Festivo" />
+                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFestivos.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="" for="rastro" value="Rastro"/>
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFestivos.cancelarModificacion()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="Refrescar"/>
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFestivos.salir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="Salir"/>
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+                        <h:outputText id="informacionRegistro" value="#{controlFestivos.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
+                        <p:commandButton style=" position: absolute; left: 688px; top: 475px; " icon="ui-icon-check" id="ACEPTAR" value="Aceptar" disabled="#{controlFestivos.guardado}"  actionListener="#{controlFestivos.revisarDialogoGuardar()}"     process="@this"   />
+                        <p:commandButton style=" position: absolute; left: 785px; top: 475px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" action="normalaboralNominaF" value="Atras"    />
+
+
+
+
+                        <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                            <h:graphicImage value="Imagenes/alerta.jpg" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                            <p:commandButton value="Si" onclick="confirmarGuardar.hide();" actionListener="#{controlFestivos.guardarFestivos()}" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="No" onclick="confirmarGuardar.hide();" actionListener="#{controlFestivos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        </p:dialog>
+
+                        <p:dialog id="confirmarPais" header="ATENCION...!" widgetVar="confirmarPais"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                            <h:graphicImage value="Imagenes/alerta.jpg" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                            <p:commandButton value="Si" onclick="confirmarPais.hide();" actionListener="#{controlFestivos.guardarFestivos()}" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="No" onclick="confirmarPais.hide();" actionListener="#{controlFestivos.anularCambios()}" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Cancelar" onclick="confirmarPais.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        </p:dialog>
+
+                    </p:panel>
+
+                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
+                        <h:outputText value="Necesita : #{controlFestivos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 50px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="77" width="330px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value=" #{controlFestivos.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 40px; left: 230px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="77" width="400px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionBorrar.hide();" style="position: absolute; top: 40px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="87" width="280px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="Se han borrado #{controlFestivos.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="mostrarBorrados.hide();" style="position: absolute; top: 50px; left: 180px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
+                        <h:outputText value="Para agregar es necesario adicionar: #{controlFestivos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionNuevaCentroCosto.hide();" style="position: absolute; top: 50px; left: 300px" process="@this" />
+                    </p:dialog>
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlFestivos.activarCtrlF11()}"/> 
+                </h:form>
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla 'FESTIVOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFestivos.secRegistro,'Festivos', 'festivo')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla FESTIVOS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Festivos', 'festivo')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFestivos.secRegistro,'Festivos', 'festivo')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla 'FESTIVOS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+
+
+                    <p:dialog id="editarFecha" header="Día " widgetVar="editarFecha" resizable="false" draggable="false" modal="true" height="55" width="240" style="position: absolute; top: 10px;  padding: 0px">  
+                        <p:inputText value="#{controlFestivos.editarFestivos.dia}" style="position: absolute; top: 20px;" readonly="true">  
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputText>
+                    </p:dialog>
+
+
+
+
+                    <p:dialog id="nuevoRegistroEvalEmpresas" header="Nuevo Registro" widgetVar="nuevoRegistroEvalEmpresas" closable="false" resizable="false"  draggable="false" modal="true" height="120" width="320" style=" padding: 0px">  
+                        <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Festivo " style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevaaEvalEmpresa" style="border: none;">
+
+                            <strong><h:outputText value="*Día: "  style="left: 15px; position: absolute; top: 60px;" /></strong>
+                            <div  id="nuevaFechaa" style="width: 140px; position: absolute; top: 55px; left: 150px;">
+                                <lnk:calendar id="nuevaFecha" value="#{controlFestivos.nuevoFestivos.dia}" >
+                                    <p:ajax event="dateSelect" update="nuevaFecha"/>
+                                    <p:ajax event="change" update="nuevaFecha"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <p:watermark for="nuevaFecha" value="Día" />
+
+                            <p:commandButton icon="ui-icon-trash" id="limpiar" value="Limpiar" style=" position: absolute; left: 10px; top: 90px;"  actionListener="#{controlFestivos.limpiarNuevoFestivos()}" update="nuevaaEvalEmpresa" process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-check" id="agregarTE" value="Agregar" style=" position: absolute; left: 120px; top: 90px;" actionListener="#{controlFestivos.agregarNuevoFestivos()}" process="@this" />
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarTE" value="Cancelar" style=" position: absolute; left: 210px; top: 90px;"  update="nuevaaEvalEmpresa" onclick="nuevoRegistroEvalEmpresas.hide();"  actionListener="#{controlFestivos.limpiarNuevoFestivos()}"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+
+
+                    <p:dialog id="duplicarRegistroEvalCompetencias" header="duplicar Registro" widgetVar="duplicarRegistroEvalCompetencias" closable="false" resizable="false"  draggable="false" modal="true" height="120" width="320" style=" padding: 0px">  
+                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Festivo" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarEvC" style="border: none;">
+                            <strong><h:outputText value="Dia "  style="left: 15px; position: absolute; top: 60px;text-transform: uppercase" /></strong>
+                            <div id="duplicarFecha" style="width: 140px; position: absolute; top: 55px; left: 150px;">
+                                <lnk:calendar id="duplicarFechaa" value="#{controlFestivos.duplicarFestivos.dia}" >
+                                    <p:ajax event="dateSelect" update="duplicarFechaa"/>
+                                    <p:ajax event="change" update="duplicarFechaa"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <p:commandButton icon="ui-icon-trash" id="limpiarD" value="Limpiar" style=" position: absolute; left: 10px; top: 90px;"  actionListener="#{controlFestivos.limpiarDuplicarFestivos()}" update="duplicarEvC"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-check" id="duplicarVFP" value="Agregar" style=" position: absolute; left: 120px; top: 90px;" actionListener="#{controlFestivos.confirmarDuplicar()}"  process="@this" />
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDuplicarVFP" value="Cancelar" style=" position: absolute; left: 210px; top: 90px;"  update="duplicarEvC" onclick="duplicarRegistroEvalCompetencias.hide();" actionListener="#{controlFestivos.limpiarDuplicarFestivos()}"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+                </h:form>
+
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosHvEntrevistaExportar" var="info" style="visibility: hidden; display: none;"                           
+                                 value="#{controlFestivos.listFestivosPorPais}">
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="Dia" />
+                            </f:facet>
+                            <h:outputText value="#{info.dia}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column> 
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Pais" /></f:facet>
+                            <h:outputText value="#{info.pais.nombre}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

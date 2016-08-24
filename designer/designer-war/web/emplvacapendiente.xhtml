@@ -1,0 +1,479 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <f:loadBundle basename="Recursos.emplvacapendiente" var="msg" />
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
+
+                        <h:outputText id="DPro" style="position: absolute; top: 52px;left: 540px; text-align: left; font-weight: bold; width: 150px;" value="D Provisionados: #{controlEmplVacaPendiente.diasProvisionados}"/>
+                        <h:outputText id="DFC" style="position: absolute; top: 52px;left: 700px; text-align: right; font-weight: bold; width: 110px;" value="FC: #{controlEmplVacaPendiente.fechaContratacionText}"/>
+                        <p:tooltip for="DPro" value="#{msg['DPro']}" />
+                        <p:tooltip for="DFC" value="#{msg['DFC']}" style="position: fixed; margin: 0px;"/>
+                        <!--<h:outputText value="" style="position: absolute; top: 50px;left: 740px;width: 50px;text-align: center"/>-->
+
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; " 
+                                                 actionListener="#{controlEmplVacaPendiente.guardarGeneral()}" oncomplete="datosVacacionesPEmpleado.unselectAllRows(), datosVacacionesDEmpleado.unselectAllRows()" process="@this" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlEmplVacaPendiente.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlEmplVacaPendiente.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " ajax="false" actionListener="#{controlEmplVacaPendiente.verificarExportXLS()}"/>
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " ajax="false">
+                                    <p:dataExporter type="xml"  target="#{controlEmplVacaPendiente.exportXML()}" fileName="#{controlEmplVacaPendiente.nombreXML}" encoding="UTF-8"/>  
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlEmplVacaPendiente.validarExportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " oncomplete="NuevoRegistroVP.show()" update=":formularioDialogos:nuevaVP" process="@this"/> 
+
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlEmplVacaPendiente.eliminarRegistroTabla()}" update=":form:datosVacacionesPEmpleado" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlEmplVacaPendiente.duplicarRegistroTabla()}"  process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="rastro" disabled="true" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px"/>
+                               
+                                    <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlEmplVacaPendiente.cancelarModificaciones()}" oncomplete="window.location.reload()" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlEmplVacaPendiente.salir()}" action="nomina" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+                        
+                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                            
+                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px" />
+                            <h:outputText id="nombreEmpleado" value="#{controlEmplVacaPendiente.empleado.persona.nombreCompleto}" 
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+
+                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px" />
+                            <h:outputText id="docEmpleado" value="#{controlEmplVacaPendiente.empleado.codigoempleado}" 
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px" />
+                        </fieldset>
+
+                        <fieldset style="position: absolute;top: 110px;left: 10px;height: 360px;width: 400px; border-radius: 10px; text-align: left">
+                            <legend style=" color: blue"><strong>#{msg['pendientes']}</strong></legend>
+                            <!-- TABLA EMPLVACACIONESEMPLEADO -->
+                            <p:dataTable id="datosVacacionesPEmpleado" widgetVar="datosVacacionesPEmpleado"  rowIndexVar="indice" style=" position: relative; border: 1px; text-align: center; width: 390px"                           
+                                         value="#{controlEmplVacaPendiente.listVacaPendientes}" emptyMessage="#{msg['vacio']}"
+                                         filteredValue="#{controlEmplVacaPendiente.filtrarListVacaPendientes}" scrollable="true" scrollHeight="#{controlEmplVacaPendiente.altoTabla1}" 
+                                         scrollWidth="390" editable="true" editMode="cell" var="info" rowKey="#{info.inicialcausacion}"
+                                         selection="#{controlEmplVacaPendiente.vacaPendienteSeleccionada}" selectionMode="single">
+
+                                <f:event type="preRenderView" listener="#{controlEmplVacaPendiente.recordarSeleccionP()}"/>
+                                <p:ajax event="filter" listener="#{controlEmplVacaPendiente.eventoFiltrarP()}"/>
+                                
+                                <p:column style="padding: 0" width="22">
+                                    <p:commandButton style="width: 17px;height: 17px;left: 1px" value=" " >
+                                    </p:commandButton>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['inicial']}" width="85" sortBy="#{info.inicialcausacion}" filterBy="#{info.inicialcausacion}" filterMatchMode="contains"  id="vacacionesFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.inicialcausacion}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="editFechaInicial" value="#{info.inicialcausacion}" width="99"> 
+                                                <p:ajax event="dateSelect" listener="#{controlEmplVacaPendiente.modificarFechasPendientes(info,2)}" update="editFechaInicial" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificarFechasPendientes(info,2)}" update="editFechaInicial" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(1, info, 2)}" process="@this"/> 
+                                            </lnk:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['final']}" width="85" sortBy="#{info.finalcausacion}" filterBy="#{info.finalcausacion}"  filterMatchMode="contains" id="vacacionesFechaFinal" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.finalcausacion}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="editFechaFinal" value="#{info.finalcausacion}" width="99"> 
+                                                <p:ajax event="dateSelect" listener="#{controlEmplVacaPendiente.modificarFechasPendientes(info,3)}" update="editFechaFinal" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificarFechasPendientes(info,3)}" update="editFechaFinal" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(1, info, 3)}" process="@this"/> 
+                                            </lnk:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                    <f:facet name="footer" >
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column  headerText="#{msg['dp']}" sortBy="#{info.diaspendientes}" filterBy="#{info.diaspendientes}" filterMatchMode="contains" id="vacacionesDP" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.diaspendientes}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  id="editarDP" value="#{info.diaspendientes}" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                                <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(1, info, 1)}"/>
+                                                <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificacionesTablas()}" update="editarDP"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>  
+                           
+                            <h:outputText id="informacionRegistroP" value="#{msg['infoRegistro']} #{controlEmplVacaPendiente.infoRegistroP}" style="position: relative; left: 15px; top: 5px; font-weight: bold"/>
+                            <h:outputText id="totalDias" value="Total DP:" style="position: relative; top: 5px; left: 160px; font-weight: bold; "/>  
+                            <p:tooltip  for="totalDias" value="#{msg['total']}"/>
+                            <h:outputText id="totalDiasP" value="#{controlEmplVacaPendiente.totalDiasPendientes}" style="position: relative; top: 5px; left: 180px; "/>  
+
+                        </fieldset> 
+
+                        <fieldset style="position: absolute;top: 110px;left: 440px;height: 360px;width: 400px; border-radius: 10px; text-align: left">
+                            <legend style=" color: blue"><strong>#{msg['disfrutadas']}</strong></legend>
+                            <!-- TABLA EMPLVACACIONESEMPLEADO -->
+                            <p:dataTable id="datosVacacionesDEmpleado" widgetVar="datosVacacionesDEmpleado" var="info2" rowKey="#{info2.inicialcausacion}"  rowIndexVar="indice2" style="border: 1px; text-align: center; width: 390px"                           
+                                         value="#{controlEmplVacaPendiente.listVacaDisfrutadas}" filteredValue="#{controlEmplVacaPendiente.filtrarListVacaDisfrutadas}"
+                                         scrollable="true"  scrollWidth="390" emptyMessage="#{msg['vacio']}" scrollHeight="#{controlEmplVacaPendiente.altoTabla2}"
+                                         editable="true" editMode="cell" selection="#{controlEmplVacaPendiente.vacaDisfrutadaSeleccionada}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlEmplVacaPendiente.eventoFiltrarD()}"/>
+                                <f:event type="preRenderView" listener="#{controlEmplVacaPendiente.recordarSeleccionD()}"/>
+                                
+                                <p:column width="22" style="padding: 0px">
+                                    <p:commandButton style="width: 17px;height: 17px;left: 1px" value=" " />
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['inicial']}" width="85" sortBy="#{info2.inicialcausacion}" filterBy="#{info2.inicialcausacion}"  filterMatchMode="contains" id="vacacionesFechaInicialD" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info2.inicialcausacion}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="editFechaInicialD" value="#{info2.inicialcausacion}" width="99"> 
+                                                <p:ajax event="dateSelect" listener="#{controlEmplVacaPendiente.modificarFechasDisfrutadas(info2,2)}" update="editFechaInicialD" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificarFechasDisfrutadas(info2,2)}" update="editFechaInicialD" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(2, info2, 2)}" process="@this"/> 
+                                            </lnk:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['final']}" width="85" sortBy="#{info2.finalcausacion}" filterBy="#{info2.finalcausacion}"  filterMatchMode="contains" id="vacacionesFechaFinalD" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info2.finalcausacion}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="editFechaFinalD" value="#{info2.inicialcausacion}" width="99"> 
+                                                <p:ajax event="dateSelect" listener="#{controlEmplVacaPendiente.modificarFechasDisfrutadas(info2,3)}" update="editFechaFinalD" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificarFechasDisfrutadas(info2,3)}" update="editFechaFinalD" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(2, info2, 3) }" process="@this"/> 
+                                            </lnk:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['dp']}" id="vacacionesDPD">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info2.diaspendientes}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info2.diaspendientes}" id="editarDPD" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                                <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(2, info2, 1)}"/>
+                                                <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificacionesTablas()}" update="editarDPD"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>  
+                            <h:outputText id="informacionRegistroD" value="#{msg['infoRegistro']} #{controlEmplVacaPendiente.infoRegistroD}" style="position: relative; left: 15px; top: 5px; font-weight: bold"/>
+                        </fieldset> 
+
+                        <p:commandButton style="position: absolute; left: 683px; top: 495px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/aceptar.png); 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; border: none;" id="ACEPTAR" value="" onclick="confirmarGuardar.show()" process="@this" disabled="#{controlEmplVacaPendiente.guardado}"  />
+                        <p:commandButton style="position: absolute; left: 775px; top: 495px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/cancelar.png); 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; border: none;" id="ATRAS" value="" actionListener="#{controlEmplVacaPendiente.salir()}" action="nomina" process="@this" />
+
+                    </p:panel>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistroP" header="#{msg['error']}" widgetVar="seleccionarRegistroP"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistroP']}" style="position: absolute; left: 70px; top: 17px; width: 185px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEmplVacaPendiente.guardarGeneral()}" action="nomina" 
+                                         style="position: absolute; top: 50px; left: 157px" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEmplVacaPendiente.salir()}" 
+                                         style="position: absolute; top: 50px; left: 218px" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" icon="ui-icon-arrowreturnthick-1-w" 
+                                         style="position: absolute; top: 50px; left: 285px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegNew" header="#{msg['error']}" widgetVar="errorRegNew"  resizable="false" draggable="false" modal="true" height="80" width="380px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 300px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorFechaContratacion" header="#{msg['error']}" widgetVar="errorFechaContratacion"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorFechaContratacion']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorFechaContratacionMargenAnio" header="#{msg['error']}" widgetVar="errorFechaContratacionMargenAnio"  resizable="false" draggable="false" modal="true" height="70" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorFechaContratacionMargenAnio']}" style="position: absolute; left: 70px; top: 7px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorFechaContratacionTras" header="#{msg['error']}" widgetVar="errorFechaContratacionTras"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorFechaContratacionTras']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplVacaPendiente.activarCtrlF11()}"/> 
+
+                </h:form>
+
+                <h:form id="formExportarVD">
+                    <p:dataTable id="datosVDEmpleadoExportar" var="info4" style="visibility: hidden; display: none;"
+                                 value="#{controlEmplVacaPendiente.listVacaDisfrutadas}"> 
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['estadoVDX']}" />
+                            </f:facet>
+                            <h:outputText  value="#{info4.estado}">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg['diaspendientesVDXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['diaspendientesVDX']}"/> </f:facet> 
+                            <h:outputText value="#{info4.diaspendientes}"/>
+                        </p:column>  
+                        <p:column headerText="#{msg['fechainicialVDXX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['fechainicialVDX']}"/></f:facet>
+                            <h:outputText value="#{info4.inicialcausacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg['fechafinalVDXX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['fechafinalVDX']}"/></f:facet>
+                            <h:outputText value="#{info4.finalcausacion}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+
+                <h:form id="formularioDialogos" >
+
+                    <p:dialog id="editarFechaInicialP" header="#{msg['fechainicialEP']}" widgetVar="editarFechaInicialP" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.inicialcausacion}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaFinalP" header="#{msg['fechafinalEP']}" widgetVar="editarFechaFinalP" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.finalcausacion}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+
+                    <p:dialog id="editarDiasPendientesP" header="#{msg['diaspendientesEP']}" widgetVar="editarDiasPendientesP" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.diaspendientes}"  style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaInicialD" header="#{msg['fechainicialED']}" widgetVar="editarFechaInicialD" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.inicialcausacion}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaFinalD" header="#{msg['fechafinalED']}" widgetVar="editarFechaFinalD" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.finalcausacion}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+
+                    <p:dialog id="editarDiasPendientesD" header="#{msg['diaspendientesED']}" widgetVar="editarDiasPendientesD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.diaspendientes}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="NuevoRegistroVP" header="#{msg['nuevoregistroVP']}" widgetVar="NuevoRegistroVP" closable="false" resizable="false"  draggable="false" modal="true" height="210" width="380" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoVP']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevaVP" style="border: none;">
+
+                            <strong><h:outputText value="*#{msg['diaspendientesVP']}" style=" position: absolute; top: 65px;left: 55px" /></strong>
+                            <p:inputText value="#{controlEmplVacaPendiente.nuevaVacacion.diaspendientes}" id="nuevaDiasPendientes" 
+                                         style=" width: 80px; position: absolute; left: 200px; top: 60px;">
+                                <p:ajax event="change" update="nuevaDiasPendientes"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaDiasPendientes" value="#{msg['diaspendientesVDX']}" />
+
+                            <strong><h:outputText value="*#{msg['fechainicialVP']}" style=" position: absolute; top: 95px; left: 55px;" /></strong>
+                            <div id="posicionFormulaFechaIniNuevoRegP" style=" position: absolute; top: 90px; left: 200px">
+                                <lnk:calendar id="nuevaFechaInicialP" value="#{controlEmplVacaPendiente.nuevaVacacion.inicialcausacion}" >
+                                    <p:ajax event="dateSelect" update="nuevaFechaInicialP" process="@this"/>
+                                    <p:ajax event="change" update="nuevaFechaInicialP" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <strong><h:outputText value="*#{msg['fechafinalVP']}" style=" position: absolute; top: 125px; left: 55px;" /></strong>
+                            <div id="posicionFormulaFechaFinNuevoRegP" style=" position: absolute; top: 120px; left: 200px">
+                                <lnk:calendar id="nuevaFechaFinalP" value="#{controlEmplVacaPendiente.nuevaVacacion.finalcausacion}" >
+                                    <p:ajax event="dateSelect" update="nuevaFechaFinalP" process="@this"/>
+                                    <p:ajax event="change" update="nuevaFechaFinalP" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+                            <p:commandButton id="limpiarVP" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 170px;" actionListener="#{controlEmplVacaPendiente.limpiarNuevoRegistro()}" update="nuevaVP" process="@this" icon="ui-icon-trash"/>
+                            <p:commandButton id="agregarVP" value="#{msg['agregar']}" style=" position: absolute; left: 155px; top: 170px;"  actionListener="#{controlEmplVacaPendiente.agregarNuevoPendientes}" process="@this" icon="ui-icon-circle-check"/>
+                            <p:commandButton id="cancelarVP" value="#{msg['cancelar']}" style=" position: absolute; left: 255px; top: 170px;" actionListener="#{controlEmplVacaPendiente.limpiarNuevoRegistro()}" update="nuevaVP" onclick="NuevoRegistroVP.hide();" icon="ui-icon-circle-close"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="DuplicarRegistroVP" header="#{msg['duplicarregistroVP']}" widgetVar="DuplicarRegistroVP" closable="false" resizable="false"  draggable="false" modal="true" height="210" width="380"  style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoVP']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarVP" style="border: none;">
+
+                            <strong><h:outputText value="*#{msg['diaspendientesVP']}" style=" position: absolute; top: 65px;left: 55px" /></strong>
+                            <p:inputText value="#{controlEmplVacaPendiente.duplicarVacacion.diaspendientes}" id="duplicarDiasPendientes" 
+                                         style="  width: 80px; position: absolute; left: 200px; top: 60px;">
+                                <p:ajax event="change" update="duplicarDiasPendientes"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarDiasPendientes" value="#{msg['diaspendientesVDX']}" />
+
+                            <strong><h:outputText value="*#{msg['fechainicialVP']}" style=" position: absolute; top: 95px; left: 55px;" /></strong>
+                            <div id="posicionFormulaFechaIniDuplicarRegP" style=" position: absolute; top: 90px; left: 200px">
+                                <lnk:calendar id="duplicarFechaInicialP" value="#{controlEmplVacaPendiente.duplicarVacacion.inicialcausacion}" >
+                                    <p:ajax event="dateSelect" update="duplicarFechaInicialP" process="@this"/>
+                                    <p:ajax event="change" update="duplicarFechaInicialP" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+                            <strong><h:outputText value="*#{msg['fechafinalVP']}" style=" position: absolute; top: 125px; left: 55px;" /></strong>
+                            <div id="posicionFormulaFechaFinDuplicarRegP" style=" position: absolute; top: 120px; left: 200px">
+                                <lnk:calendar id="duplicarFechaFinalP" value="#{controlEmplVacaPendiente.duplicarVacacion.finalcausacion}" >
+                                    <p:ajax event="dateSelect" update="duplicarFechaFinalP" process="@this"/>
+                                    <p:ajax event="change" update="duplicarFechaFinalP" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <p:commandButton id="limpiarDVP" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 170px;"  update="duplicarVP" actionListener="#{controlEmplVacaPendiente.limpiarDuplicadoVacaPendiente()}" process="@this" icon="ui-icon-trash"/>
+                            <p:commandButton id="agregarDVP" value="#{msg['agregar']}" style=" position: absolute; left: 155px; top: 170px;" actionListener="#{controlEmplVacaPendiente.confirmarDuplicarPendientes}" process="@this" icon="ui-icon-circle-check" />
+                            <p:commandButton id="cancelarDVP" value="#{msg['cancelar']}" style=" position: absolute; left: 255px; top: 170px;"  update="duplicarVP" actionListener="#{controlEmplVacaPendiente.limpiarDuplicadoVacaPendiente()}" onclick="DuplicarRegistroVP.hide();" icon="ui-icon-circle-close" process="@this"/>
+
+                        </p:panel>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formExportarVP">
+                    <p:dataTable id="datosVPEmpleadoExportar" var="infoEXP" style="visibility: hidden; display: none;"
+                                 value="#{controlEmplVacaPendiente.listVacaPendientes}"> 
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['estadoVPX']}" />
+                            </f:facet>
+                            <h:outputText  value="#{infoEXP.estado}">
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg['diaspendientesVPXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['diaspendientesVPX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXP.diaspendientes}"/>
+                        </p:column>  
+                        <p:column headerText="#{msg['fechainicialVPXX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['fechainicialVPX']}"/></f:facet>
+                            <h:outputText value="#{infoEXP.inicialcausacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg['fechafinalVPXX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['fechafinalVPX']}"/></f:facet>
+                            <h:outputText value="#{infoEXP.finalcausacion}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

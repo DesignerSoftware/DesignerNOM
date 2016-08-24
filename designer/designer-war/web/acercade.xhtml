@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <p:panel  id="PanelTotal" header="Acerca de Designer Software" styleClass="panelTotal" > 
+                        <fieldset style="position: absolute; left: 5px; top: 70px; width: 430px; height: 170px; border-radius: 11px; ">
+                            <img src="Imagenes\logoDesigner2014face.png" style="border-radius: 11px" width="430" height="100" alt="Foto Designer" />
+                            <h:outputText value="#{controlAcercaDe.version}" style="position: absolute; left: 200px; top: 110px; width:180px ;height:50px; color: darkblue;font-weight: bold " />
+                            <p:separator style="position: relative; border-color: darkblue; direction: ltr; top: 15px;"/>
+                            <div>
+                                <center>
+                                    <h:outputText value="#{controlAcercaDe.grh}" style="font-size: 19px; position: absolute; left: 20px; top: 130px; width:400px ;height:50px; color: darkblue;font-weight: bold " />
+                                </center>
+                            </div> 
+                        </fieldset>                       
+                        <fieldset style="position: absolute; left: 460px; top: 70px;  width: 383px; height: 170px; border-radius: 11px; ">
+                            <h:outputText value="Licencia de uso a:" style=" position: absolute; left: 15px; top: 6px; width:180px ;height:50px; color: darkblue;font-weight: bold " />
+                            <h:outputText value="#{controlAcercaDe.empresaSeleccionada.nombre}" style="position: absolute; left: 135px; top: 7px; width:300px ;height:50px; color: darkblue;font-weight: bold " />
+                            <h:inputTextarea readonly="true" value="#{controlAcercaDe.textoCopyRight}" style=" position: absolute;top: 30px ;width: 378px; height: 80px"/>
+                            <p:separator style="position: relative; border-color: darkblue; direction: ltr; top: 150px;"/>
+                            <h:outputText value="Correo Electronico:" style="position: absolute; left: 20px; top: 128px; width:180px ;height:50px; color: darkblue;font-weight: bold " />
+                            <h:outputText value="#{controlAcercaDe.correo1}" style=" position: absolute; left: 150px; top: 128px; width:180px ;height:50px; color: darkblue;font-weight: bold " />
+                            <h:outputText value="Wiki:" style=" position: absolute; left: 20px; top: 143px; width:180px ;height:50px; color: darkblue;font-weight: bold " />
+                            <h:outputText value="#{controlAcercaDe.correo2}" style=" position: absolute; left: 150px; top: 143px; width:180px ;height:50px; color: darkblue;font-weight: bold " />
+                            <p:separator style="position: relative; border-color: darkblue; direction: ltr; top: 105px;"/>
+                            <h:outputText value="#{controlAcercaDe.derechos}" style=" position: absolute; left: 70px; top: 163px; width:300px ;height:50px; color: darkblue;font-weight: bold " />
+
+                        </fieldset>                       
+                        <fieldset style="position: absolute; left: 5px; top: 260px;width: 840px; height: 143px; border-radius: 11px; ">
+                            <h:outputText value="Cantidad de Usúarios:" style="position: absolute; left: 20px; top: 11px; width:180px ;height:50px; color: darkblue;font-weight: bold " />
+                            <p:inputText readonly="true" id="cantUsuarios" value="#{controlAcercaDe.empresaSeleccionada.cantidadusuario}" style=" width: 122px; position: absolute; left: 200px; top: 5px;"/>
+                            <h:outputText value="Empleados Licenciados:" style=" position: absolute; left: 20px; top: 40px; width:180px ;height:50px; color: darkblue;font-weight: bold " />
+                            <p:inputText id="empLicensiados" readonly="true" value="#{controlAcercaDe.empresaSeleccionada.controlempleados}" style="width: 122px; position: absolute; left: 200px; top: 35px;"/>
+                            <h:outputText value="Fecha Instalación:" style="position: absolute; left: 20px; top: 70px; width:180px ;height:50px; color: darkblue;font-weight: bold " />
+                            <p:inputText value="#{controlAcercaDe.empresaSeleccionada.fechainstalacion}" readonly="true" style=" width: 122px; position: absolute; left: 200px;top: 65px; " >  
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:inputText>
+                            <h:outputText value="Salida en Producción:" style="position: absolute; left: 20px; top: 100px; width:180px ;height:50px; color: darkblue;font-weight: bold " />
+                            <p:inputText value="#{controlAcercaDe.empresaSeleccionada.fechasalidaproduccion}" readonly="true" style=" width: 122px; position: absolute; left: 200px;top: 95px; " >  
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:inputText>
+                            <h:outputText value="Vencimiento Soporte:" style="position: absolute; left: 20px; top: 130px; width:180px ;height:50px; color: darkblue;font-weight: bold " />
+                            <p:inputText value="#{controlAcercaDe.empresaSeleccionada.fecharenovarsoporte}" readonly="true" style=" width: 122px; position: absolute; left: 200px;top: 125px; " >  
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:inputText>
+                            <a href="http://www.nomina.com.co" target="_blank">
+                                <h:outputText value="#{controlAcercaDe.correo}" style=" position: absolute; left: 530px; top: 11px; width:180px ;height:50px; font-size: 30px; color: darkblue;font-weight: bold " />
+                            </a> 
+                            <h:outputText value="Codigo:" style=" position: absolute; left: 350px; top: 11px; width:130px ;height:50px; color: darkblue;font-weight: bold " />
+                            <p:inputText readonly="true" id="codigo" value="#{controlAcercaDe.empresaSeleccionada.codigo}" style=" width: 80px; position: absolute; left: 430px; top: 5px;"/>
+                            <h:outputText value="Nit:" style=" position: absolute; left: 350px; top: 40px; width:130px ;height:50px; color: darkblue;font-weight: bold " />
+                            <p:inputText readonly="true" id="nit" value="#{controlAcercaDe.empresaSeleccionada.nit}" style=" width: 80px; position: absolute; left: 430px; top: 35px;"/>
+                            <h:outputText value="Nombre:" style=" position: absolute; left: 350px; top: 70px; width:180px ;height:50px; color: darkblue;font-weight: bold " />
+                            <p:inputText readonly="true" id="nombre" value="#{controlAcercaDe.empresaSeleccionada.nombre}" style=" width: 400px; position: absolute; left: 430px; top: 65px;"/>
+                            <h:outputText value="Producto:" style=" position: absolute; left: 350px; top: 100px; width:180px ;height:50px; color: darkblue;font-weight: bold " />
+                            <p:inputText readonly="true" id="producto" value="#{controlAcercaDe.empresaSeleccionada.producto}" style=" width: 400px; position: absolute; left: 430px; top: 95px;"/>
+                            <h:outputText value="Logo:" style=" position: absolute; left: 350px; top: 130px; width:180px ;height:50px; color: darkblue;font-weight: bold " />
+                            <p:inputText readonly="true" id="logo" value="#{controlAcercaDe.empresaSeleccionada.logo}" style=" width: 400px; position: absolute; left: 430px; top: 125px;"/>
+
+                        </fieldset>
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" disabled="true" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/>
+                                <p:tooltip style="" for="guardarRapido" value="Guardado Rapido" />
+                                <p:commandButton id="editar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/>
+                                <p:tooltip style="" for="editar" value="Editar" />
+
+                                <p:separator style="position: relative; top: -11px;"/>
+
+                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/>
+                                <p:tooltip style="" for="listaValores" value="Lista de Valores" />
+
+                                <p:commandButton id="filtrar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/>
+                                <p:tooltip style="" for="filtrar" value="Filtrar" />
+
+                                <p:separator style="position: relative; top: -11px;"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlAcercaDe.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlAcercaDe.limpiarNuevoEmpresas()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosExportar" fileName="ACERCADE" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlAcercaDe.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
+
+                                <p:separator style="position: relative; top: -11px;"/> 
+                                <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/> 
+                                <p:tooltip style="" for="insertar" value="Nuevo" />
+
+                                <p:commandButton id="eliminar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/>  
+                                <p:tooltip style="" for="eliminar" value="Eliminar" />
+
+                                <p:commandButton id="duplicar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/>  
+                                <p:tooltip style="" for="duplicar" value="Duplicar" />
+
+                                <p:separator style="position: relative; top: -11px;"/> 
+                                <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/>  
+                                <p:tooltip style="" for="rastro" value="Rastro"/>
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+                        <p:commandButton style="position: absolute; left: 730px; top: 450px;  width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" id="ACEPTAR" action="atrasAcercaDe" process="@this" />
+                    </p:panel>
+
+                    <p:hotkey bind="alt+p" actionListener="#{controlAcercaDe.lovEmpresas()}"/> 
+                </h:form>
+
+                <h:form id="formularioDialogos" >
+
+                    <!-- LOV EMPRESAS -->
+                    <p:dialog header="Empresas" widgetVar="EmpresasDialogo" draggable="false" resizable="false" closable="false" id="EmpresasDialogo"  
+                              showEffect="fade" hideEffect="fade" width="350" modal="true" style="">
+                        <p:dataTable id="lovEmpresas" style=" width: 311px" var="empresa" value="#{controlAcercaDe.listaEmpresas}" rowKey="#{empresa.secuencia}"
+                                     selection="#{controlAcercaDe.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="330" scrollHeight="250"
+                                     filteredValue="#{controlAcercaDe.filtradoListaEmpresas}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
+                            <p:ajax event="rowSelect" listener="#{controlAcercaDe.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlAcercaDe.cambiarEmpresa()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Empresa"  style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovEmpresas.filter();" style="width:100px; position: relative; left: 11px;" />  
+                            </f:facet>
+                            <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
+                                <f:facet name="header">
+                                    <h:outputText value="Nit" />
+                                </f:facet>
+                                <h:outputText  value="#{empresa.nit}" />
+                            </p:column>
+                            <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre" />
+                                </f:facet>
+                                <h:outputText  value="#{empresa.nombre}" />
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandButton id="aceptarE" style="position: relative; left: 180px" value="Aceptar" disabled="#{controlAcercaDe.aceptar}" actionListener="#{controlAcercaDe.cambiarEmpresa()}" process="@this"/>
+                        
+                        <p:commandButton id="atrasE" style="position: relative; left: 180px" value="Cancelar"  actionListener="#{controlAcercaDe.cancelarCambioEmpresa()}"  process="@this"/>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formExportar">
+                    <p:dataTable id="datosExportar" var="info2" style="visibility: hidden; display: none;"                           
+                                 value="#{controlAcercaDe.listaEmpresas}">
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Nombre"/></f:facet> 
+                            <h:outputText value="#{info2.nombre}" />
+                        </p:column>  
+
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Codigo" /></f:facet>
+                            <h:outputText value="#{info2.codigo}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Nit" /></f:facet>
+                            <h:outputText value="#{info2.nit}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Producto" /></f:facet>
+                            <h:outputText value="#{info2.producto}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Logo" /></f:facet>
+                            <h:outputText value="#{info2.logo}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="CantidadUsuarios" /></f:facet>
+                            <h:outputText value="#{info2.cantidadusuario}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="EmpleadosLicenciados" /></f:facet>
+                            <h:outputText value="#{info2.cantidadusuario}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="FechaInstalacion" />
+                            </f:facet>
+                            <h:outputText value="#{info2.fechainstalacion}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column> 
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="SalidaProduccion" />
+                            </f:facet>
+                            <h:outputText value="#{info2.fechasalidaproduccion}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column> 
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="FechaInstalacion" />
+                            </f:facet>
+                            <h:outputText value="#{info2.fecharenovarsoporte}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column> 
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
+

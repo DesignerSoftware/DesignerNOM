@@ -1,0 +1,1081 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition  template="/template.xhtml">
+            <ui:define  name="body"> 
+                <h:form id="form">
+                    <f:loadBundle basename="Recursos.odiscabeceras" var="msg" />
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:panel  id="PanelTotal" header="Incapacidades Pagadas" styleClass="panelTotal">  
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlOdiCabecera.guardarCambios()}" process="@this" />    
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "  actionListener="#{controlOdiCabecera.editarCelda()}" process="@this" />
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " disabled="#{controlOdiCabecera.activarlov}"  process="@this"/>
+                                <p:tooltip for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlOdiCabecera.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " ajax="false" actionListener="#{controlOdiCabecera.seleccionarExportarXLS()}" />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlOdiCabecera.limpiarNuevaOdiCabecera()}" oncomplete="#{controlOdiCabecera.limpiarNuevaOdiDetalles()}" ajax="false">
+                                    <p:dataExporter type="xml"  target="#{controlOdiCabecera.seleccionarExportarXML()}" fileName="#{controlOdiCabecera.nombreXML()}" encoding="UTF-8"/> 
+                                    <!--                                <p:dataExporter type="xml"  target=":formExportar:datosNovedadesExportar" fileName="NovedadVacacionesXML" encoding="UTF-8"/> -->
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlOdiCabecera.seleccionarExportarPDF()}" ajax="false"/>
+
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "   process="@this" oncomplete="seleccionarTabla.show()"/>   
+                                <!--oncomplete="nuevaOdiCabeceraAuto.show()" update=":formularioDialogos:nuevaOdiCabeceraAuto"-->
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlOdiCabecera.borrarNovedades()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "  process="@this" actionListener="#{controlOdiCabecera.duplicandoOdiCabecera()}"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlOdiCabecera.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlOdiCabecera.cancelarModificacion()}" process="@this"
+                                                 oncomplete="window.location.reload()"  /> 
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " action="atrasodiscabeceras" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <p:commandButton style=" position: absolute; left: 675px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR"  value=" " disabled="#{controlOdiCabecera.guardado}" onclick="confirmarGuardar.show();"  process="@this" />
+                        <p:commandButton style=" position: absolute; left: 765px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" "  actionListener="#{controlOdiCabecera.salir()}" action="atrasodiscabeceras" process="@this" />
+
+                        <fieldset style="position: absolute; left: 10px; top: 70px;width: 800px; height: 160px; border-radius: 10px;">                
+                            <legend style=" color: blue;text-align:left"><strong>Cabecera</strong></legend>
+                            <p:dataTable id="datosCabecera" widgetVar="datosCabecera" var="cabecera" rowIndexVar="indice" rowKey="#{cabecera.secuencia}" value="#{controlOdiCabecera.listaOdiCabecera}" 
+                                         style="width: 830px; border: 1px;" selectionMode="single" scrollable="true" scrollWidth="830" rows="20" filteredValue="#{controlOdiCabecera.filtrarListaOdiCabecera}"
+                                         emptyMessage="No se encontraron resultados para la búsqueda" editable="true" editMode="cell" liveScroll="true" selection="#{controlOdiCabecera.odiCabeceraSeleccionada}" scrollHeight="#{controlOdiCabecera.altotabla}" >
+                                <p:ajax event="filter" listener="#{controlOdiCabecera.eventoFiltrar()}" />
+
+                                <p:column id="empresa" headerText="Empresa" style="text-align: center" sortBy="#{cabecera.empresa.nombre}"
+                                          filterBy="#{cabecera.empresa.nombre}" filterStyle="display: none; visibility: hidden;" >
+                                    <p:cellEditor>
+                                        <f:facet name="output"> <h:outputText value="#{cabecera.empresa.nombre}" /> </f:facet>   
+                                        <f:facet name="input">
+                                            <p:inputText value="#{cabecera.empresa.nombre}" style="border-radius: 0px; width: 98.5%;" >  
+                                                <p:ajax event="change" listener="#{controlOdiCabecera.modificarOdiCabecera(cabecera, 'EMPRESAS', cabecera.empresa.nombre)}"/>
+                                                <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 0)}" />
+                                                <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(cabecera, 0,0)}"/>
+                                            </p:inputText>
+                                        </f:facet>
+                                        <f:facet name="footer">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                    </p:cellEditor>
+
+                                </p:column>
+                                <p:tooltip  for="empresa" value="Nombre Empresa" />
+
+                                <p:column id="sucursal" headerText="Sucursal" style="text-align: center" sortBy="#{cabecera.sucursalpila.descripcion}" filterBy="#{cabecera.sucursalpila.descripcion}" 
+                                          filterStyle="display: none; visibility: hidden;">
+                                    <p:cellEditor>
+                                        <f:facet name="output"> <h:outputText value="#{cabecera.sucursalpila.descripcion}"/> </f:facet>   
+                                        <f:facet name="input">
+                                            <p:inputText value="#{cabecera.sucursalpila.descripcion}"  style="border-radius: 0px; width: 98.5%;" >
+                                                <p:ajax event="change" listener="#{controlOdiCabecera.modificarOdiCabecera(cabecera, 'SUCURSAL', cabecera.empresa.nombre)}"/>
+                                                <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 1)}" />
+                                                <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(cabecera, 1,0)}"/>  
+                                            </p:inputText>    
+
+                                        </f:facet>
+                                        <f:facet name="footer">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                    </p:cellEditor> 
+                                </p:column>
+                                <p:tooltip  for="sucursal" value="Nombre Sucursal" />
+
+                                <p:column id="tercero" headerText="Tercero" style="text-align: center" sortBy="#{cabecera.tercero.nombre}" filterBy="#{cabecera.tercero.nombre}" 
+                                          filterStyle="display: none; visibility: hidden;">
+                                    <p:cellEditor>
+                                        <f:facet name="output"> <h:outputText value="#{cabecera.tercero.nombre}"/>    </f:facet>   
+                                        <f:facet name="input">
+                                            <p:inputText value="#{cabecera.tercero.nombre}"  style="border-radius: 0px; width: 98.5%;" >
+                                                <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 2)}" />    
+                                            </p:inputText>   
+                                        </f:facet>
+                                        <f:facet name="footer">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                    </p:cellEditor> 
+                                </p:column>
+                                <p:tooltip  for="tercero" value="Nombre del Tercero" />
+
+                                <p:column id="tipoentidad" headerText="Tipo Entidad" style="width: 100px;text-align: center" sortBy="#{cabecera.tipoentidad.nombre}" filterBy="#{cabecera.tipoentidad.nombre}" 
+                                          filterStyle="display: none; visibility: hidden;">
+                                    <p:cellEditor>
+                                        <f:facet name="output"> <h:outputText value="#{cabecera.tipoentidad.nombre}"/>    </f:facet>   
+                                        <f:facet name="input">
+                                            <p:inputText value="#{cabecera.tipoentidad.nombre}"  style="border-radius: 0px; width: 98.5%;" > 
+                                                <p:ajax event="change" listener="#{controlOdiCabecera.modificarOdiCabecera(cabecera, 'TIPOENTIDAD', cabecera.empresa.nombre)}"/>
+                                                <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 3)}" />
+                                                <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(cabecera, 4,0)}"/>  
+                                            </p:inputText>    
+                                        </f:facet>
+                                        <f:facet name="footer">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                    </p:cellEditor> 
+                                </p:column>
+                                <p:tooltip  for="tipoentidad" value="Tipo de Entidad" />
+
+                                <p:column id="valor" headerText="Valor" style="text-align: center" sortBy="#{cabecera.valortotal}" filterBy="#{cabecera.valortotal}" 
+                                          filterStyle="display: none; visibility: hidden;">
+                                    <p:cellEditor>
+                                        <f:facet name="output"> <h:outputText value="#{cabecera.valortotal}"/>    </f:facet>   
+                                        <f:facet name="input">
+                                            <p:inputText value="#{cabecera.valortotal}"  style="border-radius: 0px; width: 98.5%;" >   
+                                                <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 4)}" />    
+                                            </p:inputText>       
+                                        </f:facet>
+                                        <f:facet name="footer">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                    </p:cellEditor> 
+                                </p:column>
+                                <p:tooltip  for="valor" value="Valor" />
+
+                                <p:column id="numautorizacion" headerText="No. Autorización" style="width:100px ;text-align: center" sortBy="#{cabecera.numeroautorizacion}" filterBy="#{cabecera.numeroautorizacion}" 
+                                          filterStyle="display: none; visibility: hidden;" >
+                                    <p:cellEditor>
+                                        <f:facet name="output"> <h:outputText value="#{cabecera.numeroautorizacion}"/>    </f:facet>   
+                                        <f:facet name="input">
+                                            <p:inputText value="#{cabecera.numeroautorizacion}" maxlength="50"  style="border-radius: 0px; width: 98.5%;">
+                                                <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 5)}" />    
+                                            </p:inputText>    
+                                        </f:facet>
+                                        <f:facet name="footer">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                    </p:cellEditor> 
+                                </p:column>
+                                <p:tooltip  for="numautorizacion" value="Número de autorización" />
+
+                                <p:column id="origenIncapacidad"  headerText="Origen" style="text-align: center" sortBy="#{cabecera.origenincapacidad}"
+                                          filterMatchMode="contains" filterBy="#{cabecera.origenincapacidad}" filterStyle="display: none; visibility: hidden;">
+                                    <p:cellEditor>
+                                        <f:facet name ="output"><h:outputText id="outorigen" value="#{cabecera.origenincapacidad}" style="text-transform: uppercase"/> </f:facet>
+                                        <f:facet name="input">
+                                            <p:selectOneMenu value="#{cabecera.origenincapacidad}" id="editarorigenIncapacidad" maxlength="3"  style="width: 100px;font-weight: bold;text-transform: uppercase;"  >  
+                                                <f:selectItem itemLabel="EG" itemValue="EG" />  
+                                                <f:selectItem itemLabel="AT" itemValue="AT" />  
+                                                <f:selectItem itemLabel="MA" itemValue="MA" />  
+                                                <f:selectItem itemLabel="EP" itemValue="EP" />  
+                                                <p:ajax event="change" listener="#{controlOdiCabecera.modificarOdiCabecera(cabecera)}"
+                                                        process="@this" update="editarorigenIncapacidad"/>
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                        <f:facet name="footer">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:tooltip  for="origenIncapacidad" value="Origen Incapacidad" />
+
+                                <p:column id="detalle" headerText="Detalle" style="text-align: center" sortBy="#{cabecera.incluirdetalles}" filterBy="#{cabecera.incluirdetalles}" 
+                                          filterStyle="display: none; visibility: hidden;" >
+                                    <!--                                    <p:cellEditor>-->
+                                    <f:facet name="output"> <h:outputText value="#{cabecera.incluirdetalles}"/>    </f:facet>   
+                                    <!--<f:facet name="input">-->
+                                    <p:selectBooleanCheckbox value="#{cabecera.checkDetalles}" onchange="#{controlOdiCabecera.checkdetalles()}" > 
+                                        <p:ajax event="change" listener="#{controlOdiCabecera.modificarOdiCabecera(cabecera)}" process="@this" update="detalle" />
+                                    </p:selectBooleanCheckbox>
+                                    <!--</f:facet>-->
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                    <!--                                    </p:cellEditor> -->
+                                </p:column>
+                                <p:tooltip  for="detalle" value="Detalle" />
+
+                                <p:column id="anio" headerText="Año" style="text-align: center" sortBy="#{cabecera.anio}" filterBy="#{cabecera.anio}"
+                                          filterStyle="display: none; visibility: hidden;">
+
+                                    <p:cellEditor>
+                                        <f:facet name="output"> <h:outputText value="#{cabecera.anio}"/>    </f:facet>   
+                                        <f:facet name="input">
+                                            <p:inputText value="#{cabecera.anio}"  style="border-radius: 0px; width: 98.5%;"  readonly="true"
+                                                         onselect="posicionOtro([{name: 'celda', value: '8'}, {name: 'registro', value: '#{indice}'}]);">
+                                                <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 7)}" />    
+                                            </p:inputText>    
+                                        </f:facet>
+                                        <f:facet name="footer">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                    </p:cellEditor> 
+
+                                </p:column>
+                                <p:tooltip  for="anio" value="Año" />
+
+                                <p:column id="mes" headerText="Mes" style="text-align: center" sortBy="#{cabecera.mes}" filterBy="#{cabecera.mes}" 
+                                          filterStyle="display: none; visibility: hidden;" >
+                                    <p:cellEditor>
+                                        <f:facet name="output"> <h:outputText value="#{cabecera.mes}"/>    </f:facet>   
+                                        <f:facet name="input">
+                                            <p:inputText value="#{cabecera.mes}" readonly="true" style="border-radius: 0px; width: 98.5%;"
+                                                         onselect="posicionOtro([{name: 'celda', value: '9'}, {name: 'registro', value: '#{indice}'}]);">
+                                                <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 8)}" />    
+                                            </p:inputText>       
+                                        </f:facet>
+                                        <f:facet name="footer">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                    </p:cellEditor> 
+                                </p:column>
+                                <p:tooltip  for="mes" value="Mes" />
+
+                            </p:dataTable>
+                            <h:outputText id="infoRegistroCabecera" value="#{msg['infoRegistros']} #{controlOdiCabecera.infoRegistroOdiCabecera}" style="position: relative; left: 10px; top: 1px; font-weight: bold"/>
+                        </fieldset>
+                        <p:remoteCommand name="posicionOtro" actionListener="#{controlOdiCabecera.posicionOtro()}"/>
+
+                        <fieldset style="position: absolute; left: 10px; top: 260px;width: 800px; height: 160px; border-radius: 10px;">                
+                            <legend style=" color: blue;text-align:left"><strong>Detalles</strong></legend>
+                            <p:dataTable id="datosDetalles"  widgetVar="datosDetalles" var="detalles" rowIndexVar="indice" rowKey="#{detalles.secuencia}" value="#{controlOdiCabecera.listaOdiDetalles}" 
+                                         style="width: 830px; border: 1px;" selectionMode="single" scrollable="true" scrollWidth="830" rows="20" filteredValue="#{controlOdiCabecera.filtrarListaOdiDetalles}"
+                                         emptyMessage="No se encontraron resultados para la búsqueda" editable="true" editMode="cell" liveScroll="true" selection="#{controlOdiCabecera.odiDetallesSeleccionada}" scrollHeight="#{controlOdiCabecera.altotabla}" >
+                                <p:ajax event="filter" listener="#{controlOdiCabecera.eventoFiltrarDetalles()}" />
+
+                                <p:column id="empleado" headerText="Empleado"  style="text-align: center;" sortBy="#{detalles.empleado}" 
+                                          filterBy="#{detalles.empleado}" filterStyle="display: none; visibility: hidden;"  >
+                                    <p:cellEditor >
+                                        <f:facet name="output"> <h:outputText value="#{detalles.empleado.persona.nombreCompleto}" /> </f:facet>   
+                                        <f:facet name="input">
+                                            <p:inputText value="#{cabecera.empresa.nombre}" style="border-radius: 0px; width: 98.5%;" >  
+                                                <p:ajax event="change" listener="#{controlOdiCabecera.modificarOdiDetalles(detalles, 'EMPLEADO', detalles.empleado.persona.nombreCompleto)}"/>
+                                                <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndiceDetalles(detalles, 0)}" />
+                                                <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndexDetalles(detalles, 0,0)}"/>
+
+                                            </p:inputText>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+
+                                </p:column>
+                                <p:tooltip  for="empleado" value="Nombre Empleado" />
+
+                                <p:column id="numdetalle" headerText="No. Detalle" style=" text-align: center" sortBy="#{detalles.numerodetalle}" filterBy="#{detalles.numerodetalle}" 
+                                          filterStyle="display: none; visibility: hidden;">
+                                    <p:cellEditor >
+                                        <f:facet name="output"> <h:outputText value="#{detalles.numerodetalle}"/> </f:facet>   
+                                        <f:facet name="input" >
+                                            <p:inputText value="#{detalles.numerodetalle}"  style="border-radius: 0px; width: 98.5%;" >
+                                                <p:ajax event="change" update="numdetalle"/>
+                                                <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndiceDetalles(detalles, 1)}" />
+                                            </p:inputText>    
+
+                                        </f:facet>
+                                    </p:cellEditor> 
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:tooltip  for="numdetalle" value="Número de Detalle" />
+
+                                <p:column id="observacion" headerText="Observación" style=" text-align: center" sortBy="#{detalles.observacion}" filterBy="#{detalles.observacion}" 
+                                          filterStyle="display: none; visibility: hidden;">
+                                    <p:cellEditor>
+                                        <f:facet name="output"> <h:outputText value="#{detalles.observacion}"/>    </f:facet>   
+                                        <f:facet name="input">
+                                            <p:inputText value="#{detalles.observacion}"  style="border-radius: 0px; width: 98.5%;" >
+                                                <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndiceDetalles(detalles, 2)}" />    
+                                            </p:inputText>   
+                                        </f:facet>
+                                    </p:cellEditor> 
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:tooltip  for="observacion" value="Observación" />
+
+                                <p:column id="valor" headerText="Valor" style="text-align: center" sortBy="#{detalles.valor}" filterBy="#{detalles.valor}" 
+                                          filterStyle="display: none; visibility: hidden;">
+                                    <p:cellEditor>
+                                        <f:facet name="output"> <h:outputText value="#{detalles.valor}"/>    </f:facet>   
+                                        <f:facet name="input">
+                                            <p:inputText value="#{detalles.valor}"  style="border-radius: 0px; width: 98.5%;" >   
+                                                <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndiceDetalles(detalles, 3)}" />    
+                                            </p:inputText>       
+                                        </f:facet>
+                                    </p:cellEditor> 
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:tooltip  for="valor" value="Valor" />
+
+                                <p:column id="relacion" headerText="Relación" style="text-align: center" sortBy="#{detalles.relacionincapacidad}" filterBy="#{detalles.relacionincapacidad}" 
+                                          filterStyle="display: none; visibility: hidden;">
+                                    <p:cellEditor>
+                                        <f:facet name="output"> <h:outputText value="#{detalles.relacionincapacidad}"/>    </f:facet>   
+                                        <!--<f:facet name="input">-->
+<!--                                            <p:inputText value="#{detalles.relacionincapacidad}"  style="border-radius: 0px; width: 98.5%;" > 
+                                                <p:ajax event="change" listener="#{controlOdiCabecera.modificarOdiDetalles(cabecera, 'TIPOENTIDAD', cabecera.empresa.nombre)}"/>
+                                                <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 4)}" />
+                                                <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(cabecera, 4,0)}"/>  
+                                            </p:inputText>    
+                                        </f:facet>-->
+                                        <f:facet name="footer">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                    </p:cellEditor> 
+                                </p:column>
+                                <p:tooltip  for="relacion" value="Relación Incapacidad" />
+
+                                <p:column id="numcertificado" headerText="No. Certificado" style="text-align: center" sortBy="#{detalles.relacionincapacidad.soausentismos.numerocertificado}" filterBy="#{detalles.relacionincapacidad.soausentismos.numerocertificado}" 
+                                          filterStyle="display: none; visibility: hidden;" >
+                                    <p:cellEditor>
+                                        <f:facet name="output"> <h:outputText value="#{detalles.relacionincapacidad.soausentismos.numerocertificado}"/>    </f:facet>   
+                                        <f:facet name="input">
+                                            <p:inputText value="#{detalles.relacionincapacidad.soausentismos.numerocertificado}" maxlength="50"  style="border-radius: 0px; width: 98.5%;">
+                                                <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndiceDetalles(detalles, 5)}" />    
+                                            </p:inputText>    
+                                        </f:facet>
+                                    </p:cellEditor> 
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:tooltip  for="numcertificado" value="Número de certificado" />
+
+                                <p:column id="valorcobrado"  headerText="Valor Cobrado" style="text-align: center" sortBy="#{detalles.relacionincapacidad.valorcobro}"
+                                          filterMatchMode="contains" filterBy="#{detalles.relacionincapacidad.valorcobro}" filterStyle="display: none; visibility: hidden;">
+                                    <p:cellEditor>
+                                        <f:facet name ="output"><h:outputText value="#{detalles.relacionincapacidad.valorcobro}"  style="text-transform: uppercase"/> </f:facet>
+                                        <p:inputText readonly="true" value="#{detalles.relacionincapacidad.valorcobro}" maxlength="50"   style="border-radius: 0px; width: 98.5%;">
+                                            <!--<p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndiceDetalles(detalles, 5)}" />-->    
+                                        </p:inputText>    
+                                        <f:facet name="footer">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                                <p:tooltip  for="valorcobrado" value="Valor Cobrado" />
+                            </p:dataTable>
+                            <h:outputText id="infoRegistroDetalles" value="#{msg['infoRegistros']} #{controlOdiCabecera.infoRegistroOdiDetalles}" style="position: relative; left: 10px; top: 1px; font-weight: bold"/>
+                        </fieldset>
+
+                        <p:commandButton style=" position: absolute; left: 15px; top: 450px;height: 30px; width: 200px;" id="btnReporteINP"  value="Reporte de Incapacidades No Pagas"  process="@this" />
+                        <p:commandButton style=" position: absolute; left: 230px; top: 450px;height: 30px; width: 200px;" id="btnRecolectar" value="Recolectar Incapacidades PFN "  actionListener="#{controlOdiCabecera.recolectarINP()}" process="@this" />
+                        <p:tooltip value="#{msg['btnrecolectar']}" for="btnRecolectar"/>
+                    </p:panel>    
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" action="atrasnovedadauto" onclick="confirmarGuardar.hide();" actionListener="#{controlOdiCabecera.guardarSalir()}" 
+                                         style="position: absolute; top: 50px; left: 157px" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" action="atrasnovedadauto" onclick="confirmarGuardar.hide();" actionListener="#{controlOdiCabecera.cancelarSalir()}" 
+                                         style="position: absolute; top: 50px; left: 218px" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 285px" process="@this"
+                                         icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlOdiCabecera.odiCabeceraSeleccionada.getSecuencia(), 'OdisCabeceras', 'OdisCabecerasRastro')}" 
+                                         style="position: absolute; top: 63px; left: 160px" icon="ui-icon-check" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 240px" process="@this" icon="ui-icon-close"  />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('OdisCabeceras', 'OdisCabecerasRastro')}"
+                                         style="position: absolute; top: 60px; left: 160px" action="rastro" icon="ui-icon-check"  process="@this"  />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 250px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlOdiCabecera.odiCabeceraSeleccionada.getSecuencia(), 'OdisCabeceras', 'OdisCabecerasRastro')}" 
+                                         style="position: absolute; top: 63px; left: 160px" icon="ui-icon-check" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; width: 185px; font-weight:bold;" />
+                    </p:dialog>  
+
+                    <p:dialog id="seleccionarTabla" header="Seleccionar Tabla" widgetVar="seleccionarTabla" closable="false" resizable="false"  draggable="false" modal="true" height="150" width="400" style=" padding: 0px">  
+                        <center><strong><h:outputText value="#{msg['seleccionartabla']}" style="font-size: 14px; color: blue; position: relative; top: 5px" /></strong></center> 
+                        <p:commandButton value="Cabecera" id="nuevoRegistroCabecera" style="position: absolute; left: 100px; top: 40px; width: 200px; height: 30px" oncomplete="nuevaCabecera.show()" update=":formularioDialogos:nuevaOdiCabecera" onclick="seleccionarTabla.hide();" process="@this"/>
+                        <p:commandButton value="Detalles" id="nuevoRegistroDetalles" style="position: absolute; left: 100px; top: 75px; width: 200px; height: 30px" actionListener="#{controlOdiCabecera.validarCheckDetalles()}" onclick="seleccionarTabla.hide();" update=":formularioDialogos:nuevoOdiDetalle" process="@this"/>
+                        <!--oncomplete="nuevoDetalle.show()" update=":formularioDialogos:nuevaOdiDetalle" onclick="seleccionarTabla.hide();"--> 
+
+                        <p:commandButton id="CancelarNuevosRegistros" onclick="seleccionarTabla.hide();" icon="ui-icon-close"  process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 120px;left: 275px"/>
+                    </p:dialog>
+
+                    <p:dialog id="validarCheckDetalles" header="#{msg['error']}" widgetVar="validarCheckDetalles"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
+                        <p:commandButton value="#{msg['aceptar']}"  onclick="validarCheckDetalles.hide();" style="position: absolute; top: 50px; left: 230px" process="@this" icon="ui-icon-check" />
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="nuevaCabecera" header="#{msg['nuevoregistro']}" widgetVar="nuevaCabecera" closable="false" resizable="false"  draggable="false" modal="true" height="450" width="400" style="padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevaOdiCabecera" style="border: none;">
+
+                            <strong><h:outputText value="Empresa" style="position: absolute; top: 80px; left: 50px" /></strong>
+                            <p:inputText id="nuevaEmpresa" value="#{controlOdiCabecera.nuevaOdiCabecera.empresa.nombre}"
+                                         style="width: 122px; position: absolute; left: 220px; top: 75px;">
+                                <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,0,1)}"/>
+                                <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(1, 'EMPRESA')}" />
+                                <p:ajax event="change" listener="#{controlOdiCabecera.autocompletarNuevoyDuplicado('EMPRESA', controlOdiCabecera.nuevaOdiCabecera.empresa.nombre, 1)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 351px; top: 75px;" 
+                                             id="btnNuevaEmpresa" value="" process="@this" actionListener="#{controlOdiCabecera.asignarIndex(novedades,0,1)}"/>   
+                            <p:watermark for="nuevaEmpresa" value="Empresa" />
+
+
+                            <strong><h:outputText value="Sucursal" style="position: absolute; top: 110px; left: 50px" /></strong>
+                            <p:inputText id="nuevaSucursal" value="#{controlOdiCabecera.nuevaOdiCabecera.sucursalpila.descripcion}"
+                                         style="width: 122px; position: absolute; left: 220px; top: 105px;">
+                                <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,1,1)}"/>
+                                <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(1, 'SUCURSAL')}" />
+                                <p:ajax event="change" listener="#{controlOdiCabecera.autocompletarNuevoyDuplicado('SUCURSAL', controlOdiCabecera.nuevaOdiCabecera.sucursalpila.descripcion, 1)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 351px; top: 105px;" 
+                                             id="btnNuevaSucrusal" value="" process="@this" actionListener="#{controlOdiCabecera.asignarIndex(novedades,1,1)}"/>   
+                            <p:watermark for="nuevaSucursal" value="Sucursal" />
+
+                            <strong><h:outputText value="Tercero" style="position: absolute; top: 140px; left: 50px" /></strong>
+                            <p:inputText id="nuevonombretercero"  value="#{controlOdiCabecera.nuevaOdiCabecera.tercero.nombre}" style="width: 122px; position: absolute; left: 220px; top: 135px;">
+                                <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,2,1)}"/>
+                                <!--                                <p:ajax event="change" update="nuevonombretercero"/>-->
+                                <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(1, 'TERCERO')}" />
+                                <p:ajax event="change" listener="#{controlOdiCabecera.autocompletarNuevoyDuplicado('TERCERO', controlOdiCabecera.nuevaOdiCabecera.tercero.nombre, 1)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 351px; top: 135px;" 
+                                             id="btnNuevoTercero" value="" process="@this" actionListener="#{controlOdiCabecera.asignarIndex(novedades,2,1)}"/>   
+                            <p:watermark for="nuevonombretercero" value="Nombre Tercero" />
+
+                            <strong><h:outputText value="Tipo Entidad" style="position: absolute; top: 170px; left: 50px" /></strong>
+                            <p:inputText id="nuevoTipoEntidad" value="#{controlOdiCabecera.nuevaOdiCabecera.tipoentidad.nombre}"
+                                         style="width: 122px; position: absolute; left: 220px; top: 165px;">
+                                <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,3,1)}" process="@this"/>
+                                <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(1, 'TIPOENTIDAD')}" />
+                                <p:ajax event="change" listener="#{controlOdiCabecera.autocompletarNuevoyDuplicado('TIPOENTIDAD', controlOdiCabecera.nuevaOdiCabecera.tipoentidad.nombre, 1)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 351px; top: 165px;" 
+                                             id="btnNuevoTipoEntidad" value="" process="@this" actionListener="#{controlOdiCabecera.asignarIndex(novedades,3,1)}"/>   
+                            <p:watermark for="nuevoTipoEntidad" value="Tipo Entidad" />
+
+                            <strong><h:outputText value="Valor" style="position: absolute; top: 200px; left: 50px" /></strong>
+                            <p:inputText id="nuevoValor" value="#{controlOdiCabecera.nuevaOdiCabecera.valortotal}"  style="width: 122px; position: absolute; left: 220px; top: 195px;">
+                                <p:ajax event="change" update="nuevoValor"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoValor" value="Valor Total" />
+
+                            <strong><h:outputText value="Número de Autorización" style="position: absolute; top: 230px; left: 50px" /></strong>
+                            <p:inputText id="nuevonumAutorizacion" value="#{controlOdiCabecera.nuevaOdiCabecera.numeroautorizacion}" maxlength="20" style="width: 122px; position: absolute; left: 220px; top: 225px;">
+                                <p:ajax event="change" update="nuevonumAutorizacion"/>
+                            </p:inputText>
+                            <p:watermark for="nuevonumAutorizacion" value="Número de Autorización" />
+
+                            <strong><h:outputText value="Origen Incapacidad" style="position: absolute; top: 260px; left: 50px" /></strong>
+<!--                            <p:inputText id="nuevoorigen" value="#{controlOdiCabecera.nuevaOdiCabecera.origenincapacidad}" maxlength="3" style="width: 122px; position: absolute; left: 220px; top: 255px;">
+                                <p:ajax event="change" update="nuevoorigen"/>-->
+                            <p:selectOneMenu value="#{controlOdiCabecera.nuevaOdiCabecera.origenincapacidad}" id="nuevoorigen" maxlength="3"  style="width: 122px; position: absolute; left: 220px; top: 255px;font-weight: bold;text-transform: uppercase;"  >  
+                                <f:selectItem itemLabel="EG" itemValue="EG" />  
+                                <f:selectItem itemLabel="AT" itemValue="AT" />  
+                                <f:selectItem itemLabel="MA" itemValue="MA" />  
+                                <f:selectItem itemLabel="EP" itemValue="EP" />  
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax listener="#{controlOdiCabecera.seleccionarOrigen(controlOdiCabecera.nuevaOdiCabecera.origenincapacidad, 1)}" update="@this" />
+                            </p:selectOneMenu>
+
+                            <!--</p:inputText>-->
+                            <p:watermark for="nuevoorigen" value="Origen Incapacidad" />
+
+                            <strong><h:outputText value="Detalles" style="position: absolute; top: 290px; left: 50px" /></strong>
+                            <p:selectBooleanCheckbox id="nuevodetalle"  value="#{controlOdiCabecera.nuevaOdiCabecera.checkDetalles}" style="position: absolute; left: 220px; top: 285px; font-weight: bold;text-transform: uppercase;"  > 
+                                <p:ajax update="@this"/>  
+                            </p:selectBooleanCheckbox>
+
+                            <strong><h:outputText value="* Año" style="position: absolute; top: 320px; left: 50px" /></strong>
+                            <p:inputText id="nuevoAnio" value="#{controlOdiCabecera.nuevaOdiCabecera.anio}" readonly="true" style="width: 122px; position: absolute; left: 220px; top: 315px;">
+                                <p:ajax event="change" update="nuevoAnio"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoAnio" value="Año" />
+
+                            <strong><h:outputText value="* Mes" style="position: absolute; top: 350px; left: 50px" /></strong>
+                            <p:inputText id="nuevoMes" value="#{controlOdiCabecera.nuevaOdiCabecera.mes}" readonly="true" style="width: 122px; position: absolute; left: 220px; top: 345px;">
+                                <p:ajax event="change" update="nuevoMes"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoMes" value="Mes" />
+
+                            <p:commandButton id="limpiarnuevaOdiCabecera" value="#{msg['limpiar']}" style="position: absolute; left: 40px; top: 400px;" icon="ui-icon-trash"  actionListener="#{controlOdiCabecera.limpiarNuevaOdiCabecera()}" update="nuevaOdiCabecera" process="@this"/>
+                            <p:commandButton id="agregarnuevaOdiCabecera" value="#{msg['agregar']}" style="position: absolute; left:180px; top: 400px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlOdiCabecera.agregarNuevaOdiCabecera()}"/>
+                            <p:commandButton id="cancelarnuevaOdiCabecera" value="#{msg['cancelar']}" style="position: absolute;left:280px;  top: 400px;" icon="ui-icon-circle-close" actionListener="#{controlOdiCabecera.limpiarNuevaOdiCabecera()}" update="nuevaOdiCabecera" onclick="nuevaCabecera.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarCabecera" header="#{msg['nuevoregistro']}" widgetVar="duplicarCabecera" closable="false" resizable="false"  draggable="false" modal="true" height="450" width="400" style="padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarOdiCabecera" style="border: none;">
+
+                            <strong><h:outputText value="Empresa" style="position: absolute; top: 80px; left: 50px" /></strong>
+                            <p:inputText id="duplicarEmpresa" value="#{controlOdiCabecera.duplicarOdiCabecera.empresa.nombre}"   style="width: 122px; position: absolute; left: 220px; top: 75px;">
+                                <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,0,2)}"/>
+                                <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(2, 'EMPRESA')}" />
+                                <p:ajax event="change" listener="#{controlOdiCabecera.autocompletarNuevoyDuplicado('EMPRESA', controlOdiCabecera.duplicarOdiCabecera.empresa.nombre, 2)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 351px; top: 75px;" 
+                                             id="btnDuplicarEmpresa" value="" process="@this" actionListener="#{controlOdiCabecera.asignarIndex(novedades,0,2)}"/>   
+                            <p:watermark for="duplicarEmpresa" value="Empresa" />
+
+
+                            <strong><h:outputText value="Sucursal" style="position: absolute; top: 110px; left: 50px" /></strong>
+                            <p:inputText id="duplicarSucursal" value="#{controlOdiCabecera.duplicarOdiCabecera.sucursalpila.descripcion}"
+                                         style="width: 122px; position: absolute; left: 220px; top: 105px;">
+                                <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,1,2)}"/>
+                                <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(2, 'SUCURSAL')}" />
+                                <p:ajax event="change" listener="#{controlOdiCabecera.autocompletarNuevoyDuplicado('SUCURSAL', controlOdiCabecera.duplicarOdiCabecera.sucursalpila.descripcion, 2)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 351px; top: 105px;" 
+                                             id="btnDuplicarSucrusal" value="" process="@this" actionListener="#{controlOdiCabecera.asignarIndex(novedades,1,2)}"/>   
+                            <p:watermark for="duplicarSucursal" value="Sucursal" />
+
+                            <strong><h:outputText value="Tercero" style="position: absolute; top: 140px; left: 50px" /></strong>
+                            <p:inputText id="duplicarnombretercero"  value="#{controlOdiCabecera.duplicarOdiCabecera.tercero.nombre}" style="width: 122px; position: absolute; left: 220px; top: 135px;">
+                                <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,2,2)}"/>
+                                <p:ajax event="change" update="duplicarnombretercero"/>
+                                <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(2, 'TERCERO')}" />
+                                <p:ajax event="change" listener="#{controlOdiCabecera.autocompletarNuevoyDuplicado('TERCERO', controlOdiCabecera.duplicarOdiCabecera.tercero.nombre, 2)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 351px; top: 135px;" 
+                                             id="btnDuplicarTercero" value="" process="@this" actionListener="#{controlOdiCabecera.asignarIndex(novedades,2,2)}"/>   
+                            <p:watermark for="duplicarnombretercero" value="Nombre Tercero" />
+
+                            <strong><h:outputText value="Tipo Entidad" style="position: absolute; top: 170px; left: 50px" /></strong>
+                            <p:inputText id="duplicarTipoEntidad" value="#{controlOdiCabecera.duplicarOdiCabecera.tipoentidad.nombre}"
+                                         style="width: 122px; position: absolute; left: 220px; top: 165px;">
+                                <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,3,2)}" process="@this"/>
+                                <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(2, 'TIPOENTIDAD')}" />
+                                <p:ajax event="change" listener="#{controlOdiCabecera.autocompletarNuevoyDuplicado('TIPOENTIDAD', controlOdiCabecera.duplicarOdiCabecera.tipoentidad.nombre, 2)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 351px; top: 165px;" 
+                                             id="btnDuplicarTipoEntidad" value="" process="@this" actionListener="#{controlOdiCabecera.asignarIndex(novedades,3,2)}"/>   
+                            <p:watermark for="duplicarTipoEntidad" value="Tipo Entidad" />
+
+                            <strong><h:outputText value="Valor" style="position: absolute; top: 200px; left: 50px" /></strong>
+                            <p:inputText id="duplicarValor" value="#{controlOdiCabecera.duplicarOdiCabecera.valortotal}"  style="width: 122px; position: absolute; left: 220px; top: 195px;">
+                                <p:ajax event="change" update="duplicarValor"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarValor" value="Valor Total" />
+
+                            <strong><h:outputText value="Número de Autorización" style="position: absolute; top: 230px; left: 50px" /></strong>
+                            <p:inputText id="duplicarnumAutorizacion" value="#{controlOdiCabecera.duplicarOdiCabecera.numeroautorizacion}" maxlength="20" style="width: 122px; position: absolute; left: 220px; top: 225px;">
+                                <p:ajax event="change" update="duplicarnumAutorizacion"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarnumAutorizacion" value="Número de Autorización" />
+
+                            <strong><h:outputText value="Origen Incapacidad" style="position: absolute; top: 260px; left: 50px" /></strong>
+                            <p:inputText id="duplicarorigen" value="#{controlOdiCabecera.duplicarOdiCabecera.origenincapacidad}" maxlength="3" style="width: 122px; position: absolute; left: 220px; top: 255px;">
+                                <p:ajax event="change" update="duplicarorigen"/>
+                                <p:selectOneMenu value="#{controlOdiCabecera.duplicarOdiCabecera.origenincapacidad}" id="dupOrigen" maxlength="3"  style="width: 122px; position: absolute; left: 220px; top: 255px;font-weight: bold;text-transform: uppercase;"  >  
+                                    <f:selectItem itemLabel="EG" itemValue="EG" />  
+                                    <f:selectItem itemLabel="AT" itemValue="AT" />  
+                                    <f:selectItem itemLabel="MA" itemValue="MA" />  
+                                    <f:selectItem itemLabel="EP" itemValue="EP" />  
+                                    <p:ajax event="change" update="@this"/>
+                                    <p:ajax listener="#{controlOdiCabecera.seleccionarOrigen(controlOdiCabecera.duplicarOdiCabecera.origenincapacidad, 2)}" update="@this" />
+                                </p:selectOneMenu>
+
+                            </p:inputText>
+                            <p:watermark for="duplicarorigen" value="Origen Incapacidad" />
+
+                            <strong><h:outputText value="Detalles" style="position: absolute; top: 290px; left: 50px" /></strong>
+                            <p:selectBooleanCheckbox id="duplicardetalle"  value="#{controlOdiCabecera.duplicarOdiCabecera.checkDetalles}" style="position: absolute; left: 220px; top: 285px; font-weight: bold;text-transform: uppercase;"  > 
+                                <p:ajax update="@this"/>  
+                            </p:selectBooleanCheckbox>
+
+                            <strong><h:outputText value="* Año" style="position: absolute; top: 320px; left: 50px" /></strong>
+                            <p:inputText id="duplicarAnio" value="#{controlOdiCabecera.duplicarOdiCabecera.anio}" readonly="true" style="width: 122px; position: absolute; left: 220px; top: 315px;">
+                                <p:ajax event="change" update="duplicarAnio"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarAnio" value="Año" />
+
+                            <strong><h:outputText value="* Mes" style="position: absolute; top: 350px; left: 50px" /></strong>
+                            <p:inputText id="duplicarMes" value="#{controlOdiCabecera.duplicarOdiCabecera.mes}" readonly="true" style="width: 122px; position: absolute; left: 220px; top: 345px;">
+                                <p:ajax event="change" update="duplicarMes"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarMes" value="Mes" />
+
+                            <p:commandButton id="limpiarduplicarOdiCabecera" value="#{msg['limpiar']}" style="position: absolute; left: 40px; top: 400px;" icon="ui-icon-trash"  actionListener="#{controlOdiCabecera.limpiarDuplicarOdiCabecera()}" update="duplicarOdiCabecera" process="@this"/>
+                            <p:commandButton id="agregarduplicarOdiCabecera" value="#{msg['agregar']}" style="position: absolute; left:180px; top: 400px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlOdiCabecera.confirmarDuplicar()}"/>
+                            <p:commandButton id="cancelarduplicarOdiCabecera" value="#{msg['cancelar']}" style="position: absolute;left:280px;  top: 400px;" icon="ui-icon-circle-close" actionListener="#{controlOdiCabecera.limpiarDuplicarOdiCabecera()}" update="duplicarOdiCabecera" onclick="duplicarCabecera.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="nuevoDetalle" header="#{msg['nuevoregistro']}" widgetVar="nuevoDetalle" closable="false" resizable="false"  draggable="false" modal="true" height="450" width="400" style="padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevoOdiDetalle" style="border: none;">
+
+                            <strong><h:outputText value="Empleado" style="position: absolute; top: 80px; left: 50px" /></strong>
+                            <p:inputText id="nuevoEmpleado" value="#{controlOdiCabecera.nuevaOdiDetalles.empleado.persona.nombreCompleto}"
+                                         style="width: 122px; position: absolute; left: 220px; top: 75px;">
+                                <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndexDetalles(detalles, 1, 1)}"/>
+                                <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(1, 'EMPLEADO')}" />
+                                <p:ajax event="change" listener="#{controlOdiCabecera.autocompletarNuevoyDuplicado('EMPLEADO', controlOdiCabecera.nuevaOdiDetalles.empleado.persona.nombreCompleto, 1)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 351px; top: 75px;" 
+                                             id="btnNuevoEmpleado" value="" process="@this" actionListener="#{controlOdiCabecera.asignarIndexDetalles(detalles, 1, 1)}"/>   
+                            <p:watermark for="nuevoEmpleado" value="Empleado" />
+
+                            <strong><h:outputText value="Número de Detalle" style="position: absolute; top: 110px; left: 50px" /></strong>
+                            <p:inputText id="nuevoNumDetalle" value="#{controlOdiCabecera.nuevaOdiDetalles.numerodetalle}"
+                                         style="width: 122px; position: absolute; left: 220px; top: 105px;">
+                                <p:ajax event="change" update="nuevoNumDetalle" />
+                            </p:inputText>
+                            <p:watermark for="nuevoNumDetalle" value="Número de Detalle" />
+
+                            <strong><h:outputText value="Observación" style="position: absolute; top: 140px; left: 50px" /></strong>
+                            <p:inputText id="nuevaObservacion"  value="#{controlOdiCabecera.nuevaOdiDetalles.observacion}" style="width: 122px; position: absolute; left: 220px; top: 135px;">
+                                <p:ajax event="change" update="nuevaObservacion" />
+                            </p:inputText>
+                            <p:watermark for="nuevaObservacion" value="Observación" />
+
+                            <strong><h:outputText value="Valor" style="position: absolute; top: 170px; left: 50px" /></strong>
+                            <p:inputText id="nuevoValorDetalle" value="#{controlOdiCabecera.nuevaOdiDetalles.valor}"
+                                         style="width: 122px; position: absolute; left: 220px; top: 165px;">
+                                <p:ajax event="change" update="nuevoValorDetalle"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoValorDetalle" value="Valor" />
+
+                            <strong><h:outputText value="Relación Incapacidad" style="position: absolute; top: 200px; left: 50px" /></strong>
+                            <p:inputText id="nuevoRelInca" value="#{controlOdiCabecera.nuevaOdiDetalles.relacionincapacidad.valorcobro}"  style="width: 122px; position: absolute; left: 220px; top: 195px;">
+                                <p:ajax event="change" update="nuevoValor"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoRelInca" value="Relación Incapacidad" />
+
+                            <strong><h:outputText value="Número de Certificado" style="position: absolute; top: 230px; left: 50px" /></strong>
+                            <p:inputText id="nuevonumCertificado" value="#{controlOdiCabecera.nuevaOdiDetalles.relacionincapacidad.soausentismos.numerocertificado}" maxlength="20" style="width: 122px; position: absolute; left: 220px; top: 225px;">
+                                <!--<p:ajax event="change" update="nuevonumAutorizacion"/>-->
+                            </p:inputText>
+                            <p:watermark for="nuevonumCertificado" value="Número de Certificado" />
+
+                            <strong><h:outputText value="Valor Cobrado" style="position: absolute; top: 260px; left: 50px" /></strong>
+                            <p:inputText id="nuevoValorCobrado" value="#{controlOdiCabecera.nuevaOdiDetalles.relacionincapacidad.valorcobro}"  style="width: 122px; position: absolute; left: 220px; top: 255px;">
+                                <p:ajax event="change" update="nuevoValorCobrado"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoValorCobrado" value="Valor Cobrado" />
+
+                            <p:commandButton id="limpiarnuevaOdiDetalle" value="#{msg['limpiar']}" style="position: absolute; left: 40px; top: 400px;" icon="ui-icon-trash"  actionListener="#{controlOdiCabecera.limpiarNuevaOdiDetalles()}" update="nuevoOdiDetalle" process="@this"/>
+                            <p:commandButton id="agregarnuevaOdiDetalle" value="#{msg['agregar']}" style="position: absolute; left:180px; top: 400px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlOdiCabecera.agregarNuevaOdiDetalles()}"/>
+                            <p:commandButton id="cancelarnuevaOdiDetalle" value="#{msg['cancelar']}" style="position: absolute;left:280px;  top: 400px;" icon="ui-icon-circle-close" actionListener="#{controlOdiCabecera.limpiarNuevaOdiDetalles()}" update="nuevoOdiDetalle" onclick="nuevoDetalle.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <!--dialogos Lov-->
+
+                    <p:dialog header="Empresas" widgetVar="empresasDialogo" draggable="false" resizable="false" closable="false" id="empresasDialogo"  
+                              showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
+                        <p:dataTable id="lovEmpresas" style="width: 400px" var="empresa" value="#{controlOdiCabecera.lovEmpresas}" rowKey="#{empresa.secuencia}"
+                                     selection="#{controlOdiCabecera.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="415" scrollHeight="250"
+                                     filteredValue="#{controlOdiCabecera.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}">   
+                            <p:ajax event="filter" listener="#{controlOdiCabecera.eventoFiltrarEmpresas()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlOdiCabecera.activarAceptar()}" update=":formularioDialogos:aceptarD"/>
+                            <p:ajax event="rowDblselect" listener="#{controlOdiCabecera.actualizarEmpresa()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Empresa"  style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovEmpresas.filter();" style="width:150px; position: relative; left: 5px;" />  
+                            </f:facet>
+
+                            <p:column filterBy="#{empresa.nombre}" sortBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width:80%">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="Nombre" />
+                                </f:facet>
+                                <h:outputText  value="#{empresa.nombre}" />
+                            </p:column>
+
+                            <p:column filterBy="#{empresa.codigo}" sortBy="#{empresa.codigo}" filterMatchMode="contains" filterStyle="width:80%">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="Código" />
+                                </f:facet>
+                                <h:outputText  value="#{empresa.codigo}" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistros']} #{controlOdiCabecera.infoRegistroEmpresas}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                        <p:commandButton id="aceptarD" icon="ui-icon-check" style="position: relative; left: 135px" value="#{msg['aceptar']}" disabled="#{controlOdiCabecera.aceptar}"  actionListener="#{controlOdiCabecera.actualizarEmpresa()}"  process="@this"/>
+                        <p:commandButton id="atrasD" style="position: relative; left: 135px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlOdiCabecera.cancelarCambioEmpresa()}"   process="@this"/>
+                    </p:dialog> 
+
+                    <p:dialog header="Terceros" widgetVar="tercerosDialogo" draggable="false" resizable="false" closable="false" id="tercerosDialogo"  
+                              showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
+                        <p:dataTable id="lovTerceros" style="width: 400px" var="terceros" value="#{controlOdiCabecera.lovTerceros}" rowKey="#{terceros.secuencia}"
+                                     selection="#{controlOdiCabecera.terceroSeleccionado}" selectionMode="single" widgetVar="lovTerceros" scrollable="true" scrollWidth="415" scrollHeight="250"
+                                     filteredValue="#{controlOdiCabecera.filtrarLovTerceros}" emptyMessage="#{msg['lovvacio']}">   
+                            <p:ajax event="filter" listener="#{controlOdiCabecera.eventoFiltrarTerceros()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlOdiCabecera.activarAceptar()}" update=":formularioDialogos:aceptarT"/>
+                            <p:ajax event="rowDblselect" listener="#{controlOdiCabecera.actualizarTercero()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Tercero: "  style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovTerceros.filter();" style="width:150px; position: relative; left: 5px;" />  
+                            </f:facet>
+
+                            <p:column filterBy="#{terceros.nit}" sortBy="#{terceros.nit}" filterMatchMode="contains" filterStyle="width:80%">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="NIT" />
+                                </f:facet>
+                                <h:outputText value="#{terceros.nit}" />
+                            </p:column>
+
+                            <p:column filterBy="#{terceros.nombre}" sortBy="#{terceros.nombre}" filterMatchMode="contains" filterStyle="width:80%">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="Nombre" />
+                                </f:facet>
+                                <h:outputText  value="#{terceros.nombre}" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistros']} #{controlOdiCabecera.infoRegistroTerceros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                        <p:commandButton id="aceptarT" icon="ui-icon-check" style="position: relative; left: 135px" value="#{msg['aceptar']}" disabled="#{controlOdiCabecera.aceptar}"  actionListener="#{controlOdiCabecera.actualizarTercero()}"  process="@this"/>
+                        <p:commandButton id="atrasT" style="position: relative; left: 135px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlOdiCabecera.cancelarCambioTercero()}"   process="@this"/>
+                    </p:dialog> 
+
+
+                    <p:dialog header="Sucursales" widgetVar="sucursalesDialogo" draggable="false" resizable="false" closable="false" id="sucursalesDialogo"  
+                              showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
+                        <p:dataTable id="lovSucursales" style="width: 400px" var="sucursal" value="#{controlOdiCabecera.lovSucursales}" rowKey="#{sucursal.secuencia}"
+                                     selection="#{controlOdiCabecera.sucursalSeleccionada}" selectionMode="single" widgetVar="lovSucursales" scrollable="true" scrollWidth="415" scrollHeight="250"
+                                     filteredValue="#{controlOdiCabecera.filtrarLovSucursales}" emptyMessage="#{msg['lovvacio']}">   
+                            <p:ajax event="filter" listener="#{controlOdiCabecera.eventoFiltrarSucursales()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlOdiCabecera.activarAceptar()}" update=":formularioDialogos:aceptarS"/>
+                            <p:ajax event="rowDblselect" listener="#{controlOdiCabecera.actualizarSucursal()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Sucursal: "  style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovSucursales.filter();" style="width:150px; position: relative; left: 5px;" />  
+                            </f:facet>
+
+                            <p:column filterBy="#{sucursal.descripcion}" sortBy="#{sucursal.descripcion}" filterMatchMode="contains" filterStyle="width:80%">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="Nombre" />
+                                </f:facet>
+                                <h:outputText  value="#{sucursal.descripcion}" />
+                            </p:column>
+
+                            <p:column filterBy="#{sucursal.codigo}" sortBy="#{sucursal.codigo}" filterMatchMode="contains" filterStyle="width:80%">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="Código" />
+                                </f:facet>
+                                <h:outputText  value="#{sucursal.codigo}" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroSucursal" value="#{msg['infoRegistros']} #{controlOdiCabecera.infoRegistroSucursales}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                        <p:commandButton id="aceptarS" icon="ui-icon-check" style="position: relative; left: 135px" value="#{msg['aceptar']}" disabled="#{controlOdiCabecera.aceptar}"  actionListener="#{controlOdiCabecera.actualizarSucursal()}"  process="@this"/>
+                        <p:commandButton id="atrasS" style="position: relative; left: 135px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlOdiCabecera.cancelarCambioSucursal()}"   process="@this"/>
+                    </p:dialog> 
+
+                    <p:dialog header="Tipos Entidades" widgetVar="tiposEntidadesDialogo" draggable="false" resizable="false" closable="false" id="tiposEntidadesDialogo"  
+                              showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
+                        <p:dataTable id="lovTiposEntidades" style="width: 400px" var="tipoentidad" value="#{controlOdiCabecera.lovTiposEntidades}" rowKey="#{tipoentidad.secuencia}"
+                                     selection="#{controlOdiCabecera.tipoEntidadSeleccionada}" selectionMode="single" widgetVar="lovTiposEntidades" scrollable="true" scrollWidth="415" scrollHeight="250"
+                                     filteredValue="#{controlOdiCabecera.filtrarLovTiposEntidades}" emptyMessage="#{msg['lovvacio']}">   
+                            <p:ajax event="filter" listener="#{controlOdiCabecera.eventoFiltrarTiposEntidades()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlOdiCabecera.activarAceptar()}" update=":formularioDialogos:aceptarTE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlOdiCabecera.actualizarTipoEntidad()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Tipo Entidad: "  style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovTiposEntidades.filter();" style="width:150px; position: relative; left: 5px;" />  
+                            </f:facet>
+
+                            <p:column filterBy="#{tipoentidad.nombre}" sortBy="#{tipoentidad.nombre}" filterMatchMode="contains" filterStyle="width:80%">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="Nombre" />
+                                </f:facet>
+                                <h:outputText  value="#{tipoentidad.nombre}" />
+                            </p:column>
+
+                        </p:dataTable>
+                        <h:outputText id="infoRegistroTipoEntidad" value="#{msg['infoRegistros']} #{controlOdiCabecera.infoRegistroTipoEntidad}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                        <p:commandButton id="aceptarTE" icon="ui-icon-check" style="position: relative; left: 135px" value="#{msg['aceptar']}" disabled="#{controlOdiCabecera.aceptar}"  actionListener="#{controlOdiCabecera.actualizarTipoEntidad()}"  process="@this"/>
+                        <p:commandButton id="atrasTE" style="position: relative; left: 135px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlOdiCabecera.cancelarCambioTipoEntidad()}"   process="@this"/>
+                    </p:dialog>    
+
+                    <p:dialog header="Buscar Empleado" widgetVar="empleadosDialogo" draggable="false" resizable="false" id="empleadosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="646" height="330" >
+
+                        <p:dataTable  id="LOVEmpleados" style=" width: 600px" var="emp" value="#{controlOdiCabecera.lovEmpleados}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="620"  widgetVar="LOVEmpleados" 
+                                      filteredValue="#{controlOdiCabecera.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{emp.secuencia}" selection="#{controlOdiCabecera.empleadoSeleccionado}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlOdiCabecera.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlOdiCabecera.actualizarEmpleados()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlOdiCabecera.eventoFiltrarEmpleados()}"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Nombre: " style="position: absolute; left: 27px; top: 15px;"/>  
+                                <p:inputText id="globalFilter" onkeyup="LOVEmpleados.filter();" style="width: 400px; position: relative; left: 60px;" />  
+                            </f:facet>
+
+
+                            <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85%"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre" />
+                                </f:facet>
+                                <h:outputText value="#{emp.persona.nombreCompleto}" />  
+                            </p:column>
+
+
+                        </p:dataTable>
+                        <h:outputText id="infoRegistroEmpleados" value="#{msg['infoRegistros']} #{controlOdiCabecera.infoRegistroEmpleados} " style="position: relative; left: 10px; top: 17px; font-weight: bold"/>
+                        <p:commandButton id="aceptarE" value="#{msg['aceptar']}" icon="ui-icon-check" style="position: absolute; top: 300px; left: 425px; height: 30px; width: 90px;" actionListener="#{controlOdiCabecera.actualizarEmpleados()}" process="@this"  disabled="#{controlOdiCabecera.aceptar}"/>
+                        <p:commandButton id="atrasE" value="#{msg['cancelar']}" icon="ui-icon-close" style="position: absolute; top: 300px; left: 520px; height: 30px; width: 90px;" actionListener="#{controlOdiCabecera.cancelarCambioEmpleados()}" process="@this"/>
+
+                    </p:dialog>
+
+                    <p:dialog id="editarEmpresa" header="Empresa" widgetVar="editarEmpresa" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlOdiCabecera.editarOdiCabecera.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editarSucursal" header="Sucursal" widgetVar="editarSucursal" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlOdiCabecera.editarOdiCabecera.sucursalpila.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editarTercero" header="Tercero" widgetVar="editarTercero" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlOdiCabecera.editarOdiCabecera.tercero.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editarTipoEntidad" header="Tipo Entidad" widgetVar="editarTipoEntidad" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlOdiCabecera.editarOdiCabecera.tipoentidad.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>   
+                    <p:dialog id="editarValor" header="Valor" widgetVar="editarValor" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlOdiCabecera.editarOdiCabecera.valortotal}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                     <p:dialog id="editarNumAutorizacion" header="Tipo Entidad" widgetVar="editarNumAutorizacion" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                         <p:inputTextarea value="#{controlOdiCabecera.editarOdiCabecera.numeroautorizacion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>  
+                    <p:dialog id="editarOrigen" header="Origen Incapacidad" widgetVar="editarOrigen" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlOdiCabecera.editarOdiCabecera.origenincapacidad}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editarDetalle" header="Detalle" widgetVar="editarDetalle" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlOdiCabecera.editarOdiCabecera.incluirdetalles}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editarAnio" header="Año" widgetVar="editarAnio" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlOdiCabecera.editarOdiCabecera.anio}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editarMes" header="Mes" widgetVar="editarMes" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlOdiCabecera.editarOdiCabecera.mes}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                    
+                    
+                      <p:dialog id="editarEmpleado" header="Empresa" widgetVar="editarEmpleado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                          <p:inputTextarea value="#{controlOdiCabecera.editarOdiDetalles.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                      <p:dialog id="editarNumDetalle" header="Empresa" widgetVar="editarNumDetalle" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                          <p:inputTextarea value="#{controlOdiCabecera.editarOdiDetalles.numerodetalle}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                      <p:dialog id="editarObservacion" header="Empresa" widgetVar="editarObservacion" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                          <p:inputTextarea value="#{controlOdiCabecera.editarOdiDetalles.observacion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                      <p:dialog id="editarValorDetalle" header="Empresa" widgetVar="editarValorDetalle" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                          <p:inputTextarea value="#{controlOdiCabecera.editarOdiDetalles.valor}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                      <p:dialog id="editarRelacion" header="Empresa" widgetVar="editarRelacion" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                          <p:inputTextarea value="#{controlOdiCabecera.editarOdiDetalles.relacionincapacidad}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                      <p:dialog id="editarNumCertificado" header="Empresa" widgetVar="editarNumCertificado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                          <p:inputTextarea value="#{controlOdiCabecera.editarOdiDetalles.relacionincapacidad.soausentismos.numerocertificado}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                      <p:dialog id="editarValorCobrado" header="Empresa" widgetVar="editarValorCobrado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                          <p:inputTextarea value="#{controlOdiCabecera.editarOdiDetalles.relacionincapacidad.valorcobro}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                    
+
+
+
+
+
+                </h:form>
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosCabeceraExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                                 value="#{controlOdiCabecera.listaOdiCabecera}"> 
+
+                        <p:column headerText="Empresa">                                  
+                            <f:facet name="header"><h:outputText value="Empresa"/> </f:facet> 
+                            <h:outputText value="#{infoExp.empresa.nombre}" />
+                        </p:column>  
+                        <p:column headerText="Sucursal">                                  
+                            <f:facet name="header"><h:outputText value="Sucursal"/> </f:facet> 
+                            <h:outputText value="#{infoExp.sucursalpila.descripcion}" />
+                        </p:column>
+                        <p:column headerText="Tercero">                                  
+                            <f:facet name="header"><h:outputText value="Tercero"/> </f:facet> 
+                            <h:outputText value="#{infoExp.tercero.nombre}" />
+                        </p:column>
+                        <p:column headerText="Tipo Entidad">                                  
+                            <f:facet name="header">
+                                <h:outputText value="Tipo_Entidad"/>
+                            </f:facet> 
+                            <h:outputText value="#{infoExp.tipoentidad.nombre}" />
+                        </p:column>
+                        <p:column headerText="Valor">                                  
+                            <f:facet name="header"><h:outputText value="Valor"/> </f:facet> 
+                            <h:outputText value="#{infoExp.valortotal}" />
+                        </p:column>  
+
+                        <p:column headerText="Número de Autorización">                                  
+                            <f:facet name="header"><h:outputText value="Num_Autorización"/>
+                            </f:facet> 
+                            <h:outputText value="#{infoExp.numeroautorizacion}" />
+                        </p:column>
+
+                        <p:column headerText="Origen">                                  
+                            <f:facet name="header">
+                                <h:outputText value="Origen"/> 
+                            </f:facet> 
+                            <h:outputText value="#{infoExp.origenincapacidad}" />
+                        </p:column>
+
+                        <p:column headerText="Detalles">                                  
+                            <f:facet name="header"><h:outputText value="Detalles"/></f:facet> 
+                            <h:outputText value="#{infoExp.incluirdetalles}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg[añox]}">                                  
+                            <f:facet name="header"><h:outputText value="Año"/> </f:facet> 
+                            <h:outputText value="#{infoExp.anio}" />
+                        </p:column>  
+
+                        <p:column headerText="Mes">                                  
+                            <f:facet name="header"><h:outputText value="Mes"/> </f:facet> 
+                            <h:outputText value="#{infoExp.mes}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form> 
+
+                <h:form id="formExportarDetalles">
+                    <p:dataTable id="datosDetallesExportar" var="infoDetalles" style="visibility: hidden; display: none;"                           
+                                 value="#{controlOdiCabecera.listaOdiDetalles}"> 
+
+                        <p:column headerText="Empleado">                                  
+                            <f:facet name="header"><h:outputText value="Empleado"/> </f:facet> 
+                            <h:outputText value="#{infoDetalles.empleado.persona.nombreCompleto}" />
+                        </p:column>  
+                        <p:column headerText="Número de Detalle">                                  
+                            <f:facet name="header"><h:outputText value="Num_Detalle"/> </f:facet> 
+                            <h:outputText value="#{infoDetalles.numerodetalle}" />
+                        </p:column>
+                        <p:column headerText="Observacion">                                  
+                            <f:facet name="header"><h:outputText value="Observación"/> </f:facet> 
+                            <h:outputText value="#{infoDetalles.observacion}" />
+                        </p:column>
+                        <p:column headerText="Valor">                                  
+                            <f:facet name="header">
+                                <h:outputText value="Valor"/>
+                            </f:facet> 
+                            <h:outputText value="#{infoDetalles.valor}" />
+                        </p:column>
+                        <p:column headerText="Relación Incapacidad">                                  
+                            <f:facet name="header"><h:outputText value="Relación_Incapacidad"/> </f:facet> 
+                            <h:outputText value="#{infoDetalles.relacionincapacidad}" />
+                        </p:column>  
+
+                        <p:column headerText="Número de Certificado">                                  
+                            <f:facet name="header"><h:outputText value="Num_Autorización"/>
+                            </f:facet> 
+                            <h:outputText value="#{infoDetalles.numerodetalle}" />
+                        </p:column>
+
+                        <p:column headerText="Valor Cobrado">                                  
+                            <f:facet name="header">
+                                <h:outputText value="Origen"/> 
+                            </f:facet> 
+                            <h:outputText value="#{infoDetalles.relacionincapacidad.valorcobro}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form> 
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,372 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+                    <p:growl id="growl" showDetail="true"/> 
+                    <f:loadBundle basename="Recursos.emplvigencianormalaboral" var="msg"/>
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
+                       <!-- <h:outputText style="position: absolute; top: 50px; height: 12px;position: absolute;color: #BF1A1A; font-weight: bold;text-align: right;width: 240px;left: 600px;" id="nombreEmpleado" value="#{controlBetaEmplVigenciaNormaLaboral.empleadoSeleccionado.persona.nombreCompleto}"/>-->
+
+                        <!--TOOLBAR-->
+
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; " actionListener="#{controlBetaEmplVigenciaNormaLaboral.guardarEmplVigenciaNormaLaboral()}" process="@this" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlBetaEmplVigenciaNormaLaboral.editarCelda()}"  process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" disabled="#{controlBetaEmplVigenciaNormaLaboral.activarLOV}" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlBetaEmplVigenciaNormaLaboral.listaValoresBoton()}"   process="@this"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlBetaEmplVigenciaNormaLaboral.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlBetaEmplVigenciaNormaLaboral.exportXLS()}"  ajax="false"/>
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlBetaEmplVigenciaNormaLaboral.limpiarNuevoEmplVigenciaNormaLaboral()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosVNLExportar" fileName="VIGENCASNORMASLABORALES" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlBetaEmplVigenciaNormaLaboral.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  oncomplete="nuevoRegistroEvalEmpresas.show()" update=":formularioDialogos:nuevaaEvalEmpresa" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  actionListener="#{controlBetaEmplVigenciaNormaLaboral.borrarNormaLaboral}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlBetaEmplVigenciaNormaLaboral.duplicandoEmplVigenciaNormaLaboral()}" process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlBetaEmplVigenciaNormaLaboral.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " oncomplete="window.location.reload()" actionListener="#{controlBetaEmplVigenciaNormaLaboral.cancelarModificacion()}"  process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlBetaEmplVigenciaNormaLaboral.salir()}" action="normalaboralNominaF" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                            
+                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px" />
+                            <h:outputText id="nombreEmpleado" value="#{controlBetaEmplVigenciaNormaLaboral.empleadoSeleccionado.persona.nombreCompleto}" 
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+
+                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px" />
+                            <h:outputText id="docEmpleado" value="#{controlBetaEmplVigenciaNormaLaboral.empleadoSeleccionado.codigoempleado}" 
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px" />
+                        </fieldset>
+
+                        
+                        <fieldset style="position: absolute; top: 110px; left: 10px; height: 365px; width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 14px; color: blue"><strong>#{msg['normaLaboralT']}</strong></legend>
+
+                            <p:dataTable id="datosVNL" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ;border: 1px;"                           
+                                         value="#{controlBetaEmplVigenciaNormaLaboral.listEmplVigenciaNormaLaboralPorEmpleado}" scrollable="true" scrollHeight="#{controlBetaEmplVigenciaNormaLaboral.altoTabla}"  scrollWidth="830"
+                                         filteredValue="#{controlBetaEmplVigenciaNormaLaboral.filtrarEmplVigenciaNormaLaboralPorEmplado}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" selection="#{controlBetaEmplVigenciaNormaLaboral.vigenciaSeleccionada}" selectionMode="single" >
+
+                                <p:ajax event="filter" listener="#{controlBetaEmplVigenciaNormaLaboral.eventoFiltrar()}"/>
+                                <f:event type="preRenderView" listener="#{controlBetaEmplVigenciaNormaLaboral.recordarSeleccion()}"/>
+
+                                <p:column headerText="#{msg['fecha']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains" 
+                                          id="fecha" width="80"
+                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                    <p:cellEditor> 
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.fechavigencia}" style="width: 80px; text-transform: uppercase">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="dateFechaInicial" value="#{info.fechavigencia}" height="12" width="99"> 
+                                                <p:ajax event="select" listener="#{controlBetaEmplVigenciaNormaLaboral.cambiarIndice(info, 0)}" process="@this"/>  
+                                                <p:ajax event="change" listener="#{controlBetaEmplVigenciaNormaLaboral.mostrarInfo(info,0)}" process="@this"/> 
+                                                <p:ajax event="dateSelect" listener="#{controlBetaEmplVigenciaNormaLaboral.mostrarInfo(info,0)}" process="@this" update="editFecha"/>
+                                            </lnk:calendar>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+
+                                <p:column headerText="#{msg['nombreNormaLaboral']}" sortBy="#{info.normalaboral.nombre}" filterBy="#{info.normalaboral.nombre}" filterMatchMode="contains" id="parentesco" width="700" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.normalaboral.nombre}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText maxlength="40" value="#{info.normalaboral.nombre}" id="editarparentesco" style=" border-radius: 0px; width: 99%; height: 12px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlBetaEmplVigenciaNormaLaboral.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="dblclick" listener="#{controlBetaEmplVigenciaNormaLaboral.asignarIndex(info, 0,1)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlBetaEmplVigenciaNormaLaboral.modificandoEmplVigenciaNormaLaboral(info, 'NORMASLABORALES',info.normalaboral.nombre)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 728px;  margin: -14px; height: 20px; border: none; color: blue;" id="fooNormaLaboral" actionListener="#{controlNormasLaborales.recibirPaginaEntrante('emplvigencianormalaboral')}" action="normaLaboral" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </fieldset>
+
+                        <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlBetaEmplVigenciaNormaLaboral.infoRegistro}" style="position: absolute; left: 25px; top: 467px; font-weight: bold"/>
+                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " disabled="#{controlBetaEmplVigenciaNormaLaboral.guardado}" actionListener="#{controlBetaEmplVigenciaNormaLaboral.revisarDialogoGuardar()}" process="@this"/>
+                        <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " action="normalaboralNominaF" />
+
+                        <p:dialog header="#{msg['normaLaboralM']}" widgetVar="sucursalesDialogo" draggable="false" resizable="false" closable="false" id="sucursalesDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="470" height="250" modal="true">
+                            <p:dataTable id="lovTiposFamiliares" style=" width: 430px" var="tipofamiliar" value="#{controlBetaEmplVigenciaNormaLaboral.listaNormasLaborales}" rowKey="#{tipofamiliar.secuencia}"
+                                         selection="#{controlBetaEmplVigenciaNormaLaboral.normaLaboralSeleccionada}" selectionMode="single" widgetVar="lovTiposFamiliares" scrollable="true" scrollWidth="445" scrollHeight="130"
+                                         filteredValue="#{controlBetaEmplVigenciaNormaLaboral.filtradoNormasLaborales}" emptyMessage="#{msg['lovvacio']}">
+                                
+                                <p:ajax event="filter" listener="#{controlBetaEmplVigenciaNormaLaboral.eventoFiltrarNorma()}"/>
+                                <p:ajax event="rowSelect" listener="#{controlBetaEmplVigenciaNormaLaboral.activarAceptar()}" update=":form:aceptarS"/>
+                                <p:ajax event="rowDblselect" listener="#{controlBetaEmplVigenciaNormaLaboral.actualizarNormaLaboral()}" update=":form:sucursalesDialogo" process="@this" />
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarNM']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                    <p:inputText id="globalFilter" onkeyup="lovTiposFamiliares.filter();" value="#{filtrado}" style="width:150px; position: relative; left: 10px;" />  
+                                </f:facet>
+                                <p:column filterBy="#{tipofamiliar.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['codigo']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{tipofamiliar.codigo}" />
+                                </p:column>
+                                <p:column filterBy="#{tipofamiliar.nombre}" width="160px" filterStyle="width:140px;" filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['nombre']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{tipofamiliar.nombre}" />
+                                </p:column>
+
+                            </p:dataTable>
+                            <h:outputText id="infoRecursoNormasLaborales" value="#{msg['infoRegistro']} #{controlBetaEmplVigenciaNormaLaboral.infoRecursoNormasLaborales}" style="position: absolute; left: 15px; top: 220px; font-weight: bold"/>
+                            <p:commandButton id="aceptarS" value="#{msg['aceptar']}" update=":form:sucursalesDialogo" disabled="#{controlBetaEmplVigenciaNormaLaboral.aceptar}" actionListener="#{controlBetaEmplVigenciaNormaLaboral.actualizarNormaLaboral()}"
+                                             style="position: relative; left: 230px" icon="ui-icon-check" process="@this" />
+                            <p:commandButton id="atrasS" value="#{msg['cancelar']}"  actionListener="#{controlBetaEmplVigenciaNormaLaboral.cancelarCambioNormaLaboral()}" 
+                                             style="position: relative; left: 232px" update=":form:sucursalesDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
+                        </p:dialog>
+
+                        <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                            <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                            <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlBetaEmplVigenciaNormaLaboral.guardarEmplVigenciaNormaLaboral()}" action="normalaboralNominaF" 
+                                             style="position: absolute; top: 45px; left: 180px" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlBetaEmplVigenciaNormaLaboral.cancelarModificacion()}" 
+                                             style="position: absolute; top: 45px; left: 245px" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" 
+                                             style="position: absolute; top: 45px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        </p:dialog>
+
+                    </p:panel>
+
+
+                    <p:dialog id="validacionDuplicarVigencia" header="#{msg['precaucion']}" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 15px;"  />
+                        <h:outputText value="#{msg['validacionDuplicarVigencia']} #{controlBetaEmplVigenciaNormaLaboral.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 200px; font-weight:bold" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 60px; left: 290px" process="@this" icon="ui-icon-check"/>
+                    </p:dialog>
+                    <p:dialog id="validacionModificar" header="#{msg['error']}" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="77" width="330px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value=" #{controlBetaEmplVigenciaNormaLaboral.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 40px; left: 210px" icon="ui-icon-check" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"  />
+                        <h:outputText value="#{msg['validacionBorrar']}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionBorrar.hide();" style="position: absolute; top: 60px; left: 285px" icon="ui-icon-check" process="@this" />
+                    </p:dialog>
+                    <p:dialog id="mostrarBorrados" header="#{msg['precaucion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="85" width="330"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
+                        <h:outputText value="#{msg['mostrarBorrados']} #{controlBetaEmplVigenciaNormaLaboral.registrosBorrados}  Registros" style="position: absolute; left: 110px; top: 20px; width: 200px; font-weight:bold; text-aling: center;" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="mostrarBorrados.hide();" style="position: absolute; top: 50px; left: 200px" icon="ui-icon-check" process="@this" />
+                    </p:dialog>
+                    <p:dialog id="validacionNuevaCentroCosto" header="#{msg['precaucion']}" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="false" modal="true" height="95" width="450px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
+                        <h:outputText value="#{msg['validacionNuevaCentroCosto']}#{controlBetaEmplVigenciaNormaLaboral.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevaCentroCosto.hide();" style="position: absolute; top: 60px; left: 325px" icon="ui-icon-check" process="@this" />
+                    </p:dialog>
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlBetaEmplVigenciaNormaLaboral.activarCtrlF11()}"/> 
+                </h:form>
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="115" width="360px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlBetaEmplVigenciaNormaLaboral.vigenciaSeleccionada.secuencia, 'VigenciasNormasEmpleados', 'betaEmplVigenciaNormaLaboral')}" oncomplete="#{controlBetaEmplVigenciaNormaLaboral.anularLOV()}" 
+                                         style="position: relative; top: 80px; left: 190px" icon="ui-icon-check" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: relative; top: 80px; left: 195px" icon="ui-icon-close" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('VigenciasNormasEmpleados', 'betaEmplVigenciaNormaLaboral')}" style="position: relative; top: 60px; left: 185px" icon="ui-icon-check" action="rastro" process="@this" oncomplete="#{controlBetaEmplVigenciaNormaLaboral.anularLOV()}"/>
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: relative; top: 60px; left: 190px" icon="ui-icon-close" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="100" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlBetaEmplVigenciaNormaLaboral.vigenciaSeleccionada.secuencia,'VigenciasNormasEmpleados', 'betaEmplVigenciaNormaLaboral')}" 
+                                         style="position: relative; top: 65px; left: 185px" icon="ui-icon-check" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: relative; top: 65px; left: 190px" icon="ui-icon-close" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 15px; width: 195px; font-weight:bold" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="80" width="295px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+
+
+                    <p:dialog id="editarFecha" header="#{msg['editarFecha']}" widgetVar="editarFecha" resizable="false" draggable="false" modal="true" height="80" width="400" style="position: absolute; top: 10px;  padding: 0px">  
+                        <p:inputTextarea value="#{controlBetaEmplVigenciaNormaLaboral.editarEmplVigenciaNormaLaboral.fechavigencia}" style="overflow: auto; width: 360px; height: 60px" readonly="true">  
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editPuntaje" header="#{msg['editPuntaje']}" widgetVar="editPuntaje" resizable="false" draggable="false" modal="true" height="80" width="400" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlBetaEmplVigenciaNormaLaboral.editarEmplVigenciaNormaLaboral.normalaboral.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+
+
+                    <p:dialog id="nuevoRegistroEvalEmpresas" header="#{msg['nuevoregistro']}" widgetVar="nuevoRegistroEvalEmpresas" closable="false" resizable="false"  draggable="false" modal="true" height="165" width="355" style=" padding: 0px">  
+                        <center><strong><h:outputText id="informacion" value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevaaEvalEmpresa" style="border: none;">
+
+                            <strong><h:outputText value="*#{msg['fechaN']}"  style=" position: absolute; top: 55px;" /></strong>
+                            <div  id="nuevaFechaa" style="width: 135px; position: absolute; top: 50px; left: 135px;">
+                                <lnk:calendar id="nuevaFecha" value="#{controlBetaEmplVigenciaNormaLaboral.nuevoEmplVigenciaNormaLaboral.fechavigencia}" height="12" width="60" >
+                                    <p:ajax event="dateSelect" update="nuevaFecha"/>
+                                    <p:ajax event="change" update="nuevaFecha"/>
+                                </lnk:calendar>
+                            </div>
+                            <p:watermark for="nuevaFecha" value="#{msg['fecha']}" />
+
+                            <strong><h:outputText value="*#{msg['normaLaboralN']}" style=" position: absolute; top: 90px" /></strong>
+                            <p:inputText maxlength="40" id="nuevoNombreSucursal" value="#{controlBetaEmplVigenciaNormaLaboral.nuevoEmplVigenciaNormaLaboral.normalaboral.nombre}" style=" width: 127px; position: absolute; left: 135px; top: 85px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="click" listener="#{controlBetaEmplVigenciaNormaLaboral.valoresBackupAutocompletar(1)}" />
+                                <p:ajax event="change" listener="#{controlBetaEmplVigenciaNormaLaboral.autocompletarNuevo('NORMASLABORALES',controlBetaEmplVigenciaNormaLaboral.nuevoEmplVigenciaNormaLaboral.normalaboral.nombre, 1)}" />
+                                <p:ajax event="dblclick" listener="#{controlBetaEmplVigenciaNormaLaboral.asignarVariableNormasLaborales(0)}" />
+                            </p:inputText>
+
+                            <p:commandButton style="position: absolute; left: 275px; top: 85px; background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
+                                             width: 23px; height: 23px;" value="" id="btnnuevoNombreSucursal" process="@this"  actionListener="#{controlBetaEmplVigenciaNormaLaboral.asignarVariableNormasLaborales(0)}"/>   
+                            <p:watermark for="nuevoNombreSucursal" value="#{msg['nombreNormaLaboral']}" />
+
+                            <p:commandButton id="limpiar" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 130px;"  actionListener="#{controlBetaEmplVigenciaNormaLaboral.limpiarNuevoEmplVigenciaNormaLaboral()}" update="nuevaaEvalEmpresa" process="@this" icon="ui-icon-trash"/>
+                            <p:commandButton id="agregarTE" value="#{msg['agregar']}" style="position: absolute; left: 127px; top: 130px;" actionListener="#{controlBetaEmplVigenciaNormaLaboral.agregarNuevoEmplVigenciaNormaLaboral()}" process="@this" icon="ui-icon-circle-check"/>
+                            <p:commandButton id="cancelarTE" value="#{msg['cancelar']}" style="position: absolute; left: 229px; top: 130px;"  update="nuevaaEvalEmpresa" onclick="nuevoRegistroEvalEmpresas.hide();"  actionListener="#{controlBetaEmplVigenciaNormaLaboral.limpiarNuevoEmplVigenciaNormaLaboral()}"  process="@this" icon="ui-icon-circle-close"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarRegistroEvalCompetencias" header="#{msg['duplicarregistro']}" widgetVar="duplicarRegistroEvalCompetencias" closable="false" resizable="false"  draggable="false" modal="true" height="165" width="355" style=" padding: 0px">  
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarEvC" style="border: none;">
+
+                            <strong><h:outputText value="*#{msg['fechaN']}"  style=" position: absolute; top: 55px;" /></strong>
+                            <div  id="duplicarFecha" style="width: 135px; position: absolute; top: 50px; left: 135px;">
+                                <lnk:calendar id="duplicarFechaa" value="#{controlBetaEmplVigenciaNormaLaboral.duplicarEmplVigenciaNormaLaboral.fechavigencia}" height="12" width="60" >
+                                    <p:ajax event="dateSelect" update="@this"/>
+                                    <p:ajax event="change" update="@this"/>
+                                </lnk:calendar>
+                            </div>
+                            <p:watermark for="duplicarFechaa" value="#{msg['fecha']}" />
+
+                            <strong><h:outputText value="*#{msg['normaLaboralN']}" style=" position: absolute; top: 95px" /></strong>
+                            <p:inputText maxlength="40" id="duplicarTipoCentroCostos" value="#{controlBetaEmplVigenciaNormaLaboral.duplicarEmplVigenciaNormaLaboral.normalaboral.nombre}" style=" width: 127px; position: absolute; left: 135px; top: 90px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="select" listener="#{controlBetaEmplVigenciaNormaLaboral.valoresBackupAutocompletar(2)}" />
+                                <p:ajax event="click" listener="#{controlBetaEmplVigenciaNormaLaboral.valoresBackupAutocompletar(2)}" />
+                                <p:ajax event="change" listener="#{controlBetaEmplVigenciaNormaLaboral.autocompletarDuplicado('NORMASLABORALES',controlBetaEmplVigenciaNormaLaboral.duplicarEmplVigenciaNormaLaboral.normalaboral.nombre, 2)}" />
+                                <p:ajax event="dblclick" listener="#{controlBetaEmplVigenciaNormaLaboral.asignarVariableNormasLaborales(1)}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 275px; top: 90px; background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
+                                             width: 23px; height: 23px;" value="" id="btnduplicarNombreSucursal" process="@this"  actionListener="#{controlBetaEmplVigenciaNormaLaboral.asignarVariableNormasLaborales(1)}"/>   
+                            <p:watermark for="duplicarTipoCentroCostos" value="#{msg['nombreNormaLaboral']}" />
+
+                            <p:commandButton id="limpiarD" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 130px;"  actionListener="#{controlBetaEmplVigenciaNormaLaboral.limpiarDuplicarEmplVigenciaNormaLaboral()}" update="duplicarEvC" process="@this" icon="ui-icon-trash"/>
+                            <p:commandButton id="duplicarVFP" value="#{msg['agregar']}" style="position: absolute; left: 125px; top: 130px;" actionListener="#{controlBetaEmplVigenciaNormaLaboral.confirmarDuplicar()}" process="@this" icon="ui-icon-circle-check"/>
+                            <p:commandButton id="cancelarDuplicarVFP" value="#{msg['cancelar']}" style="position: absolute; left: 230px; top: 130px;"  update="duplicarEvC" onclick="duplicarRegistroEvalCompetencias.hide();"  actionListener="#{controlBetaEmplVigenciaNormaLaboral.limpiarDuplicarEmplVigenciaNormaLaboral()}"  process="@this" icon="ui-icon-circle-close"/>
+                        </p:panel>
+                    </p:dialog>
+                </h:form>
+
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosVNLExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                                 value="#{controlBetaEmplVigenciaNormaLaboral.listEmplVigenciaNormaLaboralPorEmpleado}">
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaX']}" />
+                            </f:facet>
+                            <h:outputText value="#{infoExp.fechavigencia}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column> 
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="#{msg['normaLaboralXX']}" /></f:facet>
+                            <h:outputText value="#{infoExp.normalaboral.nombre}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

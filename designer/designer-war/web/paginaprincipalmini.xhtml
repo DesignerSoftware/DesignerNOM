@@ -1,0 +1,281 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Pagina Principal Mini</title>
+    </h:head>
+    <h:body> 
+
+
+        <!-- Panel Izquierdo - Superior -->
+
+        <fieldset style="height: 108.75px; width: 135px; display: block; position: absolute; border-radius: 10px;">
+            <legend style="color: #00F; font-family: Tahoma, Geneva, sans-serif; font-size: 12px;">Tipo Personal</legend>
+
+            <p:commandButton style="background-image: url(personal1.gif); width: 60.75px; height: 95.25px; position: absolute; top: 18.75px; left: 7.5px; background-repeat: no-repeat; background-size: 100% 100%;" id="TipoPersonal" value="" />
+            <p:tooltip style="font-size: 12px" for="TipoPersonal" value="CARGOS DESEMPEÑADOS: Observe y/o ingrese todos los cargos que el empleado ha desempeñado dentro de la empresa. "  />
+
+            <p:commandButton id="Activos" value="Activos" style="position: absolute; width: 78px; height: 22.5px; left: 75px; top: 19.5px; font-size: 9px;" />
+            <p:tooltip style="font-size: 12px" for="Activos" value="Ver información del Personal Activo"  />
+
+            <p:commandButton id="Pensionados" value="Pensionados" style="position: absolute; left: 75px; top: 43.5px; width: 78px; height: 22.5px; font-size: 9px;" />
+            <p:tooltip style="font-size: 12px" for="Pensionados" value="Ver información del Personal Pensionado"  />
+
+            <p:commandButton id="Retirados" value="Retirados" style="position: absolute; left: 75px; top: 67.5px; width: 78px; height: 22.5px; font-size: 9px;" />
+            <p:tooltip style="font-size: 12px" for="Retirados" value="Ver información del Personal Retirado"  />
+
+            <p:commandButton id="Aspirantes" value="Aspirantes"  style="position: absolute; left: 75px; top: 91.5px; width: 78px; height: 22.5px; font-size: 9px;"/>
+            <p:tooltip style="font-size: 12px" for="Aspirantes" value="Ver información del Personal Aspirante"  />
+        </fieldset>
+
+        <!-- Panel Derecho - Superior -->
+
+        <fieldset style="height: 108.75px; width: 577.5px; display: block; position: absolute; border-radius: 10px; left: 180px;">
+            <legend style="color: #00F; font-family: Tahoma, Geneva, sans-serif; font-size: 12px;">Personal Activo </legend>
+
+
+            <!-- Etiquetas y campos de texto --> 
+
+            <h:outputText style="position: absolute; left: 7.5px; top: 22.5px; color: #006; font-family: Tahoma, Geneva, sans-serif; font-size: 12px;" value="Código"/>
+            <p:inputText value="111222333" style="position: absolute; left: 7.5px; top: 45px; width: 75px; height: 15px; font-family: Tahoma, Geneva, sans-serif; font-size: 12px;" />
+
+            <h:outputText style="position: absolute; left: 97.5px; top: 22.5px; font-family: Tahoma, Geneva, sans-serif; color: #006; font-size: 12px;" value="Primer Apellido" />
+            <p:inputText value="PEREZ" style="position: absolute; left: 97.5px; top: 45px; width: 112.5px; height: 15px; font-family: Tahoma, Geneva, sans-serif; font-size: 12px;" />
+
+            <h:outputText style="position: absolute; left: 225px; top: 22.5px; font-family: Tahoma, Geneva, sans-serif; color: #006; font-size: 12px;" value="Segundo Apellido"/>
+            <p:inputText value="PEREZ" style="position: absolute; left: 225px; top: 45px; height: 15px; font-family: Tahoma, Geneva, sans-serif; font-size: 12px; width: 112.5px;" />
+
+            <h:outputText style="position: absolute; left: 355px; top: 22.5px; font-family: Tahoma, Geneva, sans-serif; color: #006; font-size: 12px;" value="Nombres"/>
+            <p:inputText value="PEPE" style="position: absolute; left: 355px; top: 45px; height: 15px; font-family: Tahoma, Geneva, sans-serif; font-size: 12px; width: 112.5px;" />
+
+            <div style="width: 21.25px; height: 35px; overflow: scroll; position: absolute; left: 480.5px; top: 40.5px; overflow-x: hidden;">
+            </div>
+
+            <!-- Botones Con Imagen (3) -->  
+
+            <p:commandButton style="background-image: url(buscarlaboral1.gif); position: absolute; left: 15px; top: 82.5px; width: 26.25px; height: 26.25px; background-repeat: no-repeat; background-size: 100% 100%; "  id="BusquedaAvanzadaLaboral" value="" />
+            <p:tooltip style="font-size: 12px" for="BusquedaAvanzadaLaboral" value="Busqueda avanzada datos Laborales"  />
+
+            <p:commandButton style="background-image: url(buscarpersonal1.gif); position: absolute; left: 48.75px; top: 82.5px; width: 26.25px; height: 26.25px; background-repeat: no-repeat; background-size: 100% 100%; " id="BusquedaAvanzadaPersonales" value="" />
+            <p:tooltip style="font-size: 12px" for="BusquedaAvanzadaPersonales" value="Busqueda avanzada datos Personales"  />
+
+            <p:commandButton style="background-image: url(buscarrapida1.gif); position: absolute; left: 82.5px; top: 82.5px; width: 26.25px; height: 26.25px; background-repeat: no-repeat; background-size: 100% 100%; " id="BusquedaRapida" value="" />
+            <p:tooltip style="font-size: 12px" for="BusquedaRapida" value="Busqueda Rapida"  />
+
+            <!-- Botones Buscar Empleado y Mostrar Todos --> 
+
+
+
+            <p:commandButton style="position: absolute; left: 247.5px; top: 82.5px; font-family: Tahoma, Geneva, sans-serif; font-size: 9px; width: 122.5px; height: 26.25px;" id="BuscarEmpleado" value="Buscar Empleado..." />
+            <p:tooltip style="font-size: 12px" for="BuscarEmpleado" value="Buscar un Empleado por Cedúla, Nombre o Apellidos"  />
+
+            <p:commandButton style="position: absolute; left: 375px; top: 82.5px; font-family: Tahoma, Geneva, sans-serif; font-size: 9px; height: 26.25px; width: 100px;"  id="MostrarTodos" value="Mostrar Todos" />
+            <p:tooltip style="font-size: 12px" for="MostrarTodos" value="Mostrar Todos los Empleados"  />
+
+            <!-- Boton Hoja de Vida -->
+
+            <p:commandButton id="HojaDeVida" value=""  style="background-size: 100% 100%; position: absolute; background-image: url(birrete1.gif); left: 515.5px; top: 22px; width: 71.25px; height: 69px; background-repeat: no-repeat;"/>
+            <p:tooltip style="font-size: 12px" for="HojaDeVida" value="Visualizar, Adicionar y/o Modificar datos personales del Empleado"  />
+
+            <strong><h:outputText style="position: absolute; left: 512.5px; top: 96.25px; font-family: Tahoma, Geneva, sans-serif; font-size: 12px; color: #006; width: 89.25px;" value="Hoja de Vida"/></strong>
+        </fieldset>
+
+        <!-- Panel Central    SEGUIR AQUIII CON LOS TOOLTIP!!!!! LUNES 1 DE ABRIL DE 2013-->
+        <!-- Panel Central    SEGUIR AQUIII CON LOS TOOLTIP!!!!! LUNES 1 DE ABRIL DE 2013-->
+        <!-- Panel Central    SEGUIR AQUIII CON LOS TOOLTIP!!!!! LUNES 1 DE ABRIL DE 2013-->
+        <!-- Panel Central    SEGUIR AQUIII CON LOS TOOLTIP!!!!! LUNES 1 DE ABRIL DE 2013-->
+        <!-- Panel Central    SEGUIR AQUIII CON LOS TOOLTIP!!!!! LUNES 1 DE ABRIL DE 2013-->
+
+
+        <fieldset style="height: 309.75px; width: 748.25px; display: block; position: absolute; border-radius: 10px; top: 135.25px;">
+            <legend style="color: #00F; font-family: Tahoma, Geneva, sans-serif; font-size: 12px;">Información Laboral</legend>
+
+            <!-- Etiquetas Panel Central -->
+
+            <p style="font-family: Tahoma, Geneva, sans-serif; color: #006">        
+                <h:outputText style="position: absolute; left: 52.5px; top: 22.5px; font-size: 12px" value="Cargo desempeñado"/>
+                <h:outputText style="position: absolute; left: 52.5px; top: 67.5px; font-size: 12px" value="Fecha Contratación"/>
+                <h:outputText style="position: absolute; left: 52.5px; top: 112.5px; font-size: 12px" value="Norma Laboral"/>
+                <h:outputText style="position: absolute; left: 52.5px; top: 157.5px; font-size: 12px" value="Afiliaciones"/>
+                <h:outputText style="position: absolute; left: 52.5px; top: 210px; font-size: 12px" value="I.B.C"/>
+                <h:outputText style="position: absolute; left: 52.5px; top: 255px; font-size: 12px" value="Tipo Viajero"/>
+                <h:outputText style="position: absolute; left: 315px; top: 22.5px; font-size: 12px" value="Centro de Costo - Localización"/>
+                <h:outputText style="position: absolute; left: 315px; top: 67.5px; font-size: 12px" value="Tipo Trabajador"/>
+                <h:outputText style="position: absolute; left: 315px; top: 112.5px; font-size: 12px" value="Legislación Laboral"/>
+                <h:outputText style="position: absolute; left: 315px; top: 157.5px; font-size: 12px" value="Jornada"/>
+                <h:outputText style="position: absolute; left: 315px; top: 210px; font-size: 12px" value="Menor Valor Retención"/>
+                <h:outputText style="position: absolute; left: 315px; top: 255px; font-size: 12px" value="Vacaciones (Solo Consulta)"/>
+                <h:outputText style="position: absolute; left: 577.5px; top: 22.5px; font-size: 12px" value="Sueldo"/>
+                <h:outputText style="position: absolute; left: 577.5px; top: 67.5px; font-size: 12px"  value="Tipo Salario (Reforma Laboral)"/>
+                <h:outputText style="position: absolute; left: 577.5px; top: 112.5px; font-size: 12px" value="Ubicación Geográfica"/>
+                <h:outputText style="position: absolute; left: 577.5px; top: 157.5px; font-size: 12px" value="Forma de Pago"/>
+                <h:outputText style="position: absolute; left: 577.5px; top: 210px; font-size: 12px" value="S.E.T."/>
+                <h:outputText style="position: absolute; left: 577.5px; top: 255px; font-size: 12px" value="Comprobantes de Pago"/>
+            </p>
+
+            <!-- Botones Panel Central -->
+
+            <p:commandButton title="holaa" id="CargoDesempeñado" value="" style="position: absolute; background-image: url(cargo.gif); width: 33.75px; height: 37.5px; top: 22.5px; background-repeat: no-repeat; background-size: 100% 100%;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(tipocontrato.gif); width: 33.75px; height: 37.5px; top: 67.5px; background-repeat: no-repeat; background-size: 100% 100%;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(normalaboral.gif); width: 33.75px; height: 37.5px; top: 112.5px; background-repeat: no-repeat; background-size: 100% 100%;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(afiliacion.gif); width: 33.75px; height: 37.5px; top: 157.5px; background-repeat: no-repeat; background-size: 100% 100%;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(ibc.gif); width: 33.75px; height: 37.5px; top: 210px; background-repeat: no-repeat; background-size: 100% 100%;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(viajero.gif); width: 33.75px; height: 37.5px; top: 255px; background-repeat: no-repeat; background-size: 100% 100%;" />
+
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(localizacion.gif); width: 33.75px; height: 37.5px; top: 22.5px; background-repeat: no-repeat; background-size: 100% 100%; left: 262.5px;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(tipotrabajador.gif); width: 33.75px; height: 37.5px; top: 67.5px; background-repeat: no-repeat; background-size: 100% 100%; left: 262.5px;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(contrato.gif); width: 33.75px; height: 37.5px; top: 112.5px; background-repeat: no-repeat; background-size: 100% 100%; left: 262.5px;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(jornadalaboral.gif); width: 33.75px; height: 37.5px; top: 157.5px; background-repeat: no-repeat; background-size: 100% 100%; left: 262.5px;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(retencion.gif); width: 33.75px; height: 37.5px; top: 210px; background-repeat: no-repeat; background-size: 100% 100%; left: 262.5px;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(vacacion.gif); width: 33.75px; height: 37.5px; top: 255px; background-repeat: no-repeat; background-size: 100% 100%; left: 262.5px;" />
+
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(sueldo.gif); width: 33.75px; height: 37.5px; top: 22.5px; background-repeat: no-repeat; background-size: 100% 100%; left: 525px;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(reformalaboral.gif); width: 33.75px; height: 37.5px; top: 67.5px; background-repeat: no-repeat; background-size: 100% 100%; left: 525px;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(origen.gif); width: 33.75px; height: 37.5px; top: 112.5px; background-repeat: no-repeat; background-size: 100% 100%; left: 525px;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(pasivoestimado.gif); width: 33.75px; height: 37.5px; top: 157.5px; background-repeat: no-repeat; background-size: 100% 100%; left: 525px;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(notacontable.gif); width: 33.75px; height: 37.5px; top: 210px; background-repeat: no-repeat; background-size: 100% 100%; left: 525px;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(comprobante.gif); width: 33.75px; height: 37.5px; top: 255px; background-repeat: no-repeat; background-size: 100% 100%; left: 525px;" />
+
+
+            <!-- Cajas de Texto -->
+
+            <p:inputText id="textfield" style="position: absolute; left: 52.5px; top: 41.25px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+            <p:inputText id="textfield1" style="position: absolute; left: 52.5px; top: 86.25px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+            <p:inputText id="textfield2" style="position: absolute; left: 52.5px; top: 131.25px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+            <p:inputText id="textfield3" style="position: absolute; left: 52.5px; top: 176.25px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+            <p:inputText id="textfield4" style="position: absolute; left: 52.5px; top: 228.75px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+            <p:inputText id="textfield5" style="position: absolute; left: 52.5px; top: 273.75px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+
+
+            <p:inputText id="textfield6" style="position: absolute; left: 315px; top: 41.25px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+            <p:inputText id="textfield7" style="position: absolute; left: 315px; top: 86.25px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+            <p:inputText id="textfield8" style="position: absolute; left: 315px; top: 131.25px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+            <p:inputText id="textfield9" style="position: absolute; left: 315px; top: 176.25px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+            <p:inputText id="textfield10" style="position: absolute; left: 315px; top: 228.75px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+            <p:inputText id="textfield11" style="position: absolute; left: 315px; top: 273.75px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+
+
+            <p:inputText id="textfield12" style="position: absolute; left: 577.5px; top: 41.25px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+            <p:inputText id="textfield13" style="position: absolute; left: 577.5px; top: 86.25px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+            <p:inputText id="textfield14" style="position: absolute; left: 577.5px; top: 131.25px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+            <p:inputText id="textfield15" style="position: absolute; left: 577.5px; top: 176.25px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+            <p:inputText id="textfield16" style="position: absolute; left: 577.5px; top: 228.75px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+            <p:inputText id="textfield17" style="position: absolute; left: 577.5px; top: 273.75px; width: 161.25px; height: 10px; font-size: 12px"  />
+
+        </fieldset>
+
+        <!-- Panel Acumulados y Novedades -->
+
+        <fieldset style="height: 46.5px; width: 61.25px; display: block; position: absolute; border-radius: 10px; top: 465.5px;">
+            <legend style="color: #00F; font-family: Tahoma, Geneva, sans-serif; font-size: 6px;">Acumula. y Noved.
+            </legend>
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(acumulados.gif); width: 30px; height: 37.5px; top: 15px; background-repeat: no-repeat; background-size: 100% 100%;" />
+
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(novedad.gif); width: 30px; height: 37.5px; top: 15px; background-repeat: no-repeat; background-size: 100% 100%; left: 50.25px;" />
+
+        </fieldset>
+
+
+        <!-- Panel Evaluacion y Resultados -->
+
+        <fieldset style="height: 46.5px; width: 61.25px; display: block; position: absolute; border-radius: 10px; top: 465.5px; left: 101.25px;">
+            <legend style="color: #00F; font-family: Tahoma, Geneva, sans-serif; font-size: 6px;">Evaluacion y Result.</legend>
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(afiliacion.gif); width: 30px; height: 37.5px; top: 15px; background-repeat: no-repeat; background-size: 100% 100%; left: 7;" />
+
+            <p:commandButton  id="CargoDesempeñado2" value="" style="position: absolute; background-image: url(escalafonsalarial.gif); width: 30px; height: 37.5px; top: 15px; background-repeat: no-repeat; background-size: 100% 100%; left: 50.25px;" />
+        </fieldset>
+
+
+        <!-- Panel Salud Ocupacional-->
+
+        <fieldset style="height: 46.5px; width: 67.5px; display: block; position: absolute; border-radius: 10px; top: 465.5px; left: 196.5px;">
+            <legend style="color: #00F; font-family: Tahoma, Geneva, sans-serif; font-size: 6px;">Salud Ocupacional</legend>
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(g_saludocupacional.gif); width: 67.5px; height: 37.5px; top: 15px; background-repeat: no-repeat; background-size: 100% 100%;" />
+
+        </fieldset>
+
+        <!-- Panel Ingresos Act. Pen. y Asp.-->
+
+        <fieldset style="height: 46.5px; width: 102.5px; display: block; position: absolute; border-radius: 10px; top: 465.5px; left: 298px;">
+            <legend style="color: #00F; font-family: Tahoma, Geneva, sans-serif; font-size: 6px;">Salud Ocupacional</legend>
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(ingreso.gif); width: 30px; height: 37.5px; top: 15px; background-repeat: no-repeat; background-size: 100% 100%; left: 7;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(pensionado.gif); width: 30px; height: 37.5px; top: 15px; background-repeat: no-repeat; background-size: 100% 100%; left: 91.5px;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(perfil.gif); width: 30px; height: 37.5px; top: 15px; background-repeat: no-repeat; background-size: 100% 100%; left: 50.25px;" />
+
+        </fieldset>
+
+        <!-- Panel Hoja de Vida -->
+
+        <fieldset style="height: 46.5px; width: 61.25px; display: block; position: absolute; border-radius: 10px; top: 465.5px; left: 435.25px;">
+            <legend style="color: #00F; font-family: Tahoma, Geneva, sans-serif; font-size: 6px;">Hoja de Vida</legend>
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(inconsistencia.gif); width: 30px; height: 37.5px; top: 15px; background-repeat: no-repeat; background-size: 100% 100%;" />
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(n_informes.gif); width: 30px; height: 37.5px; top: 15px; background-repeat: no-repeat; background-size: 100% 100%; left: 50.25px;" />
+
+        </fieldset>
+
+
+        <!-- Panel Reportes -->
+
+        <fieldset style="height: 46.5px; width: 48.75px; display: block; position: absolute; border-radius: 10px; top: 465.5px; left: 531.25px;">
+            <legend style="color: #00F; font-family: Tahoma, Geneva, sans-serif; font-size: 6px;">Hoja de Vida</legend>
+
+            <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(reportesboton.gif); width: 48.75px; height: 37.5px; top: 15px; background-repeat: no-repeat; background-size: 100% 100%; left: 7;" />
+
+        </fieldset>
+
+        <p:commandButton id="CargoDesempeñado" value="" style="position: absolute; background-image: url(Designer.GIF); width: 172.5px; height: 60.25px; top: 467.5px; background-repeat: no-repeat; background-size: 100% 100%; left: 612px;" />
+
+        <em><h:outputText style="position: absolute; top: 535px; font-size: 12px;" value="Bienvenido(a):"/></em>
+        <strong><h:outputText style="position: absolute; top: 535px; left: 82.5px; font-size: 12px;" value="DESIGNER SOFTWARE LTDA"/></strong>
+
+        <strong><h:outputText style="position: absolute; top: 535px; left: 519.75px; font-size: 12px;" value="ADMINISTRADOR - Nit. 800216851 - Tel. 2637426"/></strong>
+
+
+    </h:body>
+</html>
+

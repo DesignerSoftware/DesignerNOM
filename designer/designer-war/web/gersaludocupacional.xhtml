@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+                    <p:panel  id="PanelTotal" header="Salud Ocupacional" style="position: absolute; width: 335px; height: 365px; left: 300px; top: 100px;text-align: left" >  
+                        <fieldset style="position: absolute; left: 10px; top: 40px; width: 300px; height: 280px; border-radius: 10px; ">       </fieldset>
+                        <p:commandButton style="border-color:#045491; width:300px; border-width: 2px; position: absolute;top: 50px;left: 20px" action="socondiciontrabajo" value="[Factores de Riesgo...]"></p:commandButton>
+                        <p:commandButton style="border-color:#045491; width:300px; border-width: 2px; position: absolute;top: 90px;left: 20px" value="[Panorama...]"></p:commandButton>
+                        <p:commandButton style="border-color:#045491; width:300px; border-width: 2px; position: absolute;top: 130px;left: 20px" value="[Reportes Salud Ocupacional...]"></p:commandButton>
+                        <p:commandButton style="border-color:#045491; width:300px; border-width: 2px; position: absolute;top: 170px;left: 20px" value="[Inspecciones...]"></p:commandButton>
+                        <p:commandButton style="border-color:#045491; width:300px; border-width: 2px; position: absolute;top: 210px;left: 20px" value="[Revisiones...]"></p:commandButton>
+                        <p:commandButton style="border-color:#045491; width:300px; border-width: 2px; position: absolute;top: 250px;left: 20px" value="[Citas Medicas...]"></p:commandButton>
+                        <p:commandButton style="border-color:#045491; width:300px; border-width: 2px; position: absolute;top: 290px;left: 20px" value="[Otros Reportes...]"></p:commandButton>
+
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" style="position: absolute;top: 335px;left: 260px" value="atras" action="atrasgersaludocupacional" ></p:commandButton>
+
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

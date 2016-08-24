@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+                    
+                    <f:loadBundle basename="Recursos.formulaproceso" var="msg" />
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="position: absolute; width: 874px; height: 510px;  text-align: left" >  
+
+                        <p:commandButton style="position: absolute; left: 683px; top: 480px;" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="confirmarGuardar.show();" disabled="#{controlFormulaProceso.guardado}" update=":form:datosFormulaProceso" process="@this" />
+                        <p:commandButton style="position: absolute; left: 775px; top: 480px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlFormulaProceso.salir()}" action="retornoFormula" process="@this" />
+                        <p:commandButton style="position: absolute; left: 20px; top: 480px;" id="FORMULASASEGURADAS" value="[Formulas Aseguradas]" action="formulasaseguradas" process="@this" />
+                        <h:outputText id="informacionRegistro" value="#{controlFormulaProceso.infoRegistro}" style="position: absolute; left: 20px; top: 445px; font-weight: bold"/>
+
+                        <fieldset style="position: absolute; left: 10px; top: 75px; width: 830px; height: 375px; border-radius: 10px; ">
+                            <legend style="color: blue"><strong>#{msg['infoFormula']}</strong></legend>
+
+                            <p:dataTable id="datosFormulaProceso" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left;width: 810px"                           
+                                         value="#{controlFormulaProceso.listFormulasProcesos}" scrollable="true" scrollHeight="#{controlFormulaProceso.altoTabla}"  scrollWidth="825"
+                                         filteredValue="#{controlFormulaProceso.filtrarListFormulasProcesos }" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" liveScroll="true" scrollRows="25" selectionMode="single" selection="#{controlFormulaProceso.formulaTablaSeleccionada}">
+
+                                <p:ajax event="filter" listener="#{controlFormulaProceso.eventoFiltrar()}"/>
+
+                                <p:column  headerText="#{msg['proceso']}" sortBy="#{info.proceso.descripcion}" filterBy="#{info.proceso.descripcion}" filterMatchMode="contains" id="formulaProceso" width="35" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.proceso.descripcion}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.proceso.descripcion}" id="editarFormulaProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                                <p:ajax event="change" listener="#{controlFormulaProceso.modificarFormulaProceso(indice, 'PROCESO', info.formula.nombrecorto)}" process="@this" update="editarFormulaProceso"/>
+                                                <p:ajax event="dblclick" listener="#{controlFormulaProceso.asignarIndex(indice,0,0)}" process="@this" update="editarFormulaProceso"/>
+                                                <p:ajax event="select" listener="#{controlFormulaProceso.cambiarIndice(indice, 0)}"  process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" action="proceso" actionListener="#{controlProceso.inicializarPagina('formulaproceso')}" id="fooProcesoFormula" value=" "/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column style="padding: 0px" headerText="I" sortBy="#{info.periodicidadindependiente}" filterBy="#{info.periodicidadindependiente}" filterMatchMode="contains" 
+                                          id="formulaPeriodicidad" width="13" filterStyle="display: none; visibility: hidden;" >                                  
+
+                                    <f:facet name="header">
+                                        <h:outputText value="I" id="textI"/>
+                                        <p:tooltip  for="textI" value="#{msg['textI']}" />
+                                    </f:facet>
+                                    
+                                    <p:selectBooleanCheckbox id="editarFormulaPeriodicidad" style="width: 20px; height: 15px" value="#{info.checkPeriodicidad}">
+                                        <p:ajax event="change" listener="#{controlFormulaProceso.modificarFormulaProceso(indice)}" update="editarFormulaPeriodicidad" process="@this"/>
+                                    </p:selectBooleanCheckbox>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable>  
+                        </fieldset> 
+
+                        <p:toolbar style="position: absolute; top: 33px; left: 12px; height: 23px">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " actionListener="#{controlFormulaProceso.guardarGeneral()}" process="@this" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaProceso.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaProceso.listaValoresBoton()}"  process="@this"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaProceso.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false" actionListener="#{controlFormulaProceso.validarExportXLS()}" />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false">
+                                    <p:dataExporter type="xml"  target="#{controlFormulaProceso.exportXML()}" fileName="#{controlFormulaProceso.nombreXML}" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaProceso.validarExportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaProceso.dialogoNuevoRegistro()}" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaProceso.verificarRegistroBorrar()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaProceso.verificarRegistroDuplicar()}" process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaProceso.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+                                
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaProceso.cancelarModificacionGeneral()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaProceso.salir()}" action="retornoFormula" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                                
+                                
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+
+                    </p:panel>
+                    
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlFormulaProceso.guardarGeneral()}" action="retornoFormula" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlFormulaProceso.salir()}" action="retornoFormula" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+                    
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFormulaProceso.backUp, controlFormulaProceso.nombreTablaRastro , 'rastroFormProceso')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlFormulaProceso.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlFormulaProceso.nombreTablaRastro , 'rastroFormNovedad')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlFormulaProceso.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}El " style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFormulaProceso.backUp, controlFormulaProceso.nombreTablaRastro , 'rastroFormProceso')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroFP" header="#{msg['atencion']}" widgetVar="errorRegistroFP"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroFP']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog header="#{msg['procesoM']}" widgetVar="ProcesosDialogo" draggable="false" resizable="false" closable="false" id="ProcesosDialogo"  
+                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                        <p:dataTable id="lovProceso" style="width: 400px" var="proceso" value="#{controlFormulaProceso.lovProcesos}" rowKey="#{proceso.secuencia}"
+                                     selection="#{controlFormulaProceso.procesoSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovProceso" scrollable="true" scrollHeight="250" 
+                                     filteredValue="#{controlFormulaProceso.filtrarLovProcesos}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlFormulaProceso.activarAceptar()}" update=":form:aceptarF"/>
+                            <p:ajax event="rowDblselect" listener="#{controlFormulaProceso.actualizarProceso()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovProceso.filter();" style="width:140px; position: relative; left: 5px;" />  
+                            </f:facet>
+                            <p:column filterBy="#{proceso.descripcion}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['descripcion']}" />
+                                </f:facet>
+                                <h:outputText value="#{proceso.descripcion}" />
+                            </p:column>
+                        </p:dataTable>
+                        
+                        <h:outputText id="infoRegistroProceso" value="#{controlFormulaProceso.infoRegistroProceso}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+                        
+                        <p:commandButton icon="ui-icon-check" id="aceptarF" style="position: relative; left: 230px" value="#{msg['aceptar']}" disabled="#{controlFormulaProceso.aceptar}"  actionListener="#{controlFormulaProceso.actualizarProceso()}"  process="@this"/>
+                        
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasF" style="position: relative; left: 230px" value="#{msg['atras']}" actionListener="#{controlFormulaProceso.cancelarCambioProceso()}" process="@this"/>
+                        
+                    </p:dialog>
+
+
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlFormulaProceso.activarCtrlF11()}"/> 
+                </h:form>
+                <h:form id="formularioDialogos" >
+
+                    <p:dialog id="NuevoRegistroProceso" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroProceso" closable="false" resizable="false"  draggable="false" modal="true" height="175" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <p:panel id="nuevoFormula" style="border: none;">
+
+                            <strong><h:outputText value="*#{msg['procesoN']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <p:inputText id="nuevoFormulaProceso" value="#{controlFormulaProceso.nuevoFormulaProceso.proceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlFormulaProceso.asignarIndex(indice,0,1)}"/>
+                                <p:ajax event="click" listener="#{controlFormulaProceso.valoresBackupAutocompletar(1, 'PROCESO')}" />
+                                <p:ajax event="change" listener="#{controlFormulaProceso.autocompletarNuevoyDuplicadoFormulaProceso('PROCESO', controlFormulaProceso.nuevoFormulaProceso.proceso.descripcion, 1)}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 335px; top: 70px;" id="btnNuevoProceso" icon="ui-icon-search" process="@this"  actionListener="#{controlFormulaProceso.asignarIndex(indice,0,1)}"/>   
+                            <p:watermark value="#{msg['proceso']}" for="nuevoFormulaProceso"/>
+
+                            <strong><h:outputText value="#{msg['iN']}" style="position: absolute; top: 105px; left: 50px" /></strong>                            
+                            <p:selectBooleanCheckbox id="nuevoFormulaPerio" style="alignment-adjust: central;position: absolute; left: 200px; top: 100px;" value="#{controlFormulaProceso.nuevoFormulaProceso.checkPeriodicidad}">
+                                <p:ajax event="change" update="nuevoFormulaPerio" process="@this"/>
+                            </p:selectBooleanCheckbox>
+
+                            <p:commandButton id="limpiarNF" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 145px;" icon="ui-icon-trash" actionListener="#{controlFormulaProceso.limpiarNuevaFormulaProceso()}" update="nuevoFormula" process="@this"/>
+                            <p:commandButton id="aceptarNF" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 145px;" icon="ui-icon-circle-check" actionListener="#{controlFormulaProceso.agregarNuevoFormulaProceso()}" process="@this"  />
+                            <p:commandButton id="cancelarNF" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 145px;" icon="ui-icon-circle-close" actionListener="#{controlFormulaProceso.limpiarNuevaFormulaProceso()}" update="nuevoFormula" onclick="NuevoRegistroProceso.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="DuplicarRegistroFormulaProceso" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroFormulaProceso" closable="false" resizable="false"  draggable="false" modal="true" height="175" width="400" style="padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarFormula" style="border: none;">
+
+                            <strong><h:outputText value="*#{msg['procesoN']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <p:inputText id="duplicarFormulaProceso" value="#{controlFormulaProceso.duplicarFormulaProceso.proceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlFormulaProceso.asignarIndex(indice,0,2)}"/>
+                                <p:ajax event="click" listener="#{controlFormulaProceso.valoresBackupAutocompletar(2, 'PROCESO')}" />
+                                <p:ajax event="change" listener="#{controlFormulaProceso.autocompletarNuevoyDuplicadoFormulaProceso('PROCESO', controlFormulaProceso.duplicarFormulaProceso.proceso.descripcion, 2)}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 335px; top: 70px;" id="btnDuplicaProceso" icon="ui-icon-search" process="@this"  actionListener="#{controlFormulaProceso.asignarIndex(indice,0,2)}"/>   
+                            <p:watermark value="#{msg['proceso']}" for="duplicarFormulaProceso"/>
+
+                            <strong><h:outputText value="#{msg['iN']}Periodicidad Independiente: " style="position: absolute; top: 105px; left: 50px" /></strong>                            
+                            <p:selectBooleanCheckbox id="duplicarFormulaPerio" style="alignment-adjust: central;position: absolute; left: 200px; top: 100px;" value="#{controlFormulaProceso.duplicarFormulaProceso.checkPeriodicidad}">
+                                <p:ajax event="change" update="duplicarFormulaPerio" process="@this"/>
+                            </p:selectBooleanCheckbox>
+                            
+                            <p:commandButton id="limpiarDF" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 145px;" icon="ui-icon-trash" actionListener="#{controlFormulaProceso.limpiarDuplicarFormulaProceso()}" update="duplicarFormula" process="@this"/>
+                            <p:commandButton id="agregarDF" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 145px;" icon="ui-icon-circle-check"  actionListener="#{controlFormulaProceso.confirmarDuplicarFormulaProceso()}" process="@this"  />
+                            <p:commandButton id="cancelarDF" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 145px;" icon="ui-icon-circle-close" actionListener="#{controlFormulaProceso.limpiarDuplicarFormulaProceso()}" update="duplicarFormula" onclick="DuplicarRegistroFormulaProceso.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarFormulaProcesoD" header="#{msg['editarFormulaProcesoD']}" widgetVar="editarFormulaProcesoD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlFormulaProceso.editarFormulaProceso.proceso.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+
+                </h:form>
+                <h:form id="formExportarFormula">
+                    <p:dataTable id="datosFormulaProcesoExportar" var="exp" style="visibility: hidden; display: none;"                           
+                                 value="#{controlFormulaProceso.listFormulasProcesos}"> 
+
+                        <p:column headerText="#{msg['procesoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['procesoX']}"/> </f:facet> 
+                            <h:outputText value="#{exp.proceso.descripcion}" />
+                        </p:column>  
+
+                        <p:column headerText="I">                                  
+                            <f:facet name="header"><h:outputText value="I"/> </f:facet> 
+                            <h:outputText value="#{exp.periodicidadindependiente}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

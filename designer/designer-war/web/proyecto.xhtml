@@ -1,0 +1,827 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+
+                    <f:loadBundle basename="Recursos.proyecto" var="msg" />
+                    <p:growl id="growl" showDetail="true"/> 
+
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-size: 100% 100%;background-image: url(Imagenes/Iconos/guardar.png) ;background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlProyecto.guardadoGeneral()}" process="@this" />
+                                <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlProyecto.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " disabled="#{controlProyecto.activarLov}" actionListener="#{controlProyecto.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlProyecto.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " ajax="false" actionListener="#{controlProyecto.verificarExportXLS()}" />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlProyecto.limpiarNuevaP()}" ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportarP:datosProyectoExportar" fileName="ProyectoXML" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlProyecto.validarExportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " oncomplete="NuevoRegistroP.show()" update=":formularioDialogos:nuevaP"  process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlProyecto.borrarP()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlProyecto.duplicarProyectoM()}"  process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlProyecto.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlProyecto.cancelarModificacionP()}" process="@this" oncomplete="window.location.reload()"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlProyecto.salir()}" action="#{controlProyecto.redirigir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+                        <p:commandButton style=" position: absolute; left: 680px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" disabled="#{controlProyecto.guardado}" value=" " onclick="confirmarGuardar.show();" update=":form:datosProyectos" process="@this" />
+                        <p:commandButton style=" position: absolute; left: 770px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=""  actionListener="#{controlProyecto.salir()}" action="#{controlProyecto.redirigir()}" process="@this" />
+
+                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 380px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="color: blue"><strong>#{msg['titulo']}</strong></legend>
+                            <p:dataTable id="datosProyectos" widgetVar="datosProyecto" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceP" value="#{controlProyecto.listProyectos}" 
+                                         filteredValue="#{controlProyecto.filtrarListProyectos}" editable="true" editMode="cell" 
+                                         scrollable="true" scrollWidth="820" scrollHeight="#{controlProyecto.altoTabla}" emptyMessage="#{msg['vacio']}" style="border: 1px;width: 830px"
+                                         liveScroll="true" scrollRows="25" selection="#{controlProyecto.proyectoTablaSeleccionado}" selectionMode="single">
+                                
+                                <p:ajax event="filter" listener="#{controlProyecto.eventoFiltrar()}"/>
+                                <f:event type="preRenderView" listener="#{controlProyecto.recordarSeleccionProyecto()}"/>
+
+                                <p:column headerText="#{msg['empresa']}" sortBy="#{info.empresa.nombre}" filterBy="#{info.empresa.nombre}" filterMatchMode="contains" width="133"
+                                          id="pryEmpresa" filterStyle="display: none; visibility: hidden;"  >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.empresa.nombre}" style="text-transform: uppercase"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.empresa.nombre}" id="editarEmpresaP" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,0)}" process="@this"/> 
+                                                <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,0,0)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info, 'EMPRESAS', info.empresa.nombre)}" process="@this" update="editarEmpresaP"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+
+                                <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" width="90"
+                                          filterMatchMode="contains" id="pryCodigo" filterStyle="display: none; visibility: hidden;"   >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigo}" style="text-transform: uppercase"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  value="#{info.codigo}" id="editarCodigoP" maxlength="20" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,1)}" process="@this"/> 
+                                                <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info)}" process="@this" update="editarCodigoP"/>                                   
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+
+                                <p:column headerText="#{msg['nombreproyecto']}" sortBy="#{info.nombreproyecto}" filterBy="#{info.nombreproyecto}" width="133"
+                                          filterMatchMode="contains" id="pryNombre" filterStyle="display: none; visibility: hidden;"   >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.nombreproyecto}" style="width: 100px;text-transform: uppercase"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  value="#{info.nombreproyecto}" maxlength="50" id="editarNombreP" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,2)}" process="@this"/> 
+                                                <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info)}" process="@this" update="editarNombreP"/>                                   
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+
+                                <p:column headerText="#{msg['cliente']}" sortBy="#{info.pryCliente.nombre}" filterBy="#{info.pryCliente.nombre}" filterMatchMode="contains" width="133"
+                                          id="pryCliente" filterStyle="display: none; visibility: hidden;"  >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.pryCliente.nombre}" style="text-transform: uppercase"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.pryCliente.nombre}" id="editarClienteP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,3)}" process="@this"/> 
+                                                <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,1,0)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info, 'CLIENTES', info.pryCliente.nombre)}" process="@this" update="editarClienteP"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 20px; border: none; color: blue;" id="fooCliente"  action="pry_clienteproyecto" actionListener="#{controlPryClientes.recibirPagina('atraspry_clienteproyecto')}" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['plataforma']}" sortBy="#{info.pryPlataforma.descripcion}" filterBy="#{info.pryPlataforma.descripcion}" filterMatchMode="contains" width="133"
+                                          id="pryPlataforma" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.pryPlataforma.descripcion}" style="text-transform: uppercase"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.pryPlataforma.descripcion}" id="editarPlataformaP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,4)}" process="@this"/> 
+                                                <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,2,0)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info, 'PLATAFORMAS', info.pryPlataforma.descripcion )}" process="@this" update="editarPlataformaP"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 20px; border: none; color: blue;" id="fooProceso"  action="pry_plataformaproyecto" actionListener="#{controlPryPlataformas.recibirPagina('atraspry_plataformaproyecto')}" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['monto']}" sortBy="#{info.monto}" filterBy="#{info.monto}" width="90"
+                                          filterMatchMode="contains" id="pryMonto" filterStyle="display: none; visibility: hidden;"  >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.monto}" style="width: 100px;text-transform: uppercase">
+                                                <f:convertNumber currencySymbol="$" type="currency" />
+                                            </h:outputText></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  value="#{info.monto}" id="editarMontoP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,5)}" process="@this"/> 
+                                                <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info)}" process="@this" update="editarMontoP"/>                                   
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+
+                                <p:column headerText="#{msg['tipomoneda']}" sortBy="#{info.tipomoneda.nombre}" filterBy="#{info.tipomoneda.nombre}" filterMatchMode="contains" width="133"
+                                          id="pryMoneda" filterStyle="display: none; visibility: hidden;"  >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.tipomoneda.nombre}" style="width: 100px; text-transform: uppercase"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.tipomoneda.nombre}" id="editarMonedaP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,6)}" process="@this"/> 
+                                                <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,3,0)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info, 'MONEDAS', info.tipomoneda.nombre )}" process="@this" update="editarMonedaP"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+
+                                <p:column headerText="#{msg['cantidadpersonas']}" sortBy="#{info.cantidadpersonas}" filterBy="#{info.cantidadpersonas}" width="110"
+                                          filterMatchMode="contains" id="pryPersonas" filterStyle="display: none; visibility: hidden;"  >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.cantidadpersonas}" style="width: 100px;text-transform: uppercase"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  value="#{info.cantidadpersonas}" id="editarPersonasP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,7)}" process="@this"/> 
+                                                <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info)}" process="@this" update="editarPersonasP"/>                                   
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+
+                                <p:column headerText="#{msg['fechainicio']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" id="pryFechaInicial" width="100"
+                                          filterStyle="display: none; visibility: hidden;"  >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.fechainicial}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="dateFechaInicial" value="#{info.fechainicial}" >  
+                                                <p:ajax event="dateSelect" listener="#{controlProyecto.modificacionesFechas(info,8)}"  process="@this"/>
+                                                <p:ajax event="change" listener="#{controlProyecto.modificacionesFechas(info,8)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,8)}" process="@this"/> 
+                                            </lnk:calendar> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+
+                                <p:column headerText="#{msg['fechafinalizacion']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains" id="pryFechaFinal" width="100"
+                                          filterStyle="display: none; visibility: hidden;"  >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.fechafinal}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="editarFechaFinalP" value="#{info.fechafinal}" >  
+                                                <p:ajax event="dateSelect" listener="#{controlProyecto.modificacionesFechas(info,9)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlProyecto.modificacionesFechas(info,9)}"  process="@this"/>
+                                                <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,9)}" process="@this"/> 
+                                            </lnk:calendar> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+
+                                <p:column headerText="#{msg['descripciondelproyecto']}" sortBy="#{info.descripcionproyecto}" filterBy="#{info.descripcionproyecto}" width="350"
+                                          filterMatchMode="contains" id="pryDescripcion" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.descripcionproyecto}" style="text-transform: uppercase"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  value="#{info.descripcionproyecto}" maxlength="200" id="editarDescripcionP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,10)}" process="@this"/> 
+                                                <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info)}" process="@this" update="editarDescripcionP"/>                                   
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistro}" style="position: relative; left: 5px; top:-8px; font-weight: bold"/>
+                            <p:commandButton style="width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: relative;left: 565px;top:1px;" 
+                                         id="BUSCARPROYECTO" process="@this" value=" " actionListener="#{controlProyecto.dialogoProyecto()}"/> 
+                        <p:commandButton style="width: 90px; height: 30px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: relative;left: 575px ;top:1px;" 
+                                         id="MOSTRARTODOS" process="@this" value=" " actionListener="#{controlProyecto.mostrarTodos()}" update=":form:datosProyectos"/>
+                        </fieldset>
+
+                        <p:dialog header="#{msg['empresasE']}" widgetVar="EmpresasDialogo" draggable="false" resizable="false" closable="false" id="EmpresasDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                            <p:dataTable id="lovEmpresas" style="width: 400px" var="empresa" value="#{controlProyecto.listEmpresas}" rowKey="#{empresa.secuencia}"
+                                         selection="#{controlProyecto.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="416" scrollHeight="250"
+                                         filteredValue="#{controlProyecto.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}"> 
+                                <p:ajax event="filter" listener="#{controlProyecto.eventoFiltrarEmpresa()}"/>
+                                <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarE"/>
+                                <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarEmpresa()}" process="@this" />
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                    <p:inputText id="globalFilter" onkeyup="lovEmpresas.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                </f:facet>
+                                <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['nombreE']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{empresa.nombre}" />
+                                </p:column>
+                                <p:column filterBy="#{empresa.nit}"  filterMatchMode="contains" >
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center" value="#{msg['nitE']}" />
+                                    </f:facet>
+                                    <h:outputText  value="#{empresa.nit}" />
+                                </p:column>
+                            </p:dataTable>
+
+                            <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistroEmpresa}" style="position: absolute; left: 20px; top: 350px; font-weight: bold"/>
+                            
+                            <p:commandButton icon="ui-icon-check" id="aceptarE" style="position: relative; left: 220px" value="#{msg['aceptar']}" disabled="#{controlProyecto.aceptar}" actionListener="#{controlProyecto.actualizarEmpresa()}" process="@this"/>
+                            
+                            <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasE" style="position: relative; left: 225px" value="#{msg['atras']}" actionListener="#{controlProyecto.cancelarCambioEmpresa()}" process="@this"/>
+                        </p:dialog>
+
+
+                        <p:dialog header="#{msg['clientesC']}" widgetVar="ClientesDialogo" draggable="false" resizable="false" closable="false" id="ClientesDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="671" modal="true" >
+                            <p:dataTable id="lovClientes" style="width: 640px" var="cliente" value="#{controlProyecto.listPryClientes}" rowKey="#{cliente.secuencia}"
+                                         selection="#{controlProyecto.clienteSeleccionado}" selectionMode="single" widgetVar="lovClientes" scrollable="true" scrollWidth="656" scrollHeight="250"
+                                         filteredValue="#{controlProyecto.filtrarListPryClientes}" emptyMessage="#{msg['lovvacio']}">  
+                                <p:ajax event="filter" listener="#{controlProyecto.eventoFiltrarClientes()}"/>
+                                <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarC"/>
+                                <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarCliente()}" process="@this" />
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                    <p:inputText id="globalFilter" onkeyup="lovClientes.filter();" style="width:150px; position: relative; left: -90px;" />  
+                                </f:facet>
+                                <p:column filterBy="#{cliente.nombre}" width="140" filterMatchMode="contains" >
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center" value="#{msg['nombreC']}" />
+                                    </f:facet>
+                                    <h:outputText  value="#{cliente.nombre}" />
+                                </p:column>
+                                <p:column filterBy="#{cliente.direccion}" width="140"  filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['direccionC']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{cliente.direccion}" />
+                                </p:column>
+                                <p:column filterBy="#{cliente.telefono}" width="110"  filterMatchMode="contains" >
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['telefonoC']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{cliente.telefono}" />
+                                </p:column>
+                                <p:column filterBy="#{cliente.contacto}" width="110"  filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['contactoC']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{cliente.contacto}" />
+                                </p:column>
+                            </p:dataTable>
+
+                            <h:outputText id="infoRegistroCliente" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistroCliente}" style="position: absolute; left: 20px; top: 350px; font-weight: bold"/>
+                            <p:commandButton icon="ui-icon-check" id="aceptarC" style="position: relative; left: 460px" value="#{msg['aceptar']}" actionListener="#{controlProyecto.actualizarCliente()}" disabled="#{controlProyecto.aceptar}" process="@this"/>
+                            <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasC" style="position: relative; left: 465px" value="#{msg['atras']}" actionListener="#{controlProyecto.cancelarCambioCliente()}" process="@this"/>
+                        </p:dialog>
+
+                        <p:dialog header="#{msg['plataformastecnologicasP']}" widgetVar="PlataformasDialogo" draggable="false" resizable="false" closable="false" id="PlataformasDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="601" modal="true" >
+                            <p:dataTable id="lovPlataforma" style="width: 560px" var="plataforma" value="#{controlProyecto.listPryPlataformas}" rowKey="#{plataforma.secuencia}"
+                                         selection="#{controlProyecto.plataformaSeleccionada}" selectionMode="single" widgetVar="lovPlataforma" scrollable="true" scrollWidth="575" scrollHeight="250"
+                                         filteredValue="#{controlProyecto.filtrarListPryPlataformas}" emptyMessage="#{msg['lovvacio']}">   
+                                <p:ajax event="filter" listener="#{controlProyecto.eventoFiltrarPlataforma()}"/>
+                                <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarP"/>
+                                <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarPlataforma()}" process="@this" />
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                    <p:inputText id="globalFilter" onkeyup="lovPlataforma.filter();" style="width:150px; position: relative; left: -60px;" />  
+                                </f:facet>
+                                <p:column filterBy="#{plataforma.codigo}"  filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['codigoP']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{plataforma.codigo}" />
+                                </p:column>
+                                <p:column filterBy="#{plataforma.descripcion}"  filterMatchMode="contains" >
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center" value="#{msg['descripcionP']}" />
+                                    </f:facet>
+                                    <h:outputText  value="#{plataforma.descripcion}" />
+                                </p:column>
+                                <p:column filterBy="#{plataforma.observacion}"  filterMatchMode="contains" >
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center" value="#{msg['observacionP']}" />
+                                    </f:facet>
+                                    <h:outputText  value="#{plataforma.observacion}" />
+                                </p:column>
+                            </p:dataTable>
+
+                            <h:outputText id="infoRegistroPlataforma" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistroPlataforma}" style="position: absolute; left: 20px; top: 350px; font-weight: bold"/>
+                            <p:commandButton icon="ui-icon-check" id="aceptarP" style="position: relative; left: 390px" value="#{msg['aceptar']}" actionListener="#{controlProyecto.actualizarPlataforma()}" disabled="#{controlProyecto.aceptar}"  process="@this"/>
+                            <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasP" style="position: relative; left: 395px" value="#{msg['atras']}" actionListener="#{controlProyecto.cancelarCambioPlataforma()}" process="@this"/>
+                        </p:dialog>
+
+                        <p:dialog header="#{msg['tiposmonedasM']}" widgetVar="MonedasDialogo" draggable="false" resizable="false" closable="false" id="MonedasDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                            <p:dataTable id="lovMoneda" style="width: 400px" var="moneda" value="#{controlProyecto.listMonedas}" rowKey="#{moneda.secuencia}"
+                                         selection="#{controlProyecto.monedaSeleccionada}" selectionMode="single" widgetVar="lovMoneda" scrollable="true" scrollWidth="416" scrollHeight="250"
+                                         filteredValue="#{controlProyecto.filtrarListMonedas}" emptyMessage="#{msg['lovvacio']}"> 
+                                <p:ajax event="filter" listener="#{controlProyecto.eventoFiltrarTipoMoneda()}"/>
+                                <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarM"/>
+                                <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarMoneda()}" process="@this" />
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                    <p:inputText id="globalFilter" onkeyup="lovMoneda.filter();" style="width:150px; position: relative; left: 20px;" />  
+                                </f:facet>
+                                <p:column filterBy="#{moneda.codigo}" width="100"  filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['codigoM']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{moneda.codigo}" />
+                                </p:column>
+                                <p:column filterBy="#{moneda.nombre}" width="200" filterMatchMode="contains" >
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center" value="#{msg['nombreM']}" />
+                                    </f:facet>
+                                    <h:outputText  value="#{moneda.nombre}" />
+                                </p:column>
+                            </p:dataTable>
+
+                            <h:outputText id="infoRegistroTipoMoneda" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistroTipoMoneda}" style="position: absolute; left: 20px; top: 350px; font-weight: bold"/>
+                            <p:commandButton icon="ui-icon-check" id="aceptarM" style="position: relative; left: 220px" value="#{msg['aceptar']}" actionListener="#{controlProyecto.actualizarMoneda()}" disabled="#{controlProyecto.aceptar}"  process="@this"/>
+                            <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasM" style="position: relative; left: 225px" value="#{msg['atras']}" actionListener="#{controlProyecto.cancelarCambioMoneda()}" process="@this"/>
+                        </p:dialog>
+
+                        <p:dialog header="#{msg['proyectosPR']}" widgetVar="BuscarProyectoDialogo" draggable="false" resizable="false" closable="false" id="BuscarProyectoDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="431" modal="true">
+                            <p:dataTable id="lovProyecto" style=" width: 400px" var="proyecto" value="#{controlProyecto.listProyectosLOV}" rowKey="#{proyecto.secuencia}"
+                                         selection="#{controlProyecto.proyectoLOVSeleccionado}" selectionMode="single" widgetVar="lovProyecto" scrollable="true" scrollWidth="416" scrollHeight="250"
+                                         filteredValue="#{controlProyecto.filtarLovProyectos}" emptyMessage="#{msg['lovvacio']}">  
+                                <p:ajax event="filter" listener="#{controlProyecto.eventoFiltrarProyecto()}"/>
+                                <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarPro"/>
+                                <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarProyecto()}" process="@this" onstart="lovProyecto.clearFilters()"/>
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarPR']}: "  style="position: absolute; left: 27px; top: 14px"/>  
+                                    <p:inputText id="globalFilter" onkeyup="lovProyecto.filter();" style="width:150px; position: relative; left: 20px;" />  
+                                </f:facet>
+                                <p:column filterBy="#{proyecto.codigo}" width="100"  filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['codigoPR']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{proyecto.codigo}" />
+                                </p:column>
+                                <p:column filterBy="#{proyecto.nombreproyecto}" width="200" filterMatchMode="contains" >
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center" value="#{msg['nombrePR']}" />
+                                    </f:facet>
+                                    <h:outputText  value="#{proyecto.nombreproyecto}" />
+                                </p:column>
+                            </p:dataTable>
+
+                            <h:outputText id="infoRegistroProyecto" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistroProyecto}" style="position: absolute; left: 20px; top: 350px; font-weight: bold"/>
+                            <p:commandButton icon="ui-icon-check" id="aceptarPro" style="position: relative; left: 220px" value="#{msg['aceptar']}" actionListener="#{controlProyecto.actualizarProyecto()}" disabled="#{controlProyecto.aceptar}"  process="@this"/>
+                            <p:commandButton id="atrasPro" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 225px" value="#{msg['atras']}" actionListener="#{controlProyecto.cancelarActualizarProyecto()}"  process="@this"/>
+                        </p:dialog>
+
+                        
+                    </p:panel>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlProyecto.guardadoGeneral()}" action="#{controlProyecto.redirigir()}" style="position: absolute; top: 50px; left: 122px" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlProyecto.salir()}" action="#{controlProyecto.redirigir()}" style="position: absolute; top: 50px; left: 188px" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 260px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+                    
+                    <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="77" width="400px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['validacionBorrar']}" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionBorrar.hide();" style="position: absolute; top: 45px; left: 280px" process="@this" icon="ui-icon-check" />
+                    </p:dialog>
+                    
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecto.backUpSecRegistro, 'Proyectos', 'proyectoRastro')}" 
+                                         style="position: absolute; top: 63px; left: 180px" action="rastro" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 250px" process="@this" icon="ui-icon-close" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Proyectos', 'proyectoRastro')}"
+                                         style="position: absolute; top: 60px; left: 180px" action="rastro" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 250px" process="@this" icon="ui-icon-close" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecto.backUpSecRegistro, 'Proyectos', 'proyectoRastro')}" 
+                                         style="position: absolute; top: 63px; left: 180px" action="rastro" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 63px; left: 250px" process="@this" icon="ui-icon-close" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 2px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorDatosNull" header="#{msg['error']}" widgetVar="errorDatosNull"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorDatosNull']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 85px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="errorFechas.hide();" style="position: absolute; top: 60px; left: 250px" process="@this"  icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlProyecto.activarCtrlF11()}"/> 
+                </h:form>
+                <h:form id="formularioDialogos" >
+
+                    <p:dialog id="NuevoRegistroP" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroP" closable="false" resizable="false"  draggable="false" modal="true" height="430" width="400" style="padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevaP" style="border: none;">
+
+                            <strong><h:outputText value="#{msg['empresaN']}" style=" position: absolute; top: 75px; left: 50px" /></strong>
+                            <p:inputText id="nuevaEmpresaP" value="#{controlProyecto.nuevaProyectos.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,0,1)}"/>
+                                <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'EMPRESAS')}" />
+                                <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('EMPRESAS', controlProyecto.nuevaProyectos.empresa.nombre,1)}" process="@this" update="nuevaEmpresaP"/>
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px;  position: absolute; left: 335px; top: 70px;  " id="btnNuevaEmpresa" value=" "  actionListener="#{controlProyecto.asignarIndex(info,0,1)}" update="nuevaEmpresaP"/>   
+                            <p:watermark for="nuevaEmpresaP" value="#{msg['empresa']}" />
+
+                            <strong><h:outputText value="#{msg['codigoN']}" style="position: absolute; top: 105px; left: 50px" /></strong>
+                            <p:inputText id="nuevaCodigoP" maxlength="20" value="#{controlProyecto.nuevaProyectos.codigo}"  style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="change" update="nuevaCodigoP"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaCodigoP" value="#{msg['codigo']}" />
+
+                            <strong><h:outputText value="#{msg['nombreN']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <p:inputText id="nuevaProyectoP" maxlength="50" value="#{controlProyecto.nuevaProyectos.nombreproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="change" update="nuevaProyectoP"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaProyectoP" value="#{msg['nombreproyecto']}" />
+
+                            <strong><h:outputText value="#{msg['clienteN']}" style="position: absolute; top: 165px; left: 50px" /></strong>
+                            <p:inputText id="nuevaClienteP" value="#{controlProyecto.nuevaProyectos.pryCliente.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,1,1)}"/>
+                                <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'CLIENTES')}" />
+                                <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('CLIENTES', controlProyecto.nuevaProyectos.pryCliente.nombre,1)}" process="@this" update="nuevaClienteP"/>
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 160px;  " id="btnNuevaCliente" value=" "  actionListener="#{controlProyecto.asignarIndex(info,1,1)}" update="nuevaClienteP"/>   
+                            <p:watermark for="nuevaClienteP" value="#{msg['cliente']}" />
+
+                            <strong><h:outputText value="#{msg['plataformaN']}" style="position: absolute; top: 195px; left: 50px" /></strong>
+                            <p:inputText id="nuevaPlataformaP" value="#{controlProyecto.nuevaProyectos.pryPlataforma.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,2,1)}"/>
+                                <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'PLATAFORMAS')}" />
+                                <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('PLATAFORMAS', controlProyecto.nuevaProyectos.pryPlataforma.descripcion,1)}" process="@this" update="nuevaPlataformaP"/>
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 190px;  " id="btnNuevaPlataforma" value=" " process="@this" actionListener="#{controlProyecto.asignarIndex(info,2,1)}" update="nuevaPlataformaP"/>   
+                            <p:watermark for="nuevaPlataformaP" value="#{msg['plataforma']}" />
+
+                            <strong><h:outputText value="#{msg['montoN']}" style="position: absolute; top: 225px; left: 50px" /></strong>
+                            <p:inputText id="nuevaMontoP" value="#{controlProyecto.nuevaProyectos.monto}"  style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="change" update="nuevaMontoP"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaMontoP" value="#{msg['monto']}" />
+
+                            <strong><h:outputText value="#{msg['tipomonedaN']}" style="position: absolute; top: 255px; left: 50px" /></strong>
+                            <p:inputText id="nuevaMonedaP" value="#{controlProyecto.nuevaProyectos.tipomoneda.nombre}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,3,1)}"/>
+                                <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'MONEDAS')}" />
+                                <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('MONEDAS', controlProyecto.nuevaProyectos.tipomoneda.nombre,1)}" process="@this" update="nuevaMonedaP"/>
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 250px;  " id="btnNuevaMoneda" value=" " process="@this" actionListener="#{controlProyecto.asignarIndex(info,3,1)}" update="nuevaMonedaP"/>   
+                            <p:watermark for="nuevaMonedaP" value="#{msg['tipomoneda']}" />
+
+
+                            <strong><h:outputText value="#{msg['fechainicioN']}" style="position: absolute; top: 285px; left: 50px;" /></strong>
+                            <p:calendar  id="nuevaFechaInicialP" value="#{controlProyecto.nuevaProyectos.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                                         navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
+                                <p:ajax event="dateSelect" update="nuevaFechaInicialP"/>
+                                <p:ajax event="change" update="nuevaFechaInicialP"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="#{msg['fechafinalizacionN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
+                            <p:calendar  id="nuevaFechaFinalP" value="#{controlProyecto.nuevaProyectos.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                                         navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
+                                <p:ajax event="dateSelect" update="nuevaFechaFinalP"/>
+                                <p:ajax event="change" update="nuevaFechaFinalP"/>
+                            </p:calendar>
+
+
+                            <strong><h:outputText value="#{msg['descripcionN']}" style="position: absolute; top: 345px ; left: 50px" /></strong>
+                            <p:inputTextarea id="nuevaDescripcionP" maxlength="200" value="#{controlProyecto.nuevaProyectos.descripcionproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="change" update="nuevaDescripcionP"/>
+                            </p:inputTextarea>
+                            <p:watermark for="nuevaDescripcionP" value="#{msg['descripciondelproyecto']}" />
+
+                            <p:commandButton id="limpiarNP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 400px;" actionListener="#{controlProyecto.limpiarNuevaP()}" update="nuevaP" process="@this"/>
+                            <p:commandButton id="agregarNP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style=" position: absolute; left: 165px; top: 400px;" actionListener="#{controlProyecto.agregarNuevaP()}" process="@this"/>
+                            <p:commandButton id="cancelarNP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style=" position: absolute; left: 270px; top: 400px;" actionListener="#{controlProyecto.limpiarNuevaP()}" update="nuevaP" onclick="NuevoRegistroP.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="DuplicarRegistroP" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroP" closable="false" resizable="false"  draggable="false" modal="true" height="430" width="400" style="padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarP" style="border: none;">
+
+                            <strong><h:outputText value="#{msg['empresaN']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <p:inputText id="duplicarEmpresaP" value="#{controlProyecto.duplicarProyecto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,0,2)}"/>
+                                <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'EMPRESAS')}" />
+                                <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('EMPRESAS', controlProyecto.duplicarProyecto.empresa.nombre,2)}" process="@this" update="duplicarEmpresaP"/>
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 70px;  " id="btnDuplicaEmpresa" value=" "  process="@this"  actionListener="#{controlProyecto.asignarIndex(info,0,2)}" update="duplicarEmpresaP"/>   
+                            <p:watermark for="duplicarEmpresaP" value="#{msg['empresa']}" />
+
+                            <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 105px; left: 50px" /></strong>
+                            <p:inputText id="duplicarCodigoP" maxlength="20" value="#{controlProyecto.duplicarProyecto.codigo}"  style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="change" update="duplicarCodigoP"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCodigoP" value="#{msg['codigo']}" />
+
+                            <strong><h:outputText value="#{msg['nombreN']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <p:inputText id="duplicarProyectoP" maxlength="50" value="#{controlProyecto.duplicarProyecto.nombreproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="change" update="duplicarProyectoP"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarProyectoP" value="#{msg['nombreproyecto']}" />
+
+                            <strong><h:outputText value="#{msg['clienteN']}" style="position: absolute; top: 165px; left: 50px" /></strong>
+                            <p:inputText id="duplicarClienteP" value="#{controlProyecto.duplicarProyecto.pryCliente.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,1,2)}"/>
+                                <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'CLIENTES')}" />
+                                <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('CLIENTES', controlProyecto.duplicarProyecto.pryCliente.nombre,2)}" process="@this" update="duplicarClienteP"/>
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 160px;  " id="btnDuplicaCliente" value=" " process="@this"  actionListener="#{controlProyecto.asignarIndex(info,1,2)}" update="duplicarClienteP"/>   
+                            <p:watermark for="duplicarClienteP" value="#{msg['cliente']}" />
+
+                            <strong><h:outputText value="#{msg['plataformaN']}" style="position: absolute; top: 195px; left: 50px" /></strong>
+                            <p:inputText id="duplicarPlataformaP" value="#{controlProyecto.duplicarProyecto.pryPlataforma.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,2,2)}"/>
+                                <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'PLATAFORMAS')}" />
+                                <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('PLATAFORMAS', controlProyecto.duplicarProyecto.pryPlataforma.descripcion,2)}" process="@this" update="duplicarPlataformaP"/>
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 190px;  " id="btnDuplicaPlataforma" value=""  process="@this" actionListener="#{controlProyecto.asignarIndex(info,2,2)}" update="duplicarPlataformaP"/>   
+                            <p:watermark for="duplicarPlataformaP" value="#{msg['plataforma']}" />
+
+                            <strong><h:outputText value="#{msg['montoN']}" style="position: absolute; top: 225px; left: 50px" /></strong>
+                            <p:inputText id="duplicarMontoP" value="#{controlProyecto.duplicarProyecto.monto}"  style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="change" update="duplicarMontoP"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarMontoP" value="#{msg['monto']}" />
+
+                            <strong><h:outputText value="#{msg['tipomonedaN']}" style="position: absolute; top: 255px; left: 50px" /></strong>
+                            <p:inputText id="duplicarMonedaP" value="#{controlProyecto.duplicarProyecto.tipomoneda.nombre}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,3,2)}"/>
+                                <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'MONEDAS')}" />
+                                <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('MONEDAS', controlProyecto.duplicarProyecto.tipomoneda.nombre,2)}" process="@this" update="duplicarMonedaP"/>
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 250px;  " id="btnDuplicaMoneda" value=" " process="@this" actionListener="#{controlProyecto.asignarIndex(info,3,2)}" update="duplicarMonedaP"/>   
+                            <p:watermark for="duplicarMonedaP" value="#{msg['tipomoneda']}" />
+
+                            <strong><h:outputText value="#{msg['fechainicioN']}" style="position: absolute; top: 285px; left: 50px;" /></strong>
+                            <p:calendar  id="duplicarFechaInicialP" value="#{controlProyecto.duplicarProyecto.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                                         navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
+                                <p:ajax event="dateSelect" update="duplicarFechaInicialP"/>
+                                <p:ajax event="change" update="duplicarFechaInicialP"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="#{msg['fechafinalizacionN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
+                            <p:calendar  id="duplicarFechaFinalP" value="#{controlProyecto.duplicarProyecto.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                                         navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
+                                <p:ajax event="dateSelect" update="duplicarFechaFinalP"/>
+                                <p:ajax event="change" update="duplicarFechaFinalP"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="#{msg['descripcionN']}" style="position: absolute; top: 345px ; left: 50px" /></strong>
+                            <p:inputTextarea id="duplicarDescripcionP" maxlength="200" value="#{controlProyecto.duplicarProyecto.descripcionproyecto}"  style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="change" update="duplicarDescripcionP"/>
+                            </p:inputTextarea>
+                            <p:watermark for="duplicarDescripcionP" value="#{msg['descripciondelproyecto']}" />
+
+                            <p:commandButton id="limpiarDP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 400px;" actionListener="#{controlProyecto.limpiarduplicarP()}" update="duplicarP" process="@this"/>
+                            <p:commandButton id="agregarDP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 165px; top: 400px;" actionListener="#{controlProyecto.confirmarDuplicarP()}" process="@this"/>
+                            <p:commandButton id="cancelarDP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 270px; top: 400px;" actionListener="#{controlProyecto.limpiarduplicarP()}" update="duplicarP" onclick="DuplicarRegistroP.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <!-- ////// ////// ////// -->
+
+                    <p:dialog id="editarEmpresaPD" header="#{msg['editarEmpresaPD']}" widgetVar="editarEmpresaPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlProyecto.editarProyecto.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCodigoPD" header="#{msg['editarCodigoPD']}" widgetVar="editarCodigoPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlProyecto.editarProyecto.codigo}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarNombrePD" header="#{msg['editarNombrePD']}" widgetVar="editarNombrePD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlProyecto.editarProyecto.nombreproyecto}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarClientePD" header="#{msg['editarClientePD']}" widgetVar="editarClientePD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlProyecto.editarProyecto.pryCliente.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarPlataformaPD" header="#{msg['editarPlataformaPD']}" widgetVar="editarPlataformaPD" resizable="false" draggable="false" modal="true" height="80" width="4000" >  
+                        <p:inputTextarea value="#{controlProyecto.editarProyecto.pryPlataforma.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarMontoPD" header="#{msg['editarMontoPD']}" widgetVar="editarMontoPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlProyecto.editarProyecto.monto}" style="overflow: auto; width: 360px; height: 60px" readonly="true">
+                            <f:convertNumber currencySymbol="$" type="currency" />
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarMonedaPD" header="#{msg['editarMonedaPD']}" widgetVar="editarMonedaPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlProyecto.editarProyecto.tipomoneda.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarPersonasPD" header="#{msg['editarPersonasPD']}" widgetVar="editarPersonasPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlProyecto.editarProyecto.cantidadpersonas}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaInicialPD" header="#{msg['editarFechaInicialPD']}" widgetVar="editarFechaInicialPD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlProyecto.editarProyecto.fechainicial}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaFinalPD" header="#{msg['editarFechaFinalPD']}" widgetVar="editarFechaFinalPD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlProyecto.editarProyecto.fechafinal}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarDescripcionPD" header="#{msg['editarDescripcionPD']}" widgetVar="editarDescripcionPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlProyecto.editarProyecto.descripcionproyecto}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+
+                </h:form>
+                <h:form id="formExportarP">
+                    <p:dataTable id="datosProyectoExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                                 value="#{controlProyecto.listProyectos}"> 
+
+                        <p:column headerText="#{msg['empresaX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['empresaX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.empresa.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['codigoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.empresa.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['nombreX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['nombreX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.codigo}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['clienteX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['clienteX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.nombreproyecto}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['plataformaX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['plataformaX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.pryCliente.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['montoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['montoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.pryPlataforma.descripcion}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['tipomonedaXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['tipomonedaX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.monto}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['cantidadpersonasXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['cantidadpersonasX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.tipomoneda.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['fechainicioXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['fechainicioX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.fechainicial}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['fechafinalizacionXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['fechafinalizacionX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.fechafinal}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['descripcionproyectoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['descripcionproyectoX']}"/> </f:facet> 
+
+                            <h:outputText value="#{infoExp.cantidadpersonas}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

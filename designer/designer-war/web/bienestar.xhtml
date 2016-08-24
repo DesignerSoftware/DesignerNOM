@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+                    <f:loadBundle basename="Recursos.bienestar" var="msg" />
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']} #{controlb}" style="position: absolute; width: 874px; height: 510px; text-align: left">  
+                        <fieldset style="position: absolute; left: 10px; top: 35px;  width: 835px; height: 410px; border-radius: 10px; ">
+                            <legend style="font-size: 14px; color: blue"><strong>#{msg['plan']}</strong></legend>
+                            <p:commandButton style="background: url(Imagenes/interrogante.gif)  ;border-color:#045491; width:65px ; height: 75px ; border-width: 2px; position: absolute;top: 15px;left: 10px" value=" "></p:commandButton>
+                            <h:outputText value="#{msg['necesidades']}" style="position: absolute;left: 95px ; top: 20px; color: #045491; font-size: 16px"/>
+                            <h:outputText value="#{msg['necesidadestexto']}" style="position: absolute;left: 100px ; top: 45px ; color: #000000; font-size: 14px"/>
+
+                            <p:commandButton style=" background: url(Imagenes/evaluacion1.gif); border-color:#045491; width:65px ; height: 75px ; border-width: 2px; position: absolute;top: 95px;left: 10px" value=" "></p:commandButton>
+                            <h:outputText value="#{msg['programacion']}" style="position: absolute;left: 95px ; top: 100px; color: #045491; font-size: 16px"/>
+                            <h:outputText value="#{msg['programaciontexto']}" style="position: absolute;left: 100px ; top: 125px; color: #000000; font-size: 14px"/>
+
+                            <p:commandButton style="background: url(Imagenes/formulario.gif);border-color:#045491; width:65px ; height: 75px ; border-width: 2px; position: absolute;top: 175px;left: 10px" value=" "></p:commandButton>
+                            <h:outputText value="#{msg['inscripciones']}" style="position: absolute;left: 95px ; top: 175px; color: #045491; font-size: 16px"/>
+                            <h:outputText value="#{msg['inscripcionestexto']}" style="position: absolute;left: 100px ; top: 198px; color: #000000; font-size: 14px"/>
+
+
+                            <p:commandButton style="background: url(Imagenes/birrete1.gif);border-color:#045491; width:65px ; height: 75px ; border-width: 2px; position: absolute;top: 255px;left: 10px" value=" "></p:commandButton>
+                            <h:outputText value="#{msg['aye']}" style="position: absolute;left: 95px ; top: 255px; color: #045491; font-size: 16px"/>
+                            <h:outputText value="#{msg['ayetexto']}" style="position: absolute;left: 100px ; top: 280px; color: #000000; font-size: 14px"/>
+
+
+                            <p:commandButton style="background: url(Imagenes/reportesboton.gif);border-color:#045491; width:65px ; height: 75px ; border-width: 2px; position: absolute;top: 335px;left: 10px" action="reporteBienestar" value=" "></p:commandButton>
+                            <h:outputText value="#{msg['reportes']}" style="position: absolute;left: 95px ; top: 335px; color: #045491; font-size: 16px"/>
+                            <h:outputText value="#{msg['reportestexto']}" style="position: absolute;left: 100px ; top: 360px; color: #000000; font-size: 14px"/>
+
+                        </fieldset>
+                        <p:commandButton style=" position: absolute; left: 688px; top: 470px;  " icon="ui-icon-check" action="atrasNominaFBienestar" id="ACEPTAR" value="#{msg['aceptar']}" process="@this"   />
+                        <p:commandButton style=" position: absolute; left: 785px; top: 470px;  " icon="ui-icon-closethick" action="atrasNominaFBienestar" id="ATRAS" value="#{msg['atras']}"/>
+
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

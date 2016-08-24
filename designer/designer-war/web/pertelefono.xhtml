@@ -1,0 +1,467 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+                    <f:loadBundle basename="Recursos.pertelefono" var="msg" />
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
+
+                        <p:toolbar styleClass="cssToolbar" >   
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; " actionListener="#{controlPerTelefonos.guardarCambiosTelefono()}" process="@this" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlPerTelefonos.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "
+                                                 disabled="#{controlPerTelefonos.activarLov}" actionListener="#{controlPerTelefonos.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlPerTelefonos.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " ajax="false" actionListener="#{controlPerTelefonos.exportXLS()}" />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlPerTelefonos.limpiarNuevoTelefono()}" ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosTelefonosExportar" fileName="TelefonosXML" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlPerTelefonos.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " oncomplete="NuevoRegistroTelefono.show()" update=":formularioDialogos:nuevoTelefono" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" /> 
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlPerTelefonos.borrarTelefonos()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlPerTelefonos.duplicarT()}"  process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlPerTelefonos.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "
+                                                 oncomplete="window.location.reload()" actionListener="#{controlPerTelefonos.cancelarModificacion()}" process="@this" />  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "
+                                                 action="vigDepEmplInd" process="@this" />  
+                                <p:tooltip  for="salir" value="Salir"/>
+
+                                <p:commandButton style=" position: absolute; left: 670px; top: 455px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=" " onclick="confirmarGuardar.show();" update=":form:datosTelefonosPersona" disabled="#{controlPerTelefonos.guardado}" process="@this" />
+                                <p:commandButton style=" position: absolute; left: 765px; top: 455px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" " actionListener="#{controlPerTelefonos.salir()}" action="individual" process="@this" />
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px" />
+                            <h:outputText id="nombreEmpleado" value="#{controlPerTelefonos.empleado.persona.nombreCompleto}" 
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+
+                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px" />
+                            <h:outputText id="docEmpleado" value="#{controlPerTelefonos.empleado.codigoempleado}" 
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px" />
+                        </fieldset>
+                        
+                        
+                           <fieldset style="position: absolute;top: 115px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 14px; color: #14388B"><strong>#{msg['telefonos']}</strong></legend>
+
+                            <p:dataTable id="datosTelefonosPersona" var="telefono" value="#{controlPerTelefonos.listaTelefonos}"
+                                         rowKey="#{telefono.secuencia}" rowIndexVar="indice"                           
+                                         scrollable="true"  scrollWidth="830" filteredValue="#{controlPerTelefonos.filtradosListaTelefonos}"
+                                         scrollHeight="#{controlPerTelefonos.altoTabla}" style="border: 1px;width: 830px"
+                                         emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell"
+                                         selection="#{controlPerTelefonos.telefonoSeleccionado}" selectionMode="single">
+
+
+                                <p:ajax event="filter" listener="#{controlPerTelefonos.eventoFiltrar()}"/>
+
+                                <p:column headerText="#{msg['fecha']}" sortBy="#{telefono.fechavigencia}" filterBy="#{telefono.fechavigencia}" filterMatchMode="contains"  width="72" id="tFecha" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{telefono.fechavigencia}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="editFecha" value="#{telefono.fechavigencia}" height="12" width="99">
+                                                <p:ajax event="dateSelect"  update="editFecha"/>
+                                                <p:ajax event="change" />
+                                                <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 0)}" />
+                                            </lnk:calendar>
+                                        </f:facet>
+
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['tipodetelefono']}" sortBy="#{telefono.tipotelefono.nombre}" filterBy="#{telefono.tipotelefono.nombre}" filterMatchMode="contains" id="tTipoTelefono" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{telefono.tipotelefono.nombre}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{telefono.tipotelefono.nombre}" id="editarTipoTelefono" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height: 12px;"> 
+                                                <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono, 'TIPOTELEFONO', telefono.tipotelefono.nombre)}"/>
+                                                <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 1)}" />
+                                                <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 0, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet>
+
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 250px; margin: -14px; height: 26px;border: none; color: blue" id="fooTipoTelefono" value=" " action="tipotelefono" actionListener="#{controlTiposTelefonos.recibirPaginaEntrante('pertelefono')}"/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['numero']}" sortBy="#{telefono.numerotelefono}" filterBy="#{telefono.numerotelefono}" filterMatchMode="contains" id="tNumero" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{telefono.numerotelefono}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{telefono.numerotelefono}" id="editarNumeroTelefono" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
+                                                <pe:keyFilter for="editarNumeroTelefono" mask="num"/>
+                                                <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 2)}" />
+                                                <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono, 'N', telefono.numerotelefono)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column> 
+
+                                <p:column headerText="#{msg['ciudad']}" sortBy="#{telefono.ciudad.nombre}" filterBy="#{telefono.ciudad.nombre}" filterMatchMode="contains" id="tCiudad" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{telefono.ciudad.nombre}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{telefono.ciudad.nombre}" id="editarCiudad" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
+                                                <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono, 'CIUDAD', telefono.ciudad.nombre)}"/>
+                                                <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 3)}" />
+                                                <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 1, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 210px; margin: -14px; height: 26px; border: none; color: blue" id="fooCiudad" value=" " action="ciudad"/>
+                                    </f:facet>
+                                </p:column> 
+                            </p:dataTable>  
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlPerTelefonos.infoRegistro}" style="position: relative; left: 5px; top:5px; font-weight: bold"/>
+                        </fieldset>
+
+                    </p:panel> 
+                </h:form>
+
+                <h:form id="formularioDialogos">
+                    <p:dialog id="NuevoRegistroTelefono" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroTelefono" closable="false" resizable="false"  draggable="false" modal="true" height="310" width="320" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevoTelefono" style="border: none;">
+                            <strong><h:outputText value="* #{msg['fechaN']}" style=" position: absolute; top: 85px" /></strong>
+                            <div style=" position: absolute; top: 80px; left: 150px;">
+                                <lnk:calendar id="nuevaFecha" value="#{controlPerTelefonos.nuevoTelefono.fechavigencia}" height="12" width="60">
+                                    <p:ajax event="dateSelect" update="@this"/>
+                                    <p:ajax event="change" update="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <strong><h:outputText value="* #{msg['tipoN']}" style=" position: absolute; top: 120px" /></strong>
+                            <p:inputText id="nuevoTipoTelefono" value="#{controlPerTelefonos.nuevoTelefono.tipotelefono.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="click" listener="#{controlPerTelefonos.valoresBackupAutocompletar(1, 'TIPOT')}" />
+                                <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('TIPOT', controlPerTelefonos.nuevoTelefono.tipotelefono.nombre, 1)}" />
+                                <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 0, 1)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 285px; top: 115px;  " id="btnNuevoTipoTelefono" value=" " process="@this"  actionListener="#{controlPerTelefonos.asignarIndex(telefono, 0, 1)}"/>   
+
+                            <strong><h:outputText value="* #{msg['numeroN']}"  style=" position: absolute; top: 155px" /></strong>
+                            <p:inputText maxlength="12" id="nuevoNumero" value="#{controlPerTelefonos.nuevoTelefono.numerotelefono}" style=" width: 122px; position: absolute; left: 150px; top: 150px; text-transform: uppercase" onclick="select();">
+                                <pe:keyFilter for="nuevoNumero" mask="num"/>
+                                <p:ajax event="change" update="nuevoNumero"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 190px" /></strong>
+                            <p:inputText id="nuevaCiudad" value="#{controlPerTelefonos.nuevoTelefono.ciudad.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 185px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="click" listener="#{controlPerTelefonos.valoresBackupAutocompletar(1, 'CIUDAD')}" />
+                                <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('CIUDAD', controlPerTelefonos.nuevoTelefono.ciudad.nombre, 1)}" />
+                                <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 1, 1)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);background-size: 100% 100%; background-repeat: no-repeat; border: none;  width: 23px; height: 23px; position: absolute; left: 285px; top: 185px;  " id="btnNuevaCiudad" actionListener="#{controlPerTelefonos.asignarIndex(telefono, 1, 1)}" value=" " process="@this" />
+
+                            <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 10px; top: 250px;" actionListener="#{controlPerTelefonos.limpiarNuevoTelefono()}" update="nuevoTelefono" process="@this"/>
+                            <p:commandButton id="agregarT" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 110px; top: 250px;"  process="@this" actionListener="#{controlPerTelefonos.agregarNuevoTelefono()}"/>
+                            <p:commandButton id="cancelarT" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 210px; top: 250px;" actionListener="#{controlPerTelefonos.limpiarNuevoTelefono()}" update="nuevoTelefono" onclick="NuevoRegistroTelefono.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <!--DIALOGO DUPLICAR-->
+
+                    <p:dialog id="DuplicarRegistroTelefono" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroTelefono" closable="false" resizable="false"  draggable="false" modal="true" height="310" width="320" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarTelefono" style="border: none;">
+
+                            <strong><h:outputText value="* #{msg['fechaN']}" style=" position: absolute; top: 85px" /></strong>
+                            <div style=" position: absolute; top: 80px; left: 150px;">
+                                <lnk:calendar id="duplicarFecha" value="#{controlPerTelefonos.duplicarTelefono.fechavigencia}" height="12" width="60">
+                                    <p:ajax event="dateSelect" update="duplicarFecha"/>
+                                    <p:ajax event="change" update="duplicarFecha"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <strong><h:outputText value="* #{msg['tipoN']}" style=" position: absolute; top: 120px" /></strong>
+                            <p:inputText id="duplicarTipoTelefono" value="#{controlPerTelefonos.duplicarTelefono.tipotelefono.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="click" listener="#{controlPerTelefonos.valoresBackupAutocompletar(2, 'TIPOT')}" />
+                                <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('TIPOT', controlPerTelefonos.duplicarTelefono.tipotelefono.nombre, 2)}" />
+                                <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 0, 2)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);background-size: 100% 100%; background-repeat: no-repeat; border: none;  width: 23px; height: 23px; position: absolute; left: 285px; top: 115px;  " id="btnDuplicarTipoTelefono" value=" " process="@this"  actionListener="#{controlPerTelefonos.asignarIndex(telefono, 0, 2)}"/>   
+
+                            <strong><h:outputText value="* #{msg['numeroN']}" style=" position: absolute; top: 155px" /></strong>
+                            <p:inputText maxlength="12" id="duplicarNumero" value="#{controlPerTelefonos.duplicarTelefono.numerotelefono}" style=" width: 122px; position: absolute; left: 150px; top: 150px; text-transform: uppercase" onclick="select();">
+                                <pe:keyFilter for="duplicarNumero" mask="num"/>
+                                <p:ajax event="change" update="duplicarNumero"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarNumero" value="Numero" />
+
+                            <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 190px" /></strong>
+                            <p:inputText id="duplicarCiudad" value="#{controlPerTelefonos.duplicarTelefono.ciudad.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 185px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="click" listener="#{controlPerTelefonos.valoresBackupAutocompletar(2, 'CIUDAD')}" />
+                                <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('CIUDAD', controlPerTelefonos.duplicarTelefono.ciudad.nombre, 2)}" />
+                                <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 1 , 2)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);background-size: 100% 100%; background-repeat: no-repeat; border: none;  width: 23px; height: 23px;position: absolute; left: 285px; top: 185px;  " id="btnDuplicarCiudad" value=" " process="@this"  actionListener="#{controlPerTelefonos.asignarIndex(telefono, 1, 2)}"/>   
+
+
+                            <p:commandButton id="limpiarDuplicadoTelefono" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 10px; top: 250px;" actionListener="#{controlPerTelefonos.limpiarduplicarTelefono()}" update="duplicarTelefono" process="@this"/>
+                            <p:commandButton id="agregarDuplicadoTelefono" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 110px; top: 250px;"  process="@this" actionListener="#{controlPerTelefonos.confirmarDuplicar()}" />
+                            <p:commandButton id="cancelarDuplicadoTelefono" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 210px; top: 250px;" actionListener="#{controlPerTelefonos.limpiarduplicarTelefono()}" update="duplicarTelefono" onclick="DuplicarRegistroTelefono.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="validacionNuevoTelefono" header="#{msg['atencion']}" widgetVar="validacionNuevoTelefono"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{controlPerTelefonos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevoTelefono.hide();" style="position: absolute; top: 60px; left: 260px" process="@this" icon="ui-icon-circle-check" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlPerTelefonos.guardarCambiosTelefono()}" action="individual" style="position: absolute; top: 50px; left: 125px" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlPerTelefonos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" action="individual" style="position: absolute; top: 50px; left: 260px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+                    <!-- Ya Existe Tipo Telefono -->
+
+                    <p:dialog id="existeTipoTelefono" header="#{msg['error']}" widgetVar="existeTipoTelefono"  resizable="false" draggable="false" modal="true" height="85" width="425"  closable ="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['existeTipoTelefono']}" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="existeTipoTelefono.hide();" style="position: absolute; top: 50px; left: 260px" process="@this" />
+                    </p:dialog>
+
+
+
+
+                    <!--DIALOGO TIPOS DE TELEFONOS-->    
+                    <p:dialog header="#{msg['tiposT']}" widgetVar="tiposTelefonosDialogo" draggable="false" resizable="false" id="tiposTelefonosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="347" height="245" >
+
+                        <p:dataTable  id="LOVTiposTelefonos" style=" width: 300px" var="tipoTelefono" value="#{controlPerTelefonos.listaTiposTelefonos}"
+                                      scrollable="true" scrollHeight="117" scrollWidth="315" widgetVar="LOVTiposTelefonos" 
+                                      filteredValue="#{controlPerTelefonos.filtradoslistaTiposTelefonos}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{tipoTelefono.secuencia}" selection="#{controlPerTelefonos.seleccionTipoTelefono}" selectionMode="single">
+                            <p:ajax event="filter" listener="#{controlPerTelefonos.eventoFiltrarTT()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlPerTelefonos.activarAceptar()}" update=":formularioDialogos:aceptarTT"/>
+                            <p:ajax event="rowDblselect" listener="#{controlPerTelefonos.actualizarTiposTelefonos()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 15px"/>  
+                                <p:inputText id="globalFilter" onkeyup="LOVTiposTelefonos.filter();" style="width:100px; position: relative; left: 80px;" />  
+                            </f:facet>
+
+                            <p:column  filterBy="#{tipoTelefono.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 40px;" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['codigoT']}" />
+                                </f:facet>
+                                <h:outputText value="#{tipoTelefono.codigo}" />  
+                            </p:column>  
+
+                            <p:column filterBy="#{tipoTelefono.nombre}" width="150" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreT']}" />
+                                </f:facet>
+                                <h:outputText value="#{tipoTelefono.nombre}" />  
+                            </p:column>
+                        </p:dataTable>                         
+                            <h:outputText id="infoRegistroTT" value="#{msg['infoRegistros']} #{controlPerTelefonos.infoRegistroTT}" style="position: relative; left: 5px; top:10px; font-weight: bold"/>   
+                        <p:commandButton id="aceptarTT" value="#{msg['aceptar']}" disabled="#{controlPerTelefonos.aceptar}" style="position: absolute; top: 215px; left: 133px;" icon="ui-icon-check" actionListener="#{controlPerTelefonos.actualizarTiposTelefonos()}" process="@this"/>
+
+                        <p:commandButton id="atrasTT" value="#{msg['atras']}" style="position: absolute; top: 215px; left: 231px; " icon="ui-icon-arrowreturnthick-1-w"  actionListener="#{controlPerTelefonos.cancelarCambioTiposTelefonos()}" process="@this"/>
+
+                    </p:dialog>
+
+                    <!--DIALOGO CIUDADES-->    
+                    <p:dialog header="#{msg['ciudadesC']}" widgetVar="ciudadesDialogo" draggable="false" resizable="false" id="ciudadesDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="347" height="245" >
+
+                        <p:dataTable  id="LOVCiudades" style=" width: 300px" var="ciudad" value="#{controlPerTelefonos.listaCiudades}"
+                                      scrollable="true" scrollHeight="117" scrollWidth="315" liveScroll="true" scrollRows="8" widgetVar="LOVCiudades" 
+                                      filteredValue="#{controlPerTelefonos.filtradoslistaCiudades}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{ciudad.secuencia}" selection="#{controlPerTelefonos.seleccionCiudades}" selectionMode="single">
+                            <p:ajax event="filter" listener="#{controlPerTelefonos.eventoFiltrarCiudad()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlPerTelefonos.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
+                            <p:ajax event="rowDblselect" listener="#{controlPerTelefonos.actualizarCiudad()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left:27px; top: 15px"/>  
+                                <p:inputText id="globalFilter" onkeyup="LOVCiudades.filter();" style="width:150px; position: relative; left: 60px;" />  
+                            </f:facet>
+
+                            <p:column  filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 100px;" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreC']}" />
+                                </f:facet>
+                                <h:outputText value="#{ciudad.nombre}" />  
+                            </p:column>  
+                        </p:dataTable> 
+                        <h:outputText id="infoRegistroCiudades" value="#{msg['infoRegistros']} #{controlPerTelefonos.infoRegistroCiudad}" style="position: relative; left: 5px; top:10px; font-weight: bold"/>   
+                        <p:commandButton id="aceptarC" value="#{msg['aceptar']}" disabled="#{controlPerTelefonos.aceptar}" style="position: absolute; top: 215px; left: 133px;" icon="ui-icon-check" actionListener="#{controlPerTelefonos.actualizarCiudad()}" process="@this"/>
+
+                        <p:commandButton id="atrasC" value="#{msg['atras']}" style="position: absolute; top: 215px; left: 231px; " icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPerTelefonos.cancelarCambioCiudad()}" process="@this"/>
+                    </p:dialog>
+                    <!-- DIALOGOS EDITAR -->
+
+                    <p:dialog id="editarFecha" header="#{msg['fechaN']}" widgetVar="editarFecha" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                        <p:inputTextarea value="#{controlPerTelefonos.editarTelefono.fechavigencia}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarTT" header="#{msg['editarTT']}" widgetVar="editarTT" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlPerTelefonos.editarTelefono.tipotelefono.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarNumeroTelefono" header="#{msg['editarNumeroTelefono']}" widgetVar="editarNumeroTelefono" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlPerTelefonos.editarTelefono.numerotelefono}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCiudad" header="#{msg['editarCiudad']}" widgetVar="editarCiudad" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                        <p:inputTextarea value="#{controlPerTelefonos.editarTelefono.ciudad.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog> 
+
+                    <!-- DIALOGOS RASTROS -->
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerTelefonos.telefonoSeleccionado.getSecuencia(), 'Telefonos', 'telefonos')}" style="position: absolute; top: 63px; left: 170px" action="rastro" icon="ui-icon-check" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Telefonos', 'telefonos')}" style="position: absolute; top: 60px; left: 170px" icon="ui-icon-check" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 240px" process="@this" icon="ui-icon-close" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerTelefonos.telefonoSeleccionado.getSecuencia(), 'Telefonos', 'telefonos')}" style="position: absolute; top: 67px; left: 170px" icon="ui-icon-check" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 67px; left: 240px" process="@this" icon="ui-icon-close" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+                    <!--HotKey-->
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlPerTelefonos.activarCtrlF11()}" process="@this"/>
+
+                </h:form>
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosTelefonosExportar" var="telefono" style="visibility: hidden; display: none;"                           
+                                 value="#{controlPerTelefonos.listaTelefonos}"> 
+                        <!--COLUMNAS TABLA TELEFONOS--> 
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaX']}" />
+                            </f:facet>
+                            <h:outputText value="#{telefono.fechavigencia}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['tipoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['tipoX']}"/> </f:facet> 
+                            <h:outputText value="#{telefono.tipotelefono.nombre}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['numeroX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['numeroX']}"/></f:facet>
+                            <h:outputText value="#{telefono.numerotelefono}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['ciudadX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['ciudadX']}"/></f:facet>
+                            <h:outputText value="#{telefono.ciudad.nombre}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

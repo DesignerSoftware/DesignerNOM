@@ -1,0 +1,70 @@
+root { 
+    display: block;
+}
+
+.ui-growl{
+    /*position: relative;
+    margin: 0 auto;
+    left: -480px;*/
+    top: 120px;
+    left: 0px;
+}
+.ui-growl-image-info{
+    visibility: hidden;
+    display: none;
+}
+.ui-growl-item-container{
+    left: 80px;
+    width: 220px;
+    border-radius: 4px;
+    background-color: #EFDB78;
+}
+.ui-growl-item{
+    border-radius: 4px;
+    background-color: #EFDB78;
+}
+.ui-growl-message{
+    position: relative;
+    left: -5px;
+    width: 200px;
+    background-color: #EFDB78;
+}
+.ui-growl-message p{
+    font-size: 14px;
+    padding-left: 10px;
+    color: black;
+    font-family: "Arial";
+    text-shadow: none;
+    font-weight: bold;
+}
+.cssBotonIngreso{
+    height: 24px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.columnaPieA{
+    text-align: left;
+}
+.columnaPieB{
+    text-align: right;
+}
+.columnaConectA{
+    text-align: right;
+    width: 30%;
+}
+.columnaConectB{
+    text-align: right;
+}
+.columnaConectC{
+    text-align: left;
+}
+[id*=btnCandadoLogin]:hover{
+    /*background: transparent !important;*/
+    cursor: not-allowed;
+}
+[id*=btnCandadoLogin]:focus {
+    cursor: not-allowed;
+}
+#redessociales > a{
+     color: transparent;
+}

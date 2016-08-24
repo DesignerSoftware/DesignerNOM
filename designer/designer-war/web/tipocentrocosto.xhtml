@@ -1,0 +1,381 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="true"/> 
+                    <p:panel  id="PanelTotal" header="Tipos de Centro Costo" styleClass="panelTotal">    
+                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 14px; color: blue"><strong>Tipo Centro Costo</strong></legend>
+
+                            <p:dataTable id="datosTipoCentroCosto" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                                         value="#{controlTiposCentrosCostos.listTiposCentrosCostos}" 
+
+                                         scrollable="true"
+                                         scrollHeight="#{controlTiposCentrosCostos.tamano}"
+                                         scrollWidth="830"
+                                         filteredValue="#{controlTiposCentrosCostos.filtrarTiposCentrosCostos}"
+                                         emptyMessage="No se encontrarón resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="false" 
+                                         selection="#{controlTiposCentrosCostos.tipoCentroCostoSeleccionado}"
+                                         selectionMode="single"
+                                         >
+                                <p:ajax event="filter" listener="#{controlTiposCentrosCostos.eventoFiltrar()}"/>
+
+                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="200" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 290px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlTiposCentrosCostos.cambiarIndice(indice, 0)}" process="@this"/> 
+                                                <p:ajax event="change" listener="#{controlTiposCentrosCostos.modificarTipoCentroCosto(indice, 'N', info.codigo)}" update="codigo"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+                                <p:column headerText="Nombre" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="nombre" width="275" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 295px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlTiposCentrosCostos.cambiarIndice(indice, 1)}" process="@this"/> 
+                                                <p:ajax event="change" listener="#{controlTiposCentrosCostos.modificarTipoCentroCosto(indice, 'N', info.nombre)}" update="nombre"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+                                <p:column headerText="Grupo Tipo CC" sortBy="#{info.grupotipocc.descripcion}" filterBy="#{info.grupotipocc.descripcion}" filterMatchMode="contains" id="grupoTipoCC" width="275" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.grupotipocc.descripcion}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.grupotipocc.descripcion}" id="editarGrupoTipoCC" style="height: 12px;  border-radius: 0px; width: 290px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlTiposCentrosCostos.cambiarIndice(indice, 2)}" process="@this"/> 
+                                                <p:ajax event="change" listener="#{controlTiposCentrosCostos.modificarTipoCentroCosto(indice, 'GRUPOSTIPOSCC', info.grupotipocc.descripcion)}" update="grupoTipoCC"/>                                         
+                                                <p:ajax event="dblclick" listener="#{controlTiposCentrosCostos.asignarIndex(indice, 0,2)}" process="@this"/>   
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton value="" style="width: 780px; margin: -14px; height: 20px; border: none; color: blue;" id="fooGrupoTipoCC" />
+                                    </f:facet>
+                                </p:column>
+
+
+                            </p:dataTable>
+
+                        </fieldset>
+
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; " actionListener="#{controlTiposCentrosCostos.guardarCambiosTiposCentroCosto()}" process="@this" />
+                                <p:tooltip style="" for="guardarRapido" value="Guardar" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTiposCentrosCostos.editarCelda() }" process="@this"/>
+                                <p:tooltip style="" for="editar" value="Editar" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTiposCentrosCostos.listaValoresBoton()}"   process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="Lista de Valores" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTiposCentrosCostos.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="Activar filtrado" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTiposCentrosCostos.exportXLS()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTiposCentrosCostos.limpiarNuevoTipoCentroCosto()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosTipoCentroCostoExportar" fileName="TiposCentroCostoXML" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTiposCentrosCostos.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
+
+                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " oncomplete="nuevoRegistroTipoCentroCosto.show()" update=":formularioDialogos:nuevoTipoCentroCosto"  process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="Nuevo Vigencias Afiliaciones" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTiposCentrosCostos.verificarBorrado()}" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="Eliminar Vigencias Afiliaciones" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTiposCentrosCostos.duplicarTiposCentrosCostos()}" process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="Duplicar Vigencias Afiliaciones" />
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTiposCentrosCostos.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="" for="rastro" value="Rastro"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTiposCentrosCostos.cancelarModificacion()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="refrescar"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlTiposCentrosCostos.salir()}" action="#{controlTiposCentrosCostos.redirigirPaginaAnterior()}"   process="@this"/>  
+                                <p:tooltip  for="salir" value="Salir"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <h:outputText id="informacionRegistro" value="#{controlTiposCentrosCostos.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
+                        <p:commandButton style=" position: absolute; left: 688px; top: 470px; " icon="ui-icon-check" id="ACEPTAR" value="Aceptar" onclick="confirmarGuardar.show();" disabled="#{controlTiposCentrosCostos.guardado}"   update="datosTipoCentroCosto"  process="@this"   />
+                        <p:commandButton style=" position: absolute; left: 785px; top: 470px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras" action="#{controlTiposCentrosCostos.redirigirPaginaAnterior()}"   />
+
+
+                        <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                            <p:commandButton value="Si" onclick="confirmarGuardar.hide();" actionListener="#{controlTiposCentrosCostos.guardarCambiosTiposCentroCosto()}" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="No" onclick="confirmarGuardar.hide();" actionListener="#{controlTiposCentrosCostos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        </p:dialog>
+
+                    </p:panel>
+
+
+                    <p:dialog header="Grupos de Tipos Centros Costos" widgetVar="gruposTiposCentrosCostosDialogo" draggable="false" resizable="false" closable="false" id="gruposTiposCentrosCostosDialogo"  
+                              showEffect="fade" hideEffect="fade" width="465" modal="true" style="">
+                        <p:dataTable id="lovGruposTiposCC" style=" width: 430px" var="grupos" value="#{controlTiposCentrosCostos.listaGruposTiposCC}" rowKey="#{grupos.secuencia}"
+                                     selection="#{controlTiposCentrosCostos.grupoTipoCCSeleccionada}" selectionMode="single" widgetVar="lovGruposTiposCC" scrollable="true" scrollWidth="450" scrollHeight="250"
+                                     filteredValue="#{controlTiposCentrosCostos.filtradoGruposTiposCC }" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
+                            <p:ajax event="rowSelect" listener="#{controlTiposCentrosCostos.activarAceptar()}" update=":form:aceptarGTCC"/>
+                            <p:ajax event="rowDblselect" listener="#{controlTiposCentrosCostos.actualizarGrupoTipoCC()}" process="@this" />
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Grupo Tipo CC : "  style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovGruposTiposCC.filter();" style="width:150px; position: relative; left: 70px;" />  
+                            </f:facet>
+                            <p:column filterBy="#{grupos.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Código" />
+                                </f:facet>
+                                <h:outputText value="#{grupos.codigo}" />
+                            </p:column>
+                            <p:column filterBy="#{grupos.descripcion}" width="160px" filterStyle="width:250px;" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Descripcíón" />
+                                </f:facet>
+                                <h:outputText value="#{grupos.descripcion}" />
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroTiposCentrosCostos" value="#{controlTiposCentrosCostos.infoRegistroTiposCentrosCostos}" style="position: absolute; left: 15px; top: 355px; font-weight: bold"/>
+
+                        <p:commandButton id="aceptarGTCC"  icon="ui-icon-check" style="position: relative; left: 270px" value="Aceptar" disabled="#{controlTiposCentrosCostos.aceptar}"   actionListener="#{controlTiposCentrosCostos.actualizarGrupoTipoCC()}"  process="@this"/>
+                        <p:commandButton id="atrasGTE" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 270px" value="Atras" actionListener="#{controlTiposCentrosCostos.cancelarCambioGrupoTipoCC()}" process="@this"/>
+                    </p:dialog>
+
+
+                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
+                        <h:outputText value="Necesita : #{controlTiposCentrosCostos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 50px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="77" width="330px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value=" #{controlTiposCentrosCostos.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 40px; left: 230px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="77" width="400px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionBorrar.hide();" style="position: absolute; top: 40px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="87" width="280px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="Se han borrado #{controlTiposCentrosCostos.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="mostrarBorrados.hide();" style="position: absolute; top: 50px; left: 180px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
+                        <h:outputText value="Para agregar es necesario adicionar: #{controlTiposCentrosCostos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionNuevaCentroCosto.hide();" style="position: absolute; top: 50px; left: 300px" process="@this" />
+                    </p:dialog>
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlTiposCentrosCostos.activarCtrlF11()}"/> 
+
+                </h:form>
+
+
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla 'TIPOSCENTROSCOSTOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposCentrosCostos.secRegistro, 'TiposCentrosCostos', 'tiposcentroscostos')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla TIPOSCENTROSCOSTOS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('TiposCentrosCostos', 'tiposcentroscostos')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposCentrosCostos.secRegistro, 'TiposCentrosCostos', 'tiposcentroscostos')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla 'TIPOSCENTROSCOSTOS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+
+
+
+                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="false" modal="true" height="55" width="240" style="">  
+                        <p:inputTextarea value="#{controlTiposCentrosCostos.editarTipoCentroCosto.codigo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editNombre" header="Nombre" widgetVar="editNombre" resizable="false" draggable="false" modal="true" height="55" width="240" style="">  
+                        <p:inputTextarea value="#{controlTiposCentrosCostos.editarTipoCentroCosto.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editGrupoTipoCC" header="Grupo Asociado" widgetVar="editGrupoTipoCC" resizable="false" draggable="false" modal="true" height="55" width="240" style="">  
+                        <p:inputTextarea value="#{controlTiposCentrosCostos.editarTipoCentroCosto.grupotipocc.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+
+
+                    <p:dialog id="nuevoRegistroTipoCentroCosto" header="Nuevo Registro" widgetVar="nuevoRegistroTipoCentroCosto" closable="false" resizable="false"  draggable="false" modal="true" height="180" width="340" style=" padding: 0px">  
+                        <center><strong><h:outputText id="informacion" value="Ingresar nueva Tipo Centro Costo " style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevoTipoCentroCosto" style="border: none;">
+
+                            <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;" /></strong>
+                            <p:inputText id="nuevoCodigo" maxlength="4" value="#{controlTiposCentrosCostos.nuevoTipoCentroCosto.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoCodigo" value="Código" />
+
+                            <strong><h:outputText value="*Nombre: "  style=" position: absolute; top: 90px;" /></strong>
+                            <p:inputText  id="nuevoNombre" maxlength="30" value="#{controlTiposCentrosCostos.nuevoTipoCentroCosto.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoNombre" value="Nombre" />
+
+                            <strong><h:outputText value="*Grupo Tipo CC: " style=" position: absolute; top: 120px;" /></strong>
+                            <p:inputText id="nuevoGrupoTipoCC" value="#{controlTiposCentrosCostos.nuevoTipoCentroCosto.grupotipocc.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="click" listener="#{controlTiposCentrosCostos.valoresBackupAutocompletar(1, 'GRUPOSTIPOSCC')}" />
+                                <p:ajax event="change" listener="#{controlTiposCentrosCostos.autocompletarNuevoyDuplicado('GRUPOSTIPOSCC', controlTiposCentrosCostos.nuevoTipoCentroCosto.grupotipocc.descripcion, 1)}" />
+                                <p:ajax event="dblclick" listener="#{controlTiposCentrosCostos.asignarVariableGrupoTipoCC(0)}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 115px;  " id="btnnuevoNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlTiposCentrosCostos.cargarGruposTiposCentrosCostosNuevoRegistro(0)}"/>   
+                            <p:watermark for="nuevoGrupoTipoCC" value="Grupo Tipo CC" />
+
+
+                            <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 150px;"  actionListener="#{controlTiposCentrosCostos.limpiarNuevoTipoCentroCosto()}" update="nuevoTipoCentroCosto" process="@this"/>
+                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 140px; top: 150px;" actionListener="#{controlTiposCentrosCostos.agregarNuevoTipoCentroCosto()}" process="@this" />
+                            <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 230px; top: 150px;"  update="nuevoTipoCentroCosto" onclick="nuevoRegistroTipoCentroCosto.hide();"  actionListener="#{controlTiposCentrosCostos.limpiarNuevoTipoCentroCosto()}"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+
+
+                    <p:dialog id="duplicarRegistroTiposCentrosCostos" header="duplicar Registro" widgetVar="duplicarRegistroTiposCentrosCostos" closable="false" resizable="false"  draggable="false" modal="true" height="180" width="340" style=" padding: 0px">  
+                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Tipo Centro Costo " style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarTiposCentrosCostos" style="border: none;">
+                            <strong><h:outputText value="*Código: "   style=" position: absolute; top: 60px;" /></strong>
+                            <p:inputText id="duplicarCodigo" maxlength="4" value="#{controlTiposCentrosCostos.duplicarTipoCentroCosto.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCodigo" value="Codigo" />
+
+                            <strong><h:outputText value="*Nombre:"   style=" position: absolute; top: 90px;" /></strong>
+                            <p:inputText id="duplicarNombre" maxlength="30" value="#{controlTiposCentrosCostos.duplicarTipoCentroCosto.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarNombre" value="Nombre" />
+
+
+                            <strong><h:outputText value="*Grupo Tipo CC:" style=" position: absolute; top: 120px;" /></strong>
+                            <p:inputText id="duplicarGrupoTipoCentroCosto" value="#{controlTiposCentrosCostos.duplicarTipoCentroCosto.grupotipocc.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="click" listener="#{controlTiposCentrosCostos.valoresBackupAutocompletar(2, 'GRUPOSTIPOSCC')}" />
+                                <p:ajax event="change" listener="#{controlTiposCentrosCostos.autocompletarNuevoyDuplicado('GRUPOSTIPOSCC',controlTiposCentrosCostos.duplicarTipoCentroCosto.grupotipocc.descripcion, 2)}" />
+                                <p:ajax event="dblclick" listener="#{controlTiposCentrosCostos.asignarVariableGrupoTipoCC(1)}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 115px;  " id="btnduplicarNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlTiposCentrosCostos.cargarGruposTiposCentrosCostosNuevoRegistro(1)}"/>   
+                            <p:watermark for="duplicarGrupoTipoCentroCosto" value="Grupo Tipo Centro Costo" />
+
+                            <p:commandButton id="limpiarD" value="Limpiar" icon="ui-icon-trash" style=" position: absolute; left: 10px; top: 150px;"  actionListener="#{controlTiposCentrosCostos.limpiarduplicarTiposCentrosCostos()}" update="duplicarTiposCentrosCostos"  process="@this"/>
+                            <p:commandButton id="duplicarVFP" value="Agregar" icon="ui-icon-circle-check" style=" position: absolute; left: 140px; top: 150px;" actionListener="#{controlTiposCentrosCostos.confirmarDuplicar()}"  process="@this" />
+                            <p:commandButton id="cancelarDuplicarVFP" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 230px; top: 150px;"  update="duplicarTiposCentrosCostos" onclick="duplicarRegistroTiposCentrosCostos.hide();" actionListener="#{controlTiposCentrosCostos.limpiarduplicarTiposCentrosCostos()}"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+                </h:form>
+
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosTipoCentroCostoExportar" var="info" style="visibility: hidden; display: none;"                           
+                                 value="#{controlTiposCentrosCostos.listTiposCentrosCostos}">
+
+
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Codigo"/></f:facet> 
+                            <h:outputText value="#{info.codigo}" />
+                        </p:column>  
+
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Nombre" /></f:facet>
+                            <h:outputText value="#{info.nombre}"/>
+                        </p:column>
+
+                        <p:column headerText="GrupoTipoCC">                                                              
+                            <f:facet name="header"> 
+                                <h:outputText value="GrupoTipoCC"/>
+                            </f:facet>
+                            <h:outputText value="#{info.grupotipocc.descripcion}" />
+                        </p:column>  
+
+
+                    </p:dataTable>
+                </h:form>
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

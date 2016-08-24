@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head> 
+        <title>Pruebas</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">
+                <h:inputText id="it1" value="#{controlVigenciasCargos.secuencia}"/>
+                <p/>
+                <p:toolbar style="font-size: 12px; height: 30px;">
+                    <p:toolbarGroup id="tg1">
+                        <p:commandButton id="cb1" value="bt1"/>
+                        <p:commandButton id="cb2" value="bt2"/>
+                        <p:commandButton id="cb3" value="bt3"/>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup id="tg2">
+                        <p:commandButton id="cb4" value="bt4"/>
+                        <p:commandButton id="cb5" value="bt5"/>
+                        <p:commandButton id="cb6" value="bt6"/>
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <h:form id="formExportar">
+                    <p:dataTable id="dt1" var="item" 
+                                 value="#{controlVigenciasCargos.vigenciasCargosEmpleado}"
+                                 scrollable="">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechavigencia}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Estructura"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estructura.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Motivo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motivocambiocargo.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Nombre_Cargo">
+                            <f:facet name="header">
+                                <h:outputText value="Nombre Cargo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cargo.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Centro_Costo">
+                            <f:facet name="header">
+                                <h:outputText value="Centro Costo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estructura.centrocosto.codigo}"/>
+                        </p:column>
+                        <p:column headerText="Nombre_Jefe">
+                            <f:facet name="header">
+                                <h:outputText value="Nombre Jefe"/>
+                            </f:facet>
+                            <h:outputText value="#{item.empleadojefe.codigoempleado}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

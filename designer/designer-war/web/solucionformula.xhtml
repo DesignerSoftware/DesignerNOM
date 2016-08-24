@@ -1,0 +1,364 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+                    <f:loadBundle basename="Recursos.solucionformula" var="msg" />
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
+
+                        <h:outputText style="position: absolute; top: 40px; height: 12px;position: absolute; color: #14388B; font-weight: bold;text-align: right;width: 480px;left: 380px;" id="informacionEmpleadoNovedad"  value="#{controlSolucionFormula.informacionEmpleadoNovedad}"/>  
+
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" disabled="true" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " onclick="errorOpcion.show()"  process="@this" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlSolucionFormula.editarCelda()}" process="@this"/>
+                                <p:tooltip for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " onclick="errorOpcion.show()"   process="@this"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlSolucionFormula.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " ajax="false" actionListener="#{controlSolucionFormula.exportXLS()}" />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosSolucionFormulaExportar" fileName="SolucionesFormulas_XML" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlSolucionFormula.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                
+                                <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " onclick="errorOpcion.show()"  process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " onclick="errorOpcion.show()"  process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " onclick="errorOpcion.show()"  process="@this"/>  
+                                <p:tooltip for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlSolucionFormula.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+                                
+                                <p:separator style="position: relative; top: -9px"/>
+                                
+                                <p:commandButton id="refrescar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlVigenciasUbicaciones.cancelarModificacion()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+                                
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlVigenciasUbicaciones.salir()}" action="nomina" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                                
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+
+                        <fieldset style="position: absolute; left: 10px; top: 80px; width: 830px; height: 370px; border-radius: 10px; ">
+                            <legend style="color: blue"><strong>#{msg['informacion']}</strong></legend>
+
+                            <p:dataTable id="datosSolucionFormula" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" 
+                                         style="border: 1px; text-align: left;width: 810px"  value="#{controlSolucionFormula.listaSolucionesFormulas}" scrollable="true" scrollWidth="825" 
+                                         filteredValue="#{controlSolucionFormula.filtrarListaSolucionesFormulas}" emptyMessage="#{msg['vacio']}" scrollHeight="#{controlSolucionFormula.algoTabla}"
+                                         editable="true" editMode="cell" liveScroll="true" scrollRows="15" selectionMode="single" selection="#{controlSolucionFormula.solucionTablaSeleccionada}">
+
+                                <p:ajax event="filter" listener="#{controlSolucionFormula.eventoFiltrar()}"/>
+
+
+                                <p:column headerText="#{msg['fHasta']}" sortBy="#{info.solucionnodo.fechahasta}" filterBy="#{info.solucionnodo.fechahasta}" filterMatchMode="contains"
+                                          id="fechaHasta" width="70" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.solucionnodo.fechahasta}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.solucionnodo.fechahasta}" onselect="posicionTabla([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);" readonly="true" id="editFechaHasta" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+
+                                <p:column headerText="#{msg['concepto']}"  sortBy="#{info.solucionnodo.concepto.descripcion}" filterBy="#{info.solucionnodo.concepto.descripcion}" filterMatchMode="contains"
+                                          id="concepto" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.solucionnodo.concepto.descripcion}" >
+                                            </h:outputText></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.solucionnodo.concepto.descripcion}" onselect="posicionTabla([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" readonly="true" id="editConcepto" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 350px; margin: -14px; height: 26px; border: none; color: blue" value=" " />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['valor']}"  sortBy="#{info.solucionnodo.valor}" filterBy="#{info.solucionnodo.valor}" filterMatchMode="contains"
+                                          id="valor" width="90" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.solucionnodo.valor}" >
+                                                <f:convertNumber currencySymbol="$" type="currency" />
+                                            </h:outputText></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.solucionnodo.valor}" readonly="true" onselect="posicionTabla([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);" id="editValor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <f:convertNumber currencySymbol="$" type="currency" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['saldo']}"  sortBy="#{info.solucionnodo.saldo}" filterBy="#{info.solucionnodo.saldo}" filterMatchMode="contains"
+                                          id="saldo" width="90" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.solucionnodo.saldo}" >
+                                                <f:convertNumber currencySymbol="$" type="currency" />
+                                            </h:outputText></f:facet> 
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.solucionnodo.saldo}" id="editSaldo" onselect="posicionTabla([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"  readonly="true" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <f:convertNumber currencySymbol="$" type="currency" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+
+                                <p:column headerText="#{msg['fPago']}"  sortBy="#{info.solucionnodo.fechapago}" filterBy="#{info.solucionnodo.fechapago}" filterMatchMode="contains"
+                                          id="fechaPago" width="70" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.solucionnodo.fechapago}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.solucionnodo.fechapago}" readonly="true" onselect="posicionTabla([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);" id="editFechaPago" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+
+                                <p:column headerText="#{msg['proceso']}"  sortBy="#{info.solucionnodo.proceso.descripcion}" filterBy="#{info.solucionnodo.proceso.descripcion}" filterMatchMode="contains" 
+                                          id="proceso" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.solucionnodo.proceso.descripcion}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.solucionnodo.proceso.descripcion}" readonly="true" onselect="posicionTabla([{name: 'n', value: '5'}, {name: 't', value: '#{indice}'}]);" id="editProceso" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['formula']}"  sortBy="#{info.solucionnodo.formula.nombrelargo}" filterBy="#{info.solucionnodo.formula.nombrelargo}" filterMatchMode="contains"
+                                          id="formula" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.solucionnodo.formula.nombrelargo}" >
+                                            </h:outputText></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.solucionnodo.formula.nombrelargo}" readonly="true" onselect="posicionTabla([{name: 'n', value: '6'}, {name: 't', value: '#{indice}'}]);" id="editFormula" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>  
+                        </fieldset>  
+
+
+                        <p:remoteCommand name="posicionTabla" actionListener="#{controlSolucionFormula.posicionTabla()}" process="@this"/>
+
+
+
+                        <p:commandButton style="position: absolute; left: 775px; top: 475px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlSolucionFormula.salir()}" action="novedadEmpl" process="@this" />
+                        <h:outputText id="informacionRegistro" value="#{controlSolucionFormula.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
+
+                    </p:panel>
+
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSolucionFormula.backUpSecRegistro, 'SolucionesFormulas', 'rastroSolucionesFormulas')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('SolucionesFormulas', 'rastroSolucionesFormulas')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSolucionFormula.backUpSecRegistro, 'SolucionesFormulas', 'rastroSolucionesFormulas')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorOpcion" header="#{msg['atencion']}" widgetVar="errorOpcion"  resizable="false" draggable="false" modal="true" height="70" width="200px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;text-align: center"  />
+                        <h:outputText value="#{msg['errorOpcion']}" style="position: absolute; left: 70px; top: 15px; width: 110px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlSolucionFormula.activarCtrlF11()}"/> 
+                </h:form>
+                <h:form id="formularioDialogos" >
+
+                    <p:dialog id="editarFechaHastaD" header="#{msg['fHastaE']}" widgetVar="editarFechaHastaD" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlSolucionFormula.editarSolucionFormula.solucionnodo.fechahasta}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarConceptoD" header="#{msg['conceptoE']}" widgetVar="editarConceptoD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlSolucionFormula.editarSolucionFormula.solucionnodo.concepto.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarValorD" header="#{msg['valorE']}" widgetVar="editarValorD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlSolucionFormula.editarSolucionFormula.solucionnodo.valor}" style="overflow: auto; width: 200px; height: 40px" readonly="true">
+                            <f:convertNumber currencySymbol="$" type="currency" />
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarSaldoD" header="#{msg['saldoE']}" widgetVar="editarSaldoD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlSolucionFormula.editarSolucionFormula.solucionnodo.saldo}" style="overflow: auto; width: 200px; height: 40px" readonly="true">
+                            <f:convertNumber currencySymbol="$" type="currency" />
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaPagoD" header="#{msg['fPagoE']}" widgetVar="editarFechaPagoD" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlSolucionFormula.editarSolucionFormula.solucionnodo.fechapago}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarProcesoD" header="#{msg['procesoE']}" widgetVar="editarProcesoD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlSolucionFormula.editarSolucionFormula.solucionnodo.proceso.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarFormulaD" header="#{msg['formulaE']}" widgetVar="editarFormulaD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
+                        <p:inputTextarea value="#{controlSolucionFormula.editarSolucionFormula.solucionnodo.formula.nombrelargo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                </h:form>
+                <h:form id="formExportar">
+                    <p:dataTable id="datosSolucionFormulaExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                                 value="#{controlSolucionFormula.listaSolucionesFormulas}"> 
+
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fHastaXX']}" />
+                            </f:facet>
+                            <h:outputText value="#{infoExp.solucionnodo.fechahasta}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['conceptoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['conceptoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.solucionnodo.concepto.descripcion}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['valorXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['valorX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.solucionnodo.valor}" >
+                                <f:convertNumber currencySymbol="$" type="currency" />
+                            </h:outputText>
+                        </p:column> 
+
+                        <p:column headerText="#{msg['saldoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['saldoXX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.solucionnodo.saldo}" >
+                                <f:convertNumber currencySymbol="$" type="currency" />
+                            </h:outputText>
+                        </p:column>  
+
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fPagoXX']}" />
+                            </f:facet>
+                            <h:outputText value="#{infoExp.solucionnodo.fechapago}"  >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['procesoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['procesoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.solucionnodo.proceso.descripcion}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['formulaXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['formulaX']}"/> </f:facet> 
+                            <h:outputText value="#{infoExp.solucionnodo.formula.nombrelargo}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

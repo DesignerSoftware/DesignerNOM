@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<books>
+   <book>
+       <title>JSF In Action </title>
+       <author>Kito D. Mann </author>
+       <price>550</price>
+   </book>
+   <book>
+       <title>Struts 2 In Action </title>
+       <author>Brown, David , Stanlink</author>
+       <price>500</price>
+   </book>
+   <book>
+       <title>Beginning Hibernate (From Novice to Professional) </title>
+       <author>Dave Minter and Jeff Linwood</author>
+       <price>299</price>
+   </book>
+   <book>
+       <title>Oracle Database 11g  SQL</title>
+       <author>Jason Price</author>
+       <price>499</price>
+   </book>
+   
+   <book>
+       <title>Java Complete Reference</title>
+       <author>Herbert Schildt</author>
+       <price>499</price>
+   </book>
+</books>

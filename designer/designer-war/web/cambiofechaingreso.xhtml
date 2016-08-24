@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+    <h:head>        
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="true"/>
+
+                    <p:panel  id="PanelTotal" header="Cambio Fecha Ingreso" styleClass="panelTotal">  
+
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left">
+                                <p:commandButton id="guardarRapido" value="" disabled="true" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; "  process="@this" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+
+                                <p:commandButton id="editar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " process="@this" />
+                                <p:tooltip  for="editar" value="#{msg['editar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " process="@this" />
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" disabled="true" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" disabled="true" style="background-image: url(Imagenes/Iconos/XML.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " >
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xmle']}" />
+
+                                <p:commandButton id="exportarPDF" value="" disabled="true" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  />  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " />  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  process="@this"/>  
+                                <p:tooltip style="font-size: 12px" for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " action="emplvigenciatipocontrato"  process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+
+                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                            
+                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px" />
+                            <h:outputText id="nombreEmpleado" value="#{controlCambioFechaIngreso.empleado.persona.nombreCompleto}" 
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+
+                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px" />
+                            <h:outputText id="docEmpleado" value="#{controlCambioFechaIngreso.empleado.codigoempleado}" 
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px" />
+                        </fieldset>
+                        
+                        <fieldset style="position: absolute;top: 110px;left: 10px;height: 340px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 14px; color: blue"><strong>Ingresar Nueva Fecha</strong></legend>
+
+                            <h:outputText  value="Fecha Antigua: " style="position: absolute; top: 185px; left: 15px;font-weight: bold"/>
+                            <div id="divFechaAntigua" style="position: absolute; top: 225px; left: 15px;">
+                                <lnk:calendar readonly="true" id="fechaAntigua" value="#{controlCambioFechaIngreso.vigenciaTipoContrato.fechavigencia}">
+                                    <p:ajax event="dateSelect"  update="fechaAntigua" process="@this"/>
+                                    <p:ajax event="change" update="fechaAntigua" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+
+                            <h:outputText  value="Fecha Nueva: " style="position: absolute; top: 265px; left: 15px;font-weight: bold"/>
+                            <div id="divFechaNueva" style="position: absolute; top: 305px; left: 15px;">
+                                <lnk:calendar id="fechaNueva" value="#{controlCambioFechaIngreso.fechaNueva}">
+                                    <p:ajax event="dateSelect" update="fechaNueva" process="@this"/>
+                                    <p:ajax event="change" update="fechaNueva" process="@this"/>
+                                </lnk:calendar>
+                            </div>
+                        </fieldset>
+
+                        <p:commandButton style="position: absolute; left: 680px; top: 485px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="CAMBIAR" value=""  process="@this" actionListener="#{controlCambioFechaIngreso.cambiarFechaAntigua}" />
+                        <p:commandButton style="position: absolute; left: 775px; top: 485px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" action="emplvigenciatipocontrato" value="" process="@this" />
+                    </p:panel>
+                </h:form>
+                <h:form id="formularioDialogos">
+                    
+                    <p:dialog id="validacionCambio" header="#{msg['atencion']}" widgetVar="validacionCambio"  resizable="false" draggable="false" modal="true" height="105" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="No se puede agregar sin una fecha nueva" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="validacionCambio.hide();" style="position: absolute; top: 68px; left: 300px" process="@this" />
+                    </p:dialog> 
+                    
+                    <p:dialog id="exito" header="#{msg['atencion']}" widgetVar="exito"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="Su cambio de fecha fue realizado exitosamente. " style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" action="emplvigenciatipocontrato" icon="ui-icon-check" onclick="exito.hide();" style="position: absolute; top: 50px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="paso1" header="#{msg['atencion']}" widgetVar="paso1"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="En este momento va a cambiar la fecha de ingreso del empleado: #{controlCambioFechaIngreso.empleado.persona.nombreCompleto}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlCambioFechaIngreso.dialogoPaso2()}" onclick="paso1.hide(), paso2.show();" style="position: absolute; top: 50px; left: 210px" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="paso1.hide()" style="position: absolute; top: 50px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="paso2" header="#{msg['atencion']}" widgetVar="paso2"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="Tiene conocimiento de lo que este cambio implica?, y que es bajo su responsabilidad?" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlCambioFechaIngreso.dialogoPaso3()}" onclick="paso2.hide(), paso3.show();" style="position: absolute; top: 50px; left: 210px" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="paso2.hide()" style="position: absolute; top: 50px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="paso3" header="#{msg['atencion']}" widgetVar="paso3"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="La fecha anterior es: #{controlCambioFechaIngreso.fechaOld} , y la nueva fecha es: #{controlCambioFechaIngreso.fechaNew}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" actionListener="#{controlCambioFechaIngreso.realizarCambioFecha()}" icon="ui-icon-check" onclick="paso3.hide()" style="position: absolute; top: 50px; left: 210px" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="paso3.hide()" style="position: absolute; top: 50px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="error" header="#{msg['atencion']}" widgetVar="error"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="Este empleado no existe o esta activo, por tal motivo no se puede realizar el cambio." style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}"  icon="ui-icon-check" onclick="error.hide()" style="position: absolute; top: 50px; left: 300px" process="@this" />
+                    </p:dialog>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

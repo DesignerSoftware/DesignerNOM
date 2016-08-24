@@ -1,0 +1,288 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Rastro</title> 
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">      
+                <h:form id="form">
+                    <f:loadBundle basename="Recursos.rastro" var="msg" />
+
+<!--<p:panel  id="PanelTotal" header="#{msg['titulo']}" style=" font-size: 12px; position: absolute; width: 685px; height: 490px;" >  -->
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
+
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+                                
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; " 
+                                                 id="guardarRapido" value="" disabled="true"/>
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlEstructura.editarCelda()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px" for="editar" value="#{msg['editar']}" />
+
+                                <p:separator />
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " id="listaValores" value="" disabled="true"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlRastro.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px" for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator />
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " ajax="false" actionListener="#{controlRastro.exportXLS()}" />
+                                <p:tooltip style="font-size: 12px" for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosRastroExportar" fileName="RastrosXML" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="font-size: 12px" for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlRastro.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="font-size: 12px" for="exportarPDF" value="#{msg['pdf']}" />
+                                
+                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 id="insertar" value=""  disabled="true"> 
+
+                                </p:commandButton>
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 id="eliminar" value="" disabled="true"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 id="duplicar" value="" disabled="true"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 id="rastro" value="" disabled="true"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 id="refrescar" value="" disabled="true"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 process="@this" action="#{controlRastro.volverPaginaAnterior()}" id="salir" value="" />  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+
+                        <h:outputText style="position: absolute; left: 490px; top: 40px; width: 15px; height: 15px; background-color: #D1F0FF;"/>
+                        <h:outputText value="#{msg['insertados']}" style="position: absolute; left: 510px; top: 40px; font-weight:bold;"/>
+                        <h:outputText style="position: absolute; left: 690px; top: 40px; width: 15px; height: 15px; background-color: #C6FCD3;"/>
+                        <h:outputText value="#{msg['modificados']}" style="position: absolute; left: 710px; top: 40px; font-weight:bold;"/>
+
+                        <fieldset style="position: absolute; top: 70px; left: 10px; height: 370px; width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 12px; color: blue"><strong>#{msg['permisos']}</strong></legend>
+                           
+                            <p:dataTable  id="datosRastro" style="border: 1px; font-size: 11px; width: 830px;" var="rastro" value="#{controlRastro.listaRastros}"
+                                          scrollable="true" scrollHeight="327" scrollWidth="832" widgetVar="datosRastro" selection="#{controlRastro.seleccionRastro}" selectionMode="single"
+                                          rowKey="#{rastro.secuencia}" filteredValue="#{controlRastro.filtradoListaRastros}" emptyMessage="#{msg['vacio']}"
+                                          rowStyleClass="#{rastro.manipulacion eq 'I' ? 'registroInsertado' : rastro.manipulacion eq 'U' ? 'registroModificado': null}"
+                                          liveScroll="true" scrollRows="20">
+                                <p:ajax event="rowSelect"/>
+
+                                <p:column id="btnDetalles" width="22" style="padding: 0px" >  
+                                    <p:commandButton id="btn" value=" " actionListener="#{controlRastro.detallesRastro(rastro)}" update="datosRastro" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 22px; height: 110%; border-radius: 0px" /> 
+                                </p:column> 
+                                <p:column id="nombreTabla" headerText="#{msg['nombredelatabla']}" width="150" sortBy="#{rastro.tabla}"  filterBy="#{rastro.tabla}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                                    <h:outputText value="#{rastro.tabla}" />
+                                </p:column>  
+                                <p:column id="fechaRastro" headerText="#{msg['fecharastro']}" width="100" filterBy="#{rastro.fecharastro}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                                    <h:outputText value="#{rastro.fecharastro}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
+                                    </h:outputText>
+                                </p:column>                             
+                                <p:column id="estacion" headerText="#{msg['estacion']}" width="150" sortBy="#{rastro.estacion}"  filterBy="#{rastro.estacion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >  
+                                    <h:outputText value="#{rastro.estacion}" />  
+                                </p:column>
+                                <p:column id="usuarioSO" headerText="#{msg['usuarioso']}" width="200" sortBy="#{rastro.usuarioso}"  filterBy="#{rastro.usuarioso}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >  
+                                    <h:outputText value="#{rastro.usuarioso}" />  
+                                </p:column>
+                                <p:column id="direccionIP" headerText="#{msg['direccionip']}" width="80" sortBy="#{rastro.direccion}" filterBy="#{rastro.direccion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >  
+                                    <h:outputText value="#{rastro.direccion}" />  
+                                </p:column>
+                                <p:column id="usuarioID" headerText="#{msg['id']}" width="50" sortBy="#{rastro.usuarioid}" filterBy="#{rastro.usuarioid}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >  
+                                    <h:outputText value="#{rastro.usuarioid}" />  
+                                </p:column>
+                                <p:column id="usuarioBD" headerText="#{msg['usuariobd']}" width="100" sortBy="#{rastro.usuariobd}" filterBy="#{rastro.usuariobd}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >  
+                                    <h:outputText value="#{rastro.usuariobd}" />  
+                                </p:column>
+                                <p:column id="tipoManipulacion" headerText="#{msg['tipomanipulacion']}" sortBy="#{rastro.nombreManipulacion}" filterBy="#{rastro.nombreManipulacion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >  
+                                    <h:outputText value="#{rastro.nombreManipulacion}" />  
+                                </p:column>
+                            </p:dataTable>  
+                        </fieldset>
+
+                        <p:commandButton icon="ui-icon-extlink" id="btnConsultarElim" value="#{msg['consultar']}" style="position: relative; top: 415px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" process="@this" actionListener="#{controlRastro.btnConsultarDinamico()}" />
+                        <p:tooltip style="font-size: 12px" for="btnConsultarElim" value="#{msg['consultarL']}" />
+                        <p:commandButton icon="ui-icon-extlink" id="btnBuscarF" value="#{msg['buscar']}"  style="left: 450px; position: relative; top: 415px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" process="@this" actionListener="#{controlRastro.lovFecha()}" />
+                        <p:tooltip style="font-size: 12px" for="btnBuscarF" value="#{msg['buscarL']}" />
+                        <p:commandButton icon="ui-icon-extlink" id="btnMostrarT" value="#{msg['mostrar']}" disabled="#{controlRastro.btnMostrarTodos}" style="left: 450px; position: relative; top: 415px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" process="@this" actionListener="#{controlRastro.mostrarTodos()}" update="datosRastro" />
+
+                        <p:commandButton id="btnAtras" value="" style="position: relative; top: 462px; left: 360px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" process="@this" action="#{controlRastro.volverPaginaAnterior()}" />
+                    </p:panel>
+
+                    <!-- DIALOGO L.O.V ESTATICO FECHA -->
+                    <p:dialog header="#{msg['fechasF']}" widgetVar="fechaDialogo" draggable="false" resizable="false" closable="false" id="fechaDialogo"  
+                              showEffect="fade" hideEffect="fade" width="341" modal="true" style="font-size: 11px;">
+                        <p:dataTable id="lovFecha" style="font-size: 11px; width: 310px" var="lovF" value="#{controlRastro.listaLOVRastros}" rowKey="#{lovF.secuencia}"
+                                     selection="#{controlRastro.seleccionRastroLOV}" selectionMode="single" widgetVar="lovFecha" scrollable="true" scrollWidth="330" scrollHeight="250"
+                                     filteredValue="#{controlRastro.filtradoListaLOVRastros}" emptyMessage="#{msg['lovvacio']}"
+                                     liveScroll="true" scrollRows="20">              
+                            <p:ajax event="rowSelect" listener="#{controlRastro.activarAceptar()}" update=":form:aceptarF"/>
+                            <p:ajax event="rowDblselect" listener="#{controlRastro.seleccionarFecha()}" process="@this" onstart="lovFecha.clearFilters()"/>
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovFecha.filter();" style="width:100px; position: relative; left: -40px;" />  
+                            </f:facet>
+                            <p:column filterBy="#{lovF.direccion}" width="100" filterMatchMode="contains" filterStyle="width: 70px">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['direccionipF']}" />
+                                </f:facet>
+                                <h:outputText  value="#{lovF.direccion}" />
+                            </p:column>
+                            <p:column filterBy="#{lovF.fecharastro}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['fechaF']}" />
+                                </f:facet>
+                                <h:outputText  value="#{lovF.fecharastro}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandButton id="aceptarF" style="position: relative; left: 200px" value="#{msg['aceptar']}" disabled="#{controlRastro.aceptar}" actionListener="#{controlRastro.seleccionarFecha()}" update="aceptarF" process="@this">
+                            <p:resetInput target=":form:lovFecha:globalFilter"/>
+                        </p:commandButton>
+                        <p:commandButton id="atrasF" style="position: relative; left: 200px" value="#{msg['atras']}" onclick="fechaDialogo.hide(), lovFecha.clearFilters();" actionListener="#{controlRastro.cancelarSeleccionFecha()}" update="lovFecha" process="@this">
+                            <p:resetInput target=":form:lovFecha:globalFilter"/>
+                        </p:commandButton>
+                    </p:dialog>
+
+
+                    <p:dialog header="#{msg['valoresdelrastro']}" widgetVar="valorRastroDialogo" draggable="false" resizable="false" closable="false" id="valorRastroDialogo"  
+                              showEffect="fade" hideEffect="fade" width="551" modal="true" style="font-size: 11px;">
+                        <p:dataTable id="valorRastro" style="font-size: 11px; width: 520px" var="valor" value="#{controlRastro.rastroValor}" rowKey="#{valor.secuencia}"
+                                     widgetVar="valorRastro" scrollable="true" scrollWidth="540" scrollHeight="300" emptyMessage="#{msg['dialogovacio']}"> 
+
+                            <p:column width="150" sortBy="#{valor.nombrecolumna}" >
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombrecolumna']}" />
+                                </f:facet>
+                                <h:outputText  value="#{valor.nombrecolumna}" />
+                            </p:column>
+                            <p:column width="150" sortBy="#{valor.valorprevio}" >
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['valorprevio']}"/>
+                                </f:facet>
+                                <h:outputText  value="#{valor.valorprevio}"/>
+                            </p:column>
+                            <p:column sortBy="#{valor.valorposterior}" >
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['valorposterior']}"/>
+                                </f:facet>
+                                <h:outputText  value="#{valor.valorposterior}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:commandButton id="volverVR" onclick="valorRastroDialogo.hide();" style="position: relative; left: 460px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['volver']}" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarEliminados" header="#{msg['atencion']}" widgetVar="confirmarEliminados"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarEliminados1']} #{controlRastro.nombreTablaRastro} #{msg['confirmarEliminados2']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarEliminados.hide();" actionListener="#{controlRastro.seguirDialogos()}" style="position: absolute; top: 60px; left: 230px" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarEliminados.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarEliminadosEmpleado" header="#{msg['atencion']}" widgetVar="confirmarEliminadosEmpleado"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarEliminadosEmpleado']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarEliminadosEmpleado.hide();" actionListener="#{controlRastro.historicosTablaEliminadosEmpleado()}" style="position: absolute; top: 60px; left: 230px" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarEliminadosEmpleado.hide();" actionListener="#{controlRastro.historicosTablaEliminados()}" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorValorRastro" header="#{msg['atencion']}" widgetVar="errorValorRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="font-size: 12px" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorValorRastro']}" style="position: absolute; left: 70px; top: 20px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorEliminados" header="#{msg['atencion']}" widgetVar="errorEliminados"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="font-size: 12px" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 15px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorEliminados']} #{controlRastro.nombreTablaRastro}." style="position: absolute; left: 70px; top: 20px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+
+                </h:form>
+                <h:form id="formExportar">
+                    <p:dataTable id="datosRastroExportar" var="info" style="visibility: hidden; display: none;"                           
+                                 value="#{controlRastro.listaRastros}">
+
+                        <p:column headerText="#{msg['nombretablaXX']}">  
+                            <f:facet name="header"><h:outputText value="#{msg['nombretablaX']}" /></f:facet>
+                            <p:outputLabel value="#{info.tabla}"/>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['fecharastroXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['fecharastroX']}"/></f:facet> 
+                            <h:outputText value="#{info.fecharastro}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
+                            </h:outputText>
+                        </p:column>  
+
+                        <p:column>      
+                            <f:facet name="header"><h:outputText value="#{msg['estacion']}"/></f:facet>
+                            <h:outputText value="#{info.estacion}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['usuariosoXX']}">                                                              
+                            <f:facet name="header"> 
+                                <h:outputText value="#{msg['usuariosoX']}"/>
+                            </f:facet>
+                            <h:outputText value="#{info.usuarioso}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['direccionipXX']}">                                                                                              
+                            <f:facet name="header"><h:outputText value="#{msg['direccionipX']}"/></f:facet>
+                            <h:outputText value="#{info.direccion}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['id']}">                                                              
+                            <f:facet name="header"><h:outputText value="#{msg['id']}"/></f:facet>
+                            <h:outputText value="#{info.usuarioid}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['usuariobdXX']}">                                                              
+                            <f:facet name="header"><h:outputText value="#{msg['usuariobdX']}"/></f:facet>
+                            <h:outputText value="#{info.usuariobd}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['tipomanipulacionXX']}">                                                              
+                            <f:facet name="header"><h:outputText value="#{msg['tipomanipulacionX']}"/></f:facet>
+                            <h:outputText value="#{info.nombreManipulacion}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

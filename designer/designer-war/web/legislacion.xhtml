@@ -1,0 +1,505 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <f:loadBundle basename="Recursos.legislacion" var="msg" />
+                    <p:growl id="growl" showDetail="true"/> 
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" > 
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; " 
+                                                 actionListener="#{controlLegislacion.guardarCambios()}" process="@this"/>
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlLegislacion.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}"  />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "
+                                                 disabled="#{controlLegislacion.activarLOV}" actionListener="#{controlLegislacion.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip for="listaValores" value="#{msg['lista']}"  />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlLegislacion.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}"  />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 ajax="false" actionListener="#{controlLegislacion.exportXLS()}" />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}"  />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlLegislacion.limpiarNuevoContrato()}" ajax="false">
+                                    <p:dataExporter type="xml" target=":formExportar:datosContratosExportar" fileName="ContratosXML" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}"  />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlLegislacion.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"  />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlLegislacion.dialogoIngresoNuevoRegistro()}" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}"  />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "
+                                                 actionListener="#{controlLegislacion.borrarContrato()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlLegislacion.duplicarRegistro()}" process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}"  />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlLegislacion.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "
+                                                 actionListener="#{controlLegislacion.refrescar()}" oncomplete="window.location.reload()" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 actionListener="#{controlLegislacion.Salir()}" action="#{controlLegislacion.redirigir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <fieldset style="position: absolute; left: 5px; top: 70px; width: 835px; height: 315px; border-radius: 10px;">
+                            <legend style="color: blue"><strong>#{msg['tipo']}</strong></legend>
+                            <p:dataTable id="datosContratos" var="contrato" rowKey="#{contrato.secuencia}" rowIndexVar="indice" style="width: 817px; position: relative"                           
+                                         value="#{controlLegislacion.listaContratos}" scrollable="true" scrollWidth="832" scrollHeight="#{controlLegislacion.altoTabla}"
+                                         filteredValue="#{controlLegislacion.filtradolistaContratos}" emptyMessage="#{msg['vacio']}" 
+                                         editable="true" editMode="cell" selection="#{controlLegislacion.contratoSeleccionado}" selectionMode="single">
+
+                                <!--                                <f:event type="preRenderView" listener="#/{controlLegislacion.recordarSeleccion()}"/>-->
+                                <p:ajax event="rowSelect" listener="#{controlLegislacion.cambiarIndiceDefault()}"/>
+                                <p:ajax event="filter" listener="#{controlLegislacion.eventoFiltrar()}"/>
+
+                                <p:column id="formulasLegislacion" width="21" style="padding: 0px !important; width: 20px; alignment-adjust: central; text-align: center" >                                                              
+                                    <f:facet name="header">
+                                        <h:outputText id="DetalleF" value="F"/>
+                                        <p:tooltip for="DetalleF" value="#{msg['detalle']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><img src="Imagenes/Iconos/editar.png" width="18" height="18" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="D" maxlength="1" style="background-color: blue; width: 6px; height: 6px" id="editarD">
+                                                <p:ajax event="select" listener="#{controlLegislacion.verDetalle(contrato)}" immediate="#{controlDetalleLegislacion.obtenerContrato(contrato.secuencia)}"/>
+                                            </p:inputText>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" style="font-size: 9px; height: inherit; border-radius: 0px; margin-left: -10px; margin-right: -10px; margin-top: 0px; margin-bottom: 0px;" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['codigo']}" style="text-align: center;" sortBy="#{contrato.codigo}" filterBy="#{contrato.codigo}" filterMatchMode="contains" id="columnaCodigo" width="25" filterStyle="display: none; visibility: hidden;">                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headCod" value="#{msg['codigo']}"/>
+                                        <p:tooltip for="headCod" value="#{msg['codigoH']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{contrato.codigo}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{contrato.codigo}" id="editarCodigo" style="border-radius: 0px; width: 99.5%; text-transform: uppercase"> 
+                                                <p:ajax event="change" listener="#{controlLegislacion.modificarContrato(contrato, 'COD', contrato.codigo)}"/>
+                                                <p:ajax event="select" listener="#{controlLegislacion.cambiarIndice(contrato, 0)}" />
+                                            </p:inputText> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" style="font-size: 9px;"/>  
+                                    </f:facet>
+                                </p:column>  
+
+                                <p:column headerText="#{msg['descripcion']}" sortBy="#{contrato.descripcion}" filterBy="#{contrato.descripcion}" filterMatchMode="contains" id="columnaDescripción" filterStyle="display: none; visibility: hidden;" >
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{contrato.descripcion}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="editarDescripcion" maxlength="50" value="#{contrato.descripcion}" style="border-radius: 0px; width: 99.5%; text-transform: uppercase">
+                                                <p:ajax event="change" listener="#{controlLegislacion.modificarContrato(contrato, 'N', contrato.descripcion)}"/>
+                                                <p:ajax event="select" listener="#{controlLegislacion.cambiarIndice(contrato, 1)}" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""  style="font-size: 9px;"/>  
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['tipocotizante']}" sortBy="#{contrato.tipocotizante.descripcion}" 
+                                          filterBy="#{contrato.tipocotizante.descripcion}" filterMatchMode="contains" id="columnaTipoCotizante" 
+                                          width="250" filterStyle="display: none; visibility: hidden;">    
+                                    <f:facet name="header"><h:outputText value="#{msg['tipocotizante']}"/></f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{contrato.tipocotizante.descripcion}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="editorTipoCotizante" value="#{contrato.tipocotizante.descripcion}" style="border-radius: 0px; text-transform: uppercase; width: 94%;">
+                                                <p:ajax event="change" listener="#{controlLegislacion.modificarContrato(contrato, 'TC', contrato.tipocotizante.descripcion)}"/>
+                                                <p:ajax event="select" listener="#{controlLegislacion.cambiarIndice(contrato, 2)}" />
+                                                <p:ajax event="dblclick" listener="#{controlLegislacion.llamarDialogosLista(contrato)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="font-size: 9; width: 270px; height: inherit; border-radius: 0px; margin-left: -10px; margin-right: -10px;" id="fooTipoCot" action="tipocotizante" actionListener="#{controlTipoCotizante.recibirPagina('atrasLegislacion')}" value=" "/> 
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['estado']}" style="padding: 0px; text-align: center;" sortBy="#{contrato.estado}" filterBy="#{contrato.estado}" filterMatchMode="contains" id="columnaEstado" width="100" filterStyle="display: none; visibility: hidden;" >
+                                    <p:cellEditor> 
+                                        <f:facet name="output"><h:outputText value="#{contrato.estado}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:selectOneMenu id="editarFechaAcumulado" value="#{contrato.estado}" style="font-weight: bold;width: 100%; text-align: left;" >  
+                                                <f:selectItem itemLabel="#{msg['activo']}"  itemValue="ACTIVO" />  
+                                                <f:selectItem itemLabel="#{msg['inactivo']}"  itemValue="INACTIVO" />
+                                                <p:ajax listener="#{controlLegislacion.modificarContrato(contrato, 'N', contrato.estado)}" update="@this" />
+                                            </p:selectOneMenu>
+                                        </f:facet>  
+                                    </p:cellEditor> 
+                                    <f:facet name="footer">
+                                        <h:outputText value="" style="font-size: 9px;" />  
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable> 
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlLegislacion.infoRegistro}" style="display: block; position: relative; left: 10px; top: 2px; font-weight: bold"/>
+
+                            <p:commandButton style="position: relative; left: 655px; top: -10px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; 
+                                             background-repeat: no-repeat; border: none;" id="buscarContrato" value=""  actionListener="#{controlLegislacion.lovContratos(0)}" process="@this"/>
+                            <p:commandButton style="position: relative; left: 655px; top: -10px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; 
+                                             background-repeat: no-repeat; border: none;" disabled="#{controlLegislacion.mostrarTodos}" id="mostrarTodos" actionListener="#{controlLegislacion.mostrarTodosContratos()}" value="" process="@this"/>
+                        </fieldset>
+
+                        <fieldset style="position: absolute; left: 5px; top: 402px; width: 835px; height: 70px; border-radius: 10px; ">
+                            <legend style="color: blue"><strong>#{msg['clonar']}</strong></legend>
+                            <h:outputText value="#{msg['contratoaactualizar']}"   style="color: #14388B; font-weight: bold; position: absolute"/>
+                            <p:inputText id="descripcionContrato1" value="#{controlLegislacion.contratoClon.informacionContrato}" style="position: absolute; top: 35px; width: 340px; left: 7px"/>
+                            <p:commandButton value="" actionListener="#{controlLegislacion.lovContratos(2)}" style="position: absolute; top: 35px; left: 331px; background-image: url(Imagenes/Iconos/lupa.png); 
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px;" process="@this"/>
+                            <h:outputText value="#{msg['contratodeorigen']}"   style="color: #14388B; font-weight: bold; position: absolute; left: 380px"/>
+                            <p:inputText id="descripcionContrato2" value="#{controlLegislacion.contratoOriginal.informacionContrato}" style="position: absolute; top: 35px; left: 360px; width: 330px;"/>
+                            <p:commandButton value="" actionListener="#{controlLegislacion.lovContratos(1)}" style="position: absolute; top: 35px; left: 674px; background-image: url(Imagenes/Iconos/lupa.png); 
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px;" process="@this"/>
+
+                            <p:commandButton icon="ui-icon-extlink" value="#{msg['reproducir']}" actionListener="#{controlLegislacion.reproducirContrato()}" style="position: absolute; top: 30px; left: 710px; width: 130px; height: 30px; 
+                                             background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" process="@this"/>
+                        </fieldset>
+
+                        <p:commandButton style="position: absolute; left: 683px; top: 498px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; 
+                                         background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" actionListener="#{controlLegislacion.dispararDialogoConfirmarGuardar()}" disabled="#{controlLegislacion.guardado}" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 775px; top: 498px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; 
+                                         background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlLegislacion.Salir()}" action="#{controlLegislacion.redirigir()}" process="@this" />
+                    </p:panel>
+
+                    <!-- LOV TIPOS COTIZANTES -->
+                    <p:dialog header="#{msg['tiposcotizantesTC']}" widgetVar="tiposCotizantesDialogo" draggable="false" resizable="false" closable="false" id="tiposCotizantesDialogo"  
+                              width="500" height="370" modal="true" >
+                        <p:dataTable id="lovTiposCotizantes" style="width: 460px" var="tipoCotizante" value="#{controlLegislacion.lovTiposCotizantes}" rowKey="#{tipoCotizante.secuencia}"
+                                     selection="#{controlLegislacion.tipoCotizanteLovSeleccionado}" selectionMode="single" widgetVar="lovTiposCotizantes" scrollable="true" scrollWidth="485" scrollHeight="231"
+                                     filteredValue="#{controlLegislacion.filtradoListaTiposCotizantes}" emptyMessage="#{msg['lovvacio']}">              
+
+                            <p:ajax event="filter" listener="#{controlLegislacion.eventoFiltrarTipoC()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlLegislacion.activarAceptar()}" update=":form:aceptarTC"/>
+                            <p:ajax event="rowDblselect" listener="#{controlLegislacion.actualizarTipoCotizante()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarTC']}"  style="position: absolute; left: 27px; top: 16px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovTiposCotizantes.filter();" style="width:200px; position: relative; left: 50px;"/>  
+                                <p:watermark for="globalFilter" value="" />
+                            </f:facet>
+                            <p:column filterBy="#{tipoCotizante.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85%">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="#{msg['codigoTC']}" />
+                                </f:facet>
+                                <h:outputText  value="#{tipoCotizante.codigo}" />
+                            </p:column>
+                            <p:column filterBy="#{tipoCotizante.descripcion}"  filterMatchMode="contains" filterStyle="width: 85%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['descripcionTC']}" />
+                                </f:facet>
+                                <h:outputText value="#{tipoCotizante.descripcion}" />
+                            </p:column>
+                        </p:dataTable>
+                        <h:outputText id="infoRegistroTiposC" value="#{msg['infoRegistro']} #{controlLegislacion.infoRegistroTipo}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+
+                        <p:commandButton id="aceptarTC" style="position: relative; left: 190px; top: 15px;"
+                                         value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlLegislacion.aceptar}" actionListener="#{controlLegislacion.actualizarTipoCotizante()}" process="@this" onclick="tiposCotizantesDialogo.hide()"/>
+
+                        <p:commandButton id="atrasTC" style="position: relative; left: 190px; top: 15px;" 
+                                         value="#{msg['cancelar']}" icon="ui-icon-close" actionListener="#{controlLegislacion.cancelarTipoCotizante()}" process="@this" onclick="tiposCotizantesDialogo.hide()"/>    
+                    </p:dialog>             
+
+
+                    <!-- LOV CONTRATOS -->
+                    <p:dialog header="#{msg['contratosC']}"  widgetVar="ContratosDialogo" draggable="false" resizable="false" closable="false" id="ContratosDialogo"  
+                              width="541" height="385" modal="true" >
+                        <p:dataTable id="lovContratos" style="width: 500px" var="contratoLOV" value="#{controlLegislacion.lovContratos}" rowKey="#{contratoLOV.secuencia}"
+                                     selection="#{controlLegislacion.contratoLovSeleccionado}" selectionMode="single" widgetVar="lovContratos" scrollable="true" scrollWidth="525" scrollHeight="250"
+                                     filteredValue="#{controlLegislacion.filtradoListaContratosLOV}" emptyMessage="#{msg['lovvacio']}" >              
+
+                            <p:ajax event="filter" listener="#{controlLegislacion.eventoFiltrarContrs()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlLegislacion.activarAceptar()}" update=":form:aceptarC"/>
+                            <p:ajax event="rowDblselect" listener="#{controlLegislacion.seleccionContrato()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarC']}"   style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovContratos.filter();" style="width:200px; position: relative; left: 15px;"/>  
+                            </f:facet>
+                            <p:column filterBy="#{contratoLOV.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['codigoC']}"  /> 
+                                </f:facet>
+                                <h:outputText  value="#{contratoLOV.codigo}" />
+                            </p:column>
+                            <p:column filterBy="#{contratoLOV.descripcion}" filterMatchMode="contains" filterStyle="width: 85%">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['descripcionC']}"  />
+                                </f:facet>
+                                <h:outputText  value="#{contratoLOV.descripcion}" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroContrato" value="#{msg['infoRegistro']} #{controlLegislacion.infoRegistroContrato}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+
+                        <p:commandButton id="aceptarC" style="position: relative; left: 225px; top: 15px;" 
+                                         value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlLegislacion.aceptar}" actionListener="#{controlLegislacion.seleccionContrato()}" process="@this" />
+
+                        <p:commandButton id="atrasC" style="position: relative; left: 225px; top: 15px;"
+                                         value="#{msg['cancelar']}" icon="ui-icon-close" actionListener="#{controlLegislacion.cancelarSeleccionContrato()}" process="@this" />
+
+                    </p:dialog>
+
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlLegislacion.activarCtrlF11()}"/>
+
+                </h:form>
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="NuevoContratoDialogo" header="#{msg['nuevoregistro']}"  widgetVar="NuevoContratoDialogo" closable="false" resizable="false"  
+                              draggable="false" modal="true" height="225" width="360" style="padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}"  style="color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevoContrato" style="border: none; position: relative; top: -50px;">
+                            <strong><h:outputText value="*#{msg['codigoN']}"  style="position: absolute; top: 75px" /></strong>
+                            <p:inputText value="#{controlLegislacion.nuevoContrato.codigo}" style="position: absolute; top: 70px; left: 180px; width: 110px">
+                                <p:ajax event="change" update="@this" />
+                            </p:inputText>
+
+                            <strong><h:outputText value="*#{msg['descripcionN']}"  style="position: absolute; top: 105px" /></strong>
+                            <p:inputText value="#{controlLegislacion.nuevoContrato.descripcion}" maxlength="50" style="width: 110px; position: absolute; left: 180px; top: 100px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="change" update="@this" />
+                            </p:inputText>
+
+                            <strong><h:outputText value="#{msg['tipocotizanteN']}"  style="position: absolute; top: 135px" /></strong>
+                            <p:inputText id="nuevaDescripcionTipoCotizante" value="#{controlLegislacion.nuevoContrato.tipocotizante.descripcion}" style="width: 110px; position: absolute; left: 180px; top: 130px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="click" listener="#{controlLegislacion.valoresBackupAutocompletar(1)}" />
+                                <p:ajax event="change" listener="#{controlLegislacion.autocompletarNuevoyDuplicado(controlLegislacion.nuevoContrato.tipocotizante.descripcion, 1)}" />
+                                <p:ajax event="dblclick" listener="#{controlLegislacion.llamarLOVNuevo_Duplicado(1)}"/>
+                            </p:inputText>
+                            <p:commandButton value="" style="position: absolute; left: 300px; top: 130px; background-image: url(Imagenes/Iconos/lupa.png); 
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px;" actionListener="#{controlLegislacion.llamarLOVNuevo_Duplicado(1)}" process="@this" />
+
+                            <strong><h:outputText value="*#{msg['estadoN']}"  style="position: absolute; top: 165px" /></strong>
+                            <p:selectOneMenu value="#{controlLegislacion.nuevoContrato.estado}" style="width: 95px; font-weight: bold; position: absolute; top: 160px; left: 180px;" panelStyle="width: 115px" >  
+                                <f:selectItem itemLabel="#{msg['activo']}"  itemValue="ACTIVO" />  
+                                <f:selectItem itemLabel="#{msg['inactivo']}"  itemValue="INACTIVO" />
+                                <p:ajax update="@this"/>
+                            </p:selectOneMenu> 
+
+                            <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 5px; top: 220px;" actionListener="#{controlLegislacion.limpiarNuevoContrato()}" update="nuevoContrato" process="@this"/>
+                            <p:commandButton id="agregar" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 137px; top: 220px;" process="@this" actionListener="#{controlLegislacion.agregarNuevoContrato()}" />
+                            <p:commandButton id="cancelar" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 235px; top: 220px" actionListener="#{controlLegislacion.limpiarNuevoContrato()}" update="nuevoContrato" onclick="NuevoContratoDialogo.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="DuplicarContratoDialogo" header="#{msg['duplicarcontrato']}"  widgetVar="DuplicarContratoDialogo" closable="false" resizable="false" 
+                              draggable="false" modal="true" height="225" width="360" style="padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}"  style="color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarContrato" style="border: none; position: relative; top: -50px">
+                            <strong><h:outputText value="*#{msg['codigoN']}"  style="position: absolute; top: 75px" /></strong>
+                            <p:inputText value="#{controlLegislacion.duplicarContrato.codigo}" style="position: absolute; top: 70px; left: 180px; width: 110px;">
+                                <p:ajax event="change" update="@this" />
+                            </p:inputText>
+
+                            <strong><h:outputText value="*#{msg['descripcionN']}"  style="position: absolute; top: 105px" /></strong>
+                            <p:inputText maxlength="50" value="#{controlLegislacion.duplicarContrato.descripcion}" style="width: 110px; position: absolute; left: 180px; top: 100px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="change" update="@this" />
+                            </p:inputText>
+
+                            <strong><h:outputText value="#{msg['tipocotizanteN']}"  style="position: absolute; top: 135px" /></strong>
+                            <p:inputText id="duplicarDescripcionTipoCotizante" value="#{controlLegislacion.duplicarContrato.tipocotizante.descripcion}" style="width: 110px; position: absolute; left: 180px; top: 130px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="click" listener="#{controlLegislacion.valoresBackupAutocompletar(2)}" />
+                                <p:ajax event="change" listener="#{controlLegislacion.autocompletarNuevoyDuplicado(controlLegislacion.duplicarContrato.tipocotizante.descripcion, 1)}" />
+                                <p:ajax event="dblclick" listener="#{controlLegislacion.llamarLOVNuevo_Duplicado(2)}"/>
+                            </p:inputText>
+                            <p:commandButton value="" style="position: absolute; left: 300px; top: 130px; background-image: url(Imagenes/Iconos/lupa.png); 
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px;" actionListener="#{controlLegislacion.llamarLOVNuevo_Duplicado(2)}" process="@this" />
+
+                            <strong><h:outputText value="*#{msg['estadoN']}"  style="position: absolute; top: 165px" /></strong>
+                            <p:selectOneMenu value="#{controlLegislacion.duplicarContrato.estado}" style="width: 120px; font-weight: bold; position: absolute; top: 160px; left: 180px;" panelStyle="width: 115px" >  
+                                <f:selectItem itemLabel="#{msg['activo']}"  itemValue="ACTIVO" />  
+                                <f:selectItem itemLabel="#{msg['inactivo']}"  itemValue="INACTIVO" />
+                                <p:ajax update="@this"/>
+                            </p:selectOneMenu> 
+
+                            <p:commandButton id="limpiarDuplicado" icon="ui-icon-trash" value="#{msg['limpiar']}"  style="position: absolute; left: 5px; top: 220px;" actionListener="#{controlLegislacion.limpiarduplicar()}" update="duplicarContrato" process="@this"/>
+                            <p:commandButton id="agregarDuplicado" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 137px; top: 220px;"  process="@this" actionListener="#{controlLegislacion.confirmarDuplicar()}" />
+                            <p:commandButton id="cancelarDuplicado" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 235px; top: 220px;"  actionListener="#{controlLegislacion.limpiarduplicar()}" update="duplicarContrato" onclick="DuplicarContratoDialogo.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="validacioNuevoContrato" header="#{msg['atencion']}"  widgetVar="validacioNuevoContrato"  resizable="false" draggable="false" modal="true" height="95" width="400px" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['validacionNuevo']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="validacioNuevoContrato.hide();" style="position: absolute; top: 60px; left: 280px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionCodigo" header="#{msg['atencion']}" widgetVar="validacionCodigo"  resizable="false" draggable="false" modal="true" height="95" width="450px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
+                        <h:outputText value="#{msg['validacionCodigo']}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="validacionCodigo.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar" resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" actionListener="#{controlLegislacion.guardarCambios()}" action="#{controlLegislacion.redirigir()}" 
+                                         style="position: absolute; top: 50px; left: 157px" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" actionListener="#{controlLegislacion.refrescar()}" action="#{controlLegislacion.redirigir()}" 
+                                         style="position: absolute; top: 50px; left: 218px" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 285px" 
+                                         process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionReproducirContratoClon" header="#{msg['atencion']}"  widgetVar="validacionReproducirContratoClon"  resizable="false" draggable="false" modal="true" height="95" width="300px" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['validacionReproducirContratoClon']} #{controlLegislacion.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 200px;" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="validacionReproducirContratoClon.hide();" style="position: absolute; top: 60px; left: 180px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionReproducirContratOrigen" header="#{msg['atencion']}"  widgetVar="validacionReproducirContratOrigen"  resizable="false" draggable="false" modal="true" height="95" width="300px" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['validacionReproducirContratOrigen']} #{controlLegislacion.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 200px;" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}"  onclick="validacionReproducirContratOrigen.hide();" style="position: absolute; top: 60px; left: 180px" process="@this" />
+                    </p:dialog>
+
+                    <!-- EDITOR -->
+
+                    <p:dialog id="editorCodigo" header="#{msg['codigoE']}" widgetVar="editorCodigo" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlLegislacion.editarContrato.codigo}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editorDescripcion" header="#{msg['descripcionE']}" widgetVar="editorDescripcion" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlLegislacion.editarContrato.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editorTipoCotizante" header="#{msg['tipocotizanteE']}" widgetVar="editorTipoCotizante" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlLegislacion.editarContrato.tipocotizante.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+
+                    <!-- RASTRO -->
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}"  widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}"  style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlLegislacion.contratoSeleccionado.secuencia, 'Contratos', 'contrato')}"
+                                         style="position: absolute; top: 63px; left: 210px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}"  widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['cofirmarRastroHistorico']}"  style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Contratos', 'contrato')}"
+                                         style="position: absolute; top: 60px; left: 210px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}"  widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}"  style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}"  widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}"  style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}"  widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlLegislacion.contratoSeleccionado.secuencia, 'Contratos', 'contrato')}" 
+                                         style="position: absolute; top: 65px; left: 210px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 65px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}"  widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}"  style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}"  widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}"  style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}"  widgetVar="errorObjetosDB" resizable="false" draggable="false" modal="true" height="70" width="280px"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}"  style="position: absolute; left: 70px; top: 8px; width: 195px; font-weight:bold;" />
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosContratosExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                                 value="#{controlLegislacion.listaContratos}">
+                        <p:column headerText="#{msg['codigoX']}" >  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['codigoX']}"  />
+                            </f:facet>
+                            <h:outputText value="#{infoExp.codigo}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg['descripcionX']}" >                                  
+                            <f:facet name="header"><h:outputText value="#{msg['descripcionX']}" /> </f:facet> 
+                            <h:outputText value="#{infoExp.descripcion}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['tipocotizanteXX']}" >      
+                            <f:facet name="header"><h:outputText value="#{msg['tipocotizanteX']}" /></f:facet>
+                            <h:outputText value="#{infoExp.tipocotizante.descripcion}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['estadoX']}" >                                                              
+                            <f:facet name="header"> <h:outputText value="#{msg['estadoX']}"  /></f:facet>
+                            <h:outputText value="#{infoExp.estado}" />
+                        </p:column> 
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

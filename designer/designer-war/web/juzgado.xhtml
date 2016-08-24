@@ -1,0 +1,494 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+                    <p:panel  id="PanelTotal" header="Listado de Juzgados" style=" font-size: 12px; position: absolute; width: 874px; height: 530px; left: 300px; top: 100px;text-align: left" >  
+
+                        <fieldset style="position: absolute; left: 10px; top: 100px; font-size: 10px; width: 835px; height: 378px; border-radius: 10px; ">
+                            <legend style="font-size: 14px; color: blue"><strong>Listado de Juzgados</strong></legend>
+                            <!-- TABLA EMPLVIGENCIACARGO -->
+
+                            <p:dataTable id="datosJuzgados" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ;font-size: 10px; border: 1px;"                      
+                                         value="#{controlJuzgados.listJuzgadosPorCiudad}" scrollable="true" scrollHeight="235"  scrollWidth="830"
+                                         filteredValue="#{controlJuzgados.filtrarJuzgados}" emptyMessage="No se encontrarón resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="true" rows="10"  
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+                                <p:ajax event="filter" listener="#{controlJuzgados.eventoFiltrar()}"/>
+
+
+                                <p:column headerText="Codigo" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="85" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.codigo}" id="editarCodigo" style="font-size: 10px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
+                                                <p:ajax  event="change" listener="#{controlJuzgados.modificandoJuzgados(indice, 'N', info.codigo)}" update="@this"/>
+                                                <p:ajax event="select" listener="#{controlJuzgados.cambiarIndice(indice,0)}" /> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText style="width: 100%; height: 16px; font-size: 9px; border: none; " value="Codigo"/>
+                                    </f:facet>
+                                </p:column>  
+
+                                <p:column headerText="Nombre" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"  id="nombre" width="113" filterStyle="display: none; visibility: hidden;" >      
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.nombre}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="editarNombreCentroCoso" value="#{info.nombre}" style="font-size: 10px; border-radius: 0px; width: 93.5%; text-transform: uppercase">
+                                                <p:ajax event="change" listener="#{controlJuzgados.modificandoJuzgados(indice, 'N', info.nombre)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlJuzgados.cambiarIndice(indice, 1)}" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText style="width: 100%; height: 16px; font-size: 9px; border: none;" value="Nombre" />
+                                    </f:facet>
+                                </p:column>
+
+
+                                <p:column headerText="Oficina" sortBy="#{info.oficina}" filterBy="#{info.oficina}" filterMatchMode="contains" id="oficina" width="70" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.oficina}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.oficina}" id="editarOficina" style="font-size: 10px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                                <p:ajax event="change" listener="#{controlJuzgados.modificandoJuzgados(indice, 'N', info.oficina)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlJuzgados.cambiarIndice(indice, 2)}" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText style="width: 100%; height: 16px; font-size: 9px; border: none; " id="fooOficina" value="Oficina"/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="Obsevaciones" sortBy="#{info.observaciones}" filterBy="#{info.observaciones}" filterMatchMode="contains" id="observaciones" width="113" filterStyle="display: none; visibility: hidden;" style="padding: 0px">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.observaciones}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.observaciones}" id="editarObservaciones" style="font-size: 10px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                                <p:ajax event="change" listener="#{controlJuzgados.modificandoJuzgados(indice, 'N', info.observaciones)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlJuzgados.cambiarIndice(indice, 3)}" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText style="width: 100%; height: 16px; font-size: 9px; border: none; " id="fooObservaciones" value="Obsevaciones"/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="Ciudad" sortBy="#{info.ciudad.nombre}" filterBy="#{info.ciudad.nombre}" filterMatchMode="contains" id="ciudad" width="113" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.ciudad.nombre}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.ciudad.nombre}" id="editarCiudad" style="font-size: 10px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                                <p:ajax event="change" listener="#{controlJuzgados.modificandoJuzgados(indice, 'CIUDADES', info.ciudad.nombre)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlJuzgados.cambiarIndice(indice, 4)}" />
+                                                <p:ajax event="dblclick" listener="#{controlJuzgados.asignarIndex(indice, 0, 4)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 100%; height: 16px; font-size: 9px; border: none; color: blue" id="fooCiudad" value="Ciudad"/>
+                                    </f:facet>
+                                </p:column>  
+                            </p:dataTable> 
+                        </fieldset>
+
+                        <p:toolbar style="font-size: 12px; position: absolute; top: 50px; left: 20px;">  
+                            <p:toolbarGroup align="left">
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " actionListener="#{controlJuzgados.guardarCambiosJuzgados()}" process="@this" />
+                                <p:tooltip style="font-size: 12px" for="guardarRapido" value="Guardar" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlJuzgados.editarCelda()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px" for="editar" value="Editar" />
+
+                                <p:separator />
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlJuzgados.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px" for="listaValores" value="Lista de Valores" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlJuzgados.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px" for="filtrar" value="Activar filtrado" />
+
+                                <p:separator />
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false" actionListener="#{controlJuzgados.exportXLS()}" />
+                                <p:tooltip style="font-size: 12px" for="exportarXLS" value="Exportar a XLS" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlJuzgados.limpiarNuevoJuzgado()}" ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosJuzgadosExportar" fileName="JUZGADOS" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="font-size: 12px" for="exportarXML" value="Exportar a XML" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlJuzgados.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="font-size: 12px" for="exportarPDF" value="Exportar a PDF" />
+
+                                <p:separator /> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlJuzgados.mostrarDialogoNuevoJuzgado()}" process="@this"/> 
+                                <p:tooltip style="font-size: 12px" for="insertar" value="Nuevo Juzgado" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlJuzgados.verificarBorrado()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px" for="eliminar" value="Eliminar Juzgado" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlJuzgados.duplicandoJuzgados()}"  process="@this"/>  
+                                <p:tooltip style="font-size: 12px" for="duplicar" value="Duplicar Juzgado" />
+                                <p:separator /> 
+
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlJuzgados.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px" for="rastro" value="Rastro"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+                        <!-- DIALOGO L.O.V ESTATICO UBICACIONES -->
+                        <p:dialog header="Ciudad" widgetVar="tiposCentrosCostosDialogo" draggable="false" resizable="false" closable="false" id="tiposCentrosCostosDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="457" modal="true" style="font-size: 11px;">
+                            <p:dataTable id="lovTipoCentrosCostos" style="font-size: 11px; width: 430px" var="mostrarCiudad" value="#{controlJuzgados.listaCiudades}" rowKey="#{mostrarCiudad.secuencia}"
+                                         selection="#{controlJuzgados.ciudadSeleccionada}" selectionMode="single" widgetVar="lovTipoCentrosCostos" scrollable="true" scrollWidth="445" scrollHeight="250"
+                                         filteredValue="#{controlJuzgados.filtradoCiudades}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
+                                <p:ajax event="rowSelect" listener="#{controlJuzgados.activarAceptar()}" update=":form:aceptarTCC"/>
+                                <p:ajax event="rowDblselect" listener="#{controlJuzgados.actualizarCiudades()}" process="@this" />
+
+                                <f:facet name="header">  
+                                    <h:outputText value="Buscar Ciudad "  style="position: absolute; left: 27px; top: 14px"/>  
+                                    <p:inputText id="globalFilter" onkeyup="lovTipoCentrosCostos.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                </f:facet>
+                                <p:column filterBy="#{mostrarCiudad.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center" value="Codigo" />
+                                    </f:facet>
+                                    <h:outputText  value="#{mostrarCiudad.codigo}" />
+                                </p:column>
+                                <p:column filterBy="#{mostrarCiudad.nombre}" width="200"  filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="Nombre Tipo Centro Costos" />
+                                    </f:facet>
+                                    <h:outputText value="#{mostrarCiudad.nombre}" />
+                                </p:column>
+                                <p:column filterBy="#{mostrarCiudad.departamento.nombre}" filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="Departamento" />
+                                    </f:facet>
+                                    <h:outputText  value="#{mostrarCiudad.departamento.nombre}" />
+                                </p:column>
+                            </p:dataTable>
+                            <p:commandButton id="aceptarTCC" style="position: relative; left: 303px" value="Aceptar" disabled="#{controlJuzgados.aceptar}" actionListener="#{controlJuzgados.actualizarCiudades()}" process="@this"/>
+                            
+                            <p:commandButton id="atrasTCC" style="position: relative; left: 303px" value="Atras" actionListener="#{controlJuzgados.cancelarCambioCiudades()}" process="@this"/>
+                        </p:dialog> 
+
+
+                        <p:commandButton style=" position: absolute; left: 10px; top: 497px; font-size: 10px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-refresh" id="REFRESCAR" value="Refrescar" actionListener="#{controlJuzgados.cancelarModificacion()}" process="@this" />
+                        <p:commandButton style="position: absolute; left: 100px; top: 497px; font-size: 10px; font-family: Arial, Helvetica, sans-serif;" id="BUSCARCENTROCOSTO" value="Buscar Ciudad" actionListener="#{controlJuzgados.lovEmpresas()}" process="@this" />
+                        <p:commandButton style="position: absolute; left: 203px; top: 497px; font-size: 10px; font-family: Arial, Helvetica, sans-serif;" id="MOSTRARTODOS" disabled="#{controlJuzgados.mostrarTodos}" value="Mostrar Todos" actionListener="#{controlJuzgados.cancelarModificacion()}" process="@this"/>
+                        <p:commandButton style=" position: absolute; left: 730px; top: 497px; font-size: 10px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-check" id="ACEPTAR" value="Aceptar" disabled="#{controlJuzgados.guardado}" onclick="confirmarGuardar.show();" update=":form:datosJuzgados" process="@this" />
+                        <p:commandButton style=" position: absolute; left: 808px; top: 497px; font-size: 10px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras" actionListener="#{controlCentroCosto.salir()}" action="nomina" process="@this" />
+
+                    </p:panel>
+
+                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="Necesita : #{controlJuzgados.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 20px;"  />
+                        <h:outputText value=" #{controlJuzgados.mensajeValidacion}" style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 60px; left: 250px" process="@this" />
+                    </p:dialog>
+                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"  />
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionBorrar.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="50" height="70" style="position: absolute; left: 40px; top: 10px;"  />
+                        <h:outputText value="Se han borrado #{controlJuzgados.registrosBorrados}  Registros" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="mostrarBorrados.hide();" style="position: absolute; top: 60px; left: 200px" process="@this" />
+                    </p:dialog>
+                    <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="Para agregar es necesario adicionar: #{controlJuzgados.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionNuevaCentroCosto.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+
+
+                    <p:dialog id="confirmarGuardar" header="ATENCIÓN...!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="Si" onclick="confirmarGuardar.hide();" actionListener="#{controlJuzgados.guardarCambiosJuzgados()}" style="position: absolute; top: 60px; left: 215px" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarGuardar.hide();" actionListener="#{controlJuzgados.cancelarModificacion()}" style="position: absolute; top: 60px; left: 255px" process="@this" />
+                        <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+
+
+                    <p:dialog id="confirmarCambioEmpresa" header="ATENCIÓN...!" widgetVar="confirmarCambioEmpresa"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="¿Desea guardar los cambios realizados en Centros Costos de la empresa?" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="Aceptar" onclick="confirmarCambioEmpresa.hide();" actionListener="#{controlJuzgados.guardarCambiosJuzgados()}" style="position: absolute; top: 60px; left: 215px" process="@this" />
+                        <p:commandButton value="Cancelar" onclick="confirmarCambioEmpresa.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlJuzgados.activarCtrlF11()}"/> 
+                </h:form>
+
+                <h:form id="formularioDialogos" >
+
+                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla 'TIPOSCERTIFICADOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlJuzgados.secRegistro,'Juzgados','juzgado')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla ENCARGATURAS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Juzgados','juzgado')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlJuzgados.secRegistro,'Juzgados','juzgado')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="font-size: 12px" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla 'ENCARGATURAS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog> 
+
+
+                    <p:dialog id="NuevoRegistroCentroCostos" header="Nuevo Registro" widgetVar="NuevoRegistroCentroCostos" closable="false" resizable="false"  draggable="false" modal="true" height="450" width="360" style="font-size: 12px; padding: 0px">  
+
+                        <center><strong><h:outputText value="Ingresar Información del Juzgado" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevoCentroCostos" style="border: none;">
+
+                            <!--0-->
+                            <strong><h:outputText value="Codigo : " style="font-size: 12px; position: absolute; top: 71px" /></strong>
+                            <p:inputText id="nuevaCodigoCC" value="#{controlJuzgados.nuevoJuzgado.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 65px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaCodigoCC" value="Codigo" />
+                            <!--1-->
+                            <strong><h:outputText value="Nombre: " style="font-size: 12px; position: absolute; top: 126px" /></strong>
+                            <p:inputText id="nuevaNombreCentroCostos" value="#{controlJuzgados.nuevoJuzgado.nombre}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 121px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaNombreCentroCostos" value="Nombre" />
+
+                            <!--4-->
+                            <strong><h:outputText value="Oficina:" style="font-size: 12px; position: absolute; top: 181px" /></strong>
+                            <p:inputText id="nuevaCodigoAT" value="#{controlJuzgados.nuevoJuzgado.oficina}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 176px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaCodigoAT" value="Oficina" />
+                            <!--5-->
+
+                            <strong><h:outputText value="Observaciones:" style="font-size: 12px; position: absolute; top: 228px" /></strong>
+                            <p:inputText id="nuevaCodigoCTT" value="#{controlJuzgados.nuevoJuzgado.observaciones}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 223px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaCodigoCTT" value="Observaciones" />
+
+                            <strong><h:outputText value="Ciudad: " style="font-size: 12px; position: absolute; top: 283px" /></strong>
+                            <p:inputText id="nuevaTipoCentroCostos" value="#{controlJuzgados.nuevoJuzgado.ciudad.nombre}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 278px;">
+                                <p:ajax event="click" listener="#{controlJuzgados.valoresBackupAutocompletar(1)}" />
+                                <p:ajax event="change" listener="#{controlJuzgados.autocompletarNuevo('CIUDADES', controlJuzgados.nuevoJuzgado.ciudad.nombre , 1)}" />
+                                <p:ajax event="dblclick" listener="#{controlJuzgados.asignarVariableCiudad(0)}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 305px; top: 278px;  " id="btnnuevoNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlJuzgados.cargarCiudadesNuevoYDuplicar(0)}"/>   
+                            <p:watermark for="nuevaTipoCentroCostos" value="Ciudad" />
+
+                            <p:commandButton id="limpiar" value="Limpiar" style=" font-size: 11px ;position: absolute; left: 25px; top: 390px;" actionListener="#{controlJuzgados.limpiarNuevoJuzgado()}" update="nuevoCentroCostos" process="@this"/>
+                            <p:commandButton id="agregarCC" value="Agregar" style="font-size: 11px; position: absolute; left: 185px; top: 390px;"  process="@this" actionListener="#{controlJuzgados.agregarNuevoJuzgado()}"  />
+                            <p:commandButton id="cancelarCC" value="Cancelar" style="font-size: 11px; position: absolute; left: 255px; top: 390px;" actionListener="#{controlJuzgados.limpiarNuevoJuzgado()}" update="nuevoCentroCostos" onclick="NuevoRegistroCentroCostos.hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+
+                    <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->                    
+                    <p:dialog id="DuplicarRegistroCentroCostos" header="Duplicar Registro" widgetVar="DuplicarRegistroCentroCostos" closable="false" resizable="false"  draggable="false" modal="true" height="450" width="360" style="font-size: 12px; padding: 0px">  
+
+                        <center><strong><h:outputText value="Ingresar información juzgado " style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarCentroCostos" style="border: none;">
+                            <!--0-->
+                            <strong><h:outputText value="Codigo: " style="font-size: 12px; position: absolute; top: 71px" /></strong>
+                            <p:inputText id="duplicarCodigoCC" value="#{controlJuzgados.duplicarJuzgado.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 65px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCodigoCC" value="Codigo" />
+                            <!--1-->
+                            <strong><h:outputText value="Nombre: "  style="font-size: 12px; position: absolute; top: 126px" /></strong>
+                            <p:inputText id="duplicarNombreCentroCostos" value="#{controlJuzgados.duplicarJuzgado.nombre}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 121px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarNombreCentroCostos" value="Nombre" />
+                            <!--2-->
+                            <strong><h:outputText value="Oficina:" style="font-size: 12px; position: absolute; top: 181px" /></strong>
+                            <p:inputText id="duplicarCodigoAT" value="#{controlJuzgados.duplicarJuzgado.oficina}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 176px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCodigoAT" value="Oficina" />
+
+                            <strong><h:outputText value="Observaciones:" style="font-size: 12px; position: absolute; top: 228px" /></strong>
+                            <p:inputText id="duplicarCodigoCTT" value="#{controlJuzgados.duplicarJuzgado.observaciones}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 223px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCodigoCTT" value="Observaciones" />
+
+                            <strong><h:outputText value="Ciudad: " style="font-size: 12px; position: absolute; top: 283px" /></strong>
+                            <p:inputText id="duplicarTipoCentroCostos" value="#{controlJuzgados.duplicarJuzgado.ciudad.nombre}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 278px;" onclick="select();">
+                                <p:ajax event="click" listener="#{controlJuzgados.valoresBackupAutocompletar(2)}" />
+                                <p:ajax event="change" listener="#{controlJuzgados.autocompletarDuplicado('CIUDADES', controlJuzgados.duplicarJuzgado.ciudad.nombre , 2)}" />
+                                <p:ajax event="dblclick" listener="#{controlJuzgados.asignarVariableCiudad(1)}" />
+                            </p:inputText>
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 305px; top: 278px;  " id="btnduplicarNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlJuzgados.cargarCiudadesNuevoYDuplicar(1)}"/>   
+                            <p:watermark for="duplicarTipoCentroCostos" value="Ciudad" />
+
+
+                            <p:commandButton id="limpiarDuplicadoCC" value="Limpiar" style=" font-size: 11px ;position: absolute; left: 25px; top: 390px;" actionListener="#{controlJuzgados.limpiarDuplicarJuzgados()}" update="duplicarCentroCostos" process="@this"/>
+                            <p:commandButton id="agregarDuplicadoCC" value="Agregar" style="font-size: 11px; position: absolute; left: 185px; top: 390px;"  process="@this" actionListener="#{controlJuzgados.confirmarDuplicar()}"/>
+                            <p:commandButton id="cancelarDuplicadoCC" value="Cancelar" style="font-size: 11px; position: absolute; left: 255px; top: 390px;" actionListener="#{controlJuzgados.limpiarDuplicarJuzgados()}" update="duplicarCentroCostos" onclick="DuplicarRegistroCentroCostos.hide();" process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+
+                    <!-- LOV CIUDADES -->
+                    <p:dialog header="Ciudades" widgetVar="EmpresasDialogo" draggable="false" resizable="false" closable="false" id="EmpresasDialogo"  
+                              showEffect="fade" hideEffect="fade" width="380" modal="true" style="font-size: 11px;">
+                        <p:dataTable id="lovEmpresas" style="font-size: 11px; width: 345px" var="ciudades" value="#{controlJuzgados.listaCiudades}" rowKey="#{ciudades.secuencia}"
+                                     selection="#{controlJuzgados.ciudadSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="360" scrollHeight="360"
+                                     filteredValue="#{controlJuzgados.filtradoCiudades}" emptyMessage="No hay datos en la tabla">              
+                            <p:ajax event="rowSelect" listener="#{controlJuzgados.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlJuzgados.cambiarCiudad()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Ciudades"  style="position: absolute; left: 27px; top: 14px"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovEmpresas.filter();" style="width:120px; position: relative; left: 60px;" />  
+                            </f:facet>
+                            <p:column filterBy="#{ciudades.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
+                                <f:facet name="header">
+                                    <h:outputText value="Código" />
+                                </f:facet>
+                                <h:outputText  value="#{ciudades.codigo}" />
+                            </p:column>
+                            <p:column filterBy="#{ciudades.nombre}" width="110" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre" />
+                                </f:facet>
+                                <h:outputText  value="#{ciudades.nombre}" />
+                            </p:column>
+                            <p:column filterBy="#{ciudades.departamento.nombre}" width="110" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Departamento" />
+                                </f:facet>
+                                <h:outputText  value="#{ciudades.departamento.nombre}" />
+                            </p:column>
+                        </p:dataTable>
+                        
+                        <p:commandButton id="aceptarE" style="position: relative; left: 210px" value="Aceptar" disabled="#{controlJuzgados.aceptar}" actionListener="#{controlJuzgados.cambiarCiudad()}" process="@this"/>
+                        
+                        <p:commandButton id="atrasE" style="position: relative; left: 210px" value="Cancelar" actionListener="#{controlJuzgados.cancelarCambioCiudad()}" process="@this"/>
+                    </p:dialog>
+
+
+                    <!--0-->
+                    <p:dialog id="editarCCC" header="Editar Código" widgetVar="editarCCC" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
+                        <p:inputTextarea value="#{controlJuzgados.editarJuzgado.codigo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                        <p:commandButton id="cancelarCCC" value="Atras" onclick="editarCCC.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                    </p:dialog>
+                    <!--1-->
+                    <p:dialog id="editarNCC" header="Editar Nombre" widgetVar="editarNCC" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
+                        <p:inputTextarea value="#{controlJuzgados.editarJuzgado.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                        <p:commandButton id="cancelarNCC" value="Atras" onclick="editarNCC.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                    </p:dialog>
+                    <!--2-->
+                    <p:dialog id="editarTCC" header="Editar Oficina" widgetVar="editarTCC" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
+                        <p:inputTextarea value="#{controlJuzgados.editarJuzgado.oficina}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                        <p:commandButton id="cancelarTCC" value="Atras" onclick="editarTCC.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                    </p:dialog>
+                    <!--3-->
+                    <p:dialog id="editarMO" header="Editar Observacion" widgetVar="editarMO" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
+                        <p:inputTextarea value="#{controlJuzgados.editarJuzgado.observaciones}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                        <p:commandButton id="cancelarMO" value="Atras" onclick="editarMO.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                    </p:dialog>
+                    <!--4-->
+                    <p:dialog id="editarCAT" header="Editar Ciudad" widgetVar="editarCAT" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
+                        <p:inputTextarea value="#{controlJuzgados.editarJuzgado.ciudad.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                        <p:commandButton id="cancelarCAT" value="Atras" onclick="editarCAT.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                    </p:dialog>
+                </h:form>
+
+
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosJuzgadosExportar" var="info" style="visibility: hidden; display: none;"                           
+                                 value="#{controlJuzgados.listJuzgadosPorCiudad}"> 
+                        <!--0-->
+                        <p:column headerText="Codigo">      
+                            <f:facet name="header"><h:outputText value="Codigo"/></f:facet>
+                            <h:outputText value="#{info.codigo}" />
+                        </p:column>
+                        <!--1-->
+                        <p:column headerText="Nombre">      
+                            <f:facet name="header"><h:outputText value="Nombre"/></f:facet>
+                            <h:outputText value="#{info.nombre}" />
+                        </p:column>
+                        <!--2-->
+                        <p:column headerText="Oficina">      
+                            <f:facet name="header"><h:outputText value="Oficina"/></f:facet>
+                            <h:outputText value="#{info.oficina}" />
+                        </p:column>
+                        <!--3-->
+                        <p:column headerText="Observacion">      
+                            <f:facet name="header"><h:outputText value="Observacion"/></f:facet>
+                            <h:outputText value="#{info.observaciones}" />
+                        </p:column>
+                        <!--4-->
+                        <p:column headerText="Ciudad">      
+                            <f:facet name="header"><h:outputText value="Ciudad"/></f:facet>
+                            <h:outputText value="#{info.ciudad.nombre}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

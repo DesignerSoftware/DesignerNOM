@@ -1,0 +1,304 @@
+body {
+    background-color: #ffffff;
+    font-size: 12px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    color: #000000;  
+    margin: 10px;
+}
+
+h1 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    border-bottom: 1px solid #AFAFAF; 
+    font-size:  16px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    color: #D20005;
+}
+
+a:link, a:visited {
+    color: #045491;
+    font-weight : bold;
+    text-decoration: none;
+}
+
+a:link:hover, a:visited:hover  {
+    color: #045491;
+    font-weight : bold;
+    text-decoration : underline;
+}
+/*
+.ui-button-text-only .ui-button-text{
+    padding: 0;
+}
+*/
+.separador {
+    background: #A8A8A8; 
+    color: #A8A8A8;
+    border: #000000; 
+    width: 1px; 
+    clear: none; 
+    height: 22px;
+    position: relative;
+    top: 5px;
+    margin: 0px 10px 0; 
+    box-shadow: none;
+}
+.ui-felipe .ui-datagrid-content {
+    border: none;
+}
+.ui-spinner-button{
+    right: -170px;
+}
+
+.ui-spinner-input {
+    padding-right: 0px;
+}
+
+.ui-datagrid .ui-paginator {
+    font-size: 10px;
+    height: 20px;
+    width: 400px;
+    position: absolute;
+    top: 55px;
+    left: 437px;
+    text-align: left;
+}
+
+
+.ui-datatable tfoot td {
+    padding: 0px 10px !important;
+    height: 10px !important;
+    /*padding: 0px 0px;*/
+    height: 10px;
+}
+
+.ui-datagrid .ui-paginator .ui-paginator-next,
+.ui-datagrid .ui-paginator .ui-paginator-last,
+.ui-datagrid .ui-paginator .ui-paginator-first,
+.ui-datagrid .ui-paginator .ui-paginator-prev{
+    height: 15px;
+}
+
+.ui-growl{
+    left: 20px;
+}
+
+.myClass input {
+    width: 96%;
+    border-radius: 0px;
+    height: 15px
+}
+/*CALENDARIOS PARAMETRO.XHTML*/
+.calendarParametro input {
+    width: 88px;
+}
+/*CALENDARIO NREPORTES*/
+.calendarioReportes input {
+    width: 65px;
+    height: 15px
+}
+
+.calendarioComprobantes input {
+    width: 89.5%;
+    height: 11px
+}
+
+.myClass2 input {
+    width: 83px;
+    height: 15px
+}
+
+.myClass3 input {
+    width: 65px;
+    height: 15px;
+    text-decoration: underline;
+    color: red !important;
+    border: 20px;
+}
+
+.selectOneMenuNReporteN .ui-selectonemenu-label { 
+    color: red;
+    text-decoration: underline;
+}
+
+/*pantalla EmpleadoPersonal*/
+.calendarEmpleadoPersonal input {
+    width: 55px;
+}
+
+.calendarEmpleadoPersonal button {
+    position: relative;
+    top: 0.5px;
+    width: 23px;  
+    height: 24.5px;
+    border-radius: 0px;
+}
+/*Pantalla Estructura*/
+.calendarEstructura input {
+    width: 93%;
+    height: 15px
+}
+.ui-datepicker{
+    font-size: 11px;
+}
+.myClass button {
+    position: relative;
+    top: 0.5px;
+    width: 23px;  
+    height: 24.5px;
+    border-radius: 0px;
+}
+.inputAutoCompletar input {
+    border-radius: 0px;
+    width: 100px; 
+    font-size: 10px;
+}
+
+.inputAutoCompletar2 input {
+    width: 100px; 
+    font-size: 10px;
+}
+
+#endingDate_popupContainer{
+    left: auto !important;
+    top: auto !important;
+}
+.red{
+    background-color: plum;
+    background-image:none;
+}
+
+.ui-fileupload{
+    position: absolute;
+    left: 20px;
+    top: 50px;
+}
+.ui-fileupload .start {
+    display: none;
+}
+.ui-fileupload .cancel {
+    display: none;
+}
+.ui-fileupload .progress {
+    display: none;
+}
+.ui-fileupload .files {
+    margin: 0px;
+    display: none;
+    visibility: hidden;
+}
+.ui-fileupload .fileupload-content {
+    display: none;
+    visibility: hidden;
+}
+
+.ui-fileupload .fileinput-button {
+    position: absolute;
+    left: -5px;
+    top: -5px;
+}
+
+.ui-datatable .ui-sortable-column-icon {
+    display: none !important;
+}
+
+.ui-dataGrid-CargueNovedad>.ui-datagrid-content {
+    border: none;
+    position: absolute;
+    top: 30px;
+    left: 75px;
+}
+
+.ui-tree .ui-tree-container {
+    height: 98%;
+    padding-bottom: 0px;
+    white-space: nowrap;
+}
+
+.registroInsertado{
+    background-color: #D1F0FF;
+    background-image:none;
+}
+
+.registroModificado{
+    background-color: #C6FCD3;
+    background-image:none;
+}
+
+
+/*TABLAS CON COLUMNA FIJA*/
+.hide-column-names table thead tr {
+    display: none;
+}
+.hide-row-names table td {
+    display: none;
+}
+.reduce-size-headerName table thead tr {
+    padding: 0px
+}
+.table-color-prueba th {
+    height: 0.5%!important;
+}
+.table-color-prueba2 th {
+    height: 0.5%!important;
+}
+/*SELECT ON RADIO*/
+
+.ui-radiobutton{
+    padding-left: 10px;
+    margin: 0px;
+}
+
+/*PROGRESS BAR*/
+.animated .ui-progressbar-value {
+    border: 0px;
+    background-image: url("bar.gif"); 
+    padding: 0px;
+    border-radius: 0px;
+}
+.finished .ui-progressbar-value {
+    border: 0px;
+    background-image: url("barcomplete.png"); 
+    padding: 0px;
+    border-radius: 0px;
+}
+
+/*.finished .ui-progressbar-label{
+    color: #BF1A1A;
+}*/
+
+/*INPUT TEXT AREA*/
+textarea {
+    resize: none;
+}
+
+/*TABVIEW BUSQUEDA AVANZADA*/
+
+.tabViewPrincipal{
+    tab-size: 300;
+    color: red;
+}
+
+.tabViewModulos{
+    direction: ltr;
+}
+
+.ui-datatable .ui-datatable-data tr.ui-state-hover {
+    color: black !important;
+    background: none ;
+    cursor:  inherit;
+    box-shadow: none;
+}
+
+.ui-datatable .ui-datatable-even.ui-state-hover{
+    color: black !important;
+    background: none ;
+    cursor:  inherit;
+}
+.ui-selectmanycheckbox label, .ui-selectoneradio label{
+    margin-top: 0px;
+}
+[id*=calendarFechaNacimiento]{
+    width: 95px;
+}

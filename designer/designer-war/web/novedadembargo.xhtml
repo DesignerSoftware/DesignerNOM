@@ -1,0 +1,1800 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="true"/>
+                    <f:loadBundle basename="Recursos.novedadembargo" var="msg" />
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="  position: absolute; width: 874px; height: 530px; text-align: left" >  
+
+                        <fieldset style="position: absolute; left: 10px; top: 68px;  width: 835px; height: 68px; border-radius: 10px; ">
+                            <legend style="font-size: 14px; color: blue;text-align: left"><strong>#{msg['empleados']}</strong></legend>
+                            <p:panel id="panelInf" style="border: none">
+                                <h:outputText value="#{msg['codigo']}" style="color: #14388B;  font-weight: bold; position: absolute; top: 20px; left: 9px"/>
+                                <p:inputText value="#{controlNovedadEmbargo.empleadoActual.codigoempleado}"  readonly="true" style="position: absolute; top: 35px; width: 70px; left: 9px"/>
+                                <h:outputText value="#{msg['nombre']}" style="color: #14388B;  font-weight: bold; position: absolute; left: 122px; top: 20px"/>
+                                <p:inputText value="#{controlNovedadEmbargo.empleadoActual.persona.nombreCompleto}" readonly="true" style="position: absolute; top: 35px; left: 122px; width: 500px"/>
+
+                                <p:commandButton style="position: absolute; left: 643px; top: 24px;   width: 20px; height: 20px; background-image: url(Imagenes/arriba.JPG); background-size: 100% 100%; background-repeat: no-repeat; "  value="" actionListener="#{controlNovedadEmbargo.anteriorEmpleado()}" process="@this" />
+                                <p:commandButton style="position: absolute; left: 643px; top: 45px;   width: 20px; height: 20px; background-image: url(Imagenes/abajo.JPG); background-size: 100% 100%; background-repeat: no-repeat; " value=""  actionListener="#{controlNovedadEmbargo.siguienteEmpleado()}" process="@this" />
+                                <p:commandButton style="position: absolute; left: 680px; top: 15px; width: 150px;  " id="buscarEmpleado" value="#{msg['buscar']}"  oncomplete="buscarEmpleadoDialogo.show();" update=":formularioDialogos:buscarEmpleadoDialogo" process="@this" />
+                                <p:commandButton style="position: absolute; left: 680px; top: 45px; width: 150px;  " disabled="#{controlNovedadEmbargo.mostrarTodos}" id="mostrarTodos" value="#{msg['mostrar']}" actionListener="#{controlNovedadEmbargo.mostarTodosEmpleados()}" process="@this" />
+                            </p:panel>
+                        </fieldset>
+
+                        <fieldset style="position: absolute; left: 10px; top: 150px;  width: 835px; height: 158px; border-radius: 10px; ">
+                            <legend style="font-size: 14px ;font-weight: bold; color: #00F;">#{msg['embargos']}</legend>
+
+                            <p:dataTable id="datosEmbargos" var="embargos" style=" width: 830px;" value="#{controlNovedadEmbargo.listaEmbargos}"
+                                         rowKey="#{embargos.secuencia}" scrollable="true" rowIndexVar="indice"
+                                         editable="true" editMode="cell" selection="#{controlNovedadEmbargo.embargoSeleccionado}" scrollWidth="830" scrollHeight="#{controlNovedadEmbargo.altoScrollEmbargos}" filteredValue="#{controlNovedadEmbargo.filtradoListaEmbargos}" emptyMessage="#{msg['vacio']}">
+
+                                <p:ajax event="filter" listener="#{controlNovedadEmbargo.eventoFiltrar()}"/>
+                                <p:ajax event="rowSelect" listener="#{controlNovedadEmbargo.cambiarEmbargo()}"/>
+
+                                <p:column headerText="#{msg['tipoembargo']}" sortBy="#{embargos.tipoembargo.descripcion}" filterBy="#{embargos.tipoembargo.descripcion}" filterMatchMode="contains" id="embargosTipoEmbargo" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{embargos.tipoembargo.descripcion}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{embargos.tipoembargo.descripcion}" id="editarTipoEmbargo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'TIPO', embargos.tipoembargo.descripcion)}"/>
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 0)}" process="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px;  border: none; color: blue" id="fooTipoEmbargo" value="#{msg['tipoembargo']}"/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{embargos.documento}" filterBy="#{embargos.documento}" filterMatchMode="contains" id="embargosDocumento" width="52" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="documentoHead" value="#{msg['numerooficio']}" />
+                                        <p:tooltip value="#{msg['numerooficioTT']}" for="documentoHead" />
+
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{embargos.documento}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{embargos.documento}" id="editarDocumento" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 1)}" />
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.documento)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['numerooficio']}" />
+                                    </f:facet>
+                                </p:column> 
+
+                                <p:column headerText="#{msg['fechaoficio']}" sortBy="#{embargos.fechadocumento}" filterBy="#{embargos.fechadocumento}" filterMatchMode="contains"  width="72" id="embargosFechaDocumento" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{embargos.fechadocumento}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="editFechaOficio" value="#{embargos.fechadocumento}" width="99"> 
+                                                <p:ajax event="dateSelect"  update="editFechaInicial"/>
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.fechadocumento)}"/>
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 2)}" />
+                                            </lnk:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['fechaoficio']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{embargos.numeroproceso}" filterBy="#{embargos.numeroproceso}" filterMatchMode="contains" id="embargosNumero" width="22" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="numeroHead" value="#{msg['numeroproceso']}" />
+                                        <p:tooltip value="#{msg['numeroprocesoTT']}" for="numeroHead"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{embargos.numeroproceso}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{embargos.numeroproceso}" id="editarNumeroProceso" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 3)}" />
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.numeroproceso)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['numeroproceso']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['juzgado']}" sortBy="#{embargos.juzgado.nombre}" filterBy="#{embargos.juzgado.nombre}" filterMatchMode="contains" id="embargosJuzgado" width="180" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{embargos.juzgado.nombre}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{embargos.juzgado.nombre}" id="editarJuzgados" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'JUZGADO', embargos.juzgado.nombre)}"/>
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 4)}" process="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px;  border: none; color: blue" id="fooJuzgado" value="#{msg['juzgado']}"/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['motivoembargo']}" sortBy="#{embargos.motivoembargo.nombre}" filterBy="#{embargos.motivoembargo.nombre}" filterMatchMode="contains" id="embargosMotivo" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{embargos.motivoembargo.nombre}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{embargos.motivoembargo.nombre}" id="editarMotivos" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'MOTIVO', embargos.motivoembargo.nombre)}"/>
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 5)}" process="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 2, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px;  border: none; color: blue" id="fooMotivo" value="#{msg['motivoembargo']}"/>
+                                    </f:facet>
+                                </p:column>
+
+
+
+                                <p:column headerText="#{msg['demandante']}" sortBy="#{embargos.demandante.nombre}" filterBy="#{embargos.demandante.nombre}" filterMatchMode="contains" id="embargosBeneficiario" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{embargos.demandante.nombre}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{embargos.demandante.nombre}" id="editarDemandante" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'DEMANDANTE', embargos.demandante.nombre)}"/>
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 6)}" process="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px;  border: none; color: blue" id="fooDemandante" value="#{msg['demandante']}"/>
+                                    </f:facet>
+                                </p:column>
+
+
+                                <p:column headerText="#{msg['nit']}" sortBy="#{embargos.tercero.strNit}" filterBy="#{embargos.tercero.strNit}" filterMatchMode="contains" id="embargosNit" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{embargos.tercero.strNit}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{embargos.tercero.strNit}" id="editarNITTercero" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'TERCERO', embargos.tercero.strNit)}"/>
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 7)}" process="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px;  border: none; color: blue" id="fooTercerosNIT" value="#{msg['nit']}"/>
+                                    </f:facet>
+                                </p:column>
+
+
+                                <p:column sortBy="#{embargos.tercero.nombre}" filterBy="#{embargos.tercero.nombre}" filterMatchMode="contains" id="embargosTercero" width="130" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="terceroHead" value="#{msg['descuento']}" />
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{embargos.tercero.nombre}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{embargos.tercero.nombre}" id="editarTercero" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 8)}" />
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.tercero.nombre)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['descuento']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{embargos.valortotal}" filterBy="#{embargos.valortotal}" filterMatchMode="contains" id="embargosValorTotal" width="70" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="valorHead" value="#{msg['valortotal']}" />
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{embargos.valortotal}" style="text-transform: uppercase " />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{embargos.valortotal}" id="editarValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 9)}" />
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.valortotal)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['valortotal']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['fechainicialdescuento']}" sortBy="#{embargos.fechainiciodescuento}" filterBy="#{embargos.fechainiciodescuento}" filterMatchMode="contains"  width="50" id="embargosFechaInicio" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{embargos.fechainiciodescuento}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:calendar   value="#{embargos.fechainiciodescuento}" id="editFechaInicial"   styleClass="ui-datepicker, myClass"  
+                                                          navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy" autocomplete="true">                                         
+                                                <p:ajax event="dateSelect"  update="editFechaInicial"/>
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.fechainiciodescuento)}"/>
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 10)}" />
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </p:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['fechainicialdescuento']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <!-- Columna Ficti -->
+                                <p:column headerText="#{msg['formadescuento']}" sortBy="#{embargos.formadto.descripcion}" filterBy="#{embargos.formadto.descripcion}" filterMatchMode="contains" id="embargosForma" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{embargos.formadto.descripcion}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{embargos.formadto.descripcion}" id="editarForma" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'FORMADTO', embargos.formadto.descripcion)}"/>
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 11)}" process="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px;  border: none; color: blue" id="fooForma" value="#{msg['formadescuento']}"/>
+                                    </f:facet>
+                                </p:column>
+                                <!-- Columna Ficti -->
+
+                                <p:column sortBy="#{embargos.cancelaciondocumento}" filterBy="#{embargos.cancelaciondocumento}" filterMatchMode="contains" id="embargosCancelacionDocumento" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="cancelacionHead" value="#{msg['cancelaciondocumento']}" />
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{embargos.cancelaciondocumento}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{embargos.cancelaciondocumento}" id="editarCancelacion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 12)}" />
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.cancelaciondocumento)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['cancelaciondocumento']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['fechacancelacion']}" sortBy="#{embargos.cancelacionfechahasta}" filterBy="#{embargos.cancelacionfechahasta}" filterMatchMode="contains"  width="50" id="embargosCancelacionFecha" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{embargos.cancelacionfechahasta}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="editFechaCancelacion" value="#{embargos.cancelacionfechahasta}" width="99"> 
+                                                <p:ajax event="dateSelect"  update="editFechaCancelacion"/>
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.cancelacionfechahasta)}"/>
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 13)}" />
+                                            </lnk:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['fechacancelacion']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{embargos.observaciones}" filterBy="#{embargos.observaciones}" filterMatchMode="contains" id="embargosObservaciones" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="observacionesHead" value="#{msg['observaciones']}" />
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{embargos.observaciones}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{embargos.observaciones}" id="editarObservaciones" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 14)}" />
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.observaciones)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['observaciones']}" />
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                        </fieldset>
+
+                        <p:toolbar style=" position: absolute; top: 37px; left: 12px; height: 24px">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " actionListener="#{controlNovedadEmbargo.guardarTodo()}" process="@this" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlNovedadEmbargo.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlNovedadEmbargo.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlNovedadEmbargo.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false" actionListener="#{controlNovedadEmbargo.exportXLS()}" />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlNovedadEmbargo.limpiarNuevoEmbargo()}" ajax="false">
+                                    <p:dataExporter type="xml"  target="#{controlNovedadEmbargo.tablaImprimir}" fileName="#{controlNovedadEmbargo.nombreArchivo}" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}"  />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlNovedadEmbargo.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlNovedadEmbargo.chiste()}" process="@this"/>  
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}"  /> 
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlNovedadEmbargo.borrarEmbargo()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlNovedadEmbargo.duplicarE()}"  process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlNovedadEmbargo.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+
+                        <p:commandButton style="position: absolute; left: 700px; top: 500px;  " icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}"  disabled="#{controlNovedadEmbargo.guardado}" onclick="confirmarGuardar.show();" update=":form:datosEmbargos" process="@this" />
+                        <p:commandButton style="position: absolute; left: 15px; top: 500px;  " icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}"  actionListener="#{controlNovedadEmbargo.cancelarModificacion()}" process="@this" />
+                        <p:commandButton style="position: absolute; left: 790px; top: 500px;  " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}"  actionListener="#{controlNovedadEmbargo.salir()}" action="individual" process="@this" /> 
+
+
+                        <!-- Detalles -->    
+                        <fieldset style="position: absolute; top: 325px;  width: 390px; height: 158px; border-radius: 10px; ">
+                            <legend style="font-size: 14px; font-weight: bold; color: #00F;">#{msg['detallesembargos']}</legend>
+
+                            <p:dataTable id="datosEmbargosDetalles" var="detalles" style=" width: 417px;" value="#{controlNovedadEmbargo.listaDetallesEmbargos}"
+                                         rowKey="#{detalles.secuencia}" scrollable="true" rowIndexVar="indiceD"
+                                         editable="true" editMode="cell" scrollWidth="407" scrollHeight="#{controlNovedadEmbargo.altoScrollDetallesEmbargos}" filteredValue="#{controlNovedadEmbargo.filtradoListaDetallesEmbargos}" emptyMessage="Vacio">
+
+
+                                <p:column headerText="#{msg['pagoscomprometidos']}" sortBy="#{detalles.detalleformadto.descripcion}" filterBy="#{detalles.detalleformadto.descripcion}" filterMatchMode="contains" id="detallesPagos" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{detalles.detalleformadto.descripcion}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{detalles.detalleformadto.descripcion}" id="editarPagos" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indice, 'TIPO', detalles.detalleformadto.descripcion)}"/>
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 0)}" process="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px;  border: none; color: blue" id="fooPagos" value="#{msg['pagoscomprometidos']}"/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{detalles.detalleformadto.tipodto.ika}" filterBy="#{detalles.detalleformadto.tipodto.ika}" filterMatchMode="contains" id="detallesIka" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="ikaHead" value="#{msg['ika']}" />
+
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{detalles.detalleformadto.tipodto.ika}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText readonly="true" value="#{detalles.detalleformadto.tipodto.ika}" id="editarDetalle" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 1)}" />
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.detalleformadto.tipodto.ika)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['ika']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{detalles.porcentaje}" filterBy="#{detalles.porcentaje}" filterMatchMode="contains" id="detallesPorcentaje" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="porcentajeHead" value="#{msg['porcentaje']}" />
+
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{detalles.porcentaje}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  value="#{detalles.porcentaje}" id="editarPorcentaje" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 2)}" />
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.porcentaje)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['porcentaje']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{detalles.valor}" filterBy="#{detalles.valor}" filterMatchMode="contains" id="detallesValor" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="valorHead" value="#{msg['valor']}" />
+
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{detalles.valor}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{detalles.valor}" id="editarValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 3)}" />
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.valor)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['valor']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{detalles.saldoinicial}" filterBy="#{detalles.saldoinicial}" filterMatchMode="contains" id="detallesSaldoInicial" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="saldoinicialHead" value="#{msg['saldo']}" />
+
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{detalles.saldoinicial}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{detalles.saldoinicial}" id="editarSaldo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 4)}" />
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.saldoinicial)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['saldo']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{detalles.periodicidad.codigoStr}" filterBy="#{detalles.periodicidad.codigoStr}" filterMatchMode="contains" id="detallesPeriodicidadCodigo" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="codigoperiodicidadHead" value="#{msg['cp']}" />
+                                        <p:tooltip for="codigoperiodicidadHead" value="#{msg['codigoperiodicidad']}" />
+                                    </f:facet>                                    
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{detalles.periodicidad.codigoStr}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{detalles.periodicidad.codigoStr}" id="editarPeriodicidadCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'PERIODICIDAD', detalles.periodicidad.codigoStr)}"/>
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 5)}" process="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px;  border: none; color: blue" id="fooCodigoPeriodicidad" value="#{msg['cp']}"/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{detalles.periodicidad.nombre}" filterBy="#{detalles.periodicidad.nombre}" filterMatchMode="contains" id="detallesPeriodicidadNombre" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="periodicidadnombreHead" value="#{msg['nombreperiodicidad']}" />
+
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{detalles.periodicidad.nombre}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText readonly="true" value="#{detalles.periodicidad.nombre}" id="editarPeriodicidadNombre" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 6)}" />
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.periodicidad.nombre)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['nombreperiodicidad']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{detalles.detalleformadto.concepto.codigo}" filterBy="#{detalles.detalleformadto.concepto.codigo}" filterMatchMode="contains" id="detallesConceptoCodigo" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="conceptocodigoHead" value="#{msg['codigo']}" />
+
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{detalles.detalleformadto.concepto.codigo}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{detalles.detalleformadto.concepto.codigo}" id="editarConceptoCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 7)}" />
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.detalleformadto.concepto.codigo)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['codigo']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{detalles.detalleformadto.concepto.descripcion}" filterBy="#{detalles.detalleformadto.concepto.descripcion}" filterMatchMode="contains" id="detallesConceptoNombre" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="conceptonombreHead" value="#{msg['nombreconcepto']}" />
+
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{detalles.detalleformadto.concepto.descripcion}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{detalles.detalleformadto.concepto.descripcion}" id="editarConceptoDescripcion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 8)}" />
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.detalleformadto.concepto.descripcion)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['nombreconcepto']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{detalles.detalleformadto.concepto.empresa.nombre}" filterBy="#{detalles.detalleformadto.concepto.empresa.nombre}" filterMatchMode="contains" id="detallesEmpresa" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="empresaHead" value="#{msg['empresa']}" />
+
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{detalles.detalleformadto.concepto.empresa.nombre}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{detalles.detalleformadto.concepto.empresa.nombre}" id="editarEmpresa" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+                                                <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 9)}" />
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.detalleformadto.concepto.empresa.nombre)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['empresa']}" />
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable>
+                        </fieldset>
+
+                        <!-- Descuentos Realizados -->    
+                        <fieldset style="position: absolute; top: 325px;  left:455px; width: 390px; height: 158px; border-radius: 10px; ">
+                            <legend style="font-size: 14px; font-weight: bold; color: #00F;">#{msg['descuentosrealizados']}</legend>
+
+                            <p:dataTable id="datosDescuentosRealizados" var="descuentos" style=" width: 390px;" value="#{controlNovedadEmbargo.listaVWPrestamo}"
+                                         rowKey="#{descuentos.secuencia}" scrollable="true" rowIndexVar="indiceDR"
+                                         editable="true" editMode="cell"  scrollHeight="#{controlNovedadEmbargo.altoScrollDescuentosRealizados}" filteredValue="#{controlNovedadEmbargo.filtradoListaVWPrestamo}" emptyMessage="Vacio">
+
+                                <p:column headerText="#{msg['concepto']}" sortBy="#{descuentos.concepto.descripcion}" filterBy="#{descuentos.concepto.descripcion}" filterMatchMode="contains" id="descuentosConcepto" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{descuentos.concepto.descripcion}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText readonly="true" value="#{descuetos.concepto.descripcion}" id="editarDescuentosConceptoDescripcion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px;  border: none; color: blue" id="fooConceptos" value="#{msg['concepto']}"/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{descuentos.valor}" filterBy="#{descuentos.valor}" filterMatchMode="contains" id="descuentosValor" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="valorHead" value="#{msg['valor']}" />
+
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{descuentos.valor}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText readonly="true" value="#{descuentos.valor}" id="editarDescuentosValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['valor']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{descuentos.saldo}" filterBy="#{descuentos.saldo}" filterMatchMode="contains" id="descuentosSaldo" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="saldoHead" value="#{msg['saldo']}" />
+
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{descuentos.saldo}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText readonly="true" value="#{descuentos.saldo}" id="editarDescuentosSaldo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px" > 
+
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['saldo']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['fechainicial']}" sortBy="#{descuentos.fechaDesde}" filterBy="#{descuentos.fechaDesde}" filterMatchMode="contains"  width="72" id="descuentosFechaDesde" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{descuentos.fechaDesde}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <lnk:calendar id="editDescuentosFechaDesde" value="#{descuentos.fechaDesde}" width="99"> 
+                                                <p:ajax event="dateSelect"  update="editFechaCancelacion"/>
+                                            </lnk:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['fechainicial']}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['fechafinal']}" sortBy="#{descuentos.fechaHasta}" filterBy="#{descuentos.fechaHasta}" filterMatchMode="contains"  width="72" id="descuentosFechaHasta" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{descuentos.fechaHasta}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:calendar  readonly="true"  value="#{descuentos.fechaHasta}" id="editDescuentosFechaHasta"   styleClass="ui-datepicker, myClass"  
+                                                         navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy" autocomplete="true">                                         
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </p:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{msg['fechafinal']}" />
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                        </fieldset>
+                    </p:panel>
+
+                </h:form>
+
+                <h:form id="formularioDialogos">
+                    <!-- Nuevo Embargo -->
+                    <p:dialog id="NuevoRegistroEmbargos" header="#{msg['nuevoregistro']}"  widgetVar="NuevoRegistroEmbargos" closable="false" resizable="false"  draggable="false" modal="true" height="430" width="710" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoEmbargo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevoEmbargo" style="border: none;">
+                            <fieldset style="position: absolute; left: 10px; top: 40px;  width: 665px; height: 318px; border-radius: 10px; ">
+
+                                <strong><h:outputText value="#{msg['tipoembargoN']}" style=" position: absolute; top: 17px" /></strong>
+                                <p:inputText id="nuevoTipoEmbargo" value="#{controlNovedadEmbargo.nuevoEmbargo.tipoembargo.descripcion}" style=" width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(1, 'TIPOEMBARGO')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('TIPOEMBARGO', controlNovedadEmbargo.nuevoEmbargo.tipoembargo.descripcion, 1)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 1)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 15px;  " id="btnNuevoTipoEmbargo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 1)}"/>   
+
+                                <strong><h:outputText value="#{msg['fechaoficioN']}" style=" position: absolute; top: 57px" /></strong>
+                                <p:calendar  id="nuevaFechaOficio" style=" position: absolute; top: 55px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.fechadocumento}"  styleClass="ui-datepicker, myClass2"  
+                                             navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
+                                    <p:ajax event="dateSelect" update="nuevaFechaOficio"/>
+                                    <p:ajax event="change" update="nuevaFechaOficio"/>
+                                </p:calendar>
+
+                                <strong><h:outputText value="#{msg['numeroprocesoN']}"  style=" position: absolute; top: 97px" /></strong>
+                                <p:inputText id="nuevoNumeroProceso" value="#{controlNovedadEmbargo.nuevoEmbargo.numeroproceso}" style=" width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="nuevoNumeroProceso"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['valortotalN']}"  style=" position: absolute;  top: 137px;" /></strong>
+                                <p:inputText id="nuevoValor" value="#{controlNovedadEmbargo.nuevoEmbargo.valortotal}" style=" width: 122px; position: absolute; top: 135px; left: 152px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="nuevoValor"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['nitN']}" style=" position: absolute; top: 177px;" /></strong>
+                                <p:inputText id="nuevoNIT" value="#{controlNovedadEmbargo.nuevoEmbargo.tercero.nit}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(1, 'NIT')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('NIT', controlNovedadEmbargo.nuevoEmbargo.tercero.nit, 1)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 1)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 175px;  " id="btnNuevoNIT" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 1)}"/>   
+
+                                <strong><h:outputText value="#{msg['fechainicialdescuentoN']}" style=" position: absolute; top: 217px;" /></strong>
+                                <p:calendar  id="nuevaFechaInicio" style=" position: absolute; top: 215px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.fechainiciodescuento}"  styleClass="ui-datepicker, myClass2"  
+                                             navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
+                                    <p:ajax event="dateSelect" update="nuevaFechaInicio"/>
+                                    <p:ajax event="change" update="nuevaFechaInicio"/>
+                                </p:calendar>
+
+                                <strong><h:outputText value="#{msg['fechacancelacionN']}" style=" position: absolute; top: 257px" /></strong>
+                                <p:calendar  id="nuevaFechaCancelacion" style=" position: absolute; top: 255px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.cancelacionfechahasta}"  styleClass="ui-datepicker, myClass2"  
+                                             navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
+                                    <p:ajax event="dateSelect" update="nuevaFechaCancelacion"/>
+                                    <p:ajax event="change" update="nuevaFechaCancelacion"/>
+                                </p:calendar>
+
+                                <strong><h:outputText value="#{msg['observacionN']}"  style=" position: absolute;  top: 297px;" /></strong>
+                                <p:inputText id="nuevaObservacion" value="#{controlNovedadEmbargo.nuevoEmbargo.observaciones}" style=" width: 504px; position: absolute; top: 295px; left: 152px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="nuevaObservacion"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['motivoembargoN']}" style=" position: absolute; top: 17px;left: 350px" /></strong>
+                                <p:inputText id="nuevoMotivo" value="#{controlNovedadEmbargo.nuevoEmbargo.motivoembargo.nombre}" style=" width: 122px; position: absolute; left: 500px; top:15px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(1, 'MOTIVO')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('MOTIVO', controlNovedadEmbargo.nuevoEmbargo.motivoembargo.nombre, 1)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 2, 1)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 15px;  " id="btnNuevoMotivo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 2, 1)}"/>   
+
+                                <strong><h:outputText value="#{msg['numerooficioN']}"  style=" position: absolute; top: 57px; left:350px" /></strong>
+                                <p:inputText id="nuevoNumero" value="#{controlNovedadEmbargo.nuevoEmbargo.documento}" style=" width: 122px; position: absolute; left: 500px; top: 55px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="nuevoNumero"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['juzgadoN']}" style=" position: absolute; top: 97px;left:350px" /></strong>
+                                <p:inputText id="nuevoJuzgado" value="#{controlNovedadEmbargo.nuevoEmbargo.juzgado.nombre}" style=" width: 122px; position: absolute; left: 500px; top:95px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(1, 'JUZGADO')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('JUZGADO', controlNovedadEmbargo.nuevoEmbargo.juzgado.nombre, 1)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 1)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 95px;  " id="btnNuevoJuzgado" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 1)}"/>   
+
+                                <strong><h:outputText value="#{msg['demandanteN']}" style=" position: absolute; top: 137px;left: 350px" /></strong>
+                                <p:inputText id="nuevoDemandante" value="#{controlNovedadEmbargo.nuevoEmbargo.demandante.nombre}" style=" width: 122px; position: absolute; left: 500px; top:135px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(1, 'DEMANDANTE')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('DEMANDANTE', controlNovedadEmbargo.nuevoEmbargo.demandante.nombre, 1)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 1)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 135px;  " id="btnNuevoDemandante" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 1)}"/>   
+
+                                <strong><h:outputText value="#{msg['descuentoN']}"  style=" position: absolute;  top: 177px; left: 350px" /></strong>
+                                <p:inputText readonly="true" id="nuevoTercero" value="#{controlNovedadEmbargo.nuevoEmbargo.tercero.nombre}" style=" width: 122px; position: absolute; top: 175px; left: 500px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="nuevoTercero"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['formadescuentoN']}" style=" position: absolute; top: 217px; left: 350px" /></strong>
+                                <p:inputText id="nuevaForma" value="#{controlNovedadEmbargo.nuevoEmbargo.formadto.descripcion}" style=" width: 122px; position: absolute; top: 215px; left: 500px; text-transform:uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(1, 'FORMA')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('FORMA', controlNovedadEmbargo.nuevoEmbargo.formadto.descripcion, 1)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 1)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 215px;  " id="btnNuevaForma" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 1)}"/>   
+
+                                <strong><h:outputText value="#{msg['cancelaciondocumentoN']}"  style=" position: absolute;  top: 255px; left: 350px" /></strong>
+                                <p:inputText id="nuevaCancelacion" value="#{controlNovedadEmbargo.nuevoEmbargo.cancelaciondocumento}" style=" width: 122px; position: absolute; top: 255px; left: 500px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="nuevaCancelacion"/>
+                                </p:inputText>
+
+                                <p:commandButton id="limpiarE" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 350px;" actionListener="#{controlNovedadEmbargo.limpiarNuevoEmbargo()}" update="nuevoEmbargo" process="@this"/>
+                                <p:commandButton id="agregarE" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 500px; top: 350px;"  process="@this" actionListener="#{controlNovedadEmbargo.agregarNuevoEmbargo()}"/>
+                                <p:commandButton id="cancelarE" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 590px; top: 350px;" actionListener="#{controlNovedadEmbargo.limpiarNuevoEmbargo()}" update="nuevoEmbargo" onclick="NuevoRegistroEmbargos.hide();"  process="@this"/>
+                            </fieldset>
+                        </p:panel>
+                    </p:dialog>
+
+                    <!--HotKey-->
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlNovedadEmbargo.activarCtrlF11()}" process="@this"/> 
+
+                    <!-- DIALOGO CAMBIO -->
+                    <p:dialog id="cambiar" header="#{msg['atencion']}" widgetVar="cambiar"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambio']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="cambiar.hide();" actionListener="#{controlNovedadEmbargo.guardarCambiosEmbargos()}" style="position: absolute; top: 63px; left: 230px" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="cambiar.hide();" actionListener="#{controlNovedadEmbargo.limpiarListas()}" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <!-- Duplicar Embargo --> 
+
+                    <p:dialog id="DuplicarRegistroEmbargos" header="#{msg['duplicarregistro']}"  widgetVar="DuplicarRegistroEmbargos" closable="false" resizable="false"  draggable="false" modal="true" height="430" width="710" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoEmbargo']}"  style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarEmbargo" style="border: none;">
+                            <fieldset style="position: absolute; left: 10px; top: 40px;  width: 665px; height: 318px; border-radius: 10px; ">
+
+                                <strong><h:outputText value="#{msg['tipoembargoN']}" style=" position: absolute; top: 17px" /></strong>
+                                <p:inputText id="duplicarTipoEmbargo" value="#{controlNovedadEmbargo.duplicarEmbargo.tipoembargo.descripcion}" style=" width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(2, 'TIPOEMBARGO')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('TIPOEMBARGO', controlNovedadEmbargo.duplicarEmbargo.tipoembargo.descripcion, 2)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 2)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 15px;  " id="btnDuplicarTipoEmbargo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 2)}"/>   
+
+                                <strong><h:outputText value="#{msg['fechaoficioN']}" style=" position: absolute; top: 57px" /></strong>
+                                <p:calendar  id="duplicarFechaOficio" style=" position: absolute; top: 55px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.fechadocumento}"  styleClass="ui-datepicker, myClass2"  
+                                             navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
+                                    <p:ajax event="dateSelect" update="duplicarFechaOficio"/>
+                                    <p:ajax event="change" update="duplicarFechaOficio"/>
+                                </p:calendar>
+
+                                <strong><h:outputText value="#{msg['numeroprocesoN']}"  style=" position: absolute; top: 97px" /></strong>
+                                <p:inputText id="duplicarNumeroProceso" value="#{controlNovedadEmbargo.duplicarEmbargo.numeroproceso}" style=" width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="duplicarNumeroProceso"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['valortotalN']}"  style=" position: absolute;  top: 137px;" /></strong>
+                                <p:inputText id="duplicarValor" value="#{controlNovedadEmbargo.duplicarEmbargo.valortotal}" style=" width: 122px; position: absolute; top: 135px; left: 152px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="duplicarValor"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['nitN']}" style=" position: absolute; top: 177px;" /></strong>
+                                <p:inputText id="duplicarNIT" value="#{controlNovedadEmbargo.duplicarEmbargo.tercero.nit}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(2, 'NIT')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('NIT', controlNovedadEmbargo.duplicarEmbargo.tercero.nit, 2)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 2)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 175px;  " id="btnDuplicarNIT" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 2)}"/>   
+
+                                <strong><h:outputText value="#{msg['fechainicialdescuentoN']}" style=" position: absolute; top: 217px;" /></strong>
+                                <p:calendar  id="duplicarFechaInicio" style=" position: absolute; top: 215px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.fechainiciodescuento}"  styleClass="ui-datepicker, myClass2"  
+                                             navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
+                                    <p:ajax event="dateSelect" update="duplicarFechaInicio"/>
+                                    <p:ajax event="change" update="duplicarFechaInicio"/>
+                                </p:calendar>
+
+                                <strong><h:outputText value="#{msg['fechacancelacionN']}" style=" position: absolute; top: 257px" /></strong>
+                                <p:calendar  id="duplicarFechaCancelacion" style=" position: absolute; top: 255px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.cancelacionfechahasta}"  styleClass="ui-datepicker, myClass2"  
+                                             navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
+                                    <p:ajax event="dateSelect" update="duplicarFechaCancelacion"/>
+                                    <p:ajax event="change" update="duplicarFechaCancelacion"/>
+                                </p:calendar>
+
+                                <strong><h:outputText value="#{msg['observacionN']}"  style=" position: absolute;  top: 297px;" /></strong>
+                                <p:inputText id="duplicarObservacion" value="#{controlNovedadEmbargo.duplicarEmbargo.observaciones}" style=" width: 504px; position: absolute; top: 295px; left: 152px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="duplicarObservacion"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['motivoembargoN']}" style=" position: absolute; top: 17px;left: 350px" /></strong>
+                                <p:inputText id="duplicarMotivo" value="#{controlNovedadEmbargo.duplicarEmbargo.motivoembargo.nombre}" style=" width: 122px; position: absolute; left: 500px; top:15px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(2, 'MOTIVO')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('MOTIVO', controlNovedadEmbargo.duplicarEmbargo.motivoembargo.nombre, 2)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 2, 2)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 15px;  " id="btnDuplicarMotivo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 2, 2)}"/>   
+
+
+                                <strong><h:outputText value="#{msg['numerooficioN']}"  style=" position: absolute; top: 57px; left:350px" /></strong>
+                                <p:inputText id="duplicarNumero" value="#{controlNovedadEmbargo.duplicarEmbargo.documento}" style=" width: 122px; position: absolute; left: 500px; top: 55px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="duplicarNumero"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['juzgadoN']}" style=" position: absolute; top: 97px;left:350px" /></strong>
+                                <p:inputText id="duplicarJuzgado" value="#{controlNovedadEmbargo.duplicarEmbargo.juzgado.nombre}" style=" width: 122px; position: absolute; left: 500px; top:95px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(2, 'JUZGADO')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('JUZGADO', controlNovedadEmbargo.duplicarEmbargo.juzgado.nombre, 2)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 2)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 95px;  " id="btnDuplicarJuzgado" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 2)}"/>   
+
+                                <strong><h:outputText value="#{msg['demandanteN']}" style=" position: absolute; top: 137px;left: 350px" /></strong>
+                                <p:inputText id="duplicarDemandante" value="#{controlNovedadEmbargo.duplicarEmbargo.demandante.nombre}" style=" width: 122px; position: absolute; left: 500px; top:135px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(2, 'DEMANDANTE')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('DEMANDANTE', controlNovedadEmbargo.duplicarEmbargo.demandante.nombre, 2)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 2)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 135px;  " id="btnDuplicarDemandante" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 2)}"/>   
+
+                                <strong><h:outputText value="#{msg['descuentoN']}"  style=" position: absolute;  top: 177px; left: 350px" /></strong>
+                                <p:inputText readonly="true" id="duplicarTercero" value="#{controlNovedadEmbargo.duplicarEmbargo.tercero.nombre}" style=" width: 122px; position: absolute; top: 175px; left: 500px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="duplicarTercero"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['formadescuentoN']}" style=" position: absolute; top: 217px; left: 350px" /></strong>
+                                <p:inputText id="duplicarForma" value="#{controlNovedadEmbargo.duplicarEmbargo.formadto.descripcion}" style=" width: 122px; position: absolute; top: 215px; left: 500px; text-transform:uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(2, 'FORMA')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('FORMA', controlNovedadEmbargo.duplicarEmbargo.formadto.descripcion, 2)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 2)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 215px;  " id="btnDuplicarForma" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 2)}"/>   
+
+                                <strong><h:outputText value="#{msg['cancelaciondocumentoN']}"  style=" position: absolute;  top: 255px; left: 350px" /></strong>
+                                <p:inputText id="duplicarCancelacion" value="#{controlNovedadEmbargo.duplicarEmbargo.cancelaciondocumento}" style=" width: 122px; position: absolute; top: 255px; left: 500px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="duplicarCancelacion"/>
+                                </p:inputText>
+
+                                <p:commandButton id="limpiarED" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 350px;" actionListener="#{controlNovedadEmbargo.limpiarduplicarEmbargo()}" update="duplicarEmbargo" process="@this"/>
+                                <p:commandButton id="agregarED" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 500px; top: 350px;"  process="@this" actionListener="#{controlNovedadEmbargo.confirmarDuplicar()}"/>
+                                <p:commandButton id="cancelarED" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 590px; top: 350px;" actionListener="#{controlNovedadEmbargo.limpiarduplicarEmbargo()}" update="duplicarEmbargo" onclick="DuplicarRegistroEmbargos.hide();"  process="@this"/>
+                            </fieldset>
+                        </p:panel>
+                    </p:dialog>
+                    <!-- Nuevo REgistro Detalles Embargos -->
+
+                    <p:dialog id="NuevoRegistroDetallesEmbargos" header="#{msg['nuevoregistro']}"  widgetVar="NuevoRegistroDetallesEmbargos" closable="false" resizable="false"  draggable="false" modal="true" height="430" width="710" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoDetalle']}"  style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevoEmbargoDetalle" style="border: none;">
+                            <fieldset style="position: absolute; left: 10px; top: 40px;  width: 665px; height: 318px; border-radius: 10px; ">
+
+                                <strong><h:outputText value="#{msg['pagoscomprometidosN']}" style=" position: absolute; top: 17px" /></strong>
+                                <p:inputText id="nuevoPagoComprometido" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 12px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletarD(1, 'PAGO')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicadoD('PAGO', controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.descripcion, 1)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 1)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 12px;  " id="btnNuevoPagoComprometido" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 1)}"/>   
+
+                                <strong><h:outputText value="#{msg['ikaN']}"  style=" position: absolute; top: 57px" /></strong>
+                                <p:inputText readonly="true" id="nuevoIKA" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.tipodto.ika}" style=" width: 122px; position: absolute; left: 200px; top: 52px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="nuevoIKA"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['porcentajeN']}"  style=" position: absolute; top: 97px" /></strong>
+                                <p:inputText maxlength="6" id="nuevoPorcentaje" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.porcentaje}" style=" width: 122px; position: absolute; left: 200px; top: 92px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="nuevoPorcentaje"/>
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.validarValor(1)}"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['valorN']}"  style=" position: absolute; top: 137px" /></strong>
+                                <p:inputText id="nuevoValorD" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.valor}" style=" width: 122px; position: absolute; left: 200px; top: 132px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="nuevoValorD"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['saldoN']}"  style=" position: absolute; top: 177px" /></strong>
+                                <p:inputText id="nuevoSaldo" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.saldoinicial}" style=" width: 122px; position: absolute; left: 200px; top: 172px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="nuevoSaldo"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['cpN']}" style=" position: absolute; top: 217px" /></strong>
+                                <p:inputText id="nuevoCodigoPeriodicidad" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.periodicidad.codigoStr}" style=" width: 122px; position: absolute; left: 200px; top: 212px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletarD(1, 'PERIODICIDAD')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicadoD('PERIODICIDAD', controlNovedadEmbargo.nuevoDetalleEmbargo.periodicidad.codigoStr, 1)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 1)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 212px;  " id="btnNuevoCodigoPeriodicidad" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 1)}"/>   
+
+                                <strong><h:outputText value="#{msg['nombreperiodicidadN']}"  style=" position: absolute; top: 257px" /></strong>
+                                <p:inputText readonly="true" id="nuevoNombrePeriodicidad" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.concepto.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 252px; text-transform: uppercase" onclick="select();">
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['codigoN']}"  style=" position: absolute; top: 297px" /></strong>
+                                <p:inputText readonly="true" id="nuevoCodigoConcepto" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.periodicidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 292px; text-transform: uppercase" onclick="select();">
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['nombreconceptoN']}"  style=" position: absolute;  top: 17px; left: 390px" /></strong>
+                                <p:inputText readonly="true" id="nuevoNombreConcepto" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.concepto.descripcion}" style=" width: 122px; position: absolute; top: 12px; left: 540px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="nuevoNombreConcepto"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['empresaN']}" style=" position: absolute;  top: 57px; left: 390px" /></strong>
+                                <p:inputText readonly="true" id="nuevaEmpresa" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; top: 52px; left: 540px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="nuevaEmpresa"/>
+                                </p:inputText>
+
+                                <p:commandButton id="limpiarDE" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 350px;" actionListener="#{controlNovedadEmbargo.limpiarNuevoDetalleEmbargo()}" update="nuevoEmbargoDetalle" process="@this"/>
+                                <p:commandButton id="agregarDE" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 500px; top: 350px;"  process="@this" actionListener="#{controlNovedadEmbargo.agregarNuevoDetalleEmbargo()}" />
+                                <p:commandButton id="cancelarDE" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 590px; top: 350px;" actionListener="#{controlNovedadEmbargo.limpiarNuevoDetalleEmbargo()}" update="nuevoEmbargoDetalle" onclick="NuevoRegistroDetallesEmbargos.hide();"  process="@this"/>
+                            </fieldset>
+                        </p:panel>
+                    </p:dialog>
+
+                    <!-- Duplicar DetallesEmbargos -->
+
+                    <p:dialog id="DuplicarRegistroDetallesEmbargos" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroDetallesEmbargos" closable="false" resizable="false"  draggable="false" modal="true" height="430" width="710" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoDetalle']}"  style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarEmbargoDetalle" style="border: none;">
+                            <fieldset style="position: absolute; left: 10px; top: 40px;  width: 665px; height: 318px; border-radius: 10px; ">
+
+                                <strong><h:outputText value="#{msg['pagoscomprometidosN']}" style=" position: absolute; top: 17px" /></strong>
+                                <p:inputText id="duplicarPagoComprometido" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 12px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletarD(2, 'PAGO')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicadoD('PAGO', controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.descripcion, 2)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 2)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 12px;  " id="btnDuplicarPagoComprometido" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 2)}"/>   
+
+                                <strong><h:outputText value="#{msg['ikaN']}" style=" position: absolute; top: 57px" /></strong>
+                                <p:inputText readonly="true" id="duplicarIKA" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.tipodto.ika}" style=" width: 122px; position: absolute; left: 200px; top: 52px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="duplicarIKA"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['porcentajeN']}" style=" position: absolute; top: 97px" /></strong>
+                                <p:inputText id="duplicarPorcentaje" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.porcentaje}" style=" width: 122px; position: absolute; left: 200px; top: 92px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="duplicarPorcentaje"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['valorN']}"  style=" position: absolute; top: 137px" /></strong>
+                                <p:inputText id="duplicarValorD" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.valor}" style=" width: 122px; position: absolute; left: 200px; top: 132px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="duplicarValorD"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['saldoN']}"  style=" position: absolute; top: 177px" /></strong>
+                                <p:inputText id="duplicarSaldo" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.saldoinicial}" style=" width: 122px; position: absolute; left: 200px; top: 172px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="duplicarSaldo"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['cpN']}" style=" position: absolute; top: 217px" /></strong>
+                                <p:inputText id="duplicarCodigoPeriodicidad" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.periodicidad.codigoStr}" style=" width: 122px; position: absolute; left: 200px; top: 212px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletarD(2, 'PERIODICIDAD')}" />
+                                    <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicadoD('PERIODICIDAD', controlNovedadEmbargo.duplicarDetalleEmbargo.periodicidad.codigoStr, 2)}" />
+                                    <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 2)}" />
+                                </p:inputText>
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 212px;  " id="btnDuplicarCodigoPeriodicidad" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 2)}"/>   
+
+                                <strong><h:outputText value="#{msg['nombreperiodicidadN']}"  style=" position: absolute; top: 257px" /></strong>
+                                <p:inputText readonly="true" id="duplicarNombrePeriodicidad" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.concepto.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 252px; text-transform: uppercase" onclick="select();">
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['codigoN']}"  style=" position: absolute; top: 297px" /></strong>
+                                <p:inputText readonly="true" id="duplicarCodigoConcepto" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.periodicidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top:292px; text-transform: uppercase" onclick="select();">
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['nombreconceptoN']}"  style=" position: absolute; top: 17px; left: 390px" /></strong>
+                                <p:inputText readonly="true" id="duplicarNombreConcepto" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.concepto.descripcion}" style=" width: 122px; position: absolute; top: 12px; left: 540px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="duplicarNombreConcepto"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['empresaN']}"  style=" position: absolute;  top: 57px; left: 390px" /></strong>
+                                <p:inputText readonly="true" id="duplicarEmpresa" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; top: 52px; left: 540px; text-transform: uppercase" onclick="select();">
+                                    <p:ajax event="change" update="duplicarEmpresa"/>
+                                </p:inputText>
+
+                                <p:commandButton id="limpiarDED" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 350px;" actionListener="#{controlNovedadEmbargo.limpiarNuevoDetalleEmbargo()}" update="duplicarEmbargoDetalle" process="@this"/>
+                                <p:commandButton id="agregarDED" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 500px; top: 350px;"  process="@this" actionListener="#{controlNovedadEmbargo.confirmarDuplicarD()}" onclick="DuplicarRegistroDetallesEmbargos.hide();"/>
+                                <p:commandButton id="cancelarDED" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 590px; top: 350px;" actionListener="#{controlNovedadEmbargo.limpiarNuevoDetalleEmbargo()}" update="duplicarEmbargoDetalle" onclick="DuplicarRegistroDetallesEmbargos.hide();"  process="@this"/>
+                            </fieldset>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="validacionNuevoEmbargo" header="#{msg['atencion']}" widgetVar="validacionNuevoEmbargo"  resizable="false" draggable="false" modal="true" height="105" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['validacionNuevo']} #{controlNovedadEmbargo.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevoEmbargo.hide();" style="position: absolute; top: 70px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="cancelacion" header="#{msg['atencion']}" widgetVar="cancelacion"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cancelacion']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="cancelacion.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="valorporcentaje" header="#{msg['atencion']}" widgetVar="valorporcentaje"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['valorporcentaje']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="valorporcentaje.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="valorporcentaje2" header="#{msg['atencion']}" widgetVar="valorporcentaje2"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['valorporcentaje2']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="valorporcentaje.hide2();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <!-- LOV Formas descuentos tabla de arriba -->
+
+                    <p:dialog header="#{msg['formasdedescuentosFD']}" widgetVar="formasDtosDialogo" draggable="false" resizable="false" id="formasDtosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="380" height="350">
+
+                        <p:dataTable  id="LOVFormasDtos" style=" width: 330px" var="formasdtos" rowKey="#{formasdtos.secuencia}" value="#{controlNovedadEmbargo.lovlistaFormasDtos}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="345" widgetVar="LOVFormasDtos" 
+                                      filteredValue="#{controlNovedadEmbargo.lovfiltradoslistaFormasDtos}" emptyMessage="#{msg['lovvacio']}"
+                                      selection="#{controlNovedadEmbargo.formasDtosSeleccionado}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{controlNovedadEmbargo.activarAceptar()}" update=":formularioDialogos:aceptarFD"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarFormasDtos()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarFD']}"  style="position: absolute; left: 27px; top: 15px;"/>  
+                                <p:inputText id="globalFilter" onkeyup="LOVFormasDtos.filter();" style="width: 100px; position: relative; left: 80px;" />  
+                            </f:facet>
+
+                            <p:column sortBy="#{formasdtos.descripcion}" filterBy="#{formasdtos.descripcion}" width="200" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreFD']}" />
+                                </f:facet>
+                                <h:outputText value="#{formasdtos.descripcion}" />  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:commandButton id="aceptarFD" value="#{msg['aceptar']}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 155px;" disabled="#{controlNovedadEmbargo.aceptar}"  actionListener="#{controlNovedadEmbargo.actualizarFormasDtos()}" process="@this"/>
+                        <p:commandButton id="atrasFD"  icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 250px; " value="#{msg['atras']}" actionListener="#{controlNovedadEmbargo.cancelarCambioFormasDtos()}"  process="@this"/>
+
+                    </p:dialog>
+
+                    <!-- L.O.V MOTIVOS EMBARGOS -->
+                    <p:dialog header="#{msg['motivosM']}" widgetVar="motivosDialogo" draggable="false" resizable="false" id="motivosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="380" height="350" >
+
+                        <p:dataTable  id="LOVMotivosEmbargos" style=" width: 330px" var="motivos" value="#{controlNovedadEmbargo.lovlistaMotivos}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="345" widgetVar="LOVMotivosEmbargos" 
+                                      filteredValue="#{controlNovedadEmbargo.lovfiltradoslistaMotivos}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{motivos.secuencia}" selection="#{controlNovedadEmbargo.motivosSeleccionado}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{controlNovedadEmbargo.activarAceptar()}" update=":formularioDialogos:aceptarME"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarMotivoEmbargo()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 15px;"/>  
+                                <p:inputText id="globalFilter" onkeyup="LOVMotivosEmbargos.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                            </f:facet>
+
+                            <p:column sortBy="#{motivos.nombre}" filterBy="#{motivos.nombre}" width="100" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreM']}" />
+                                </f:facet>
+                                <h:outputText value="#{motivos.nombre}" />  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:commandButton id="aceptarME" value="#{msg['aceptar']}" disabled="#{controlNovedadEmbargo.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 155px;" actionListener="#{controlNovedadEmbargo.actualizarMotivoEmbargo()}" process="@this"/>
+                        <p:commandButton id="atrasME" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 250px;" actionListener="#{controlNovedadEmbargo.cancelarCambioMotivosEmbargos()}" process="@this"/>
+
+                    </p:dialog>
+
+                    <!-- L.O.V  Juzgados -->
+                    <p:dialog header="#{msg['juzgadosJ']}" widgetVar="juzgadosDialogo" draggable="false" resizable="false" id="juzgadosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="380" height="350" >
+
+                        <p:dataTable  id="LOVJuzgados" style=" width: 330px" var="juzgados" value="#{controlNovedadEmbargo.lovlistaJuzgados}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="345" widgetVar="LOVJuzgados" 
+                                      filteredValue="#{controlNovedadEmbargo.lovfiltradoslistaJuzgados}" emptyMessage="#{msg['juzgadosJ']}"
+                                      rowKey="#{juzgados.secuencia}" selection="#{controlNovedadEmbargo.juzgadosSeleccionado}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{controlNovedadEmbargo.activarAceptar()}" update=":formularioDialogos:aceptarJ"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarJuzgado()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarJ']}"  style="position: absolute; left: 27px; top: 15px;"/>  
+                                <p:inputText id="globalFilter" onkeyup="LOVJuzgados.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                            </f:facet>
+
+                            <p:column sortBy="#{juzgados.nombre}" filterBy="#{juzgados.nombre}" width="100" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreJ']}" />
+                                </f:facet>
+                                <h:outputText value="#{juzgados.nombre}" />  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:commandButton id="aceptarJ" value="#{msg['aceptar']}" disabled="#{controlNovedadEmbargo.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 155px;" actionListener="#{controlNovedadEmbargo.actualizarJuzgado()}"  process="@this"/>
+                        <p:commandButton id="atrasJ" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 250px;" actionListener="#{controlNovedadEmbargo.cancelarCambioJuzgados()}" process="@this"/>
+
+                    </p:dialog>
+
+                    <!-- L.O.V TIPOS EMBARGOS -->
+                    <p:dialog header="#{msg['tiposembargosTE']}" widgetVar="tiposEmbargosDialogo" draggable="false" resizable="false" id="tiposEmbargosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="380" height="350" >
+
+                        <p:dataTable  id="LOVTiposEmbargos" style=" width: 330px" var="tipos" value="#{controlNovedadEmbargo.lovlistaTiposEmbargos}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="345" widgetVar="LOVTiposEmbargos" 
+                                      filteredValue="#{controlNovedadEmbargo.lovfiltradoslistaTiposEmbargos}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{tipos.secuencia}" selection="#{controlNovedadEmbargo.tiposEmbargosSeleccionado}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{controlNovedadEmbargo.activarAceptar()}" update=":formularioDialogos:aceptarTE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarTipoEmbargo()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarTE']}"  style="position: absolute; left: 27px; top: 15px;"/>  
+                                <p:inputText id="globalFilter" onkeyup="LOVTiposEmbargos.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                            </f:facet>
+
+                            <p:column sortBy="#{tipos.descripcion}" filterBy="#{tipos.descripcion}" width="100" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombre']}" />
+                                </f:facet>
+                                <h:outputText value="#{tipos.descripcion}" />  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:commandButton id="aceptarTE" value="#{msg['aceptar']}" disabled="#{controlNovedadEmbargo.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 155px;" actionListener="#{controlNovedadEmbargo.actualizarTipoEmbargo()}" process="@this"/>
+                        <p:commandButton id="atrasTE" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 250px;" actionListener="#{controlNovedadEmbargo.cancelarCambioTiposEmbargos()}" process="@this"/>
+
+                    </p:dialog>
+
+
+                    <!-- LOV Formas descuentos tabla de abajo -->
+
+                    <p:dialog header="#{msg['formasF']}" widgetVar="formasDescuentosDialogo" draggable="false" resizable="false" id="formasDescuentosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="650" height="350" >
+
+                        <p:dataTable  id="LOVFormas" style=" width: 600px" var="formas" rowKey="#{formas.secuencia}" value="#{controlNovedadEmbargo.lovlistaDetallesFormasDtos}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVFormas" 
+                                      filteredValue="#{controlNovedadEmbargo.lovfiltradoslistaDetallesFormasDtos}" emptyMessage="#{msg['lovvacio']}"
+                                      selection="#{controlNovedadEmbargo.detallesFormasDtosSeleccionado}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{controlNovedadEmbargo.activarAceptar()}" update=":formularioDialogos:aceptarDF"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarDetallesFormasDtos()}" process="@this" onstart=""/>
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 15px;"/>  
+                                <p:inputText id="globalFilter" onkeyup="LOVFormas.filter();" style="width: 100px; position: relative; left: 80px;" />  
+                            </f:facet>
+
+                            <p:column sortBy="#{formas.descripcion}" filterBy="#{formas.descripcion}" width="300" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreF']}" />
+                                </f:facet>
+                                <h:outputText value="#{formas.descripcion}" />  
+                            </p:column>
+
+                            <p:column sortBy="#{formas.tipodto.ika}" filterBy="#{formas.tipodto.ika}" width="100" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['ikaF']}" />
+                                </f:facet>
+                                <h:outputText value="#{formas.tipodto.ika}" />  
+                            </p:column>
+
+                            <p:column sortBy="#{formas.concepto.empresa.nombre}" filterBy="#{formas.concepto.empresa.nombre}" width="100" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['empresaF']}" />
+                                </f:facet>
+                                <h:outputText value="#{formas.concepto.empresa.nombre}" />  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:commandButton id="aceptarDF" value="#{msg['aceptar']}" disabled="#{controlNovedadEmbargo.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 450px; " actionListener="#{controlNovedadEmbargo.actualizarDetallesFormasDtos()}" process="@this"/>
+                        <p:commandButton id="atrasDF" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 540px; " actionListener="#{controlNovedadEmbargo.cancelarCambioDetallesFormasDtos()}"  process="@this"/>
+
+                    </p:dialog>
+
+                    <!-- L.O.V Periodicidades -->
+                    <p:dialog header="#{msg['periodicidadesP']}" widgetVar="periodicidadesDialogo" draggable="false" resizable="false" id="periodicidadesDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true"  width="390" height="350" >
+
+                        <p:dataTable  id="LOVPeriodicidades" style=" width: 340px" var="periodicidades" value="#{controlNovedadEmbargo.lovlistaPeriodicidades}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="360" widgetVar="LOVPeriodicidades" 
+                                      filteredValue="#{controlNovedadEmbargo.lovfiltradoslistaPeriodicidades}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{periodicidades.secuencia}" selection="#{controlNovedadEmbargo.periodicidadesSeleccionado}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{controlNovedadEmbargo.activarAceptar()}" update=":formularioDialogos:aceptarPER"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarPeriodicidades()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 15px;"/>  
+                                <p:inputText id="globalFilter" onkeyup="LOVPeriodicidades.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                            </f:facet>
+
+                            <p:column sortBy="#{periodicidades.codigo}" filterBy="#{periodicidades.codigo}" width="15%" filterMatchMode="contains" filterStyle="width:30px" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nitP']}" />
+                                </f:facet>
+                                <h:outputText value="#{periodicidades.codigo}" />
+                            </p:column>
+
+                            <p:column sortBy="#{periodicidades.nombre}" filterBy="#{periodicidades.nombre}" width="85%" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreP']}" />
+                                </f:facet>
+                                <h:outputText value="#{periodicidades.nombre}" />  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:commandButton id="aceptarPER" value="#{msg['aceptar']}" disabled="#{controlNovedadEmbargo.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 150px; " actionListener="#{controlNovedadEmbargo.actualizarPeriodicidades()}"  process="@this"/>
+                        <p:commandButton id="atrasPER" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 250px;" actionListener="#{controlNovedadEmbargo.cancelarCambioPeriodicidades()}"  process="@this"/>
+                    </p:dialog>
+
+
+                    <!-- L.O.V Tercero -->
+                    <p:dialog header="#{msg['tercerosT']}" widgetVar="tercerosDialogo" draggable="false" resizable="false" id="tercerosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="650" height="350"  >
+
+                        <p:dataTable  id="LOVTerceros" style=" width: 600px" var="terceros" value="#{controlNovedadEmbargo.lovlistaTerceros}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVTerceros" 
+                                      filteredValue="#{controlNovedadEmbargo.lovfiltradoslistaTerceros}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{terceros.secuencia}" selection="#{controlNovedadEmbargo.tercerosSeleccionado}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{controlNovedadEmbargo.activarAceptar()}" update=":formularioDialogos:aceptarTER"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarTerceros()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 15px;"/>  
+                                <p:inputText id="globalFilter" onkeyup="LOVTerceros.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                            </f:facet>
+
+                            <p:column sortBy="#{terceros.nit}" filterBy="#{terceros.nit}" filterStyle="width: 55px" width="7%" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nitT']}" />
+                                </f:facet>
+                                <h:outputText value="#{terceros.nit}" />  
+                            </p:column>
+
+                            <p:column sortBy="#{terceros.nombre}" filterBy="#{terceros.nombre}" width="100" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreT']}" />
+                                </f:facet>
+                                <h:outputText value="#{terceros.nombre}" />  
+                            </p:column>
+
+                            <p:column sortBy="#{terceros.empresa.nombre}" filterBy="#{terceros.empresa.nombre}" width="100" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['empresaT']}" />
+                                </f:facet>
+                                <h:outputText value="#{terceros.empresa.nombre}" />  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:commandButton id="aceptarTER" value="#{msg['aceptar']}" disabled="#{controlNovedadEmbargo.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 450px;" actionListener="#{controlNovedadEmbargo.actualizarTerceros()}" process="@this"/>
+                        <p:commandButton id="atrasTER" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 540px;" actionListener="#{controlNovedadEmbargo.cancelarCambioTerceros()}" process="@this"/>
+
+                    </p:dialog>
+
+                    <!-- L.O.V Demandantes-->
+                    <p:dialog header="#{msg['demandantesD']}" widgetVar="demandantesDialogo" draggable="false" resizable="false" id="demandantesDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="650" height="350" >
+
+                        <p:dataTable  id="LOVDemandantes" style=" width: 600px" var="demandantes" value="#{controlNovedadEmbargo.lovlistaDemandantes}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVDemandantes" 
+                                      filteredValue="#{controlNovedadEmbargo.lovfiltradoslistaDemandantes}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{demandantes.secuencia}" selection="#{controlNovedadEmbargo.demandantesSeleccionado}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{controlNovedadEmbargo.activarAceptar()}" update=":formularioDialogos:aceptarD"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarDemandantes()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarD']}"  style="position: absolute; left: 27px; top: 15px;"/>  
+                                <p:inputText id="globalFilter" onkeyup="LOVDemandantes.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                            </f:facet>
+
+                            <p:column sortBy="#{demandantes.nit}" filterBy="#{demandantes.nit}" filterStyle="width: 55px" width="7%" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nitD']}" />
+                                </f:facet>
+                                <h:outputText value="#{demandantes.nit}" />  
+                            </p:column>
+
+                            <p:column sortBy="#{demandantes.nombre}" filterBy="#{demandantes.nombre}" width="100" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreD']}" />
+                                </f:facet>
+                                <h:outputText value="#{demandantes.nombre}" />  
+                            </p:column>
+
+                            <p:column sortBy="#{demandantes.empresa.nombre}" filterBy="#{demandantes.empresa.nombre}" width="100" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['empresa']}" />
+                                </f:facet>
+                                <h:outputText value="#{demandantes.empresa.nombre}" />  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:commandButton id="aceptarD" value="#{msg['aceptar']}" disabled="#{controlNovedadEmbargo.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 450px;" actionListener="#{controlNovedadEmbargo.actualizarDemandantes()}" process="@this"/>
+                        <p:commandButton id="atrasD" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 540px;" actionListener="#{controlNovedadEmbargo.cancelarCambioDemandantes()}" process="@this"/>
+                    </p:dialog>
+
+                    <!-- LOV BUSCAR EMPLEADO -->
+                    <p:dialog id="buscarEmpleadoDialogo" header="#{msg['empleadosB']}" widgetVar="buscarEmpleadoDialogo"  resizable="false" draggable="false" modal="true" width="650" height="350"  closable="false">  
+                        <p:dataTable  id="lovEmpleados" style=" width: 600px" var="empleado" value="#{controlNovedadEmbargo.listaEmpleadosLOV}"
+                                      scrollHeight="200" scrollWidth="620" widgetVar="lovEmpleados" 
+                                      filteredValue="#{controlNovedadEmbargo.filtradoListaEmpleadosLOV}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{empleado.secuencia}" selection="#{controlNovedadEmbargo.empleadoSeleccionado}" selectionMode="single" >
+
+                            <p:ajax event="rowSelect" listener="#{controlNovedadEmbargo.activarAceptar()}" update=":formularioDialogos:aceptarE" />
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.seleccionarEmpleado()}" process="@this" />
+
+                            <f:facet name="header" >  
+                                <h:outputText value="#{msg['buscarB']}"  style="position: absolute; left: 22px; top: 18px;"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovEmpleados.filter();" style="width:150px; position: relative; left: -150px;"/>
+
+                            </f:facet>
+
+                            <p:column  headerText="#{msg['codigoB']}" filterOptions="" filterBy="#{empleado.codigoempleado}" filterMatchMode="contains">  
+                                <h:outputText value="#{empleado.codigoempleado}" />  
+                            </p:column>  
+
+                            <p:column headerText="#{msg['nombreB']}" filterBy="#{empleado.persona.nombreCompleto}" filterMatchMode="contains">  
+                                <h:outputText value="#{empleado.persona.nombreCompleto}" />  
+                            </p:column>  
+                        </p:dataTable>
+                        <p:commandButton id="aceptarE" icon="ui-icon-check" style="position: absolute; top: 305px; left: 450px;" value="#{msg['aceptar']}" disabled="#{controlNovedadEmbargo.aceptar}" actionListener="#{controlNovedadEmbargo.seleccionarEmpleado()}" process="@this"/>
+                        <p:commandButton id="atrasE"  icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 540px;" value="#{msg['atras']}"  actionListener="#{controlNovedadEmbargo.cancelarSeleccionEmpleado()}"  process="@this"/>
+                    </p:dialog>
+
+                    <!-- DIALOGOS EDITAR -->
+
+                    <p:dialog id="editarTipoEmbargoE" header="#{msg['editarTipoEmbargoE']}" widgetVar="editarTipoEmbargoE" resizable="false" draggable="false" modal="true" height="93" width="240" style=" padding: 0px">  
+                        <p:inputText value="#{controlNovedadEmbargo.editarEmbargos.tipoembargo.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true">
+                        </p:inputText>
+                    </p:dialog>
+
+                    <p:dialog id="editarNumeroOficioE" header="#{msg['editarNumeroOficioE']}" widgetVar="editarNumeroOficioE" resizable="false" draggable="false" modal="true" height="93" width="240" >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarEmbargos.documento}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaOficioE" header="#{msg['editarFechaOficioE']}" widgetVar="editarFechaOficioE" resizable="false" draggable="false" modal="true" height="93" width="270"  >  
+                        <p:inputText value="#{controlNovedadEmbargo.editarEmbargos.fechadocumento}" style="overflow: auto; width: 200px; height: 40px" readonly="true">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </p:inputText>
+                    </p:dialog> 
+
+                    <p:dialog id="editarNumeroProcesoE" header="#{msg['editarNumeroProcesoE']}" widgetVar="editarNumeroProcesoE" resizable="false" draggable="false" modal="true" height="93" width="240" style=" padding: 0px">  
+                        <p:inputText value="#{controlNovedadEmbargo.editarEmbargos.numeroproceso}" style="overflow: auto; width: 200px; height: 40px" readonly="true">
+                        </p:inputText>
+                    </p:dialog>
+
+                    <p:dialog id="editarJuzgadoE" header="#{msg['editarJuzgadoE']}" widgetVar="editarJuzgadoE" resizable="false" draggable="false" modal="true" height="93" width="240"  >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarEmbargos.juzgado.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog> 
+
+                    <p:dialog id="editarMotivoEmbargoE" header="#{msg['editarMotivoEmbargoE']}" widgetVar="editarMotivoEmbargoE" resizable="false" draggable="false" modal="true" height="93" width="240"  >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarEmbargos.motivoembargo.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog> 
+
+                    <p:dialog id="editarNombreDemandanteE" header="#{msg['editarNombreDemandanteE']}" widgetVar="editarNombreDemandanteE" resizable="false" draggable="false" modal="true" height="93" width="240"  >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarEmbargos.demandante.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog> 
+
+                    <p:dialog id="editarTerceroNITE" header="#{msg['editarTerceroNITE']}" widgetVar="editarTerceroNITE" resizable="false" draggable="false" modal="true" height="93" width="240"  >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarEmbargos.tercero.nit}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog> 
+
+                    <p:dialog id="editarTerceroNombreE" header="#{msg['editarTerceroNombreE']}" widgetVar="editarTerceroNombreE" resizable="false" draggable="false" modal="true" height="93" width="240"  >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarEmbargos.tercero.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarValorE" header="#{msg['editarValorE']}" widgetVar="editarValorE" resizable="false" draggable="false" modal="true" height="93" width="240"  >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarEmbargos.valortotal}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaInicialDescuentoE" header="#{msg['editarFechaInicialDescuentoE']}" widgetVar="editarFechaInicialDescuentoE" resizable="false" draggable="false" modal="true" height="93" width="270"  >  
+                        <p:inputText value="#{controlNovedadEmbargo.editarEmbargos.fechainiciodescuento}" style="overflow: auto; width: 200px; height: 40px" readonly="true">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </p:inputText>
+                    </p:dialog> 
+
+                    <p:dialog id="editarFormaDtoE" header="#{msg['editarFormaDtoE']}" widgetVar="editarFormaDtoE" resizable="false" draggable="false" modal="true" height="93" width="240"  >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarEmbargos.formadto.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarNombreOficioE" header="#{msg['editarNombreOficioE']}" widgetVar="editarNombreOficioE" resizable="false" draggable="false" modal="true" height="93" width="240"  >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarEmbargos.cancelaciondocumento}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaCancelacionE" header="#{msg['editarFechaCancelacionE']}" widgetVar="editarFechaCancelacionE" resizable="false" draggable="false" modal="true" height="93" width="270"  >  
+                        <p:inputText value="#{controlNovedadEmbargo.editarEmbargos.cancelacionfechahasta}" style="overflow: auto; width: 200px; height: 40px" readonly="true">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </p:inputText>
+                    </p:dialog> 
+
+                    <p:dialog id="editarObservacionesE" header="#{msg['editarObservacionesE']}" widgetVar="editarObservacionesE" resizable="false" draggable="false" modal="true" height="93" width="240"  >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarEmbargos.observaciones}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <!-- Editar DETALLES EMBARGOS-->
+
+                    <p:dialog id="editarPagosD" header="#{msg['editarPagosD']}" widgetVar="editarPagosD" resizable="false" draggable="false" modal="true" height="93" width="240" style=" padding: 0px">  
+                        <p:inputText value="#{controlNovedadEmbargo.editarDetallesEmbargos.detalleformadto.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarIkaD" header="#{msg['editarIkaD']}" widgetVar="editarIkaD" resizable="false" draggable="false" modal="true" height="93" width="240" >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarDetallesEmbargos.detalleformadto.tipodto.ika}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarPorcentajeD" header="#{msg['editarPorcentajeD']}" widgetVar="editarPorcentajeD" resizable="false" draggable="false" modal="true" height="93" width="240" >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarDetallesEmbargos.porcentaje}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarValorD" header="#{msg['editarValorD']}" widgetVar="editarValorD" resizable="false" draggable="false" modal="true" height="93" width="240" >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarDetallesEmbargos.valor}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarSaldoD" header="#{msg['editarSaldoD']}" widgetVar="editarSaldoD" resizable="false" draggable="false" modal="true" height="93" width="240" >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarDetallesEmbargos.saldoinicial}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarPeriodicidadCodigoD" header="#{msg['editarPeriodicidadCodigoD']}" widgetVar="editarPeriodicidadCodigoD" resizable="false" draggable="false" modal="true" height="93" width="240" >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarDetallesEmbargos.periodicidad.codigoStr}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarPeriodicidadNombreD" header="#{msg['editarPeriodicidadNombreD']}" widgetVar="editarPeriodicidadNombreD" resizable="false" draggable="false" modal="true" height="93" width="240" >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarDetallesEmbargos.periodicidad.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarConceptoCodigoD" header="#{msg['editarConceptoCodigoD']}" widgetVar="editarConceptoCodigoD" resizable="false" draggable="false" modal="true" height="93" width="240" >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarDetallesEmbargos.detalleformadto.concepto.codigo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarConceptoNombreD" header="#{msg['editarConceptoNombreD']}" widgetVar="editarConceptoNombreD" resizable="false" draggable="false" modal="true" height="93" width="240" >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarDetallesEmbargos.detalleformadto.concepto.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarEmpresaD" header="#{msg['editarEmpresaD']}" widgetVar="editarEmpresaD" resizable="false" draggable="false" modal="true" height="93" width="240" >  
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarDetallesEmbargos.detalleformadto.concepto.empresa.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlNovedadEmbargo.guardarTodo()}" style="position: absolute; top: 60px; left: 215px" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlNovedadEmbargo.cancelarModificacion()}" style="position: absolute; top: 60px; left: 255px" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <!-- DIALOGOS RASTROS -->
+
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadEmbargo.secRegistro, 'EersPrestamos', 'eersprestamos')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+
+                    </p:dialog>
+
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('EersPrestamos', 'eersprestamos')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadEmbargo.secRegistro, 'EersPrestamos', 'eersprestamos')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                </h:form>
+
+                <!-- DIALOGOS RASTROS NO FORMALES -->
+                <h:form>
+                    <p:dialog id="confirmarRastroNF" header="#{msg['atencion']}" widgetVar="confirmarRastroNF"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadEmbargo.secRegistro, 'EersPrestamosDtos', 'eersprestamosdtos')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+
+                    </p:dialog>
+
+
+                    <p:dialog id="confirmarRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="confirmarRastroHistoricoNF"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('EersPrestamosDtos', 'eersprestamosdtos')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="errorRastroHistoricoNF"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastroNF" header="#{msg['atencion']}" widgetVar="errorRegistroRastroNF"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaConRastroNF"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadEmbargo.secRegistro, 'EersPrestamosDtos', 'eersprestamosdtos')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaSinRastroNF"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastroNF']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistroNF" header="#{msg['atencion']}" widgetVar="seleccionarRegistroNF"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistroNF']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDBNF" header="#{msg['atencion']}" widgetVar="errorObjetosDBNF"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDBNF']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <!-- Dialogo para ver en qué tabla se quiere insertar -->
+                    <p:dialog id="elegirTabla" header="#{msg['atencion']}" widgetVar="elegirTabla"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['elegirTabla']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['embargos']}" onclick="elegirTabla.hide();" actionListener="#{controlNovedadEmbargo.dialogoEmbargos()}" style="position: absolute; top: 60px; left: 20px" process="@this" />
+                        <p:commandButton value="#{msg['detallesembargos']}" onclick="elegirTabla.hide();" actionListener="#{controlNovedadEmbargo.dialogoDetallesEmbargos()}" style="position: absolute; top: 50px; left: 220px" process="@this" />
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosEmbargosExportar" var="embargos" style="visibility: hidden; display: none;"                           
+                                 value="#{controlNovedadEmbargo.listaEmbargos}"> 
+                        <!--COLUMNAS TABLA EMBARGOS--> 
+
+                        <p:column headerText="#{msg['tipoembargoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['tipoembargoX']}"/> </f:facet> 
+                            <h:outputText value="#{embargos.tipoembargo.descripcion}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['numerooficioXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['numerooficioX']}"/> </f:facet> 
+                            <h:outputText value="#{embargos.documento}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['fechaoficioXX']}">  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaoficioX']}" />
+                            </f:facet>
+                            <h:outputText value="#{embargos.fechadocumento}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['numeroprocesoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['numeroprocesoX']}"/> </f:facet> 
+                            <h:outputText value="#{embargos.numeroproceso}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['juzgadoXX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['juzgadoX']}"/></f:facet>
+                            <h:outputText value="#{embargos.juzgado.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['motivoembargoXX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['motivoembargoX']}"/></f:facet>
+                            <h:outputText value="#{embargos.motivoembargo.nombre}" />
+                        </p:column>
+                        <p:column headerText="#{msg['demandanteX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['demandanteX']}"/></f:facet>
+                            <h:outputText value="#{embargos.demandante.nombre}" />
+                        </p:column>
+                        <p:column headerText="#{msg['nitXX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['nitX']}"/></f:facet>
+                            <h:outputText value="#{embargos.tercero.nit}" />
+                        </p:column>
+                        <p:column headerText="#{msg['descuentoXX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['descuentoX']}"/></f:facet>
+                            <h:outputText value="#{embargos.tercero.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['valortotalXX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['valortotalX']}"/></f:facet>
+                            <h:outputText value="#{embargos.valortotal}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg['fechainicialdescuentoXX']}">  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechainicialdescuentoX']}" />
+                            </f:facet>
+                            <h:outputText value="#{embargos.fechainiciodescuento}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['formadescuentoXX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['formadescuentoX']}"/></f:facet>
+                            <h:outputText value="#{embargos.formadto.descripcion}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['cancelaciondocumentoXX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['cancelaciondocumentoX']}"/></f:facet>
+                            <h:outputText value="#{embargos.cancelaciondocumento}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['fechacancelacionXX']}">  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechacancelacionX']}" />
+                            </f:facet>
+                            <h:outputText value="#{embargos.cancelacionfechahasta}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg['observacionesX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['observacionesX']}"/></f:facet>
+                            <h:outputText value="#{embargos.observaciones}" />
+
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:dataTable id="datosDetallesEmbargosExportar" var="detalles" style="visibility: hidden; display: none;"                           
+                                 value="#{controlNovedadEmbargo.listaDetallesEmbargos}"> 
+                        <!--COLUMNAS TABLA Detalles Embargos--> 
+
+                        <p:column headerText="#{msg['pagoscomprometidosXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['pagoscomprometidosX']}"/> </f:facet> 
+                            <h:outputText value="#{detalles.detalleformadto.descripcion}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['ikaXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['ikaX']}"/> </f:facet> 
+                            <h:outputText value="#{detalles.detalleformadto.tipodto.ika}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['porcentajeX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['porcentajeX']}"/> </f:facet> 
+                            <h:outputText value="#{detalles.porcentaje}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['valorX']}">  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['valorX']}" />
+                            </f:facet>
+                            <h:outputText value="#{detalles.valor}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['saldoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['saldoX']}"/> </f:facet> 
+                            <h:outputText value="#{detalles.saldoinicial}" />
+                        </p:column>  
+
+                        <p:column headerText="#{msg['cpXX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['cpX']}"/></f:facet>
+                            <h:outputText value="#{detalles.periodicidad.codigoStr}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['nombreperiodicidadXX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['nombreperiodicidadX']}"/></f:facet>
+                            <h:outputText value="#{detalles.periodicidad.nombre}" />
+                        </p:column>
+                        <p:column headerText="#{msg['codigoX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/></f:facet>
+                            <h:outputText value="#{detalles.detalleformadto.concepto.codigo}" />
+                        </p:column>
+                        <p:column headerText="#{msg['nombreconceptoXX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['nombreconceptoX']}"/></f:facet>
+                            <h:outputText value="#{detalles.detalleformadto.concepto.descripcion}" />
+                        </p:column>
+                        <p:column headerText="#{msg['empresaX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['empresaX']}"/></f:facet>
+                            <h:outputText value="#{detalles.detalleformadto.concepto.empresa.nombre}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

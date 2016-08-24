@@ -1,0 +1,320 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+                    <p:panel  id="PanelTotal" header="Tipos de Embargos" style=" font-size: 12px; position: absolute; width: 874px; height: 530px; left: 300px; top: 100px;text-align: left" >  
+                        <fieldset style="position: absolute; left: 10px; top: 90px; font-size: 10px; width: 835px; height: 375px; border-radius: 10px; ">
+                            <legend style="font-size: 14px; color: blue"><strong>Tipos Embargos</strong></legend>
+
+                            <p:dataTable id="datosTiposEmbargos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ;font-size: 10px; border: 1px;"                           
+                                         value="#{controlTiposEmbargos.listTiposEmbargos}" scrollable="true" scrollHeight="230"  scrollWidth="830"
+                                         filteredValue="#{controlTiposEmbargos.filtrarTiposEmbargos}" emptyMessage="No se encontrarón resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="true" rows="9"  
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                                <p:ajax event="filter" listener="#{controlTiposEmbargos.eventoFiltrar()}"/>
+
+                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="130" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.codigo}" id="editarCodigo" style=" font-size: 10px; border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                                <p:ajax event="select"  listener="#{controlTiposEmbargos.cambiarIndice(indice, 0)}"  process="@this"/> 
+                                                <p:ajax event="change"  listener="#{controlTiposEmbargos.modificandoTiposEmbargos(indice, 'N', info.codigo)}"  update="codigo"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="Código"/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Descripción" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.descripcion}" id="editarNombre" style=" font-size: 10px; border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                                <p:ajax event="select"   listener="#{controlTiposEmbargos.cambiarIndice(indice, 1)}" process="@this"/> 
+                                                <p:ajax event="change"  listener="#{controlTiposEmbargos.modificandoTiposEmbargos(indice, 'N', info.descripcion)}" update="descripcion"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="Descripción"/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="" width="15" sortBy="#{info.manejaSaldoPromedio}"  id="manejaSaldoPromedio" filterMatchMode="contains" style="padding: 0px"  exportable="false">  
+                                    <p:selectBooleanCheckbox id="sueldo" value="#{info.manejaSaldoPromedio}">  
+                                        <p:ajax   listener="#{controlTiposEmbargos.modificandoManejaSaldo(indice,info.manejaSaldoPromedio)}" />  
+                                    </p:selectBooleanCheckbox>   
+                                    <p:tooltip style="font-size: 12px" for="sueldo" value="Maneja Saldo" />
+                                    <f:facet name="footer">
+                                        <h:outputText value="..."/>
+                                    </f:facet>
+                                </p:column>
+
+
+                            </p:dataTable>
+
+                        </fieldset>
+
+                        <p:toolbar style="font-size: 12px; position: absolute; top: 40px; left: 20px;">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; "  actionListener="#{controlTiposEmbargos.guardarTiposEmbargos()}" process="@this" />
+                                <p:tooltip style="font-size: 12px" for="guardarRapido" value="Guardar" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  actionListener="#{controlTiposEmbargos.editarCelda()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px" for="editar" value="Editar" />
+
+                                <p:separator />
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "    process="@this"/>
+                                <p:tooltip style="font-size: 12px" for="listaValores" value="Lista de Valores" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposEmbargos.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px" for="filtrar" value="Activar filtrado" />
+
+                                <p:separator />
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposEmbargos.exportXLS()}" ajax="false"/>
+                                <p:tooltip style="font-size: 12px" for="exportarXLS" value="Exportar a XLS" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  actionListener="#{controlTiposEmbargos.limpiarNuevoTiposEmbargos()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosTiposEmbargosExportar" fileName="TIPOSEMBARGOS" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="font-size: 12px" for="exportarXML" value="Exportar a XML" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposEmbargos.exportPDF()}"  ajax="false"/>
+                                <p:tooltip style="font-size: 12px" for="exportarPDF" value="Exportar a PDF" />
+
+                                <p:separator /> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg);  background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " oncomplete="nuevoRegistroTiposEmbargos.show()" update=":formularioDialogos:nuevosTiposEmbargos" process="@this"/> 
+                                <p:tooltip style="font-size: 12px" for="insertar" value="Nuevo Tipo Embargo" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposEmbargos.verificarBorrado()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px" for="eliminar" value="Eliminar Tipo Embargo" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposEmbargos.duplicandoTiposEmbargos()}"  process="@this"/>  
+                                <p:tooltip style="font-size: 12px" for="duplicar" value="Duplicar Tipo Embargo" />
+
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposEmbargos.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px" for="rastro" value="Rastro"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <p:commandButton style=" position: absolute; left: 15px; top: 487px; font-size: 10px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-refresh" id="REFRESCAR"  actionListener="#{controlTiposEmbargos.cancelarModificacion()}" value="Refrescar" process="@this" />
+                        <p:commandButton style=" position: absolute; left: 698px; top: 487px; font-size: 10px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-check" id="ACEPTAR" value="Aceptar" disabled="#{controlTiposEmbargos.guardado}" onclick="confirmarGuardar.show();"   update="datosTiposEmbargos"  process="@this"   />
+                        <p:commandButton style=" position: absolute; left: 785px; top: 487px; font-size: 10px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras"    />
+
+
+
+                        <p:dialog header="ATENCIÓN...!" widgetVar="confirmarGuardar" draggable="false" resizable="false" closable="false" id="confirmarGuardar"  
+                                  showEffect="fade" hideEffect="fade" width="400" height="110" modal="true" style="font-size: 11px;">
+                            <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                            <p:commandButton value="Si" onclick="confirmarGuardar.hide();" actionListener="#{controlTiposEmbargos.guardarTiposEmbargos()}" style="position: absolute; top: 60px; left: 215px " process="@this" />
+                            <p:commandButton value="No" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 255px" process="@this" />
+                            <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                        </p:dialog>
+
+                    </p:panel>
+
+
+
+
+
+                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"  />
+                        <h:outputText value="Necesita : #{controlTiposEmbargos.mensajeValidacion}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 20px;"  />
+                        <h:outputText value=" #{controlTiposEmbargos.mensajeValidacion}" style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 60px; left: 250px" process="@this" />
+                    </p:dialog>
+                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"  />
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionBorrar.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="50" height="70" style="position: absolute; left: 40px; top: 10px;"  />
+                        <h:outputText value="Se han borrado #{controlTiposEmbargos.registrosBorrados}  Registros" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="mostrarBorrados.hide();" style="position: absolute; top: 60px; left: 200px" process="@this" />
+                    </p:dialog>
+                    <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="false" modal="true" height="95" width="430px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="Para agregar es necesario adicionar: #{controlTiposEmbargos.mensajeValidacion}" style="position: absolute; left: 110px; top: 20px; width: 300px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="validacionNuevaCentroCosto.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                    </p:dialog>
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlTiposEmbargos.activarCtrlF11()}" /> 
+
+                </h:form>
+
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla 'TIPOSCERTIFICADOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposEmbargos.secRegistro, 'TiposEmbargos', 'tipoembargo')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla ENCARGATURAS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('TiposEmbargos', 'tipoembargo')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposEmbargos.secRegistro, 'TiposEmbargos', 'tipoembargo')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="font-size: 12px" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="La tabla 'ENCARGATURAS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+
+
+
+                    <p:dialog id="editCodigo" header="Editar Código" widgetVar="editCodigo" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
+                        <p:inputTextarea value="#{controlTiposEmbargos.editarTipoEmbargo.codigo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                        <p:commandButton id="cancelarCodigo" value="Atras" onclick="editCodigo.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                    </p:dialog>
+                    <p:dialog id="editDescripcion" header="Editar Descripción" widgetVar="editDescripcion" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px;text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlTiposEmbargos.editarTipoEmbargo.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                        <p:commandButton id="cancelarNombre" value="Atras" onclick="editDescripcion.hide();" style="position: absolute; top: 60px; left: 170px; font-size: 11px" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="nuevoRegistroTiposEmbargos" header="Nuevo Registro" widgetVar="nuevoRegistroTiposEmbargos" closable="false" resizable="false"  draggable="false" modal="true" height="255" width="340" style="font-size: 12px; padding: 0px">  
+                        <center><strong><h:outputText id="informacion" value="Ingresar nuevo Tipo Embargo" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="nuevosTiposEmbargos" style="border: none;">
+
+                            <strong><h:outputText value="Código: "  style="font-size: 12px; position: absolute; top: 60px;text-transform: uppercase" /></strong>
+                            <p:inputText id="nuevoCodigo" value="#{controlTiposEmbargos.nuevoTipoEmbargo.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoCodigo" value="Código" />
+
+                            <strong><h:outputText value="Descripción: "  style="font-size: 12px; position: absolute; top: 110px;text-transform: uppercase" /></strong>
+                            <p:inputText  id="nuevoNombre" value="#{controlTiposEmbargos.nuevoTipoEmbargo.descripcion}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoNombre" value="Descripción" />
+
+
+
+                            <strong><h:outputText value="Maneja Sueldo: "  style="font-size: 12px; position: absolute; top: 160px;text-transform: uppercase" /></strong>
+                            <p:selectBooleanCheckbox id="nuevoSueldo" value="#{controlTiposEmbargos.nuevoTipoEmbargo.manejaSaldoPromedio }" style="font-size: 12px; width: 102px; position: absolute; left: 160px; top: 158px;">  
+                                <p:ajax update="@this"/>
+                            </p:selectBooleanCheckbox>
+
+
+
+                            <p:commandButton id="limpiar" value="Limpiar" style=" font-size: 11px ;position: absolute; left: 20px; top: 220px;"  actionListener="#{controlTiposEmbargos.limpiarNuevoTiposEmbargos()}" update="nuevosTiposEmbargos" process="@this"/>
+                            <p:commandButton id="agregarTE" value="Agregar" style="font-size: 11px; position: absolute; left: 180px; top: 220px;" actionListener="#{controlTiposEmbargos.agregarNuevoTiposEmbargos()}" process="@this" />
+                            <p:commandButton id="cancelarTE" value="Cancelar" style="font-size: 11px; position: absolute; left: 250px; top: 220px;"  update="nuevosTiposEmbargos" onclick="nuevoRegistroTiposEmbargos.hide();"  actionListener="#{controlTiposEmbargos.limpiarNuevoTiposEmbargos()}"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarRegistroTiposEmbargos" header="duplicar Registro" widgetVar="duplicarRegistroTiposEmbargos" closable="false" resizable="false"  draggable="false" modal="true" height="255" width="340" style="font-size: 12px; padding: 0px">  
+                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Tipo Embargo" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                        <p:panel id="duplicarTiposEmbargos" style="border: none;">
+                            <strong><h:outputText value="código "  style="font-size: 12px; position: absolute; top: 60px;text-transform: uppercase" /></strong>
+                            <p:inputText id="duplicarCodigo" value="#{controlTiposEmbargos.duplicarTipoEmbargo.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCodigo" value="Código" />
+
+                            <strong><h:outputText value="Descripción"  style="font-size: 12px; position: absolute; top: 110px;text-transform: uppercase" /></strong>
+                            <p:inputText id="duplicarNombre" value="#{controlTiposEmbargos.duplicarTipoEmbargo.descripcion}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;" >
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarNombre" value="Descripción" />
+
+                            <strong><h:outputText value="Maneja Saldo: "  style="font-size: 12px; position: absolute; top: 160px;text-transform: uppercase" /></strong>
+                            <p:selectBooleanCheckbox id="diplicarSueldo" value="#{controlTiposEmbargos.duplicarTipoEmbargo.manejaSaldoPromedio}" style="font-size: 12px; width: 102px; position: absolute; left: 160px; top: 158px;">  
+                                <p:ajax update="@this"/>
+                            </p:selectBooleanCheckbox>
+
+
+
+                            <p:commandButton id="limpiarD" value="Limpiar" style=" font-size: 11px ;position: absolute; left: 20px; top: 220px;"  actionListener="#{controlTiposEmbargos.limpiarDuplicarTiposEmbargos()}" update="duplicarTiposEmbargos"  process="@this"/>
+                            <p:commandButton id="duplicarVFP" value="Agregar" style="font-size: 11px; position: absolute; left: 180px; top: 220px;" actionListener="#{controlTiposEmbargos.confirmarDuplicar()}"  process="@this" />
+                            <p:commandButton id="cancelarDuplicarVFP" value="Cancelar" style="font-size: 11px; position: absolute; left: 250px; top: 220px;"  update="duplicarTiposEmbargos" onclick="duplicarRegistroTiposEmbargos.hide();" actionListener="#{controlTiposEmbargos.limpiarDuplicarTiposEmbargos()}"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                </h:form>
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosTiposEmbargosExportar" var="info" style="visibility: hidden; display: none;"                           
+                                 value="#{controlTiposEmbargos.listTiposEmbargos}">
+
+
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Código"/></f:facet> 
+                            <h:outputText value="#{info.codigo}" />
+                        </p:column>  
+
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Descripción" /></f:facet>
+                            <h:outputText value="#{info.descripcion}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="ManejoSaldo" /></f:facet>
+                            <h:outputText value="#{info.manejaSaldo}"/>
+                        </p:column>
+
+
+                    </p:dataTable>
+                </h:form>
+
+
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
