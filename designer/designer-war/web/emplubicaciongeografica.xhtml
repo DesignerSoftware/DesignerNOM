@@ -116,7 +116,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['descripcion']}" sortBy="#{info.ubicacion.descripcion}" filterBy="#{info.ubicacion.descripcion}" filterMatchMode="contains" id="vuDescripcion" width="143" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['descripcion']}" sortBy="#{info.ubicacion.descripcion}" filterBy="#{info.ubicacion.descripcion}" filterMatchMode="contains" id="vuDescripcion" width="140" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.ubicacion.descripcion}" /></f:facet>  
                                         <f:facet name="input">
@@ -129,7 +129,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooUbicacion" action="ubicaciongeografica" actionListener="#{controlUbicacionesGeograficas.recibirPagina('atrasubicaciongeografica')}" value=" "/>
+                                        <p:commandButton style="width: 160px;" id="fooUbicacion" action="ubicaciongeografica" actionListener="#{controlUbicacionesGeograficas.recibirPagina('atrasubicaciongeografica')}" value=" "/>
                                     </f:facet>
                                 </p:column>  
 
@@ -142,7 +142,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 290px; margin: -14px; height: 26px; border: none; color: blue" id="fooCiudad" action="ciudades" actionListener="#{controlCiudades.recibirPaginaEntrante('atrasubicaciongeografica')}" value=" " />
+                                        <p:commandButton style="width: 290px;" id="fooCiudad" action="ciudades" actionListener="#{controlCiudades.recibirPaginaEntrante('atrasubicaciongeografica')}" value=" " />
                                     </f:facet>
                                 </p:column>
                             </p:dataTable> 
@@ -189,7 +189,6 @@
                                              style="position: relative; left: 270px; width: 90px; top: 10px;" icon="ui-icon-check" update=":form:UbicacionesGeograficasDialogo" process="@this"/>
                             <p:commandButton id="atrasU" value="#{msg['cancelar']}"  actionListener="#{controlVigenciasUbicaciones.cancelarCambioUbicacion()}" 
                                              update=":form:UbicacionesGeograficasDialogo" style="position: relative; left: 270px; width: 90px; top: 10px;" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>    
-                            
                         </p:dialog>
 
 

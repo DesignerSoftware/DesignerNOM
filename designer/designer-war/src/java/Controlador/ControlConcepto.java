@@ -155,6 +155,12 @@ public class ControlConcepto implements Serializable {
         estadoConceptoEmpresa = "S";
         unaVez = true;
         activarLov = true;
+
+        infoRegistroUnidad = "0";
+        infoRegistroTercero = "0";
+        infoRegistroEmpresa = "0";
+        infoRegistroConcepto = "0";
+        paginaAnterior = "";
     }
 
     @PostConstruct
@@ -621,8 +627,6 @@ public class ControlConcepto implements Serializable {
                 }
                 if (coincidencias == 1) {
                     conseptoS.setUnidad(lovUnidades.get(indiceUnicoElemento));
-                    //listaUnidades.clear();
-                    //getListaUnidades();
                 } else {
                     permitirIndex = false;
                     context.update("formularioDialogos:unidadesDialogo");
@@ -656,16 +660,12 @@ public class ControlConcepto implements Serializable {
                     }
                     if (coincidencias == 1) {
                         conseptoS.setTercero(lovTerceros.get(indiceUnicoElemento));
-                        //listaTerceros.clear();
-                        //getListaTerceros();
                     } else {
                         permitirIndex = false;
                         context.update("formularioDialogos:TercerosDialogo");
                         context.execute("TercerosDialogo.show()");
                     }
                 } else {
-                    //listaTerceros.clear();
-                    //getListaTerceros();
                     conseptoS.setTercero(new Terceros());
                     coincidencias = 1;
                 }
@@ -773,7 +773,7 @@ public class ControlConcepto implements Serializable {
     public void actualizarUnidad() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-            habilitarBotonLov();
+//            habilitarBotonLov();
             conceptoSeleccionado.setUnidad(unidadSeleccionada);
             if (!listaConceptosEmpresaCrear.contains(conceptoSeleccionado)) {
                 if (listaConceptosEmpresaModificar.isEmpty()) {
@@ -788,13 +788,14 @@ public class ControlConcepto implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             permitirIndex = true;
+            context.update("form:datosConceptos");
         } else if (tipoActualizacion == 1) {
-            habilitarBotonLov();
+//            habilitarBotonLov();
             nuevoConcepto.setUnidad(unidadSeleccionada);
             context.update("formularioDialogos:nuevoCodigoUnidad");
             context.update("formularioDialogos:nuevoNombreUnidad");
         } else if (tipoActualizacion == 2) {
-            habilitarBotonLov();
+//            habilitarBotonLov();
             duplicarConcepto.setUnidad(unidadSeleccionada);
             context.update("formularioDialogos:duplicarCodigoUnidad");
             context.update("formularioDialogos:duplicarNombreUnidad");
@@ -807,10 +808,14 @@ public class ControlConcepto implements Serializable {
         cualCelda = -1;
         activoDetalle = true;
         context.update("form:DETALLES");
+
         context.reset("formularioDialogos:lovUnidades:globalFilter");
         context.execute("lovUnidades.clearFilters()");
         context.execute("unidadesDialogo.hide()");
-        context.update("form:datosConceptos");
+        context.update("formularioDialogos:lovUnidades");
+        context.update("formularioDialogos:unidadesDialogo");
+        context.update("formularioDialogos:aceptarU");
+
     }
 
     public void cancelarUnidades() {
@@ -826,6 +831,9 @@ public class ControlConcepto implements Serializable {
         context.reset("formularioDialogos:lovUnidades:globalFilter");
         context.execute("lovUnidades.clearFilters()");
         context.execute("unidadesDialogo.hide()");
+        context.update("formularioDialogos:lovUnidades");
+        context.update("formularioDialogos:unidadesDialogo");
+        context.update("formularioDialogos:aceptarU");
     }
 
     public void actualizarTercero() {
@@ -845,6 +853,7 @@ public class ControlConcepto implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             permitirIndex = true;
+            context.update("form:datosConceptos");
         } else if (tipoActualizacion == 1) {
             nuevoConcepto.setTercero(terceroSeleccionado);
             context.update("formularioDialogos:nuevoTercero");
@@ -863,7 +872,9 @@ public class ControlConcepto implements Serializable {
         context.reset("formularioDialogos:lovTerceros:globalFilter");
         context.execute("lovTerceros.clearFilters()");
         context.execute("TercerosDialogo.hide()");
-        context.update("form:datosConceptos");
+        context.update("formularioDialogos:lovTerceros");
+        context.update("formularioDialogos:TercerosDialogo");
+        context.update("formularioDialogos:aceptarT");
     }
 
     public void cancelarTercero() {
@@ -878,6 +889,9 @@ public class ControlConcepto implements Serializable {
         context.reset("formularioDialogos:lovTerceros:globalFilter");
         context.execute("lovTerceros.clearFilters()");
         context.execute("TercerosDialogo.hide()");
+        context.update("formularioDialogos:lovTerceros");
+        context.update("formularioDialogos:TercerosDialogo");
+        context.update("formularioDialogos:aceptarT");
     }
 
     public void lovEmpresas() {
@@ -886,6 +900,7 @@ public class ControlConcepto implements Serializable {
         RequestContext.getCurrentInstance().update("form:DETALLES");
         cualCelda = -1;
         habilitarBotonLov();
+        modificarInforegistroEmpresa(lovEmpresas.size());
         RequestContext.getCurrentInstance().execute("EmpresasDialogo.show()");
     }
 
@@ -904,6 +919,9 @@ public class ControlConcepto implements Serializable {
             context.reset("formularioDialogos:lovEmpresas:globalFilter");
             context.execute("lovEmpresas.clearFilters()");
             context.execute("EmpresasDialogo.hide()");
+            context.update("formularioDialogos:lovEmpresas");
+            context.update("formularioDialogos:EmpresasDialogo");
+            context.update("formularioDialogos:aceptarE");
             verCambioEmpresa = false;
         } else {
             verCambioEmpresa = true;
@@ -922,6 +940,9 @@ public class ControlConcepto implements Serializable {
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
         context.execute("lovEmpresas.clearFilters()");
         context.execute("EmpresasDialogo.hide()");
+        context.update("formularioDialogos:lovEmpresas");
+        context.update("formularioDialogos:EmpresasDialogo");
+        context.update("formularioDialogos:aceptarE");
     }
 
     public void lovConcepto(int quien) {
@@ -999,6 +1020,9 @@ public class ControlConcepto implements Serializable {
         context.reset("formularioDialogos:lovConceptos:globalFilter");
         context.execute("lovConceptos.clearFilters()");
         context.execute("ConceptosDialogo.hide()");
+        context.update("formularioDialogos:lovConceptos");
+        context.update("formularioDialogos:ConceptosDialogo");
+        context.update("formularioDialogos:aceptarC");
     }
 
     public void cancelarSeleccionConcepto() {
@@ -1010,6 +1034,9 @@ public class ControlConcepto implements Serializable {
         context.reset("formularioDialogos:lovConceptos:globalFilter");
         context.execute("lovConceptos.clearFilters()");
         context.execute("ConceptosDialogo.hide()");
+        context.update("formularioDialogos:lovConceptos");
+        context.update("formularioDialogos:ConceptosDialogo");
+        context.update("formularioDialogos:aceptarC");
     }
 
     public void borrarConcepto() {
@@ -1563,12 +1590,10 @@ public class ControlConcepto implements Serializable {
             } else if (resultado == 5) {
                 context.execute("errorTablaSinRastro.show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("CONCEPTOS")) {
+            context.execute("confirmarRastroHistorico.show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("CONCEPTOS")) {
-                context.execute("confirmarRastroHistorico.show()");
-            } else {
-                context.execute("errorRastroHistorico.show()");
-            }
+            context.execute("errorRastroHistorico.show()");
         }
         activoDetalle = true;
         RequestContext.getCurrentInstance().update("form:DETALLES");
@@ -1657,38 +1682,38 @@ public class ControlConcepto implements Serializable {
 
     public void modificarInforegistroEmpresa(int valor) {
         infoRegistroEmpresa = String.valueOf(valor);
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEmpresa");
     }
 
     public void modificarInforegistroTercero(int valor) {
         infoRegistroTercero = String.valueOf(valor);
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTercero");
     }
 
     public void modificarInforegistroConcepto(int valor) {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroConcepto");
         infoRegistroConcepto = String.valueOf(valor);
     }
 
     public void modificarInfoRegistroUnidades(int valor) {
         infoRegistroUnidad = String.valueOf(valor);
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroUnidad");
     }
 
     public void eventoFiltrarEmpresa() {
         modificarInforegistroEmpresa(filtradoListaEmpresas.size());
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEmpresa");
     }
 
     public void eventoFiltrarTercero() {
         modificarInforegistroTercero(filtradoTerceros.size());
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTercero");
     }
 
     public void eventoFiltrarConcepto() {
         modificarInforegistroConcepto(filtradoConceptosEmpresaLOV.size());
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroConcepto");
     }
 
     public void eventoFiltrarUnidades() {
         modificarInfoRegistroUnidades(filtradoUnidades.size());
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroUnidad");
     }
 
     public void deshabilitarBotonLov() {
@@ -1732,12 +1757,8 @@ public class ControlConcepto implements Serializable {
 
     public void verDetalle(Conceptos conceptoS) {
         conceptoSeleccionado = conceptoS;
-        //RequestContext context = RequestContext.getCurrentInstance();
         FacesContext fc = FacesContext.getCurrentInstance();
-        //((ControlDetalleConcepto) fc.getApplication().evaluateExpressionGet(fc, "#{ControlDetalleConcepto}", ControlDetalleConcepto.class)).obtenerConcepto(secuencia);
-
         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "detalleConcepto");
-//.getElementById('datosConceptos').scrollTop;
     }
 
     public void cargarLovs() {

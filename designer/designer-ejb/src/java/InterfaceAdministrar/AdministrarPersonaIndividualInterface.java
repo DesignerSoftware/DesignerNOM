@@ -174,9 +174,9 @@ public interface AdministrarPersonaIndividualInterface {
 
 //    public BigInteger crearNuevoEmpleado(BigInteger codigoEmpl, BigInteger secPers, BigInteger secEmpr);
     
-    public void crearEmpl_Con_VCargo( BigDecimal codigoEmpleado, BigInteger secPersona, BigInteger secEmpresa, VigenciasCargos vigenciaCargo);
+    public BigInteger crearEmpl_Con_VCargo( BigDecimal codigoEmpleado, BigInteger secPersona, BigInteger secEmpresa, VigenciasCargos vigenciaCargo);
 
-    public Empleados obtenerUltimoRegistroEmpleado(BigInteger empresa, BigDecimal codigoEmpleado);
+//    public Empleados obtenerUltimoRegistroEmpleado(BigInteger empresa, BigDecimal codigoEmpleado);
 
     /**
      *
@@ -186,7 +186,7 @@ public interface AdministrarPersonaIndividualInterface {
      */
     public VigenciasCargos obtenerUltimaVigenciaCargo(BigInteger empresa, BigInteger secEmpleado);
     
-    public void crearVigenciaCargo(VigenciasCargos vigencia);
+//    public void crearVigenciaCargo(VigenciasCargos vigencia);
     
     /**
      *

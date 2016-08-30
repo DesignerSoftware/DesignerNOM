@@ -163,7 +163,7 @@
                                         </f:facet>   
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 150px; margin: -14px; height: 26px; border: none; color: blue" id="fooGrupoSalarial" action="gruposalarial" actionListener="#{controlGrupoSalarial.recibirPagina('cargo')}" value=" "/>
+                                        <p:commandButton style="width: 150px;" id="fooGrupoSalarial" action="gruposalarial" actionListener="#{controlGrupoSalarial.recibirPagina('cargo')}" value=" "/>
                                     </f:facet>
                                 </p:column>
 
@@ -237,7 +237,7 @@
                                         </f:facet>   
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 120px; height: inherit; border-radius: 0px; margin-left: -10px; margin-right: -10px " id="fooGrupoViatico" action="grupoviatico"  value=" "/>
+                                        <p:commandButton style="width: 120px;" id="fooGrupoViatico" action="grupoviatico"  value=" "/>
                                     </f:facet>
                                 </p:column>
 
@@ -251,7 +251,7 @@
                                         <p:ajax event="change" listener="#{controlCargo.modificarCargo(info)}" process="@this"/>
                                     </p:selectBooleanCheckbox>  
                                     <f:facet name="footer">
-                                        <h:outputText value="" style=" height: inherit; border-radius: 0px; margin-left: -10px; margin-right: -10px;" />
+                                        <h:outputText value="" style=" width: 40px;" />
                                     </f:facet>
                                 </p:column>
 
@@ -264,8 +264,8 @@
                                     <p:selectBooleanCheckbox id="checkJefeCargo" value="#{info.chechJefe}" style="alignment-adjust: central;">  
                                         <p:ajax event="change" listener="#{controlCargo.modificarCargo(info)}" process="@this"/>
                                     </p:selectBooleanCheckbox>  
-                                    <f:facet name="footer" >
-                                        <h:outputText value="" style=" height: inherit; border-radius: 0px; padding: 0px 0px !important;" />
+                                    <f:facet name="footer">
+                                        <h:outputText value="" style=" width: 40px;"/>
                                     </f:facet>
                                 </p:column>
 
@@ -346,7 +346,7 @@
                                                 </f:facet>   
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 180px; margin: -14px; height: 26px; border: none; color: blue" id="fooTipoEmpresa" action="tipoempresa"  value=" "/>
+                                                <p:commandButton style="width: 180px;" id="fooTipoEmpresa" action="tipoempresa"  value=" "/>
                                             </f:facet>
                                         </p:column>
 
@@ -420,7 +420,7 @@
                                                 </f:facet>   
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 530px; margin: -14px; height: 26px; border: none; color: blue" id="fooEvalCompetencias"  value=" "  action="evalcompetencia" />
+                                                <p:commandButton style="width: 530px;" id="fooEvalCompetencias"  value=" "  action="evalcompetencia" />
                                             </f:facet>
                                         </p:column>
                                     </p:dataTable> 
@@ -495,7 +495,7 @@
                                                 </f:facet>   
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 120%; height: inherit; border-radius: 0px; margin-left: -10px; margin-right: -10px " id="fooEnfoque"  action="cargo" value=" "/>
+                                                <p:commandButton style="width: 120%;" id="fooEnfoque"  action="cargo" value=" "/>
                                             </f:facet>
                                         </p:column>
                                     </p:dataTable>  

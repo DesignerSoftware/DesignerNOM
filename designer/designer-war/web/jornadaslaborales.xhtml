@@ -95,8 +95,7 @@
                                         </f:facet> 
                                     </p:cellEditor>
 
-                                    <f:facet name="footer">
-                                    </f:facet>
+                                    <f:facet name="footer"/>
                                 </p:column>
 
                                 <p:column headerText="#{msg['descripcion']}" sortBy="#{JornadasLaborales.descripcion}" filterBy="#{JornadasLaborales.descripcion}" filterMatchMode="contains" id="jornadasLaboralesDescripcion" width="140" filterStyle="display: none; visibility: hidden;" >                                  
@@ -112,8 +111,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
 
-                                    <f:facet name="footer">
-                                    </f:facet>
+                                    <f:facet name="footer"/>
                                 </p:column>
                                 <p:column headerText="#{msg['horasdiarias']}" sortBy="#{JornadasLaborales.horasdiarias}" filterBy="#{JornadasLaborales.horasdiarias}" filterMatchMode="contains" id="jornadasLaboralesHorasDiarias" width="25" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
@@ -132,8 +130,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
 
-                                    <f:facet name="footer">
-                                    </f:facet>
+                                    <f:facet name="footer"/>
                                 </p:column>
                                 <p:column headerText="#{msg['horasmensuales']}" sortBy="#{JornadasLaborales.horasmensuales}" filterBy="#{JornadasLaborales.horasmensuales}" filterMatchMode="contains" id="jornadasLaboralesHorasMensuales" width="25" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
@@ -152,8 +149,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
 
-                                    <f:facet name="footer">
-                                    </f:facet>
+                                    <f:facet name="footer"/>
                                 </p:column>
                                 <!-- -->                               
                                 <p:column headerText="#{msg['rotativo']}" style="width:12px" sortBy="#{JornadasLaborales.rotativo}" filterBy="#{JornadasLaborales.rotativo}" filterMatchMode="exact" id="jornadasLaboralesRotativo" width="20" filterStyle="display: none; visibility: hidden;" >                                  
@@ -194,8 +190,7 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-                                    <f:facet name="footer">
-                                    </f:facet>
+                                    <f:facet name="footer"/>
                                 </p:column>
 
                                 <p:column headerText="#{msg['jornada']}"  sortBy="#{JornadasLaborales.jornada.descripcion}" filterBy="#{JornadasLaborales.jornada.descripcion}" filterMatchMode="contains" id="jornadasLaboralesJornadas" width="80" filterStyle="display: none; visibility: hidden;" >                                  
@@ -212,7 +207,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 130px; margin: -14px; height: 26px;  border: none; color: blue" id="fooJornada" value=" " action="jornada" actionListener="#{controlJornadas.recibirPaginaEntrante('jornadaslaborales')}" />
+                                        <p:commandButton style="width: 130px;" id="fooJornada" value=" " action="jornada" actionListener="#{controlJornadas.recibirPaginaEntrante('jornadaslaborales')}" />
                                     </f:facet>
                                 </p:column>                                
                             </p:dataTable>  
@@ -243,8 +238,7 @@
                                                 <f:selectItem itemLabel="DOMINGO" itemValue="DOMINGO" />
                                                 <p:ajax listener="#{controlJornadasLaborales.seleccionarDia(SemanasLaborales.estadoDia, indiceJS, celda)}" event="change" update="editarDias" />
                                             </p:selectOneMenu>
-                                    <f:facet name="footer">
-                                    </f:facet>
+                                    <f:facet name="footer"/>
                                 </p:column>
 
                                 <p:column headerText="#{msg['horainicial']}"  sortBy="#{SemanasLaborales.horainicial}" filterBy="#{SemanasLaborales.horainicial}" filterMatchMode="contains" id="SemanaLaboralHI" width="20" filterStyle="display: none; visibility: hidden;" >                                  
@@ -264,8 +258,7 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-                                    <f:facet name="footer">
-                                    </f:facet>
+                                    <f:facet name="footer"/>
                                 </p:column>     
 
                                 <p:column headerText="#{msg['minutoinicial']}" style="width:12px" sortBy="#{SemanasLaborales.minutoinicial}" filterBy="#{SemanasLaborales.minutoinicial}" filterMatchMode="contains" id="SemanaLaboralMI" width="20" filterStyle="display: none; visibility: hidden;" >                                  
@@ -285,8 +278,7 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-                                    <f:facet name="footer">
-                                    </f:facet>
+                                    <f:facet name="footer"/>
                                 </p:column>                          
                                 <p:column headerText="#{msg['horainicialalimentacion']}" style="width:12px" sortBy="#{SemanasLaborales.horainicialalimentacion}" filterBy="#{SemanasLaborales.horainicialalimentacion}" filterMatchMode="contains" id="SemanaLaboralHIA" width="20" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
@@ -305,8 +297,7 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-                                    <f:facet name="footer">
-                                    </f:facet>
+                                    <f:facet name="footer"/>
                                 </p:column>                          
                                 <p:column headerText="#{msg['minutoinicialalimentacion']}" style="width:12px" sortBy="#{SemanasLaborales.minutoinicialalimentacion}" filterBy="#{SemanasLaborales.minutoinicialalimentacion}" filterMatchMode="contains" id="SemanaLaboralMIA" width="20" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
@@ -325,8 +316,7 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-                                    <f:facet name="footer">
-                                    </f:facet>
+                                    <f:facet name="footer"/>
                                 </p:column>                          
                                 <p:column headerText="#{msg['horafinalalimentacion']}" style="width:12px" sortBy="#{SemanasLaborales.horafinalalimentacion}" filterBy="#{SemanasLaborales.horafinalalimentacion}" filterMatchMode="contains" id="SemanaLaboralHFA" width="20" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
@@ -345,8 +335,7 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-                                    <f:facet name="footer">
-                                    </f:facet>
+                                    <f:facet name="footer"/>
                                 </p:column>                          
                                 <p:column headerText="#{msg['minutofinalalimentacion']}" style="width:12px" sortBy="#{SemanasLaborales.minutofinalalimentacion}" filterBy="#{SemanasLaborales.minutofinalalimentacion}" filterMatchMode="contains" id="SemanaLaboralMFA" width="20" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
@@ -365,8 +354,7 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-                                    <f:facet name="footer">
-                                    </f:facet>
+                                    <f:facet name="footer"/>
                                 </p:column>                          
                                 <p:column headerText="#{msg['horafinal']}" style="width:12px" sortBy="#{SemanasLaborales.horafinal}" filterBy="#{SemanasLaborales.horafinal}" filterMatchMode="contains" id="SemanaLaboralHoraFinal" width="20" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
@@ -385,8 +373,7 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-                                    <f:facet name="footer">
-                                    </f:facet>
+                                    <f:facet name="footer"/>
                                 </p:column>                          
                                 <p:column headerText="#{msg['minutofinal']}" style="width:12px" sortBy="#{SemanasLaborales.minutofinal}" filterBy="#{SemanasLaborales.minutofinal}" filterMatchMode="contains" id="SemanaLaboralMinutoFinal" width="20" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
@@ -405,8 +392,7 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-                                    <f:facet name="footer">
-                                    </f:facet>
+                                    <f:facet name="footer"/>
                                 </p:column>    
                             </p:dataTable>  
                             <h:outputText id="infoRegistroSL" value="#{controlJornadasLaborales.infoRegistroSL}" style="position: absolute; left: 20px; top: 170px; font-weight: bold"/>

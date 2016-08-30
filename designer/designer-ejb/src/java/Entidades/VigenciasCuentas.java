@@ -28,6 +28,10 @@ public class VigenciasCuentas implements Serializable {
     @Column(name = "FECHAINICIAL")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechainicial;
+    @Column(name = "PROCESO")
+    private BigInteger proceso;
+    @Transient
+    private String nombreProceso;
     @JoinColumn(name = "TIPOCC", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = true)
     private TiposCentrosCostos tipocc;
@@ -166,6 +170,22 @@ public class VigenciasCuentas implements Serializable {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         fechafinal = formatoFecha.parse(strFechaFinal);
         this.strFechaFinal = strFechaFinal;
+    }
+
+    public BigInteger getProceso() {
+        return proceso;
+    }
+
+    public void setProceso(BigInteger proceso) {
+        this.proceso = proceso;
+    }
+
+    public String getNombreProceso() {
+        return nombreProceso;
+    }
+
+    public void setNombreProceso(String nombreProceso) {
+        this.nombreProceso = nombreProceso;
     }
 
     @Override

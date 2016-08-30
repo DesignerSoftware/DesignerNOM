@@ -9,6 +9,7 @@ import Entidades.Cuentas;
 import Entidades.Formulas;
 import Entidades.FormulasConceptos;
 import Entidades.GruposConceptos;
+import Entidades.Procesos;
 import Entidades.ReformasLaborales;
 import Entidades.TiposCentrosCostos;
 import Entidades.TiposContratos;
@@ -20,6 +21,7 @@ import Entidades.VigenciasCuentas;
 import Entidades.VigenciasGruposConceptos;
 import java.math.BigInteger;
 import java.util.List;
+import javax.ejb.Local;
 
 /**
  * Interface encargada de determinar las operaciones lógicas necesarias para la
@@ -323,6 +325,11 @@ public interface AdministrarDetalleConceptoInterface {
      */
     public List<FormulasConceptos> consultarLOVFormulasConceptos();
 
+    /**
+     *
+     * @return
+     */
+    public List<Procesos> consultarLOVProcesos();
     /**
      * Método encargado de recuperar el número de FormulasConceptos asociadas
      * con un concepto específico. Esto con el fin de determinar si se usa el

@@ -866,27 +866,27 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
 //    }
 
     @Override
-    public void crearEmpl_Con_VCargo(BigDecimal codigoEmpleado, BigInteger secPersona, BigInteger secEmpresa,
-            VigenciasCargos vigenciaCargo) {
+    public BigInteger crearEmpl_Con_VCargo(BigDecimal codigoEmpleado, BigInteger secPersona, BigInteger secEmpresa, VigenciasCargos vigenciaCargo) {
         try {
-            persistenciaEmpleado.crearConVCargo(em, codigoEmpleado, secPersona, secEmpresa, vigenciaCargo.getCargo().getSecuencia(),
+            return persistenciaEmpleado.crearConVCargo(em, codigoEmpleado, secPersona, secEmpresa, vigenciaCargo.getCargo().getSecuencia(),
                     vigenciaCargo.getEstructura().getSecuencia(), vigenciaCargo.getFechavigencia(), vigenciaCargo.getMotivocambiocargo().getSecuencia());
         } catch (Exception e) {
             System.err.println(this.getClass().getName() + " Error crearConVCargo() : " + e.toString());
-        }
-    }
-
-    @Override
-    public Empleados obtenerUltimoRegistroEmpleado(BigInteger empresa, BigDecimal codigoEmpleado) {
-        try {
-//            System.out.println("Admin..PersonaInd.. obtenerUltimoRegistroEmpleado() empresa : " + empresa + ",  codigoEmpleado : " + codigoEmpleado);
-            Empleados empleado = persistenciaEmpleado.obtenerUltimoEmpleadoAlmacenado(em, empresa, codigoEmpleado);
-            return empleado;
-        } catch (Exception e) {
-            System.out.println("Error obtenerUltimoRegistroEmpleado Admi : " + e.toString());
             return null;
         }
     }
+
+//    @Override
+//    public Empleados obtenerUltimoRegistroEmpleado(BigInteger empresa, BigDecimal codigoEmpleado) {
+//        try {
+////            System.out.println("Admin..PersonaInd.. obtenerUltimoRegistroEmpleado() empresa : " + empresa + ",  codigoEmpleado : " + codigoEmpleado);
+//            Empleados empleado = persistenciaEmpleado.obtenerUltimoEmpleadoAlmacenado(em, empresa, codigoEmpleado);
+//            return empleado;
+//        } catch (Exception e) {
+//            System.out.println("Error obtenerUltimoRegistroEmpleado Admi : " + e.toString());
+//            return null;
+//        }
+//    }
 
     @Override
     public VigenciasCargos obtenerUltimaVigenciaCargo(BigInteger secEmpleado, BigInteger empresa) {
@@ -899,15 +899,15 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
             return null;
         }
     }
-
-    @Override
-    public void crearVigenciaCargo(VigenciasCargos vigencia) {
-        try {
-            persistenciaVigenciasCargos.crear(em, vigencia);
-        } catch (Exception e) {
-            System.out.println("Error crearVigenciaCargo Admi : " + e.toString());
-        }
-    }
+//
+//    @Override
+//    public void crearVigenciaCargo(VigenciasCargos vigencia) {
+//        try {
+//            persistenciaVigenciasCargos.crear(em, vigencia);
+//        } catch (Exception e) {
+//            System.out.println("Error crearVigenciaCargo Admi : " + e.toString());
+//        }
+//    }
 
     @Override
     public void modificarVigenciaCargo(VigenciasCargos vigencia) {

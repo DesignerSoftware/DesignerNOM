@@ -16,6 +16,8 @@ import javax.persistence.Query;
 import org.omg.CORBA.INTERNAL;
 import Entidades.NovedadesSistema;
 import java.math.BigDecimal;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureQuery;
 //import org.apache.log4j.Logger;
 //import org.apache.log4j.PropertyConfigurator;
 
@@ -40,15 +42,37 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
     }
 
     @Override
-    public void crearConVCargo(EntityManager em, BigDecimal codigoEmpleado, BigInteger secPersona, BigInteger secEmpresa,
+    public BigInteger crearConVCargo(EntityManager em, BigDecimal codigoEmpleado, BigInteger secPersona, BigInteger secEmpresa,
             BigInteger secCargo, BigInteger secEstructura, Date fechaIngreso, BigInteger secMotivoCargo) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
+//             query.registerStoredProcedureParameter("p_nmCodigoEmpleado", BigDecimal.class, ParameterMode.INOUT);
+//            query.registerStoredProcedureParameter("p_nmPersona", BigInteger.class, ParameterMode.IN);
+//            query.registerStoredProcedureParameter("p_nmEmpresa", BigInteger.class, ParameterMode.IN);
+//            query.registerStoredProcedureParameter("p_nmCargo", BigInteger.class, ParameterMode.IN);
+//            query.registerStoredProcedureParameter("p_nmEstructura", BigInteger.class, ParameterMode.IN);
+//            query.registerStoredProcedureParameter("p_dtFechaingreso", Date.class, ParameterMode.IN);
+//            query.registerStoredProcedureParameter("p_nmMotivocargo", BigInteger.class, ParameterMode.IN);
+//
+//            query.setParameter("p_nmCodigoEmpleado", cEmpleado_Sec);
+//            query.setParameter("p_nmPersona", secPersona);
+//            query.setParameter("p_nmEmpresa", secEmpresa);
+//            query.setParameter("p_nmCargo", secCargo);
+//            query.setParameter("p_nmEstructura", secEstructura);
+//            query.setParameter("p_dtFechaingreso", fechaIngreso);
+//            query.setParameter("p_nmMotivocargo", secMotivoCargo);
+//            query.executeUpdate();
         try {
             tx.begin();
-//            String sql = "SELECT CREAR_EMPLEADO_CON_VCARGO(?, ?, ?, ?, ?, ?, ?) FROM DUAL";
-            String sql = "call CREAR_EMPLEADO_CON_VCARGO(?, ?, ?, ?, ?, ?, ?)";
-            Query query = em.createNativeQuery(sql);
+            StoredProcedureQuery query = em.createStoredProcedureQuery("CREAR_EMPLEADO_CON_VCARGO");
+            query.registerStoredProcedureParameter(1, BigDecimal.class, ParameterMode.INOUT);
+            query.registerStoredProcedureParameter(2, BigInteger.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter(3, BigInteger.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter(4, BigInteger.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter(5, BigInteger.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter(6, Date.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter(7, BigInteger.class, ParameterMode.IN);
+
             query.setParameter(1, codigoEmpleado);
             query.setParameter(2, secPersona);
             query.setParameter(3, secEmpresa);
@@ -56,19 +80,26 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
             query.setParameter(5, secEstructura);
             query.setParameter(6, fechaIngreso);
             query.setParameter(7, secMotivoCargo);
+            
 //            query.executeUpdate();
-            query.executeUpdate();
+            query.execute();
+            query.hasMoreResults();
+            BigDecimal empleado_Sec = (BigDecimal)query.getOutputParameterValue(1);
             System.out.println("PersistenciaEmpleados crearConVCargo() se supone creo el empleado con V cargo");
+            System.out.println("crearConVCargo() retorno parametro '" + "'SECUENCIA_EMPLEADO'" + "' : " + empleado_Sec);
+            return empleado_Sec.toBigInteger();
         } catch (Exception e) {
-            System.err.println(this.getClass().getName() + ".crear()");
+            System.err.println(this.getClass().getName() + ".crearConVCargo()");
             System.err.println("error al crear el empleado");
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
             }
-        } finally {
+        }
+        finally {
             tx.commit();
         }
+        return null;
     }
 
     @Override
@@ -745,8 +776,8 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
             return null;
         }
     }
-    
-        @Override
+
+    @Override
     public List<Empleados> empleadosCesantias(EntityManager em) {
         try {
             em.clear();
@@ -809,5 +840,5 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
         }
 
     }
-    
+
 }

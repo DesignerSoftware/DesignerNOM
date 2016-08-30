@@ -96,7 +96,7 @@
                                 <f:event type="preRenderView" listener="#{controlVigenciasViajeros.recordarSeleccion()}"/>
 
                                 <p:column headerText="#{msg['fecha']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains" 
-                                          id="fecha" width="80" filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                          id="fecha" width="80" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor> 
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechavigencia}" style="width: 80px; text-transform: uppercase">
@@ -130,7 +130,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer" >
-                                        <p:commandButton value="" style="width: 780px; margin: -14px; height: 20px; border: none; color: blue" action="tipoviajero" onclick="#{controlTiposViajeros.inicializarLista()}" id="fooViajero" />
+                                        <p:commandButton value="" style="width: 780px;" action="tipoviajero" onclick="#{controlTiposViajeros.inicializarLista()}" id="fooViajero" />
                                     </f:facet>
                                 </p:column>
 

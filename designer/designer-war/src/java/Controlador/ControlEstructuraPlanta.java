@@ -275,10 +275,8 @@ public class ControlEstructuraPlanta implements Serializable {
             }
             if (estructuraSeleccionada.getNombre() == null) {
                 retorno = false;
-            } else {
-                if (estructuraSeleccionada.getNombre().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (estructuraSeleccionada.getNombre().isEmpty()) {
+                retorno = false;
             }
         }
         if (i == 1) {
@@ -287,10 +285,8 @@ public class ControlEstructuraPlanta implements Serializable {
             }
             if (nuevoEstructura.getNombre() == null) {
                 retorno = false;
-            } else {
-                if (nuevoEstructura.getNombre().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (nuevoEstructura.getNombre().isEmpty()) {
+                retorno = false;
             }
         }
         if (i == 2) {
@@ -300,10 +296,8 @@ public class ControlEstructuraPlanta implements Serializable {
             }
             if (duplicarEstructura.getNombre() == null) {
                 retorno = false;
-            } else {
-                if (duplicarEstructura.getNombre().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (duplicarEstructura.getNombre().isEmpty()) {
+                retorno = false;
             }
         }
         return retorno;
@@ -1448,9 +1442,9 @@ public class ControlEstructuraPlanta implements Serializable {
 
     public void asignarIndex(Estructuras estructura, int dlg, int LND) {
         RequestContext context = RequestContext.getCurrentInstance();
+        estructuraSeleccionada = estructura;
         tipoActualizacion = LND;
-
-
+        
         if (dlg == 0) {
             activarLOV = true;
             RequestContext.getCurrentInstance().update("form:listaValores");
@@ -1481,6 +1475,7 @@ public class ControlEstructuraPlanta implements Serializable {
         }
         if (dlg == 1) {
             activarLOV = true;
+            cargarLovEstructurasPadres(organigramaSeleccionado.getSecuencia(), new BigInteger("0"));
             RequestContext.getCurrentInstance().update("form:listaValores");
             modificarInfoRegistroEsPa(lovEstructurasPadres.size());
             context.update("form:EstructuraPadreDialogo");
@@ -1940,12 +1935,10 @@ public class ControlEstructuraPlanta implements Serializable {
     public void verificarRastro() {
         if (organigramaSeleccionado == null && estructuraSeleccionada == null) {
             RequestContext.getCurrentInstance().execute("verificarRastrosTablasH.show()");
-        } else {
-            if (estructuraSeleccionada != null) {
-                verificarRastroEstructura();
-            } else if (organigramaSeleccionado != null) {
-                verificarRastroOrganigrama();
-            }
+        } else if (estructuraSeleccionada != null) {
+            verificarRastroEstructura();
+        } else if (organigramaSeleccionado != null) {
+            verificarRastroOrganigrama();
         }
     }
 

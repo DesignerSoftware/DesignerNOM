@@ -9,6 +9,7 @@ import Entidades.Cuentas;
 import Entidades.Formulas;
 import Entidades.FormulasConceptos;
 import Entidades.GruposConceptos;
+import Entidades.Procesos;
 import Entidades.ReformasLaborales;
 import Entidades.TiposCentrosCostos;
 import Entidades.TiposContratos;
@@ -26,6 +27,7 @@ import InterfacePersistencia.PersistenciaCuentasInterface;
 import InterfacePersistencia.PersistenciaFormulasConceptosInterface;
 import InterfacePersistencia.PersistenciaFormulasInterface;
 import InterfacePersistencia.PersistenciaGruposConceptosInterface;
+import InterfacePersistencia.PersistenciaProcesosInterface;
 import InterfacePersistencia.PersistenciaReformasLaboralesInterface;
 import InterfacePersistencia.PersistenciaSolucionesNodosInterface;
 import InterfacePersistencia.PersistenciaTiposCentrosCostosInterface;
@@ -36,6 +38,7 @@ import InterfacePersistencia.PersistenciaVigenciasConceptosTCInterface;
 import InterfacePersistencia.PersistenciaVigenciasConceptosTTInterface;
 import InterfacePersistencia.PersistenciaVigenciasCuentasInterface;
 import InterfacePersistencia.PersistenciaVigenciasGruposConceptosInterface;
+import Persistencia.PersistenciaProcesos;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
@@ -55,7 +58,6 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
     //--------------------------------------------------------------------------
     //ATRIBUTOS
     //--------------------------------------------------------------------------    
-
     /**
      * Enterprise JavaBeans.<br>
      * Atributo que representa la comunicación con la persistencia
@@ -180,6 +182,9 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
      * Atributo que representa todo lo referente a la conexión del usuario que
      * está usando el aplicativo.
      */
+    @EJB
+    PersistenciaProcesosInterface persistenciaProcesos;
+
     @EJB
     AdministrarSesionesInterface administrarSesiones;
 
@@ -550,6 +555,17 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
         try {
             List<FormulasConceptos> formulas = persistenciaFormulasConceptos.buscarFormulasConceptos(em);
             return formulas;
+        } catch (Exception e) {
+            System.out.println("Error listFormulasConceptos Admi : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public List<Procesos> consultarLOVProcesos() {
+        try {
+            System.out.println("Si entro en consultarLOVProcesos()");
+            return persistenciaProcesos.lovProcesos(em);
         } catch (Exception e) {
             System.out.println("Error listFormulasConceptos Admi : " + e.toString());
             return null;

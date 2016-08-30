@@ -7,6 +7,9 @@ import Entidades.CortesProcesos;
 import InterfacePersistencia.PersistenciaCortesProcesosInterface;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -148,6 +151,34 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
             tx.commit();
         } catch (Exception e) {
             System.out.println("Error cerrarLiquidacion. " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    @Override
+    public void eliminarCPconUndoCierre(EntityManager em, BigInteger proceso, BigInteger rfEmpleado, Date fechaCorte) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            System.out.println(this.getClass().getName() + " Entro en eliminarCPconUndoCierre()");
+            System.out.println("proceso : " + proceso);
+            System.out.println("rfEmpleado : " + rfEmpleado);
+            System.out.println("fechaCorte : " + fechaCorte);
+            DateFormat formatoF = new SimpleDateFormat("ddMMyyyy");
+            String fecha = formatoF.format(fechaCorte);
+            System.out.println("fecha : " + fecha);
+            String sqlQuery = "call CORTESPROCESOS_PKG.UndoCierre(" + proceso + ", " + rfEmpleado + ", To_date( '"+fecha+"', 'ddMMyyyy'))";
+            Query query = em.createNativeQuery(sqlQuery);
+//            query.setParameter(1, proceso);
+//            query.setParameter(2, rfEmpleado);
+//            query.setParameter(3, fecha);
+            query.executeUpdate();
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println(this.getClass().getName() + " Error eliminarCPconUndoCierre() : " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }

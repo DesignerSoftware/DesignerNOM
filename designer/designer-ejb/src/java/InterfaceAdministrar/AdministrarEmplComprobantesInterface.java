@@ -14,6 +14,7 @@ import Entidades.Procesos;
 import Entidades.SolucionesNodos;
 import Entidades.Terceros;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -93,4 +94,6 @@ public interface AdministrarEmplComprobantesInterface {
     public List<Cuentas> lovCuentas();
 
     public List<CentrosCostos> lovCentrosCostos();
+    
+    public void eliminarCPconUndoCierre(BigInteger secProceso, BigInteger secEmpleado, Date fechaCorte);
 }

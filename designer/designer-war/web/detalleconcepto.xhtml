@@ -82,7 +82,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
-                                <p:commandButton id="salir" value="" actionListener="#{controlDetalleConcepto.salir()}" action="retornoConcepto" process="@this"
+                                <p:commandButton id="salir" value="" actionListener="#{controlDetalleConcepto.salir()}" action="#{controlDetalleConcepto.retornarPagina()}" process="@this"
                                                  style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
@@ -100,12 +100,12 @@
                         <fieldset  style="position: absolute; left: 10px; top: 105px; width: 832px; height: 375px; border-radius: 10px; text-align: left;">
                             <legend style="color: blue"><strong>#{msg['asignaciondecuentas']}</strong></legend>
 
-                            <p:scrollPanel id="scrollPrincipal" style="position: absolute; left: 3px; top: 15px; width:846px; height:360px; border: none" mode="native">  
+                            <p:scrollPanel id="scrollPrincipal" style="position: absolute; left: 3px; top: 15px; width: 846px; height: 360px; border: none" mode="native">  
 
-                                <fieldset style="position: absolute; top: -2px; width: 805px; height: 167px; border-radius: 10px; text-align: left">
+                                <fieldset style="position: absolute; top: -2px; width: 805px; height: 168px; border-radius: 10px; text-align: left;">
                                     <legend style="color: blue"><strong>#{msg['cuentasytipocc']}</strong></legend>
 
-                                    <p:dataTable id="datosVigenciaCuenta" widgetVar="datosVigenciaCuenta" var="infoVC" rowKey="#{infoVC.secuencia}" rowIndexVar="indiceVC" style="border: 1px; width: 1270px; font-size: 11px;"   
+                                    <p:dataTable id="datosVigenciaCuenta" widgetVar="datosVigenciaCuenta" var="infoVC" rowKey="#{infoVC.secuencia}" rowIndexVar="indiceVC" style="border: 1px; font-size: 11px;"   
                                                  value="#{controlDetalleConcepto.listVigenciasCuentasConcepto}" scrollable="true" scrollHeight="#{controlDetalleConcepto.altoTablaVigenciaCuenta}" scrollWidth="805"
                                                  filteredValue="#{controlDetalleConcepto.filtrarListVigenciasCuentasConcepto}" emptyMessage="#{msg['vacio']}" selectionMode="single"
                                                  editable="true" editMode="cell" liveScroll="true" scrollRows="10" selection="#{controlDetalleConcepto.vigenciaCuentaSeleccionada}">
@@ -118,7 +118,7 @@
                                                   filterStyle="display: none; visibility: hidden;"  >                                  
                                             <p:cellEditor>  
                                                 <f:facet name="output">
-                                                    <h:outputText value="#{infoVC.fechainicial}" style="text-transform: uppercase">
+                                                    <h:outputText value="#{infoVC.fechainicial}" style="text-transform: uppercase;">
                                                         <f:convertDateTime pattern="dd/MM/yyyy"/>
                                                     </h:outputText>
                                                 </f:facet>  
@@ -157,7 +157,7 @@
                                         </p:column>
 
                                         <p:column headerText="#{msg['tipocc']}" sortBy="#{infoVC.tipocc.nombre}" filterBy="#{infoVC.tipocc.nombre}" 
-                                                  filterMatchMode="contains" id="vigenciaCuentaTipoCC" filterStyle="display: none; visibility: hidden" >                                  
+                                                  filterMatchMode="contains" id="vigenciaCuentaTipoCC" width="120" filterStyle="display: none; visibility: hidden" >                                  
                                             <p:cellEditor>  
                                                 <f:facet name="output"><h:outputText value="#{infoVC.tipocc.nombre}" style="text-transform: uppercase"/></f:facet>  
                                                 <f:facet name="input">
@@ -170,7 +170,7 @@
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooTipoCC" action="tiposcentroscostosdetalleconcepto" actionListener="#{controlTiposCentrosCostos.recibirPaginaAnterior('atrastiposcentroscostosdetalleconcepto')}" value=" "/>
+                                                <p:commandButton style="width: 140px;" id="fooTipoCC" action="tiposcentroscostosdetalleconcepto" actionListener="#{controlTiposCentrosCostos.recibirPaginaAnterior('atrastiposcentroscostosdetalleconcepto')}" value=" "/>
                                             </f:facet>
                                         </p:column>
 
@@ -188,7 +188,7 @@
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooCodDebito" value=" "/>
+                                                <p:commandButton style="width: 90px;" id="fooCodDebito" value=" "/>
                                             </f:facet>
                                         </p:column>
 
@@ -206,7 +206,7 @@
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue;" id="fooDesDebito" value=" "/>
+                                                <p:commandButton style="width: 180px;" id="fooDesDebito" value=" "/>
                                             </f:facet>
                                         </p:column>
 
@@ -224,7 +224,7 @@
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 190px; margin: -14px; height: 26px;  border: none; color: blue" action="centrocostodetalleconcepto" actionListener="#{controlBetaCentrosCostos.recibirPagina('atrascentrocostodetalleconcepto')}" id="fooNombreJornada" value=""/>
+                                                <p:commandButton style="width: 180px;" action="centrocostodetalleconcepto" actionListener="#{controlBetaCentrosCostos.recibirPagina('atrascentrocostodetalleconcepto')}" id="fooNombreJornada" value=""/>
                                             </f:facet>
                                         </p:column>
 
@@ -242,7 +242,7 @@
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooCodCredito" value=" "/>
+                                                <p:commandButton style="width: 90px;" id="fooCodCredito" value=" "/>
                                             </f:facet>
                                         </p:column>
 
@@ -260,7 +260,7 @@
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooDesCredito" value=" "/>
+                                                <p:commandButton style="width: 180px;" id="fooDesCredito" value=" "/>
                                             </f:facet>
                                         </p:column>
 
@@ -269,7 +269,7 @@
                                             <p:cellEditor>  
                                                 <f:facet name="output"><h:outputText value="#{infoVC.consolidadorc.nombre}" style="text-transform: uppercase"/></f:facet>  
                                                 <f:facet name="input">
-                                                    <p:inputText value="#{infoVC.consolidadorc.nombre}"  id="editarCCConsolidadorCVC" style="border-radius: 0px; width: 99%;text-transform: uppercase"> 
+                                                    <p:inputText value="#{infoVC.consolidadorc.nombre}" id="editarCCConsolidadorCVC" style="border-radius: 0px; width: 99%;text-transform: uppercase"> 
                                                         <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 8)}" />
                                                         <p:ajax event="change" update="editarCCConsolidadorCVC" onstart="operacionEnProcesoLovs.show()" oncomplete="operacionEnProcesoLovs.hide()" listener="#{controlDetalleConcepto.modificarVigenciaCuenta(infoVC,'CONSOLIDADORCREDITO',infoVC.consolidadorc.nombre)}" />
                                                         <p:ajax event="dblclick" onstart="operacionEnProcesoLovs.show(); datosVigenciaGrupoConcepto.unselectAllRows(); datosVigenciaConceptoTT.unselectAllRows(); datosVigenciaConceptoTC.unselectAllRows(); datosVigenciaConceptoRL.unselectAllRows(); datosFormulaConcepto.unselectAllRows();"
@@ -278,7 +278,25 @@
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 190px; margin: -14px; height: 26px;  border: none; color: blue" action="centrocostodetalleconcepto" actionListener="#{controlBetaCentrosCostos.recibirPagina('atrascentrocostodetalleconcepto')}" id="fooccconsolidadador" value=""/>
+                                                <p:commandButton style="width: 153px;" action="centrocostodetalleconcepto" actionListener="#{controlBetaCentrosCostos.recibirPagina('atrascentrocostodetalleconcepto')}" id="fooccconsolidadador" value=""/>
+                                            </f:facet>
+                                        </p:column>
+
+                                        <p:column headerText="#{msg['proceso']}" sortBy="#{infoVC.nombreProceso}" filterBy="#{infoVC.nombreProceso}" filterMatchMode="contains" 
+                                                  id="vigenciaCuentaCCProceso" width="120" filterStyle="display: none; visibility: hidden" >                                  
+                                            <p:cellEditor>  
+                                                <f:facet name="output"><h:outputText value="#{infoVC.nombreProceso}" style="text-transform: uppercase;"/></f:facet>  
+                                                <f:facet name="input">
+                                                    <p:inputText value="#{infoVC.nombreProceso}" id="editarCCProceso" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                                        <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 9)}" />
+                                                        <p:ajax event="change" update="editarCCProceso" onstart="operacionEnProcesoLovs.show()" oncomplete="operacionEnProcesoLovs.hide()" listener="#{controlDetalleConcepto.modificarVigenciaCuenta(infoVC,'PROCESO',infoVC.nombreProceso)}" />
+                                                        <p:ajax event="dblclick" onstart="operacionEnProcesoLovs.show(); datosVigenciaGrupoConcepto.unselectAllRows(); datosVigenciaConceptoTT.unselectAllRows(); datosVigenciaConceptoTC.unselectAllRows(); datosVigenciaConceptoRL.unselectAllRows(); datosFormulaConcepto.unselectAllRows();"
+                                                                oncomplete="operacionEnProcesoLovs.hide()" listener="#{controlDetalleConcepto.asignarIndex(9,0,0)}" />
+                                                    </p:inputText>
+                                                </f:facet>  
+                                            </p:cellEditor>
+                                            <f:facet name="footer">
+                                                <h:outputText value=""/>
                                             </f:facet>
                                         </p:column>
                                     </p:dataTable>
@@ -371,7 +389,7 @@
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue;" id="fooDescripciónVGC" value=" "/>
+                                                <p:commandButton style="width: 120%;" id="fooDescripciónVGC" value=" "/>
                                             </f:facet>
                                         </p:column>
 
@@ -447,7 +465,7 @@
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooDescripcionVCTT" value=" "/>
+                                                <p:commandButton style="width: 120%;" id="fooDescripcionVCTT" value=" "/>
                                             </f:facet>
                                         </p:column> 
 
@@ -524,7 +542,7 @@
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooDescripcionVCTC" value=" "/>
+                                                <p:commandButton style="width: 120%;" id="fooDescripcionVCTC" value=" "/>
                                             </f:facet>
                                         </p:column> 
 
@@ -600,7 +618,7 @@
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooDescripcionVCRL" value=" "/>
+                                                <p:commandButton style="width: 120%;" id="fooDescripcionVCRL" value=" "/>
                                             </f:facet>
                                         </p:column> 
 
@@ -676,7 +694,7 @@
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooNombreFC" value=" "/>
+                                                <p:commandButton style="width: 120%;" id="fooNombreFC" value=" "/>
                                             </f:facet>
                                         </p:column> 
 
@@ -717,7 +735,7 @@
                         <p:commandButton style="position: absolute; left: 683px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" disabled="#{controlDetalleConcepto.guardado}" onclick="confirmarGuardar.show();" update=":form:datosVigenciaCuenta"/>
                         <p:commandButton style="position: absolute; left: 773px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlDetalleConcepto.salir()}" action="retornoConcepto"  />
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlDetalleConcepto.salir()}" action="#{controlDetalleConcepto.retornarPagina()}"  />
                     </p:panel>
 
                     <p:dialog id="seleccionarTablaNewReg" header="#{msg['nuevoregistro']}" widgetVar="seleccionarTablaNewReg" resizable="false" draggable="false" modal="true" height="270" width="360" closable="false">  
@@ -1031,6 +1049,42 @@
                                          actionListener="#{controlDetalleConcepto.cancelarCambioCentroCostoCredito()}" process="@this"/>
                     </p:dialog>
 
+                    <p:dialog header="#{msg['proceso']}" widgetVar="ProcesosDialogo" draggable="false" resizable="false" closable="false" 
+                              id="ProcesosDialogo" showEffect="fade" hideEffect="fade" width="431" modal="true" height="350">
+                        <p:dataTable id="lovProceso" widgetVar="lovProceso" style="width: 390px;" var="proceso" value="#{controlDetalleConcepto.lovProcesos}" rowKey="#{proceso.secuencia}"
+                                     selection="#{controlDetalleConcepto.procesoSeleccionadoLOV}" selectionMode="single" scrollable="true" scrollHeight="210" scrollWidth="416"
+                                     filteredValue="#{controlDetalleConcepto.filtrarlovProcesos}" emptyMessage="#{msg['lovvacio']}">              
+                            
+                            <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovProcesos(1)}"/>
+                            <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarCCC"/>
+                            <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarProceso()}"/>
+                            
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar #{msg['proceso']}:" style="position: absolute; left: 27px; top: 14px;"/>  
+                                <p:inputText id="globalFilter" onkeyup="lovCentroCostoC.filter();" style="width: 160px; position: relative; left: 60px;" />  
+                            </f:facet>
+                            <p:column filterBy="#{proceso.codigo}"  filterMatchMode="contains" sortBy="#{proceso.codigo}" filterStyle="width: 85%;" width="70">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['codigoCCC']}" />
+                                </f:facet>
+                                <h:outputText value="#{proceso.codigo}" />
+                            </p:column>
+                            <p:column filterBy="#{proceso.descripcion}" filterMatchMode="contains" sortBy="#{proceso.descripcion}" filterStyle="width: 85%;">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['descripcion']}" />
+                                </f:facet>
+                                <h:outputText value="#{proceso.descripcion}" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroLovProcesos" value="#{msg['infoRegistro']} #{controlDetalleConcepto.infoRegistroLovProcesos}" style="position: relative; left: 10px; top: 5px; font-weight: bold;"/>
+
+                        <p:commandButton icon="ui-icon-check" id="aceptarPro" style="position: relative; left: 135px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlDetalleConcepto.aceptar}" 
+                                         actionListener="#{controlDetalleConcepto.actualizarProceso()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasPro" style="position: relative; left: 135px; top: 15px;" value="#{msg['atras']}" 
+                                         actionListener="#{controlDetalleConcepto.cancelarCambioProceso()}" process="@this"/>
+                    </p:dialog>
+
                     <p:dialog header="#{msg['gruposconceptosGC']}" widgetVar="GruposConceptosDialogo" draggable="false" resizable="false" closable="false" 
                               id="GruposConceptosDialogo" showEffect="fade" hideEffect="fade" width="431" modal="true" height="350">
                         <p:dataTable id="lovGrupoConcepto" style="width: 400px" var="grupoC" value="#{controlDetalleConcepto.lovGruposConceptos}" rowKey="#{grupoC.secuencia}"
@@ -1268,7 +1322,8 @@
                         <h:outputText value="#{msg['operacionProcesoLovs']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="NuevoRegistroVigenciaCuenta" header="#{msg['NuevoRegistroVigenciaCuenta']}" widgetVar="NuevoRegistroVigenciaCuenta" closable="false" resizable="false"  draggable="false" modal="true" height="370" width="410" style="padding: 0px">  
+                    <p:dialog id="NuevoRegistroVigenciaCuenta" header="#{msg['NuevoRegistroVigenciaCuenta']}" widgetVar="NuevoRegistroVigenciaCuenta" closable="false" resizable="false"
+                              draggable="false" modal="true" height="400" width="410" style="padding: 0px;">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
 
@@ -1358,18 +1413,28 @@
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 295px;" 
                                              id="btnNuevoConsoCreVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(6,1,0)}" onstart="operacionEnProcesoLovs.show()" oncomplete="operacionEnProcesoLovs.hide()" update="nuevaConsoliCreVC" process="@this"/>   
                             <p:watermark for="nuevaConsoliCreVC" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>
+
+                            <strong><h:outputText value="*#{msg['proceso']}:" style="position: absolute; top: 330px; left: 50px;"/></strong>
+                            <p:inputText id="nuevoProceso" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.nombreProceso}" style="width: 122px; position: absolute; left: 220px; top: 325px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="dblclick" onstart="operacionEnProcesoLovs.show()" oncomplete="operacionEnProcesoLovs.hide()" listener="#{controlDetalleConcepto.asignarIndex(9,1,0)}"/>
+                                <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'PROCESO',0)}" />
+                                <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('PROCESO', controlDetalleConcepto.nuevaVigenciaCuenta.nombreProceso, 1)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 325px;" 
+                                             id="btnNuevoProceso" value="" actionListener="#{controlDetalleConcepto.asignarIndex(9,1,0)}" onstart="operacionEnProcesoLovs.show()" oncomplete="operacionEnProcesoLovs.hide()" update="nuevaConsoliCreVC" process="@this"/>   
+                            <p:watermark for="nuevoProceso" value="#{msg['proceso']}"/>
                             
-                            <p:commandButton icon="ui-icon-trash"  id="limpiarNVC" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 345px;"
+                            <p:commandButton icon="ui-icon-trash" id="limpiarNVC" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 375px;"
                                              actionListener="#{controlDetalleConcepto.limpiarNuevoVigenciaCuenta()}" update="nuevaVC" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="agregarNVC" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 345px;"
+                            <p:commandButton icon="ui-icon-circle-check" id="agregarNVC" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 375px;"
                                              actionListener="#{controlDetalleConcepto.agregarNuevoVigenciaCuenta()}" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNVC" value="#{msg['cancelar']}" style="position: absolute; left: 288px; top: 345px;"
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNVC" value="#{msg['cancelar']}" style="position: absolute; left: 288px; top: 375px;"
                                              actionListener="#{controlDetalleConcepto.limpiarNuevoVigenciaCuenta()}" 
                                              process="@this" update="nuevaVC" onclick="NuevoRegistroVigenciaCuenta.hide();"/>
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroVigenciaCuenta" header="#{msg['DuplicarRegistroVigenciaCuenta']}" widgetVar="DuplicarRegistroVigenciaCuenta" closable="false" resizable="false" draggable="false" modal="true" height="370" width="410" style="padding: 0px">  
+                    <p:dialog id="DuplicarRegistroVigenciaCuenta" header="#{msg['DuplicarRegistroVigenciaCuenta']}" widgetVar="DuplicarRegistroVigenciaCuenta" closable="false" resizable="false" draggable="false" modal="true" height="400" width="410" style="padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -1461,11 +1526,21 @@
                                              id="btnDuplicaConsoCreVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(6,2,0)}" onstart="operacionEnProcesoLovs.show()" oncomplete="operacionEnProcesoLovs.hide()" update="duplicaConsoliCreVC" process="@this"/>   
                             <p:watermark for="duplicaConsoliCreVC" value="#{msg['ccconsolidadorcuentacreditoWM']}" />
 
-                            <p:commandButton icon="ui-icon-trash" id="limpiarDVC" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 345px;" 
+                            <strong><h:outputText value="*#{msg['proceso']}:" style="position: absolute; top: 330px; left: 50px" /></strong>
+                            <p:inputText id="duplicadoProceso" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.nombreProceso}" style="width: 122px; position: absolute; left: 220px; top: 325px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" onstart="operacionEnProcesoLovs.show()" oncomplete="operacionEnProcesoLovs.hide()" listener="#{controlDetalleConcepto.asignarIndex(9,2,0)}"/>
+                                <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'PROCESO',0)}" />
+                                <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('PROCESO', controlDetalleConcepto.duplicarVigenciaCuenta.nombreProceso, 2)}" />
+                            </p:inputText>
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 325px;" 
+                                             id="btnDuplicaProceso" value="" actionListener="#{controlDetalleConcepto.asignarIndex(9,2,0)}" onstart="operacionEnProcesoLovs.show()" oncomplete="operacionEnProcesoLovs.hide()" update="duplicaConsoliCreVC" process="@this"/>   
+                            <p:watermark for="duplicadoProceso" value="#{msg['proceso']}" />
+
+                            <p:commandButton icon="ui-icon-trash" id="limpiarDVC" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 375px;" 
                                              actionListener="#{controlDetalleConcepto.limpiarDuplicarVigenciaCuenta()}" update="duplicarVC" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="agregarDVC" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 345px;"
+                            <p:commandButton icon="ui-icon-circle-check" id="agregarDVC" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 375px;"
                                              actionListener="#{controlDetalleConcepto.confirmarDuplicarVigenciaCuenta()}" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDVC" value="#{msg['cancelar']}" style="position: absolute; left: 288px; top: 345px;"
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDVC" value="#{msg['cancelar']}" style="position: absolute; left: 288px; top: 375px;"
                                              actionListener="#{controlDetalleConcepto.limpiarDuplicarVigenciaCuenta()}" 
                                              update="duplicarVC" onclick="DuplicarRegistroVigenciaCuenta.hide();" process="@this"/>
                         </p:panel>

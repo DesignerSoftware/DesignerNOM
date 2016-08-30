@@ -91,7 +91,7 @@
                         </p:toolbar> 
 
                         <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
-                            
+
                             <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px" />
                             <h:outputText id="nombreEmpleado" value="#{controlVigenciasCargos.empleado.persona.nombreCompleto}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
@@ -155,7 +155,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 170px; height: inherit; border-radius: 0px; margin-left: -10px; margin-right: -10px " id="fooEstructuras" action="estructura" actionListener="#{controlEstructuraPlanta.inicializarPagina('atrasVcargo')}"/>
+                                        <p:commandButton value="" style="width: 170px;" id="fooEstructuras" action="estructura" actionListener="#{controlEstructuraPlanta.inicializarPagina('atrasVcargo')}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -174,7 +174,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer" >
-                                        <p:commandButton value="" style="width: 170px; height: inherit; border-radius: 0px; margin-left: -10px; margin-right: -10px " action="motivocambiocargo" onclick="#{controlMotivosCambiosCargos.recibirPag('atrasmotivocambiocargo')}" id="fooMotivos" />
+                                        <p:commandButton value="" style="width: 170px;" action="motivocambiocargo" onclick="#{controlMotivosCambiosCargos.recibirPag('atrasmotivocambiocargo')}" id="fooMotivos" />
                                     </f:facet>
                                 </p:column>
 
@@ -193,7 +193,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer" >
-                                        <p:commandButton value="" style="width: 170px; height: inherit; border-radius: 0px; margin-left: -10px; margin-right: -10px " id="fooCargos" actionListener="#{controlCargo.recibirPaginaEntrante('atrasVcargo') }" action="cargo"/>
+                                        <p:commandButton value="" style="width: 170px;" id="fooCargos" actionListener="#{controlCargo.recibirPaginaEntrante('atrasVcargo') }" action="cargo"/>
                                     </f:facet>
                                 </p:column>  
 
@@ -209,7 +209,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer" >
-                                        <p:commandButton value="" style="width: 170px; height: inherit; border-radius: 0px; margin-left: -10px; margin-right: -10px " action="centrocostoemplvigenciacargo" actionListener="#{controlBetaCentrosCostos.recibirPagina('atrascentrocostoemplvigenciacargo')}" id="fooCentrosCostos" />
+                                        <p:commandButton value="" style="width: 170px;" action="centrocostoemplvigenciacargo" actionListener="#{controlBetaCentrosCostos.recibirPagina('atrascentrocostoemplvigenciacargo')}" id="fooCentrosCostos" />
                                     </f:facet>
                                 </p:column>
 
@@ -227,7 +227,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer" >
-                                        <p:commandButton value="" style="width: 170px; height: inherit; border-radius: 0px; margin-left: -10px; margin-right: -10px " id="fooJefe" />
+                                        <p:commandButton value="" style="width: 170px;" id="fooJefe" />
                                     </f:facet>
 
                                 </p:column>
@@ -359,7 +359,7 @@
                                 <p:ajax event="rowSelect" listener="#{controlVigenciasCargos.activarAceptar()}" update=":form:aceptarC"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasCargos.actualizarCargo()}" 
                                         oncomplete="dlgCargos.hide(), lOVCargos.clearFilters()" update=":form:dlgCargos" process="@this" />
-                                
+
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 15px"/>  
                                     <p:inputText id="globalFilter" value="#{filtrado}" onkeyup="lOVCargos.filter();" style="width:150px; position: relative; left: -40px;" />  
@@ -536,7 +536,20 @@
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
-                    
+
+<!--                    <style>
+                        .ui-datatable-scrollable .ui-datatable-scrollable-footer {
+                            /*position: rela;*/
+                            height: 11px;
+                        }
+                        .ui-datatable-scrollable .ui-datatable-scrollable-footer button {
+                            top: -7px;
+                            height: 20px;
+                            border-radius: 0px;
+                            margin-left: -10px; 
+                            margin-right: -10px;
+                        }
+                    </style>-->
 
                     <!-- Hotkey Ctrl + F11 -->
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlVigenciasCargos.activarCtrlF11()}"/> 

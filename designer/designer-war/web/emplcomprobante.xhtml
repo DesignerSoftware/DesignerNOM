@@ -14,7 +14,7 @@
                 <h:form id="form"> 
 
                     <f:loadBundle basename="Recursos.emplcomprobante" var="msg" />
-                    <p:growl id="growl" showDetail="true"/> 
+                    <p:growl id="growl" showDetail="true"/>
 
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" > 
 
@@ -76,7 +76,8 @@
 
                         <fieldset style="position: absolute; left: 5px; top: 70px; width: 215px; height: 119px; border-radius: 10px; padding-top: 0px;">
                             <legend style=" font-weight: bold; color: #00F;">#{msg['empleado']}</legend>
-                            <p:commandButton id="btnComprobante" value="" style="background-size: 100% 100%; position: relative; background-image: url(Imagenes/Iconos/salir.png);  top: 5px; width: 50px; height: 50px; background-repeat: no-repeat; border: none;"/>
+                            <p:commandButton id="btnComprobante" value="" actionListener="#{controlEmplComprobantes.eliminarComprobantegeneral}" process="@this"
+                                             style="background-size: 100% 100%; position: relative; background-image: url(Imagenes/Iconos/salir.png);  top: 5px; width: 50px; height: 50px; background-repeat: no-repeat; border: none;"/>
                             <h:outputText value="#{msg['boton']}" style="font-size:11px; font-weight: bold; width: 155px; text-align: justify; position: absolute; left: 65px; margin-top: 7px;"/>
                             <p:inputText value="#{controlEmplComprobantes.empleado.persona.nombreCompleto}" style="position: relative; top: 30px; width: 206px; color: #BF1A1A; font-weight: bold; text-align: center; height: 10px; font-size: smaller;" readonly="true" />
                         </fieldset>
@@ -94,7 +95,7 @@
 
                                 <p:ajax event="filter" listener="#{controlEmplComprobantes.eventoFiltrarComponentes()}"/>
 
-                                <p:column headerText="#{msg['numero']}" sortBy="#{comprobante.numero}" filterBy="#{comprobante.numero}" filterMatchMode="contains"  width="40" id="numeroComprobanteC"  filterStyle="display: none; visibility: hidden;">  
+                                <p:column headerText="#{msg['numero']}" sortBy="#{comprobante.numero}" filterBy="#{comprobante.numero}" filterMatchMode="contains" id="numeroComprobanteC"  filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{comprobante.numero}"/>
@@ -133,12 +134,12 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column width="19" sortBy="#{comprobante.entregado}" filterBy="#{comprobante.entregado}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-top: 1px; padding-left: 0px; padding-right: 0px">
+                                <p:column width="10" sortBy="#{comprobante.entregado}" filterBy="#{comprobante.entregado}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-top: 1px; padding-left: 0px; padding-right: 0px">
                                     <f:facet name="header">
                                         <h:outputText id="textTT" value="..."/>
                                         <p:tooltip  for="textTT" value="#{msg['textTT']}" />
                                     </f:facet>  
-                                    <p:selectBooleanCheckbox id="editarRetroactivo" style="position: relative; height: 9px;top: -2px;" value="#{comprobante.checkEntregado}">
+                                    <p:selectBooleanCheckbox id="editarRetroactivo" style="position: relative; height: 9px; margin-top: 1px; margin-left: -9px; margin-right: -9px;" value="#{comprobante.checkEntregado}">
                                         <p:ajax event="change" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" process="@this"/>
                                     </p:selectBooleanCheckbox> 
                                     <f:facet name="footer">
@@ -239,7 +240,7 @@
                                         <p:column width="20" style="text-align: center; padding: 0px !important;" > 
                                             <p:commandButton value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 19px; height: 19px" actionListener="#{controlEmplComprobantes.parcialSolucionNodo(indiceEM, 0)}"/>
                                             <f:facet name="footer">
-                                                <h:outputText value="" style=" height: inherit; border-radius: 0px; margin-left: -10px; margin-right: -10px; width: 0px; padding: 0px;"/>
+                                                <h:outputText value="" style="width: 0px;"/>
                                             </f:facet>
                                         </p:column>
 
@@ -353,7 +354,7 @@
                                                 </f:facet>
                                             </p:cellEditor>
                                             <f:facet name="footer">
-                                                <p:commandButton style="width: 190px; margin: -14px; height: 26px;  border: none; color: blue" action="centrocostoEmplComprobante" actionListener="#{controlBetaCentrosCostos.recibirPagina('atrascentrocostoEmplComprobante')}" id="fooNombreJornada" value=""/>
+                                                <p:commandButton style="width: 190px;" action="centrocostoEmplComprobante" actionListener="#{controlBetaCentrosCostos.recibirPagina('atrascentrocostoEmplComprobante')}" id="fooNombreJornada" value=""/>
                                             </f:facet>
                                             <f:facet name="footer">
                                                 <h:outputText value=""/>
@@ -448,7 +449,7 @@
                                         <p:column width="20" style="padding: 0px !important; height: 18px; width: 18px;"> 
                                             <p:commandButton value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 19px; height: 19px" actionListener="#{controlEmplComprobantes.parcialSolucionNodo(indiceER, 1)}"/>
                                             <f:facet name="footer">
-                                                <h:outputText value="" style="height: inherit; border-radius: 0px; margin-left: -10px; margin-right: -10px; width: 0px; padding: 0px;"/>
+                                                <h:outputText value="" style="width: 0px;"/>
                                             </f:facet>
                                         </p:column>
 
@@ -645,6 +646,13 @@
                     </p:panel>
 
                     <style>
+                        
+                        .ui-datatable tbody td, .ui-datatable tfoot td{
+                            padding: 0px 10px !important;
+                        }
+                        .ui-datatable thead th{
+                            padding: 4px 10px !important;
+                        }
                         /*                        .tablaScrollInteligente {
                                                     font-size: 10px;
                                                     border: none;

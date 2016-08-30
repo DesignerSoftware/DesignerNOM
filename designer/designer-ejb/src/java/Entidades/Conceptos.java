@@ -540,7 +540,8 @@ public class Conceptos implements Serializable {
     public String getInfoDetalleConcepto() {
         getNaturalezaConcepto();
         if (codigo != null && descripcion != null && naturalezaConcepto != null) {
-            infoDetalleConcepto = codigo + " - " + descripcion + " - " + naturalezaConcepto + "/ Tiene comportamiento: ";
+//            infoDetalleConcepto = codigo + " - " + descripcion + " - " + naturalezaConcepto + " / Tiene comportamiento: ";
+            infoDetalleConcepto = codigo + " - " + descripcion + " - " + naturalezaConcepto + " / ";
         } else {
             infoDetalleConcepto = "";
         }

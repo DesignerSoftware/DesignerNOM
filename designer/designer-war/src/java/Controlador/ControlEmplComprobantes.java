@@ -1262,15 +1262,13 @@ public class ControlEmplComprobantes implements Serializable {
                     }
                     listaComprobantes.remove(comprobanteSeleccionado);
                     modificacionesComprobantes = true;
+                } else if (!listaComprobantesCrear.isEmpty() && listaComprobantesCrear.contains(comprobanteSeleccionado)) {
+                    int crearIndex = listaComprobantesCrear.indexOf(comprobanteSeleccionado);
+                    listaComprobantesCrear.remove(crearIndex);
+                    listaComprobantes.remove(comprobanteSeleccionado);
+                    modificacionesComprobantes = true;
                 } else {
-                    if (!listaComprobantesCrear.isEmpty() && listaComprobantesCrear.contains(comprobanteSeleccionado)) {
-                        int crearIndex = listaComprobantesCrear.indexOf(comprobanteSeleccionado);
-                        listaComprobantesCrear.remove(crearIndex);
-                        listaComprobantes.remove(comprobanteSeleccionado);
-                        modificacionesComprobantes = true;
-                    } else {
-                        context.execute("errorBorrarComprobante.show();");
-                    }
+                    context.execute("errorBorrarComprobante.show();");
                 }
                 if (tipoListaComprobantes == 1) {
                     filtradolistaComprobantes.remove(comprobanteSeleccionado);
@@ -1289,14 +1287,12 @@ public class ControlEmplComprobantes implements Serializable {
                     }
                     listaCortesProcesos.remove(cortesProcesosSeleccionado);
                     modificacionesCortesProcesos = true;
+                } else if (!listaCortesProcesosCrear.isEmpty() && listaCortesProcesosCrear.contains(cortesProcesosSeleccionado)) {
+                    listaCortesProcesosCrear.remove(cortesProcesosSeleccionado);
+                    listaCortesProcesos.remove(cortesProcesosSeleccionado);
+                    modificacionesCortesProcesos = true;
                 } else {
-                    if (!listaCortesProcesosCrear.isEmpty() && listaCortesProcesosCrear.contains(cortesProcesosSeleccionado)) {
-                        listaCortesProcesosCrear.remove(cortesProcesosSeleccionado);
-                        listaCortesProcesos.remove(cortesProcesosSeleccionado);
-                        modificacionesCortesProcesos = true;
-                    } else {
-                        context.execute("errorBorrarCortesProcesos.show();");
-                    }
+                    context.execute("errorBorrarCortesProcesos.show();");
                 }
                 if (tipoListaCortesProcesos == 1) {
                     filtradolistaCortesProcesos.remove(cortesProcesosSeleccionado);
@@ -1321,16 +1317,14 @@ public class ControlEmplComprobantes implements Serializable {
                 if (comprobanteSeleccionado != null) {
                     context.execute("NuevoRegistroPagina.show()");
                 }
-            } else {
-                if (tipoTabla == 0) {
-                    BigInteger sugerenciaNumero = administrarComprobantes.consultarMaximoNumeroComprobante().add(new BigInteger("1"));
-                    nuevoComprobante.setNumero(sugerenciaNumero);
-                    context.update("formularioDialogos:nuevoComprobante");
-                    context.execute("NuevoRegistroComprobantes.show()");
-                } else if (tipoTabla == 1) {
-                    context.update("formularioDialogos:nuevoCorteProceso");
-                    context.execute("NuevoRegistroCortesProcesos.show()");
-                }
+            } else if (tipoTabla == 0) {
+                BigInteger sugerenciaNumero = administrarComprobantes.consultarMaximoNumeroComprobante().add(new BigInteger("1"));
+                nuevoComprobante.setNumero(sugerenciaNumero);
+                context.update("formularioDialogos:nuevoComprobante");
+                context.execute("NuevoRegistroComprobantes.show()");
+            } else if (tipoTabla == 1) {
+                context.update("formularioDialogos:nuevoCorteProceso");
+                context.execute("NuevoRegistroCortesProcesos.show()");
             }
         } else {
             BigInteger sugerenciaNumero = administrarComprobantes.consultarMaximoNumeroComprobante().add(new BigInteger("1"));
@@ -1894,6 +1888,40 @@ public class ControlEmplComprobantes implements Serializable {
         } catch (Exception e) {
             System.out.println("Error guardarCambiosComprobantes Controlador: " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Comprobante, intente nuevamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            context.update("form:growl");
+        }
+    }
+
+    public void eliminarComprobantegeneral() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        System.out.println("Entro en eliminarComprobantegeneral()");
+        try {
+            System.out.println("cortesProcesosSeleccionado : " + cortesProcesosSeleccionado);
+            if(cortesProcesosSeleccionado != null){
+            administrarComprobantes.eliminarCPconUndoCierre(cortesProcesosSeleccionado.getSecuencia(), secuenciaEmpleado, cortesProcesosSeleccionado.getCorte());
+            listaComprobantes.clear();
+            listaComprobantes = administrarComprobantes.consultarComprobantesEmpleado(empleado.getSecuencia());
+            if (listaComprobantes != null) {
+                if (!listaComprobantes.isEmpty()) {
+                    comprobanteSeleccionado = listaComprobantes.get(0);
+                    cargarListasConComprobante();
+                }
+            }
+            guardado = true;
+            modificacionesComprobantes = false;
+            context.update("form:datosComprobantes");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            k = 0;
+            FacesMessage msg = new FacesMessage("Información", "El Comprobante se elimino con Éxito.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            context.update("form:growl");
+            } else{
+                context.execute("seleccionarRegistro.show()");
+            }
+        } catch (Exception e) {
+            System.out.println("Error eliminarComprobantegeneral Controlador: " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error al eliminar el Comprobante.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             context.update("form:growl");
         }

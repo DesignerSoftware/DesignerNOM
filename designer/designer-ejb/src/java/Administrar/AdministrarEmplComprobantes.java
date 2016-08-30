@@ -25,6 +25,7 @@ import InterfacePersistencia.PersistenciaProcesosInterface;
 import InterfacePersistencia.PersistenciaSolucionesNodosInterface;
 import InterfacePersistencia.PersistenciaTercerosInterface;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
@@ -211,7 +212,6 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
         } catch (Exception e) {
             System.out.println("Error borrarCortesProcesos" + e);
         }
-
     }
 
     @Override
@@ -250,5 +250,15 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
     @Override
     public List<CentrosCostos> lovCentrosCostos() {
         return persistenciaCentrosCostos.buscarCentrosCostos(em);
+    }
+    
+    @Override
+    public void eliminarCPconUndoCierre(BigInteger secProceso, BigInteger secEmpleado, Date fechaCorte){
+        try {
+            System.out.println("Entro en eliminarCPconUndoCierre()");
+            persistenciaCortesProcesos.eliminarCPconUndoCierre(em, secProceso, secEmpleado, fechaCorte);
+        } catch (Exception e) {
+            System.out.println(this.getClass().getName() + " Error eliminarCPconUndoCierre : " + e);
+        }
     }
 }

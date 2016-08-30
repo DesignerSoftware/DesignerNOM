@@ -21,7 +21,7 @@ public interface PersistenciaEmpleadoInterface {
      */
     public void crear(EntityManager em, Empleados empleados);
 
-    public void crearConVCargo(EntityManager em, BigDecimal codigoEmpleado, BigInteger secPersona, BigInteger secEmpresa,
+    public BigInteger crearConVCargo(EntityManager em, BigDecimal codigoEmpleado, BigInteger secPersona, BigInteger secEmpresa,
             BigInteger secCargo, BigInteger secEstructura, Date fechaIngreso, BigInteger motivoCargo);
 
     /**

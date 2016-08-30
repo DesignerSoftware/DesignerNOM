@@ -945,10 +945,10 @@
 
                     <!-- L.O.V Empleado-->
                     <p:dialog header="#{msg['buscar']}" widgetVar="empleadosDialogo" draggable="false" resizable="false" id="empleadosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="550" height="350" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="645" height="335" >
 
                         <p:dataTable  id="LOVEmpleados" style=" width: 600px" var="emp" value="#{controlNovedadesEmpleados.lovEmpleados}"
-                                      scrollable="true" scrollHeight="200" scrollWidth="520" widgetVar="LOVEmpleados" selectionMode="single"
+                                      scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVEmpleados" selectionMode="single"
                                       filteredValue="#{controlNovedadesEmpleados.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{emp.id}" selection="#{controlNovedadesEmpleados.empleadoSeleccionadoLov}">
 

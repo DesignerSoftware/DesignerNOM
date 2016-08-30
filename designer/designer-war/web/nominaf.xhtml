@@ -20,25 +20,6 @@
 
                             <p:tab id="personal" title="#{msg['personal']}" >  
 
-                                <p:commandButton id="listavalores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 300px; top: 103px; z-index: 1; border: none;" 
-                                                 process="@this" actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" styleClass="bticon"/>
-                                <p:tooltip  for="listavalores" value="#{msg['lista']}" />
-                                <p:commandButton id="exportarxls" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 330px; top: 103px; z-index: 1; border: none;" 
-                                                 actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}"   ajax="false" styleClass="bticon">
-                                    <p:dataExporter type="xls"  target=":formexportar:empleadosexportar" fileName="PersonalXLS" encoding="UTF-8"/>
-                                </p:commandButton>
-                                <p:tooltip  for="exportarxls" value="#{msg['xls']}" />
-                                <p:commandButton id="exportarxml" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 360px; top: 103px; z-index: 1; border: none;" 
-                                                 actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" ajax="false" styleClass="bticon">
-                                    <p:dataExporter type="xml"  target=":formexportar:empleadosexportar" fileName="PersonalXML" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip  for="exportarxml" value="#{msg['xml']}" />
-                                <p:commandButton id="exportarpdf" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 390px; top: 103px; z-index: 1; border: none;" 
-                                                 actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}"  ajax="false" styleClass="bticon">
-                                    <p:dataExporter type="pdf"  target=":formexportar:empleadosexportar" fileName="PersonalPDF" encoding="UTF-8"/>
-                                </p:commandButton>
-                                <p:tooltip  for="exportarpdf" value="#{msg['pdf']}" />
-
                                 <!-- Panel Izquierdo - Superior -->
 
                                 <fieldset style="height: 92px; width: 148px; display: block; position: absolute; border-radius: 10px; top: 40px; left: 15px; padding-right: 8px; padding-bottom: 0px; padding-top:0px;">
@@ -49,21 +30,24 @@
                                         #{msg['cargosdesempenados1']} <br/> #{msg['cargosdesempenados2']}
                                     </p:tooltip>
                                     <p:commandButton id="activos" value="#{msg['activos']}" style="position: absolute; width: 110px; height: 20px; left: 50px; top: 7px; font-size: 11px; border: none;" 
-                                                     styleClass="#{controlRemoto.styleActivos}" 
-                                                     actionListener="#{controlRemoto.activos()}" update=":form:tabmenu:contenedor, :form:alerta, tipopersonal" />
-                                    <p:tooltip  for="activos" value="#{msg['informacionactivos']}"  />
+                                                     styleClass="#{controlRemoto.styleActivos}" actionListener="#{controlRemoto.activos()}" 
+                                                     update=":form:tabmenu:contenedor, :form:alerta, tipopersonal, tooltipActivos, tooltippencionados, tooltipRetirados, tooltipAspirantes" />
+                                    <p:tooltip id="tooltipActivos" for="activos" value="#{msg['informacionactivos']}"/>
 
                                     <p:commandButton id="pensionados" value="#{msg['pensionados']}" style="position: absolute; left: 50px; top: 27px; width: 110px; height: 20px; font-size: 11px; padding: 0; border: none;" 
-                                                     styleClass="#{controlRemoto.stylePensionados}" actionListener="#{controlRemoto.pensionados()}" update="contenedor, :form:alerta, tipopersonal"/>
-                                    <p:tooltip  for="pensionados" value="#{msg['informacionpensionados']}"  />
+                                                     styleClass="#{controlRemoto.stylePensionados}" actionListener="#{controlRemoto.pensionados()}"
+                                                     update="contenedor, :form:alerta, tipopersonal, tooltipActivos, tooltippencionados, tooltipRetirados, tooltipAspirantes"/>
+                                    <p:tooltip id="tooltippencionados" for="pensionados" value="#{msg['informacionpensionados']}"/>
 
                                     <p:commandButton id="retirados" value="#{msg['retirados']}" style="position: absolute; left: 50px; top: 47px; width: 110px; height: 20px; font-size: 11px; border: none;" 
-                                                     styleClass="#{controlRemoto.styleRetirados}" actionListener="#{controlRemoto.retirados()}" update="contenedor, :form:alerta, tipopersonal"/>
-                                    <p:tooltip  for="retirados" value="#{msg['informacionretirados']}"  />
+                                                     styleClass="#{controlRemoto.styleRetirados}" actionListener="#{controlRemoto.retirados()}"
+                                                     update="contenedor, :form:alerta, tipopersonal, tooltipActivos, tooltippencionados, tooltipRetirados, tooltipAspirantes"/>
+                                    <p:tooltip id="tooltipRetirados" for="retirados" value="#{msg['informacionretirados']}"/>
 
-                                    <p:commandButton id="aspirantes" value="#{msg['aspirantes']}"  style="position: absolute; left: 50px; top: 67px; width: 110px; height: 20px; font-size: 11px; border: none;" 
-                                                     styleClass="#{controlRemoto.styleAspirantes}" actionListener="#{controlRemoto.aspirantes()}" update="contenedor, :form:alerta, tipopersonal"/>
-                                    <p:tooltip  for="aspirantes" value="#{msg['informacionaspirantes']}"  />
+                                    <p:commandButton id="aspirantes" value="#{msg['aspirantes']}" style="position: absolute; left: 50px; top: 67px; width: 110px; height: 20px; font-size: 11px; border: none;" 
+                                                     styleClass="#{controlRemoto.styleAspirantes}" actionListener="#{controlRemoto.aspirantes()}" 
+                                                     update="contenedor, :form:alerta, tipopersonal, tooltipActivos, tooltippencionados, tooltipRetirados, tooltipAspirantes"/>
+                                    <p:tooltip id="tooltipAspirantes" for="aspirantes" value="#{msg['informacionaspirantes']}"/>
                                 </fieldset>
 
                                 <p:panel id="contenedor" style="border: none">
@@ -89,12 +73,12 @@
                                         <p:commandButton id="buscarlaboral" style="left: 9px; top: 60px; width: 30px; height: 30px; background-image: url(Imagenes/Iconos/buscarlaboral1.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
                                                          value="" action="busquedaAvanzada"  actionListener="#{controlBusquedaAvanzada2.recibirTipoBusqueda(0)}" 
                                                          styleClass="cssBotonesEmpleado"/>
-                                        <p:tooltip  for="buscarlaboral" value="#{msg['badl']}"  />
-                                        <p:commandButton id="buscarpersonal" style="left: 39px; top: 60px; width: 30px; height: 30px; background-image: url(Imagenes/Iconos/buscarpersonal1.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                        <p:tooltip  for="buscarlaboral" value="#{msg['bad2']}"  />
+<!--                                        <p:commandButton id="buscarpersonal" style="left: 39px; top: 60px; width: 30px; height: 30px; background-image: url(Imagenes/Iconos/buscarpersonal1.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
                                                          value="" action="busquedaAvanzada"  actionListener="#{controlBusquedaAvanzada2.recibirTipoBusqueda(1)}" 
                                                          styleClass="cssBotonesEmpleado"/>
-                                        <p:tooltip  for="buscarpersonal" value="#{msg['badp']}"  />
-                                        <p:commandButton id="busquedarapida" style="left: 69px; top: 60px; width: 30px; height: 30px; background-image: url(Imagenes/Iconos/buscarrapida1.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                        <p:tooltip  for="buscarpersonal" value="#{msg['badp']}"  />-->
+                                        <p:commandButton id="busquedarapida" style="left: 39px; top: 60px; width: 30px; height: 30px; background-image: url(Imagenes/Iconos/buscarrapida1.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
                                                          value="" actionListener="#{controlRemoto.requerirBusquedaRapida()}" update=":form:lvbusquedarapida"
                                                          styleClass="cssBotonesEmpleado"/>
                                         <p:tooltip  for="busquedarapida" value="#{msg['br']}"  />
@@ -198,7 +182,7 @@
                                         <p:commandButton id="tipoviajero" value="" style="position: absolute; background-image: url(Imagenes/Iconos/tipoViajero.png); width: 40px; height: 40px; top: 230px; left: 5px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" disabled="#{controlRemoto.acumulado}"  actionListener="#{controlVigenciasViajeros.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresesPosicion.empleado.secuencia)}" action="vigenciaviajero"
                                                          styleClass="bticon"/>
                                         <p:tooltip  for="tipoviajero">
-                                            #{msg['TipoViajero1']}<br/>#{msg['TipoViajero2']}
+                                            <!--#/{msg['TipoViajero1']}<br/>#/{msg['TipoViajero2']}-->
                                         </p:tooltip>
 
                                         <p:commandButton id="centrodecosto" value="" style="position: absolute; background-image: url(Imagenes/Iconos/centroCosto.png); width: 40px; height: 40px; top: 5px; background-repeat: no-repeat; background-size: 100% 100%; left: 280px; border: none;" action="VigenciaLocalizacion" actionListener="#{controlVigenciaLocalizacion.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresesPosicion.empleado)}" disabled="#{controlRemoto.acumulado}"
@@ -297,7 +281,26 @@
                                         <p:inputText id="vcomprobantes" style="position: absolute; left: 595px; top: 245px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.actualComprobante}"/>
                                     </fieldset>
                                 </p:panel>
-
+                                
+                                <p:commandButton id="listavalores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 270px; top: 103px; z-index: 1; border: none;" 
+                                                 process="@this" actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" styleClass="bticon"/>
+                                <p:tooltip  for="listavalores" value="#{msg['lista']}" />
+                                <p:commandButton id="exportarxls" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 300px; top: 103px; z-index: 1; border: none;" 
+                                                 actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}"   ajax="false" styleClass="bticon">
+                                    <p:dataExporter type="xls"  target=":formexportar:empleadosexportar" fileName="PersonalXLS" encoding="UTF-8"/>
+                                </p:commandButton>
+                                <p:tooltip  for="exportarxls" value="#{msg['xls']}" />
+                                <p:commandButton id="exportarxml" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 330px; top: 103px; z-index: 1; border: none;" 
+                                                 actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" ajax="false" styleClass="bticon">
+                                    <p:dataExporter type="xml"  target=":formexportar:empleadosexportar" fileName="PersonalXML" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarxml" value="#{msg['xml']}" />
+                                <p:commandButton id="exportarpdf" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 360px; top: 103px; z-index: 1; border: none;" 
+                                                 actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}"  ajax="false" styleClass="bticon">
+                                    <p:dataExporter type="pdf"  target=":formexportar:empleadosexportar" fileName="PersonalPDF" encoding="UTF-8"/>
+                                </p:commandButton>
+                                <p:tooltip  for="exportarpdf" value="#{msg['pdf']}" />
+                                
                                 <p:panel id="panelinf" style="position: absolute; top:423px; left:0px; padding: 0px; width: 849px; border: none; background: transparent;" >
 
                                     <!-- Panel Acumulados y Novedades -->
