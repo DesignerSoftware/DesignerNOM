@@ -6,6 +6,7 @@
 package InterfacePersistencia;
 
 import Entidades.ParametrosAutoliq;
+import Entidades.ParametrosCorreccionesAutoL;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -24,5 +25,7 @@ public interface PersistenciaParametrosAutoliqInterface {
     public List<ParametrosAutoliq> consultarParametrosAutoliq(EntityManager em);
 
     public List<ParametrosAutoliq> consultarParametrosAutoliqPorEmpresas(EntityManager em);
+    
+   
 
 }

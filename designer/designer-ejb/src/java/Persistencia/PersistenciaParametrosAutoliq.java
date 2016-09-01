@@ -1,6 +1,7 @@
 package Persistencia;
 
 import Entidades.ParametrosAutoliq;
+import Entidades.ParametrosCorreccionesAutoL;
 import InterfacePersistencia.PersistenciaParametrosAutoliqInterface;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -90,4 +91,6 @@ public class PersistenciaParametrosAutoliq implements PersistenciaParametrosAuto
             return null;
         }
     }
+
+   
 }

@@ -92,6 +92,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
 
                                 </p:column>
                                 <p:column headerText="Descripción" sortBy="#{capitulo.descripcion}" filterBy="#{capitulo.descripcion}" filterMatchMode="contains" id="descripcionCapitulo" width="160" filterStyle="display: none; visibility: hidden;" >                                  
@@ -104,7 +107,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                             </p:dataTable>
                             <h:outputText id="infoRegistroCapitulo" value="#{msg['infoRegistros']} #{controlDiagnosticosCategorias.infoRegistroCapitulos}" style="position: absolute; left: 10px; top: 110px; font-weight: bold"/>
@@ -127,7 +132,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <p:column headerText="Descripción" sortBy="#{seccion.descripcion}" filterBy="#{seccion.descripcion}" filterMatchMode="contains" id="descripcionSeccion" width="160" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
@@ -139,7 +146,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                             </p:dataTable>
                             <h:outputText id="infoRegistroSeccion" value="#{msg['infoRegistros']} #{controlDiagnosticosCategorias.infoRegistroSecciones}" style="position: absolute; left: 10px; top: 110px; font-weight: bold"/>
@@ -164,7 +173,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <p:column headerText="Descripción" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="160" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
@@ -176,7 +187,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                             </p:dataTable>
                             <h:outputText id="infoRegistroCategoria" value="#{msg['infoRegistros']} #{controlDiagnosticosCategorias.infoRegistroCategorias}" style="position: absolute; left: 20px; top: 115px; font-weight: bold"/>
@@ -406,8 +419,8 @@
                         <h:outputText value=" #{controlDiagnosticosCategorias.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
                         <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" icon="ui-icon-check" style="position: absolute; top: 40px; left: 200px" process="@this" />
                     </p:dialog>
-                    
-                 <p:dialog id="seleccionarTablaNewReg" header="Nuevo Registro" widgetVar="seleccionarTablaNewReg"  resizable="false" draggable="false" modal="true" height="260" width="360"  closable="false">  
+
+                    <p:dialog id="seleccionarTablaNewReg" header="Nuevo Registro" widgetVar="seleccionarTablaNewReg"  resizable="false" draggable="false" modal="true" height="260" width="360"  closable="false">  
                         <h:outputText value="Seleccione la tabla en la cual quiere insertar el nuevo Registro" style="color: blue; position: absolute; left: 15px; top: 10px; font-weight:bold; text-align: center" />
                         <p:commandButton value="Capítulos" style="position: absolute; left: 90px; top: 55px; font-weight:bold; width: 180px; text-align: center" process="@this"  actionListener="#{controlDiagnosticosCategorias.mostrarDialogoInsertarCapitulo()}" onclick="seleccionarTablaNewReg.hide()" />
                         <p:commandButton value="Secciones" style="position: absolute; left: 90px; top: 85px; font-weight:bold; width: 180px; text-align: center" process="@this" actionListener="#{controlDiagnosticosCategorias.mostrarDialogoInsertarSeccion()}" onclick="seleccionarTablaNewReg.hide()" />
@@ -448,8 +461,8 @@
                 </h:form>
 
                 <h:form id="formExportarCapitulos">
-                <p:dataTable id="datosDiagnosticosCapitulosExportar" var="datoscap" style="visibility: hidden; display: none;"                           
-                             value="#{controlDiagnosticosCategorias.listaDiagnosticosCapitulos}"> 
+                    <p:dataTable id="datosDiagnosticosCapitulosExportar" var="datoscap" style="visibility: hidden; display: none;"                           
+                                 value="#{controlDiagnosticosCategorias.listaDiagnosticosCapitulos}"> 
                         <!--COLUMNAS TABLA DIAGNOSTICOS CAPITULOS--> 
                         <p:column>  
                             <f:facet name="header">
@@ -465,10 +478,10 @@
 
                     </p:dataTable>    
                 </h:form>
-                
+
                 <h:form id="formExportarSecciones">
-                <p:dataTable id="datosDiagnosticosSeccionesExportar" var="datosec" style="visibility: hidden; display: none;"                           
-                             value="#{controlDiagnosticosCategorias.listaDiagnosticosSecciones}"> 
+                    <p:dataTable id="datosDiagnosticosSeccionesExportar" var="datosec" style="visibility: hidden; display: none;"                           
+                                 value="#{controlDiagnosticosCategorias.listaDiagnosticosSecciones}"> 
                         <!--COLUMNAS TABLA DIAGNOSTICOS SECCIONES--> 
                         <p:column>  
                             <f:facet name="header">

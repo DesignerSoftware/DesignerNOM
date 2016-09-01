@@ -4,7 +4,17 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+//import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -261,6 +271,38 @@ public class AportesEntidades implements Serializable {
     private Terceros terceroRegistro;
     @Transient
     private String subtipocotizanteSTR;
+    @Transient
+    private boolean bing;
+    @Transient
+    private boolean bret;
+    @Transient
+    private boolean btda;
+    @Transient
+    private boolean btaa;
+    @Transient
+    private boolean bvsp;
+    @Transient
+    private boolean bvte;
+    @Transient
+    private boolean bvst;
+    @Transient
+    private boolean bsln;
+    @Transient
+    private boolean bige;
+    @Transient
+    private boolean blma;
+    @Transient
+    private boolean bvac;
+    @Transient
+    private boolean bavp;
+    @Transient
+    private boolean bvct;
+    @Transient
+    private boolean birp;
+    @Transient
+    private boolean bsus;
+    @Transient
+    private boolean binte;
 
     public AportesEntidades() {
     }
@@ -1067,6 +1109,295 @@ public class AportesEntidades implements Serializable {
 
     public void setEmpleado(Empleados empleado) {
         this.empleado = empleado;
+    }
+
+    public boolean isBing() {
+        if ("X".equals(ing)) {
+            bing = true;
+        } else {
+            bing = false;
+        }
+        return bing;
+    }
+
+    public void setBing(boolean bing) {
+//        System.out.println("entró a set bing : " + bing);
+        this.bing = bing;
+        if (bing == true) {
+            ing = "X";
+        } else {
+            ing = null;
+        }
+    }
+
+    public boolean isBret() {
+        if ("X".equals(ret)) {
+            bret = true;
+        } else {
+            bret = false;
+        }
+        return bret;
+    }
+
+    public void setBret(boolean bret) {
+        this.bret = bret;
+        if (bret == true) {
+            ret = "X";
+        } else {
+            ret = null;
+        }
+    }
+
+    public boolean isBtda() {
+        if ("X".equals(tda)) {
+            btda = true;
+        } else {
+            btda = false;
+        }
+        return btda;
+    }
+
+    public void setBtda(boolean btda) {
+        this.btda = btda;
+        if (btda == true) {
+            tda = "X";
+        } else {
+            tda = null;
+        }
+    }
+
+    public boolean isBtaa() {
+        if ("X".equals(taa)) {
+            btaa = true;
+        } else {
+            btaa = false;
+        }
+        return btaa;
+    }
+
+    public void setBtaa(boolean btaa) {
+        this.btaa = btaa;
+        if (btaa == true) {
+            taa = "X";
+        } else {
+            taa = null;
+        }
+    }
+
+    public boolean isBvsp() {
+        if ("X".equals(vsp)) {
+            bvsp = true;
+        } else {
+            bvsp = false;
+        }
+        return bvsp;
+    }
+
+    public void setBvsp(boolean bvsp) {
+        this.bvsp = bvsp;
+        if (bvsp == true) {
+            vsp = "X";
+        } else {
+            vsp = null;
+        }
+    }
+
+    public boolean isBvte() {
+        if ("X".equals(vte)) {
+            bvte = true;
+        } else {
+            bvte = false;
+        }
+        return bvte;
+    }
+
+    public void setBvte(boolean bvte) {
+        this.bvte = bvte;
+        if (bvte == true) {
+            vte = "X";
+        } else {
+            vte = null;
+        }
+    }
+
+    public boolean isBvst() {
+        if ("X".equals(vst)) {
+            bvst = true;
+        } else {
+            bvst = false;
+        }
+        return bvst;
+    }
+
+    public void setBvst(boolean bvst) {
+        this.bvst = bvst;
+        if (bvst == true) {
+            vst = "X";
+        } else {
+            vst = null;
+        }
+    }
+
+    public boolean isBsln() {
+        if ("X".equals(sln)) {
+            bsln = true;
+        } else {
+            bsln = false;
+        }
+        return bsln;
+    }
+
+    public void setBsln(boolean bsln) {
+        this.bsln = bsln;
+        if (bsln == true) {
+            sln = "X";
+        } else {
+            sln = null;
+        }
+    }
+
+    public boolean isBige() {
+        if ("X".equals(ige)) {
+            bige = true;
+        } else {
+            bige = false;
+        }
+        return bige;
+    }
+
+    public void setBige(boolean bige) {
+        this.bige = bige;
+        if (bige == true) {
+            ige = "X";
+        } else {
+            ige = null;
+        }
+    }
+
+    public boolean isBlma() {
+        if ("X".equals(lma)) {
+            blma = true;
+        } else {
+            blma = false;
+        }
+        return blma;
+    }
+
+    public void setBlma(boolean blma) {
+        this.blma = blma;
+        if (blma == true) {
+            lma = "X";
+        } else {
+            lma = null;
+        }
+    }
+
+    public boolean isBvac() {
+        if ("X".equals(vac)) {
+            bvac = true;
+        } else {
+            bvac = false;
+        }
+        return bvac;
+    }
+
+    public void setBvac(boolean bvac) {
+        this.bvac = bvac;
+        if (bvac == true) {
+            vac = "X";
+        } else {
+            vac = null;
+        }
+    }
+
+    public boolean isBavp() {
+        if ("X".equals(avp)) {
+            bavp = true;
+        } else {
+            bavp = false;
+        }
+        return bavp;
+    }
+
+    public void setBavp(boolean bavp) {
+        this.bavp = bavp;
+        if (bavp) {
+            this.avp = "X";
+        } else {
+            this.avp = null;
+        }
+    }
+
+    public boolean isBvct() {
+        if ("X".equals(vct)) {
+            bvct = true;
+        } else {
+            bvct = false;
+        }
+        return bvct;
+    }
+
+    public void setBvct(boolean bvct) {
+        this.bvct = bvct;
+        if (bvct == true) {
+            vct = "X";
+        } else {
+            vct = null;
+        }
+    }
+
+    public boolean isBirp() {
+        if ("X".equals(irp)) {
+            birp = true;
+        } else {
+            birp = false;
+        }
+        return birp;
+    }
+
+    public void setBirp(boolean birp) {
+        this.birp = birp;
+        if (birp == true) {
+            irp = "X";
+        } else {
+            irp = null;
+        }
+    }
+
+    public boolean isBsus() {
+        if ("X".equals(sus)) {
+            bsus = true;
+        } else {
+            bsus = false;
+        }
+        return bsus;
+    }
+
+    public void setBsus(boolean bsus) {
+        this.bsus = bsus;
+        if (bsus == true) {
+            sus = "X";
+        } else {
+            sus = null;
+        }
+    }
+
+    public boolean isBinte() {
+        if ("X".equals(integral)) {
+            binte = true;
+        } else {
+            binte = false;
+        }
+        return binte;
+    }
+
+    public void setBinte(boolean binte) {
+        this.binte = binte;
+        if (binte == true) {
+            integral = "X";
+        } else {
+            integral = null;
+        }
     }
 
     @Override

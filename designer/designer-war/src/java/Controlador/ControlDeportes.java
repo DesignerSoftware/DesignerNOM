@@ -706,13 +706,13 @@ public class ControlDeportes implements Serializable {
         infoRegistro = String.valueOf(valor);
     }
 
-    public void recordarSeleccionDeporte() {
-        if (deporteSeleccionado != null) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosDeportes");
-            tablaC.setSelection(deporteSeleccionado);
-        }
-    }
+//    public void recordarSeleccionDeporte() {
+//        if (deporteSeleccionado != null) {
+//            FacesContext c = FacesContext.getCurrentInstance();
+//            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosDeportes");
+//            tablaC.setSelection(deporteSeleccionado);
+//        }
+//    }
 
     public void contarRegistros() {
         if (listDeportes != null) {

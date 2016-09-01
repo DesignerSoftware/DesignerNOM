@@ -82,7 +82,7 @@
                                          editable="true" editMode="cell" scrollable="true" liveScroll="true" scrollRows="50"  scrollWidth="830"
                                          >
                                 <p:ajax event="filter" listener="#{controlDeportes.eventoFiltrar()}"/>
-                                <f:event type="preRenderView" listener="#{controlDeportes.recordarSeleccionDeporte()}"/>
+                                <!--<f:event type="preRenderView" listener="#{controlDeportes.recordarSeleccionDeporte()}"/>-->
 
                                 <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="200" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  

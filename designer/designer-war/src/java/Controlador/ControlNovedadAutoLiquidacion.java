@@ -158,7 +158,10 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         nuevanovedad.setAnio(anioParametro);
         nuevanovedad.setMes(mesParametro);
         if(listaNovedades != null){
+            if(!listaNovedades.isEmpty())
+            {
             novedadSeleccionada = listaNovedades.get(0);
+            }
         }
     }
 

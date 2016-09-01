@@ -1077,7 +1077,7 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/vigenciasDeportes.xhtml</from-view-id>
+        <from-view-id>/vigenciasdeportes.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>rastro</from-outcome>
             <to-view-id>/rastro.xhtml</to-view-id>
@@ -1088,7 +1088,7 @@
         <from-view-id>/rastro.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>vigenciasDepRastro</from-outcome>
-            <to-view-id>/vigenciasDeportes.xhtml</to-view-id>
+            <to-view-id>/vigenciasdeportes.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -2663,7 +2663,7 @@
     </navigation-rule>
     
     <navigation-rule>
-        <from-view-id>/vigenciasDeportes.xhtml</from-view-id>
+        <from-view-id>/vigenciasdeportes.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>vigDepEmplInd</from-outcome>
             <to-view-id>/empleadoindividual.xhtml</to-view-id>
@@ -2674,7 +2674,7 @@
         <from-view-id>/empleadoindividual.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>infoDeportesPersona</from-outcome>
-            <to-view-id>/vigenciasDeportes.xhtml</to-view-id>
+            <to-view-id>/vigenciasdeportes.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -3905,7 +3905,7 @@
     </navigation-rule>
     
     <navigation-rule>
-        <from-view-id>/vigenciasDeportes.xhtml</from-view-id>
+        <from-view-id>/vigenciasdeportes.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>deporte</from-outcome>
             <to-view-id>/deporte.xhtml</to-view-id>
@@ -3916,7 +3916,7 @@
         <from-view-id>/deporte.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>atrasdeporte</from-outcome>
-            <to-view-id>/vigenciasDeportes.xhtml</to-view-id>
+            <to-view-id>/vigenciasdeportes.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -5640,6 +5640,23 @@
         <navigation-case>
             <from-outcome>atrasclaseausentismos</from-outcome>
             <to-view-id>/causaausentismo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/parametroautoliq.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>correccionparametro</from-outcome>
+            <to-view-id>/parametroscorreccionautol.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/parametroscorreccionautol.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrascorreccionparametro</from-outcome>
+            <to-view-id>/parametroautoliq.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>

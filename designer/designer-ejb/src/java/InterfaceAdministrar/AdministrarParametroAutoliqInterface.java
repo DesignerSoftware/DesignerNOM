@@ -6,10 +6,12 @@
 package InterfaceAdministrar;
 
 import Entidades.ActualUsuario;
+import Entidades.AportesCorrecciones;
 import Entidades.AportesEntidades;
 import Entidades.Empleados;
 import Entidades.Empresas;
 import Entidades.ParametrosAutoliq;
+import Entidades.ParametrosCorreccionesAutoL;
 import Entidades.ParametrosEstructuras;
 import Entidades.ParametrosInformes;
 import Entidades.Terceros;
@@ -37,6 +39,8 @@ public interface AdministrarParametroAutoliqInterface {
 
     public List<AportesEntidades> consultarAportesEntidadesPorParametroAutoliq(BigInteger empresa, short mes, short ano);
 
+    public void crearAportesEntidades(List<AportesEntidades> listaAE);
+
     public void editarAportesEntidades(List<AportesEntidades> listAE);
 
     public void borrarAportesEntidades(List<AportesEntidades> listAE);
@@ -62,11 +66,11 @@ public interface AdministrarParametroAutoliqInterface {
     public void modificarParametroEstructura(ParametrosEstructuras parametro);
 
     public void modificarParametroInforme(ParametrosInformes parametro);
-    
+
     public String ejecutarPKGActualizarNovedades(short ano, short mes, BigInteger secuencia);
-    
+
     public String ejecutarPKGInsertar(Date fechaIni, Date fechaFin, BigInteger secTipoTrabajador, BigInteger secuenciaEmpresa);
-    
+
     public void ejecutarPKGAcumularDiferencia(short ano, short mes, BigInteger secuencia);
 
 }

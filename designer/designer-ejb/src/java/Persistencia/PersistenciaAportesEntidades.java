@@ -80,7 +80,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
     }
 
     @Override
-    public List<AportesEntidades> consultarAportesEntidadesPorEmpresaMesYAño(EntityManager em, BigInteger secEmpresa, short mes, short ano) {
+    public List<AportesEntidades> consultarAportesEntidadesPorEmpresaMesYAnio(EntityManager em, BigInteger secEmpresa, short mes, short ano) {
         try {
             em.clear();
             String sql = "SELECT * FROM AportesEntidades a WHERE a.empresa =? AND a.ano =? AND a.mes =? AND EXISTS(SELECT 'x' FROM Empleados e WHERE e.secuencia = a.empleado) ORDER BY a.empleado DESC";

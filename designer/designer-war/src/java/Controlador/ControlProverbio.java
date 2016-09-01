@@ -168,13 +168,15 @@ public class ControlProverbio implements Serializable {
         listaMensajesUsuario = null;
         getListaMensajesUsuario();
         getListaProverbios();
-        if (!listaProverbios.isEmpty()) {
+        if (listaProverbios != null) {
+            if(!listaProverbios.isEmpty())
             modificarInfoRegistroProverbios(listaProverbios.size());
         } else {
             modificarInfoRegistroProverbios(0);
         }
 
-        if (!listaMensajesUsuario.isEmpty()) {
+        if (listaMensajesUsuario != null) {
+            if(!listaMensajesUsuario.isEmpty())
             modificarInfoRegistroMsgUsuarios(listaMensajesUsuario.size());
         } else {
             modificarInfoRegistroMsgUsuarios(0);
@@ -1723,8 +1725,10 @@ public class ControlProverbio implements Serializable {
     public List<Recordatorios> getListaProverbios() {
         if (listaProverbios == null) {
             listaProverbios = administrarRecordatorios.recordatorios();
+            if(listaProverbios != null){
             if (!listaProverbios.isEmpty()) {
                 proverbioSeleccionado = listaProverbios.get(0);
+            }
             }
         }
         return listaProverbios;
@@ -1745,9 +1749,11 @@ public class ControlProverbio implements Serializable {
     public List<Recordatorios> getListaMensajesUsuario() {
         if (listaMensajesUsuario == null) {
             listaMensajesUsuario = administrarRecordatorios.mensajesRecordatorios();
+           if(listaMensajesUsuario!= null){
             if (!listaMensajesUsuario.isEmpty()) {
                 mensajeUsuarioSeleccionado = listaMensajesUsuario.get(0);
             }
+           }
         }
         return listaMensajesUsuario;
     }

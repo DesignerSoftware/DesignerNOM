@@ -25,7 +25,7 @@ public interface PersistenciaAportesEntidadesInterface {
 
     public List<AportesEntidades> consultarAportesEntidades(EntityManager em);
 
-    public List<AportesEntidades> consultarAportesEntidadesPorEmpresaMesYAño(EntityManager em, BigInteger secEmpresa, short mes, short ano);
+    public List<AportesEntidades> consultarAportesEntidadesPorEmpresaMesYAnio(EntityManager em, BigInteger secEmpresa, short mes, short ano);
 
     public void borrarAportesEntidadesProcesoAutomatico(EntityManager em, BigInteger secEmpresa, short mes, short ano);
 
