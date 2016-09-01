@@ -43,11 +43,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaInicial" value="#{info.fechavigencia}" > 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}" > 
                                                 <p:ajax event="select" listener="#{controlVigenciasPlantas.cambiarIndice(indice,1)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlVigenciasPlantas.mostrarInfo(indice,1)}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasPlantas.mostrarInfo(indice,1)}" process="@this" update="editFecha"/>
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -239,10 +239,10 @@
 
                             <strong><h:outputText value="*Fecha: "  style=" position: absolute; top: 60px;" /></strong>
                             <div  id="nuevoNombrea" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
-                                <lnk:calendar id="nuevoNombre" value="#{controlVigenciasPlantas.nuevoVigenciaPlanta.fechavigencia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevoNombre" value="#{controlVigenciasPlantas.nuevoVigenciaPlanta.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="nuevoNombre"/>
                                     <p:ajax event="change" update="nuevoNombre"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                             <p:watermark for="nuevoNombre" value="Descripción" />
                             <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 120px;"  actionListener="#{controlVigenciasPlantas.limpiarNuevoVigenciasPlantas()}" update="nuevaTipoempresa" process="@this"/>
@@ -265,10 +265,10 @@
 
                             <strong><h:outputText value="*Fecha: "  style=" position: absolute; top: 60px;" /></strong>
                             <div  id="duplicarNombreaa" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
-                                <lnk:calendar id="duplicarNombre" value="#{controlVigenciasPlantas.duplicarVigenciaPlanta.fechavigencia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarNombre" value="#{controlVigenciasPlantas.duplicarVigenciaPlanta.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="duplicarNombre"/>
                                     <p:ajax event="change" update="duplicarNombre"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                             <p:watermark for="duplicarNombre" value="Fecha" />
                             <p:commandButton id="limpiarD" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 20px; top: 120px;"  actionListener="#{controlVigenciasPlantas.limpiarDuplicarVigenciasPlantas() }" update="duplicarTE"  process="@this"/>

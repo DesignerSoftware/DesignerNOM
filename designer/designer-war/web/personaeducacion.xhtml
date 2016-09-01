@@ -103,11 +103,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editFecha" value="#{vigenciasFormales.fechavigencia}" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFecha" value="#{vigenciasFormales.fechavigencia}"> 
                                                 <p:ajax event="dateSelect"  update="editFecha"/>
                                                 <p:ajax event="change" listener="#{controlPersonaEducacion.modificarVigenciasFormales(vigenciasFormales, 'N', vigenciasFormales.fechavigencia)}"/>/>
                                                 <p:ajax event="select" listener="#{controlPersonaEducacion.cambiarIndice(vigenciasFormales, 0)}" />
-                                            </lnk:calendar>
+                                            </p:calendar>
 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -226,11 +226,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editFechaExpedicion" value="#{vigenciasFormales.fechaexpediciontarjeta}" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaExpedicion" value="#{vigenciasFormales.fechaexpediciontarjeta}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaExpedicion"/>
                                                 <p:ajax event="change" listener="#{controlPersonaEducacion.modificarVigenciasFormales(vigenciasFormales, 'N', vigenciasFormales.fechaexpediciontarjeta)}"/>
                                                 <p:ajax event="select" listener="#{controlPersonaEducacion.cambiarIndice(vigenciasFormales, 7)}" />
-                                            </lnk:calendar>
+                                            </p:calendar>
 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -248,11 +248,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editFechaVencimiento" value="#{vigenciasFormales.fechavencimientotarjeta}" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaVencimiento" value="#{vigenciasFormales.fechavencimientotarjeta}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaVencimiento"/>
                                                 <p:ajax event="change" listener="#{controlPersonaEducacion.modificarVigenciasFormales(vigenciasFormales, 'N', vigenciasFormales.fechavencimientotarjeta)}"/>
                                                 <p:ajax event="select" listener="#{controlPersonaEducacion.cambiarIndice(vigenciasFormales, 8)}" />
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
 
@@ -302,11 +302,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editFechaNF" value="#{vigenciasFormales.fechavencimientotarjeta}" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaNF" value="#{vigenciasFormales.fechavencimientotarjeta}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaNF"/>
                                                 <p:ajax event="change" listener="#{controlPersonaEducacion.modificarVigenciasNoFormales(vigenciasNoFormales, 'N', vigenciasNoFormales.fechavigencia)}"/>
                                                 <p:ajax event="select" listener="#{controlPersonaEducacion.cambiarIndiceNF(vigenciasNoFormales, 0)}" />
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
 
@@ -432,10 +432,10 @@
 
                             <strong><h:outputText value="#{msg['fechaN']}" style=" position: absolute; top: 85px" /></strong>
                             <div id="posicionFormulaFechaVigenciaNuevoReg" style=" position: absolute; top: 80px; left: 200px">
-                                <lnk:calendar id="nuevaFecha" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechavigencia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="nuevaFecha" process="@this"/>
                                     <p:ajax event="change" update="nuevaFecha" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 125px" /></strong>
@@ -488,18 +488,18 @@
 
                             <strong><h:outputText value="#{msg['expedicionN']}" style=" position: absolute; top: 365px" /></strong>
                             <div id="posicionFormulaFechaExpedicionNuevoReg" style=" position: absolute; top: 360px; left: 200px">
-                                <lnk:calendar id="nuevaFechaExpedicion" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechaexpediciontarjeta}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaExpedicion" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechaexpediciontarjeta}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaExpedicion" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaExpedicion" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                             
                             <strong><h:outputText value="#{msg['vencimientoN']}" style=" position: absolute; top: 405px" /></strong>
                             <div id="posicionFormulaFechaVencimientoNuevoReg" style=" position: absolute; top: 400px; left: 200px">
-                                <lnk:calendar id="nuevaFechaVencimiento" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechavencimientotarjeta}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaVencimiento" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechavencimientotarjeta}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaVencimiento" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaVencimiento" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['observacionN']}"  style=" position: absolute; top: 445px" /></strong>
@@ -524,10 +524,10 @@
 
                             <strong><h:outputText value="#{msg['fechaN']}" style=" position: absolute; top: 85px" /></strong>
                             <div id="posicionFormulaFechaVigenciaDuplicarReg" style=" position: absolute; top: 80px; left: 200px">
-                                <lnk:calendar id="duplicarFecha" value="#{controlPersonaEducacion.duplicarVigenciaFormal.fechavigencia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlPersonaEducacion.duplicarVigenciaFormal.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="duplicarFecha" process="@this"/>
                                     <p:ajax event="change" update="duplicarFecha" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 125px" /></strong>
@@ -581,18 +581,18 @@
 
                             <strong><h:outputText value="#{msg['expedicionN']}" style=" position: absolute; top: 365px" /></strong>
                             <div id="posicionFormulaFechaExpedicionDuplicarReg" style=" position: absolute; top: 360px; left: 200px">
-                                <lnk:calendar id="duplicarFechaExpedicion" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechaexpediciontarjeta}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaExpedicion" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechaexpediciontarjeta}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaExpedicion" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaExpedicion" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                             
                             <strong><h:outputText value="#{msg['vencimientoN']}" style=" position: absolute; top: 405px" /></strong>
                             <div id="posicionFormulaFechaVencimientoDuplicarReg" style=" position: absolute; top: 400px; left: 200px">
-                                <lnk:calendar id="duplicarFechaVencimiento" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechavencimientotarjeta}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaVencimiento" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechavencimientotarjeta}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaVencimiento" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaVencimiento" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['observacionN']}" style=" position: absolute; top: 445px" /></strong>
@@ -617,10 +617,10 @@
                                                         
                             <strong><h:outputText value="#{msg['fechaN']}" style=" position: absolute; top: 85px" /></strong>
                             <div id="posicionFormulaFechaVigenciaNuevoReg" style=" position: absolute; top: 80px; left: 200px">
-                                <lnk:calendar id="nuevaFechaNF" value="#{controlPersonaEducacion.nuevaVigenciaNoFormal.fechavigencia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaNF" value="#{controlPersonaEducacion.nuevaVigenciaNoFormal.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaNF" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaNF" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['cursoN']}" style=" position: absolute; top: 125px" /></strong>
@@ -684,10 +684,10 @@
 
                             <strong><h:outputText value="#{msg['fechaN']}" style=" position: absolute; top: 85px" /></strong>
                             <div id="posicionFormulaFechaVigenciaDuplicarReg" style=" position: absolute; top: 80px; left: 200px">
-                                <lnk:calendar id="duplicarFechaNF" value="#{controlPersonaEducacion.duplicarVigenciaNoFormal.fechavigencia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaNF" value="#{controlPersonaEducacion.duplicarVigenciaNoFormal.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaNF" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaNF" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['cursoN']}" style=" position: absolute; top: 125px" /></strong>

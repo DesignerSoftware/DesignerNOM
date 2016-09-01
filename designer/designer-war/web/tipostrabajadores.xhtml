@@ -538,11 +538,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editFecha" value="#{info.fechaVigencia}" width="190" height="12">
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechaVigencia}">
                                                 <p:ajax event="dateSelect" listener="#{controlTiposTrabajadores.modificarFechaVD(info)}" update="@this"/>
                                                 <p:ajax event="change" listener="#{controlTiposTrabajadores.modificarFechaVD(info)}" update="@this" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlTiposTrabajadores.cambiarIndiceVD(info, 1)}" process="@this"/> 
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>
 
                                     </p:cellEditor>
@@ -1019,10 +1019,10 @@
 
                             <strong><h:outputText value="*#{msg['fecha']}:" style="left: 80px; position: absolute; top: 110px" /></strong>
                             <div id="posicionNuevoFechaVD" style=" position: absolute; top: 105px; left: 190px; width: 90px;" >
-                                <lnk:calendar id="nuevaFechaVD" value="#{controlTiposTrabajadores.nuevaVD.fechaVigencia}" width="90">
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaVD" value="#{controlTiposTrabajadores.nuevaVD.fechaVigencia}">
                                     <p:ajax event="dateSelect" update="nuevaFechaVD" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaVD" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <p:commandButton id="limpiarVD" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 150px;" icon="ui-icon-trash"
@@ -1051,10 +1051,10 @@
 
                             <strong><h:outputText value="*#{msg['fecha']}:" style=" left: 80px; position: absolute; top: 110px" /></strong>
                             <div id="posicionduplicarFechaVD" style=" position: absolute; top: 105px; left: 190px; width: 90px;">
-                                <lnk:calendar id="duplicarFechaVD" value="#{controlTiposTrabajadores.duplicarVD.fechaVigencia}" width="90" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaVD" value="#{controlTiposTrabajadores.duplicarVD.fechaVigencia}">
                                     <p:ajax event="dateSelect" update="duplicarFechaVD" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaVD" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <p:commandButton id="limpiarDVD" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 150px;" icon="ui-icon-trash"

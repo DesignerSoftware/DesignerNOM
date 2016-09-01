@@ -43,10 +43,10 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaInicial" value="#{info.fechadesde}" height="12" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechadesde}"> 
                                                 <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(indice, 0)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlErroresLiquidacion.mostrarInfo(indice,0)}" process="@this"/> 
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -61,10 +61,10 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaFinal" value="#{info.fechahasta}" height="12" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechahasta}"> 
                                                 <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(indice, 1)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlErroresLiquidacion.mostrarInfo(indice,1)}" process="@this"/> 
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -129,10 +129,10 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFecha" value="#{info.fecha}" height="12" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFecha" value="#{info.fecha}"> 
                                                 <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(indice, 6)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlErroresLiquidacion.mostrarInfo(indice,6)}" process="@this"/> 
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
 

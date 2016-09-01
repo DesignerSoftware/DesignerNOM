@@ -5242,15 +5242,13 @@ public class ControlPersonaIndividual implements Serializable {
         permitirDesplegarLista = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formLovs:formDCargoDesempenado:formjefe:lovEmpleadoJefeCargoDesempeñado:globalFilter");
-
         context.execute("lovEmpleadoJefeCargoDesempeñado.clearFilters()");
-
         context.execute("lovEmpleadoJefeCargoDesempeñado.unselectAllRows()");
-
         context.execute("EmpleadoJefeCargoDesempeñadoDialogo.hide()");
     }
 
     public void actualizarParametroEmpresaInformacionPersonalVisible(Empresas empresaS) {
+        System.out.println("Entro en actualizarParametroEmpresaInformacionPersonalVisible()");
         empresaSeleccionada = empresaS;
         System.out.println("empresaSeleccionada : " + empresaSeleccionada);
         nuevoEmpleado.setEmpresa(empresaSeleccionada);
@@ -5426,12 +5424,7 @@ public class ControlPersonaIndividual implements Serializable {
     public void calcularControlEmpleadosEmpresa() {
         BigInteger empleadosActuales = administrarPersonaIndividual.calcularNumeroEmpleadosEmpresa(nuevoEmpleado.getEmpresa().getSecuencia());
         BigInteger maximoEmpleados = administrarPersonaIndividual.obtenerMaximoEmpleadosEmpresa(nuevoEmpleado.getEmpresa().getSecuencia());
-        /*
-         * BigInteger empleadosActuales =
-         * administrarPersonaIndividual.calcularNumeroEmpleadosEmpresa(nuevoEmpleado.getEmpresa());
-         * BigInteger maximoEmpleados =
-         * administrarPersonaIndividual.obtenerMaximoEmpleadosEmpresa(nuevoEmpleado.getEmpresa());
-         */
+
         if (empleadosActuales != null && maximoEmpleados != null) {
             if (empleadosActuales.intValue() >= maximoEmpleados.intValue()) {
                 nuevoEmpleado.setEmpresa(new Empresas());
@@ -6204,6 +6197,13 @@ public class ControlPersonaIndividual implements Serializable {
     public void cargarLovEmpresas() {
         if (lovEmpresas == null) {
             lovEmpresas = administrarPersonaIndividual.lovEmpresas();
+            if (lovEmpresas != null){
+                if(lovEmpresas.size() == 1){
+                    nuevoEmpleado.setEmpresa(lovEmpresas.get(0));
+                }
+            } else {
+                System.out.println("lovEmpresas == null");
+            }
         }
     }
 

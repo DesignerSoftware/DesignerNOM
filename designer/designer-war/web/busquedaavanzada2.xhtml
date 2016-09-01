@@ -96,22 +96,22 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 65px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModCargo" style="font-size: 10px; position: absolute; top: 60px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaInicialModCargo" disabled="#{controlBusquedaAvanzada2.activoFechasCargos}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModCargo" disabled="#{controlBusquedaAvanzada2.activoFechasCargos}"
                                                                   value="#{controlBusquedaAvanzada2.fechaInicialCargo}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModCargo" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloCargo(6)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModCargo" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloCargo(6)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCargo(6)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 90px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModCargo" style="font-size: 10px; position: absolute; top: 85px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaFinalModCargo" disabled="#{controlBusquedaAvanzada2.activoFechasCargos}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModCargo" disabled="#{controlBusquedaAvanzada2.activoFechasCargos}"
                                                                   value="#{controlBusquedaAvanzada2.fechaFinalCargo}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloCargo(7)}" update="parametroFechaFinalModCargo" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloCargo(7)}" update="parametroFechaFinalModCargo" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCargo(7)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -165,22 +165,22 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 65px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModCentroCosto" style="font-size: 10px; position: absolute; top: 60px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaInicialModCentroCosto" disabled="#{controlBusquedaAvanzada2.activoFechasCentroCosto}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModCentroCosto" disabled="#{controlBusquedaAvanzada2.activoFechasCentroCosto}"
                                                                   value="#{controlBusquedaAvanzada2.fechaInicialCentroCosto}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModCentroCosto" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloCentroCosto(2)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModCentroCosto" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloCentroCosto(2)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCentroCosto(2)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 90px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModCentroCosto" style="font-size: 10px; position: absolute; top: 85px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaFinalModCentroCosto" disabled="#{controlBusquedaAvanzada2.activoFechasCentroCosto}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModCentroCosto" disabled="#{controlBusquedaAvanzada2.activoFechasCentroCosto}"
                                                                   value="#{controlBusquedaAvanzada2.fechaFinalCentroCosto}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloCentroCosto(3)}" update="parametroFechaFinalModCentroCosto" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloCentroCosto(3)}" update="parametroFechaFinalModCentroCosto" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCentroCosto(3)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -252,22 +252,22 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 65px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModSueldo" style="font-size: 10px; position: absolute; top: 60px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaInicialModSueldo" disabled="#{controlBusquedaAvanzada2.activoFechasSueldo}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModSueldo" disabled="#{controlBusquedaAvanzada2.activoFechasSueldo}"
                                                                   value="#{controlBusquedaAvanzada2.fechaInicialSueldo}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModSueldo" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloSueldo(4)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModSueldo" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloSueldo(4)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceSueldo(4)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 90px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModSueldo" style="font-size: 10px; position: absolute; top: 85px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaFinalModSueldo" disabled="#{controlBusquedaAvanzada2.activoFechasSueldo}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModSueldo" disabled="#{controlBusquedaAvanzada2.activoFechasSueldo}"
                                                                   value="#{controlBusquedaAvanzada2.fechaFinalSueldo}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloSueldo(5)}" update="parametroFechaFinalModSueldo" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloSueldo(5)}" update="parametroFechaFinalModSueldo" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceSueldo(5)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -320,22 +320,22 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 65px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModFechaContrato" style="font-size: 10px; position: absolute; top: 60px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaInicialModFechaContrato" disabled="#{controlBusquedaAvanzada2.activoFechasFechaContrato}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModFechaContrato" disabled="#{controlBusquedaAvanzada2.activoFechasFechaContrato}"
                                                                   value="#{controlBusquedaAvanzada2.fechaInicialFechaContrato}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModFechaContrato" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloFechaContrato(2)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModFechaContrato" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloFechaContrato(2)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceFechaContrato(2)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 90px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModFechaContrato" style="font-size: 10px; position: absolute; top: 85px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaFinalModFechaContrato" disabled="#{controlBusquedaAvanzada2.activoFechasFechaContrato}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModFechaContrato" disabled="#{controlBusquedaAvanzada2.activoFechasFechaContrato}"
                                                                   value="#{controlBusquedaAvanzada2.fechaFinalFechaContrato}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloFechaContrato(3)}" update="parametroFechaFinalModFechaContrato" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloFechaContrato(3)}" update="parametroFechaFinalModFechaContrato" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceFechaContrato(3)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -380,22 +380,22 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 210px; top: 65px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModTipoTrabajador" style="font-size: 10px; position: absolute; top: 60px; left: 260px">
-                                                    <lnk:calendar id="parametroFechaInicialModTipoTrabajador" disabled="#{controlBusquedaAvanzada2.activoFechasTipoTrabajador}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModTipoTrabajador" disabled="#{controlBusquedaAvanzada2.activoFechasTipoTrabajador}"
                                                                   value="#{controlBusquedaAvanzada2.fechaInicialTipoTrabajador}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModTipoTrabajador" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloTipoTrabajador(1)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModTipoTrabajador" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloTipoTrabajador(1)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceTipoTrabajador(1)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 210px; top: 90px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModTipoTrabajador" style="font-size: 10px; position: absolute; top: 85px; left: 260px">
-                                                    <lnk:calendar id="parametroFechaFinalModTipoTrabajador" disabled="#{controlBusquedaAvanzada2.activoFechasTipoTrabajador}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModTipoTrabajador" disabled="#{controlBusquedaAvanzada2.activoFechasTipoTrabajador}"
                                                                   value="#{controlBusquedaAvanzada2.fechaFinalTipoTrabajador}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloTipoTrabajador(2)}" update="parametroFechaFinalModTipoTrabajador" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloTipoTrabajador(2)}" update="parametroFechaFinalModTipoTrabajador" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceTipoTrabajador(2)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -440,22 +440,22 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 210px; top: 65px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModTipoSalario" style="font-size: 10px; position: absolute; top: 60px; left: 260px">
-                                                    <lnk:calendar id="parametroFechaInicialModTipoSalario" disabled="#{controlBusquedaAvanzada2.activoFechasTipoSalario}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModTipoSalario" disabled="#{controlBusquedaAvanzada2.activoFechasTipoSalario}"
                                                                   value="#{controlBusquedaAvanzada2.fechaInicialTipoSalario}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModTipoSalario" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloTipoSalario(1)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModTipoSalario" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloTipoSalario(1)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceTipoSalario(1)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 210px; top: 90px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModTipoSalario" style="font-size: 10px; position: absolute; top: 85px; left: 260px">
-                                                    <lnk:calendar id="parametroFechaFinalModTipoSalario" disabled="#{controlBusquedaAvanzada2.activoFechasTipoSalario}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModTipoSalario" disabled="#{controlBusquedaAvanzada2.activoFechasTipoSalario}"
                                                                   value="#{controlBusquedaAvanzada2.fechaFinalTipoSalario}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloTipoSalario(2)}" update="parametroFechaFinalModTipoSalario" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloTipoSalario(2)}" update="parametroFechaFinalModTipoSalario" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceTipoSalario(2)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -503,22 +503,22 @@
 
                                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 10px; top: 15px;color: #14388B;font-weight: bold"/>
                                                     <div id="posicionFechaMIInicialModLegislacionLaboral" style="font-size: 10px; position: absolute; top: 10px; left: 70px">
-                                                        <lnk:calendar id="parametroFechaMIInicialModLegislacionLaboral" disabled="#{controlBusquedaAvanzada2.activoFechasLegislacionLaboral}"
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaMIInicialModLegislacionLaboral" disabled="#{controlBusquedaAvanzada2.activoFechasLegislacionLaboral}"
                                                                       value="#{controlBusquedaAvanzada2.fechaMIInicialLegislacionLaboral}" >
                                                             <p:ajax event="dateSelect" update="parametroFechaMIInicialModLegislacionLaboral" listener="#{controlBusquedaAvanzada2.cambiarIndiceLegislacionLaboral(1)}" process="@this" />
                                                             <p:ajax event="change" update="parametroFechaMIInicialModLegislacionLaboral" listener="#{controlBusquedaAvanzada2.cambiarIndiceLegislacionLaboral(1)}" process="@this"/>
                                                             <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceLegislacionLaboral(1)}" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 10px; top: 40px;color: #14388B;font-weight: bold"/>
                                                     <div id="posicionFechaMIFinalModLegislacionLaboral" style="font-size: 10px; position: absolute; top: 35px; left: 70px">
-                                                        <lnk:calendar id="parametroFechaMIFinalModLegislacionLaboral" disabled="#{controlBusquedaAvanzada2.activoFechasLegislacionLaboral}"
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaMIFinalModLegislacionLaboral" disabled="#{controlBusquedaAvanzada2.activoFechasLegislacionLaboral}"
                                                                       value="#{controlBusquedaAvanzada2.fechaMIFinalLegislacionLaboral}" >
                                                             <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaMIFinalModuloLegislacionLaboral(2)}" update="parametroFechaMIFinalModLegislacionLaboral" process="@this"/>
                                                             <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaMIFinalModuloLegislacionLaboral(2)}" update="parametroFechaMIFinalModLegislacionLaboral" process="@this"/>
                                                             <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceLegislacionLaboral(2)}" process="@this" />
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                 </fieldset>
@@ -528,22 +528,22 @@
 
                                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 10px; top: 15px;color: #14388B;font-weight: bold"/>
                                                     <div id="posicionFechaMFInicialModLegislacionLaboral" style="font-size: 10px; position: absolute; top: 10px; left: 70px">
-                                                        <lnk:calendar id="parametroFechaMFInicialModLegislacionLaboral" disabled="#{controlBusquedaAvanzada2.activoFechasLegislacionLaboral}"
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaMFInicialModLegislacionLaboral" disabled="#{controlBusquedaAvanzada2.activoFechasLegislacionLaboral}"
                                                                       value="#{controlBusquedaAvanzada2.fechaMFInicialLegislacionLaboral}" >
                                                             <p:ajax event="dateSelect" update="parametroFechaMFInicialModLegislacionLaboral" listener="#{controlBusquedaAvanzada2.cambiarIndiceLegislacionLaboral(3)}" process="@this" />
                                                             <p:ajax event="change" update="parametroFechaMFInicialModLegislacionLaboral" listener="#{controlBusquedaAvanzada2.cambiarIndiceLegislacionLaboral(3)}" process="@this"/>
                                                             <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceLegislacionLaboral(3)}" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 10px; top: 40px;color: #14388B;font-weight: bold"/>
                                                     <div id="posicionFechaMFFinalModLegislacionLaboral" style="font-size: 10px; position: absolute; top: 35px; left: 70px">
-                                                        <lnk:calendar id="parametroFechaMFFinalModLegislacionLaboral" disabled="#{controlBusquedaAvanzada2.activoFechasLegislacionLaboral}"
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaMFFinalModLegislacionLaboral" disabled="#{controlBusquedaAvanzada2.activoFechasLegislacionLaboral}"
                                                                       value="#{controlBusquedaAvanzada2.fechaMFFinalLegislacionLaboral}" >
                                                             <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaMFFinalModuloLegislacionLaboral(4)}" update="parametroFechaMFFinalModLegislacionLaboral" process="@this"/>
                                                             <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaMFFinalModuloLegislacionLaboral(4)}" update="parametroFechaMFFinalModLegislacionLaboral" process="@this"/>
                                                             <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceLegislacionLaboral(4)}" process="@this" />
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                 </fieldset>
@@ -595,22 +595,22 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 65px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModUbicacion" style="font-size: 10px; position: absolute; top: 60px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaInicialModUbicacion" disabled="#{controlBusquedaAvanzada2.activoFechasUbicacion}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModUbicacion" disabled="#{controlBusquedaAvanzada2.activoFechasUbicacion}"
                                                                   value="#{controlBusquedaAvanzada2.fechaInicialUbicacion}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModUbicacion" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloUbicacion(2)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModUbicacion" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloUbicacion(2)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceUbicacion(2)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 90px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModUbicacion" style="font-size: 10px; position: absolute; top: 85px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaFinalModUbicacion" disabled="#{controlBusquedaAvanzada2.activoFechasUbicacion}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModUbicacion" disabled="#{controlBusquedaAvanzada2.activoFechasUbicacion}"
                                                                   value="#{controlBusquedaAvanzada2.fechaFinalUbicacion}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloUbicacion(3)}" update="parametroFechaFinalModUbicacion" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloUbicacion(3)}" update="parametroFechaFinalModUbicacion" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceUbicacion(3)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -672,22 +672,22 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 65px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModAfiliacion" style="font-size: 10px; position: absolute; top: 60px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaInicialModAfiliacion" disabled="#{controlBusquedaAvanzada2.activoFechasAfiliacion}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModAfiliacion" disabled="#{controlBusquedaAvanzada2.activoFechasAfiliacion}"
                                                                   value="#{controlBusquedaAvanzada2.fechaInicialAfiliacion}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModAfiliacion" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloAfiliacion(3)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModAfiliacion" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloAfiliacion(3)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceAfiliacion(3)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 90px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModAfiliacion" style="font-size: 10px; position: absolute; top: 85px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaFinalModAfiliacion" disabled="#{controlBusquedaAvanzada2.activoFechasAfiliacion}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModAfiliacion" disabled="#{controlBusquedaAvanzada2.activoFechasAfiliacion}"
                                                                   value="#{controlBusquedaAvanzada2.fechaFinalAfiliacion}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloAfiliacion(4)}" update="parametroFechaFinalModAfiliacion" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloAfiliacion(4)}" update="parametroFechaFinalModAfiliacion" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceAfiliacion(4)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -741,22 +741,22 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 65px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModFormaPago" style="font-size: 10px; position: absolute; top: 60px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaInicialModFormaPago" disabled="#{controlBusquedaAvanzada2.activoFechasFormaPago}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModFormaPago" disabled="#{controlBusquedaAvanzada2.activoFechasFormaPago}"
                                                                   value="#{controlBusquedaAvanzada2.fechaInicialFormaPago}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModFormaPago" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloFormaPago(2)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModFormaPago" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloFormaPago(2)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceFormaPago(2)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 90px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModFormaPago" style="font-size: 10px; position: absolute; top: 85px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaFinalModFormaPago" disabled="#{controlBusquedaAvanzada2.activoFechasFormaPago}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModFormaPago" disabled="#{controlBusquedaAvanzada2.activoFechasFormaPago}"
                                                                   value="#{controlBusquedaAvanzada2.fechaFinalFormaPago}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloFormaPago(3)}" update="parametroFechaFinalModFormaPago" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloFormaPago(3)}" update="parametroFechaFinalModFormaPago" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceFormaPago(3)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -819,22 +819,22 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 65px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModMvrs" style="font-size: 10px; position: absolute; top: 60px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaInicialModMvrs" disabled="#{controlBusquedaAvanzada2.activoFechasMvrs}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModMvrs" disabled="#{controlBusquedaAvanzada2.activoFechasMvrs}"
                                                                   value="#{controlBusquedaAvanzada2.fechaInicialMvrs}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModMvrs" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloMvrs(3)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModMvrs" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloMvrs(3)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceMvrs(3)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 90px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModMvrs" style="font-size: 10px; position: absolute; top: 85px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaFinalModMvrs" disabled="#{controlBusquedaAvanzada2.activoFechasMvrs}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModMvrs" disabled="#{controlBusquedaAvanzada2.activoFechasMvrs}"
                                                                   value="#{controlBusquedaAvanzada2.fechaFinalMvrs}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloMvrs(4)}" update="parametroFechaFinalModMvrs" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloMvrs(4)}" update="parametroFechaFinalModMvrs" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceMvrs(4)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -896,22 +896,22 @@
 
                                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 10px; top: 15px;color: #14388B;font-weight: bold"/>
                                                     <div id="posicionFechaMIInicialModSets" style="font-size: 10px; position: absolute; top: 10px; left: 70px">
-                                                        <lnk:calendar id="parametroFechaMIInicialModSets" disabled="#{controlBusquedaAvanzada2.activoFechasSets}"
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaMIInicialModSets" disabled="#{controlBusquedaAvanzada2.activoFechasSets}"
                                                                       value="#{controlBusquedaAvanzada2.fechaMIInicialSets}" >
                                                             <p:ajax event="dateSelect" update="parametroFechaMIInicialModSets" listener="#{controlBusquedaAvanzada2.cambiarIndiceSets(2)}" process="@this" />
                                                             <p:ajax event="change" update="parametroFechaMIInicialModSets" listener="#{controlBusquedaAvanzada2.cambiarIndiceSets(2)}" process="@this"/>
                                                             <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceSets(2)}" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 10px; top: 40px;color: #14388B;font-weight: bold"/>
                                                     <div id="posicionFechaMIFinalModSets" style="font-size: 10px; position: absolute; top: 35px; left: 70px">
-                                                        <lnk:calendar id="parametroFechaMIFinalModSets" disabled="#{controlBusquedaAvanzada2.activoFechasSets}"
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaMIFinalModSets" disabled="#{controlBusquedaAvanzada2.activoFechasSets}"
                                                                       value="#{controlBusquedaAvanzada2.fechaMIFinalSets}" >
                                                             <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaMIFinalModuloSets(3)}" update="parametroFechaMIFinalModSets" process="@this"/>
                                                             <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaMIFinalModuloSets(3)}" update="parametroFechaMIFinalModSets" process="@this"/>
                                                             <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceSets(3)}" process="@this" />
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                 </fieldset>
@@ -921,22 +921,22 @@
 
                                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 10px; top: 15px;color: #14388B;font-weight: bold"/>
                                                     <div id="posicionFechaMFInicialModSets" style="font-size: 10px; position: absolute; top: 10px; left: 70px">
-                                                        <lnk:calendar id="parametroFechaMFInicialModSets" disabled="#{controlBusquedaAvanzada2.activoFechasSets}"
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaMFInicialModSets" disabled="#{controlBusquedaAvanzada2.activoFechasSets}"
                                                                       value="#{controlBusquedaAvanzada2.fechaMFInicialSets}" >
                                                             <p:ajax event="dateSelect" update="@this" listener="#{controlBusquedaAvanzada2.cambiarIndiceSets(4)}" process="@this" />
                                                             <p:ajax event="change" update="@this" listener="#{controlBusquedaAvanzada2.cambiarIndiceSets(4)}" process="@this"/>
                                                             <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceSets(4)}" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 10px; top: 40px;color: #14388B;font-weight: bold"/>
                                                     <div id="posicionFechaMFFinalModSets" style="font-size: 10px; position: absolute; top: 35px; left: 70px">
-                                                        <lnk:calendar id="parametroFechaMFFinalModSets" disabled="#{controlBusquedaAvanzada2.activoFechasSets}"
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaMFFinalModSets" disabled="#{controlBusquedaAvanzada2.activoFechasSets}"
                                                                       value="#{controlBusquedaAvanzada2.fechaMFFinalSets}" >
                                                             <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaMFFinalModuloSets(5)}" update="parametroFechaMFFinalModSets" process="@this"/>
                                                             <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaMFFinalModuloSets(5)}" update="parametroFechaMFFinalModSets" process="@this"/>
                                                             <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceSets(5)}" process="@this" />
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                 </fieldset>
@@ -983,22 +983,22 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 175px; top: 65px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModNormaLaboral" style="font-size: 10px; position: absolute; top: 60px; left: 225px">
-                                                    <lnk:calendar id="parametroFechaInicialModNormaLaboral" disabled="#{controlBusquedaAvanzada2.activoFechasNormaLaboral}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModNormaLaboral" disabled="#{controlBusquedaAvanzada2.activoFechasNormaLaboral}"
                                                                   value="#{controlBusquedaAvanzada2.fechaInicialNormaLaboral}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModNormaLaboral" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloNormaLaboral(1)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModNormaLaboral" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloNormaLaboral(1)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceNormaLaboral(1)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 175px; top: 90px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModNormaLaboral" style="font-size: 10px; position: absolute; top: 85px; left: 225px">
-                                                    <lnk:calendar id="parametroFechaFinalModNormaLaboral" disabled="#{controlBusquedaAvanzada2.activoFechasNormaLaboral}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModNormaLaboral" disabled="#{controlBusquedaAvanzada2.activoFechasNormaLaboral}"
                                                                   value="#{controlBusquedaAvanzada2.fechaFinalNormaLaboral}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloNormaLaboral(2)}" update="parametroFechaFinalModNormaLaboral" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloNormaLaboral(2)}" update="parametroFechaFinalModNormaLaboral" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceNormaLaboral(2)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -1035,20 +1035,20 @@
 
                                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 10px; top: 15px;color: #14388B;font-weight: bold"/>
                                                     <div id="posicionFechaMIInicialModVacacion" style="font-size: 10px; position: absolute; top: 10px; left: 60px">
-                                                        <lnk:calendar id="parametroFechaMIInicialModVacacion" value="#{controlBusquedaAvanzada2.fechaMIInicialVacacion}" >
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaMIInicialModVacacion" value="#{controlBusquedaAvanzada2.fechaMIInicialVacacion}" >
                                                             <p:ajax event="dateSelect" update="parametroFechaMIInicialModVacacion" listener="#{controlBusquedaAvanzada2.modificarFechaMIFinalModuloVacacion(0)}" process="@this" />
                                                             <p:ajax event="change" update="parametroFechaMIInicialModVacacion" listener="#{controlBusquedaAvanzada2.modificarFechaMIFinalModuloVacacion(0)}" process="@this"/>
                                                             <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceVacacion(0)}" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 10px; top: 40px;color: #14388B;font-weight: bold"/>
                                                     <div id="posicionFechaMIFinalModVacacion" style="font-size: 10px; position: absolute; top: 35px; left: 60px">
-                                                        <lnk:calendar id="parametroFechaMIFinalModVacacion" value="#{controlBusquedaAvanzada2.fechaMIFinalVacacion}" >
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaMIFinalModVacacion" value="#{controlBusquedaAvanzada2.fechaMIFinalVacacion}" >
                                                             <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaMIFinalModuloVacacion(1)}" update="parametroFechaMIFinalModVacacion" process="@this"/>
                                                             <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaMIFinalModuloVacacion(1)}" update="parametroFechaMIFinalModVacacion" process="@this"/>
                                                             <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceVacacion(1)}" process="@this" />
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                 </fieldset>
@@ -1059,20 +1059,20 @@
 
                                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 10px; top: 15px;color: #14388B;font-weight: bold"/>
                                                     <div id="posicionFechaMFInicialModVacacion" style="font-size: 10px; position: absolute; top: 10px; left: 60px">
-                                                        <lnk:calendar id="parametroFechaMFInicialModVacacion" value="#{controlBusquedaAvanzada2.fechaMFInicialVacacion}" >
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaMFInicialModVacacion" value="#{controlBusquedaAvanzada2.fechaMFInicialVacacion}" >
                                                             <p:ajax event="dateSelect" update="parametroFechaMFInicialModVacacion" listener="#{controlBusquedaAvanzada2.modificarFechaMFFinalModuloVacacion(2)}" process="@this" />
                                                             <p:ajax event="change" update="parametroFechaMFInicialModVacacion" listener="#{controlBusquedaAvanzada2.modificarFechaMFFinalModuloVacacion(2)}" process="@this"/>
                                                             <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceVacacion(2)}" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 10px; top: 40px;color: #14388B;font-weight: bold"/>
                                                     <div id="posicionFechaMFFinalModVacacion" style="font-size: 10px; position: absolute; top: 35px; left: 60px">
-                                                        <lnk:calendar id="parametroFechaMFFinalModVacacion" value="#{controlBusquedaAvanzada2.fechaMFFinalVacacion}" >
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaMFFinalModVacacion" value="#{controlBusquedaAvanzada2.fechaMFFinalVacacion}" >
                                                             <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaMFFinalModuloVacacion(3)}" update="parametroFechaMFFinalModVacacion" process="@this"/>
                                                             <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaMFFinalModuloVacacion(3)}" update="parametroFechaMFFinalModVacacion" process="@this"/>
                                                             <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceVacacion(3)}" process="@this" />
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                 </fieldset>
@@ -1115,20 +1115,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 175px; top: 45px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModJornadaLaboral" style="font-size: 10px; position: absolute; top: 40px; left: 225px">
-                                                    <lnk:calendar id="parametroFechaInicialModJornadaLaboral" value="#{controlBusquedaAvanzada2.fechaInicialJornadaLaboral}" >
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModJornadaLaboral" value="#{controlBusquedaAvanzada2.fechaInicialJornadaLaboral}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModJornadaLaboral" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloJornadaLaboral(1)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModJornadaLaboral" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloJornadaLaboral(1)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceJornadaLaboral(1)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 175px; top: 70px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModJornadaLaboral" style="font-size: 10px; position: absolute; top: 65px; left: 225px">
-                                                    <lnk:calendar id="parametroFechaFinalModJornadaLaboral" value="#{controlBusquedaAvanzada2.fechaFinalJornadaLaboral}" >
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModJornadaLaboral" value="#{controlBusquedaAvanzada2.fechaFinalJornadaLaboral}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloJornadaLaboral(2)}" update="parametroFechaFinalModJornadaLaboral" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloJornadaLaboral(2)}" update="parametroFechaFinalModJornadaLaboral" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceJornadaLaboral(2)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -1168,20 +1168,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 175px; top: 45px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModFechaRetiro" style="font-size: 10px; position: absolute; top: 40px; left: 225px">
-                                                    <lnk:calendar id="parametroFechaInicialModFechaRetiro" value="#{controlBusquedaAvanzada2.fechaInicialFechaRetiro}" >
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModFechaRetiro" value="#{controlBusquedaAvanzada2.fechaInicialFechaRetiro}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModFechaRetiro" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloFechaRetiro(1)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModFechaRetiro" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloFechaRetiro(1)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceFechaRetiro(1)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 175px; top: 70px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModFechaRetiro" style="font-size: 10px; position: absolute; top: 65px; left: 225px">
-                                                    <lnk:calendar id="parametroFechaFinalModFechaRetiro" value="#{controlBusquedaAvanzada2.fechaFinalFechaRetiro}" >
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModFechaRetiro" value="#{controlBusquedaAvanzada2.fechaFinalFechaRetiro}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloFechaRetiro(2)}" update="parametroFechaFinalModFechaRetiro" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloFechaRetiro(2)}" update="parametroFechaFinalModFechaRetiro" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceFechaRetiro(2)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -1253,20 +1253,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 55px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModDatosPersonales" style="font-size: 10px; position: absolute; top: 50px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaInicialModDatosPersonales" value="#{controlBusquedaAvanzada2.fechaInicialDatosPersonales}" >
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModDatosPersonales" value="#{controlBusquedaAvanzada2.fechaInicialDatosPersonales}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModDatosPersonales" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloDatosPersonales(3)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModDatosPersonales" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloDatosPersonales(3)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceDatosPersonales(3)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 80px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModDatosPersonales" style="font-size: 10px; position: absolute; top: 75px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaFinalModDatosPersonales" value="#{controlBusquedaAvanzada2.fechaFinalDatosPersonales}" >
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModDatosPersonales" value="#{controlBusquedaAvanzada2.fechaFinalDatosPersonales}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloDatosPersonales(4)}" update="parametroFechaFinalModDatosPersonales" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloDatosPersonales(4)}" update="parametroFechaFinalModDatosPersonales" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceDatosPersonales(4)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
                                                
 
@@ -1354,22 +1354,22 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 260px; top: 65px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModEstadoCivil" style="font-size: 10px; position: absolute; top: 60px; left: 310px">
-                                                    <lnk:calendar id="parametroFechaInicialModEstadoCivil" disabled="#{controlBusquedaAvanzada2.activoFechasEstadoCivil}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModEstadoCivil" disabled="#{controlBusquedaAvanzada2.activoFechasEstadoCivil}"
                                                                   value="#{controlBusquedaAvanzada2.fechaInicialEstadoCivil}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModEstadoCivil" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloEstadoCivil(1)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModEstadoCivil" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloEstadoCivil(1)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceEstadoCivil(1)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 260px; top: 90px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModEstadoCivil" style="font-size: 10px; position: absolute; top: 85px; left: 310px">
-                                                    <lnk:calendar id="parametroFechaFinalModEstadoCivil" disabled="#{controlBusquedaAvanzada2.activoFechasEstadoCivil}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModEstadoCivil" disabled="#{controlBusquedaAvanzada2.activoFechasEstadoCivil}"
                                                                   value="#{controlBusquedaAvanzada2.fechaFinalEstadoCivil}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloEstadoCivil(2)}" update="parametroFechaFinalModEstadoCivil" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloEstadoCivil(2)}" update="parametroFechaFinalModEstadoCivil" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceEstadoCivil(2)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -1517,22 +1517,22 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 65px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModCenso" style="font-size: 10px; position: absolute; top: 60px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaInicialModCenso" disabled="#{controlBusquedaAvanzada2.activoFechasCenso}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModCenso" disabled="#{controlBusquedaAvanzada2.activoFechasCenso}"
                                                                   value="#{controlBusquedaAvanzada2.fechaInicialCenso}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModCenso" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloCenso(2)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModCenso" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloCenso(2)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCenso(2)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 90px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModCenso" style="font-size: 10px; position: absolute; top: 85px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaFinalModCenso" disabled="#{controlBusquedaAvanzada2.activoFechasCenso}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModCenso" disabled="#{controlBusquedaAvanzada2.activoFechasCenso}"
                                                                   value="#{controlBusquedaAvanzada2.fechaFinalCenso}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloCenso(3)}" update="parametroFechaFinalModCenso" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloCenso(3)}" update="parametroFechaFinalModCenso" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCenso(3)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -1594,22 +1594,22 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 65px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModEducacionFormal" style="font-size: 10px; position: absolute; top: 60px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaInicialModEducacionFormal" disabled="#{controlBusquedaAvanzada2.activoFechasEducacionFormal}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModEducacionFormal" disabled="#{controlBusquedaAvanzada2.activoFechasEducacionFormal}"
                                                                   value="#{controlBusquedaAvanzada2.fechaInicialEducacionFormal}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModEducacionFormal" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloEducacionFormal(2)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModEducacionFormal" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloEducacionFormal(2)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceEducacionFormal(2)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 90px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModEducacionFormal" style="font-size: 10px; position: absolute; top: 85px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaFinalModEducacionFormal" disabled="#{controlBusquedaAvanzada2.activoFechasEducacionFormal}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModEducacionFormal" disabled="#{controlBusquedaAvanzada2.activoFechasEducacionFormal}"
                                                                   value="#{controlBusquedaAvanzada2.fechaFinalEducacionFormal}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloEducacionFormal(3)}" update="parametroFechaFinalModEducacionFormal" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloEducacionFormal(3)}" update="parametroFechaFinalModEducacionFormal" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceEducacionFormal(3)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -1671,22 +1671,22 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 65px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModEducacionNoFormal" style="font-size: 10px; position: absolute; top: 60px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaInicialModEducacionNoFormal" disabled="#{controlBusquedaAvanzada2.activoFechasEducacionNoFormal}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModEducacionNoFormal" disabled="#{controlBusquedaAvanzada2.activoFechasEducacionNoFormal}"
                                                                   value="#{controlBusquedaAvanzada2.fechaInicialEducacionNoFormal}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModEducacionNoFormal" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloEducacionNoFormal(2)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModEducacionNoFormal" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloEducacionNoFormal(2)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceEducacionNoFormal(2)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 90px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModEducacionNoFormal" style="font-size: 10px; position: absolute; top: 85px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaFinalModEducacionNoFormal" disabled="#{controlBusquedaAvanzada2.activoFechasEducacionNoFormal}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModEducacionNoFormal" disabled="#{controlBusquedaAvanzada2.activoFechasEducacionNoFormal}"
                                                                   value="#{controlBusquedaAvanzada2.fechaFinalEducacionNoFormal}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloEducacionNoFormal(3)}" update="parametroFechaFinalModEducacionNoFormal" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloEducacionNoFormal(3)}" update="parametroFechaFinalModEducacionNoFormal" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceEducacionNoFormal(3)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -1750,20 +1750,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 50px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModExperienciaLaboral" style="font-size: 10px; position: absolute; top: 45px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaInicialModExperienciaLaboral" value="#{controlBusquedaAvanzada2.fechaInicialExperienciaLaboral}" >
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModExperienciaLaboral" value="#{controlBusquedaAvanzada2.fechaInicialExperienciaLaboral}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModExperienciaLaboral" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloExperienciaLaboral(4)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModExperienciaLaboral" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloExperienciaLaboral(4)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceExperienciaLaboral(4)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 85px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModExperienciaLaboral" style="font-size: 10px; position: absolute; top: 80px; left: 680px">
-                                                    <lnk:calendar id="parametroFechaFinalModExperienciaLaboral" value="#{controlBusquedaAvanzada2.fechaFinalExperienciaLaboral}" >
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModExperienciaLaboral" value="#{controlBusquedaAvanzada2.fechaFinalExperienciaLaboral}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloExperienciaLaboral(5)}" update="parametroFechaFinalModExperienciaLaboral" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloExperienciaLaboral(5)}" update="parametroFechaFinalModExperienciaLaboral" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceExperienciaLaboral(5)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -1811,20 +1811,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 250px; top: 50px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaInicialModProyecto" style="font-size: 10px; position: absolute; top: 45px; left: 300px">
-                                                    <lnk:calendar id="parametroFechaInicialModProyecto" value="#{controlBusquedaAvanzada2.fechaInicialProyecto}" >
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialModProyecto" value="#{controlBusquedaAvanzada2.fechaInicialProyecto}" >
                                                         <p:ajax event="dateSelect" update="parametroFechaInicialModProyecto" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloProyecto(2)}" process="@this" />
                                                         <p:ajax event="change" update="parametroFechaInicialModProyecto" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloProyecto(2)}" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceProyecto(2)}" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 250px; top: 80px;color: #14388B;font-weight: bold"/>
                                                 <div id="posicionFechaFinalModProyecto" style="font-size: 10px; position: absolute; top: 75px; left: 300px">
-                                                    <lnk:calendar id="parametroFechaFinalModProyecto" value="#{controlBusquedaAvanzada2.fechaFinalProyecto}" >
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalModProyecto" value="#{controlBusquedaAvanzada2.fechaFinalProyecto}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloProyecto(3)}" update="parametroFechaFinalModProyecto" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarFechaFinalModuloProyecto(3)}" update="parametroFechaFinalModProyecto" process="@this"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceProyecto(3)}" process="@this" />
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>

@@ -194,7 +194,7 @@ public interface AdministrarCarpetaPersonalInterface {
      * @param secEmpleado Secuencia del Empleado.
      * @return Retorna un String con la información requerida.
      */
-    public String consultarActualMVR(BigInteger secEmpleado);
+    public BigDecimal consultarActualMVR(BigInteger secEmpleado);
     /**
      * Método encargado de borrar la liquidacion automatica.
      */

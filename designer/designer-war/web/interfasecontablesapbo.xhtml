@@ -104,20 +104,20 @@
 
                                 <strong><h:outputText value="#{msg['fechaInicial']}" style="position: absolute; top: 20px; left: 480px"/></strong>
                                 <div id="posicionFechaIni" style="position: absolute; top: 15px; left: 560px">
-                                    <lnk:calendar id="parametroFechaInicial"  value="#{controlInterfaseContableSapBO.parametroContableActual.fechainicialcontabilizacion}">
+                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicial"  value="#{controlInterfaseContableSapBO.parametroContableActual.fechainicialcontabilizacion}">
                                         <p:ajax event="dateSelect" listener="#{controlInterfaseContableSapBO.modificarFechasParametro(3)}" update="@this"/>
                                         <p:ajax event="change" listener="#{controlInterfaseContableSapBO.modificarFechasParametro(3)}" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableSapBO.cambiarIndiceParametro(3)}" />
-                                    </lnk:calendar>
+                                    </p:calendar>
                                 </div>
 
                                 <strong><h:outputText value="#{msg['fechaFinal']}" style="position: absolute; top: 50px; left: 480px"/></strong>
                                 <div id="posicionFechaFin" style="position: absolute; top: 45px; left: 560px">
-                                    <lnk:calendar id="parametroFechaFinal" value="#{controlInterfaseContableSapBO.parametroContableActual.fechafinalcontabilizacion}" >
+                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinal" value="#{controlInterfaseContableSapBO.parametroContableActual.fechafinalcontabilizacion}" >
                                         <p:ajax event="dateSelect" listener="#{controlInterfaseContableSapBO.modificarFechasParametro(4)}" update="@this"/>
                                         <p:ajax event="change" listener="#{controlInterfaseContableSapBO.modificarFechasParametro(4)}" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableSapBO.cambiarIndiceParametro(4)}" />
-                                    </lnk:calendar>
+                                    </p:calendar>
                                 </div>
                                 
                                 <strong><h:outputText value="#{msg['numDocumento']}" style="position: absolute; top: 50px; left: 235px"/></strong>
@@ -128,11 +128,11 @@
                                 
                                 <strong><h:outputText id="textFechaGenerada" value="#{msg['fechaGenerada']}" style="position: absolute; top: 50px; left: 700px"/></strong>
                                 <div id="posicionFechaGenerada" style="position: absolute; top: 45px; left: 740px">
-                                    <lnk:calendar id="parametroFechaGenerada" value="#{controlInterfaseContableSapBO.parametroContableActual.fechageneracion}" >
+                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaGenerada" value="#{controlInterfaseContableSapBO.parametroContableActual.fechageneracion}" >
                                         <p:ajax event="dateSelect" listener="#{controlInterfaseContableSapBO.cambiarIndiceParametro()}" update="@this"/>
                                         <p:ajax event="change" listener="#{controlInterfaseContableSapBO.cambiarIndiceParametro()}" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableSapBO.cambiarIndiceParametro(6)}" />
-                                    </lnk:calendar>
+                                    </p:calendar>
                                 </div>
                                 <p:tooltip  for="textFechaGenerada" value="#{msg['textFechaGenerada']}" />
                                 
@@ -813,18 +813,18 @@
 
                             <strong><h:outputText value="*#{msg['fechaInicialN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
                             <div id="posicionNuevaFechaInicial" style=" position: absolute; top: 160px; left: 200px">
-                                <lnk:calendar id="nuevaFechaInicialParametro" value="#{controlInterfaseContableSapBO.nuevoParametroContable.fechainicialcontabilizacion}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicialParametro" value="#{controlInterfaseContableSapBO.nuevoParametroContable.fechainicialcontabilizacion}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialParametro" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicialParametro" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechaFinalN']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
                             <div id="posicionNuevaFechaFinal" style=" position: absolute; top: 190px; left: 200px">
-                                <lnk:calendar id="nuevaFechaFinalParametro" value="#{controlInterfaseContableSapBO.nuevoParametroContable.fechafinalcontabilizacion}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinalParametro" value="#{controlInterfaseContableSapBO.nuevoParametroContable.fechafinalcontabilizacion}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinalParametro" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinalParametro" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                             
                             <strong><h:outputText value="#{msg['numDocumentoN']}" style=" position: absolute; top: 225px; left: 50px" /></strong>
@@ -835,10 +835,10 @@
                             
                             <strong><h:outputText value="#{msg['fechaGeneradaN']}" style=" position: absolute; top: 255px; left: 50px;" /></strong>
                             <div id="posicionNuevaFechaGenerada" style=" position: absolute; top: 250px; left: 200px">
-                                <lnk:calendar id="nuevaFechaGenerada" value="#{controlInterfaseContableSapBO.nuevoParametroContable.fechageneracion}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaGenerada" value="#{controlInterfaseContableSapBO.nuevoParametroContable.fechageneracion}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaGenerada" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaGenerada" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <p:commandButton id="limpiarPC" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 285px;" icon="ui-icon-trash" actionListener="#{controlInterfaseContableSapBO.limpiarNuevoParametro()}" update="nuevaParametroContable" process="@this"/>

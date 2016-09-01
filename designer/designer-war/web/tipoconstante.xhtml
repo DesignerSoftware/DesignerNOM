@@ -58,11 +58,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editFechaInicial" value="#{tc.fechainicial}" height="12" width="99">
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tc.fechainicial}">
                                                 <p:ajax event="dateSelect" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.fechainicial)}" update="@this"/>
                                                 <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.fechainicial)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(indice, 1)}" process="@this" />
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
 
@@ -79,11 +79,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editFechaFinal" value="#{tc.fechafinal}" height="12" width="99">
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tc.fechafinal}">
                                                 <p:ajax event="dateSelect" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.fechafinal)}" update="@this"/>
                                                 <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.fechafinal)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(indice, 2)}" process="@this" />
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
 
@@ -119,11 +119,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editValores" value="#{tc.fechafinal}" height="12" width="99">
+                                            <p:calendar pattern="dd/MM/yyyy" id="editValores" value="#{tc.fechafinal}">
                                                 <p:ajax event="dateSelect" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.valordate)}" update="@this"/>
                                                 <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.valordate)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(indice, 4)}" process="@this" />
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet> 
                                     </p:cellEditor>
 
@@ -229,7 +229,7 @@
                     </p:dialog>
 
                     <p:dialog id="editarValoresDates" header="#{msg['editarValoresDates']}" widgetVar="editarValoresDates" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
-                        <p:calendar   value="#{controlTipoConstante.editarTiposConstantes.valordate}" id="editarValoresD"  styleClass="ui-datepicker, myClass"  
+                        <p:calendar pattern="dd/MM/yyyy"   value="#{controlTipoConstante.editarTiposConstantes.valordate}" id="editarValoresD"  styleClass="ui-datepicker, myClass"  
                                       navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
                         </p:calendar>
                     </p:dialog>
@@ -264,18 +264,18 @@
 
                             <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 125px" /></strong>
                             <div style=" position: absolute; top: 120px; left: 150px;">
-                                <lnk:calendar id="nuevaFechaInicial" value="#{controlTipoConstante.nuevoTipoConstante.fechainicial}" height="12" width="60">
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoConstante.nuevoTipoConstante.fechainicial}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 165px" /></strong>
                             <div style=" position: absolute; top: 160px; left: 150px;">
-                                <lnk:calendar id="nuevaFechaFinal" value="#{controlTipoConstante.nuevoTipoConstante.fechafinal}" height="12" width="60">
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoConstante.nuevoTipoConstante.fechafinal}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['valorrealN']}" style=" position: absolute; top: 205px" /></strong>
@@ -285,11 +285,11 @@
 
                             <strong><h:outputText value="#{msg['valordateN']}" style=" position: absolute; top: 245px" /></strong>
                             <div style=" position: absolute; top: 240px; left: 150px;">
-                                <lnk:calendar id="nuevoValorDate" value="#{controlTipoConstante.nuevoTipoConstante.valordate}" height="12" width="60">
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevoValorDate" value="#{controlTipoConstante.nuevoTipoConstante.valordate}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                     <p:ajax event="click" listener="#{controlTipoConstante.revisarTipoN()}" update="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['valorcadenaN']}" style=" position: absolute; top: 285px" /></strong>
@@ -321,18 +321,18 @@
 
                             <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 125px" /></strong>
                             <div style=" position: absolute; top: 120px; left: 150px;">
-                                <lnk:calendar id="duplicarFechaInicial" value="#{controlTipoConstante.duplicarTipoConstante.fechainicial}" height="12" width="60">
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoConstante.duplicarTipoConstante.fechainicial}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 165px" /></strong>
                             <div style=" position: absolute; top: 160px; left: 150px;">
-                                <lnk:calendar id="duplicarFechaFinal" value="#{controlTipoConstante.duplicarTipoConstante.fechafinal}" height="12" width="60">
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoConstante.duplicarTipoConstante.fechafinal}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['valorrealN']}" style=" position: absolute; top: 205px" /></strong>
@@ -342,11 +342,11 @@
 
                             <strong><h:outputText value="#{msg['valordateN']}" style=" position: absolute; top: 245px" /></strong>
                             <div style=" position: absolute; top: 240px; left: 150px;">
-                                <lnk:calendar id="duplicarValorDate" value="#{controlTipoConstante.duplicarTipoConstante.valordate}" height="12" width="60">
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarValorDate" value="#{controlTipoConstante.duplicarTipoConstante.valordate}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                     <p:ajax event="click" listener="#{controlTipoConstante.revisarTipoD()}" update="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['valorcadenaN']}" style=" position: absolute; top: 285px" /></strong>

@@ -100,11 +100,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaInicial" value="#{dec.fechainicial}" height="12" width="99" > 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{dec.fechainicial}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlDeclarantes.modificarFechas(indice,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDeclarantes.modificarFechas(indice,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(indice,0)}" process="@this"/> 
-                                            </lnk:calendar>
+                                            </p:calendar>
 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -122,11 +122,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaFinal" value="#{dec.fechafinal}" height="12" width="99" > 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{dec.fechafinal}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlDeclarantes.modificarFechas(indice,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDeclarantes.modificarFechas(indice,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(indice,1)}" process="@this"/> 
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
 
@@ -235,18 +235,18 @@
 
                                 <strong><h:outputText value="#{msg['fechainicioN']}"  style=" position: absolute; top: 17px" /></strong>
                                 <div id="posicionFechaInicialNuevo" style="; position: absolute; top: 17px; left: 152px">
-                                    <lnk:calendar id="nuevaFechaInicial" value="#{controlDeclarantes.nuevoDeclarante.fechainicial}" >
+                                    <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlDeclarantes.nuevoDeclarante.fechainicial}" >
                                         <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                                         <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
-                                    </lnk:calendar>
+                                    </p:calendar>
                                 </div>
 
                                 <strong><h:outputText value="#{msg['fechafinalN']}"  style=" position: absolute; top: 57px" /></strong>
                                 <div id="posicionFechaInicialNuevo" style=" position: absolute; top: 57px; left: 152px">
-                                    <lnk:calendar id="nuevaFechaFinal" value="#{controlDeclarantes.nuevoDeclarante.fechafinal}" >
+                                    <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlDeclarantes.nuevoDeclarante.fechafinal}" >
                                         <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                                         <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
-                                    </lnk:calendar>
+                                    </p:calendar>
                                 </div>
 
                                 <strong><h:outputText value="#{msg['declaranteN']}"   style=" position: absolute; top: 97px" /></strong>
@@ -286,18 +286,18 @@
 
                                 <strong><h:outputText value="#{msg['fechainicioN']}"  style=" position: absolute; top: 17px" /></strong>
                                 <div id="posicionFechaInicioDuplicar" style=" position: absolute; top: 17px; left: 152px">
-                                    <lnk:calendar id="duplicarFechaInicial" value="#{controlDeclarantes.duplicarDeclarante.fechainicial}" >
+                                    <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlDeclarantes.duplicarDeclarante.fechainicial}" >
                                         <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                                         <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
-                                    </lnk:calendar>
+                                    </p:calendar>
                                 </div>
 
                                 <strong><h:outputText value="#{msg['fechafinalN']}"  style=" position: absolute; top: 57px" /></strong>
                                 <div id="posicionFechaFinalDuplicar" style=" position: absolute; top: 57px; left: 152px">
-                                    <lnk:calendar id="duplicarFechaFinal" value="#{controlDeclarantes.duplicarDeclarante.fechafinal}" >
+                                    <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlDeclarantes.duplicarDeclarante.fechafinal}" >
                                         <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                                         <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
-                                    </lnk:calendar>
+                                    </p:calendar>
                                 </div>
 
                                 <strong><h:outputText value="#{msg['declaranteN']}"   style=" position: absolute; top: 97px" /></strong>

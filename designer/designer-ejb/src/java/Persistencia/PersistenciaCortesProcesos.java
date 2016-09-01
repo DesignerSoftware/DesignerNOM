@@ -170,7 +170,8 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
             DateFormat formatoF = new SimpleDateFormat("ddMMyyyy");
             String fecha = formatoF.format(fechaCorte);
             System.out.println("fecha : " + fecha);
-            String sqlQuery = "call CORTESPROCESOS_PKG.UndoCierre(" + proceso + ", " + rfEmpleado + ", To_date( '"+fecha+"', 'ddMMyyyy'))";
+            String sqlQuery = "call CORTESPROCESOS_PKG.UndoCierre(" + proceso + ", " + rfEmpleado + ", To_date( '" + fecha + "', 'ddMMyyyy'))";
+            System.out.println("sqlQuery : " + sqlQuery);
             Query query = em.createNativeQuery(sqlQuery);
 //            query.setParameter(1, proceso);
 //            query.setParameter(2, rfEmpleado);

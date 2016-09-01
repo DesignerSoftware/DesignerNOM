@@ -97,11 +97,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaInicial" value="#{info.fechavigencia}" height="12" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
                                                 <p:ajax event="select" listener="#{controlVigenciasTallas.cambiarIndice(indice, 0)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlVigenciasTallas.mostrarInfo(indice,0)}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasTallas.mostrarInfo(indice,0)}" process="@this" update="dateFechaInicial"/>
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -310,10 +310,10 @@
 
                             <strong><h:outputText value="*Fecha:"  style=" position: absolute; top: 60px;" /></strong>
                             <div  id="nuevaFechaa" style="width: 135px; position: absolute; top: 55px; left: 150px;">
-                                <lnk:calendar id="nuevaFecha" value="#{controlVigenciasTallas.nuevoVigenciaTalla.fechavigencia}" height="12" width="60" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasTallas.nuevoVigenciaTalla.fechavigencia}">
                                     <p:ajax event="dateSelect" update="nuevaFecha"/>
                                     <p:ajax event="change" update="nuevaFecha"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                             <p:watermark for="nuevaFecha" value="Fecha" />
 
@@ -360,10 +360,10 @@
 
                             <strong><h:outputText value="*Fecha:"  style=" position: absolute; top: 60px;" /></strong>
                             <div  id="duplicarFechaa" style="width: 135px; position: absolute; top: 55px; left: 150px;">
-                                <lnk:calendar id="duplicarFecha" value="#{controlVigenciasTallas.duplicarVigenciaTalla.fechavigencia}" height="12" width="60" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlVigenciasTallas.duplicarVigenciaTalla.fechavigencia}">
                                     <p:ajax event="dateSelect" update="duplicarFecha"/>
                                     <p:ajax event="change" update="duplicarFecha"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                             <p:watermark for="duplicarFecha" value="Fecha" />
 

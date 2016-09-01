@@ -110,11 +110,11 @@
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFecha" value="#{info.fecha}" > 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFecha" value="#{info.fecha}" > 
                                                 <p:ajax event="dateSelect" listener="#{controlEstructuraPlanta.modificacionesFechas(info,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.modificacionesFechas(info,0)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndice(info,0)}" process="@this"/> 
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -704,10 +704,10 @@
 
                             <strong><h:outputText value="*#{msg['fechaN']}" style="position: absolute; top: 75px" /></strong>
                             <div id="posicionFechaNuevoReg" style=" position: absolute; top: 70px; left: 120px;width: 120px">
-                                <lnk:calendar id="nuevaFecha" value="#{controlEstructuraPlanta.nuevoOrganigrama.fecha}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlEstructuraPlanta.nuevoOrganigrama.fecha}" >
                                     <p:ajax event="dateSelect" update="nuevaFecha" process="@this"/>
                                     <p:ajax event="change" update="nuevaFecha" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 105px" /></strong>
@@ -754,10 +754,10 @@
 
                             <strong><h:outputText value="*#{msg['fechaN']}" style="position: absolute; top: 75px;" /></strong>
                             <div id="posicionFechaDuplicarReg" style="position: absolute; top: 70px; left: 120px;width: 120px">
-                                <lnk:calendar id="duplicarFecha" value="#{controlEstructuraPlanta.duplicarOrganigrama.fecha}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlEstructuraPlanta.duplicarOrganigrama.fecha}" >
                                     <p:ajax event="dateSelect" update="duplicarFecha" process="@this"/>
                                     <p:ajax event="change" update="duplicarFecha" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 105px" /></strong>

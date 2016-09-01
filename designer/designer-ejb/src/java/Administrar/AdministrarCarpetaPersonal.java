@@ -470,9 +470,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
     }
 
     @Override
-    public String consultarActualMVR(BigInteger secEmpleado) {
+    public BigDecimal consultarActualMVR(BigInteger secEmpleado) {
         try {
-            String actualMVR = PersistenciaVWActualesMvrs.buscarActualMVR(em, secEmpleado);
+            BigDecimal actualMVR = PersistenciaVWActualesMvrs.buscarActualMVR(em, secEmpleado);
             return actualMVR;
         } catch (Exception e) {
             return null;

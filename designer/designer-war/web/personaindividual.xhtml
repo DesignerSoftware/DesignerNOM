@@ -148,7 +148,7 @@
 
                                     <h:outputText  value="#{msg['fechaNacimiento']}*" style="position: absolute; top: 115px; left: 290px;font-weight: bold"/>
                                     <div id="divFechaNacimientoModPersonal" style="position: absolute; top: 110px; left: 430px;">
-                                        <p:calendar value="#{controlPersonaIndividual.nuevaPersona.fechanacimiento}" id="fechaNacimientoModPersonal" >
+                                        <p:calendar pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaPersona.fechanacimiento}" id="fechaNacimientoModPersonal" >
                                             <p:ajax event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaNacimientoInformacionPersonal(8)}" update="@this" process="@this"/>
                                             <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaNacimientoInformacionPersonal(8)}" update="@this" process="@this"/>
                                         </p:calendar>
@@ -163,7 +163,7 @@
 
                                     <h:outputText  value="#{msg['fechaIngreso']}*" style="position: absolute; top: 25px; left: 580px;font-weight: bold"/>
                                     <div id="divFechaIngresoModPersonal" style="position: absolute; top: 20px; left: 705px;">
-                                        <p:calendar id="fechaIngresoModPersonal" value="#{controlPersonaIndividual.fechaIngreso}" >
+                                        <p:calendar pattern="dd/MM/yyyy" id="fechaIngresoModPersonal" value="#{controlPersonaIndividual.fechaIngreso}" >
                                             <p:ajax event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaIngresoInformacionPersonal(10)}" 
                                                     update="fechaIngresoModPersonal" process="@this" immediate="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"/>
                                             <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaIngresoInformacionPersonal(10)}"
@@ -187,11 +187,11 @@
 
                                     <h:outputText  value="#{msg['fechaUltimoPago']}" style="position: absolute; top: 115px; left: 580px;font-weight: bold"/>
                                     <div id="divFechaUltimoPagoModPersonal" style="position: absolute; top: 110px; left: 705px;">
-                                        <lnk:calendar value="#{controlPersonaIndividual.fechaCorte}" id="fechaUltimoPagoModPersonal" >
+                                        <p:calendar pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.fechaCorte}" id="fechaUltimoPagoModPersonal" >
 
                                             <p:ajax event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaUltimoPagoInformacionPersonal(13)}" update="@this" process="@this"/>
                                             <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaUltimoPagoInformacionPersonal(13)}" update="@this" process="@this"/>
-                                        </lnk:calendar>
+                                        </p:calendar>
                                     </div>
 
                                 </fieldset>
@@ -357,10 +357,10 @@
 
                                     <h:outputText  value="#{msg['fechaFinalContrato']}" style="position: absolute; top: 85px; left: 65px;font-weight: bold"/>
                                     <div id="divFechaFinalContratoModTipoContrato" style="position: absolute; top: 80px; left: 245px;">
-                                        <lnk:calendar value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.fechavigencia}" id="fechaFinalContratoModTipoContrato" >
+                                        <p:calendar pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.fechavigencia}" id="fechaFinalContratoModTipoContrato" >
                                             <p:ajax  event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaFechaVigenciaTipoContrato(2)}" process="@this"/>
                                             <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaFechaVigenciaTipoContrato(2)}" update="@this" process="@this"/>
-                                        </lnk:calendar>
+                                        </p:calendar>
                                     </div>
 
                                 </fieldset>   

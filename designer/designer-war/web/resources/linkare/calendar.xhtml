@@ -7,10 +7,8 @@
       xmlns:cc="http://java.sun.com/jsf/composite"
       xmlns:linkare="http://java.sun.com/jsf/composite/linkare">
 
-
-
     <!-- INTERFACE -->
-    <cc:interface>
+<!--    <cc:interface>
         <cc:attribute name="value" type="java.util.Date" shortDescription="The value of this component" required="false" />
         <cc:attribute name="mask" type="java.lang.String" 
                       required="false" default="99/99/9999"
@@ -33,12 +31,12 @@
         <cc:clientBehavior name="change" targets="calendar" event="change" />
         <cc:clientBehavior name="click" targets="calendar" event="click"/>
         <cc:clientBehavior name="focus" targets="calendar" event="focus"/>
-    </cc:interface>
+    </cc:interface>-->
 
     <!-- IMPLEMENTATION -->
-    <cc:implementation>
-        <!-- This component has been simplified but it could include any attribute of the inputMask 
-         component that we wish our developer clients to be able to specify -->
+<!--    <cc:implementation>
+         This component has been simplified but it could include any attribute of the inputMask 
+         component that we wish our developer clients to be able to specify 
         <p:inputMask id="calendar" onclick="select();#{cc.attrs.onclick}"  onselect="#{cc.attrs.onselect}" 
                      onchange="#{cc.attrs.onchange}" readonly="#{cc.attrs.readonly}" 
                      disabled="#{cc.attrs.disabled}" mask="#{cc.attrs.mask}" 
@@ -49,5 +47,5 @@
             <f:convertDateTime pattern="#{cc.attrs.pattern}" timeZone="America/Bogota" locale="es" />
         </p:inputMask>
         <h:outputScript target="head" library="js" name="calendar.js"  />
-    </cc:implementation>
+    </cc:implementation>-->
 </html>

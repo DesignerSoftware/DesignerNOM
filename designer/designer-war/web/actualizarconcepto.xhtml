@@ -156,11 +156,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaCreacion" value="#{info.fechacreacion}" height="12" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaCreacion" value="#{info.fechacreacion}"> 
                                                 <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 6)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlActualizarConceptos.mostrarInfo(indice,6)}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlActualizarConceptos.mostrarInfo(indice,6)}" process="@this" update="editFecha"/>
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
 

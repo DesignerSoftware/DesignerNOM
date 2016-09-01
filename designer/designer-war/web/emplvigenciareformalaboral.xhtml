@@ -106,11 +106,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editFecha" value="#{info.fechavigencia}" width="99" > 
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasReformasLaborales.modificarFechas(info,0)}" update="editFecha" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasReformasLaborales.modificarFechas(info,0)}" update="editFecha" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciasReformasLaborales.cambiarIndice(info,0)}" process="@this"/> 
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
 
@@ -277,10 +277,10 @@
 
                             <strong><h:outputText value="#{msg['fechaN']}" style=" position: absolute; top: 65px; left: 65px;" /></strong>
                             <div id="posicionFormulaFechaVigNuevoReg" style=" position: absolute; top: 60px; left: 200px">
-                                <lnk:calendar id="nuevaFecha" value="#{controlVigenciasReformasLaborales.nuevaVigencia.fechavigencia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasReformasLaborales.nuevaVigencia.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="nuevaFecha" process="@this"/>
                                     <p:ajax event="change" update="nuevaFecha" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['reformalaboralN']}" style=" position: absolute; top: 98px; left: 65px" /></strong>
@@ -307,10 +307,10 @@
 
                             <strong><h:outputText value="#{msg['fechaN']}" style=" position: absolute; top: 65px; left: 65px;" /></strong>
                             <div id="posicionFormulaFechaVigDupliReg" style=" position: absolute; top: 60px; left: 200px">
-                                <lnk:calendar id="duplicarFecha" value="#{controlVigenciasReformasLaborales.duplicarVRL.fechavigencia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlVigenciasReformasLaborales.duplicarVRL.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="duplicarFecha" process="@this"/>
                                     <p:ajax event="change" update="duplicarFecha" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['reformalaboralN']}" style=" position: absolute; top: 98px; left: 65px" /></strong>

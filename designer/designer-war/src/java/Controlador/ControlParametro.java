@@ -303,10 +303,16 @@ public class ControlParametro implements Serializable {
     public void seleccionarEmpleado() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (empleadosParametros != null) {
+            System.out.println("empleadosParametros.size() : " + empleadosParametros.size());
             if (!empleadosParametros.isEmpty()) {
+                System.out.println("seleccionEmpleado.getSecuencia() : " + seleccionEmpleado.getSecuencia());
+                System.out.println("Empleado : " + seleccionEmpleado.getPersona().getNombreCompleto());
                 int control = 0;
                 for (int i = 0; i < empleadosParametros.size(); i++) {
-                    if (empleadosParametros.get(i).getEmpleado().getSecuencia() == seleccionEmpleado.getSecuencia()) {
+                    if (empleadosParametros.get(i).getEmpleado().getSecuencia().equals(seleccionEmpleado.getSecuencia())) {
+                        System.out.println("empleadosParametros.get(i).getEmpleado().getSecuencia() : " + empleadosParametros.get(i).getEmpleado().getSecuencia());
+                        System.out.println("empleadosParametros.get(i) Empleado() : " + empleadosParametros.get(i).getEmpleado().getPersona().getNombreCompleto());
+                        System.out.println("/////////////////////////////////////////////////////////////");
                         control++;
                         break;
                     }
@@ -324,8 +330,8 @@ public class ControlParametro implements Serializable {
             empleadosParametros = new ArrayList<Parametros>();
             agregarParametro();
         }
-        contarRegistros();
         context.update("form:empleadosParametros");
+        contarRegistros();
         filtradoLovEmpleados = null;
         seleccionEmpleado = null;
         aceptar = true;
@@ -357,17 +363,16 @@ public class ControlParametro implements Serializable {
     }
 
     public void agregarParametro() {
+        System.out.println("Entro en agregarParametro()");
         k++;
         l = BigInteger.valueOf(k);
         Parametros parametro = new Parametros();
         parametro.setSecuencia(l);
         parametro.setParametroestructura(parametroLiquidacion);
         parametro.setEmpleado(seleccionEmpleado);
-        if (tipoLista == 0) {
-            listaCrearParametros.add(parametro);
-            empleadosParametros.add(parametro);
-        } else {
-            listaCrearParametros.add(parametro);
+        listaCrearParametros.add(parametro);
+        empleadosParametros.add(parametro);
+        if (tipoLista == 1) {
             filtradoEmpleadosParametros.add(parametro);
         }
         if (cambiosEmpleadosParametros == false) {
@@ -772,6 +777,7 @@ public class ControlParametro implements Serializable {
         } else {
             cerrarFiltrado();
         }
+        contarRegistros();
     }
 
     public void exportPDF() throws IOException {

@@ -98,10 +98,10 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editFechaVigencia" value="#{info.fechavigencia}" height="12" width="99">
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaVigencia" value="#{info.fechavigencia}">
                                                 <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 0)}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.fechavigencia)}" update="editFechaVigencia"/>
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>
                                     </p:cellEditor>
 
@@ -129,13 +129,12 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editFechaCuenta" value="#{info.fechacuenta}" height="12" width="99">
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaCuenta" value="#{info.fechacuenta}">
                                                 <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info,2)}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.fechacuenta)}" update="editFechaCuenta" process="@this"/>
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>
                                     </p:cellEditor>
-
                                 </p:column>
 
                                 <p:column headerText="#{msg['sucursal']}" sortBy="#{info.sucursal.nombre}" filterBy="#{info.sucursal.nombre}" filterMatchMode="contains" id="sucursal" width="120" filterStyle="display: none; visibility: hidden;" >                                  
@@ -448,10 +447,10 @@
                         <p:panel id="nuevaVigenciaFormasPagos" style="border: none;">
                             <strong><h:outputText value="*#{msg['fechaVigenciaN']}" style=" position: absolute; top: 85px" /></strong>
                             <div id="posicionFechaVigenciaNuevoReg" style=" position: absolute; top: 80px; left: 150px">
-                                <lnk:calendar id="nuevaFechaVigencia" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.fechavigencia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaVigencia" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaVigencia" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['cuentaN']}"  style=" position: absolute; top: 125px" /></strong>
@@ -462,10 +461,10 @@
 
                             <strong><h:outputText value="#{msg['fechaCuentaN']}" style=" position: absolute; top: 165px" /></strong>
                             <div id="posicionFechaCuentaNuevoReg" style=" position: absolute; top: 160px; left: 150px">
-                                <lnk:calendar id="nuevaFechaCuenta" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.fechacuenta}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaCuenta" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.fechacuenta}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaCuenta" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaCuenta" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['sucursalN']}" style=" position: absolute; top: 205px" /></strong>
@@ -518,10 +517,10 @@
                         <p:panel id="duplicarVigenciaFormasPagos" style="border: none;">
                             <strong><h:outputText value="*#{msg['fechaVigenciaN']}" style=" position: absolute; top: 85px" /></strong>
                             <div id="posicionFechaVigenciaDuplicarReg" style=" position: absolute; top: 80px; left: 150px">
-                                <lnk:calendar id="duplicarFechaVigencia" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.fechavigencia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaVigencia" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaVigencia" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['cuentaN']}" style=" position: absolute; top: 125px" /></strong>
@@ -532,10 +531,10 @@
 
                             <strong><h:outputText value="#{msg['fechaCuentaN']}" style=" position: absolute; top: 165px" /></strong>
                             <div id="posicionFechaCuentaDuplicarReg" style=" position: absolute; top: 160px; left: 150px">
-                                <lnk:calendar id="duplicarFechaCuenta" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.fechacuenta}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaCuenta" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.fechacuenta}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaCuenta" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaCuenta" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['sucursalM']}"  style=" position: absolute; top: 205px" /></strong>

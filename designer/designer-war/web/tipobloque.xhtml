@@ -37,11 +37,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editFechaInicial" value="#{tc.fechainicial}" height="12" width="99">
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tc.fechainicial}">
                                                 <p:ajax event="dateSelect" listener="#{controlTipoBloque.modificarTiposBloques(indice, 'N', tc.fechainicial)}" update="@this"/>
                                                 <p:ajax event="change" listener="#{controlTipoBloque.modificarTiposBloques(indice, 'N', tc.fechainicial)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlTipoBloque.cambiarIndice(indice, 0)}" process="@this" />
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
 
@@ -58,11 +58,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editFechaFinal" value="#{tc.fechafinal}" height="12" width="99">
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tc.fechafinal}">
                                                 <p:ajax event="dateSelect" listener="#{controlTipoBloque.modificarTiposBloques(indice, 'N', tc.fechafinal)}" update="@this"/>
                                                 <p:ajax event="change" listener="#{controlTipoBloque.modificarTiposBloques(indice, 'N', tc.fechafinal)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlTipoBloque.cambiarIndice(indice, 1)}" process="@this" />
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
 
@@ -209,18 +209,18 @@
 
                             <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 85px" /></strong>
                             <div style=" position: absolute; top: 80px; left: 150px;">
-                                <lnk:calendar id="nuevaFechaInicial" value="#{controlTipoBloque.nuevoTipoBloque.fechainicial}" height="12" width="60">
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoBloque.nuevoTipoBloque.fechainicial}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                            
                             <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 125px" /></strong>
                             <div style=" position: absolute; top: 120px; left: 150px;">
-                                <lnk:calendar id="nuevaFechaFinal" value="#{controlTipoBloque.nuevoTipoBloque.fechafinal}" height="12" width="60">
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoBloque.nuevoTipoBloque.fechafinal}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 165px" /></strong>
@@ -253,18 +253,18 @@
                             <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 85px" /></strong>
                             
                             <div style=" position: absolute; top: 80px; left: 150px;">
-                                <lnk:calendar id="duplicarFechaInicial" value="#{controlTipoBloque.duplicarTipoBloque.fechainicial}" height="12" width="60">
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoBloque.duplicarTipoBloque.fechainicial}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                            
                             <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 125px" /></strong>
                             <div style=" position: absolute; top: 120px; left: 150px;">
-                                <lnk:calendar id="duplicarFechaFinal" value="#{controlTipoBloque.duplicarTipoBloque.fechainicial}" height="12" width="60">
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoBloque.duplicarTipoBloque.fechainicial}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 165px" /></strong>

@@ -38,11 +38,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaInicial" value="#{infoFC.fechainicial}" > 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoFC.fechainicial}" > 
                                                 <p:ajax event="select" listener="#{controlFormulaConcepto.cambiarIndiceFormulaConcepto(indiceFC,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlFormulaConcepto.modificacionesFechaFormula(indiceFC,0)}" process="@this" update="dateFechaInicial"/>
                                                 <p:ajax event="dateSelect" listener="#{controlFormulaConcepto.modificacionesFechaFormula(indiceFC,0)}" process="@this" update="dateFechaInicial"/>
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -60,11 +60,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFecha" value="#{infoFC.fechafinal}" > 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFecha" value="#{infoFC.fechafinal}" > 
                                                 <p:ajax event="select" listener="#{controlFormulaConcepto.cambiarIndiceFormulaConcepto(indiceFC,1)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlFormulaConcepto.modificacionesFechaFormula(indiceFC,1)}" process="@this" update="dateFecha"/>
                                                 <p:ajax event="dateSelect" listener="#{controlFormulaConcepto.modificacionesFechaFormula(indiceFC,1)}" process="@this" update="dateFecha"/>
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -380,18 +380,18 @@
 
                             <strong><h:outputText value="*#{msg['fechaInicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
-                                <lnk:calendar id="nuevaDateFechaInicial" value="#{controlFormulaConcepto.nuevaFormulaConcepto.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaInicial" value="#{controlFormulaConcepto.nuevaFormulaConcepto.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaDateFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="nuevaDateFechaInicial" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechaFinalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
-                                <lnk:calendar id="nuevaDateFechaFinal" value="#{controlFormulaConcepto.nuevaFormulaConcepto.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaFinal" value="#{controlFormulaConcepto.nuevaFormulaConcepto.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaDateFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="nuevaDateFechaFinal" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 135px; left: 50px" /></strong>
@@ -453,18 +453,18 @@
 
                             <strong><h:outputText value="*#{msg['fechaInicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFechaIniDuplicarReg" style="position: absolute; top: 70px; left: 220px">
-                                <lnk:calendar id="duplicarDateFechaInicial" value="#{controlFormulaConcepto.duplicarFormulaConcepto.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaInicial" value="#{controlFormulaConcepto.duplicarFormulaConcepto.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="duplicarDateFechaInicial" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechaFinalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFechaFinDuplicarReg" style="position: absolute; top: 100px; left: 220px">
-                                <lnk:calendar id="duplicarDateFechaFinal" value="#{controlFormulaConcepto.duplicarFormulaConcepto.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaFinal" value="#{controlFormulaConcepto.duplicarFormulaConcepto.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="duplicarDateFechaFinal" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 135px; left: 50px" /></strong>

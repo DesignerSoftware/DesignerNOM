@@ -53,11 +53,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaVigencia" value="#{v.fechavigencia}" > 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaVigencia" value="#{v.fechavigencia}" > 
                                                 <p:ajax event="dateSelect" listener="#{controlRetencionMinima.modificarFechas(indice,1)}" update="dateFechaVigencia" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlRetencionMinima.modificarFechas(indice,1)}" update="dateFechaVigencia" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlRetencionMinima.cambiarIndice(indice,1)}" process="@this"/> 
-                                            </lnk:calendar>
+                                            </p:calendar>
 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -231,10 +231,10 @@
 
                                 <strong><h:outputText value="#{msg['fechavigenciaN']}"  style="font-size: 12px; position: absolute; top: 59px" /></strong>
                                 <div id="posicionFechaVigenciaNuevo" style="font-size: 10px; position: absolute; top: 57px; left: 152px">
-                                    <lnk:calendar id="nuevaFechaVigencia" value="#{controlRetencionMinima.nuevoVigenciasRetenciones.fechavigencia}" >
+                                    <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlRetencionMinima.nuevoVigenciasRetenciones.fechavigencia}" >
                                         <p:ajax event="dateSelect" update="nuevaFechaVigencia" process="@this"/>
                                         <p:ajax event="change" update="nuevaFechaVigencia" process="@this"/>
-                                    </lnk:calendar>
+                                    </p:calendar>
                                 </div>
 
                                 <p:commandButton id="limpiarVR" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 20px; top: 140px;" actionListener="#{controlRetencionMinima.limpiarNuevoVigencia()}" update="nuevoVigencia" process="@this"/>
@@ -263,10 +263,10 @@
 
                                 <strong><h:outputText value="#{msg['fechavigenciaN']}"  style="font-size: 12px; position: absolute; top: 57px" /></strong>
                                 <div id="posicionFechaVigenciaNuevo" style="font-size: 10px; position: absolute; top: 57px; left: 152px">
-                                    <lnk:calendar id="duplicarFechaVigencia" value="#{controlRetencionMinima.duplicarVigenciasRetenciones.fechavigencia}" >
+                                    <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlRetencionMinima.duplicarVigenciasRetenciones.fechavigencia}" >
                                         <p:ajax event="dateSelect" update="duplicarFechaVigencia" process="@this"/>
                                         <p:ajax event="change" update="duplicarFechaVigencia" process="@this"/>
-                                    </lnk:calendar>
+                                    </p:calendar>
                                 </div>
 
                                 <p:commandButton id="limpiarVRD" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 20px; top: 140px;" actionListener="#{controlRetencionMinima.limpiarduplicarVigencia()}" update="duplicarVigenciaRetencion" process="@this"/>

@@ -998,11 +998,11 @@
                                                 </h:outputText>
                                             </f:facet>  
                                             <f:facet name="input">
-                                                <lnk:calendar id="editarFechaIngresoAporte" value="#{infoAE.fechaingreso}" height="12" width="99">
+                                                <p:calendar pattern="dd/MM/yyyy" id="editarFechaIngresoAporte" value="#{infoAE.fechaingreso}">
                                                     <p:ajax event="dateSelect" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="editarFechaIngresoAporte"/>
                                                     <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" />
                                                     <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 52)}" />
-                                                </lnk:calendar>
+                                                </p:calendar>
                                             </f:facet>   
                                         </p:cellEditor>
                                     </p:column>

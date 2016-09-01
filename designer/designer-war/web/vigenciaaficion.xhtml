@@ -101,11 +101,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaInicial" value="#{info.fechainicial}" > 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}" > 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciaAficion.modificarFechas(indice,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaAficion.modificarFechas(indice,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaAficion.cambiarIndice(indice,0)}" process="@this"/> 
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
 
@@ -122,11 +122,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaFinal" value="#{info.fechafinal}" > 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}" > 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciaAficion.modificarFechas(indice,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaAficion.modificarFechas(indice,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaAficion.cambiarIndice(indice,1)}" process="@this"/> 
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
 
@@ -325,18 +325,18 @@
 
                             <strong><h:outputText value="*#{msg['fechaIncialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
-                                <lnk:calendar id="nuevaFechaInicial" value="#{controlVigenciaAficion.nuevaVigenciaAficion.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlVigenciaAficion.nuevaVigenciaAficion.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
-                                <lnk:calendar id="nuevaFechaFinal" value="#{controlVigenciaAficion.nuevaVigenciaAficion.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlVigenciaAficion.nuevaVigenciaAficion.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['aficionN']}" style="position: absolute; top: 135px; left: 50px" /></strong>
@@ -387,19 +387,19 @@
 
                             <strong><h:outputText value="*#{msg['fechaIncialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
-                                <lnk:calendar id="duplicarFechaInicial" value="#{controlVigenciaAficion.duplicarVigenciaAficion.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlVigenciaAficion.duplicarVigenciaAficion.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
 
                             <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
-                                <lnk:calendar id="duplicarFechaFinal" value="#{controlVigenciaAficion.duplicarVigenciaAficion.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlVigenciaAficion.duplicarVigenciaAficion.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
 

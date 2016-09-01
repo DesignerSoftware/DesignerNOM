@@ -226,11 +226,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaVigencia" value="#{infoVMB.fecha}" >  
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaVigencia" value="#{infoVMB.fecha}" >  
                                                 <p:ajax event="dateSelect" listener="#{controlEmpresa.modificacionesFechaVigenciaMonedaBase(indiceVMB,0)}"  process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmpresa.modificacionesFechaVigenciaMonedaBase(indiceVMB,0)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmpresa.cambiarIndiceVigencia(indiceVMB,0)}" process="@this"/> 
-                                            </lnk:calendar> 
+                                            </p:calendar> 
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -299,11 +299,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaCircular" value="#{infoC.fecha}" >  
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaCircular" value="#{infoC.fecha}" >  
                                                 <p:ajax event="dateSelect" listener="#{controlEmpresa.modificacionesFechaCircular(indiceC,0)}"  process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmpresa.modificacionesFechaCircular(indiceC,0)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmpresa.cambiarIndiceCircular(indiceC,0)}" process="@this"/> 
-                                            </lnk:calendar> 
+                                            </p:calendar> 
                                         </f:facet>  
                                     </p:cellEditor>
                                 </p:column>
@@ -714,10 +714,10 @@
 
                             <strong><h:outputText value="*#{msg['fechaNVMB']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaVigenciaNuevoReg" style="position: absolute; top: 70px; left: 200px;width: 122px">
-                                <lnk:calendar id="nuevaFechaVigencia" value="#{controlEmpresa.nuevoVigenciaMonedaBase.fecha}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlEmpresa.nuevoVigenciaMonedaBase.fecha}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaVigencia" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaVigencia" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoNVMB']}" style="position: absolute; top: 105px; left: 50px" /></strong>
@@ -750,10 +750,10 @@
 
                             <strong><h:outputText value="*#{msg['fechaNVMB']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaVigenciaDuplicarReg" style="position: absolute; top: 70px; left: 200px;width: 122px">
-                                <lnk:calendar id="duplicarFechaVigencia" value="#{controlEmpresa.duplicarVigenciaMonedaBase.fecha}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlEmpresa.duplicarVigenciaMonedaBase.fecha}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaVigencia" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaVigencia" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoNVMB']}" style="position: absolute; top: 105px; left: 50px" /></strong>
@@ -788,10 +788,10 @@
 
                             <strong><h:outputText value="*#{msg['fechaNC']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaCircularNuevoReg" style="position: absolute; top: 70px; left: 200px;width: 122px">
-                                <lnk:calendar id="nuevaFechaCircular" value="#{controlEmpresa.nuevoCircular.fecha}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaCircular" value="#{controlEmpresa.nuevoCircular.fecha}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaCircular" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaCircular" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['expedidoNC']}" style="position: absolute; top: 105px; left: 50px" /></strong>
@@ -819,10 +819,10 @@
 
                             <strong><h:outputText value="*#{msg['fechaNC']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaCircularDuplicarReg" style="position: absolute; top: 70px; left: 200px;width: 122px">
-                                <lnk:calendar id="duplicarFechaCircular" value="#{controlEmpresa.duplicarCircular.fecha}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaCircular" value="#{controlEmpresa.duplicarCircular.fecha}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaCircular" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaCircular" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['expedidoNC']}" style="position: absolute; top: 105px; left: 50px" /></strong>

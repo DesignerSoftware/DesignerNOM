@@ -85,18 +85,18 @@
 
                             <h:outputText  value="Fecha Antigua: " style="position: absolute; top: 185px; left: 15px;font-weight: bold"/>
                             <div id="divFechaAntigua" style="position: absolute; top: 225px; left: 15px;">
-                                <lnk:calendar readonly="true" id="fechaAntigua" value="#{controlCambioFechaIngreso.vigenciaTipoContrato.fechavigencia}">
+                                <p:calendar pattern="dd/MM/yyyy" readonly="true" id="fechaAntigua" value="#{controlCambioFechaIngreso.vigenciaTipoContrato.fechavigencia}">
                                     <p:ajax event="dateSelect"  update="fechaAntigua" process="@this"/>
                                     <p:ajax event="change" update="fechaAntigua" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <h:outputText  value="Fecha Nueva: " style="position: absolute; top: 265px; left: 15px;font-weight: bold"/>
                             <div id="divFechaNueva" style="position: absolute; top: 305px; left: 15px;">
-                                <lnk:calendar id="fechaNueva" value="#{controlCambioFechaIngreso.fechaNueva}">
+                                <p:calendar pattern="dd/MM/yyyy" id="fechaNueva" value="#{controlCambioFechaIngreso.fechaNueva}">
                                     <p:ajax event="dateSelect" update="fechaNueva" process="@this"/>
                                     <p:ajax event="change" update="fechaNueva" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                         </fieldset>
 

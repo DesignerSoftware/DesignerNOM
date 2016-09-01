@@ -227,6 +227,7 @@ public class ControlNovedadesEmpleados implements Serializable {
         resultado = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         activoBtnAcumulado = true;
+        contarRegistros();
         context.update("form:ACUMULADOS");
         context.update("form:datosNovedadesEmpleado");
     }
@@ -475,8 +476,8 @@ public class ControlNovedadesEmpleados implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         System.out.println("nuevaNovedad Fechainicial : " + nuevaNovedad.getFechainicial());
-        System.out.println("Concepto : " + nuevaNovedad.getConcepto().getDescripcion());
-        System.out.println("Formula : " + nuevaNovedad.getFormula());
+        System.out.println("Concepto : " + nuevaNovedad.getConcepto().getSecuencia());
+        System.out.println("Formula : " + nuevaNovedad.getFormula().getSecuencia());
         System.out.println("Periodicidad : " + nuevaNovedad.getPeriodicidad().getNombre());
         System.out.println("getTipo() : " + nuevaNovedad.getTipo());
 
@@ -573,6 +574,11 @@ public class ControlNovedadesEmpleados implements Serializable {
             context.execute("validacionNuevaNovedadEmpleado.show()");
         }
     }
+    
+    public void cambioFecha(Date fecha){
+        System.out.println("feche : " + fecha);
+        System.out.println("controlNovedadesEmpleados.getNuevaNovedad().getFechainicial() : " + nuevaNovedad.getFechainicial());
+    }
 
     public void confirmarDuplicar() throws UnknownHostException {
 
@@ -583,8 +589,8 @@ public class ControlNovedadesEmpleados implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         System.out.println("duplicarNovedad Fechainicial : " + duplicarNovedad.getFechainicial());
-        System.out.println("Concepto : " + duplicarNovedad.getConcepto().getDescripcion());
-        System.out.println("Formula : " + duplicarNovedad.getFormula());
+        System.out.println("Concepto : " + duplicarNovedad.getConcepto().getSecuencia());
+        System.out.println("Formula : " + duplicarNovedad.getFormula().getSecuencia());
         System.out.println("Periodicidad : " + duplicarNovedad.getPeriodicidad().getNombre());
         System.out.println("getTipo() : " + duplicarNovedad.getTipo());
 
@@ -846,7 +852,7 @@ public class ControlNovedadesEmpleados implements Serializable {
             nEConceptoCodigo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEConceptoCodigo");
             nEConceptoCodigo.setFilterStyle("width: 85%");
             nEConceptoDescripcion = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEConceptoDescripcion");
-            nEConceptoDescripcion.setFilterStyle("");
+            nEConceptoDescripcion.setFilterStyle("width: 85%");
             nEFechasInicial = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechasInicial");
             nEFechasInicial.setFilterStyle("width: 85%");
             nEFechasFinal = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechasFinal");

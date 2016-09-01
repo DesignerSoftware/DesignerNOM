@@ -100,29 +100,29 @@
 
                                 <h:outputText value="#{msg['fechaInicial']}" style="position: absolute; top: 12px; left: 250px"/>
                                 <div id="posicionFechaIni" style="position: absolute; top: 8px; left: 350px; width: 110px">
-                                    <lnk:calendar id="parametroFechaInicial"  value="#{controlInterfaseContableDynamicsPB.parametroContableActual.fechainicialcontabilizacion}">
+                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicial"  value="#{controlInterfaseContableDynamicsPB.parametroContableActual.fechainicialcontabilizacion}">
                                         <p:ajax event="dateSelect" listener="#{controlInterfaseContableDynamicsPB.modificarFechasParametro(2)}" update="@this"/>
                                         <p:ajax event="change" listener="#{controlInterfaseContableDynamicsPB.modificarFechasParametro(2)}" process="@this" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableDynamicsPB.cambiarIndiceParametro(2)}" process="@this"/>
-                                    </lnk:calendar>
+                                    </p:calendar>
                                 </div>
 
                                 <h:outputText value="#{msg['fechaFinal']}" style="position: absolute; top: 34px; left: 250px"/>
                                 <div id="posicionFechaFin" style="position: absolute; top: 30px; left: 350px; width: 110px">
-                                    <lnk:calendar id="parametroFechaFinal" value="#{controlInterfaseContableDynamicsPB.parametroContableActual.fechafinalcontabilizacion}" >
+                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinal" value="#{controlInterfaseContableDynamicsPB.parametroContableActual.fechafinalcontabilizacion}" >
                                         <p:ajax event="dateSelect" listener="#{controlInterfaseContableDynamicsPB.modificarFechasParametro(3)}" update="@this"/>
                                         <p:ajax event="change" listener="#{controlInterfaseContableDynamicsPB.modificarFechasParametro(3)}" process="@this" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableDynamicsPB.cambiarIndiceParametro(3)}" process="@this"/>
-                                    </lnk:calendar>
+                                    </p:calendar>
                                 </div>
                                 
                                 <h:outputText value="#{msg['fechaContabilizacion']}" style="position: absolute; top: 56px; left: 250px"/>
                                 <div id="posicionFechaConta" style="position: absolute; top: 52px; left: 350px; width: 110px">
-                                    <lnk:calendar id="parametroFechaContabilizacion" value="#{controlInterfaseContableDynamicsPB.parametroContableActual.fechacontabilizacion}" >
+                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaContabilizacion" value="#{controlInterfaseContableDynamicsPB.parametroContableActual.fechacontabilizacion}" >
                                         <p:ajax event="dateSelect" listener="#{controlInterfaseContableDynamicsPB.modificarParametroContable()}" update="@this"/>
                                         <p:ajax event="change" listener="#{controlInterfaseContableDynamicsPB.modificarParametroContable()}" process="@this" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableDynamicsPB.cambiarIndiceParametro(4)}" process="@this"/>
-                                    </lnk:calendar>
+                                    </p:calendar>
                                 </div>
                                 
                                 <!-- -->
@@ -905,26 +905,26 @@
 
                             <strong><h:outputText value="*#{msg['fechaInicialN']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
                             <div id="posicionNuevaFechaInicial" style=" position: absolute; top: 130px; left: 200px">
-                                <lnk:calendar id="nuevaFechaInicialParametro" value="#{controlInterfaseContableDynamicsPB.nuevoParametroContable.fechainicialcontabilizacion}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicialParametro" value="#{controlInterfaseContableDynamicsPB.nuevoParametroContable.fechainicialcontabilizacion}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialParametro" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicialParametro" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechaFinalN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
                             <div id="posicionNuevaFechaFinal" style=" position: absolute; top: 160px; left: 200px">
-                                <lnk:calendar id="nuevaFechaFinalParametro" value="#{controlInterfaseContableDynamicsPB.nuevoParametroContable.fechafinalcontabilizacion}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinalParametro" value="#{controlInterfaseContableDynamicsPB.nuevoParametroContable.fechafinalcontabilizacion}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinalParametro" listener="#{controlInterfaseContableDynamicsPB.modificarFechaFinalNuevoRegistro()}" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinalParametro" listener="#{controlInterfaseContableDynamicsPB.modificarFechaFinalNuevoRegistro()}" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                             
                             <strong><h:outputText value="#{msg['fechaContaN']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
                             <div id="posicionNuevaFechaConta" style=" position: absolute; top: 190px; left: 200px">
-                                <lnk:calendar id="nuevaFechaContaParametro" value="#{controlInterfaseContableDynamicsPB.nuevoParametroContable.fechafinalcontabilizacion}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaContaParametro" value="#{controlInterfaseContableDynamicsPB.nuevoParametroContable.fechafinalcontabilizacion}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaContaParametro"  process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaContaParametro"  process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                             
                             <strong><h:outputText value="#{msg['emplDesdeN']}" style=" position: absolute; top: 225px; left: 50px" /></strong>

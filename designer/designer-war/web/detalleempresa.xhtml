@@ -577,11 +577,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaCamara" value="#{info.fechacamaracomercio}" width="99">  
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaCamara" value="#{info.fechacamaracomercio}">  
                                                 <p:ajax event="dateSelect" listener="#{controlDetalleEmpresa.modificacionesFechaCamaraComercio(indiceDE,30)}"  process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificacionesFechaCamaraComercio(indiceDE,30)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,30)}" process="@this"/> 
-                                            </lnk:calendar> 
+                                            </p:calendar> 
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -1233,10 +1233,10 @@
 
                                     <strong><h:outputText value="#{msg['camaraComercioN']}" style="position: absolute; top: 15px; left: 25px;" /></strong>
                                     <div id="posicionFormulaFechaCamaraNuevoReg" style="position: absolute; top: 10px; left: 230px;width: 122px">
-                                        <lnk:calendar id="nuevaFechaCamaraDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.fechacamaracomercio}" >
+                                        <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaCamaraDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.fechacamaracomercio}" >
                                             <p:ajax event="dateSelect" update="nuevaFechaCamaraDetalle" process="@this"/>
                                             <p:ajax event="change" update="nuevaFechaCamaraDetalle" process="@this"/>
-                                        </lnk:calendar>
+                                        </p:calendar>
                                     </div>
 
                                     <strong><h:outputText value="#{msg['añosParafiscalN']}: " style="position: absolute; top: 45px; left: 25px" /></strong>
@@ -1556,10 +1556,10 @@
 
                                     <strong><h:outputText value="#{msg['camaraComercioN']}" style="position: absolute; top: 15px; left: 25px;" /></strong>
                                     <div id="posicionFormulaFechaCamaraNuevoReg" style="position: absolute; top: 10px; left: 230px;width: 122px">
-                                        <lnk:calendar id="duplicarFechaCamaraDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.fechacamaracomercio}" >
+                                        <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaCamaraDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.fechacamaracomercio}" >
                                             <p:ajax event="dateSelect" update="duplicarFechaCamaraDetalle" process="@this"/>
                                             <p:ajax event="change" update="duplicarFechaCamaraDetalle" process="@this"/>
-                                        </lnk:calendar>
+                                        </p:calendar>
                                     </div>
 
                                     <strong><h:outputText value="#{msg['añosParafiscalN']}: " style="position: absolute; top: 45px; left: 25px" /></strong>

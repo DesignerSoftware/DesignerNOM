@@ -6,6 +6,7 @@
 
 package InterfacePersistencia;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.persistence.EntityManager;
 
@@ -14,5 +15,5 @@ import javax.persistence.EntityManager;
  * @author Administrador
  */
 public interface PersistenciaVWActualesMvrsInterface {
-    public String buscarActualMVR(EntityManager em, BigInteger secuencia);
+    public BigDecimal buscarActualMVR(EntityManager em, BigInteger secuencia);
 }

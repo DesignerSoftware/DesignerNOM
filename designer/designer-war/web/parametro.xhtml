@@ -76,40 +76,40 @@
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <fieldset style="position: absolute; left: 5px; top: 75px;  width: 835px; height: 100px; border-radius: 10px;">
+                        <fieldset style="position: absolute; left: 5px; top: 75px; width: 840px; height: 95px; border-radius: 10px;">
                             <legend style=" color: blue;"><strong>#{msg['departamento']}</strong></legend>
                             <p:panel id="panelParametro" style="border: none; height: 80px;">
 
                                 <div>
-                                    <h:outputText value="#{msg['fechadesde']}" style="font-weight: bold; color: #14388B; position: relative; top: -5px; left: 0px; display: inline-block;"/>
-                                    <h:outputText value="#{msg['fechahasta']}" style="font-weight: bold; color: #14388B; position: relative; top: -5px; left: 15px; display: inline-block;"/>
-                                    <h:outputText value="#{msg['fechacorte']}" style="font-weight: bold; color: #14388B; position: relative; top: -5px; left: 30px; display: inline-block;"/>
-                                    <h:outputText value="#{msg['estructura']}" style="font-weight: bold; color: #14388B; position: relative; top: -5px; left: 75px; display: inline-block;"/>
-                                    <h:outputText value="#{msg['codigocc']}" style="font-weight: bold; color: #14388B; position: relative; top: -5px; left: 202px; display: inline-block;"/>
-                                    <h:outputText value="#{msg['nombrecentrocosto']}" style="font-weight: bold; color: #14388B; position: relative; top: -5px; left: 222px; display: inline-block;"/>
+                                    <h:outputText value="#{msg['fechadesde']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 0px; display: inline-block;"/>
+                                    <h:outputText value="#{msg['fechahasta']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 15px; display: inline-block;"/>
+                                    <h:outputText value="#{msg['fechacorte']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 30px; display: inline-block;"/>
+                                    <h:outputText value="#{msg['estructura']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 75px; display: inline-block;"/>
+                                    <h:outputText value="#{msg['codigocc']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 202px; display: inline-block;"/>
+                                    <h:outputText value="#{msg['nombrecentrocosto']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 222px; display: inline-block;"/>
 
-                                    <div style="position: relative; top: -2px; left: -7px; display: block;">
-                                        <lnk:calendar id="fechaDesde" value="#{controlParametro.parametroLiquidacion.fechadesdecausado}" height="12" width="80" 
+                                    <div style="position: relative; top: -6px; left: -7px; display: block;">
+                                        <p:calendar pattern="dd/MM/yyyy" id="fechaDesde" value="#{controlParametro.parametroLiquidacion.fechadesdecausado}" 
                                                       onclick="ubicacionC(([{name: 'CAMPO', value: 'FECHA DESDE'}]));">
                                             <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
                                             <p:ajax event="change" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
-                                        </lnk:calendar>
+                                        </p:calendar>
                                     </div>
 
                                     <div style="position: relative; top: -24px; left: 86px; display: inline-block;">
-                                        <lnk:calendar id="fechaHasta" value="#{controlParametro.parametroLiquidacion.fechahastacausado}" height="12" width="80" 
+                                        <p:calendar pattern="dd/MM/yyyy" id="fechaHasta" value="#{controlParametro.parametroLiquidacion.fechahastacausado}"
                                                       onclick="ubicacionC(([{name: 'CAMPO', value: 'FECHA HASTA'}]));">
                                             <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
                                             <p:ajax event="change" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
-                                        </lnk:calendar>
+                                        </p:calendar>
                                     </div>
 
                                     <div style="position: relative; top: -24px; left: 86px; display: inline-block;">
-                                        <lnk:calendar id="fechaCorte" value="#{controlParametro.parametroLiquidacion.fechasistema}" height="12" width="80"
+                                        <p:calendar pattern="dd/MM/yyyy" id="fechaCorte" value="#{controlParametro.parametroLiquidacion.fechasistema}"
                                                       onclick="ubicacionC(([{name: 'CAMPO', value: 'FECHA CORTE'}]));">
                                             <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
                                             <p:ajax event="change" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
-                                        </lnk:calendar>
+                                        </p:calendar>
                                     </div>
 
                                     <p:inputText id="Estructura" value="#{controlParametro.parametroLiquidacion.estructura.nombre}" 
@@ -145,7 +145,7 @@
                                         <p:ajax event="change" listener="#{controlParametro.autocompletar('TIPO TRABAJADOR', controlParametro.parametroLiquidacion.tipotrabajador.nombre)}"/>
                                     </p:inputText>
                                     <p:inputText id="proceso" value="#{controlParametro.parametroLiquidacion.proceso.descripcion}" 
-                                                 style="position: relative; top: -63px; left: 277px; width: 205px; text-transform: uppercase; height: 12px; display: inline-block;" 
+                                                 style="position: relative; top: -59px; left: 277px; width: 205px; text-transform: uppercase; height: 12px; display: inline-block;" 
                                                  ondblclick="llamarLov(([{name: 'LOV', value: 'PROCESO'}]));" onclick="select();">
                                         <p:ajax event="click" listener="#{controlParametro.valoresBackupAutocompletar('PROCESO')}"/>
                                         <p:ajax event="change" listener="#{controlParametro.autocompletar('PROCESO', controlParametro.parametroLiquidacion.proceso.descripcion)}"/>
@@ -153,26 +153,27 @@
 
                                 </div>
                             </p:panel>
-                            <p:commandButton style="font-family: 'Book Antiqua'; font-weight: bold; position: relative; top: -27px; left: 513px; width: 320px; height: 30px;" 
+                            <p:commandButton style="font-family: 'Book Antiqua'; font-weight: bold; position: relative; top: -38px; left: 513px; width: 320px; height: 30px;" 
                                              value="#{msg['adicionarempleados']}" actionListener="#{controlParametro.validarGuardado('ADICIONAR EMPLEADOS')}" process="@this" />
                         </fieldset>
 
-                        <fieldset style="position: absolute; left: 5px; top: 195px;  width: 835px; height: 282px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 5px; top: 190px;  width: 840px; height: 290px; border-radius: 10px; ">
                             <legend style=" color: blue;"><strong>#{msg['empleados']}</strong></legend>
 
-                            <p:dataTable id="empleadosParametros" var="empleadoParametro" rowKey="#{empleadoParametro.secuencia}" rowIndexVar="indice" style=" border: 1px; width: 820px;"                            
-                                         value="#{controlParametro.empleadosParametros}" scrollable="true" scrollHeight="#{controlParametro.altoTabla}" scrollWidth="835"
+                            <p:dataTable id="empleadosParametros" var="empleadoParametro" rowKey="#{empleadoParametro.secuencia}" rowIndexVar="indice" style="font-size: 11px; border: 1px; width: 820px;"                            
+                                         value="#{controlParametro.empleadosParametros}" scrollable="true" scrollHeight="#{controlParametro.altoTabla}" scrollWidth="840"
                                          filteredValue="#{controlParametro.filtradoEmpleadosParametros}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" liveScroll="true" scrollRows="30"
                                          selection="#{controlParametro.empleadoParametroSeleccionado}" selectionMode="single">
 
                                 <p:ajax event="filter" listener="#{controlParametro.eventoFiltrar()}"/>
 
-                                <p:column headerText="" width="60" style="padding: 0px; text-align: center">                                  
-                                    <p:commandButton value="#{msg['quitar']}" actionListener="#{controlParametro.eliminarParametros(indice)}" style="margin: 0px; margin-top: -10px; border-radius: 0px; height: 32px; left: 2px; top: 4px" process="@this" />
+                                <p:column headerText="" width="38" style="padding: 0px; text-align: center;">                                  
+                                    <p:commandButton value="#{msg['quitar']}" actionListener="#{controlParametro.eliminarParametros(indice)}" style="margin: 0px; border-radius: 0px; height: 22px;" process="@this" />
                                 </p:column>  
 
-                                <p:column headerText="#{msg['desde']}" sortBy="#{empleadoParametro.parametroestructura.fechadesdecausado}" filterBy="#{empleadoParametro.parametroestructura.fechadesdecausado}" filterMatchMode="contains"  width="60" id="FechaDesde" filterStyle="display: none; visibility: hidden;"  >  
+                                <p:column headerText="#{msg['desde']}" sortBy="#{empleadoParametro.parametroestructura.fechadesdecausado}" filterBy="#{empleadoParametro.parametroestructura.fechadesdecausado}" 
+                                          filterMatchMode="contains" width="60" id="FechaDesde" filterStyle="display: none; visibility: hidden;"  >  
                                     <f:facet name="header"> 
                                         <h:outputText value="#{msg['desde']}" />
                                     </f:facet>
@@ -262,7 +263,7 @@
                                     </f:facet>
                                 </p:column>  
 
-                                <p:column headerText="#{msg['nombre']}" sortBy="#{empleadoParametro.empleado.persona.nombre}" filterBy="#{empleadoParametro.empleado.persona.nombre}" filterMatchMode="contains" id="nombre" width="145" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['nombre']}" sortBy="#{empleadoParametro.empleado.persona.nombre}" filterBy="#{empleadoParametro.empleado.persona.nombre}" filterMatchMode="contains" id="nombre" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header"><h:outputText value="#{msg['nombre']}"/> </f:facet> 
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.nombre}" /></f:facet>  
@@ -277,7 +278,8 @@
                                     </f:facet>
                                 </p:column>  
 
-                                <p:column headerText="#{msg['estado']}" sortBy="#{empleadoParametro.estadoParametro}" filterBy="#{empleadoParametro.estadoParametro}" filterMatchMode="contains" id="estadoParametro" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['estado']}" style="text-align: center;" width="75" sortBy="#{empleadoParametro.estadoParametro}" filterBy="#{empleadoParametro.estadoParametro}" 
+                                          filterMatchMode="contains" id="estadoParametro" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header"><h:outputText value="#{msg['estado']}"/> </f:facet> 
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{empleadoParametro.estadoParametro}" /></f:facet>  
@@ -295,20 +297,20 @@
 
                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlParametro.infoRegistro}" style="position: relative; left: 10px; top: 0px; font-weight: bold; display: block;"/>
                             
-                            <p:commandButton icon="ui-icon-extlink" style="display: inline-block; position: relative; left: 0px; top: 0px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                            <p:commandButton icon="ui-icon-extlink" style="display: inline-block; position: relative; left: 0px; top: 10px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;" disabled="#{controlParametro.borrarTodos}" id="quitarTodos" value="Quitar Todos"
                                              actionListener="#{controlParametro.borrarParametros()}" onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" process="@this"/>
                             <p:tooltip  for="quitarTodos" value="#{msg['quitartodos']}" />
 
-                            <p:commandButton icon="ui-icon-extlink" style="display: inline-block; position: relative; left: 0px; top: 0px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                            <p:commandButton icon="ui-icon-extlink" style="display: inline-block; position: relative; left: 0px; top: 10px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="cambiosMasivos" value="Masivos" process="@this"/>
                             <p:tooltip  for="cambiosMasivos" value="#{msg['cambiosmasivos']}" />
 
-                            <p:commandButton icon="ui-icon-extlink" style="display: inline-block; position: relative; left: 0px; top: 0px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                            <p:commandButton icon="ui-icon-extlink" style="display: inline-block; position: relative; left: 0px; top: 10px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="verificarEmpleados" value="verificar" process="@this"/>
                             <p:tooltip  for="verificarEmpleados" value="#{msg['verificarempleados']}" />
 
-                            <p:commandButton icon="ui-icon-extlink" style="display: inline-block; position: relative; left: 300px; top: 0px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                            <p:commandButton icon="ui-icon-extlink" style="display: inline-block; position: relative; left: 300px; top: 10px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="adicionarEmpleado" value="Adicionar" actionListener="#{controlParametro.cargarLovEmpleados()}" 
                                              onclick="operacionEnProceso.show()" oncomplete="buscarEmpleadoDialogo.show(); operacionEnProceso.hide()" process="@this"/>
                             <p:tooltip  for="adicionarEmpleado" value="#{msg['adicionarempleado']}" />
@@ -445,7 +447,7 @@
 
                             <p:ajax event="filter" listener="#{controlParametro.eventoFiltrarEmpl()}"/>
                             <p:ajax event="rowSelect" listener="#{controlParametro.activarAceptar()}" update=":formularioDialogos:aceptarEm"/>
-                            <p:ajax event="rowDblselect" listener="#{controlParametro.seleccionarEmpleado()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlParametro.seleccionarEmpleado()}" process="@this" onstart="operacionEnProceso.show()" oncomplete=" operacionEnProceso.hide()" />
 
                             <f:facet name="header" >  
                                 <h:outputText value="#{msg['buscarEM']}"  style="position: absolute; left: 22px; top: 18px;"/>  
@@ -472,7 +474,8 @@
 
                         <h:outputText id="infoRegistroEmpleado" value="#{msg['infoRegistro']} #{controlParametro.infoRegistroEmpleado}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
 
-                        <p:commandButton id="aceptarEm" style="position: relative; left: 370px; top: 13px;" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlParametro.aceptar}" actionListener="#{controlParametro.seleccionarEmpleado()}" process="@this" />
+                        <p:commandButton id="aceptarEm" style="position: relative; left: 370px; top: 13px;" onclick="operacionEnProceso.show()" oncomplete=" operacionEnProceso.hide()"
+                                         icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlParametro.aceptar}" actionListener="#{controlParametro.seleccionarEmpleado()}" process="@this" />
 
                         <p:commandButton id="atras" style="position: relative; left: 370px; top: 13px;" icon="ui-icon-close" value="#{msg['cancelar']}" actionListener="#{controlParametro.cancelarSeleccionEmpleado()}" process="@this"/>
                     </p:dialog>
@@ -547,6 +550,12 @@
 
                     <p:dialog id="editarEstado" header="#{msg['editarEstado']}" widgetVar="editarEstado" resizable="false" closable="true"  draggable="false" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.estadoParametro}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                    </p:dialog>
+                    
+                    
+                    <p:dialog id="errorSeleccionEmpleado" header="#{msg['atencion']}" widgetVar="errorSeleccionEmpleado"  resizable="false" draggable="false" modal="true" height="70" width="300px" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorSeleccionEmpleado']}" style="position: absolute; left: 80px; top: 15px; width: 185px; font-weight: bold;" />
                     </p:dialog>
 
                     <p:dialog id="confirmarAdicionarEmpleados" header="#{msg['atencion']}" widgetVar="confirmarAdicionarEmpleados"  resizable="false" draggable="false" modal="true" height="149" width="430"  closable="false">  

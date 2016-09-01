@@ -217,11 +217,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editFechaInicial" value="#{novedades.fechainicial}" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaInicial" value="#{novedades.fechainicial}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaInicial"/>
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'N', novedades.fechainicial)}"/>
                                                 <p:ajax event="click" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 4)}" process="@this" />
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
 
@@ -239,11 +239,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editFechaFinal" value="#{novedades.fechafinal}" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaFinal" value="#{novedades.fechafinal}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaFinal"/>
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'N', novedades.fechafinal)}"/>
                                                 <p:ajax event="click" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 5)}" process="@this" />
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
 
@@ -453,18 +453,18 @@
 
                             <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top: 245px" /></strong>
                             <div id="posicionFormulaFechaInicialDuplicarReg" style=" position: absolute; top: 240px; left: 200px">
-                                <lnk:calendar id="duplicarFechaInicial" value="#{controlNovedadesTerceros.duplicarNovedad.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlNovedadesTerceros.duplicarNovedad.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 285px" /></strong>
                             <div id="posicionFormulaFechaFinalDuplicarReg" style=" position: absolute; top: 280px; left: 200px">
-                                <lnk:calendar id="duplicarFechaFinal" value="#{controlNovedadesTerceros.duplicarNovedad.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlNovedadesTerceros.duplicarNovedad.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['valorN']}" style=" position: absolute; top: 325px" /></strong>
@@ -557,18 +557,18 @@
 
                             <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top: 240px" /></strong>
                             <div id="posicionFormulaFechaInicialNuevoReg" style=" position: absolute; top: 240px; left: 200px">
-                                <lnk:calendar id="nuevaFechaInicial" value="#{controlNovedadesTerceros.nuevaNovedad.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlNovedadesTerceros.nuevaNovedad.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 280px" /></strong>
                             <div id="posicionFormulaFechaFinalNuevoReg" style=" position: absolute; top: 280px; left: 200px">
-                                <lnk:calendar id="nuevaFechaFinal" value="#{controlNovedadesTerceros.nuevaNovedad.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlNovedadesTerceros.nuevaNovedad.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['valorN']}" style=" position: absolute; top: 320px" /></strong>

@@ -160,20 +160,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 20px; left: 680px;">
-                                                    <lnk:calendar height="10" id="parametroFechaInicialCargo" disabled="#{controlBusquedaAvanzada.VTipoFechaCargo}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialCargo" disabled="#{controlBusquedaAvanzada.VTipoFechaCargo}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialCargo}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 45px; left: 680px;">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalCargo" disabled="#{controlBusquedaAvanzada.VTipoFechaCargo}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalCargo" disabled="#{controlBusquedaAvanzada.VTipoFechaCargo}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalCargo}">
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalCargo()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalCargo()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
                                             </div>
 
@@ -225,20 +225,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 20px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialCentroCosto" disabled="#{controlBusquedaAvanzada.VTipoFechaCentroCosto}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialCentroCosto" disabled="#{controlBusquedaAvanzada.VTipoFechaCentroCosto}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialCentroCosto}">
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 45px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalCentroCosto" disabled="#{controlBusquedaAvanzada.VTipoFechaCentroCosto}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalCentroCosto" disabled="#{controlBusquedaAvanzada.VTipoFechaCentroCosto}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalCentroCosto}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalCentroCosto()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalCentroCosto()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -304,20 +304,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 20px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialSueldo" disabled="#{controlBusquedaAvanzada.VTipoFechaSueldo}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialSueldo" disabled="#{controlBusquedaAvanzada.VTipoFechaSueldo}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialSueldo}">
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 45px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalSueldo" disabled="#{controlBusquedaAvanzada.VTipoFechaSueldo}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalSueldo" disabled="#{controlBusquedaAvanzada.VTipoFechaSueldo}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalSueldo}">
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalSueldo()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalSueldo()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -369,20 +369,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 20px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialTipoContrato" disabled="#{controlBusquedaAvanzada.VTipoFechaTipoContrato}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialTipoContrato" disabled="#{controlBusquedaAvanzada.VTipoFechaTipoContrato}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialTipoContrato}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 45px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalTipoContrato" disabled="#{controlBusquedaAvanzada.VTipoFechaTipoContrato}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalTipoContrato" disabled="#{controlBusquedaAvanzada.VTipoFechaTipoContrato}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalTipoContrato}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalTipoContrato()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalTipoContrato()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -426,20 +426,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 210px; top: 20px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 15px; left: 260px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialTipoTrabajador" disabled="#{controlBusquedaAvanzada.VTipoFechaTipoTrabajador}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialTipoTrabajador" disabled="#{controlBusquedaAvanzada.VTipoFechaTipoTrabajador}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialTipoTrabajador}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 210px; top: 42px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 37px; left: 260px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalTipoTrabajador" disabled="#{controlBusquedaAvanzada.VTipoFechaTipoTrabajador}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalTipoTrabajador" disabled="#{controlBusquedaAvanzada.VTipoFechaTipoTrabajador}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalTipoTrabajador}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalTipoTrabajador()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalTipoTrabajador()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -483,20 +483,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 210px; top: 20px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 15px; left: 260px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialTipoSalario" disabled="#{controlBusquedaAvanzada.VTipoFechaReformaLaboral}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialTipoSalario" disabled="#{controlBusquedaAvanzada.VTipoFechaReformaLaboral}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialReformaLaboral}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 210px; top: 42px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 37px; left: 260px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalTipoSalario" disabled="#{controlBusquedaAvanzada.VTipoFechaReformaLaboral}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalTipoSalario" disabled="#{controlBusquedaAvanzada.VTipoFechaReformaLaboral}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalReformaLaboral}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalTipoSalario()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalTipoSalario()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -544,20 +544,20 @@
 
                                                     <h:outputText value="#{msg['entre']}" style="display: inline-block; position: relative; left: 10px; top: 0px;color: #14388B;font-weight: bold; width: 45px;"/>
                                                     <div style="display: inline-block;  padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: 0px; left: 30px">
-                                                        <lnk:calendar height="10"  id="parametroFechaInicialLegislacionLaboralMI" disabled="#{controlBusquedaAvanzada.VTipoFechaLegislacion}"
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialLegislacionLaboralMI" disabled="#{controlBusquedaAvanzada.VTipoFechaLegislacion}"
                                                                       value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialLegislacionMI}" >
                                                             <p:ajax event="dateSelect" update="@this" process="@this" />
                                                             <p:ajax event="change" update="@this" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                     <h:outputText value="#{msg['yel']}" style="display: block; position: relative; left: 10px; top: 0px;color: #14388B;font-weight: bold; width: 45px;"/>
                                                     <div style=" display: inline-block;  padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: -15px; left: 79px">
-                                                        <lnk:calendar height="10"  id="parametroFechaFinalLegislacionLaboralMI" disabled="#{controlBusquedaAvanzada.VTipoFechaLegislacion}"
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalLegislacionLaboralMI" disabled="#{controlBusquedaAvanzada.VTipoFechaLegislacion}"
                                                                       value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalLegislacionMI}" >
                                                             <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalContratoMI()}" update="@this" process="@this"/>
                                                             <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalContratoMI()}" update="@this" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                 </fieldset>
@@ -567,20 +567,20 @@
 
                                                     <h:outputText value="#{msg['entre']}" style="display: inline-block; position: relative; left: 10px; top: 0px;color: #14388B;font-weight: bold; width: 45px;"/>
                                                     <div style=" display: inline-block;  padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: relative; top:0px; left: 30px">
-                                                        <lnk:calendar height="10" id="parametroFechaInicialLegislacionLaboralMF" disabled="#{controlBusquedaAvanzada.VTipoFechaLegislacion}"
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialLegislacionLaboralMF" disabled="#{controlBusquedaAvanzada.VTipoFechaLegislacion}"
                                                                       value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialLegislacionMF}" >
                                                             <p:ajax event="dateSelect" update="@this" process="@this" />
                                                             <p:ajax event="change" update="@this" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                     <h:outputText value="#{msg['yel']}" style="display: block; position: relative; left: 10px; top: 0px;color: #14388B;font-weight: bold; width: 45px;"/>
                                                     <div style=" display: inline-block;  padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: -15px; left: 79px;">
-                                                        <lnk:calendar height="10" id="parametroFechaFinalLegislacionLaboralMF" disabled="#{controlBusquedaAvanzada.VTipoFechaLegislacion}"
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalLegislacionLaboralMF" disabled="#{controlBusquedaAvanzada.VTipoFechaLegislacion}"
                                                                       value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalLegislacionMF}" >
                                                             <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalContratoMF()}" update="@this" process="@this"/>
                                                             <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalContratoMF()}" update="@this" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                 </fieldset>
@@ -630,20 +630,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 20px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialUbicacion" disabled="#{controlBusquedaAvanzada.VTipoFechaUbicacion}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialUbicacion" disabled="#{controlBusquedaAvanzada.VTipoFechaUbicacion}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialUbicacion}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 45px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalUbicacion" disabled="#{controlBusquedaAvanzada.VTipoFechaUbicacion}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalUbicacion" disabled="#{controlBusquedaAvanzada.VTipoFechaUbicacion}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalUbicacion}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalUbicacion()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalUbicacion()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -704,20 +704,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 20px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialAfiliacion" disabled="#{controlBusquedaAvanzada.VTipoFechaAfiliacion}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialAfiliacion" disabled="#{controlBusquedaAvanzada.VTipoFechaAfiliacion}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialAfiliacion}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 45px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalAfiliacion" disabled="#{controlBusquedaAvanzada.VTipoFechaAfiliacion}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalAfiliacion" disabled="#{controlBusquedaAvanzada.VTipoFechaAfiliacion}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalAfiliacion}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalAfiliacion()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalAfiliacion()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -770,20 +770,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 20px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialFormaPago" disabled="#{controlBusquedaAvanzada.VTipoFechaFormaPago}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialFormaPago" disabled="#{controlBusquedaAvanzada.VTipoFechaFormaPago}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialFormaPago}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 45px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalFormaPago" disabled="#{controlBusquedaAvanzada.VTipoFechaFormaPago}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalFormaPago" disabled="#{controlBusquedaAvanzada.VTipoFechaFormaPago}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalFormaPago}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalFormaPago()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalFormaPago()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -841,20 +841,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 20px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialMvrs" disabled="#{controlBusquedaAvanzada.VTipoFechaMvr}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicialMvrs" disabled="#{controlBusquedaAvanzada.VTipoFechaMvr}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialMvr}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 45px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalMvrs" disabled="#{controlBusquedaAvanzada.VTipoFechaMvr}"
+                                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinalMvrs" disabled="#{controlBusquedaAvanzada.VTipoFechaMvr}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalMvr}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalMvr()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalMvr()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -914,20 +914,20 @@
 
                                                     <h:outputText value="#{msg['entre']}" style="display: inline-block; position: relative; left: 10px; top: 0px;color: #14388B;font-weight: bold; width: 45px;"/>
                                                     <div style="display: inline-block;  padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: 0px; left: 30px">
-                                                        <lnk:calendar height="10"  id="parametroFechaMIInicialSets" disabled="#{controlBusquedaAvanzada.VTipoFechaSet}"
+                                                        <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaMIInicialSets" disabled="#{controlBusquedaAvanzada.VTipoFechaSet}"
                                                                       value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialSetMI}" >
                                                             <p:ajax event="dateSelect" update="@this" process="@this" />
                                                             <p:ajax event="change" update="@this" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                     <h:outputText value="#{msg['yel']}" style="display: block; position: relative; left: 10px; top: 0px;color: #14388B;font-weight: bold; width: 45px;"/>
                                                     <div style=" display: inline-block;  padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: -15px; left: 79px;">
-                                                        <lnk:calendar height="10"  id="parametroFechaMIFinalSets" disabled="#{controlBusquedaAvanzada.VTipoFechaSet}"
+                                                        <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaMIFinalSets" disabled="#{controlBusquedaAvanzada.VTipoFechaSet}"
                                                                       value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalSetMI}" >
                                                             <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalSetMI()}" update="@this" process="@this"/>
                                                             <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalSetMI()}" update="@this" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                 </fieldset>
@@ -937,20 +937,20 @@
 
                                                     <h:outputText value="#{msg['entre']}" style="display: inline-block; position: relative; left: 10px; top: 0px;color: #14388B;font-weight: bold; width: 45px;"/>
                                                     <div id="posicionFechaMFInicialModSets" style="display: inline-block;  padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: 0px; left: 30px">
-                                                        <lnk:calendar height="10"  id="parametroFechaMFInicialModSets" disabled="#{controlBusquedaAvanzada.VTipoFechaSet}"
+                                                        <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaMFInicialModSets" disabled="#{controlBusquedaAvanzada.VTipoFechaSet}"
                                                                       value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialSetMF}" >
                                                             <p:ajax event="dateSelect" update="@this" process="@this" />
                                                             <p:ajax event="change" update="@this" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                     <h:outputText value="#{msg['yel']}" style="display: block; position: relative; left: 10px; top: 0px;color: #14388B;font-weight: bold; width: 45px;"/>
                                                     <div id="posicionFechaMFFinalModSets" style=" display: inline-block;  padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: -15px; left: 79px;">
-                                                        <lnk:calendar height="10"  id="parametroFechaMFFinalModSets" disabled="#{controlBusquedaAvanzada.VTipoFechaSet}"
+                                                        <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaMFFinalModSets" disabled="#{controlBusquedaAvanzada.VTipoFechaSet}"
                                                                       value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalSetMF}" >
                                                             <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalSetMF()}" update="@this" process="@this"/>
                                                             <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalSetMF()}" update="@this" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                 </fieldset>
@@ -996,20 +996,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 175px; top: 20px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 15px; left: 225px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialNormaLaboral" disabled="#{controlBusquedaAvanzada.VTipoFechaNormaLaboral}"
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaInicialNormaLaboral" disabled="#{controlBusquedaAvanzada.VTipoFechaNormaLaboral}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialNormaLaboral}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 175px; top: 43px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 38px; left: 225px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalModNormaLaboral" disabled="#{controlBusquedaAvanzada.VTipoFechaNormaLaboral}"
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaFinalModNormaLaboral" disabled="#{controlBusquedaAvanzada.VTipoFechaNormaLaboral}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalNormaLaboral}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalNormaLaboral()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalNormaLaboral()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -1046,18 +1046,18 @@
 
                                                     <h:outputText value="#{msg['entre']}" style="display: inline-block; position: relative; left: 10px; top:0px;color: #14388B;font-weight: bold"/>
                                                     <div style="display: inline-block;  padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top:0px; left: 20px">
-                                                        <lnk:calendar height="10"  id="parametroFechaMIInicialVacacion" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialVacacionesMI}" >
+                                                        <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaMIInicialVacacion" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialVacacionesMI}" >
                                                             <p:ajax event="dateSelect" update="@this" process="@this" />
                                                             <p:ajax event="change" update="@this" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                     <h:outputText value="#{msg['yel']}" style="display: block; position: relative; left: 10px; top: 3px;color: #14388B;font-weight: bold"/>
                                                     <div style="display: inline-block; padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: -16px; left: 65px">
-                                                        <lnk:calendar height="10" id="parametroFechaMIFinalVacacion" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalVacacionesMI}" >
+                                                        <p:calendar pattern="dd/MM/yyyy" id="parametroFechaMIFinalVacacion" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalVacacionesMI}" >
                                                             <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalVacacionesMI()}" update="@this" process="@this"/>
                                                             <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalVacacionesMI()}" update="@this" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                 </fieldset>
@@ -1068,18 +1068,18 @@
 
                                                     <h:outputText value="#{msg['entre']}" style="display: inline-block; position: relative; left: 10px; top:0px;color: #14388B;font-weight: bold"/>
                                                     <div style="display: inline-block; padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: relative; top:0px; left: 20px">
-                                                        <lnk:calendar height="10"  id="parametroFechaMFInicialVacacion" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialVacacionesMF}" >
+                                                        <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaMFInicialVacacion" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialVacacionesMF}" >
                                                             <p:ajax event="dateSelect" update="@this" process="@this" />
                                                             <p:ajax event="change" update="@this" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                     <h:outputText value="#{msg['yel']}" style="display: block; position: relative; left: 10px; top: 3px;color: #14388B;font-weight: bold"/>
                                                     <div style="display: inline-block; padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: -16px; left: 65px">
-                                                        <lnk:calendar height="10"  id="parametroFechaMFFinalVacacion" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalVacacionesMF}" >
+                                                        <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaMFFinalVacacion" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalVacacionesMF}" >
                                                             <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalVacacionesMF()}" update="@this" process="@this"/>
                                                             <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalVacacionesMF()}" update="@this" process="@this"/>
-                                                        </lnk:calendar>
+                                                        </p:calendar>
                                                     </div>
 
                                                 </fieldset>
@@ -1119,18 +1119,18 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 175px; top: 5px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 0px; left: 225px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialJornadaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialJornadaLaboral}" >
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaInicialJornadaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialJornadaLaboral}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 175px; top: 30px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 25px; left: 225px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalJornadaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalJornadaLaboral}" >
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaFinalJornadaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalJornadaLaboral}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalJornadaLaboral()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalJornadaLaboral()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -1170,18 +1170,18 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 175px; top: 5px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 0px; left: 225px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialFechaRetiro" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialRetiro}" >
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaInicialFechaRetiro" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialRetiro}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 175px; top: 30px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 25px; left: 225px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalFechaRetiro" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalRetiro}" >
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaFinalFechaRetiro" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalRetiro}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalRetiro()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalRetiro()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -1247,18 +1247,18 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 15px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 10px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialDatosPersonales" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialDatosPersonales}" >
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaInicialDatosPersonales" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialDatosPersonales}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 40px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 35px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalDatosPersonales" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalDatosPersonales}" >
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaFinalDatosPersonales" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalDatosPersonales}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalDatosPersonales()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalDatosPersonales()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
                                             </div>
                                         </p:tab>
@@ -1340,20 +1340,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 260px; top: 20px;color: #14388B;font-weight: bold"/>
                                                 <div  style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 13px; left: 310px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialEstadoCivil" disabled="#{controlBusquedaAvanzada.VTipoFechaEstadoCivil}"
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaInicialEstadoCivil" disabled="#{controlBusquedaAvanzada.VTipoFechaEstadoCivil}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialEstadoCivil}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 260px; top: 45px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 38px; left: 310px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalEstadoCivil" disabled="#{controlBusquedaAvanzada.VTipoFechaEstadoCivil}"
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaFinalEstadoCivil" disabled="#{controlBusquedaAvanzada.VTipoFechaEstadoCivil}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalEstadoCivil}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalEstadoCivil()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalEstadoCivil()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
                                             </div>
                                         </p:tab>
@@ -1489,20 +1489,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 20px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialCenso" disabled="#{controlBusquedaAvanzada.VTipoFechaCenso}"
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaInicialCenso" disabled="#{controlBusquedaAvanzada.VTipoFechaCenso}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialCenso}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 45px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalCenso" disabled="#{controlBusquedaAvanzada.VTipoFechaCenso}"
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaFinalCenso" disabled="#{controlBusquedaAvanzada.VTipoFechaCenso}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalCenso}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalCenso()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalCenso()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
                                             </div>
                                         </p:tab>
@@ -1563,20 +1563,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 20px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialEducacionFormal" disabled="#{controlBusquedaAvanzada.VTipoFechaEducacionFormal}"
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaInicialEducacionFormal" disabled="#{controlBusquedaAvanzada.VTipoFechaEducacionFormal}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialFormal}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 45px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalEducacionFormal" disabled="#{controlBusquedaAvanzada.VTipoFechaEducacionFormal}"
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaFinalEducacionFormal" disabled="#{controlBusquedaAvanzada.VTipoFechaEducacionFormal}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalFormal}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalFormal()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalFormal()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
                                             </div>
                                         </p:tab>
@@ -1636,20 +1636,20 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 20px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialEducacionNoFormal" disabled="#{controlBusquedaAvanzada.VTipoFechaEducacionNoFormal}"
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaInicialEducacionNoFormal" disabled="#{controlBusquedaAvanzada.VTipoFechaEducacionNoFormal}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialNoFormal}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px;color: #14388B;font-weight: bold"/>
                                                 <div  style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 45px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalEducacionNoFormal" disabled="#{controlBusquedaAvanzada.VTipoFechaEducacionNoFormal}"
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaFinalEducacionNoFormal" disabled="#{controlBusquedaAvanzada.VTipoFechaEducacionNoFormal}"
                                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalNoFormal}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalNoFormal()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalNoFormal()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
                                             </div>
                                         </p:tab>
@@ -1709,19 +1709,19 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 10px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 5px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialExperienciaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialExperienciaLaboral}" >
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaInicialExperienciaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialExperienciaLaboral}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 45px;color: #14388B;font-weight: bold"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute
                                                      ; top: 40px; left: 680px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalExperienciaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalExperienciaLaboral}" >
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaFinalExperienciaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalExperienciaLaboral}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalExperienciaLaboral()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalExperienciaLaboral()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                             </div>
@@ -1767,18 +1767,18 @@
 
                                                 <h:outputText value="#{msg['entre']}" style="position: absolute; left: 265px; top: 10px;color: #14388B;font-weight: bold; width: 50px;"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 5px; left: 315px;">
-                                                    <lnk:calendar height="10"  id="parametroFechaInicialProyecto" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialProyecto}" >
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaInicialProyecto" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialProyecto}" >
                                                         <p:ajax event="dateSelect" update="@this" process="@this" />
                                                         <p:ajax event="change" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
 
                                                 <h:outputText value="#{msg['yel']}" style="position: absolute; left: 265px; top: 40px;color: #14388B;font-weight: bold;  width: 50px;"/>
                                                 <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px;   position: absolute; top: 35px; left: 315px">
-                                                    <lnk:calendar height="10"  id="parametroFechaFinalProyecto" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalProyecto}" >
+                                                    <p:calendar pattern="dd/MM/yyyy"  id="parametroFechaFinalProyecto" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalProyecto}" >
                                                         <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalProyecto()}" update="@this" process="@this"/>
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalProyecto()}" update="@this" process="@this"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </div>
                                             </div>
                                         </p:tab>

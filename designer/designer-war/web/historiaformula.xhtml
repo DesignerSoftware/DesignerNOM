@@ -89,11 +89,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaInicial" value="#{infoHF.fechainicial}" > 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoHF.fechainicial}" > 
                                                 <p:ajax event="select" listener="#{controlHistoriaFormula.cambiarIndiceHistoriaFormula(indiceHF,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlHistoriaFormula.modificacionesFechaHistoriaFormula(indiceHF,0)}" process="@this"/>
                                                 <p:ajax event="dateSelect" listener="#{controlHistoriaFormula.modificacionesFechaHistoriaFormula(indiceHF,0)}" process="@this"/>
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -115,11 +115,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFecha" value="#{infoHF.fechafinal}" > 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFecha" value="#{infoHF.fechafinal}" > 
                                                 <p:ajax event="select" listener="#{controlHistoriaFormula.cambiarIndiceHistoriaFormula(indiceHF,1)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlHistoriaFormula.modificacionesFechaHistoriaFormula(indiceHF,1)}" process="@this" update="dateFecha"/>
                                                 <p:ajax event="dateSelect" listener="#{controlHistoriaFormula.modificacionesFechaHistoriaFormula(indiceHF,1)}" process="@this" update="dateFecha"/>
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -609,18 +609,18 @@
 
                             <strong><h:outputText value="Fecha Inicial: " style="font-size: 14px; position: absolute; top: 70px; left: 50px;" /></strong>
                             <div id="posicionHistoriaFechaIniNuevoReg" style="font-size: 10px; position: absolute; top: 70px; left: 220px">
-                                <lnk:calendar id="nuevaDateHistoriaFechaInicial" value="#{controlHistoriaFormula.nuevaHistoriaFormula.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateHistoriaFechaInicial" value="#{controlHistoriaFormula.nuevaHistoriaFormula.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaDateHistoriaFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="nuevaDateHistoriaFechaInicial" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="Fecha Final: " style="font-size: 14px; position: absolute; top: 110px; left: 50px;" /></strong>
                             <div id="posicionHistoriaFechaFinNuevoReg" style="font-size: 10px; position: absolute; top: 110px; left: 220px">
-                                <lnk:calendar id="nuevaDateHistoriaFechaFinal" value="#{controlHistoriaFormula.nuevaHistoriaFormula.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateHistoriaFechaFinal" value="#{controlHistoriaFormula.nuevaHistoriaFormula.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaDateHistoriaFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="nuevaDateHistoriaFechaFinal" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="Observaciones: " style="font-size: 14px; position: absolute; top: 150px; left: 50px" /></strong>
@@ -643,18 +643,18 @@
 
                             <strong><h:outputText value="Fecha Inicial: " style="font-size: 14px; position: absolute; top: 70px; left: 50px;" /></strong>
                             <div id="posicionHistoriaFechaIniDuplicarReg" style="font-size: 10px; position: absolute; top: 70px; left: 220px">
-                                <lnk:calendar id="duplicarDateHistoriaFechaInicial" value="#{controlHistoriaFormula.duplicarHistoriaFormula.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateHistoriaFechaInicial" value="#{controlHistoriaFormula.duplicarHistoriaFormula.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarDateHistoriaFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="duplicarDateHistoriaFechaInicial" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="Fecha Final: " style="font-size: 14px; position: absolute; top: 110px; left: 50px;" /></strong>
                             <div id="posicionHistoriaFechaFinDuplicarReg" style="font-size: 10px; position: absolute; top: 110px; left: 220px">
-                                <lnk:calendar id="duplicarDateHistoriaFechaFinal" value="#{controlHistoriaFormula.duplicarHistoriaFormula.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateHistoriaFechaFinal" value="#{controlHistoriaFormula.duplicarHistoriaFormula.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarDateHistoriaFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="duplicarDateHistoriaFechaFinal" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="Observaciones: " style="font-size: 14px; position: absolute; top: 150px; left: 50px" /></strong>

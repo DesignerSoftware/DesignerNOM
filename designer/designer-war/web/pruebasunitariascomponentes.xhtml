@@ -16,13 +16,13 @@
 
                     <p:panel  id="PanelTotal" style="position: absolute; width: 874px; height: 510px; text-align: left;background-color: white">
                         <div id="posicionFechaDesdeParametro" style="position: absolute; top: 7px; left: 90px;">
-                            <lnk:calendar value="#{controlPruebasUnitarias.fechaPrueba}" id="fechaDesdeParametroL"  width="70">
+                            <p:calendar pattern="dd/MM/yyyy" value="#{controlPruebasUnitarias.fechaPrueba}" id="fechaDesdeParametroL">
                                 <p:ajax event="change" listener="#{controlPruebasUnitarias.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
                                 <p:ajax event="dateSelect" listener="#{controlPruebasUnitarias.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
-                            </lnk:calendar> 
+                            </p:calendar> 
                         </div>
                         
-                        <p:calendar style="position: absolute; top: 37px; left: 90px;" id="prueba" value="#{controlPruebasUnitarias.fechaPrueba}" pattern="HH:mm a" timeOnly="true"/>
+                        <p:calendar pattern="dd/MM/yyyy" style="position: absolute; top: 37px; left: 90px;" id="prueba" value="#{controlPruebasUnitarias.fechaPrueba}" pattern="HH:mm a" timeOnly="true"/>
                     </p:panel>   
                 </h:form>
             </ui:define>

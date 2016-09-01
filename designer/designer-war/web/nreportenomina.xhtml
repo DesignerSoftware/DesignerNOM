@@ -705,12 +705,11 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['fechadesde']}:" style="" />
                                     <div style="display: inline; vertical-align: middle;">
-                                        <lnk:calendar id="fechaDesdeParametroL" value="#{controlNReporteNomina.parametroDeInforme.fechadesde}"  
-                                                      color="#{controlNReporteNomina.color}" decoration="#{controlNReporteNomina.decoracion}" >
+                                        <p:calendar pattern="dd/MM/yyyy" id="fechaDesdeParametroL" value="#{controlNReporteNomina.parametroDeInforme.fechadesde}">
                                             <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(1)}" process="@this"/>
                                             <p:ajax event="change" listener="#{controlNReporteNomina.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
                                             <p:ajax event="dateSelect" listener="#{controlNReporteNomina.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
-                                        </lnk:calendar> 
+                                        </p:calendar> 
                                     </div>
                                 </div>
                                 <div align="right">
@@ -749,12 +748,11 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['fechahasta']}:" style=""/>
                                     <div style="display: inline; vertical-align: middle;">
-                                        <lnk:calendar id="fechaHastaParametroL" value="#{controlNReporteNomina.parametroDeInforme.fechahasta}" 
-                                                      color="#{controlNReporteNomina.color2}" decoration="#{controlNReporteNomina.decoracion2}">
+                                        <p:calendar pattern="dd/MM/yyyy" id="fechaHastaParametroL" value="#{controlNReporteNomina.parametroDeInforme.fechahasta}">
                                             <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(7)}" process="@this"/> 
                                             <p:ajax event="change" listener="#{controlNReporteNomina.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
                                             <p:ajax event="dateSelect" listener="#{controlNReporteNomina.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
-                                        </lnk:calendar>
+                                        </p:calendar>
                                     </div>
                                 </div>
                                 <div align="right">

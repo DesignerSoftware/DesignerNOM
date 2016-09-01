@@ -64,7 +64,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
 //            query.executeUpdate();
         try {
             tx.begin();
-            StoredProcedureQuery query = em.createStoredProcedureQuery("CREAR_EMPLEADO_CON_VCARGO");
+            StoredProcedureQuery query = em.createStoredProcedureQuery("EMPLEADOCURRENT_PKG.CREAR_EMPLEADO_CON_VCARGO");
             query.registerStoredProcedureParameter(1, BigDecimal.class, ParameterMode.INOUT);
             query.registerStoredProcedureParameter(2, BigInteger.class, ParameterMode.IN);
             query.registerStoredProcedureParameter(3, BigInteger.class, ParameterMode.IN);

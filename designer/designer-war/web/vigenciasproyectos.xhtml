@@ -38,11 +38,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaInicial" value="#{vigenciasProyectos.fechainicial}" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{vigenciasProyectos.fechainicial}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaInicial"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.modificarVigenciasProyectos(indice, 'N', vigenciasProyectos.fechainicial)}"/>
                                                 <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(indice, 0)}" process="@this" />
-                                            </lnk:calendar>
+                                            </p:calendar>
 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -60,11 +60,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaFinal" value="#{vigenciasProyectos.fechafinal}" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{vigenciasProyectos.fechafinal}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaFinal"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.modificarVigenciasProyectos(indice, 'N', vigenciasProyectos.fechafinal)}"/>
                                                 <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(indice, 1)}" process="@this"/>
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>
                                     </p:cellEditor>
 
@@ -411,18 +411,18 @@
 
                             <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top:70px" /></strong>
                             <div style=" position: absolute; top: 65px; left: 160px;">
-                                <lnk:calendar id="nuevaFechaInicial" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.fechainicial}" height="12" width="60">
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.fechainicial}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                             
                              <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 110px" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style=" position: absolute; top: 105px; left: 160px">
-                                <lnk:calendar id="nuevaFechaFinal" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
    
                             <strong><h:outputText value="#{msg['proyectoN']}" style=" position: absolute; top: 150px" /></strong>
@@ -473,18 +473,18 @@
 
                             <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top:70px" /></strong>
                             <div style=" position: absolute; top: 65px; left: 160px;">
-                                <lnk:calendar id="duplicarFechaInicial" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.fechainicial}" height="12" width="60">
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.fechainicial}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                             
                              <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 110px" /></strong>
                             <div id="posicionFormulaFechaIniDuplicarReg" style=" position: absolute; top: 105px; left: 160px">
-                                <lnk:calendar id="duplicarFechaFinal" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['proyectoN']}" style=" position: absolute; top: 150px" /></strong>

@@ -69,11 +69,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaDeste" value="#{info.fechaDesde}" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaDeste" value="#{info.fechaDesde}"> 
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 2)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlProyecciones.mostrarInfo(indice,2)}" process="@this" update="@this"/>
                                                 <p:ajax event="dateSelect" listener="#{controlProyecciones.mostrarInfo(indice,2)}" process="@this" update="@this"/>
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
                                 </p:column>
@@ -88,11 +88,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaHasta" value="#{info.fechaHasta}" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaHasta" value="#{info.fechaHasta}"> 
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 3)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlProyecciones.mostrarInfo(indice,3)}" process="@this" update="@this"/>
                                                 <p:ajax event="dateSelect" listener="#{controlProyecciones.mostrarInfo(indice,3)}" process="@this" update="@this"/>
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
                                 </p:column>

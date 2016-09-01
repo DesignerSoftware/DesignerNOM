@@ -123,11 +123,11 @@
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <lnk:calendar id="dateFechaInicial" value="#{infoVC.fechainicial}" > 
+                                                    <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoVC.fechainicial}" > 
                                                         <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC,0)}"/>
                                                         <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaCuenta(infoVC,0)}" update="dateFechaInicial"/>
                                                         <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaCuenta(infoVC,0)}" update="dateFechaInicial"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
@@ -144,11 +144,11 @@
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <lnk:calendar id="dateFecha" value="#{infoVC.fechafinal}" > 
+                                                    <p:calendar pattern="dd/MM/yyyy" id="dateFecha" value="#{infoVC.fechafinal}" > 
                                                         <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC,1)}" />
                                                         <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaCuenta(infoVC,1)}" update="dateFecha"/>
                                                         <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaCuenta(infoVC,1)}" update="dateFecha"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
@@ -324,11 +324,11 @@
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <lnk:calendar id="dateVGCFechaInicial" value="#{infoVGC.fechainicial}" > 
+                                                    <p:calendar pattern="dd/MM/yyyy" id="dateVGCFechaInicial" value="#{infoVGC.fechainicial}" > 
                                                         <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaGrupoConcepto(infoVGC,0)}" />
                                                         <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaGrupoConcepto(infoVGC,0)}"  update="dateVGCFechaInicial"/>
                                                         <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaGrupoConcepto(infoVGC,0)}"  update="dateVGCFechaInicial"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
@@ -345,11 +345,11 @@
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <lnk:calendar id="dateVGCFechaFinal" value="#{infoVGC.fechafinal}" > 
+                                                    <p:calendar pattern="dd/MM/yyyy" id="dateVGCFechaFinal" value="#{infoVGC.fechafinal}" > 
                                                         <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaGrupoConcepto(infoVGC,1)}" />
                                                         <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaGrupoConcepto(infoVGC,1)}"  update="dateVGCFechaFinal"/>
                                                         <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaGrupoConcepto(infoVGC,1)}"  update="dateVGCFechaFinal"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
@@ -418,11 +418,11 @@
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <lnk:calendar id="dateVCTTFechaInicial" value="#{infoVCTT.fechainicial}" > 
+                                                    <p:calendar pattern="dd/MM/yyyy" id="dateVCTTFechaInicial" value="#{infoVCTT.fechainicial}" > 
                                                         <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTT(infoVCTT,0)}" />
                                                         <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTT(infoVCTT,0)}"  update="dateVCTTFechaInicial"/>
                                                         <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTT(infoVCTT,0)}"  update="dateVCTTFechaInicial"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
@@ -439,11 +439,11 @@
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <lnk:calendar id="dateVCTTFechaFinal" value="#{infoVCTT.fechafinal}" > 
+                                                    <p:calendar pattern="dd/MM/yyyy" id="dateVCTTFechaFinal" value="#{infoVCTT.fechafinal}" > 
                                                         <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTT(infoVCTT,1)}" />
                                                         <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTT(infoVCTT,1)}"  update="dateVCTTFechaFinal"/>
                                                         <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTT(infoVCTT,1)}"  update="dateVCTTFechaFinal"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
@@ -494,12 +494,12 @@
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <lnk:calendar id="dateVCTCFechaInicial" value="#{infoVCTC.fechainicial}" > 
+                                                    <p:calendar pattern="dd/MM/yyyy" id="dateVCTCFechaInicial" value="#{infoVCTC.fechainicial}" > 
                                                         <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTC(infoVCTC,0)}" />
                                                         <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTC(infoVCTC,0)}"  update="dateVCTCFechaInicial"/>
                                                         <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTC(infoVCTC,0)}"  update="dateVCTCFechaInicial"/>
 
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
@@ -516,11 +516,11 @@
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <lnk:calendar id="dateVCTCFechaFinal" value="#{infoVCTC.fechafinal}" > 
+                                                    <p:calendar pattern="dd/MM/yyyy" id="dateVCTCFechaFinal" value="#{infoVCTC.fechafinal}" > 
                                                         <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTC(infoVCTC,1)}" />
                                                         <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTC(infoVCTC,1)}"  update="dateVCTCFechaFinal"/>
                                                         <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTC(infoVCTC,1)}"  update="dateVCTCFechaFinal"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
@@ -571,11 +571,11 @@
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <lnk:calendar id="dateVCRLFechaInicial" value="#{infoVCRL.fechainicial}" > 
+                                                    <p:calendar pattern="dd/MM/yyyy" id="dateVCRLFechaInicial" value="#{infoVCRL.fechainicial}" > 
                                                         <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoRL(infoVCRL,0)}" />
                                                         <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoRL(infoVCRL,0)}"  update="dateVCRLFechaInicial"/>
                                                         <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoRL(infoVCRL,0)}"  update="dateVCRLFechaInicial"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
@@ -592,11 +592,11 @@
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <lnk:calendar id="dateVCRLFechaFinal" value="#{infoVCRL.fechafinal}" > 
+                                                    <p:calendar pattern="dd/MM/yyyy" id="dateVCRLFechaFinal" value="#{infoVCRL.fechafinal}" > 
                                                         <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoRL(infoVCRL,1)}" />
                                                         <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoRL(infoVCRL,1)}"  update="dateVCRLFechaFinal"/>
                                                         <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoRL(infoVCRL,1)}"  update="dateVCRLFechaFinal"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
@@ -647,11 +647,11 @@
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <lnk:calendar id="dateFCFechaInicial" value="#{infoFC.fechainicial}" > 
+                                                    <p:calendar pattern="dd/MM/yyyy" id="dateFCFechaInicial" value="#{infoFC.fechainicial}" > 
                                                         <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceFormulasConceptos(infoFC,0)}" />
                                                         <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaFormulasConceptos(infoFC,0)}"  update="dateFCFechaInicial"/>
                                                         <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaFormulasConceptos(infoFC,0)}"  update="dateFCFechaInicial"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
@@ -668,11 +668,11 @@
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <lnk:calendar id="dateFCFechaFinal" value="#{infoFC.fechafinal}" > 
+                                                    <p:calendar pattern="dd/MM/yyyy" id="dateFCFechaFinal" value="#{infoFC.fechafinal}" > 
                                                         <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceFormulasConceptos(infoFC,1)}" />
                                                         <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaFormulasConceptos(infoFC,1)}"  update="dateFCFechaFinal"/>
                                                         <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaFormulasConceptos(infoFC,1)}"  update="dateFCFechaFinal"/>
-                                                    </lnk:calendar>
+                                                    </p:calendar>
                                                 </f:facet>  
                                             </p:cellEditor>
                                             <f:facet name="footer">
@@ -1330,18 +1330,18 @@
                         <p:panel id="nuevaVC" style="border: none;">
                             <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
                             <div id="posicionFechaIniVCNuevoReg" style="position: absolute; top: 55px; left: 220px">
-                                <lnk:calendar id="nuevaDateFechaInicialVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaInicialVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaDateFechaInicialVC" />
                                     <p:ajax event="change" update="nuevaDateFechaInicialVC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechafinalN']}" style="position: absolute; top: 95px; left: 50px;" /></strong>
                             <div id="posicionFechaFinVCNuevoReg" style="position: absolute; top: 85px; left: 220px">
-                                <lnk:calendar id="nuevaDateFechaFinalVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaFinalVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaDateFechaFinalVC" />
                                     <p:ajax event="change" update="nuevaDateFechaFinalVC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['tipoccN']}" style="position: absolute; top: 120px; left: 50px" /></strong>
@@ -1442,18 +1442,18 @@
 
                             <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
                             <div id="posicionFechaIniVCDuplicarReg" style="position: absolute; top: 55px; left: 220px;">
-                                <lnk:calendar id="duplicarDateFechaInicialVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaInicialVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFechaInicialVC" />
                                     <p:ajax event="change" update="duplicarDateFechaInicialVC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechafinalN']}" style="position: absolute; top: 95px; left: 50px;" /></strong>
                             <div id="posicionFechaFinVCNuevoReg" style="position: absolute; top: 85px; left: 220px;">
-                                <lnk:calendar id="duplicarDateFechaFinalVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaFinalVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFechaFinalVC" />
                                     <p:ajax event="change" update="duplicarDateFechaFinalVC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['tipoccN']}" style="position: absolute; top: 120px; left: 50px" /></strong>
@@ -1555,18 +1555,18 @@
 
                             <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
                             <div id="posicionFechaIniVGCNuevoReg" style=" position: absolute; top: 55px; left: 220px;">
-                                <lnk:calendar id="nuevaDateFechaInicialVGC" value="#{controlDetalleConcepto.nuevaVigenciaGrupoConcepto.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaInicialVGC" value="#{controlDetalleConcepto.nuevaVigenciaGrupoConcepto.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaDateFechaInicialVGC" />
                                     <p:ajax event="change" update="nuevaDateFechaInicialVGC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechafinalN']}" style="position: absolute; top: 90px; left: 50px;" /></strong>
                             <div id="posicionFechaFinVGCNuevoReg" style="position: absolute; top: 85px; left: 220px;">
-                                <lnk:calendar id="nuevaDateFechaFinalVGC" value="#{controlDetalleConcepto.nuevaVigenciaGrupoConcepto.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaFinalVGC" value="#{controlDetalleConcepto.nuevaVigenciaGrupoConcepto.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaDateFechaFinalVGC" />
                                     <p:ajax event="change" update="nuevaDateFechaFinalVGC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
@@ -1606,18 +1606,18 @@
 
                             <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
                             <div id="posicionFechaIniVGCDuplicarReg" style="position: absolute; top: 55px; left: 220px">
-                                <lnk:calendar id="duplicarDateFechaInicialVGC" value="#{controlDetalleConcepto.duplicarVigenciaGrupoConcepto.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaInicialVGC" value="#{controlDetalleConcepto.duplicarVigenciaGrupoConcepto.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFechaInicialVGC" />
                                     <p:ajax event="change" update="duplicarDateFechaInicialVGC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechafinalN']}" style="position: absolute; top: 90px; left: 50px;" /></strong>
                             <div id="posicionFechaFinVGCNuevoReg" style="position: absolute; top: 85px; left: 220px">
-                                <lnk:calendar id="duplicarDateFechaFinalVGC" value="#{controlDetalleConcepto.duplicarVigenciaGrupoConcepto.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaFinalVGC" value="#{controlDetalleConcepto.duplicarVigenciaGrupoConcepto.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFechaFinalVGC" />
                                     <p:ajax event="change" update="duplicarDateFechaFinalVGC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 120px; left: 50px" /></strong>
@@ -1659,18 +1659,18 @@
 
                             <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
                             <div id="posicionFechaIniVCTTNuevoReg" style="position: absolute; top: 55px; left: 220px">
-                                <lnk:calendar id="nuevaDateFechaInicialVCTT" value="#{controlDetalleConcepto.nuevaVigenciaConceptoTT.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaInicialVCTT" value="#{controlDetalleConcepto.nuevaVigenciaConceptoTT.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaDateFechaInicialVCTT" />
                                     <p:ajax event="change" update="nuevaDateFechaInicialVCTT" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechafinalN']}" style="position: absolute; top: 90px; left: 50px;" /></strong>
                             <div id="posicionFechaFinVCTTNuevoReg" style="position: absolute; top: 85px; left: 220px">
-                                <lnk:calendar id="nuevaDateFechaFinalVCTT" value="#{controlDetalleConcepto.nuevaVigenciaConceptoTT.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaFinalVCTT" value="#{controlDetalleConcepto.nuevaVigenciaConceptoTT.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaDateFechaFinalVCTT" />
                                     <p:ajax event="change" update="nuevaDateFechaFinalVCTT" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['tipotrabajadorN']}" style="position: absolute; top: 120px; left: 50px" /></strong>
@@ -1701,18 +1701,18 @@
 
                             <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
                             <div id="posicionFechaIniVCTTDuplicarReg" style="position: absolute; top: 55px; left: 220px">
-                                <lnk:calendar id="duplicarDateFechaInicialVCTT" value="#{controlDetalleConcepto.duplicarVigenciaConceptoTT.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaInicialVCTT" value="#{controlDetalleConcepto.duplicarVigenciaConceptoTT.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFechaInicialVCTT" />
                                     <p:ajax event="change" update="duplicarDateFechaInicialVCTT" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechafinalN']}" style="position: absolute; top: 90px; left: 50px;" /></strong>
                             <div id="posicionFechaFinVCTTNuevoReg" style="position: absolute; top: 85px; left: 220px">
-                                <lnk:calendar id="duplicarDateFechaFinalVCTT" value="#{controlDetalleConcepto.duplicarVigenciaConceptoTT.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaFinalVCTT" value="#{controlDetalleConcepto.duplicarVigenciaConceptoTT.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFechaFinalVCTT" />
                                     <p:ajax event="change" update="duplicarDateFechaFinalVCTT" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['tipotrabajadorN']}" style="position: absolute; top: 120px; left: 50px" /></strong>
@@ -1743,18 +1743,18 @@
 
                             <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
                             <div id="posicionFechaIniVCTCNuevoReg" style="position: absolute; top: 55px; left: 220px">
-                                <lnk:calendar id="nuevaDateFechaInicialVCTC" value="#{controlDetalleConcepto.nuevaVigenciaConceptoTC.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaInicialVCTC" value="#{controlDetalleConcepto.nuevaVigenciaConceptoTC.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaDateFechaInicialVCTC" />
                                     <p:ajax event="change" update="nuevaDateFechaInicialVCTC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechafinalN']}" style="position: absolute; top: 90px; left: 50px;" /></strong>
                             <div id="posicionFechaFinVCTCNuevoReg" style="position: absolute; top: 85px; left: 220px">
-                                <lnk:calendar id="nuevaDateFechaFinalVCTC" value="#{controlDetalleConcepto.nuevaVigenciaConceptoTC.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaFinalVCTC" value="#{controlDetalleConcepto.nuevaVigenciaConceptoTC.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaDateFechaFinalVCTC" />
                                     <p:ajax event="change" update="nuevaDateFechaFinalVCTC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div> 
 
                             <strong><h:outputText value="*#{msg['tipocontratoN']}" style="position: absolute; top: 120px; left: 50px" /></strong>
@@ -1785,18 +1785,18 @@
 
                             <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
                             <div id="posicionFechaIniVCTCDuplicarReg" style="position: absolute; top: 55px; left: 220px">
-                                <lnk:calendar id="duplicarDateFechaInicialVCTC" value="#{controlDetalleConcepto.duplicarVigenciaConceptoTC.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaInicialVCTC" value="#{controlDetalleConcepto.duplicarVigenciaConceptoTC.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFechaInicialVCTC" />
                                     <p:ajax event="change" update="duplicarDateFechaInicialVCTC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechafinalN']}" style="position: absolute; top: 90px; left: 50px;" /></strong>
                             <div id="posicionFechaFinVCTCNuevoReg" style="position: absolute; top: 85px; left: 220px">
-                                <lnk:calendar id="duplicarDateFechaFinalVCTC" value="#{controlDetalleConcepto.duplicarVigenciaConceptoTC.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaFinalVCTC" value="#{controlDetalleConcepto.duplicarVigenciaConceptoTC.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFechaFinalVCTC" />
                                     <p:ajax event="change" update="duplicarDateFechaFinalVCTC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['tipocontratoN']}" style="position: absolute; top: 120px; left: 50px" /></strong>
@@ -1827,18 +1827,18 @@
 
                             <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
                             <div id="posicionFechaIniVCRLNuevoReg" style="position: absolute; top: 55px; left: 220px">
-                                <lnk:calendar id="nuevaDateFechaInicialVCRL" value="#{controlDetalleConcepto.nuevaVigenciaConceptoRL.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaInicialVCRL" value="#{controlDetalleConcepto.nuevaVigenciaConceptoRL.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaDateFechaInicialVCRL" />
                                     <p:ajax event="change" update="nuevaDateFechaInicialVCRL" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechafinalN']}" style="position: absolute; top: 90px; left: 50px;" /></strong>
                             <div id="posicionFechaFinVCRLNuevoReg" style="position: absolute; top: 85px; left: 220px">
-                                <lnk:calendar id="nuevaDateFechaFinalVCRL" value="#{controlDetalleConcepto.nuevaVigenciaConceptoRL.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaFinalVCRL" value="#{controlDetalleConcepto.nuevaVigenciaConceptoRL.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaDateFechaFinalVCRL" />
                                     <p:ajax event="change" update="nuevaDateFechaFinalVCRL" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div> 
 
                             <strong><h:outputText value="*#{msg['tiposalarioN']}" style="position: absolute; top: 120px; left: 50px" /></strong>
@@ -1869,18 +1869,18 @@
 
                             <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
                             <div id="posicionFechaIniVCRLDuplicarReg" style="position: absolute; top: 55px; left: 220px">
-                                <lnk:calendar id="duplicarDateFechaInicialVCRL" value="#{controlDetalleConcepto.duplicarVigenciaConceptoRL.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaInicialVCRL" value="#{controlDetalleConcepto.duplicarVigenciaConceptoRL.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFechaInicialVCRL" />
                                     <p:ajax event="change" update="duplicarDateFechaInicialVCRL" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechafinalN']}" style=" position: absolute; top: 90px; left: 50px;" /></strong>
                             <div id="posicionFechaFinVCRLNuevoReg" style="position: absolute; top: 85px; left: 220px">
-                                <lnk:calendar id="duplicarDateFechaFinalVCRL" value="#{controlDetalleConcepto.duplicarVigenciaConceptoRL.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaFinalVCRL" value="#{controlDetalleConcepto.duplicarVigenciaConceptoRL.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFechaFinalVCRL" />
                                     <p:ajax event="change" update="duplicarDateFechaFinalVCRL" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['tiposalarioN']}" style="position: absolute; top: 120px; left: 50px" /></strong>
@@ -1911,18 +1911,18 @@
 
                             <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
                             <div id="posicionFechaIniFCNuevoReg" style="position: absolute; top: 55px; left: 220px">
-                                <lnk:calendar id="nuevaDateFechaInicialFC" value="#{controlDetalleConcepto.nuevaFormulasConceptos.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaInicialFC" value="#{controlDetalleConcepto.nuevaFormulasConceptos.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaDateFechaInicialFC" />
                                     <p:ajax event="change" update="nuevaDateFechaInicialFC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechafinalN']}" style="position: absolute; top: 90px; left: 50px;" /></strong>
                             <div id="posicionFechaFinFCNuevoReg" style="position: absolute; top: 85px; left: 220px">
-                                <lnk:calendar id="nuevaDateFechaFinalFC" value="#{controlDetalleConcepto.nuevaFormulasConceptos.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaFinalFC" value="#{controlDetalleConcepto.nuevaFormulasConceptos.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaDateFechaFinalFC" />
                                     <p:ajax event="change" update="nuevaDateFechaFinalFC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div> 
 
                             <strong><h:outputText value="*#{msg['nombreformulaN']}" style="position: absolute; top: 120px; left: 50px" /></strong>
@@ -1963,18 +1963,18 @@
 
                             <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
                             <div id="posicionFechaIniFCDuplicarReg" style="position: absolute; top: 55px; left: 220px">
-                                <lnk:calendar id="duplicarDateFechaInicialFC" value="#{controlDetalleConcepto.duplicarFormulasConceptos.fechainicial}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaInicialFC" value="#{controlDetalleConcepto.duplicarFormulasConceptos.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFechaInicialFC" />
                                     <p:ajax event="change" update="duplicarDateFechaInicialFC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['fechafinalN']}" style="position: absolute; top: 90px; left: 50px;" /></strong>
                             <div id="posicionFechaFinFCNuevoReg" style="position: absolute; top: 85px; left: 220px">
-                                <lnk:calendar id="duplicarDateFechaFinalFC" value="#{controlDetalleConcepto.duplicarFormulasConceptos.fechafinal}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaFinalFC" value="#{controlDetalleConcepto.duplicarFormulasConceptos.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFechaFinalFC" />
                                     <p:ajax event="change" update="duplicarDateFechaFinalFC" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['nombreformulaN']}" style="position: absolute; top: 120px; left: 50px" /></strong>

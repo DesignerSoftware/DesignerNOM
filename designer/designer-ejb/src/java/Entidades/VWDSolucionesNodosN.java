@@ -1216,10 +1216,10 @@ public class VWDSolucionesNodosN implements Serializable {
     }
 
     public BigDecimal getGranTotal() {
-        granTotal = conjunto45.add(totalDescuentos);
-        granTotal = granTotal.add(totalGastos);
-        granTotal = granTotal.add(totalPagos);
-        granTotal = granTotal.add(totalPasivos);
+        granTotal = conjunto45.add(getTotalDescuentos());
+        granTotal = granTotal.add(getTotalGastos());
+        granTotal = granTotal.add(getTotalPagos());
+        granTotal = granTotal.add(getTotalPasivos());
         return granTotal;
     }
 

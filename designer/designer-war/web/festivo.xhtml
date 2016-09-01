@@ -42,10 +42,8 @@
                             <p:dataTable id="datosHvEntrevista" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
                                          value="#{controlFestivos.listFestivosPorPais}" scrollable="true" scrollHeight="#{controlFestivos.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlFestivos.filtrarFestivosPorPais}" emptyMessage="No se encontrarón resultados para la búsqueda"
-                                         editable="true" editMode="cell" paginator="false" 
-                                         selection="#{controlFestivos.festivoSeleccionado}"
-                                         selectionMode="single"
-                                         >
+                                         editable="true" editMode="cell" paginator="false" selection="#{controlFestivos.festivoSeleccionado}" selectionMode="single">
+                                
                                 <p:ajax event="filter" listener="#{controlFestivos.eventoFiltrar()}"/>
 
                                 <p:column headerText="Día" sortBy="#{info.dia}" filterBy="#{info.dia}" filterMatchMode="contains" 
@@ -58,11 +56,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaInicial" height="12" value="#{info.dia}" > 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.dia}" > 
                                                 <p:ajax event="select" listener="#{controlFestivos.cambiarIndice(indice, 0)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlFestivos.mostrarInfo(indice,0)}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlFestivos.mostrarInfo(indice,0)}" process="@this" update="editFecha"/>
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
                                 </p:column>
@@ -245,10 +243,10 @@
 
                             <strong><h:outputText value="*Día: "  style="left: 15px; position: absolute; top: 60px;" /></strong>
                             <div  id="nuevaFechaa" style="width: 140px; position: absolute; top: 55px; left: 150px;">
-                                <lnk:calendar id="nuevaFecha" value="#{controlFestivos.nuevoFestivos.dia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlFestivos.nuevoFestivos.dia}" >
                                     <p:ajax event="dateSelect" update="nuevaFecha"/>
                                     <p:ajax event="change" update="nuevaFecha"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <p:watermark for="nuevaFecha" value="Día" />
@@ -267,10 +265,10 @@
                         <p:panel id="duplicarEvC" style="border: none;">
                             <strong><h:outputText value="Dia "  style="left: 15px; position: absolute; top: 60px;text-transform: uppercase" /></strong>
                             <div id="duplicarFecha" style="width: 140px; position: absolute; top: 55px; left: 150px;">
-                                <lnk:calendar id="duplicarFechaa" value="#{controlFestivos.duplicarFestivos.dia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaa" value="#{controlFestivos.duplicarFestivos.dia}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaa"/>
                                     <p:ajax event="change" update="duplicarFechaa"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarD" value="Limpiar" style=" position: absolute; left: 10px; top: 90px;"  actionListener="#{controlFestivos.limpiarDuplicarFestivos()}" update="duplicarEvC"  process="@this"/>

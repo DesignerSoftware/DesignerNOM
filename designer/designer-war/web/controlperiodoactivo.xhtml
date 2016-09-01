@@ -99,11 +99,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaInicial" value="#{info.controlinicioperiodoactivo}" height="12" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.controlinicioperiodoactivo}"> 
                                                 <p:ajax event="select" listener="#{controlPeriodosActivos.cambiarIndice(indice, 0)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlPeriodosActivos.mostrarInfo(indice,0,'INICIO')}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlPeriodosActivos.mostrarInfo(indice,0,'INICIO')}" process="@this" update="editFecha"/>
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -117,11 +117,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="dateFechaFinal" value="#{info.controlfinperiodoactivo}" height="12" width="99"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.controlfinperiodoactivo}"> 
                                                 <p:ajax event="select" listener="#{controlPeriodosActivos.cambiarIndice(indice, 1)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlPeriodosActivos.mostrarInfo(indice,1,'FINAL')}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlPeriodosActivos.mostrarInfo(indice,1,'FINAL')}" process="@this" update="editFecha"/>
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
                                 </p:column>

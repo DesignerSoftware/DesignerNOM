@@ -127,11 +127,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <lnk:calendar id="editFecha" value="#{info.fechavigencia}" width="85" height="12">
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}">
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasCargos.modificarVC(info, 'N', info.fechavigencia)}" update="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'N', info.fechavigencia)}" update="@this" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 0)}" process="@this"/> 
-                                            </lnk:calendar>
+                                            </p:calendar>
                                         </f:facet>
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -564,10 +564,10 @@
 
                             <strong><h:outputText value="*#{msg['fechaN']}" style=" position: absolute; top: 70px" /></strong>
                             <div style=" position: absolute; top: 65px; left: 130px;">
-                                <lnk:calendar id="nuevaFecha" value="#{controlVigenciasCargos.nuevaVigencia.fechavigencia}" height="12" width="60">
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasCargos.nuevaVigencia.fechavigencia}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['estructuraN']}" style=" position: absolute; top: 100px" /></strong>
@@ -627,10 +627,10 @@
                         <p:panel id="duplicarVC" style="border: none; margin-left: 15px;">
                             <strong><h:outputText value="*#{msg['fechaN']}" style=" position: absolute; top: 65px" /></strong>
                             <div style=" position: absolute; top: 60px; left: 130px;">
-                                <lnk:calendar id="duplicarFecha" value="#{controlVigenciasCargos.duplicarVC.fechavigencia}" height="12" width="60">
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlVigenciasCargos.duplicarVC.fechavigencia}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                             <strong><h:outputText value="*#{msg['estructuraN']}" style=" position: absolute; top: 100px" /></strong>
                             <p:inputText id="duplicarEstructura" value="#{controlVigenciasCargos.duplicarVC.estructura.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 95px; text-transform: uppercase" onclick="select();">

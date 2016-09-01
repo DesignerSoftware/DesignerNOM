@@ -382,11 +382,11 @@
 
                         <h:outputText value="#{msg['fechadesde']}:" style="position: absolute; top: 20px; left: 20px;"/>
                         <div id="posicionFechaDesdeParametro" style="position: absolute; top: 13px; left: 135px;">
-                            <lnk:calendar value="#{controlReportesBancos.parametroDeInforme.fechadesde}" id="fechaDesdeParametroL" color="#{controlReportesBancos.color}" decoration="#{controlReportesBancos.decoracion}"  width="70">
+                            <p:calendar pattern="dd/MM/yyyy" value="#{controlReportesBancos.parametroDeInforme.fechadesde}" id="fechaDesdeParametroL">
                                 <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(1)}" process="@this"/>
                                 <p:ajax event="change" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
                                 <p:ajax event="dateSelect" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
-                            </lnk:calendar> 
+                            </p:calendar> 
                         </div>
 
                         <h:outputText value="#{msg['empleadodesde']}:" style="position: absolute; top: 45px; left: 20px;"/>
@@ -422,11 +422,11 @@
 
                         <h:outputText value="#{msg['hasta']}:" style="position: absolute; top: 20px; left: 280px;"/>
                         <div id="posicionFechaHastaParametro" style="position: absolute; top: 13px; left: 390px;">
-                            <lnk:calendar value="#{controlReportesBancos.parametroDeInforme.fechahasta}" id="fechaHastaParametroL" color="#{controlReportesBancos.color2}" decoration="#{controlReportesBancos.decoracion2}"  width="70">
+                            <p:calendar pattern="dd/MM/yyyy" value="#{controlReportesBancos.parametroDeInforme.fechahasta}" id="fechaHastaParametroL">
                                 <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(5)}" process="@this"/> 
                                 <p:ajax event="change" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
                                 <p:ajax event="dateSelect" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
-                            </lnk:calendar> 
+                            </p:calendar> 
                         </div>
 
                         <h:outputText value="#{msg['hasta']}:" style="position: absolute; top: 45px; left: 280px;"/>
@@ -459,11 +459,11 @@
 
                         <h:outputText value="#{msg['fechacorte']}:" style="position: absolute; top: 20px; left: 590px;"/>
                         <div id="posicionFechaCorteParametro" style="position: absolute; top: 15px; left: 690px;">
-                            <lnk:calendar value="#{controlReportesBancos.parametroDeInforme.fechacorte}" id="fechaCorteParametro" width="70">
+                            <p:calendar pattern="dd/MM/yyyy" value="#{controlReportesBancos.parametroDeInforme.fechacorte}" id="fechaCorteParametro">
                                 <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(10)}" process="@this"/> 
                                 <p:ajax event="change" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaCorteParametro"/>
                                 <p:ajax event="dateSelect" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaCorteParametro"/>
-                            </lnk:calendar> 
+                            </p:calendar> 
                         </div>
 
                         <h:outputText value="#{msg['ciudad']}:" style="position: absolute; top: 45px; left: 590px;"/>

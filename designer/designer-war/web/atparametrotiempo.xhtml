@@ -102,11 +102,11 @@
 
                             <strong><h:outputText value="#{msg['fechaDesde']}" style="position: absolute; top: 90px; left: 70px;"/></strong>
                             <div  style=" position: absolute; top: 85px; left: 230px">
-                                <lnk:calendar id="editarFechaDesdeParametro" value="#{controlATParametroTiempo.parametroTiempoUsuarioBD.fechadesde}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="editarFechaDesdeParametro" value="#{controlATParametroTiempo.parametroTiempoUsuarioBD.fechadesde}" >
                                     <p:ajax event="dateSelect" listener="#{controlATParametroTiempo.modificarFechasParametro(2)}" update="editarFechaDesdeParametro" process="@this"/>
                                     <p:ajax event="change" listener="#{controlATParametroTiempo.modificarFechasParametro(2)}" update="editarFechaDesdeParametro" process="@this"/>
                                     <p:ajax event="select" listener="#{controlATParametroTiempo.cambiarIndiceParametro(2)}" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['tiempoFechaDesde']}" style="position: absolute; top: 115px; left: 70px;"/></strong>
@@ -119,11 +119,11 @@
 
                             <strong><h:outputText value="#{msg['fechaHasta']}" style="position: absolute; top: 40px; left: 500px;"/></strong>
                             <div style=" position: absolute; top: 35px; left: 670px">
-                                <lnk:calendar id="editarFechaHastaParametro" value="#{controlATParametroTiempo.parametroTiempoUsuarioBD.fechahasta}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="editarFechaHastaParametro" value="#{controlATParametroTiempo.parametroTiempoUsuarioBD.fechahasta}" >
                                     <p:ajax event="dateSelect" listener="#{controlATParametroTiempo.modificarFechasParametro(3)}" update="editarFechaHastaParametro" process="@this"/>
                                     <p:ajax event="change" listener="#{controlATParametroTiempo.modificarFechasParametro(3)}" process="@this" update="editarFechaHastaParametro"/>
                                     <p:ajax event="select" listener="#{controlATParametroTiempo.cambiarIndiceParametro(3)}" />
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
                             
                             <strong><h:outputText value="#{msg['tiempoFechaHasta']}" style="position: absolute; top: 65px; left: 500px;"/></strong>

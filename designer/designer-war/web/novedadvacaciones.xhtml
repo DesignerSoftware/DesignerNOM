@@ -337,10 +337,10 @@
 
                             <strong><h:outputText value="Fecha Inicial Disfrute: " style=" position: absolute; top: 65px" /></strong>
                             <div id="posicionFechaInicialNuevoReg" style=" position: absolute; top: 60px; left: 200px">
-                                <lnk:calendar id="nuevaFechaInicial" value="#{controlNovedadesVacaciones.nuevaNovedad.fechainicialdisfrute}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlNovedadesVacaciones.nuevaNovedad.fechainicialdisfrute}" >
                                     <p:ajax event="dateSelect" listener="#{controlNovedadesVacaciones.validaciones(1)}"/>
                                     <p:ajax event="change" listener="#{controlNovedadesVacaciones.validaciones(1)}"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="Periodo: " style=" position: absolute; top: 105px" /></strong>
@@ -360,10 +360,10 @@
 
                             <strong><h:outputText value="Fecha Sig. Fin. Vacacion: " style=" position: absolute; top: 185px" /></strong>
                             <div id="posicionFechaSiguienteNuevoRegi" style=" position: absolute; top: 180px; left: 200px">
-                                <lnk:calendar id="nuevaFechaSiguiente" value="#{controlNovedadesVacaciones.nuevaNovedad.fechasiguientefinvaca}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaSiguiente" value="#{controlNovedadesVacaciones.nuevaNovedad.fechasiguientefinvaca}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaSiguiente"/>
                                     <p:ajax event="change" update="nuevaFechaSiguiente"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <!-- Comportamiento de si el tipo es dinero o tiempo -->
@@ -377,18 +377,18 @@
 
                             <strong><h:outputText value="Adelanto Hasta: " style=" position: absolute; top: 265px" /></strong>
                             <div id="posicionFechaSiguienteNuevoReg" style=" position: absolute; top: 260px; left: 200px">
-                                <lnk:calendar id="nuevoAdelantoHasta" value="#{controlNovedadesVacaciones.nuevaNovedad.adelantapagohasta}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevoAdelantoHasta" value="#{controlNovedadesVacaciones.nuevaNovedad.adelantapagohasta}" >
                                     <p:ajax event="dateSelect" update="nuevoAdelantoHasta"/>
                                     <p:ajax event="change" update="nuevoAdelantoHasta"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="Fecha Pago" style=" position: absolute; top: 305px" /></strong>
                             <div id="posicionFechaPagoNuevoReg" style=" position: absolute; top: 300px; left: 200px">
-                                <lnk:calendar id="nuevaFechaPago" value="#{controlNovedadesVacaciones.nuevaNovedad.fechapago}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaPago" value="#{controlNovedadesVacaciones.nuevaNovedad.fechapago}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaPago"/>
                                     <p:ajax event="change" update="nuevaFechaPago"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="Dias Aplazados" style=" position: absolute; top: 345px" /></strong>
@@ -413,10 +413,10 @@
 
                             <strong><h:outputText value="Fecha Inicial Disfrute: " style=" position: absolute; top: 65px" /></strong>
                             <div id="posicionFechaInicialDuplicarReg" style=" position: absolute; top: 60px; left: 200px">
-                                <lnk:calendar id="duplicarFechaInicial" value="#{controlNovedadesVacaciones.duplicarNovedad.fechainicialdisfrute}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlNovedadesVacaciones.duplicarNovedad.fechainicialdisfrute}" >
                                     <p:ajax event="dateSelect" listener="#{controlNovedadesVacaciones.validaciones(2)}" update="duplicarFechaInicial"/>
                                     <p:ajax event="change" update="duplicarFechaInicial"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="Periodo: " style=" position: absolute; top: 105px" /></strong>
@@ -435,10 +435,10 @@
 
                             <strong><h:outputText value="Fecha Sig. Fin. Vacacion: " style=" position: absolute; top: 185px" /></strong>
                             <div id="posicionFechaSiguienteDuplicarReg" style=" position: absolute; top: 180px; left: 200px">
-                                <lnk:calendar id="duplicarFechaSiguiente" value="#{controlNovedadesVacaciones.duplicarNovedad.fechasiguientefinvaca}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaSiguiente" value="#{controlNovedadesVacaciones.duplicarNovedad.fechasiguientefinvaca}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaSiguiente"/>
                                     <p:ajax event="change" update="duplicarFechaSiguiente"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <!-- Comportamiento de si el tipo es dinero o tiempo -->
@@ -452,18 +452,18 @@
 
                             <strong><h:outputText value="Adelanto Hasta: " style=" position: absolute; top: 265px" /></strong>
                             <div id="posicionFechaSiguienteDuplicarReg" style=" position: absolute; top: 260px; left: 200px">
-                                <lnk:calendar id="duplicarAdelantoHasta" value="#{controlNovedadesVacaciones.duplicarNovedad.adelantapagohasta}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarAdelantoHasta" value="#{controlNovedadesVacaciones.duplicarNovedad.adelantapagohasta}" >
                                     <p:ajax event="dateSelect" update="duplicarAdelantoHasta"/>
                                     <p:ajax event="change" update="duplicarAdelantoHasta"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="Fecha Pago" style=" position: absolute; top: 305px" /></strong>
                             <div id="posicionFechaPagoDuplicarReg" style=" position: absolute; top: 300px; left: 200px">
-                                <lnk:calendar id="duplicarFechaPago" value="#{controlNovedadesVacaciones.duplicarNovedad.fechapago}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaPago" value="#{controlNovedadesVacaciones.duplicarNovedad.fechapago}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaPago"/>
                                     <p:ajax event="change" update="duplicarFechaPago"/>
-                                </lnk:calendar>
+                                </p:calendar>
                             </div>
 
                             <strong><h:outputText value="Dias Aplazados" style=" position: absolute; top: 345px" /></strong>
