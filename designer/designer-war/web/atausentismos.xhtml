@@ -6,6 +6,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+    <a href="../../../../../../Desktop/vigdeporte.xhtml"></a>
     <h:head>
     </h:head>
     <h:body>
@@ -15,10 +16,10 @@
                     <f:loadBundle basename="Recursos.atausentismos" var="msg" />
                     <p:growl id="growl" showDetail="true"/>
 
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="position: absolute; width: 874px; height: 510px; text-align: left">    
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
 
                         <!-- TOOLBAR--> 
-                        <p:toolbar styleClass="cssToolbar" style=" position: absolute; top: 37px; left: 12px; height: 24px">  
+                        <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; " actionListener="#{controlAusentismos.guardarCambiosAusentismos()}" process="@this" />
@@ -243,7 +244,7 @@
                                         </f:facet>
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 140px; margin: -14px; height: 26px; border: none; color: blue" value=" " id="fooTipoAusentismo" actionListener="#{controlTiposAusentismos.recibirPagina('atausentismos')}" action="tiposausentismos"  process="@this"/>
+                                        <p:commandButton style="width: 140px;" value=" " id="fooTipoAusentismo" actionListener="#{controlTiposAusentismos.recibirPagina('atausentismos')}" action="tiposausentismos"  process="@this"/>
                                     </f:facet>
                                 </p:column>
                                 <!--Clase Ausentismo -->
@@ -260,7 +261,7 @@
                                     </p:cellEditor>
                                     
                                        <f:facet name="footer">
-                                           <p:commandButton style="width: 140px; margin: -14px; height: 26px; border: none; color: blue" value=" " id="fooClaseAusentismo" actionListener="#{controlClasesAusentismos.recibirPagina('atausentismos')}" action="clasesausentismos"  process="@this"/>
+                                           <p:commandButton style="width: 140px;" value=" " id="fooClaseAusentismo" actionListener="#{controlClasesAusentismos.recibirPagina('atausentismos')}" action="clasesausentismos"  process="@this"/>
                                     </f:facet>
                                 </p:column>
                                 <!--Causa Ausentismo-->
@@ -277,7 +278,7 @@
                                     </p:cellEditor>                                     
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 140px; margin: -14px; height: 26px; border: none; color: blue" value=" " id="fooCausaAusentismo" actionListener="#{controlCausasAusentismos.recibirPaginaEntrante('atausentismos')}" action="causaausentismos"  process="@this"/>
+                                        <p:commandButton style="width: 140px;" value=" " id="fooCausaAusentismo" actionListener="#{controlCausasAusentismos.recibirPaginaEntrante('atausentismos')}" action="causaausentismos"  process="@this"/>
                                     </f:facet>
                                 </p:column>
                                 <!-- Dias Ausentismo -->  
