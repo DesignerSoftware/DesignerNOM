@@ -21,66 +21,66 @@
                         <p:toolbar styleClass="cssToolbar">
                             <p:toolbarGroup align="left">
 
-                                <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;"
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png);"
                                                  disabled="true" id="guardarRapido" value=""/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
-                                <p:commandButton style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;"
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/editar.png);"
                                                  actionListener="#{controlParametrosConjuntos.editar()}" id="editar" value=""/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" 
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);" 
                                                  disabled="true" id="listaValores" value=""/>
 
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;"
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png);"
                                                  id="filtrar" value="" actionListener="#{controlParametrosConjuntos.activarFiltros()}"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;"
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/excel.png);"
                                                  actionListener="#{controlParametrosConjuntos.exportXLS()}" id="exportarXLS" value="" ajax="false"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;"
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/xml.png);"
                                                  id="exportarXML" value="" ajax="false">
                                     <p:dataExporter type="xml" target="#{controlParametrosConjuntos.tablaXML()}" fileName="#{controlParametrosConjuntos.nombreArchivoXML()}" encoding="UTF-8" />
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;"
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/pdf.png);"
                                                  actionListener="#{controlParametrosConjuntos.exportPDF()}" id="exportarPDF" value="" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;"
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                                  disabled="true" id="insertar" value=""/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/delete.png);"
                                                  disabled="true" id="eliminar" value=""/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/duplicar.png);"
                                                  disabled="true" id="duplicar" value=""/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/rastro.png);"
                                                  disabled="true" id="rastro" value=""/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                                  id="refrescar" value="" oncomplete="window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);"
                                                  id="salir" value="" action="#{controlParametrosConjuntos.retornarPagina()}"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>
@@ -209,8 +209,8 @@
                                 <div style="height: 325px; margin-right: 14px;">
                                     <div style=" z-index: 1; margin: 0px; margin-top: 0px; position: relative;">
                                         <p:dataTable id="titulosColumnas" widgetVar="titulosColumnas" var="titulosCol" value="#{controlParametrosConjuntos.totalesEstadisticasLB}" rowIndexVar="indice2" 
-                                                     scrollable="true" liveScroll="true" scrollRows="0" rowKey="#{titulosCol.dimension}" scrollHeight="30px" styleClass="titulosColumnas" 
-                                                     class="titulosColumnas" style=" z-index: 1; border-color: transparent; font-size: 11px; padding: 0px" editable="true" editMode="cell">
+                                                     scrollable="true" liveScroll="true" scrollRows="0" rowKey="#{titulosCol.dimension}" scrollHeight="30px;" styleClass="titulosColumnas" 
+                                                     class="titulosColumnas" style=" z-index: 1; border-color: transparent; font-size: 11px; padding: 0px;" editable="true" editMode="cell">
 
                                             <p:column style="text-align: right; width: 220px; border-color: transparent;">
                                                 <h:outputText style="padding: 0px;" value=" "/>
@@ -1870,7 +1870,7 @@
                                         <p:dataTable id="tablaEstadisticasTotales" widgetVar="tablaEstadisticasTotales" var="infoT" value="#{controlParametrosConjuntos.totalesEstadisticas}"
                                                      rowIndexVar="indice2" scrollable="true" liveScroll="true" scrollRows="1"
                                                      rowKey="#{infoT.dimension}"                            
-                                                     scrollHeight="30px" styleClass="tablaTotales"
+                                                     scrollHeight="30px;" styleClass="tablaTotales"
                                                      style="border: 1px; font-size: 11px; position: relative;"
                                                      editable="true" editMode="cell">
 
@@ -3345,7 +3345,7 @@
                                     <div style=" z-index: 2; margin-top: -11px;">
                                         <p:dataTable id="tablaEstadisticasTotalesLB" widgetVar="tablaEstadisticasTotalesLB" var="infoTLB" value="#{controlParametrosConjuntos.totalesEstadisticasLB}"
                                                      rowIndexVar="indice2" scrollable="true" liveScroll="true" scrollRows="2"
-                                                     rowKey="#{infoTLB.dimension}" scrollHeight="30px" styleClass="tablaTotales3" class="tablaTotales3"
+                                                     rowKey="#{infoTLB.dimension}" scrollHeight="30px;" styleClass="tablaTotales3" class="tablaTotales3"
                                                      style="border: 1px; font-size: 11px; padding: 0px; z-index: 2;" editable="true" editMode="cell">
 
                                             <p:column style="text-align: right; width: 220px; border-color: transparent;">
@@ -3684,8 +3684,8 @@
                                     <div style=" z-index: 1; margin-top: -15px; position: relative;">
                                         <p:dataTable id="tablaEstadisticasTotalesLB2" widgetVar="tablaEstadisticasTotalesLB2" var="infoTLB2" value="#{controlParametrosConjuntos.totalesEstadisticasLB}"
                                                      rowIndexVar="indice2" scrollable="true" liveScroll="true" scrollRows="0"
-                                                     rowKey="#{infoTLB2.dimension}" scrollHeight="30px" styleClass="titulosColumnas" class="titulosColumnas"
-                                                     style=" z-index: 0; border-color: transparent; font-size: 11px; padding: 0px" editable="true" editMode="cell">
+                                                     rowKey="#{infoTLB2.dimension}" scrollHeight="30px;" styleClass="titulosColumnas" class="titulosColumnas"
+                                                     style=" z-index: 0; border-color: transparent; font-size: 11px; padding: 0px;" editable="true" editMode="cell">
 
                                             <p:column style="text-align: right; width: 220px; border-color: transparent;">
                                                 <h:outputText style="padding: 0px;" value=" "/>
@@ -4333,7 +4333,7 @@
                     <p:dialog header="#{msg['conceptos']}" widgetVar="conceptosDialogo" draggable="false" resizable="false" id="conceptosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="460" height="340" >
 
-                        <p:dataTable  id="LOVConceptos" style=" width: 420px" var="conceptos" value="#{controlParametrosConjuntos.listaConceptosEspecificos}"
+                        <p:dataTable  id="LOVConceptos" style=" width: 420px;" var="conceptos" value="#{controlParametrosConjuntos.listaConceptosEspecificos}"
                                       scrollable="true" scrollHeight="200" scrollWidth="435" widgetVar="LOVConceptos" editable="true" editMode="cell"
                                       filteredValue="#{controlParametrosConjuntos.filtradoConceptos}" emptyMessage="#{msg['vacio']}"
                                       rowKey="#{conceptos.secuencia}" selection="#{controlParametrosConjuntos.conceptoSeleccionado}" selectionMode="single">
@@ -4385,7 +4385,7 @@
                     </p:dialog>
 
                     <!--    Dialogos    -->
-                    <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350px" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350px;" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
                     </p:dialog>
@@ -4406,7 +4406,7 @@
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" widgetVar="seleccionarRegistro" header="#{msg['error']}" resizable="false" draggable="false" modal="true" height="60" width="275px" closable="true">  
+                    <p:dialog id="seleccionarRegistro" widgetVar="seleccionarRegistro" header="#{msg['error']}" resizable="false" draggable="false" modal="true" height="60" width="275px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>

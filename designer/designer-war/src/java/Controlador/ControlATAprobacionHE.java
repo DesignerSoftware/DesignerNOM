@@ -1109,14 +1109,14 @@ public class ControlATAprobacionHE implements Serializable {
                 cabeceraFechaPago.setFilterStyle("width: 66px");
                 cabeceraObservaciones = (Column) c.getViewRoot().findComponent("form:tablaSuperiorDerecha:cabeceraObservaciones");
                 cabeceraObservaciones.setFilterStyle("width: 66px");
-                altoTablaCabecera = "58";
+                altoTablaCabecera = "62";
                 banderaCabecera = 1;
 
                 RequestContext.getCurrentInstance().update("form:tablaSuperiorIzquierda");
                 RequestContext.getCurrentInstance().update("form:tablaSuperiorDerecha");
 
-                altoDivTablaInferiorIzquierda = "73px";
-                altoDivTablaInferiorDerecha = "73px";
+                altoDivTablaInferiorIzquierda = "77px";
+                altoDivTablaInferiorDerecha = "77px";
 
                 topDivTablaInferiorIzquierda = "59px";
                 topDivTablaInferiorDerecha = "59px";
@@ -1167,9 +1167,9 @@ public class ControlATAprobacionHE implements Serializable {
         if (indexFlujo >= 0) {
             if (banderaFlujo == 0) {
                 flujoFecha = (Column) c.getViewRoot().findComponent("form:datosFlujo:flujoFecha");
-                flujoFecha.setFilterStyle("width: 60px");
+                flujoFecha.setFilterStyle("width: 85%;");
                 flujoProceso = (Column) c.getViewRoot().findComponent("form:datosFlujo:flujoProceso");
-                flujoProceso.setFilterStyle("width: 90px");
+                flujoProceso.setFilterStyle("width: 85%;");
                 altoTablaFlujo = "88";
                 RequestContext.getCurrentInstance().update("form:datosFlujo");
                 banderaFlujo = 1;
@@ -1188,11 +1188,11 @@ public class ControlATAprobacionHE implements Serializable {
         if (indexDetalle >= 0) {
             if (banderaDetalle == 0) {
                 detalleConcepto = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleConcepto");
-                detalleConcepto.setFilterStyle("width: 90px");
+                detalleConcepto.setFilterStyle("width: 85%;");
                 detalleFecha = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleFecha");
-                detalleFecha.setFilterStyle("width: 60px");
+                detalleFecha.setFilterStyle("width: 85%;");
                 detalleObservaciones = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleObservaciones");
-                detalleObservaciones.setFilterStyle("width: 90px");
+                detalleObservaciones.setFilterStyle("width: 85%;");
                 altoTablaFlujo = "63";
                 RequestContext.getCurrentInstance().update("form:datosDetalle");
                 banderaDetalle = 1;

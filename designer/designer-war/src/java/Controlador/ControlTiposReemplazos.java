@@ -245,13 +245,13 @@ public class ControlTiposReemplazos implements Serializable {
 
     public void activarCtrlF11() {FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
-            codigo.setFilterStyle("width: 195px");
+            codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
-            descripcion.setFilterStyle("width: 265px");
+            descripcion.setFilterStyle("width: 85%;");
             factorReemplazado = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:factorReemplazado");
-            factorReemplazado.setFilterStyle("width: 265px");
+            factorReemplazado.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             System.out.println("Activar");
             bandera = 1;

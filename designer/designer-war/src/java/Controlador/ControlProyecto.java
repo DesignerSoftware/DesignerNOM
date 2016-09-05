@@ -1263,7 +1263,7 @@ public class ControlProyecto implements Serializable {
     public void filtradoProyecto() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (banderaP == 0) {
-            altoTabla = "279";
+            altoTabla = "280";
             pryEmpresa = (Column) c.getViewRoot().findComponent("form:datosProyectos:pryEmpresa");
             pryEmpresa.setFilterStyle("width: 85%");
             pryCodigo = (Column) c.getViewRoot().findComponent("form:datosProyectos:pryCodigo");

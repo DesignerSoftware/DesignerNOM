@@ -173,7 +173,7 @@ public class ControlMotivosCesantias implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             System.out.println("Activar");
             bandera = 1;
-            altoTabla ="222";
+            altoTabla ="226";
         } else if (bandera == 1) {
             System.out.println("Desactivar");
             codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");

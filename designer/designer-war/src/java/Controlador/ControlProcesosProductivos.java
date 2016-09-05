@@ -276,13 +276,13 @@ public class ControlProcesosProductivos implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosProcesosProductivos:codigo");
-            codigo.setFilterStyle("width: 20px");
+            codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosProcesosProductivos:descripcion");
-            descripcion.setFilterStyle("width: 130px");
+            descripcion.setFilterStyle("width: 85%;");
             personafir = (Column) c.getViewRoot().findComponent("form:datosProcesosProductivos:personafir");
-            personafir.setFilterStyle("width: 130px");
+            personafir.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
             System.out.println("Activar");
             bandera = 1;

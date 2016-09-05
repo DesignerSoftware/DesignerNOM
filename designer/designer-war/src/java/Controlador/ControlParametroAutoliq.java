@@ -2006,7 +2006,7 @@ public class ControlParametroAutoliq implements Serializable {
 
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "26";
+            altoTabla = "30";
             parametroAno = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroAno");
             parametroAno.setFilterStyle("width: 85%");
             parametroTipoTrabajador = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroTipoTrabajador");

@@ -291,15 +291,15 @@ public class ControlConceptosRetroactivos implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosConceptosRetroactivos:codigo");
-            codigo.setFilterStyle("width: 20px");
+            codigo.setFilterStyle("width: 85%");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosConceptosRetroactivos:descripcion");
-            descripcion.setFilterStyle("width: 130px");
+            descripcion.setFilterStyle("width: 85%");
             personafir = (Column) c.getViewRoot().findComponent("form:datosConceptosRetroactivos:personafir");
-            personafir.setFilterStyle("width: 130px");
+            personafir.setFilterStyle("width: 85%");
             cargo = (Column) c.getViewRoot().findComponent("form:datosConceptosRetroactivos:cargo");
-            cargo.setFilterStyle("width: 130px");
+            cargo.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosConceptosRetroactivos");
             System.out.println("Activar");
             bandera = 1;

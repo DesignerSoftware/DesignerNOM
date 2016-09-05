@@ -758,20 +758,20 @@ public class ControlParametro implements Serializable {
     public void activarCtrlF11() {
         if (bandera == 0) {
             FechaDesde = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:FechaDesde");
-            FechaDesde.setFilterStyle("width: 50px;");
+            FechaDesde.setFilterStyle("width: 85%;");
             FechaHasta = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:FechaHasta");
-            FechaHasta.setFilterStyle("width: 50px;");
+            FechaHasta.setFilterStyle("width: 85%;");
             Codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:Codigo");
-            Codigo.setFilterStyle("width: 60px;");
+            Codigo.setFilterStyle("width: 85%;");
             pApellido = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:pApellido");
-            pApellido.setFilterStyle("width: 80px;");
+            pApellido.setFilterStyle("width: 85%;");
             sApellido = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:sApellido");
-            sApellido.setFilterStyle("width: 80px;");
+            sApellido.setFilterStyle("width: 85%;");
             nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:nombre");
-            nombre.setFilterStyle("width: 80px;");
+            nombre.setFilterStyle("width: 85%;");
             estadoParametro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:estadoParametro");
-            estadoParametro.setFilterStyle("width: 60px;");
-            altoTabla = "168";
+            estadoParametro.setFilterStyle("width: 85%;");
+            altoTabla = "170";
             RequestContext.getCurrentInstance().update("form:empleadosParametros");
             bandera = 1;
         } else {

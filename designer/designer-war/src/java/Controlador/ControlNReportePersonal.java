@@ -1657,7 +1657,7 @@ public class ControlNReportePersonal implements Serializable {
      public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "88";
+            altoTabla = "90";
             codigoIR = (Column) c.getViewRoot().findComponent("form:reportesPersonal:codigoIR");
             codigoIR.setFilterStyle("width: 85%");
             reporteIR = (Column) c.getViewRoot().findComponent("form:reportesPersonal:reporteIR");

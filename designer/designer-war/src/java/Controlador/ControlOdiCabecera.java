@@ -817,7 +817,7 @@ public class ControlOdiCabecera implements Serializable {
             numcertificado.setFilterStyle("width: 85%");
             valorcobrado = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalles:valorcobrado");
             valorcobrado.setFilterStyle("width: 85%");
-            altotabla = 85;
+            altotabla = 89;
             RequestContext context = RequestContext.getCurrentInstance();
             context.update("form:datosCabecera");
             context.update("form:datosDetalles");

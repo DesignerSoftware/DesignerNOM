@@ -459,7 +459,7 @@ public class ControlFormulaProceso implements Serializable {
      */
     public void activarCtrlF11() {
         if (bandera == 0) {
-            altoTabla = "288";
+            altoTabla = "290";
             formulaProceso = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaProceso");
             formulaProceso.setFilterStyle("width: 85%");
 

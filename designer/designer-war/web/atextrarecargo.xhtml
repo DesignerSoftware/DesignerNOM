@@ -16,7 +16,7 @@
                     <f:loadBundle basename="Recursos.atextrarecargo" var="msg" />
                     <p:growl id="growl" showDetail="true"/>
                     
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="position: absolute; width: 874px; height: 510px;  text-align: left" >  
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
 
                         <p:commandButton style="position: absolute; left: 683px; top: 480px;" id="ACEPTAR" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.cambiosPagina}" icon="ui-icon-check" onclick="confirmarGuardar.show();" update=":form:datosExtraRecargo" process="@this" />
                         <p:commandButton style="position: absolute; left: 775px; top: 480px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlATExtraRecargo.salir()}" action="#{controlATExtraRecargo.redirigir()}" process="@this" />
@@ -25,7 +25,7 @@
                         <fieldset style="position: absolute; left: 10px; top: 65px; width: 830px; height: 190px; border-radius: 10px; ">
                             <legend style="color: blue"><strong>#{msg['recargos']}</strong></legend>
                             
-                            <p:dataTable id="datosExtraRecargo" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px;width: 815px" scrollWidth="830"                          
+                            <p:dataTable id="datosExtraRecargo" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px;width: 815px;" scrollWidth="830"                          
                                          value="#{controlATExtraRecargo.listExtrasRecargos}" scrollable="true" scrollHeight="#{controlATExtraRecargo.altoTablaRecargo}"
                                          filteredValue="#{controlATExtraRecargo.filtrarListExtrasRecargos}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" 
@@ -86,7 +86,7 @@
 
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="color: blue; height: 16px; border: none;width: 300px" value=" " action="adelanteAtExtraRecargoTipoDia" actionListener="#{controlTiposDias.recibirAtras('atrasAtExtraRecargoTipoDia')}" id="fooTipoDiaExtra"/>
+                                        <p:commandButton style="color: blue; height: 16px; border: none;width: 300px;" value=" " action="adelanteAtExtraRecargoTipoDia" actionListener="#{controlTiposDias.recibirAtras('atrasAtExtraRecargoTipoDia')}" id="fooTipoDiaExtra"/>
                                     </f:facet>
                                 </p:column>
 
@@ -130,7 +130,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="T" style="padding: 0px" sortBy="#{info.turno}" filterBy="#{info.turno}" filterMatchMode="contains" 
+                                <p:column  headerText="T" style="padding: 0px;" sortBy="#{info.turno}" filterBy="#{info.turno}" filterMatchMode="contains" 
                                           id="extraTurno" width="15" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="textT" value="T"/>
@@ -146,7 +146,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="A" style="padding: 0px" sortBy="#{info.aprobacionautomatica}" filterBy="#{info.aprobacionautomatica}" filterMatchMode="contains" 
+                                <p:column  headerText="A" style="padding: 0px;" sortBy="#{info.aprobacionautomatica}" filterBy="#{info.aprobacionautomatica}" filterMatchMode="contains" 
                                           id="extraAprobacion" width="15" filterStyle="display: none; visibility: hidden;" >                                  
 
                                     <f:facet name="header">
@@ -166,58 +166,58 @@
                             </p:dataTable>  
                         </fieldset> 
 
-                        <p:toolbar style="position: absolute; top: 33px; left: 12px; height: 23px">  
+                        <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " actionListener="#{controlATExtraRecargo.guardarGeneral()}" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlATExtraRecargo.guardarGeneral()}" process="@this" />
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATExtraRecargo.editarCelda()}" process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlATExtraRecargo.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATExtraRecargo.listaValoresBoton()}"  process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlATExtraRecargo.listaValoresBoton()}"  process="@this"/>
                                 <p:tooltip for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATExtraRecargo.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlATExtraRecargo.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false" actionListener="#{controlATExtraRecargo.validarExportXLS()}" />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlATExtraRecargo.validarExportXLS()}" />
                                 <p:tooltip for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlATExtraRecargo.exportXML()}" fileName="#{controlATExtraRecargo.nombreXML}" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATExtraRecargo.validarExportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlATExtraRecargo.validarExportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATExtraRecargo.dialogoNuevoRegistro()}" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " actionListener="#{controlATExtraRecargo.dialogoNuevoRegistro()}" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATExtraRecargo.verificarRegistroBorrar()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlATExtraRecargo.verificarRegistroBorrar()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATExtraRecargo.verificarRegistroDuplicar()}" process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlATExtraRecargo.verificarRegistroDuplicar()}" process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATExtraRecargo.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlATExtraRecargo.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
                                 
                                 <p:separator style="position: relative; top: -9px"/>
                                 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATExtraRecargo.cancelarModificacionGeneral()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlATExtraRecargo.cancelarModificacionGeneral()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                                 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATExtraRecargo.salir()}" action="#{controlATExtraRecargo.redirigir()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlATExtraRecargo.salir()}" action="#{controlATExtraRecargo.redirigir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                                 
                             </p:toolbarGroup>  
@@ -322,7 +322,7 @@
                                 </p:column>
 
 
-                                <p:column  headerText="#{msg['diasemana']}" style="padding: 0px" sortBy="#{infoD.dia}" filterBy="#{infoD.dia}" filterMatchMode="contains" 
+                                <p:column  headerText="#{msg['diasemana']}" style="padding: 0px;" sortBy="#{infoD.dia}" filterBy="#{infoD.dia}" filterMatchMode="contains" 
                                           id="detalleDia" width="100" filterStyle="display: none; visibility: hidden;" >                                  
                                         <p:selectOneMenu value="#{infoD.dia}"  style="width: 108px; font-weight: bold;"  panelStyle="width: 120px">  
                                             <f:selectItem itemLabel="#{msg['lunes']}" itemValue="LUN" />  
@@ -340,7 +340,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="A" sortBy="#{infoD.adicional}" style="padding: 0px" filterBy="#{infoD.adicional}" filterMatchMode="contains" 
+                                <p:column  headerText="A" sortBy="#{infoD.adicional}" style="padding: 0px;" filterBy="#{infoD.adicional}" filterMatchMode="contains" 
                                           id="detalleAdicion" width="15" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="textA2" value="A"/>
@@ -375,7 +375,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="C" style="padding: 0px" sortBy="#{infoD.pagotiempocompleto}" filterBy="#{infoD.pagotiempocompleto}" filterMatchMode="contains" 
+                                <p:column  headerText="C" style="padding: 0px;" sortBy="#{infoD.pagotiempocompleto}" filterBy="#{infoD.pagotiempocompleto}" filterMatchMode="contains" 
                                           id="detallePagoAdicion" width="17" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="textC" value="C"/>
@@ -389,7 +389,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['adicional']}" style="padding: 0px" sortBy="#{infoD.adicionaliniciofinjornada}" filterBy="#{infoD.adicionaliniciofinjornada}" filterMatchMode="contains" 
+                                <p:column  headerText="#{msg['adicional']}" style="padding: 0px;" sortBy="#{infoD.adicionaliniciofinjornada}" filterBy="#{infoD.adicionaliniciofinjornada}" filterMatchMode="contains" 
                                           id="detalleIniFin" width="85" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="textAdicional" value="#{msg['adicional']}"/>
@@ -406,7 +406,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="G" style="padding: 0px" sortBy="#{infoD.garantizaadicional}" filterBy="#{infoD.garantizaadicional}" filterMatchMode="contains" 
+                                <p:column  headerText="G" style="padding: 0px;" sortBy="#{infoD.garantizaadicional}" filterBy="#{infoD.garantizaadicional}" filterMatchMode="contains" 
                                           id="detalleGarantiza" width="17" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="textG" value="G"/>
@@ -427,83 +427,83 @@
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATExtraRecargo.guardarGeneral()}" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATExtraRecargo.salir()}" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATExtraRecargo.guardarGeneral()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATExtraRecargo.salir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="false" modal="true" height="95" width="430px"  >
+                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="false" modal="true" height="95" width="430px;"  >
                         <h:outputText value="#{msg['seleccione']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
                         <p:commandButton value="#{msg['extrarecargo']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 30px; top: 50px;" actionListener="#{controlATExtraRecargo.verificarRastroExtraRecargo()}" process="@this" />
                         <p:commandButton value="#{msg['detalleextrarecargo']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 200px; top: 50px;" actionListener="#{controlATExtraRecargo.verificarRastroDetalleExtraRecargo()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlATExtraRecargo.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATExtraRecargo.backUp, controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlATExtraRecargo.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATExtraRecargo.backUp, controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlATExtraRecargo.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlATExtraRecargo.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlATExtraRecargo.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlATExtraRecargo.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATExtraRecargo.backUp, controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATExtraRecargo.backUp, controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
                     
-                    <p:dialog id="errorDatosNullExtra" header="#{msg['atencion']}" widgetVar="errorDatosNullExtra"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorDatosNullExtra" header="#{msg['atencion']}" widgetVar="errorDatosNullExtra"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullExtra']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
                     
-                    <p:dialog id="errorDescripcionExtra" header="#{msg['atencion']}" widgetVar="errorDescripcionExtra"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorDescripcionExtra" header="#{msg['atencion']}" widgetVar="errorDescripcionExtra"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDescripcionExtra']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
                     
-                    <p:dialog id="errorDatosNullDetalle" header="#{msg['atencion']}" widgetVar="errorDatosNullDetalle"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorDatosNullDetalle" header="#{msg['atencion']}" widgetVar="errorDatosNullDetalle"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullDetalle']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
                     <p:dialog header="#{msg['tiposdiasTD']}" widgetVar="TipoDiaDialogo" draggable="false" resizable="false" closable="false" id="TipoDiaDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" >
-                        <p:dataTable id="lovTipoDia" style="width: 410px" var="dias" value="#{controlATExtraRecargo.lovTiposDias}" rowKey="#{dias.secuencia}"
+                        <p:dataTable id="lovTipoDia" style="width: 410px;" var="dias" value="#{controlATExtraRecargo.lovTiposDias}" rowKey="#{dias.secuencia}"
                                      selection="#{controlATExtraRecargo.tipoDiaSeleccionado}" scrollWidth="410" selectionMode="single" widgetVar="lovTipoDia" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlATExtraRecargo.filtrarLovTiposDias}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlATExtraRecargo.activarAceptar()}" update=":form:aceptarTD"/>
@@ -534,15 +534,15 @@
                         
                         <h:outputText id="infoRegistroTipoDia" value="#{controlATExtraRecargo.infoRegistroTipoDia}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
                         
-                        <p:commandButton icon="ui-icon-check" id="aceptarTD" style="position: relative; left: 190px" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.aceptar}"  actionListener="#{controlATExtraRecargo.actualizarTipoDia()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarTD" style="position: relative; left: 190px;" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.aceptar}"  actionListener="#{controlATExtraRecargo.actualizarTipoDia()}" process="@this"/>
                         
-                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTD" style="position: relative; left: 230px" value="#{msg['atras']}" actionListener="#{controlATExtraRecargo.cancelarCambioTipoDia()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTD" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlATExtraRecargo.cancelarCambioTipoDia()}" process="@this"/>
                         
                     </p:dialog>
 
                     <p:dialog header="#{msg['tiposjornadasTJ']}" widgetVar="TipoJornadaDialogo" draggable="false" resizable="false" closable="false" id="TipoJornadaDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" >
-                        <p:dataTable id="lovTipoJornada" style=" width: 410px" scrollWidth="410" var="jornada" value="#{controlATExtraRecargo.lovTiposJornadas}" rowKey="#{jornada.secuencia}"
+                        <p:dataTable id="lovTipoJornada" style=" width: 410px;" scrollWidth="410" var="jornada" value="#{controlATExtraRecargo.lovTiposJornadas}" rowKey="#{jornada.secuencia}"
                                      selection="#{controlATExtraRecargo.tipoJornadaSeleccionada}" selectionMode="single" widgetVar="lovTipoJornada" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlATExtraRecargo.filtrarLovTiposJornadaS}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlATExtraRecargo.activarAceptar()}" update=":form:aceptarTJ"/>
@@ -598,14 +598,14 @@
                         
                         <h:outputText id="infoRegistroTipoJornada" value="#{controlATExtraRecargo.infoRegistroTipoJornada}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
                         
-                        <p:commandButton icon="ui-icon-check" id="aceptarTJ" style="position: relative; left: 190px" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.aceptar}" actionListener="#{controlATExtraRecargo.actualizarTipoJornada()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarTJ" style="position: relative; left: 190px;" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.aceptar}" actionListener="#{controlATExtraRecargo.actualizarTipoJornada()}" process="@this"/>
                         
-                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTJ" style="position: relative; left: 230px" value="#{msg['atras']}" actionListener="#{controlATExtraRecargo.cancelarCambioTipoJornada()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTJ" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlATExtraRecargo.cancelarCambioTipoJornada()}" process="@this"/>
                     </p:dialog>
 
                     <p:dialog header="#{msg['tiposlegislacionesTL']}" widgetVar="LegislacionDialogo" draggable="false" resizable="false" closable="false" id="LegislacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" >
-                        <p:dataTable id="lovLegislacion" style="width: 410px" scrollWidth="410" var="legislacion" value="#{controlATExtraRecargo.lovContratos}" rowKey="#{legislacion.secuencia}"
+                        <p:dataTable id="lovLegislacion" style="width: 410px;" scrollWidth="410" var="legislacion" value="#{controlATExtraRecargo.lovContratos}" rowKey="#{legislacion.secuencia}"
                                      selection="#{controlATExtraRecargo.contratoSeleccionado}" selectionMode="single" widgetVar="lovLegislacion" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlATExtraRecargo.filtrarLovContratos}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlATExtraRecargo.activarAceptar()}" update=":form:aceptarLeg"/>
@@ -636,14 +636,14 @@
                         
                         <h:outputText id="infoRegistroLegislacion" value="#{controlATExtraRecargo.infoRegistroLegislacion}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
                         
-                        <p:commandButton icon="ui-icon-check" id="aceptarLeg" style="position: relative; left: 190px" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.aceptar}"  actionListener="#{controlATExtraRecargo.actualizarLegislacion()}"  process="@this"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarLeg" style="position: relative; left: 190px;" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.aceptar}"  actionListener="#{controlATExtraRecargo.actualizarLegislacion()}"  process="@this"/>
                         
-                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasLeg" style="position: relative; left: 230px" value="#{msg['atras']}"  actionListener="#{controlATExtraRecargo.cancelarCambioLegislacion()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasLeg" style="position: relative; left: 230px;" value="#{msg['atras']}"  actionListener="#{controlATExtraRecargo.cancelarCambioLegislacion()}" process="@this"/>
                     </p:dialog>
 
                     <p:dialog header="#{msg['conceptosC']}" widgetVar="ConceptoDialogo" draggable="false" resizable="false" closable="false" id="ConceptoDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" >
-                        <p:dataTable id="lovConcepto" style="width: 410px" scrollWidth="410" var="concepto" value="#{controlATExtraRecargo.lovConceptos}" rowKey="#{concepto.secuencia}"
+                        <p:dataTable id="lovConcepto" style="width: 410px;" scrollWidth="410" var="concepto" value="#{controlATExtraRecargo.lovConceptos}" rowKey="#{concepto.secuencia}"
                                      selection="#{controlATExtraRecargo.conceptoSeleccionado}" selectionMode="single" widgetVar="lovConcepto" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlATExtraRecargo.filtrarLovConceptos}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlATExtraRecargo.activarAceptar()}" update=":form:aceptarCon"/>
@@ -680,9 +680,9 @@
                         
                         <h:outputText id="infoRegistroConcepto" value="#{controlATExtraRecargo.infoRegistroConcepto}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
                         
-                        <p:commandButton icon="ui-icon-check" id="aceptarCon" style="position: relative; left: 190px" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.aceptar}" actionListener="#{controlATExtraRecargo.actualizarConcepto()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarCon" style="position: relative; left: 190px;" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.aceptar}" actionListener="#{controlATExtraRecargo.actualizarConcepto()}" process="@this"/>
                         
-                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasCon" style="position: relative; left: 230px" value="#{msg['aceptar']}" actionListener="#{controlATExtraRecargo.cancelarCambioConcepto()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasCon" style="position: relative; left: 230px;" value="#{msg['aceptar']}" actionListener="#{controlATExtraRecargo.cancelarCambioConcepto()}" process="@this"/>
                         
                     </p:dialog>
 
@@ -690,34 +690,34 @@
                 </h:form>
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="false" modal="true" height="80" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="false" modal="true" height="80" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="false" modal="true" height="95" width="430px"  >
+                    <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="false" modal="true" height="95" width="430px;"  >
                         <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
                         <p:commandButton value="#{msg['recargosextras']}" onclick="verificarNuevoRegistro.hide();" style="position: absolute; left: 30px; top: 50px;" oncomplete="NuevoRegistroExtraRecargo.show()" update=":formularioDialogos:nuevoExtra"  process="@this" />
                         <p:commandButton value="#{msg['detallesrecargosextras']}" onclick="verificarNuevoRegistro.hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="NuevoRegistroDetalleExtraRecargo.show()" update=":formularioDialogos:nuevoDetalleExtra"  process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="NuevoRegistroExtraRecargo" header="#{msg['nuevoregistroER']}" widgetVar="NuevoRegistroExtraRecargo" closable="false" resizable="false"  draggable="false" modal="true" height="330" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoER']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoER']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevoExtra" style="border: none;">
 
-                            <strong><h:outputText value="#{msg['codigoNER']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['codigoNER']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <p:inputText id="nuevoExtraCodigo" value="#{controlATExtraRecargo.nuevoExtraRecargo.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="nuevoExtraCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigoWM']}" for="nuevoExtraCodigo"/>
 
-                            <strong><h:outputText value="*#{msg['descripcionNER']}" style="position: absolute; top: 105px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['descripcionNER']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <p:inputText id="nuevoExtraDescripcion" maxlength="40" value="#{controlATExtraRecargo.nuevoExtraRecargo.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="nuevoExtraDescripcion"/>
                             </p:inputText>
                             <p:watermark value="#{msg['descripcionWM']}" for="nuevoExtraDescripcion"/>
 
-                            <strong><h:outputText value="*#{msg['tipodiaNER']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['tipodiaNER']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
                             <p:inputText id="nuevoExtraTipoDia" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipodia.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,0,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'DIAS',0)}" />
@@ -725,7 +725,7 @@
                             </p:inputText>
                             <p:watermark value="#{msg['tipodiaWM']}" for="nuevoExtraTipoDia"/>
 
-                            <strong><h:outputText value="*#{msg['tipojornadaNER']}" style="position: absolute; top: 165px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['tipojornadaNER']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
                             <p:inputText id="nuevoExtraTipoJornada" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipojornada.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'JORNADA',0)}" />
@@ -733,7 +733,7 @@
                             </p:inputText>
                             <p:watermark value="#{msg['tipojornadaWM']}" for="nuevoExtraTipoJornada"/>
 
-                            <strong><h:outputText value="*#{msg['legislacionlaboralNER']}" style="position: absolute; top: 195px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['legislacionlaboralNER']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
                             <p:inputText id="nuevoExtraLegislacion" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipolegislacion.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,2,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'LEGISLACION',0)}" />
@@ -741,12 +741,12 @@
                             </p:inputText>
                             <p:watermark value="#{msg['legislacionlaboralWM']}" for="nuevoExtraLegislacion"/>
 
-                            <strong><h:outputText value="#{msg['turnoNER']}" style="position: absolute; top: 225px; left: 50px" /></strong>                            
+                            <strong><h:outputText value="#{msg['turnoNER']}" style="position: absolute; top: 225px; left: 50px;" /></strong>                            
                             <p:selectBooleanCheckbox id="nuevaExtraTurno" style="alignment-adjust: central;position: absolute; left: 200px; top: 220px;" value="#{controlATExtraRecargo.nuevoExtraRecargo.checkTurno}">
                                 <p:ajax event="change" update="nuevaExtraTurno" process="@this"/>
                             </p:selectBooleanCheckbox>
 
-                            <strong><h:outputText value="#{msg['aprobacionautoNER']}" style="position: absolute; top: 255px; left: 50px" /></strong>                            
+                            <strong><h:outputText value="#{msg['aprobacionautoNER']}" style="position: absolute; top: 255px; left: 50px;" /></strong>                            
                             <p:selectBooleanCheckbox id="nuevaExtraAprobacion" style="alignment-adjust: central;position: absolute; left: 200px; top: 250px;" value="#{controlATExtraRecargo.nuevoExtraRecargo.checkAprovacion}">
                                 <p:ajax event="change" update="nuevaExtraAprobacion" process="@this"/>
                             </p:selectBooleanCheckbox>
@@ -759,23 +759,23 @@
 
                     <p:dialog id="DuplicarRegistroExtraRecargo" header="#{msg['duplicarregistroER']}" widgetVar="DuplicarRegistroExtraRecargo" closable="false" resizable="false"  draggable="false" modal="true" height="330" width="400" style="padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoER']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoER']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarExtra" style="border: none;">
 
-                            <strong><h:outputText value="#{msg['codigoNER']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['codigoNER']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <p:inputText id="duplicarExtraCodigo" value="#{controlATExtraRecargo.duplicarExtraRecargo.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="duplicarExtraCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigoWM']}" for="duplicarExtraCodigo"/>
 
-                            <strong><h:outputText value="*#{msg['descripcionNER']}" style="position: absolute; top: 105px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['descripcionNER']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <p:inputText id="duplicarExtraDescripcion" maxlength="40" value="#{controlATExtraRecargo.duplicarExtraRecargo.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="duplicarExtraDescripcion"/>
                             </p:inputText>
                             <p:watermark value="#{msg['descripcionWM']}" for="duplicarExtraDescripcion"/>
 
-                            <strong><h:outputText value="*#{msg['tipodiaNER']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['tipodiaNER']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
                             <p:inputText id="duplicarExtraTipoDia" value="#{controlATExtraRecargo.duplicarExtraRecargo.tipodia.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,0,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(2, 'DIAS',0)}" />
@@ -783,7 +783,7 @@
                             </p:inputText>
                             <p:watermark value="#{msg['tipodiaWM']}" for="duplicarExtraTipoDia"/>
 
-                            <strong><h:outputText value="*#{msg['tipojornadaNER']}" style="position: absolute; top: 165px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['tipojornadaNER']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
                             <p:inputText id="duplicarExtraTipoJornada" value="#{controlATExtraRecargo.duplicarExtraRecargo.tipojornada.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 160px;">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(2, 'JORNADA',0)}" />
@@ -791,7 +791,7 @@
                             </p:inputText>
                             <p:watermark value="#{msg['tipojornadaWM']}" for="duplicarExtraTipoJornada"/>
 
-                            <strong><h:outputText value="*#{msg['legislacionlaboralNER']}" style="position: absolute; top: 195px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['legislacionlaboralNER']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
                             <p:inputText id="duplicarExtraLegislacion" value="#{controlATExtraRecargo.duplicarExtraRecargo.tipolegislacion.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px;">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,2,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(2, 'LEGISLACION',0)}" />
@@ -799,12 +799,12 @@
                             </p:inputText>
                             <p:watermark value="#{msg['legislacionlaboralWM']}" for="duplicarExtraLegislacion"/>
 
-                            <strong><h:outputText value="#{msg['turnoNER']}" style="position: absolute; top: 225px; left: 50px" /></strong>                            
+                            <strong><h:outputText value="#{msg['turnoNER']}" style="position: absolute; top: 225px; left: 50px;" /></strong>                            
                             <p:selectBooleanCheckbox id="duplicarExtraTurno" style="alignment-adjust: central;position: absolute; left: 200px; top: 220px;" value="#{controlATExtraRecargo.duplicarExtraRecargo.checkTurno}">
                                 <p:ajax event="change" update="duplicarExtraTurno" process="@this"/>
                             </p:selectBooleanCheckbox>
 
-                            <strong><h:outputText value="#{msg['aprobacionautoNER']}" style="position: absolute; top: 255px; left: 50px" /></strong>                            
+                            <strong><h:outputText value="#{msg['aprobacionautoNER']}" style="position: absolute; top: 255px; left: 50px;" /></strong>                            
                             <p:selectBooleanCheckbox id="duplicarExtraAprobacion" style="alignment-adjust: central;position: absolute; left: 200px; top: 250px;" value="#{controlATExtraRecargo.duplicarExtraRecargo.checkAprovacion}">
                                 <p:ajax event="change" update="duplicarExtraAprobacion" process="@this"/>
                             </p:selectBooleanCheckbox>
@@ -816,23 +816,23 @@
                     </p:dialog>
 
                     <p:dialog id="NuevoRegistroDetalleExtraRecargo" header="#{msg['nuevoregistroDER']}" widgetVar="NuevoRegistroDetalleExtraRecargo" closable="false" resizable="false"  draggable="false" modal="true" height="420" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoDER']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoDER']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevoDetalleExtra" style="border: none;">
 
-                            <strong><h:outputText value="*#{msg['horainicialNDER']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['horainicialNDER']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <p:inputText id="nuevoDetalleHI" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.horasinicial}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="nuevoDetalleHI"/>
                             </p:inputText>
                             <p:watermark value="#{msg['horainicialWM']}" for="nuevoDetalleHI"/>
 
 
-                            <strong><h:outputText value="*#{msg['horafinalNDER']}" style="position: absolute; top: 105px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['horafinalNDER']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <p:inputText id="nuevoDetalleHF" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.horasfinal}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="nuevoDetalleHF"/>
                             </p:inputText>
                             <p:watermark value="#{msg['horafinalWM']}" for="nuevoDetalleHF"/>
 
-                            <strong><h:outputText value="#{msg['conceptoNDER']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['conceptoNDER']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
                             <p:inputText id="nuevoDetalleConcepto" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,0,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'CONCEPTO',1)}" />
@@ -840,7 +840,7 @@
                             </p:inputText>
                             <p:watermark value="#{msg['conceptoWM']}" for="nuevoDetalleConcepto"/>
 
-                            <strong><h:outputText value="#{msg['empresaNDER']}" style="position: absolute; top: 165px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['empresaNDER']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
                             <p:inputText id="nuevoExtraEmpresa" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'EMPRESA',1)}" />
@@ -848,7 +848,7 @@
                             </p:inputText>
                             <p:watermark value="#{msg['empresaWM']}" for="nuevoExtraEmpresa"/>
 
-                            <strong><h:outputText value="#{msg['diasemanaNDER']}" style="position: absolute; top: 195px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['diasemanaNDER']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
                             <p:selectOneMenu id="nuevoDetalleDia" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.dia}"  style="width: 100px; font-weight: bold;position: absolute; left: 200px; top: 190px;">  
                                 <f:selectItem itemLabel="#{msg['lunes']}" itemValue="LUN" />  
                                 <f:selectItem itemLabel="#{msg['martes']}" itemValue="MAR" />  
@@ -862,30 +862,30 @@
                                 <p:ajax event="change" update="nuevoDetalleDia"/>
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="#{msg['adicionaralturnoNDER']}" style="position: absolute; top: 225px; left: 50px" /></strong>                            
+                            <strong><h:outputText value="#{msg['adicionaralturnoNDER']}" style="position: absolute; top: 225px; left: 50px;" /></strong>                            
                             <p:selectBooleanCheckbox id="nuevaDetalleAdicionar" style="alignment-adjust: central;position: absolute; left: 200px; top: 220px;" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.checkAdicional}">
                                 <p:ajax event="change" update="nuevaDetalleAdicionar" process="@this"/>
                             </p:selectBooleanCheckbox>
 
-                            <strong><h:outputText value="#{msg['mincantminutosNDER']}" style="position: absolute; top: 255px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['mincantminutosNDER']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
                             <p:inputText id="nuevoDetalleMinuto" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.minimominutospagar}" style="width: 122px; position: absolute; left: 200px; top: 250px;">
                                 <p:ajax event="change" update="nuevoDetalleMinuto"/>
                             </p:inputText>
                             <p:watermark value="#{msg['mincantminutosWM']}" for="nuevoDetalleMinuto"/>
 
-                            <strong><h:outputText value="#{msg['tiempoadregistroNDER']}" style="position: absolute; top: 285px; left: 50px" /></strong>                            
+                            <strong><h:outputText value="#{msg['tiempoadregistroNDER']}" style="position: absolute; top: 285px; left: 50px;" /></strong>                            
                             <p:selectBooleanCheckbox id="nuevaDetalleTimeAdicional" style="alignment-adjust: central;position: absolute; left: 200px; top: 280px;" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.checkPagoTiempo}">
                                 <p:ajax event="change" update="nuevaDetalleTimeAdicional" process="@this"/>
                             </p:selectBooleanCheckbox>
 
-                            <strong><h:outputText value="#{msg['adicionalinifinNDER']}" style="position: absolute; top: 315px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['adicionalinifinNDER']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
                            <p:selectOneMenu value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.adicionaliniciofinjornada}"  style="width: 80px; font-weight: bold;position: absolute; left: 200px; top: 310px;">  
                                 <f:selectItem itemLabel="#{msg['inicio']}" itemValue="INI" />  
                                 <f:selectItem itemLabel="#{msg['final']}" itemValue="FIN" />  
                                 <p:ajax event="change" update="nuevoExtraTipoJornada"/>
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="#{msg['garantizaadicionalNDER']}" style="position: absolute; top: 345px; left: 50px" /></strong>                            
+                            <strong><h:outputText value="#{msg['garantizaadicionalNDER']}" style="position: absolute; top: 345px; left: 50px;" /></strong>                            
                             <p:selectBooleanCheckbox id="nuevaDetalleGarantiza" style="alignment-adjust: central;position: absolute; left: 200px; top: 340px;" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.checkGarantizaAdicional}">
                                 <p:ajax event="change" update="nuevaDetalleGarantiza" process="@this"/>
                             </p:selectBooleanCheckbox>
@@ -897,24 +897,24 @@
                     </p:dialog>
 
                     <p:dialog id="DuplicarRegistroDetalleExtraRecargo" header="#{msg['duplicarregistroDER']}" widgetVar="DuplicarRegistroDetalleExtraRecargo" closable="false" resizable="false"  draggable="false" modal="true" height="420" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoDER']}" style=" color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoDER']}" style=" color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="duplicarDetalleExtra" style="border: none;">
 
 
-                            <strong><h:outputText value="*#{msg['horainicialNDER']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['horainicialNDER']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <p:inputText id="duplicarDetalleHI" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.horasinicial}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="duplicarDetalleHI"/>
                             </p:inputText>
                             <p:watermark value="#{msg['horainicialWM']}" for="duplicarDetalleHI"/>
 
 
-                            <strong><h:outputText value="*#{msg['horafinalNDER']}" style="position: absolute; top: 105px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['horafinalNDER']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <p:inputText id="duplicarDetalleHF" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.horasfinal}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="duplicarDetalleHF"/>
                             </p:inputText>
                             <p:watermark value="#{msg['horafinalWM']}" for="duplicarDetalleHF"/>
 
-                            <strong><h:outputText value="#{msg['conceptoNDER']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['conceptoNDER']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
                             <p:inputText id="duplicarDetalleConcepto" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,0,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(2, 'CONCEPTO',1)}" />
@@ -922,7 +922,7 @@
                             </p:inputText>
                             <p:watermark value="#{msg['conceptoWM']}" for="duplicarDetalleConcepto"/>
 
-                            <strong><h:outputText value="#{msg['empresaNDER']}" style="position: absolute; top: 165px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['empresaNDER']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
                             <p:inputText id="duplicarExtraEmpresa" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(2, 'EMPRESA',1)}" />
@@ -930,7 +930,7 @@
                             </p:inputText>
                             <p:watermark value="#{msg['empresa']}" for="duplicarExtraEmpresa"/>
 
-                            <strong><h:outputText value="#{msg['diasemanaNDER']}" style="position: absolute; top: 195px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['diasemanaNDER']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
                             <p:selectOneMenu id="duplicarDetalleDia" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.dia}"  style="width: 100px; font-weight: bold;position: absolute; left: 200px; top: 190px;">  
                                 <f:selectItem itemLabel="#{msg['lunes']}" itemValue="LUN" />  
                                 <f:selectItem itemLabel="#{msg['martes']}" itemValue="MAR" />  
@@ -944,30 +944,30 @@
                                 <p:ajax event="change" update="duplicarDetalleDia"/>
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="#{msg['adicionaralturnoNDER']}" style="position: absolute; top: 225px; left: 50px" /></strong>                            
+                            <strong><h:outputText value="#{msg['adicionaralturnoNDER']}" style="position: absolute; top: 225px; left: 50px;" /></strong>                            
                             <p:selectBooleanCheckbox id="duplicarDetalleAdicionar" style="alignment-adjust: central;position: absolute; left: 200px; top: 220px;" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.checkAdicional}">
                                 <p:ajax event="change" update="duplicarDetalleAdicionar" process="@this"/>
                             </p:selectBooleanCheckbox>
 
-                            <strong><h:outputText value="#{msg['mincantminutosNDER']}" style="position: absolute; top: 255px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['mincantminutosNDER']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
                             <p:inputText id="duplicarDetalleMinuto" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.minimominutospagar}" style="width: 122px; position: absolute; left: 200px; top: 250px;" onclick="select();">
                                 <p:ajax event="change" update="duplicarDetalleMinuto"/>
                             </p:inputText>
                             <p:watermark value="#{msg['mincantminutosWM']}" for="duplicarDetalleMinuto"/>
 
-                            <strong><h:outputText value="#{msg['tiempoadregistroNDER']}" style="position: absolute; top: 285px; left: 50px" /></strong>                            
+                            <strong><h:outputText value="#{msg['tiempoadregistroNDER']}" style="position: absolute; top: 285px; left: 50px;" /></strong>                            
                             <p:selectBooleanCheckbox id="duplicarDetalleTimeAdicional" style="alignment-adjust: central;position: absolute; left: 200px; top: 280px;" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.checkPagoTiempo}">
                                 <p:ajax event="change" update="duplicarDetalleTimeAdicional" process="@this"/>
                             </p:selectBooleanCheckbox>
 
-                            <strong><h:outputText value="#{msg['adicionalinifinNDER']}" style="position: absolute; top: 315px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['adicionalinifinNDER']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
                             <p:selectOneMenu value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.adicionaliniciofinjornada}"  style="width: 80px; font-weight: bold;position: absolute; left: 200px; top: 310px;"  panelStyle="width: 75px">  
                                 <f:selectItem itemLabel="#{msg['inicio']}" itemValue="INI" />  
                                 <f:selectItem itemLabel="#{msg['final']}" itemValue="FIN" />  
                                 <p:ajax event="change" update="duplicarExtraTipoJornada"/>
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="#{msg['garantizaadicionalNDER']}" style="position: absolute; top: 345px; left: 50px" /></strong>                            
+                            <strong><h:outputText value="#{msg['garantizaadicionalNDER']}" style="position: absolute; top: 345px; left: 50px;" /></strong>                            
                             <p:selectBooleanCheckbox id="duplicarDetalleGarantiza" style="alignment-adjust: central;position: absolute; left: 200px; top: 340px;" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.checkGarantizaAdicional}">
                                 <p:ajax event="change" update="duplicarDetalleGarantiza" process="@this"/>
                             </p:selectBooleanCheckbox>
@@ -981,50 +981,50 @@
 
                     <!-- editar celdas extras recargos -->
 
-                    <p:dialog id="editarExtraCodigoD" header="#{msg['editarExtraCodigoD']}" widgetVar="editarExtraCodigoD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.codigo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarExtraCodigoD" header="#{msg['editarExtraCodigoD']}" widgetVar="editarExtraCodigoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarExtraDescripcionD" header="#{msg['editarExtraDescripcionD']}" widgetVar="editarExtraDescripcionD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarExtraDescripcionD" header="#{msg['editarExtraDescripcionD']}" widgetVar="editarExtraDescripcionD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarExtraTipoDiaD" header="#{msg['editarExtraTipoDiaD']}" widgetVar="editarExtraTipoDiaD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.tipodia.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarExtraTipoDiaD" header="#{msg['editarExtraTipoDiaD']}" widgetVar="editarExtraTipoDiaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.tipodia.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarExtraTipoJornadaD" header="#{msg['editarExtraTipoJornadaD']}" widgetVar="editarExtraTipoJornadaD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.tipojornada.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarExtraTipoJornadaD" header="#{msg['editarExtraTipoJornadaD']}" widgetVar="editarExtraTipoJornadaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.tipojornada.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarExtraLegislacionD" header="#{msg['editarExtraLegislacionD']}" widgetVar="editarExtraLegislacionD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.tipolegislacion.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarExtraLegislacionD" header="#{msg['editarExtraLegislacionD']}" widgetVar="editarExtraLegislacionD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.tipolegislacion.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- editar celdas detalles extras recargos -->
 
-                    <p:dialog id="editarDetalleHID" header="#{msg['editarDetalleHID']}" widgetVar="editarDetalleHID" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.horasinicial}" style="overflow: auto; width: 200px; height: 40px" readonly="true">
+                    <p:dialog id="editarDetalleHID" header="#{msg['editarDetalleHID']}" widgetVar="editarDetalleHID" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.horasinicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber pattern="#00.00" />
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDetalleHFD" header="#{msg['editarDetalleHFD']}" widgetVar="editarDetalleHFD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.horasfinal}" style="overflow: auto; width: 200px; height: 40px" readonly="true">
+                    <p:dialog id="editarDetalleHFD" header="#{msg['editarDetalleHFD']}" widgetVar="editarDetalleHFD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.horasfinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber pattern="#00.00" />
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDetalleConceptoD" header="#{msg['editarDetalleConceptoD']}" widgetVar="editarDetalleConceptoD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarDetalleConceptoD" header="#{msg['editarDetalleConceptoD']}" widgetVar="editarDetalleConceptoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDetalleEmpresaD" header="#{msg['editarDetalleEmpresaD']}" widgetVar="editarDetalleEmpresaD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.empresa.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarDetalleEmpresaD" header="#{msg['editarDetalleEmpresaD']}" widgetVar="editarDetalleEmpresaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDetalleMinutoD" header="#{msg['editarDetalleMinutoD']}" widgetVar="editarDetalleMinutoD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.minimominutospagar}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarDetalleMinutoD" header="#{msg['editarDetalleMinutoD']}" widgetVar="editarDetalleMinutoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.minimominutospagar}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
 

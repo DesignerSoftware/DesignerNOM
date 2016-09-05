@@ -446,10 +446,10 @@ public class ControlRetencionMinima implements Serializable {
             System.out.println("Activa 1");
             //Tabla Vigencias RetencionesMinimas
             vCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vCodigo");
-            vCodigo.setFilterStyle("width: 40px");
+            vCodigo.setFilterStyle("width: 85%;");
             vFechaVigencia = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vFechaVigencia");
-            vFechaVigencia.setFilterStyle("width: 100px");
-            altoScrollVigenciasRetenciones = "66";
+            vFechaVigencia.setFilterStyle("width: 85%;");
+            altoScrollVigenciasRetenciones = "70";
             RequestContext context = RequestContext.getCurrentInstance();
             context.update("form:datosVigenciasRetenciones");
             bandera = 1;
@@ -469,11 +469,11 @@ public class ControlRetencionMinima implements Serializable {
         } else if (bandera == 0 && cualTabla == 1) {
             System.out.println("Activa 2");
             rMensualizado = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rMensualizado");
-            rMensualizado.setFilterStyle("width: 100px");
+            rMensualizado.setFilterStyle("width: 85%;");
             rRetencion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rRetencion");
-            rRetencion.setFilterStyle("width: 30px");
+            rRetencion.setFilterStyle("width: 85%;");
             rPorcentaje = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rPorcentaje");
-            rPorcentaje.setFilterStyle("width: 30px");
+            rPorcentaje.setFilterStyle("width: 85%;");
             rRestaUvt = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rRestaUvt");
             rRestaUvt.setFilterStyle("");
             altoScrollRetenciones = "66";

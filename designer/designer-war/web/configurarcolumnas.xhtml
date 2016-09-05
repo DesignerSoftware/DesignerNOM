@@ -18,58 +18,58 @@
                         <p:toolbar style="font-size: 12px; position: absolute; top: 37px; left: 12px; height: 23px">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " oncomplete="opcionInhabilitada.show()" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " oncomplete="opcionInhabilitada.show()" process="@this" />
                                 <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlConfigurarColumnas.editarCelda()}" process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlConfigurarColumnas.editarCelda()}" process="@this"/>
                                 <p:tooltip for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlConfigurarColumnas.listaValoresBoton()}" process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlConfigurarColumnas.listaValoresBoton()}" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlConfigurarColumnas.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlConfigurarColumnas.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false" actionListener="#{controlConfigurarColumnas.exportXLS()}" />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlConfigurarColumnas.exportXLS()}" />
                                 <p:tooltip for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosConfigurarColumnaExportar" fileName="ColumnasEscenarios_XML" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlConfigurarColumnas.exportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlConfigurarColumnas.exportPDF()}" ajax="false"/>
                                 <p:tooltip for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlConfigurarColumnas.dispararDialogoNuevaColumna()}" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " actionListener="#{controlConfigurarColumnas.dispararDialogoNuevaColumna()}" process="@this"/> 
                                 <p:tooltip for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlConfigurarColumnas.borrarColumnaEscenario()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlConfigurarColumnas.borrarColumnaEscenario()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  oncomplete="opcionInhabilitada.show()" process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) "  oncomplete="opcionInhabilitada.show()" process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  oncomplete="errorTablaSinRastro.show()" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) "  oncomplete="errorTablaSinRastro.show()" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
                                 
                                  <p:separator style="position: relative; top: -9px"/> 
                                 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlConfigurarColumnas.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlConfigurarColumnas.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                             
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  actionListener="#{controlBusquedaAvanzada2.obtenerListaColumnasEscenarios(controlConfigurarColumnas.listaColumnasEscenarios)}" action="busquedaAvanzada" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) "  actionListener="#{controlBusquedaAvanzada2.obtenerListaColumnasEscenarios(controlConfigurarColumnas.listaColumnasEscenarios)}" action="busquedaAvanzada" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <h:outputText value="#{msg['textDetalleConfiguracion']}" style="position: absolute; left: 10px; top: 80px" />
+                        <h:outputText value="#{msg['textDetalleConfiguracion']}" style="position: absolute; left: 10px; top: 80px;" />
 
                         <fieldset style="position: absolute; left: 10px; top: 120px; width: 830px; height: 315px; border-radius: 10px; ">
                             <legend style="font-size: 12px; color: blue;text-align:left"><strong>#{msg['detalleBusqueda']}</strong></legend>
@@ -115,7 +115,7 @@
 
                         <p:dialog header="#{msg['detalleConfiguracionD']}" widgetVar="ColumnaEscenarioDialogo" draggable="false" resizable="false" closable="false" id="ColumnaEscenarioDialogo"  
                                   showEffect="fade" hideEffect="fade" width="465" modal="true" style="font-size: 11px;">
-                            <p:dataTable id="lovColumnaEscenario" style="width: 430px" var="columna" value="#{controlConfigurarColumnas.lovColumnasEscenarios}" rowKey="#{columna.secuencia}"
+                            <p:dataTable id="lovColumnaEscenario" style="width: 430px;" var="columna" value="#{controlConfigurarColumnas.lovColumnasEscenarios}" rowKey="#{columna.secuencia}"
                                          selection="#{controlConfigurarColumnas.columnaEscenarioSeleccionada}" selectionMode="single" widgetVar="lovColumnaEscenario" scrollable="true" scrollWidth="448" scrollHeight="250"
                                          filteredValue="#{controlConfigurarColumnas.filtrarLovColumnasEscenarios}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlConfigurarColumnas.activarAceptar()}" update=":form:aceptarCE"/>
@@ -138,9 +138,9 @@
                                 </p:column>
                             </p:dataTable>
                             
-                            <p:commandButton id="aceptarCE" icon="ui-icon-check"  style="position: relative; left: 290px" value="#{msg['aceptar']}" disabled="#{controlConfigurarColumnas.aceptar}"  actionListener="#{controlConfigurarColumnas.agregarColumnaEscenario()}" process="@this"/>
+                            <p:commandButton id="aceptarCE" icon="ui-icon-check"  style="position: relative; left: 290px;" value="#{msg['aceptar']}" disabled="#{controlConfigurarColumnas.aceptar}"  actionListener="#{controlConfigurarColumnas.agregarColumnaEscenario()}" process="@this"/>
                             
-                            <p:commandButton id="atrasCE" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 290px" value="#{msg['atras']}"  actionListener="#{controlConfigurarColumnas.cancelarCambioColumnaEscenario()}"  process="@this"/>
+                            <p:commandButton id="atrasCE" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 290px;" value="#{msg['atras']}"  actionListener="#{controlConfigurarColumnas.cancelarCambioColumnaEscenario()}"  process="@this"/>
                             
                         </p:dialog> 
 
@@ -149,18 +149,18 @@
                     </p:panel>
 
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="font-size: 12px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="opcionInhabilitada" header="#{msg['atencion']}" widgetVar="opcionInhabilitada"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="font-size: 12px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="opcionInhabilitada" header="#{msg['atencion']}" widgetVar="opcionInhabilitada"  resizable="false" draggable="false" modal="true" height="60" width="285px;" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['opcionInhabilitada']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
                     
-                    <p:dialog id="errorNewColumna" header="#{msg['atencion']}" widgetVar="errorNewColumna"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="font-size: 12px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorNewColumna" header="#{msg['atencion']}" widgetVar="errorNewColumna"  resizable="false" draggable="false" modal="true" height="60" width="285px;" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorNewColumna']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
@@ -170,12 +170,12 @@
                 <h:form id="formularioDialogos" >
 
                     <p:dialog id="editarCampoColumna" header="#{msg['editarCampoColumna']}" widgetVar="editarCampoColumna" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlConfigurarColumnas.editarColumna.nombrecolumna}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarCampoColumna" value="#{msg['atras']}" onclick="editarCampoColumna.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlConfigurarColumnas.editarColumna.nombrecolumna}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarCampoColumna" value="#{msg['atras']}" onclick="editarCampoColumna.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
                     <p:dialog id="editarDescripcionColumna" header="#{msg['editarDescripcionColumna']}" widgetVar="editarDescripcionColumna" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlConfigurarColumnas.editarColumna.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarDescripcionColumna" value="#{msg['atras']}" onclick="editarDescripcionColumna.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlConfigurarColumnas.editarColumna.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarDescripcionColumna" value="#{msg['atras']}" onclick="editarDescripcionColumna.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                 </h:form>

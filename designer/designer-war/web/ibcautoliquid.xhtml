@@ -20,57 +20,57 @@
                         <p:toolbar  styleClass="cssToolbar">
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-size: 100% 100%;background-image: url(Imagenes/Iconos/guardar.png) ;background-repeat: no-repeat; border: none; width: 25px; height: 25px;"  process="@this" actionListener="#{controlIbcAutoliquid.guardadoGeneral()}"/>
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"  process="@this" actionListener="#{controlIbcAutoliquid.guardadoGeneral()}"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlIbcAutoliquid.editarCelda()}" process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlIbcAutoliquid.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlIbcAutoliquid.listaValoresBoton()}" process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlIbcAutoliquid.listaValoresBoton()}" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlIbcAutoliquid.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlIbcAutoliquid.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlIbcAutoliquid.verificarExportXLS()}" ajax="false"  />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlIbcAutoliquid.verificarExportXLS()}" ajax="false"  />
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"  ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlIbcAutoliquid.exportXML()}" fileName="#{controlIbcAutoliquid.nombreXML}" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlIbcAutoliquid.validarExportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlIbcAutoliquid.validarExportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlIbcAutoliquid.validarIngresoNuevoRegistro()}"  process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlIbcAutoliquid.validarIngresoNuevoRegistro()}"  process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlIbcAutoliquid.validarBorradoRegistro()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlIbcAutoliquid.validarBorradoRegistro()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  actionListener="#{controlIbcAutoliquid.validarDuplicadoRegistro()}" process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  actionListener="#{controlIbcAutoliquid.validarDuplicadoRegistro()}" process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlIbcAutoliquid.verificarRastroTabla()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlIbcAutoliquid.verificarRastroTabla()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlIbcAutoliquid.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlIbcAutoliquid.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlIbcAutoliquid.salir()}" action="emplibcs" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlIbcAutoliquid.salir()}" action="emplibcs" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -78,20 +78,20 @@
 
                         <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
 
-                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px" />
+                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
                             <h:outputText id="nombreEmpleado" value="#{controlIbcAutoliquid.empleado.persona.nombreCompleto}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px" />
+                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
                             <h:outputText id="docEmpleado" value="#{controlIbcAutoliquid.empleado.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px" />
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
                         </fieldset>
 
                         <fieldset style="position: absolute; left: 210px; top: 110px; width: 410px; height: 135px; border-radius: 10px; text-align: left">
                             <legend style="color: blue"><strong>#{msg['tipoentidad']}</strong></legend>
 
                             <p:dataTable id="datosTipoEntidad" var="infoTE" rowKey="#{infoTE.secuencia}" rowIndexVar="indiceTE"
-                                         style="border: 1px;width: 390px"  value="#{controlIbcAutoliquid.listTiposEntidades}" 
+                                         style="border: 1px;width: 390px;"  value="#{controlIbcAutoliquid.listTiposEntidades}" 
                                          scrollable="true" scrollHeight="#{controlIbcAutoliquid.altoTablaTipoE}" scrollWidth="410" selection="#{controlIbcAutoliquid.tipoEntidadActual}"
                                          filteredValue="#{controlIbcAutoliquid.filtrarListTiposEntidades}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" liveScroll="true" scrollRows="5" selectionMode="single">
@@ -119,7 +119,7 @@
                             <legend style="color: blue"><strong>#{msg['ibcs']}</strong></legend>
 
                             <p:dataTable id="datosIBCS" var="infoIBC" rowKey="#{infoIBC.secuencia}" rowIndexVar="indice"
-                                         style="border: 1px;width: 810px"  value="#{controlIbcAutoliquid.listIbcsAutoliquidaciones}" 
+                                         style="border: 1px;width: 810px;"  value="#{controlIbcAutoliquid.listIbcsAutoliquidaciones}" 
                                          scrollable="true" scrollHeight="#{controlIbcAutoliquid.altoTabla}" scrollWidth="825"
                                          filteredValue="#{controlIbcAutoliquid.filtrarListIbcsAutoliquidaciones}" emptyMessage="#{msg['vacio']}" selectionMode="single"
                                          editable="true" editMode="cell" liveScroll="true" scrollRows="9" selection="#{controlIbcAutoliquid.ibcsTablaSeleccionada}">
@@ -230,7 +230,7 @@
 
                     <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesosDialogo" draggable="false" resizable="false" closable="false" id="ProcesosDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                        <p:dataTable id="lovProcesos" style="width: 400px" var="proceso" value="#{controlIbcAutoliquid.listProcesos}" rowKey="#{proceso.secuencia}"
+                        <p:dataTable id="lovProcesos" style="width: 400px;" var="proceso" value="#{controlIbcAutoliquid.listProcesos}" rowKey="#{proceso.secuencia}"
                                      selection="#{controlIbcAutoliquid.procesoSeleccionado}" selectionMode="single" widgetVar="lovProcesos" scrollable="true" scrollWidth="416" scrollHeight="250"
                                      filteredValue="#{controlIbcAutoliquid.filtrarListProcesos}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlIbcAutoliquid.activarAceptar()}" update=":form:aceptarP"/>
@@ -240,7 +240,7 @@
                                 <p:inputText id="globalFilter" onkeyup="lovProcesos.filter();" style="width:150px; position: relative; left: 20px;" />  
                             </f:facet>
 
-                            <p:column filterBy="#{proceso.codigo}" filterStyle="width: 60px" width="80" filterMatchMode="contains" >
+                            <p:column filterBy="#{proceso.codigo}" filterStyle="width: 60px;" width="80" filterMatchMode="contains" >
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['codigoP']}" />
                                 </f:facet>
@@ -256,82 +256,82 @@
 
                         <h:outputText id="infoRegistroProceso" value="#{controlIbcAutoliquid.infoRegistroProceso}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
-                        <p:commandButton id="aceptarP" style="position: relative; left: 230px;top: 5px" icon="ui-icon-check" value="#{msg['aceptar']}" actionListener="#{controlIbcAutoliquid.actualizarProceso()}" disabled="#{controlIbcAutoliquid.aceptar}" process="@this" />
+                        <p:commandButton id="aceptarP" style="position: relative; left: 230px;top: 5px;" icon="ui-icon-check" value="#{msg['aceptar']}" actionListener="#{controlIbcAutoliquid.actualizarProceso()}" disabled="#{controlIbcAutoliquid.aceptar}" process="@this" />
 
-                        <p:commandButton id="atrasP" style="position: relative; left: 230px;top: 5px" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w"  actionListener="#{controlIbcAutoliquid.cancelarCambioProceso()}"   process="@this" />
+                        <p:commandButton id="atrasP" style="position: relative; left: 230px;top: 5px;" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w"  actionListener="#{controlIbcAutoliquid.cancelarCambioProceso()}"   process="@this" />
 
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlIbcAutoliquid.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIbcAutoliquid.backUp, controlIbcAutoliquid.nombreTablaRastro , 'ibcsRastro')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlIbcAutoliquid.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIbcAutoliquid.backUp, controlIbcAutoliquid.nombreTablaRastro , 'ibcsRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlIbcAutoliquid.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlIbcAutoliquid.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlIbcAutoliquid.nombreTablaRastro , 'ibcsRastro')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlIbcAutoliquid.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlIbcAutoliquid.nombreTablaRastro , 'ibcsRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlIbcAutoliquid.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIbcAutoliquid.backUp, controlIbcAutoliquid.nombreTablaRastro , 'ibcsRastro')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIbcAutoliquid.backUp, controlIbcAutoliquid.nombreTablaRastro , 'ibcsRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlIbcAutoliquid.guardadoGeneral()}" style="position: absolute; top: 60px; left: 215px" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();"  style="position: absolute; top: 60px; left: 255px" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlIbcAutoliquid.guardadoGeneral()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();"  style="position: absolute; top: 60px; left: 255px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlIbcAutoliquid.guardadoGeneral()}" action="emplibcs" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlVigenciasUbicaciones.salir()}" action="emplibcs" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlIbcAutoliquid.guardadoGeneral()}" action="emplibcs" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlVigenciasUbicaciones.salir()}" action="emplibcs" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                 </h:form>
@@ -343,7 +343,7 @@
                 <h:form id="formularioDialogos">
 
                     <p:dialog id="NuevoRegistroIBCS" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroIBCS" closable="false" resizable="false"  draggable="false" modal="true" height="305" width="350" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevaIBC" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
@@ -362,13 +362,13 @@
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="#{msg['estadoN']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['estadoN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
                             <p:inputText id="nuevaEstadoIBCS" value="#{controlIbcAutoliquid.nuevoIBC.estado}" style="width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaEstadoIBCS"/>
                             </p:inputText>
                             <p:watermark for="nuevaEstadoIBCS" value="#{msg['estado']}" />
 
-                            <strong><h:outputText value="#{msg['procesoN']}" style=" position: absolute; top: 165px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['procesoN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
                             <p:inputText id="nuevaProcesoIBCS" value="#{controlIbcAutoliquid.nuevoIBC.proceso.descripcion}" style="width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlIbcAutoliquid.asignarIndex(infoIBC,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlIbcAutoliquid.valoresBackupAutocompletar(1, 'PROCESO')}" />
@@ -377,13 +377,13 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 160px;  " id="btnNuevaProcesoIBCS" actionListener="#{controlIbcAutoliquid.asignarIndex(infoIBC,0,1)}" icon="ui-icon-search" process="@this" />
                             <p:watermark for="nuevaProcesoIBCS" value="#{msg['proceso']}" />
 
-                            <strong><h:outputText value="*#{msg['valorN']}" style="position: absolute; top: 195px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['valorN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
                             <p:inputText id="nuevaValorIBCS" value="#{controlIbcAutoliquid.nuevoIBC.valor}" style="width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaValorIBCS"/>
                             </p:inputText>
                             <p:watermark for="nuevaValorIBCS" value="#{msg['valor']}" />
 
-                            <strong><h:outputText value="#{msg['fechapagoN']}" style="position: absolute; top: 225px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['fechapagoN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
                             <div id="posicionFechaPagoIBCSNuevoReg" style="position: absolute; top: 220px; left: 170px">
                                 <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaPago" value="#{controlIbcAutoliquid.nuevoIBC.fechapago}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaPago"/>
@@ -398,7 +398,7 @@
                     </p:dialog>
 
                     <p:dialog id="DuplicarRegistroIBCS" header="#{msg['duplicarregistroN']}" widgetVar="DuplicarRegistroIBCS" closable="false" resizable="false"  draggable="false" modal="true" height="305" width="350" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="duplicaIBC" style="border: none;">
 
 
@@ -417,13 +417,13 @@
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="#{msg['estadoN']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['estadoN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
                             <p:inputText id="duplicaEstadoIBCS" value="#{controlIbcAutoliquid.duplicarIBC.estado}" style="width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
                                 <p:ajax event="change" update="duplicaEstadoIBCS"/>
                             </p:inputText>
                             <p:watermark for="duplicaEstadoIBCS" value="#{msg['estado']}" />
 
-                            <strong><h:outputText value="#{msg['procesoN']}" style="position: absolute; top: 165px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['procesoN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
                             <p:inputText id="duplicaProcesoIBCS" value="#{controlIbcAutoliquid.duplicarIBC.proceso.descripcion}" style="width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlIbcAutoliquid.asignarIndex(infoIBC,0,2)}"/>
                                 <p:ajax event="click" listener="#{controlIbcAutoliquid.valoresBackupAutocompletar(1, 'PROCESO')}" />
@@ -431,13 +431,13 @@
                             </p:inputText>
                             <p:watermark for="duplicaProcesoIBCS" value="#{msg['proceso']}" />
 
-                            <strong><h:outputText value="*#{msg['valorN']}" style="position: absolute; top: 195px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['valorN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
                             <p:inputText id="duplicaValorIBCS" value="#{controlIbcAutoliquid.duplicarIBC.valor}" style="width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase">
                                 <p:ajax event="change" update="duplicaValorIBCS"/>
                             </p:inputText>
                             <p:watermark for="duplicaValorIBCS" value="#{msg['valor']}" />
 
-                            <strong><h:outputText value="#{msg['fechapagoN']}" style="position: absolute; top: 225px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['fechapagoN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
                             <div id="posicionFormulaPagoFinDupliReg" style="position: absolute; left: 170px; top: 220px;">
                                 <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaPago" value="#{controlIbcAutoliquid.duplicarIBC.fechapago}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaPago" process="@this"/>
@@ -451,34 +451,34 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicialD" header="#{msg['fechainicialE']}" widgetVar="editarFechaInicialD" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechainicial}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                    <p:dialog id="editarFechaInicialD" header="#{msg['fechainicialE']}" widgetVar="editarFechaInicialD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalD" header="#{msg['fechafinalE']}" widgetVar="editarFechaFinalD" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechafinal}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                    <p:dialog id="editarFechaFinalD" header="#{msg['fechafinalE']}" widgetVar="editarFechaFinalD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarEstadoD" header="#{msg['estadoE']}" widgetVar="editarEstadoD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.estado}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarEstadoD" header="#{msg['estadoE']}" widgetVar="editarEstadoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.estado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarProcesoD" header="#{msg['procesoE']}" widgetVar="editarProcesoD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.proceso.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarProcesoD" header="#{msg['procesoE']}" widgetVar="editarProcesoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarValorD" header="#{msg['valorE']}" widgetVar="editarValorD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.valor}" style="overflow: auto; width: 200px; height: 40px" readonly="true">
+                    <p:dialog id="editarValorD" header="#{msg['valorE']}" widgetVar="editarValorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.valor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber type="currency" currencySymbol="$"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaPagoD" header="#{msg['fechapagoE']}" widgetVar="editarFechaPagoD" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechapago}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                    <p:dialog id="editarFechaPagoD" header="#{msg['fechapagoE']}" widgetVar="editarFechaPagoD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechapago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>

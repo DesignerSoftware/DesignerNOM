@@ -252,11 +252,11 @@ public class ControlConfigurarColumnas implements Serializable {
      */
     public void activarCtrlF11() {
         if (bandera == 0) {
-            altoTabla = "252";
+            altoTabla = "255";
             vrlFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConfigurarColumna:vrlFecha");
-            vrlFecha.setFilterStyle("width: 120px");
+            vrlFecha.setFilterStyle("width: 85%");
             vrlNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConfigurarColumna:vrlNombre");
-            vrlNombre.setFilterStyle("width: 120px");
+            vrlNombre.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosConfigurarColumna");
             bandera = 1;
         } else if (bandera == 1) {

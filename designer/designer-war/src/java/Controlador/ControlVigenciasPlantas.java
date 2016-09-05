@@ -231,11 +231,11 @@ public class ControlVigenciasPlantas implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosVigenciaPlanta:codigo");
-            codigo.setFilterStyle("width: 370px");
+            codigo.setFilterStyle("width: 85%;");
             fecha = (Column) c.getViewRoot().findComponent("form:datosVigenciaPlanta:fecha");
-            fecha.setFilterStyle("width: 400px");
+            fecha.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosVigenciaPlanta");
             System.out.println("Activar");
             bandera = 1;

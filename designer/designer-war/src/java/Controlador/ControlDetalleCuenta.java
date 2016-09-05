@@ -285,21 +285,21 @@ public class ControlDetalleCuenta implements Serializable {
      */
     public void filtradoCredito() {
         if (banderaCredito == 0) {
-            altoTablaCredito = "98";
+            altoTablaCredito = "100";
             creditoFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoFechaInicial");
-            creditoFechaInicial.setFilterStyle("width: 60px");
+            creditoFechaInicial.setFilterStyle("width: 85%");
             creditoFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoFechaFinal");
-            creditoFechaFinal.setFilterStyle("width: 60px");
+            creditoFechaFinal.setFilterStyle("width: 85%");
             creditoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoCodigo");
-            creditoCodigo.setFilterStyle("width: 60px");
+            creditoCodigo.setFilterStyle("width: 85%");
             creditoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoDescripcion");
-            creditoDescripcion.setFilterStyle("width: 60px");
+            creditoDescripcion.setFilterStyle("width: 85%");
             creditoDescripcionCC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoDescripcionCC");
-            creditoDescripcionCC.setFilterStyle("width: 60px");
+            creditoDescripcionCC.setFilterStyle("width: 85%");
             creditoCC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoCC");
-            creditoCC.setFilterStyle("width: 60px");
+            creditoCC.setFilterStyle("width: 85%");
             creditoTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoTipo");
-            creditoTipo.setFilterStyle("width: 60px");
+            creditoTipo.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosCuentaCredito");
             banderaCredito = 1;
         } else if (banderaCredito == 1) {
@@ -334,19 +334,19 @@ public class ControlDetalleCuenta implements Serializable {
 
             altoTablaDebito = "83";
             debitoFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoFechaInicial");
-            debitoFechaInicial.setFilterStyle("width: 60px");
+            debitoFechaInicial.setFilterStyle("width: 85%;");
             debitoFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoFechaFinal");
-            debitoFechaFinal.setFilterStyle("width: 60px");
+            debitoFechaFinal.setFilterStyle("width: 85%;");
             debitoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoCodigo");
-            debitoCodigo.setFilterStyle("width: 60px");
+            debitoCodigo.setFilterStyle("width: 85%;");
             debitoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoDescripcion");
-            debitoDescripcion.setFilterStyle("width: 60px");
+            debitoDescripcion.setFilterStyle("width: 85%;");
             debitoDescripcionCC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoDescripcionCC");
-            debitoDescripcionCC.setFilterStyle("width: 60px");
+            debitoDescripcionCC.setFilterStyle("width: 85%;");
             debitoCC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoCC");
-            debitoCC.setFilterStyle("width: 60px");
+            debitoCC.setFilterStyle("width: 85%;");
             debitoTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoTipo");
-            debitoTipo.setFilterStyle("width: 60px");
+            debitoTipo.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosCuentaDebito");
             banderaDebito = 1;
         } else if (banderaDebito == 1) {

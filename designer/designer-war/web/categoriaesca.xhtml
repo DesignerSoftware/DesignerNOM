@@ -19,45 +19,45 @@
                         <p:toolbar style="position: absolute; top: 37px; left: 12px; height: 23px">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " actionListener="#{controlCategoriaEsca.guardarCambios()}" process="@this" />
-                                <p:tooltip style="font-size: 12px" for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlCategoriaEsca.guardarCambios()}" process="@this" />
+                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlCategoriaEsca.editarCelda()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="editar" value="#{msg['editar']}" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlCategoriaEsca.editarCelda()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlCategoriaEsca.listaValoresBoton()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="listaValores" value="#{msg['lista']}" />
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlCategoriaEsca.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlCategoriaEsca.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="filtrar" value="#{msg['filtrar']}" />
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlCategoriaEsca.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px;" />
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false" actionListener="#{controlCategoriaEsca.exportXLS()}" />
-                                <p:tooltip style="font-size: 12px" for="exportarXLS" value="#{msg['xls']}" />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlCategoriaEsca.exportXLS()}" />
+                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlCategoriaEsca.limpiarNuevaCategoria()}" ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlCategoriaEsca.limpiarNuevaCategoria()}" ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosCategoriaExportar" fileName="Categorias_XML" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip style="font-size: 12px" for="exportarXML" value="#{msg['xml']}" />
+                                <p:tooltip style="font-size: 12px;" for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlCategoriaEsca.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="font-size: 12px" for="exportarPDF" value="#{msg['pdf']}" />
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlCategoriaEsca.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px;"/> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " oncomplete="NuevoRegistroCategoria.show()" update=":formularioDialogos:nuevaCategoria" process="@this"/> 
-                                <p:tooltip style="font-size: 12px" for="insertar" value="#{msg['nuevo']}" />
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="NuevoRegistroCategoria.show()" update=":formularioDialogos:nuevaCategoria" process="@this"/> 
+                                <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlCategoriaEsca.borrarCategoria()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="eliminar" value="#{msg['eliminar']}" />
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlCategoriaEsca.borrarCategoria()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlCategoriaEsca.duplicarCategoriaM()}"  process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="duplicar" value="#{msg['duplicar']}" />
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlCategoriaEsca.duplicarCategoriaM()}"  process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="duplicar" value="#{msg['duplicar']}" />
                                 <p:separator style="position: relative; top: -9px;" /> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlCategoriaEsca.verificarRastro()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="rastro" value="#{msg['rastro']}"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlCategoriaEsca.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
@@ -165,7 +165,7 @@
 
                         <p:dialog header="#{msg['nombreCCat']}" widgetVar="ClaseCategoriaDialogo" draggable="false" resizable="false" closable="false" id="ClaseCategoriaDialogo"  
                                   showEffect="fade" hideEffect="fade" width="460" modal="true" style="font-size: 11px;">
-                            <p:dataTable id="lovClaseCategoria" style="font-size: 11px; width: 430px" var="clase" value="#{controlCategoriaEsca.lovClasesCategorias}" rowKey="#{clase.secuencia}"
+                            <p:dataTable id="lovClaseCategoria" style="font-size: 11px; width: 430px;" var="clase" value="#{controlCategoriaEsca.lovClasesCategorias}" rowKey="#{clase.secuencia}"
                                          selection="#{controlCategoriaEsca.claseCategoriaSelecionada}" selectionMode="single" widgetVar="lovClaseCategoria" scrollable="true" scrollWidth="445" scrollHeight="250"
                                          filteredValue="#{controlCategoriaEsca.filtrarLovClasesCategorias}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlCategoriaEsca.activarAceptar()}" update=":form:aceptarCCat"/>
@@ -181,14 +181,14 @@
                                     <h:outputText value="#{clase.descripcion}" />
                                 </p:column>
                             </p:dataTable>
-                            <p:commandButton id="aceptarCCat" style="position: relative; left: 300px" value="#{msg['aceptar']}" disabled="#{controlCategoriaEsca.aceptar}" actionListener="#{controlCategoriaEsca.actualizarClaseCategoria()}" process="@this"/>
+                            <p:commandButton id="aceptarCCat" style="position: relative; left: 300px;" value="#{msg['aceptar']}" disabled="#{controlCategoriaEsca.aceptar}" actionListener="#{controlCategoriaEsca.actualizarClaseCategoria()}" process="@this"/>
                             
-                            <p:commandButton id="atrasCCat" style="position: relative; left: 300px" value="#{msg['atras']}"  actionListener="#{controlCategoriaEsca.cancelarCambioClaseCategoria()}" process="@this"/>
+                            <p:commandButton id="atrasCCat" style="position: relative; left: 300px;" value="#{msg['atras']}"  actionListener="#{controlCategoriaEsca.cancelarCambioClaseCategoria()}" process="@this"/>
                         </p:dialog> 
 
                         <p:dialog header="#{msg['nombreT']}" widgetVar="TipoSueldoDialogo" draggable="false" resizable="false" closable="false" id="TipoSueldoDialogo"  
                                   showEffect="fade" hideEffect="fade" width="460" modal="true" style="font-size: 11px;">
-                            <p:dataTable id="lovTipoSueldo" style="font-size: 11px; width: 430px" var="tipo" value="#{controlCategoriaEsca.lovTiposSueldos}" rowKey="#{tipo.secuencia}"
+                            <p:dataTable id="lovTipoSueldo" style="font-size: 11px; width: 430px;" var="tipo" value="#{controlCategoriaEsca.lovTiposSueldos}" rowKey="#{tipo.secuencia}"
                                          selection="#{controlCategoriaEsca.tipoSueldoSelecionada}" selectionMode="single" widgetVar="lovTipoSueldo" scrollable="true" scrollWidth="445" scrollHeight="250"
                                          filteredValue="#{controlCategoriaEsca.filtrarLovTiposSueldos}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlCategoriaEsca.activarAceptar()}" update=":form:aceptarT"/>
@@ -205,14 +205,14 @@
                                 </p:column>
 
                             </p:dataTable>
-                            <p:commandButton id="aceptarT" style="position: relative; left: 300px" value="#{msg['aceptar']}" disabled="#{controlCategoriaEsca.aceptar}" actionListener="#{controlCategoriaEsca.actualizarTipoSueldo()}" process="@this"/>
+                            <p:commandButton id="aceptarT" style="position: relative; left: 300px;" value="#{msg['aceptar']}" disabled="#{controlCategoriaEsca.aceptar}" actionListener="#{controlCategoriaEsca.actualizarTipoSueldo()}" process="@this"/>
                             
-                            <p:commandButton id="atrasT" style="position: relative; left: 300px" value="#{msg['atras']}" actionListener="#{controlCategoriaEsca.cancelarCambioTipoSueldo()}" process="@this"/>
+                            <p:commandButton id="atrasT" style="position: relative; left: 300px;" value="#{msg['atras']}" actionListener="#{controlCategoriaEsca.cancelarCambioTipoSueldo()}" process="@this"/>
                         </p:dialog> 
 
                         <p:dialog header="#{msg['nombreC']}" widgetVar="ConceptoDialogo" draggable="false" resizable="false" closable="false" id="ConceptoDialogo"  
                                   showEffect="fade" hideEffect="fade" width="460" modal="true" style="font-size: 11px;">
-                            <p:dataTable id="lovConcepto" style="font-size: 11px; width: 430px" var="concepto" value="#{controlCategoriaEsca.lovConceptos}" rowKey="#{concepto.secuencia}"
+                            <p:dataTable id="lovConcepto" style="font-size: 11px; width: 430px;" var="concepto" value="#{controlCategoriaEsca.lovConceptos}" rowKey="#{concepto.secuencia}"
                                          selection="#{controlCategoriaEsca.conceptoSelecionada}" selectionMode="single" widgetVar="lovConcepto" scrollable="true" scrollWidth="445" scrollHeight="250"
                                          filteredValue="#{controlCategoriaEsca.filtrarLovConceptos}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlCategoriaEsca.activarAceptar()}" update=":form:aceptarC"/>
@@ -234,9 +234,9 @@
                                     <h:outputText value="#{concepto.empresa.nombre}" />
                                 </p:column>
                             </p:dataTable>
-                            <p:commandButton id="aceptarC" style="position: relative; left: 300px" value="#{msg['aceptar']}" disabled="#{controlCategoriaEsca.aceptar}" actionListener="#{controlCategoriaEsca.actualizarConcepto()}"  process="@this"/>
+                            <p:commandButton id="aceptarC" style="position: relative; left: 300px;" value="#{msg['aceptar']}" disabled="#{controlCategoriaEsca.aceptar}" actionListener="#{controlCategoriaEsca.actualizarConcepto()}"  process="@this"/>
                             
-                            <p:commandButton id="atrasC" style="position: relative; left: 300px" value="#{msg['atras']}" actionListener="#{controlCategoriaEsca.cancelarCambioConcepto()}" process="@this"/>
+                            <p:commandButton id="atrasC" style="position: relative; left: 300px;" value="#{msg['atras']}" actionListener="#{controlCategoriaEsca.cancelarCambioConcepto()}" process="@this"/>
                             
                         </p:dialog> 
 
@@ -246,62 +246,62 @@
 
                     </p:panel>
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="font-size: 12px" closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400px;" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlCategoriaEsca.guardarYSalir()}" action="escalaInfo" style="position: absolute; top: 60px; left: 215px" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlCategoriaEsca.cancelarYSalir()}" action="escalaInfo" style="position: absolute; top: 60px; left: 255px" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlCategoriaEsca.guardarYSalir()}" action="escalaInfo" style="position: absolute; top: 60px; left: 215px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlCategoriaEsca.cancelarYSalir()}" action="escalaInfo" style="position: absolute; top: 60px; left: 255px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCategoriaEsca.backUpSecRegistro, 'Escalafones', 'rastroEscalafon')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCategoriaEsca.backUpSecRegistro, 'Escalafones', 'rastroEscalafon')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Escalafones', 'rastroEscalafon')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Escalafones', 'rastroEscalafon')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCategoriaEsca.backUpSecRegistro, 'Escalafones', 'rastroEscalafon')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCategoriaEsca.backUpSecRegistro, 'Escalafones', 'rastroEscalafon')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="font-size: 12px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
 
-                    <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
@@ -311,7 +311,7 @@
                 <h:form id="formularioDialogos" >
                     <p:dialog id="NuevoRegistroCategoria" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroCategoria" closable="false" resizable="false"  draggable="false" modal="true" height="250" width="400" style="font-size: 12px; padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevaCategoria" style="border: none;">
 
@@ -320,13 +320,13 @@
                                 <p:ajax event="change" update="nuevaCodigo" />
                             </p:inputText>
 
-                            <strong><h:outputText value="#{msg['descripcionN']}" style="font-size: 14px; position: absolute; top: 100px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['descripcionN']}" style="font-size: 14px; position: absolute; top: 100px; left: 50px;" /></strong>
                             <p:inputText id="nuevaDescripcion" value="#{controlCategoriaEsca.nuevaCategoria.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 97px;text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaDescripcion" />
                             </p:inputText>
                             <p:watermark for="nuevaDescripcion" value="#{msg['descripcion']}" />
 
-                            <strong><h:outputText value="#{msg['claseCategoriaN']}" style="font-size: 14px; position: absolute; top: 130px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['claseCategoriaN']}" style="font-size: 14px; position: absolute; top: 130px; left: 50px;" /></strong>
                             <p:inputText id="nuevaClaseCategoria" value="#{controlCategoriaEsca.nuevaCategoria.clasecategoria.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 127px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(1, 'CLASE')}" />
@@ -335,7 +335,7 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 127px;  " id="btnNuevaClaseCategoria" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,1,0)}"/>   
                             <p:watermark for="nuevaClaseCategoria" value="#{msg['claseCategoria']}" />
 
-                            <strong><h:outputText value="#{msg['tipoSueldoN']}" style="font-size: 14px; position: absolute; top: 160px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['tipoSueldoN']}" style="font-size: 14px; position: absolute; top: 160px; left: 50px;" /></strong>
                             <p:inputText id="nuevaTipoSueldo" value="#{controlCategoriaEsca.nuevaCategoria.tiposueldo.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 157px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(1, 'TIPO')}" />
@@ -344,7 +344,7 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 157px;  " id="btnNuevaTipoSueldo" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,1,1)}"/>   
                             <p:watermark for="nuevaTipoSueldo" value="#{msg['tipoSueldo']}" />
 
-                            <strong><h:outputText value="#{msg['conceptoN']}" style="font-size: 14px; position: absolute; top: 190px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['conceptoN']}" style="font-size: 14px; position: absolute; top: 190px; left: 50px;" /></strong>
                             <p:inputText id="nuevaConcepto" value="#{controlCategoriaEsca.nuevaCategoria.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 187px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,1,2)}"/>
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(1, 'CONCEPTO')}" />
@@ -362,7 +362,7 @@
 
                     <p:dialog id="DuplicarRegistroCategoria" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroCategoria" closable="false" resizable="false"  draggable="false" modal="true" height="250" width="400" style="font-size: 12px; padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarCate" style="border: none;">
 
@@ -371,13 +371,13 @@
                                 <p:ajax event="change" update="duplicarCodigo" />
                             </p:inputText>
 
-                            <strong><h:outputText value="#{msg['descripcionN']}" style="font-size: 14px; position: absolute; top: 100px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['descripcionN']}" style="font-size: 14px; position: absolute; top: 100px; left: 50px;" /></strong>
                             <p:inputText id="duplicarDescripcion" value="#{controlCategoriaEsca.duplicarCategoria.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 97px;text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarDescripcion" />
                             </p:inputText>
                             <p:watermark for="duplicarDescripcion" value="#{msg['descripcion']}" />
 
-                            <strong><h:outputText value="#{msg['claseCategoriaN']}" style="font-size: 14px; position: absolute; top: 130px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['claseCategoriaN']}" style="font-size: 14px; position: absolute; top: 130px; left: 50px;" /></strong>
                             <p:inputText id="duplicarClaseCategoria" value="#{controlCategoriaEsca.duplicarCategoria.clasecategoria.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 127px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(2, 'CLASE')}" />
@@ -386,7 +386,7 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 127px;  " id="btnDuplicarClaseCategoria" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,2,0)}"/>   
                             <p:watermark for="duplicarClaseCategoria" value="#{msg['claseCategoria']}" />
 
-                            <strong><h:outputText value="#{msg['tipoSueldoN']}" style="font-size: 14px; position: absolute; top: 160px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['tipoSueldoN']}" style="font-size: 14px; position: absolute; top: 160px; left: 50px;" /></strong>
                             <p:inputText id="duplicarTipoSueldo" value="#{controlCategoriaEsca.duplicarCategoria.tiposueldo.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 157px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(2, 'TIPO')}" />
@@ -395,7 +395,7 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 157px;  " id="btnDuplicarTipoSueldo" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,2,1)}"/>   
                             <p:watermark for="duplicarTipoSueldo" value="#{msg['tipoSueldo']}" />
 
-                            <strong><h:outputText value="#{msg['conceptoN']}" style="font-size: 14px; position: absolute; top: 190px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['conceptoN']}" style="font-size: 14px; position: absolute; top: 190px; left: 50px;" /></strong>
                             <p:inputText id="duplicarConcepto" value="#{controlCategoriaEsca.duplicarCategoria.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 187px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,2,2)}"/>
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(2, 'CONCEPTO')}" />
@@ -412,28 +412,28 @@
                     </p:dialog>
 
                     <p:dialog id="editarCodigoD" header="#{msg['codigoE']}" widgetVar="editarCodigoD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlCategoriaEsca.editarCategoria.codigo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarCodigoD" value="#{msg['atras']}" onclick="editarCodigoD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this" />
+                        <p:inputTextarea value="#{controlCategoriaEsca.editarCategoria.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarCodigoD" value="#{msg['atras']}" onclick="editarCodigoD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="editarDescripcionD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlCategoriaEsca.editarCategoria.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarDescripcionD" value="#{msg['atras']}" onclick="editarDescripcionD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlCategoriaEsca.editarCategoria.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarDescripcionD" value="#{msg['atras']}" onclick="editarDescripcionD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarClaseD" header="#{msg['claseE']}" widgetVar="editarClaseD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlCategoriaEsca.editarCategoria.clasecategoria.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarClaseD" value="#{msg['atras']}" onclick="editarClaseD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlCategoriaEsca.editarCategoria.clasecategoria.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarClaseD" value="#{msg['atras']}" onclick="editarClaseD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarTipoD" header="#{msg['tipoE']}" widgetVar="editarTipoD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlCategoriaEsca.editarCategoria.tiposueldo.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarTipoD" value="#{msg['atras']}" onclick="editarTipoD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlCategoriaEsca.editarCategoria.tiposueldo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarTipoD" value="#{msg['atras']}" onclick="editarTipoD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarConceptoD" header="#{msg['conceptoE']}" widgetVar="editarConceptoD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlCategoriaEsca.editarCategoria.concepto.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarConceptoD" value="#{msg['atras']}" onclick="editarConceptoD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlCategoriaEsca.editarCategoria.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarConceptoD" value="#{msg['atras']}" onclick="editarConceptoD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                 </h:form>

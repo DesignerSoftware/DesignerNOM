@@ -361,14 +361,14 @@ public class ControlConceptosSoportes implements Serializable {
 
     public void activarCtrlF11() {
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosConceptosSoportes:codigo");
-            codigo.setFilterStyle("width: 20px");
+            codigo.setFilterStyle("width: 85%");
             personafir = (Column) c.getViewRoot().findComponent("form:datosConceptosSoportes:personafir");
-            personafir.setFilterStyle("width: 130px");
+            personafir.setFilterStyle("width: 85%");
             cargo = (Column) c.getViewRoot().findComponent("form:datosConceptosSoportes:cargo");
-            cargo.setFilterStyle("width: 130px");
+            cargo.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosConceptosSoportes");
             System.out.println("Activar");
             bandera = 1;

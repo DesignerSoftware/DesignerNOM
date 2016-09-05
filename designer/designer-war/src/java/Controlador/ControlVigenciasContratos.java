@@ -823,7 +823,7 @@ public class ControlVigenciasContratos implements Serializable {
             vcContrato.setFilterStyle("width: 86%");
             vcTipoContrato = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcTipoContrato");
             vcTipoContrato.setFilterStyle("width: 86%");
-            altoTabla = "271";
+            altoTabla = "275";
             RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
             bandera = 1;
         } else if (bandera == 1) {

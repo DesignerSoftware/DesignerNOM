@@ -332,15 +332,15 @@ public class ControlHvEntrevistas implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             fecha = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:fecha");
-            fecha.setFilterStyle("width: 90px");
+            fecha.setFilterStyle("width: 85%;");
             nombre = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:nombre");
-            nombre.setFilterStyle("width: 270px");
+            nombre.setFilterStyle("width: 85%");
             tipoPuntaje = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:tipoPuntaje");
-            tipoPuntaje.setFilterStyle("width: 180px");
+            tipoPuntaje.setFilterStyle("width: 85%");
             puntaje = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:puntaje");
-            puntaje.setFilterStyle("width: 130px");
+            puntaje.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
             System.out.println("Activar");
             bandera = 1;

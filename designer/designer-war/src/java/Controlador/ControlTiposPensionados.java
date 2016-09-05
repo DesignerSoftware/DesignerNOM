@@ -231,11 +231,11 @@ public class ControlTiposPensionados implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposPensionados:codigo");
-            codigo.setFilterStyle("width: 220px");
+            codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposPensionados:descripcion");
-            descripcion.setFilterStyle("width: 220px");
+            descripcion.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
             System.out.println("Activar");
             bandera = 1;

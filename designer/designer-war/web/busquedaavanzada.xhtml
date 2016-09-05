@@ -18,56 +18,56 @@
                         <p:toolbar styleClass="cssToolbar">
                             <p:toolbarGroup align="left"> 
                                 <p:commandButton id="guardarRapido" disabled="true" value="" style="background-size: 100% 100%;background-image: url(Imagenes/Iconos/guardar.png) ; background-repeat: no-repeat; border: none; width: 25px; height: 25px;"  process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="editar" value="#{msg['editar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="listaValores" value="#{msg['lista']}" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="filtrar" value="#{msg['filtrar']}" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " ajax="false"
+                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false"
                                                  actionListener="#{controlBusquedaAvanzada.exportXLS()}"/>
-                                <p:tooltip style="font-size: 12px" for="exportarXLS" value="#{msg['xls']}" />
+                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"  ajax="false">
                                     <p:dataExporter type="xml"  target="resultadoBusqueda" fileName="ResultadosBusquedaAvanzada_XML" encoding="UTF-8"/> 
                                 </p:commandButton>
-                                <p:tooltip style="font-size: 12px" for="exportarXML" value="#{msg['xml']}" />
+                                <p:tooltip style="font-size: 12px;" for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " ajax="false"
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" ajax="false"
                                                  actionListener="#{controlBusquedaAvanzada.exportPDF()}"/>
-                                <p:tooltip style="font-size: 12px" for="exportarPDF" value="#{msg['pdf']}" />
+                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " process="@this"/> 
-                                <p:tooltip style="font-size: 12px" for="insertar" value="#{msg['nuevo']}" />
+                                <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" process="@this"/> 
+                                <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="eliminar" value="#{msg['eliminar']}" />
+                                <p:commandButton id="eliminar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/delete.png);" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="duplicar" value="#{msg['duplicar']}" />
+                                <p:commandButton id="duplicar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/duplicar.png);" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="rastro" value="#{msg['rastro']}"/>
+                                <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png);"  process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " oncomplete="window.location.reload()" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" oncomplete="window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px" process="@this" action="nominaf"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png)" process="@this" action="nominaf"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -896,7 +896,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['metodo']}" style="position: absolute; left: 110px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:selectOneMenu id="parametroMetodoSets"  style="position: absolute; left: 170px; top: 45px;width: 90px" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.tipoMetodoSet}">
+                                                <p:selectOneMenu id="parametroMetodoSets"  style="position: absolute; left: 170px; top: 45px;width: 90px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.tipoMetodoSet}">
                                                     <f:selectItem itemLabel="" itemValue="" />
                                                     <f:selectItem itemLabel="#{msg['metodo1']}" itemValue="metodo1" />
                                                     <f:selectItem itemLabel="#{msg['metodo2']}" itemValue="metodo2" />
@@ -1238,7 +1238,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['sexo']}" style="position: absolute; left: 300px; top: 45px;color: #14388B;font-weight: bold"/>
-                                                <p:selectOneMenu id="parametroSexoDatosPersonales"  style="position: absolute; left: 440px; top: 40px;width: 110px" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.sexo}">
+                                                <p:selectOneMenu id="parametroSexoDatosPersonales"  style="position: absolute; left: 440px; top: 40px;width: 110px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.sexo}">
                                                     <f:selectItem itemLabel="" itemValue="" />
                                                     <f:selectItem itemLabel="#{msg['masculino']}" itemValue="M" />
                                                     <f:selectItem itemLabel="#{msg['femenino']}" itemValue="F" />
@@ -1283,7 +1283,7 @@
                                         <p:tab id="tabDatosFactorRH" title="#{msg['tabDatosFactorRH']}">
                                             <div style="height: 45px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['grupoSanguineo']}" style="position: absolute; left: 15px; top: 5px;color: #14388B;font-weight: bold"/>
-                                                <p:selectOneMenu id="parametroGrupoSanguineoFactorRH"  style="position: absolute; left: 140px; top: 0px;width: 110px" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.gruposanguineo}">
+                                                <p:selectOneMenu id="parametroGrupoSanguineoFactorRH"  style="position: absolute; left: 140px; top: 0px;width: 110px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.gruposanguineo}">
                                                     <f:selectItem itemLabel="" itemValue="" />
                                                     <f:selectItem itemLabel="A" itemValue="A" />
                                                     <f:selectItem itemLabel="AB" itemValue="AB" />
@@ -1293,7 +1293,7 @@
                                                 </p:selectOneMenu>
 
                                                 <h:outputText value="#{msg['factorRH']}" style="position: absolute; left: 15px; top: 35px;color: #14388B;font-weight: bold"/>
-                                                <p:selectOneMenu id="parametroFactorRHFactorRH"  style="position: absolute; left: 140px; top: 30px;width: 110px" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.factorrh}">
+                                                <p:selectOneMenu id="parametroFactorRHFactorRH"  style="position: absolute; left: 140px; top: 30px;width: 110px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.factorrh}">
                                                     <f:selectItem itemLabel="" itemValue="" />
                                                     <f:selectItem itemLabel="+" itemValue="+" />
                                                     <f:selectItem itemLabel="-" itemValue="-" />
@@ -1548,7 +1548,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['realizado']}" style="position: absolute; left: 300px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:selectOneMenu id="parametroRealizadoEducacionFormal"  style="position: absolute; left: 410px; top: 5px;text-transform: uppercase; width: 165px" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.desarrolladoEducacionFormal}">
+                                                <p:selectOneMenu id="parametroRealizadoEducacionFormal"  style="position: absolute; left: 410px; top: 5px;text-transform: uppercase; width: 165px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.desarrolladoEducacionFormal}">
                                                     <f:selectItem itemLabel="" itemValue="#{null}" />
                                                     <f:selectItem itemLabel="#{msg['porEmpresa']}" itemValue="S" />
                                                     <f:selectItem itemLabel="#{msg['fueraEmpresa']}" itemValue="N" />
@@ -1621,7 +1621,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['realizado']}" style="position: absolute; left: 300px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:selectOneMenu id="parametroRealizadoEducacionNoFormal"  style="position: absolute; left: 410px; top: 5px;text-transform: uppercase; width: 165px" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.desarrolladoEducacionNoFormal}">
+                                                <p:selectOneMenu id="parametroRealizadoEducacionNoFormal"  style="position: absolute; left: 410px; top: 5px;text-transform: uppercase; width: 165px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.desarrolladoEducacionNoFormal}">
                                                     <f:selectItem itemLabel="" itemValue="#{null}" />
                                                     <f:selectItem itemLabel="#{msg['porEmpresa']}" itemValue="S" />
                                                     <f:selectItem itemLabel="#{msg['fueraEmpresa']}" itemValue="N" />
@@ -1833,13 +1833,13 @@
                         </fieldset>
 
                         <p:commandButton id="detalles" style="position: relative; left: 801px; top: 318px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;width: 40px; height: 40px;" value="" onclick="detallesBusquedaDialogo.show();"/>
-                        <p:tooltip style="font-size: 12px" for="detalles" value="#{msg['textDetalles']}" />
+                        <p:tooltip style="font-size: 12px;" for="detalles" value="#{msg['textDetalles']}" />
                         <p:commandButton id="btnbuscar" style="position: relative; left: 760px; top: 373px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;width: 40px; height: 40px;" value="" process="@parent" actionListener="#{controlBusquedaAvanzada.ejecutarBusqueda()}" update=":form:resultadoBusqueda"/>
-                        <p:tooltip style="font-size: 12px" for="btnbuscar" value="#{msg['textEjecutar']}" />
+                        <p:tooltip style="font-size: 12px;" for="btnbuscar" value="#{msg['textEjecutar']}" />
 
                         <p:commandButton style="position: absolute; left: 10px; top: 497px; width: 170px; height: 30px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;  color: white;" 
                                          icon="ui-icon-extlink" id="ANADIRAPARAMETROS" value="#{msg['anadirParametros']}" process="@this" />
-                        <p:tooltip style="font-size: 12px" for="ANADIRAPARAMETROS" value="#{msg['textAnadirParametros']}" />
+                        <p:tooltip style="font-size: 12px;" for="ANADIRAPARAMETROS" value="#{msg['textAnadirParametros']}" />
 
                         <p:commandButton style="position: absolute; left: 690px; top: 497px;height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" process="@this" action="nominaf"/>
@@ -1850,29 +1850,29 @@
 
                 <h:form id="formularioDialogos">
 
-                    <p:dialog id="errorFechasIngresadas" header="#{msg['error']}" widgetVar="errorFechasIngresadas"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorFechasIngresadas" header="#{msg['error']}" widgetVar="errorFechasIngresadas"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechasIngresadas']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorSueldos" header="#{msg['error']}" widgetVar="errorSueldos"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorSueldos" header="#{msg['error']}" widgetVar="errorSueldos"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorSueldos']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorPromedios" header="#{msg['error']}" widgetVar="errorPromedios"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorPromedios" header="#{msg['error']}" widgetVar="errorPromedios"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorPromedios']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorIdiomaPorcentajes" header="#{msg['error']}" widgetVar="errorIdiomaPorcentajes"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorIdiomaPorcentajes" header="#{msg['error']}" widgetVar="errorIdiomaPorcentajes"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorIdiomaPorcentajes']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
                     <p:dialog header="#{msg['cargoD']}" widgetVar="DialogoCargos" draggable="false" resizable="false" closable="false" id="DialogoCargos"  
                               showEffect="fade" hideEffect="fade" width="440" modal="true" height="375" style="font-size: 11px;" >
-                        <p:dataTable id="LOVCargos" style="font-size: 11px; width: 405px" scrollWidth="420" var="cargo" value="#{controlBusquedaAvanzada.lovCargos}" rowKey="#{cargo.secuencia}"
+                        <p:dataTable id="LOVCargos" style="font-size: 11px; width: 405px;" scrollWidth="420" var="cargo" value="#{controlBusquedaAvanzada.lovCargos}" rowKey="#{cargo.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionCargo}" selectionMode="single" widgetVar="LOVCargos" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovCargos}" emptyMessage="#{msg['lovvacio']}" >   
 
@@ -1900,11 +1900,11 @@
                         </p:dataTable>
 
                         <h:outputText id="infoRegistroC" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left:  10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom:5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionCargo == null ? true : false}"
+                        <p:commandButton id="aceptarC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom:5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionCargo == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('CARGO')}" process="@this" update=":form:opcionesCosto:parametroCargo" oncomplete="LOVCargos.clearFilters(); DialogoCargos.hide();">
                             <p:resetInput target=":formularioDialogos:LOVCargos:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}" 
+                        <p:commandButton id="atrasC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}" 
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('CARGO')}" process="@this" oncomplete="LOVCargos.clearFilters(); DialogoCargos.hide();" >
                             <p:resetInput target=":formularioDialogos:LOVCargos:globalFilter"/>
                         </p:commandButton>
@@ -1912,7 +1912,7 @@
 
                     <p:dialog header="#{msg['estructuraD']}" widgetVar="EstructuraDialogo" draggable="false" resizable="false" closable="false" id="EstructuraDialogo" 
                               showEffect="fade" hideEffect="fade" height="375" width="530" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovEstructuras" style="font-size: 11px; width: 490px" var="estructura" value="#{controlBusquedaAvanzada.lovEstructuras}" rowKey="#{estructura.secuencia}"
+                        <p:dataTable id="lovEstructuras" style="font-size: 11px; width: 490px;" var="estructura" value="#{controlBusquedaAvanzada.lovEstructuras}" rowKey="#{estructura.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionEstructura}" selectionMode="single" widgetVar="lovEstructuras" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovEstructuras}" emptyMessage="#{msg['lovvacio']}">    
 
@@ -1937,11 +1937,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroE" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarE" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  250px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionEstructura == null ? true : false}" 
+                        <p:commandButton id="aceptarE" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  250px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionEstructura == null ? true : false}" 
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('ESTRUCTURA')}"  process="@this" update=":form:opcionesCosto:parametroEstructura, :form:opcionesCosto:parametroCentroCosto" oncomplete="lovEstructuras.clearFilters(); EstructuraDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovEstructuras:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  250px" value="#{msg['atras']}" 
+                        <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  250px;" value="#{msg['atras']}" 
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('ESTRUCTURA')}" process="@this" oncomplete="lovEstructuras.clearFilters(); EstructuraDialogo.hide();" >
                             <p:resetInput target=":formularioDialogos:lovEstructuras:globalFilter"/>
                         </p:commandButton>
@@ -1949,7 +1949,7 @@
 
                     <p:dialog header="#{msg['empleadoJefeD']}" widgetVar="JefeDialogo" draggable="false" resizable="false" closable="false" id="JefeDialogo"  
                               showEffect="fade" hideEffect="fade" height="375" width="440" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovJefe" style="font-size: 11px;  width: 405px" scrollWidth="420"  var="jefe" value="#{controlBusquedaAvanzada.lovJefe}" rowKey="#{jefe.secuencia}"
+                        <p:dataTable id="lovJefe" style="font-size: 11px;  width: 405px;" scrollWidth="420"  var="jefe" value="#{controlBusquedaAvanzada.lovJefe}" rowKey="#{jefe.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionJefe}" selectionMode="single" widgetVar="lovJefe" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovJefe}" emptyMessage="#{msg['lovvacio']}">
 
@@ -1968,11 +1968,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroJ" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarJ" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionJefe == null ? true : false}" 
+                        <p:commandButton id="aceptarJ" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionJefe == null ? true : false}" 
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('JEFE')}"  process="@this" update=":form:opcionesCosto:parametroJefe" oncomplete="lovJefe.clearFilters(); JefeDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovJefe:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasJ" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}" 
+                        <p:commandButton id="atrasJ" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}" 
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('JEFE')}" process="@this" oncomplete="lovJefe.clearFilters(); JefeDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovJefe:globalFilter"/>
                         </p:commandButton>
@@ -1980,7 +1980,7 @@
 
                     <p:dialog header="#{msg['motivoCargoD']}" widgetVar="MotivoCargoDialogo" draggable="false" resizable="false" closable="false" id="MotivoCargoDialogo"  
                               showEffect="fade" hideEffect="fade" height="375" width="440" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovMotivoCargo" style="font-size: 11px;  width: 405px" scrollWidth="420"  var="motivoC" value="#{controlBusquedaAvanzada.lovMotivosCargos}" rowKey="#{motivoC.secuencia}"
+                        <p:dataTable id="lovMotivoCargo" style="font-size: 11px;  width: 405px;" scrollWidth="420"  var="motivoC" value="#{controlBusquedaAvanzada.lovMotivosCargos}" rowKey="#{motivoC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionMotivoCargo}" selectionMode="single" widgetVar="lovMotivoCargo" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovMotivosCargos}" emptyMessage="#{msg['lovvacio']}">     
 
@@ -1999,11 +1999,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroMC" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarMC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionMotivoCargo == null ? true : false}" 
+                        <p:commandButton id="aceptarMC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionMotivoCargo == null ? true : false}" 
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('MOTIVOCARGO')}"  process="@this" update=":form:opcionesCosto:parametroMotivo" oncomplete="lovMotivoCargo.clearFilters(); MotivoCargoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovMotivoCargo:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasMC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}" 
+                        <p:commandButton id="atrasMC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}" 
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('MOTIVOCARGO')}" process="@this" oncomplete="lovMotivoCargo.clearFilters(); MotivoCargoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovMotivoCargo:globalFilter"/>
                         </p:commandButton>
@@ -2011,7 +2011,7 @@
 
                     <p:dialog header="#{msg['papelesD']}" widgetVar="PapelCargoDialogo" draggable="false" resizable="false" closable="false" id="PapelCargoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovPapelCargo" style="font-size: 11px;  width: 405px" scrollWidth="420"  var="papelC" value="#{controlBusquedaAvanzada.lovPapeles}" rowKey="#{papelC.secuencia}"
+                        <p:dataTable id="lovPapelCargo" style="font-size: 11px;  width: 405px;" scrollWidth="420"  var="papelC" value="#{controlBusquedaAvanzada.lovPapeles}" rowKey="#{papelC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionPapel}" selectionMode="single" widgetVar="lovPapelCargo" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovPapeles}" emptyMessage="#{msg['lovvacio']}">   
 
@@ -2030,11 +2030,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroPC" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarPC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionPapel == null ? true : false}"
+                        <p:commandButton id="aceptarPC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionPapel == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('PAPEL')}"  process="@this" update=":form:opcionesCosto:parametroPapel" oncomplete="lovPapelCargo.clearFilters(); PapelCargoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovPapelCargo:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasPC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}" 
+                        <p:commandButton id="atrasPC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}" 
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('PAPEL')}" process="@this" oncomplete="lovPapelCargo.clearFilters(); PapelCargoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovPapelCargo:globalFilter"/>
                         </p:commandButton>
@@ -2042,7 +2042,7 @@
 
                     <p:dialog header="#{msg['localizacionD']}" widgetVar="LocalizacionCentroCostoDialogo" draggable="false" resizable="false" closable="false" id="LocalizacionCentroCostoDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovLocalizacionCentroCosto" style="font-size: 11px; width: 490px" var="localizacionCentroCosto" value="#{controlBusquedaAvanzada.lovEstructuras}" rowKey="#{localizacionCentroCosto.secuencia}"
+                        <p:dataTable id="lovLocalizacionCentroCosto" style="font-size: 11px; width: 490px;" var="localizacionCentroCosto" value="#{controlBusquedaAvanzada.lovEstructuras}" rowKey="#{localizacionCentroCosto.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionEstructura}" selectionMode="single" widgetVar="lovLocalizacionCentroCosto" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovEstructuras}" emptyMessage="#{msg['lovvacio']}">  
 
@@ -2068,11 +2068,11 @@
                         </p:dataTable>
 
                         <h:outputText id="infoRegistroECC" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarECC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionEstructura == null ? true : false}"
+                        <p:commandButton id="aceptarECC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionEstructura == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('LOCALIZACION')}"  process="@this" update=":form:opcionesCentroCosto:parametroLocalizacion" oncomplete="lovLocalizacionCentroCosto.clearFilters(); LocalizacionCentroCostoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovLocalizacionCentroCosto:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasECC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}" 
+                        <p:commandButton id="atrasECC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}" 
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('LOCALIZACION')}" process="@this" oncomplete="lovLocalizacionCentroCosto.clearFilters(); LocalizacionCentroCostoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovLocalizacionCentroCosto:globalFilter"/>
                         </p:commandButton>
@@ -2080,7 +2080,7 @@
 
                     <p:dialog header="#{msg['motivoLocalizacionD']}" widgetVar="MotivoCentroCostoDialogo" draggable="false" resizable="false" closable="false" id="MotivoCentroCostoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovMotivoCentroCosto" style="font-size: 11px; width: 405px" scrollWidth="420" var="motivoCC" value="#{controlBusquedaAvanzada.lovMotivosLocalizaciones}" rowKey="#{motivoCC.secuencia}"
+                        <p:dataTable id="lovMotivoCentroCosto" style="font-size: 11px; width: 405px;" scrollWidth="420" var="motivoCC" value="#{controlBusquedaAvanzada.lovMotivosLocalizaciones}" rowKey="#{motivoCC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionMotivoLocalizacion}" selectionMode="single" widgetVar="lovMotivoCentroCosto" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovMotivosLocalizaciones}" emptyMessage="#{msg['lovvacio']}" >              
 
@@ -2099,11 +2099,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroMCC" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarMCC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionMotivoLocalizacion == null ? true : false}"
+                        <p:commandButton id="aceptarMCC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionMotivoLocalizacion == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('MOTIVOLOCALIZACION')}"  process="@this" update=":form:opcionesCentroCosto:parametroMotivoLocalizacion" oncomplete="lovMotivoCentroCosto.clearFilters(); MotivoCentroCostoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovMotivoCentroCosto:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasMCC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}" 
+                        <p:commandButton id="atrasMCC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}" 
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('MOTIVOLOCALIZACION')}" process="@this" oncomplete="lovMotivoCentroCosto.clearFilters(); MotivoCentroCostoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovLocalizacionCentroCosto:globalFilter"/>
                         </p:commandButton>
@@ -2111,7 +2111,7 @@
 
                     <p:dialog header="#{msg['tipoSueldoD']}" widgetVar="TipoSueldoSueldoDialogo" draggable="false" resizable="false" closable="false" id="TipoSueldoSueldoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovTipoSueldoSueldo" style="font-size: 11px; width: 405px" scrollWidth="420" var="sueldoS" value="#{controlBusquedaAvanzada.lovTiposSueldos}" rowKey="#{sueldoS.secuencia}"
+                        <p:dataTable id="lovTipoSueldoSueldo" style="font-size: 11px; width: 405px;" scrollWidth="420" var="sueldoS" value="#{controlBusquedaAvanzada.lovTiposSueldos}" rowKey="#{sueldoS.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionTipoSueldo}" selectionMode="single" widgetVar="lovTipoSueldoSueldo" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovTiposSueldos}" emptyMessage="#{msg['lovvacio']}" >              
 
@@ -2130,11 +2130,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroTSS" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarTSS" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionTipoSueldo == null ? true : false}"
+                        <p:commandButton id="aceptarTSS" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionTipoSueldo == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('TIPOSUELDO')}"  process="@this" update=":form:opcionesSueldo:parametroTipoSueldo" oncomplete="lovTipoSueldoSueldo.clearFilters(); TipoSueldoSueldoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovTipoSueldoSueldo:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasTSS" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}"  
+                        <p:commandButton id="atrasTSS" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}"  
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('TIPOSUELDO')}" process="@this" oncomplete="lovTipoSueldoSueldo.clearFilters(); TipoSueldoSueldoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovTipoSueldoSueldo:globalFilter"/>
                         </p:commandButton>
@@ -2142,7 +2142,7 @@
 
                     <p:dialog header="#{msg['motivoCambioSD']}" widgetVar="MotivoSueldoDialogo" draggable="false" resizable="false" closable="false" id="MotivoSueldoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovMotivoSueldo" style="font-size: 11px; width: 405px" scrollWidth="420" var="motivoS" value="#{controlBusquedaAvanzada.lovMotivosSueldos}" rowKey="#{motivoS.secuencia}"
+                        <p:dataTable id="lovMotivoSueldo" style="font-size: 11px; width: 405px;" scrollWidth="420" var="motivoS" value="#{controlBusquedaAvanzada.lovMotivosSueldos}" rowKey="#{motivoS.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionMotivoSueldo}" selectionMode="single" widgetVar="lovMotivoSueldo" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovMotivosSueldos}" emptyMessage="#{msg['lovvacio']}" >              
 
@@ -2161,11 +2161,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroMSS" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarMSS" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionMotivoSueldo == null ? true : false}"
+                        <p:commandButton id="aceptarMSS" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionMotivoSueldo == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('MOTIVOSUELDO')}"  process="@this" update=":form:opcionesSueldo:parametroMotivoSueldo" oncomplete="lovMotivoSueldo.clearFilters(); MotivoSueldoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovMotivoSueldo:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasMSS" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}"   
+                        <p:commandButton id="atrasMSS" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}"   
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('MOTIVOSUELDO')}" process="@this" oncomplete="lovMotivoSueldo.clearFilters(); MotivoSueldoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovMotivoSueldo:globalFilter"/>
                         </p:commandButton>
@@ -2173,7 +2173,7 @@
 
                     <p:dialog header="#{msg['tipoContratoD']}" widgetVar="TipoContratoFechaContratoDialogo" draggable="false" resizable="false" closable="false" id="TipoContratoFechaContratoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovTipoContratoFechaContrato" style="font-size: 11px; width: 405px" scrollWidth="420" var="tipoCFC" value="#{controlBusquedaAvanzada.lovTiposContratos}" rowKey="#{tipoCFC.secuencia}"
+                        <p:dataTable id="lovTipoContratoFechaContrato" style="font-size: 11px; width: 405px;" scrollWidth="420" var="tipoCFC" value="#{controlBusquedaAvanzada.lovTiposContratos}" rowKey="#{tipoCFC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionTipoContrato}" selectionMode="single" widgetVar="lovTipoContratoFechaContrato" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovTiposContratos}" emptyMessage="#{msg['lovvacio']}" >              
 
@@ -2192,11 +2192,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroTCFC" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarTCFC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionTipoContrato == null ? true : false}"
+                        <p:commandButton id="aceptarTCFC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionTipoContrato == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('TIPOCONTRATO')}"  process="@this" update=":form:opcionesTipoContrato:parametroTipoContrato" oncomplete="lovTipoContratoFechaContrato.clearFilters(); TipoContratoFechaContratoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovTipoContratoFechaContrato:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasTCFC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}"   
+                        <p:commandButton id="atrasTCFC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}"   
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('TIPOCONTRATO')}" process="@this" oncomplete="lovTipoContratoFechaContrato.clearFilters(); TipoContratoFechaContratoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovTipoContratoFechaContrato:globalFilter"/>
                         </p:commandButton>
@@ -2204,7 +2204,7 @@
 
                     <p:dialog header="#{msg['motivoContratoD']}" widgetVar="MotivoFechaContratoDialogo" draggable="false" resizable="false" closable="false" id="MotivoFechaContratoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovMotivoFechaContrato" style="font-size: 11px; width: 405px" scrollWidth="420" var="motivoFC" value="#{controlBusquedaAvanzada.lovMotivosContratos}" rowKey="#{motivoFC.secuencia}"
+                        <p:dataTable id="lovMotivoFechaContrato" style="font-size: 11px; width: 405px;" scrollWidth="420" var="motivoFC" value="#{controlBusquedaAvanzada.lovMotivosContratos}" rowKey="#{motivoFC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionMotivoContrato}" selectionMode="single" widgetVar="lovMotivoFechaContrato" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovMotivosContratos}" emptyMessage="#{msg['lovvacio']}" >              
 
@@ -2223,11 +2223,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroMFC" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarMFC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionMotivoContrato == null ? true : false}"
+                        <p:commandButton id="aceptarMFC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionMotivoContrato == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('MOTIVOCONTRATO')}"  process="@this" update=":form:opcionesTipoContrato:parametroMotivoContrato" oncomplete="lovMotivoFechaContrato.clearFilters(); MotivoFechaContratoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovMotivoFechaContrato:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasMFC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}"    
+                        <p:commandButton id="atrasMFC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}"    
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('MOTIVOCONTRATO')}" process="@this" oncomplete="lovMotivoFechaContrato.clearFilters(); MotivoFechaContratoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovMotivoFechaContrato:globalFilter"/>
                         </p:commandButton>
@@ -2235,7 +2235,7 @@
 
                     <p:dialog header="#{msg['tipoTrabajadorD']}" widgetVar="TipoTrabajadorTipoTrabajadorDialogo" draggable="false" resizable="false" closable="false" id="TipoTrabajadorTipoTrabajadorDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovTipoTrabajadorTipoTrabajador" style="font-size: 11px; width: 405px" scrollWidth="420" var="tipoTTT" value="#{controlBusquedaAvanzada.lovTiposTrabajadores}" rowKey="#{tipoTTT.secuencia}"
+                        <p:dataTable id="lovTipoTrabajadorTipoTrabajador" style="font-size: 11px; width: 405px;" scrollWidth="420" var="tipoTTT" value="#{controlBusquedaAvanzada.lovTiposTrabajadores}" rowKey="#{tipoTTT.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionTipoTrabajador}" selectionMode="single" widgetVar="lovTipoTrabajadorTipoTrabajador" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}" >              
 
@@ -2254,11 +2254,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroTTTT" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarTTTT" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionTipoTrabajador == null ? true : false}"
+                        <p:commandButton id="aceptarTTTT" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionTipoTrabajador == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('TIPOTRABAJADOR')}"  process="@this" update=":form:opcionesTipoTrabajador:parametroTipoTrabajador" oncomplete="lovTipoTrabajadorTipoTrabajador.clearFilters(); TipoTrabajadorTipoTrabajadorDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovTipoTrabajadorTipoTrabajador:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasTTTT" icon="ui-icon-arrowreturnthick-1-w"  style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}"     
+                        <p:commandButton id="atrasTTTT" icon="ui-icon-arrowreturnthick-1-w"  style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}"     
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('TIPOTRABAJADOR')}" process="@this" oncomplete="lovTipoTrabajadorTipoTrabajador.clearFilters(); TipoTrabajadorTipoTrabajadorDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovTipoTrabajadorTipoTrabajador:globalFilter"/>
                         </p:commandButton>
@@ -2266,7 +2266,7 @@
 
                     <p:dialog header="#{msg['reformaLaboralD']}" widgetVar="ReformaLaboralTipoSalarioDialogo" draggable="false" resizable="false" closable="false" id="ReformaLaboralTipoSalarioDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovReformaLaboralTipoSalario" style="font-size: 11px; width: 405px" scrollWidth="420" var="reformaLTS" value="#{controlBusquedaAvanzada.lovReformasLaborales}" rowKey="#{reformaLTS.secuencia}"
+                        <p:dataTable id="lovReformaLaboralTipoSalario" style="font-size: 11px; width: 405px;" scrollWidth="420" var="reformaLTS" value="#{controlBusquedaAvanzada.lovReformasLaborales}" rowKey="#{reformaLTS.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionReformaLaboral}" selectionMode="single" widgetVar="lovReformaLaboralTipoSalario" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovReformasLaborales}" emptyMessage="#{msg['lovvacio']}" >              
 
@@ -2285,11 +2285,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroRLTS" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarRLTS" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionReformaLaboral == null ? true : false}"
+                        <p:commandButton id="aceptarRLTS" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionReformaLaboral == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('REFORMALABORAL')}"  process="@this" update=":form:opcionesTipoSalario:parametroReformaLaboral" oncomplete="lovReformaLaboralTipoSalario.clearFilters(); ReformaLaboralTipoSalarioDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovReformaLaboralTipoSalario:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasRLTS" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}"      
+                        <p:commandButton id="atrasRLTS" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}"      
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('REFORMALABORAL')}" process="@this" oncomplete="lovReformaLaboralTipoSalario.clearFilters(); ReformaLaboralTipoSalarioDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovReformaLaboralTipoSalario:globalFilter"/>
                         </p:commandButton>
@@ -2297,7 +2297,7 @@
 
                     <p:dialog header="#{msg['legislacionLaboralD']}" widgetVar="LegislacionLegislacionLaboralDialogo" draggable="false" resizable="false" closable="false" id="LegislacionLegislacionLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovLegislacionLegislacionLaboral" style="font-size: 11px; width: 405px" scrollWidth="420" var="legislacionLL" value="#{controlBusquedaAvanzada.lovContratos}" rowKey="#{legislacionLL.secuencia}"
+                        <p:dataTable id="lovLegislacionLegislacionLaboral" style="font-size: 11px; width: 405px;" scrollWidth="420" var="legislacionLL" value="#{controlBusquedaAvanzada.lovContratos}" rowKey="#{legislacionLL.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionContrato}" selectionMode="single" widgetVar="lovLegislacionLegislacionLaboral" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovContratos}" emptyMessage="#{msg['lovvacio']}" >              
 
@@ -2316,11 +2316,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroLLL" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarLLL" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionContrato == null ? true : false}"
+                        <p:commandButton id="aceptarLLL" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionContrato == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('CONTRATO')}"  process="@this" update=":form:opcionesLegislacionLaboral:parametroLegislacion" oncomplete="lovLegislacionLegislacionLaboral.clearFilters(); LegislacionLegislacionLaboralDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovLegislacionLegislacionLaboral:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasLLL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}"       
+                        <p:commandButton id="atrasLLL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}"       
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('CONTRATO')}" process="@this" oncomplete="lovLegislacionLegislacionLaboral.clearFilters(); LegislacionLegislacionLaboralDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovLegislacionLegislacionLaboral:globalFilter"/>
                         </p:commandButton>
@@ -2328,7 +2328,7 @@
 
                     <p:dialog header="#{msg['ubicacionGeograrficaD']}" widgetVar="UbicacionUbicacionDialogo" draggable="false" resizable="false" closable="false" id="UbicacionUbicacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovUbicacionUbicacion" style="font-size: 11px; width: 490px" var="ubicacionUG" value="#{controlBusquedaAvanzada.lovUbicaciones}" rowKey="#{ubicacionUG.secuencia}"
+                        <p:dataTable id="lovUbicacionUbicacion" style="font-size: 11px; width: 490px;" var="ubicacionUG" value="#{controlBusquedaAvanzada.lovUbicaciones}" rowKey="#{ubicacionUG.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionUbicacion}" selectionMode="single" widgetVar="lovUbicacionUbicacion" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovUbicaciones}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -2353,11 +2353,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroUUG" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarUUG" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionUbicacion == null ? true : false}"
+                        <p:commandButton id="aceptarUUG" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionUbicacion == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('UBICACION')}"  process="@this" update=":form:opcionesUbicacion:parametroUbicacion, :form:opcionesUbicacion:parametroCiudad" oncomplete="lovUbicacionUbicacion.clearFilters(); UbicacionUbicacionDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovUbicacionUbicacion:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasUUG" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"      
+                        <p:commandButton id="atrasUUG" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"      
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('UBICACION')}" process="@this" oncomplete="lovUbicacionUbicacion.clearFilters(); UbicacionUbicacionDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovUbicacionUbicacion:globalFilter"/>
                         </p:commandButton>
@@ -2365,7 +2365,7 @@
 
                     <p:dialog header="#{msg['terceroD']}" widgetVar="TerceroAfiliacionDialogo" draggable="false" resizable="false" closable="false" id="TerceroAfiliacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovTerceroAfiliacion" style="font-size: 11px; width: 490px" var="terceroA" value="#{controlBusquedaAvanzada.lovTercerosSucursales}" rowKey="#{terceroA.secuencia}"
+                        <p:dataTable id="lovTerceroAfiliacion" style="font-size: 11px; width: 490px;" var="terceroA" value="#{controlBusquedaAvanzada.lovTercerosSucursales}" rowKey="#{terceroA.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionTerceroSucursal}" selectionMode="single" widgetVar="lovTerceroAfiliacion" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovTercerosSucursales}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -2396,11 +2396,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroTSA" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarTSA" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionTerceroSucursal == null ? true : false}"
+                        <p:commandButton id="aceptarTSA" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionTerceroSucursal == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('TERCEROSUCURSAL')}"  process="@this" update=":form:opcionesAfiliacion:parametroTercero" oncomplete="lovTerceroAfiliacion.clearFilters(); TerceroAfiliacionDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovTerceroAfiliacion:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasTSA" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"     
+                        <p:commandButton id="atrasTSA" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"     
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('TERCEROSUCURSAL')}" process="@this" oncomplete="lovTerceroAfiliacion.clearFilters(); TerceroAfiliacionDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovTerceroAfiliacion:globalFilter"/>
                         </p:commandButton>
@@ -2408,7 +2408,7 @@
 
                     <p:dialog header="#{msg['tipoEntidadD']}" widgetVar="TipoEntidadAfiliacionDialogo" draggable="false" resizable="false" closable="false" id="TipoEntidadAfiliacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovTipoEntidadAfiliacion" style="font-size: 11px; width: 405px" scrollWidth="420" var="tipoEA" value="#{controlBusquedaAvanzada.lovTiposEntidades}" rowKey="#{tipoEA.secuencia}"
+                        <p:dataTable id="lovTipoEntidadAfiliacion" style="font-size: 11px; width: 405px;" scrollWidth="420" var="tipoEA" value="#{controlBusquedaAvanzada.lovTiposEntidades}" rowKey="#{tipoEA.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionTipoEntidad}" selectionMode="single" widgetVar="lovTipoEntidadAfiliacion" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovTiposEntidades}" emptyMessage="#{msg['lovvacio']}" >              
 
@@ -2427,11 +2427,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroTEA" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarTEA" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionTipoEntidad == null ? true : false}"
+                        <p:commandButton id="aceptarTEA" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionTipoEntidad == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('TIPOENTIDAD')}"  process="@this" update=":form:opcionesAfiliacion:parametroTipoEntidad" oncomplete="lovTipoEntidadAfiliacion.clearFilters(); TipoEntidadAfiliacionDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovTipoEntidadAfiliacion:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasTEA" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}"       
+                        <p:commandButton id="atrasTEA" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}"       
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('TIPOENTIDAD')}" process="@this" oncomplete="lovTipoEntidadAfiliacion.clearFilters(); TipoEntidadAfiliacionDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovTipoEntidadAfiliacion:globalFilter"/>
                         </p:commandButton>
@@ -2439,7 +2439,7 @@
 
                     <p:dialog header="#{msg['estadoAfiliacionD']}" widgetVar="EstadoAfiliacionDialogo" draggable="false" resizable="false" closable="false" id="EstadoAfiliacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovEstadoAfiliacion" style="font-size: 11px; width: 405px" scrollWidth="420" var="estadoA" value="#{controlBusquedaAvanzada.lovEstadosAfiliaciones}" rowKey="#{estadoA.secuencia}"
+                        <p:dataTable id="lovEstadoAfiliacion" style="font-size: 11px; width: 405px;" scrollWidth="420" var="estadoA" value="#{controlBusquedaAvanzada.lovEstadosAfiliaciones}" rowKey="#{estadoA.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionEstadoAfiliacion}" selectionMode="single" widgetVar="lovEstadoAfiliacion" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovEstadosAfiliaciones}" emptyMessage="#{msg['lovvacio']}" >              
 
@@ -2458,11 +2458,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroEA" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarEA" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionEstadoAfiliacion == null ? true : false}"
+                        <p:commandButton id="aceptarEA" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionEstadoAfiliacion == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('ESTADOAFILIACION')}"  process="@this" update=":form:opcionesAfiliacion:parametroEstado" oncomplete="lovEstadoAfiliacion.clearFilters(); EstadoAfiliacionDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovEstadoAfiliacion:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasEA" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}"      
+                        <p:commandButton id="atrasEA" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}"      
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('ESTADOAFILIACION')}" process="@this" oncomplete="lovEstadoAfiliacion.clearFilters(); EstadoAfiliacionDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovEstadoAfiliacion:globalFilter"/>
                         </p:commandButton>
@@ -2470,7 +2470,7 @@
 
                     <p:dialog header="#{msg['formaPagoD']}" widgetVar="PeriodicidadFormaPagoDialogo" draggable="false" resizable="false" closable="false" id="PeriodicidadFormaPagoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovPeriodicidadFormaPago" style="font-size: 11px; width: 405px" scrollWidth="420" var="periodicidadFP" value="#{controlBusquedaAvanzada.lovFormasPagos}" rowKey="#{periodicidadFP.secuencia}"
+                        <p:dataTable id="lovPeriodicidadFormaPago" style="font-size: 11px; width: 405px;" scrollWidth="420" var="periodicidadFP" value="#{controlBusquedaAvanzada.lovFormasPagos}" rowKey="#{periodicidadFP.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionFormaPago}" selectionMode="single" widgetVar="lovPeriodicidadFormaPago" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovFormasPagos}" emptyMessage="#{msg['lovvacio']}" >              
 
@@ -2489,11 +2489,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroPFP" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarPFP" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionFormaPago == null ? true : false}"
+                        <p:commandButton id="aceptarPFP" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionFormaPago == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('FORMAPAGO')}"  process="@this" update=":form:opcionesFormaPago:parametroFormaPago" oncomplete="lovPeriodicidadFormaPago.clearFilters(); PeriodicidadFormaPagoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovPeriodicidadFormaPago:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasPFP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}"       
+                        <p:commandButton id="atrasPFP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}"       
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('FORMAPAGO')}" process="@this" oncomplete="lovPeriodicidadFormaPago.clearFilters(); PeriodicidadFormaPagoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovPeriodicidadFormaPago:globalFilter"/>
                         </p:commandButton>
@@ -2501,7 +2501,7 @@
 
                     <p:dialog header="#{msg['sucursalD']}" widgetVar="SucursalFormaPagoDialogo" draggable="false" resizable="false" closable="false" id="SucursalFormaPagoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovSucursalFormaPago" style="font-size: 11px; width: 405px" scrollWidth="420" var="sucursalFP" value="#{controlBusquedaAvanzada.lovSucursales}" rowKey="#{sucursalFP.secuencia}"
+                        <p:dataTable id="lovSucursalFormaPago" style="font-size: 11px; width: 405px;" scrollWidth="420" var="sucursalFP" value="#{controlBusquedaAvanzada.lovSucursales}" rowKey="#{sucursalFP.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionSucursal}" selectionMode="single" widgetVar="lovSucursalFormaPago" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovSucursales}" emptyMessage="#{msg['lovvacio']}" >              
 
@@ -2520,11 +2520,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroSFP" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarSFP" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionSucursal == null ? true : false}"
+                        <p:commandButton id="aceptarSFP" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionSucursal == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('SUCURSAL')}"  process="@this" update=":form:opcionesFormaPago:parametroSucursal" oncomplete="lovSucursalFormaPago.clearFilters(); SucursalFormaPagoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovSucursalFormaPago:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasSFP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}"       
+                        <p:commandButton id="atrasSFP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}"       
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('SUCURSAL')}" process="@this" oncomplete="lovSucursalFormaPago.clearFilters(); SucursalFormaPagoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovSucursalFormaPago:globalFilter"/>
                         </p:commandButton>
@@ -2533,7 +2533,7 @@
 
                     <p:dialog header="#{msg['motivoMVRD']}" widgetVar="MotivoMvrsDialogo" draggable="false" resizable="false" closable="false" id="MotivoMvrsDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovMotivoMvrs" style="font-size: 11px; width: 405px" scrollWidth="420" var="motivoMVR" value="#{controlBusquedaAvanzada.lovMotivosmvrs}" rowKey="#{motivoMVR.secuencia}"
+                        <p:dataTable id="lovMotivoMvrs" style="font-size: 11px; width: 405px;" scrollWidth="420" var="motivoMVR" value="#{controlBusquedaAvanzada.lovMotivosmvrs}" rowKey="#{motivoMVR.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionMotivoMvr}" selectionMode="single" widgetVar="lovMotivoMvrs" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovMotivosmvrs}" emptyMessage="#{msg['lovvacio']}" >              
 
@@ -2552,11 +2552,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroMMVR" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarMMVR" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionMotivoMvr == null ? true : false}"
+                        <p:commandButton id="aceptarMMVR" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionMotivoMvr == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('MOTIVOMVR')}"  process="@this" update=":form:opcionesMvrs:parametroMotivoMvrs" oncomplete="lovMotivoMvrs.clearFilters(); MotivoMvrsDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovMotivoMvrs:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasMMVR" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}"        
+                        <p:commandButton id="atrasMMVR" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}"        
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('MOTIVOMVR')}" process="@this" oncomplete="lovMotivoMvrs.clearFilters(); MotivoMvrsDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovMotivoMvrs:globalFilter"/>
                         </p:commandButton>
@@ -2564,7 +2564,7 @@
 
                     <p:dialog header="#{msg['normaLaboralD']}" widgetVar="NormaLaboralNormaLaboralDialogo" draggable="false" resizable="false" closable="false" id="NormaLaboralNormaLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovNormaLaboralNormaLaboral" style="font-size: 11px; width: 405px" scrollWidth="420" var="normaLNL" value="#{controlBusquedaAvanzada.lovNormasLaborales}" rowKey="#{normaLNL.secuencia}"
+                        <p:dataTable id="lovNormaLaboralNormaLaboral" style="font-size: 11px; width: 405px;" scrollWidth="420" var="normaLNL" value="#{controlBusquedaAvanzada.lovNormasLaborales}" rowKey="#{normaLNL.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionNormaLaboral}" selectionMode="single" widgetVar="lovNormaLaboralNormaLaboral" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovNormasLaborales}" emptyMessage="#{msg['lovvacio']}" >              
 
@@ -2583,11 +2583,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroNLNL" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarNLNL" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionNormaLaboral == null ? true : false}"
+                        <p:commandButton id="aceptarNLNL" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionNormaLaboral == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('NORMALABORAL')}"  process="@this" update=":form:opcionesNormaLaboral:parametroNormaLaboral" oncomplete="lovNormaLaboralNormaLaboral.clearFilters(); NormaLaboralNormaLaboralDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovNormaLaboralNormaLaboral:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasNLNL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px" value="#{msg['atras']}"        
+                        <p:commandButton id="atrasNLNL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  160px;" value="#{msg['atras']}"        
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('NORMALABORAL')}" process="@this" oncomplete="lovNormaLaboralNormaLaboral.clearFilters(); NormaLaboralNormaLaboralDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovNormaLaboralNormaLaboral:globalFilter"/>
                         </p:commandButton>
@@ -2595,7 +2595,7 @@
 
                     <p:dialog header="#{msg['jornadaLaboralD']}" widgetVar="JornadaJornadaLaboralDialogo" draggable="false" resizable="false" closable="false" id="JornadaJornadaLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovJornadaJornadaLaboral" style="font-size: 11px; width: 490px" var="jornadaJL" value="#{controlBusquedaAvanzada.lovJornadasLaborales}" rowKey="#{jornadaJL.secuencia}"
+                        <p:dataTable id="lovJornadaJornadaLaboral" style="font-size: 11px; width: 490px;" var="jornadaJL" value="#{controlBusquedaAvanzada.lovJornadasLaborales}" rowKey="#{jornadaJL.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionJornadaLaboral}" selectionMode="single" widgetVar="lovJornadaJornadaLaboral" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovJornadasLaborales}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -2620,11 +2620,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroJLJL" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarJLJL" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionJornadaLaboral == null ? true : false}"
+                        <p:commandButton id="aceptarJLJL" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionJornadaLaboral == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('JORNADALABORAL')}"  process="@this" update=":form:opcionesJornadaLaboral:parametroJornada" oncomplete="lovJornadaJornadaLaboral.clearFilters(); JornadaJornadaLaboralDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovJornadaJornadaLaboral:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasJLJL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"        
+                        <p:commandButton id="atrasJLJL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"        
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('JORNADALABORAL')}" process="@this" oncomplete="lovJornadaJornadaLaboral.clearFilters(); JornadaJornadaLaboralDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovJornadaJornadaLaboral:globalFilter"/>
                         </p:commandButton>
@@ -2632,7 +2632,7 @@
 
                     <p:dialog header="#{msg['motivoRetiroD']}" widgetVar="MotivoFechaRetiroDialogo" draggable="false" resizable="false" closable="false" id="MotivoFechaRetiroDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovMotivoFechaRetiro" style="font-size: 11px; width: 490px" var="motivoFR" value="#{controlBusquedaAvanzada.lovMotivosRetiros}" rowKey="#{motivoFR.secuencia}"
+                        <p:dataTable id="lovMotivoFechaRetiro" style="font-size: 11px; width: 490px;" var="motivoFR" value="#{controlBusquedaAvanzada.lovMotivosRetiros}" rowKey="#{motivoFR.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionMotivoRetiro}" selectionMode="single" widgetVar="lovMotivoFechaRetiro" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovMotivosRetiros}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -2657,11 +2657,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroMRFR" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarMRFR" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionMotivoRetiro == null ? true : false}"
+                        <p:commandButton id="aceptarMRFR" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionMotivoRetiro == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroNomina('MOTIVORETIRO')}"  process="@this" update=":form:opcionesRetiro:parametroMotivoRetiro" oncomplete="lovMotivoFechaRetiro.clearFilters(); MotivoFechaRetiroDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovMotivoFechaRetiro:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasMRFR" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"        
+                        <p:commandButton id="atrasMRFR" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"        
                                          actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('MOTIVORETIRO')}" process="@this" oncomplete="lovMotivoFechaRetiro.clearFilters(); MotivoFechaRetiroDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovMotivoFechaRetiro:globalFilter"/>
                         </p:commandButton>
@@ -2670,7 +2670,7 @@
 
                     <p:dialog header="#{msg['ciudadesD']}" widgetVar="CiudadDocumentoDatosPersonalesDialogo" draggable="false" resizable="false" closable="false" id="CiudadDocumentoDatosPersonalesDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovCiudadDocumentoDatosPersonales" style="font-size: 11px; width: 490px" var="documentoDP" value="#{controlBusquedaAvanzada.lovCiudades}" rowKey="#{documentoDP.secuencia}"
+                        <p:dataTable id="lovCiudadDocumentoDatosPersonales" style="font-size: 11px; width: 490px;" var="documentoDP" value="#{controlBusquedaAvanzada.lovCiudades}" rowKey="#{documentoDP.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionCiudad}" selectionMode="single" widgetVar="lovCiudadDocumentoDatosPersonales" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovCiudades}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="80">              
 
@@ -2695,11 +2695,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroCDDP" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarCDDP" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionCiudad == null ? true : false}"
+                        <p:commandButton id="aceptarCDDP" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionCiudad == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('CIUDADDOCUMENTO')}"  process="@this" update=":form:opcionesDatosPersonales:parametroCiudadDocumentoDatosPersonales" oncomplete="lovCiudadDocumentoDatosPersonales.clearFilters(); CiudadDocumentoDatosPersonalesDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovCiudadDocumentoDatosPersonales:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasCDDP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"         
+                        <p:commandButton id="atrasCDDP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"         
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('CIUDADDOCUMENTO')}" process="@this" oncomplete="lovCiudadDocumentoDatosPersonales.clearFilters(); CiudadDocumentoDatosPersonalesDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovCiudadDocumentoDatosPersonales:globalFilter"/>
                         </p:commandButton>
@@ -2707,7 +2707,7 @@
 
                     <p:dialog header="#{msg['ciudadesD']}" widgetVar="CiudadNacimientoDatosPersonalesDialogo" draggable="false" resizable="false" closable="false" id="CiudadNacimientoDatosPersonalesDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovCiudadNacimientoDatosPersonales" style="font-size: 11px; width: 490px" var="nacimientoDP" value="#{controlBusquedaAvanzada.lovCiudades}" rowKey="#{nacimientoDP.secuencia}"
+                        <p:dataTable id="lovCiudadNacimientoDatosPersonales" style="font-size: 11px; width: 490px;" var="nacimientoDP" value="#{controlBusquedaAvanzada.lovCiudades}" rowKey="#{nacimientoDP.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionCiudad}" selectionMode="single" widgetVar="lovCiudadNacimientoDatosPersonales" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovCiudades}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="80">              
 
@@ -2732,11 +2732,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroCNDP" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarCNDP" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionCiudad == null ? true : false}"
+                        <p:commandButton id="aceptarCNDP" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionCiudad == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('CIUDADNACIMIENTO')}"  process="@this" update=":form:opcionesDatosPersonales:parametroCiudadNacimientoDatosPersonales" oncomplete="lovCiudadNacimientoDatosPersonales.clearFilters(); CiudadNacimientoDatosPersonalesDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovCiudadNacimientoDatosPersonales:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasCNDP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"         
+                        <p:commandButton id="atrasCNDP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"         
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('CIUDADNACIMIENTO')}" process="@this" oncomplete="lovCiudadNacimientoDatosPersonales.clearFilters(); CiudadNacimientoDatosPersonalesDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovCiudadNacimientoDatosPersonales:globalFilter"/>
                         </p:commandButton>
@@ -2744,7 +2744,7 @@
 
                     <p:dialog header="#{msg['estadosCivilesD']}" widgetVar="EstadoCivilEstadoCivilDialogo" draggable="false" resizable="false" closable="false" id="EstadoCivilEstadoCivilDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovEstadoCivilEstadoCivil" style="font-size: 11px; width: 490px" var="estadoCivilEC" value="#{controlBusquedaAvanzada.lovEstadosCiviles}" rowKey="#{estadoCivilEC.secuencia}"
+                        <p:dataTable id="lovEstadoCivilEstadoCivil" style="font-size: 11px; width: 490px;" var="estadoCivilEC" value="#{controlBusquedaAvanzada.lovEstadosCiviles}" rowKey="#{estadoCivilEC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionEstadoCivil}" selectionMode="single" widgetVar="lovEstadoCivilEstadoCivil" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovEstadosCiviles}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -2769,11 +2769,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroECEC" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarECEC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionEstadoCivil == null ? true : false}"
+                        <p:commandButton id="aceptarECEC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionEstadoCivil == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('ESTADOCIVIL')}"  process="@this" update=":form:opcionesEstadoCivil:parametroEstadoCivil" oncomplete="lovEstadoCivilEstadoCivil.clearFilters(); EstadoCivilEstadoCivilDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovEstadoCivilEstadoCivil:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasECEC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"          
+                        <p:commandButton id="atrasECEC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"          
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('ESTADOCIVIL')}" process="@this" oncomplete="lovEstadoCivilEstadoCivil.clearFilters(); EstadoCivilEstadoCivilDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovEstadoCivilEstadoCivil:globalFilter"/>
                         </p:commandButton>
@@ -2781,7 +2781,7 @@
 
                     <p:dialog header="#{msg['idiomasD']}" widgetVar="IdiomaIdiomaDialogo" draggable="false" resizable="false" closable="false" id="IdiomaIdiomaDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovIdiomaIdioma" style="font-size: 11px; width: 490px" var="idiomaI" value="#{controlBusquedaAvanzada.lovIdiomas}" rowKey="#{idiomaI.secuencia}"
+                        <p:dataTable id="lovIdiomaIdioma" style="font-size: 11px; width: 490px;" var="idiomaI" value="#{controlBusquedaAvanzada.lovIdiomas}" rowKey="#{idiomaI.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionIdioma}" selectionMode="single" widgetVar="lovIdiomaIdioma" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovIdiomas}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -2806,11 +2806,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroII" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-                        <p:commandButton id="aceptarII" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionIdioma == null ? true : false}"
+                        <p:commandButton id="aceptarII" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionIdioma == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('IDIOMA')}"  process="@this" update=":form:opcionesIdioma:parametroIdioma" oncomplete="lovIdiomaIdioma.clearFilters(); IdiomaIdiomaDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovIdiomaIdioma:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasII" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"          
+                        <p:commandButton id="atrasII" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"          
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('IDIOMA')}" process="@this" oncomplete="lovIdiomaIdioma.clearFilters(); IdiomaIdiomaDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovIdiomaIdioma:globalFilter"/>
                         </p:commandButton>
@@ -2818,7 +2818,7 @@
 
                     <p:dialog header="#{msg['tipoIndicadorD']}" widgetVar="TipoIndicadorCensoDialogo" draggable="false" resizable="false" closable="false" id="TipoIndicadorCensoDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovTipoIndicadorCenso" style="font-size: 11px; width: 490px" var="tipoIndicadorC" value="#{controlBusquedaAvanzada.lovTiposIndicadores}" rowKey="#{tipoIndicadorC.secuencia}"
+                        <p:dataTable id="lovTipoIndicadorCenso" style="font-size: 11px; width: 490px;" var="tipoIndicadorC" value="#{controlBusquedaAvanzada.lovTiposIndicadores}" rowKey="#{tipoIndicadorC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionTipoIndicador}" selectionMode="single" widgetVar="lovTipoIndicadorCenso" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovTiposIndicadores}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -2843,11 +2843,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroTIC" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarTIC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionTipoIndicador == null ? true : false}"
+                        <p:commandButton id="aceptarTIC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionTipoIndicador == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('TIPOINDICADOR')}"  process="@this" update=":form:opcionesCenso:parametroTipoIndicadorCenso" oncomplete="lovTipoIndicadorCenso.clearFilters(); TipoIndicadorCensoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovTipoIndicadorCenso:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasTIC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"          
+                        <p:commandButton id="atrasTIC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"          
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('TIPOINDICADOR')}" process="@this" oncomplete="lovTipoIndicadorCenso.clearFilters(); TipoIndicadorCensoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovTipoIndicadorCenso:globalFilter"/>
                         </p:commandButton>
@@ -2855,7 +2855,7 @@
 
                     <p:dialog header="#{msg['indicadorD']}" widgetVar="IndicadorCensoDialogo" draggable="false" resizable="false" closable="false" id="IndicadorCensoDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovIndicadorCenso" style="font-size: 11px; width: 490px" var="indicadorC" value="#{controlBusquedaAvanzada.lovIndicadores}" rowKey="#{indicadorC.secuencia}"
+                        <p:dataTable id="lovIndicadorCenso" style="font-size: 11px; width: 490px;" var="indicadorC" value="#{controlBusquedaAvanzada.lovIndicadores}" rowKey="#{indicadorC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionIndicador}" selectionMode="single" widgetVar="lovIndicadorCenso" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovIndicadores}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -2880,11 +2880,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroIC" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarIC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionIndicador == null ? true : false}"
+                        <p:commandButton id="aceptarIC" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionIndicador == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('INDICADOR')}"  process="@this" update=":form:opcionesCenso:parametroIndicadorCenso" oncomplete="lovIndicadorCenso.clearFilters(); IndicadorCensoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovIndicadorCenso:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasIC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"          
+                        <p:commandButton id="atrasIC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"          
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('INDICADOR')}" process="@this" oncomplete="lovIndicadorCenso.clearFilters(); IndicadorCensoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovIndicadorCenso:globalFilter"/>
                         </p:commandButton>
@@ -2892,7 +2892,7 @@
 
                     <p:dialog header="#{msg['profesionD']}" widgetVar="ProfesionEducacionFormalDialogo" draggable="false" resizable="false" closable="false" id="ProfesionEducacionFormalDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovProfesionEducacionFormal" style="font-size: 11px; width: 490px" var="profesionEF" value="#{controlBusquedaAvanzada.lovpProfesiones}" rowKey="#{profesionEF.secuencia}"
+                        <p:dataTable id="lovProfesionEducacionFormal" style="font-size: 11px; width: 490px;" var="profesionEF" value="#{controlBusquedaAvanzada.lovpProfesiones}" rowKey="#{profesionEF.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionProfesion}" selectionMode="single" widgetVar="lovProfesionEducacionFormal" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovProfesiones}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -2917,11 +2917,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroPEF" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarPEF" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionProfesion == null ? true : false}"
+                        <p:commandButton id="aceptarPEF" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionProfesion == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('PROFESION')}"  process="@this" update=":form:opcionesEducacionFormal:parametroProfesionEducacionFormal" oncomplete="lovProfesionEducacionFormal.clearFilters(); ProfesionEducacionFormalDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovProfesionEducacionFormal:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasPEF" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"          
+                        <p:commandButton id="atrasPEF" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"          
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('PROFESION')}" process="@this" oncomplete="lovProfesionEducacionFormal.clearFilters(); ProfesionEducacionFormalDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovProfesionEducacionFormal:globalFilter"/>
                         </p:commandButton>
@@ -2929,7 +2929,7 @@
 
                     <p:dialog header="#{msg['institucionD']}" widgetVar="InstitucionEducacionFormalDialogo" draggable="false" resizable="false" closable="false" id="InstitucionEducacionFormalDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovInstitucionEducacionFormal" style="font-size: 11px; width: 490px" var="institucionEF" value="#{controlBusquedaAvanzada.lovInstituciones}" rowKey="#{institucionEF.secuencia}"
+                        <p:dataTable id="lovInstitucionEducacionFormal" style="font-size: 11px; width: 490px;" var="institucionEF" value="#{controlBusquedaAvanzada.lovInstituciones}" rowKey="#{institucionEF.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionInstitucion}" selectionMode="single" widgetVar="lovInstitucionEducacionFormal" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovInstituciones}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -2954,11 +2954,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroIEF" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarIEF" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionInstitucion == null ? true : false}"
+                        <p:commandButton id="aceptarIEF" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionInstitucion == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('INSTITUCIONF')}"  process="@this" update=":form:opcionesEducacionFormal:parametroInstitucionEducacionFormal" oncomplete="lovInstitucionEducacionFormal.clearFilters(); InstitucionEducacionFormalDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovInstitucionEducacionFormal:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasIEF" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"           
+                        <p:commandButton id="atrasIEF" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"           
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('INSTITUCION')}" process="@this" oncomplete="lovInstitucionEducacionFormal.clearFilters(); InstitucionEducacionFormalDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovInstitucionEducacionFormal:globalFilter"/>
                         </p:commandButton>
@@ -2966,7 +2966,7 @@
 
                     <p:dialog header="#{msg['institucionD']}" widgetVar="InstitucionEducacionNoFormalDialogo" draggable="false" resizable="false" closable="false" id="InstitucionEducacionNoFormalDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovInstitucionEducacionNoFormal" style="font-size: 11px; width: 490px" var="institucionENF" value="#{controlBusquedaAvanzada.lovInstituciones}" rowKey="#{institucionENF.secuencia}"
+                        <p:dataTable id="lovInstitucionEducacionNoFormal" style="font-size: 11px; width: 490px;" var="institucionENF" value="#{controlBusquedaAvanzada.lovInstituciones}" rowKey="#{institucionENF.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionInstitucion}" selectionMode="single" widgetVar="lovInstitucionEducacionNoFormal" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovInstituciones}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -2991,11 +2991,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroIENF" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarIENF" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionInstitucion == null ? true : false}"
+                        <p:commandButton id="aceptarIENF" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionInstitucion == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('INSTITUCIONNF')}"  process="@this" update=":form:opcionesEducacionNoFormal:parametroInstitucionEducacionNoFormal" oncomplete="lovInstitucionEducacionNoFormal.clearFilters(); InstitucionEducacionNoFormalDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovInstitucionEducacionNoFormal:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasIENF" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"           
+                        <p:commandButton id="atrasIENF" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"           
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('INSTITUCION')}" process="@this" oncomplete="lovInstitucionEducacionNoFormal.clearFilters(); InstitucionEducacionNoFormalDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovInstitucionEducacionNoFormal:globalFilter"/>
                         </p:commandButton>
@@ -3003,7 +3003,7 @@
 
                     <p:dialog header="#{msg['cursoD']}" widgetVar="CursoEducacionNoFormalDialogo" draggable="false" resizable="false" closable="false" id="CursoEducacionNoFormalDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovCursoEducacionNoFormal" style="font-size: 11px; width: 490px" var="cursoENF" value="#{controlBusquedaAvanzada.lovCursos}" rowKey="#{cursoENF.secuencia}"
+                        <p:dataTable id="lovCursoEducacionNoFormal" style="font-size: 11px; width: 490px;" var="cursoENF" value="#{controlBusquedaAvanzada.lovCursos}" rowKey="#{cursoENF.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionCurso}" selectionMode="single" widgetVar="lovCursoEducacionNoFormal" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovCursos}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -3028,11 +3028,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroCENF" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarCENF" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionCurso == null ? true : false}"
+                        <p:commandButton id="aceptarCENF" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionCurso == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('CURSO')}"  process="@this" update=":form:opcionesEducacionNoFormal:parametroCursoEducacionNoFormal" oncomplete="lovCursoEducacionNoFormal.clearFilters(); CursoEducacionNoFormalDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovCursoEducacionNoFormal:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasCENF" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"           
+                        <p:commandButton id="atrasCENF" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"           
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('CURSO')}" process="@this" oncomplete="lovCursoEducacionNoFormal.clearFilters(); CursoEducacionNoFormalDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovCursoEducacionNoFormal:globalFilter"/>
                         </p:commandButton>
@@ -3040,7 +3040,7 @@
 
                     <p:dialog header="#{msg['sectorEconomicoD']}" widgetVar="SectorEconomicoExperienciaLaboralDialogo" draggable="false" resizable="false" closable="false" id="SectorEconomicoExperienciaLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovSectorEconomicoExperienciaLaboral" style="font-size: 11px; width: 490px" var="sectorEEL" value="#{controlBusquedaAvanzada.lovSectoresEconomicos}" rowKey="#{sectorEEL.secuencia}"
+                        <p:dataTable id="lovSectorEconomicoExperienciaLaboral" style="font-size: 11px; width: 490px;" var="sectorEEL" value="#{controlBusquedaAvanzada.lovSectoresEconomicos}" rowKey="#{sectorEEL.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionSectorEconomico}" selectionMode="single" widgetVar="lovSectorEconomicoExperienciaLaboral" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovSectoresEconomicos}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -3065,11 +3065,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroSEEL" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarSEEL" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionSectorEconomico == null ? true : false}"
+                        <p:commandButton id="aceptarSEEL" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionSectorEconomico == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('SECTORECONOMICO')}"  process="@this" update=":form:opcionesExperienciaLaboral:parametroSectorEconomicoExperienciaLaboral" oncomplete="lovSectorEconomicoExperienciaLaboral.clearFilters(); SectorEconomicoExperienciaLaboralDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovSectorEconomicoExperienciaLaboral:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasSEEL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"           
+                        <p:commandButton id="atrasSEEL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"           
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('SECTORECONOMICO')}" process="@this" oncomplete="lovSectorEconomicoExperienciaLaboral.clearFilters(); SectorEconomicoExperienciaLaboralDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovSectorEconomicoExperienciaLaboral:globalFilter"/>
                         </p:commandButton>
@@ -3077,7 +3077,7 @@
 
                     <p:dialog header="#{msg['motivoRetiroD']}" widgetVar="MotivoRetiroExperienciaLaboralDialogo" draggable="false" resizable="false" closable="false" id="MotivoRetiroExperienciaLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovMotivoRetiroExperienciaLaboral" style="font-size: 11px; width: 490px" var="motivoREL" value="#{controlBusquedaAvanzada.lovMotivosRetiros}" rowKey="#{motivoREL.secuencia}"
+                        <p:dataTable id="lovMotivoRetiroExperienciaLaboral" style="font-size: 11px; width: 490px;" var="motivoREL" value="#{controlBusquedaAvanzada.lovMotivosRetiros}" rowKey="#{motivoREL.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionMotivoRetiro}" selectionMode="single" widgetVar="lovMotivoRetiroExperienciaLaboral" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovMotivosRetiros}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -3102,11 +3102,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroMREL" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarMREL" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionMotivoRetiro == null ? true : false}"
+                        <p:commandButton id="aceptarMREL" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionMotivoRetiro == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('MOTIVORETIRO')}"  process="@this" update=":form:opcionesExperienciaLaboral:parametroMotivoRetiroExperienciaLaboral" oncomplete="lovMotivoRetiroExperienciaLaboral.clearFilters(); MotivoRetiroExperienciaLaboralDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovMotivoRetiroExperienciaLaboral:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasMREL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"           
+                        <p:commandButton id="atrasMREL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"           
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('MOTIVORETIRO')}" process="@this" oncomplete="lovMotivoRetiroExperienciaLaboral.clearFilters(); MotivoRetiroExperienciaLaboralDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovMotivoRetiroExperienciaLaboral:globalFilter"/>
                         </p:commandButton>
@@ -3114,7 +3114,7 @@
 
                     <p:dialog header="#{msg['proyectoD']}" widgetVar="ProyectoProyectoDialogo" draggable="false" resizable="false" closable="false" id="ProyectoProyectoDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovProyectoProyecto" style="font-size: 11px; width: 490px" var="proyectoP" value="#{controlBusquedaAvanzada.lovProyectos}" rowKey="#{proyectoP.secuencia}"
+                        <p:dataTable id="lovProyectoProyecto" style="font-size: 11px; width: 490px;" var="proyectoP" value="#{controlBusquedaAvanzada.lovProyectos}" rowKey="#{proyectoP.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionProyecto}" selectionMode="single" widgetVar="lovProyectoProyecto" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovProyectos}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -3139,11 +3139,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroPP" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarPP" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionProyecto == null ? true : false}"
+                        <p:commandButton id="aceptarPP" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionProyecto == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('PROYECTO')}"  process="@this" update=":form:opcionesProyecto:parametroProyecto" oncomplete="lovProyectoProyecto.clearFilters(); ProyectoProyectoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovProyectoProyecto:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasPP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"           
+                        <p:commandButton id="atrasPP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"           
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('PROYECTO')}" process="@this" oncomplete="lovProyectoProyecto.clearFilters(); ProyectoProyectoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovProyectoProyecto:globalFilter"/>
                         </p:commandButton>
@@ -3151,7 +3151,7 @@
 
                     <p:dialog header="#{msg['pryRolD']}" widgetVar="PryRolProyectoDialogo" draggable="false" resizable="false" closable="false" id="PryRolProyectoDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovPryRolProyecto" style="font-size: 11px; width: 490px" var="pryRP" value="#{controlBusquedaAvanzada.lovRoles}" rowKey="#{pryRP.secuencia}"
+                        <p:dataTable id="lovPryRolProyecto" style="font-size: 11px; width: 490px;" var="pryRP" value="#{controlBusquedaAvanzada.lovRoles}" rowKey="#{pryRP.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionRol}" selectionMode="single" widgetVar="lovPryRolProyecto" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovRoles}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -3176,11 +3176,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroPRYP" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarPRYP" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionRol == null ? true : false}"
+                        <p:commandButton id="aceptarPRYP" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionRol == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('ROL')}"  process="@this" update=":form:opcionesProyecto:parametroRolProyecto" oncomplete="lovPryRolProyecto.clearFilters(); PryRolProyectoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovPryRolProyecto:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasPRYP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"           
+                        <p:commandButton id="atrasPRYP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"           
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('ROL')}" process="@this" oncomplete="lovPryRolProyecto.clearFilters(); PryRolProyectoDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovPryRolProyecto:globalFilter"/>
                         </p:commandButton>
@@ -3188,7 +3188,7 @@
 
                     <p:dialog header="#{msg['cargoD']}" widgetVar="CargoCargoPostularseDialogo" draggable="false" resizable="false" closable="false" id="CargoCargoPostularseDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovCargoCargoPostularse" style="font-size: 11px; width: 490px" var="cargoCP" value="#{controlBusquedaAvanzada.lovCargos}" rowKey="#{cargoCP.secuencia}"
+                        <p:dataTable id="lovCargoCargoPostularse" style="font-size: 11px; width: 490px;" var="cargoCP" value="#{controlBusquedaAvanzada.lovCargos}" rowKey="#{cargoCP.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionCargo}" selectionMode="single" widgetVar="lovCargoCargoPostularse" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtroLovCargos}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -3213,11 +3213,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroCCP" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarCCP" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionCargo == null ? true : false}"
+                        <p:commandButton id="aceptarCCP" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionCargo == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('CARGO')}"  process="@this" update=":form:opcionesCargoPostularse:parametroCargoPostularse" oncomplete="lovCargoCargoPostularse.clearFilters(); CargoCargoPostularseDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovCargoCargoPostularse:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasCCP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"           
+                        <p:commandButton id="atrasCCP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"           
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('CARGO')}" process="@this" oncomplete="lovCargoCargoPostularse.clearFilters(); CargoCargoPostularseDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovCargoCargoPostularse:globalFilter"/>
                         </p:commandButton>
@@ -3225,7 +3225,7 @@
 
                     <p:dialog header="Añadir detalles" widgetVar="columnasBusquedaDialogo" draggable="false" resizable="false" closable="false" id="columnasBusquedaDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovColumnasBusqueda" style="font-size: 11px; width: 490px" var="columnaBusqueda" value="#{controlBusquedaAvanzada.lovColumnasEscenarios}" rowKey="#{columnaBusqueda.secuencia}"
+                        <p:dataTable id="lovColumnasBusqueda" style="font-size: 11px; width: 490px;" var="columnaBusqueda" value="#{controlBusquedaAvanzada.lovColumnasEscenarios}" rowKey="#{columnaBusqueda.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionColumnasEs}" selectionMode="multiple" widgetVar="lovColumnasBusqueda" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada.filtradoColumnasEscenarios}" emptyMessage="#{msg['lovvacio']}">
 
@@ -3243,11 +3243,11 @@
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroCB" value="#{msg['infoRegistro']} #{controlBusquedaAvanzada.infoRegistros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/> 
-                        <p:commandButton id="aceptarCB" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionColumnasEs == null ? true : false}"
+                        <p:commandButton id="aceptarCB" icon="ui-icon-check" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['aceptar']}" disabled="#{controlBusquedaAvanzada.seleccionColumnasEs == null ? true : false}"
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('COLUMNASBUSQUEDA')}" process="@this" update=":formularioDialogos:detallesBusqueda" oncomplete="lovColumnasBusqueda.clearFilters(); columnasBusquedaDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovColumnasBusqueda:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasCB" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px" value="#{msg['atras']}"           
+                        <p:commandButton id="atrasCB" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; top: 15px; margin-bottom: 5px;  left:  230px;" value="#{msg['atras']}"           
                                          actionListener="#{controlBusquedaAvanzada.actualizarParametroPersonal('COLUMNASBUSQUEDA')}" process="@this" oncomplete="lovColumnasBusqueda.clearFilters(); columnasBusquedaDialogo.hide();">
                             <p:resetInput target=":formularioDialogos:lovColumnasBusqueda:globalFilter"/>
                         </p:commandButton>
@@ -3255,7 +3255,7 @@
 
                     <p:dialog header="Detalles busqueda" widgetVar="detallesBusquedaDialogo" draggable="false" resizable="false" closable="false" id="detallesBusquedaDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="detallesBusqueda" style="font-size: 11px; width: 490px" var="detalleBusqueda" value="#{controlBusquedaAvanzada.seleccionColumnasEs}" rowKey="#{detalleBusqueda.secuencia}"
+                        <p:dataTable id="detallesBusqueda" style="font-size: 11px; width: 490px;" var="detalleBusqueda" value="#{controlBusquedaAvanzada.seleccionColumnasEs}" rowKey="#{detalleBusqueda.secuencia}"
                                      widgetVar="detallesBusqueda" scrollable="true" scrollWidth="505" scrollHeight="250" emptyMessage="#{msg['lovvacio']}">
                             <p:column>
                                 <f:facet name="header">

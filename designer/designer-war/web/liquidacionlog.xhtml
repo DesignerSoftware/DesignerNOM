@@ -13,7 +13,7 @@
             <ui:define name="body">                  
                 <h:form id="form"> 
                     <p:growl id="growl" showDetail="true"/> 
-                    <p:panel  id="PanelTotal" header="Detalles de la Liquidación" style="position: absolute; width: 874px; height: 510px; text-align: left">    
+                    <p:panel  id="PanelTotal" header="Detalles de la Liquidación" styleClass="panelTotal">    
                         <h:outputText id="outNombrePersona" value="Empleado" style="position: absolute; left: 20px; top: 85px; width:50px ;height:50px; color: darkblue;font-weight: bold "/> 
                         <h:outputText id="nombreEmpleado" value="#{controlLiquidacionesLogs.empleadoSeleccionado.persona.nombreCompleto}" style="position: absolute; left: 90px; top: 85px; width:300px ;height:50px; color: #BF1A1A;font-weight: bold " />
                         <fieldset style="position: absolute;top: 110px;left: 10px;height: 320px;width: 830px; border-radius: 10px; text-align: left">
@@ -116,55 +116,55 @@
 
                         </fieldset>
 
-                        <p:toolbar style=" position: absolute; top: 40px; left: 20px; height: 24px">  
+                        <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" disabled="true" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; "  process="@this" />
+                                <p:commandButton id="guardarRapido" disabled="true" value="" style="background-image: url(Imagenes/Iconos/guardar.png); "  process="@this" />
                                 <p:tooltip style="" for="guardarRapido" value="Guardar" />
 
-                                <p:commandButton id="editar" value="" disabled="true"  style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlLiquidacionesLogs.editarCelda()}"  process="@this"/>
+                                <p:commandButton id="editar" value="" disabled="true"  style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlLiquidacionesLogs.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="Editar" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "    process="@this"/>
+                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png) "    process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="Lista de Valores" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlLiquidacionesLogs.activarCtrlF11()}"  process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlLiquidacionesLogs.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="Activar filtrado" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlLiquidacionesLogs.exportXLS()}"  ajax="false"/>
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " actionListener="#{controlLiquidacionesLogs.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlLiquidacionesLogs.limpiarNuevoLiquidacionesLogs()}"  ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlLiquidacionesLogs.limpiarNuevoLiquidacionesLogs()}"  ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosLiquidacionesLogsExportar" fileName="LIQUIDACIONESLOGS" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlLiquidacionesLogs.exportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlLiquidacionesLogs.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg);  background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " process="@this"/> 
+                                <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="Nuevo Clase Pension" />
 
-                                <p:commandButton id="eliminar" disabled="true" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  process="@this"/>  
+                                <p:commandButton id="eliminar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/delete.png) "  process="@this"/>  
                                 <p:tooltip style="" for="eliminar" value="Eliminar Clase Pension" />
 
-                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " process="@this"/>  
+                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="Duplicar Clase Pension" />
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlLiquidacionesLogs.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlLiquidacionesLogs.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" disabled="true"  style="background-image: url(Imagenes/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlLiquidacionesLogs.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" disabled="true"  style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlLiquidacionesLogs.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="refrescar"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlLiquidacionesLogs.salir()}" action="atrasliquidacionlog" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlLiquidacionesLogs.salir()}" action="atrasliquidacionlog" process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
@@ -176,17 +176,17 @@
                         <p:commandButton style=" position: absolute; left: 10px; top: 470px; " icon="ui-icon-arrowreturnthick-1-w" id="BUSCAREMPLEADO" value="Buscar Empleado" actionListener="#{controlLiquidacionesLogs.llamarDialogoEmpleado()}"    />
 
                         <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
-                            <h:graphicImage value="Imagenes/alerta.jpg" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" action="atrasliquidacionlog" onclick="confirmarGuardar.hide();" actionListener="#{controlLiquidacionesLogs.borrarLiquidacionesLogsEmpleado()}" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" action="atrasliquidacionlog" onclick="confirmarGuardar.hide();" actionListener="#{controlLiquidacionesLogs.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <p:commandButton value="Si" action="atrasliquidacionlog" onclick="confirmarGuardar.hide();" actionListener="#{controlLiquidacionesLogs.borrarLiquidacionesLogsEmpleado()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="No" action="atrasliquidacionlog" onclick="confirmarGuardar.hide();" actionListener="#{controlLiquidacionesLogs.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
 
 
                         <p:dialog header="EMPLEADOS" widgetVar="tiposCentrosCostosDialogo" draggable="false" resizable="false" closable="false" id="tiposCentrosCostosDialogo"  
                                   showEffect="fade" hideEffect="fade" width="440" modal="true" style="">
-                            <p:dataTable id="lovTipoCentrosCostos" style="width: 400px" var="empleado" value="#{controlLiquidacionesLogs.listaEmpleados}" rowKey="#{empleado.secuencia}"
+                            <p:dataTable id="lovTipoCentrosCostos" style="width: 400px;" var="empleado" value="#{controlLiquidacionesLogs.listaEmpleados}" rowKey="#{empleado.secuencia}"
                                          selection="#{controlLiquidacionesLogs.empleadoSeleccionado}" selectionMode="single" widgetVar="lovTipoCentrosCostos" scrollable="true" scrollWidth="420" scrollHeight="250"
                                          filteredValue="#{controlLiquidacionesLogs.filtrarEmpleados}" emptyMessage="No se encontrarón resultados para la búsqueda">             
                                 <p:ajax event="rowSelect" listener="#{controlLiquidacionesLogs.activarAceptar()}" update=":form:aceptarTCC"/>
@@ -212,9 +212,9 @@
 
                             <h:outputText id="infoRegistroEmpleados" value="#{controlLiquidacionesLogs.infoRegistroEmpleados}" style="position: absolute; left: 5px; top: 350px; font-weight: bold"/>
 
-                            <p:commandButton id="aceptarTCC" style="position: relative; left: 260px" icon="ui-icon-check" value="Aceptar" disabled="#{controlLiquidacionesLogs.aceptar}" actionListener="#{controlLiquidacionesLogs.seleccionarEmpleado()}" process="@this"/>
+                            <p:commandButton id="aceptarTCC" style="position: relative; left: 260px;" icon="ui-icon-check" value="Aceptar" disabled="#{controlLiquidacionesLogs.aceptar}" actionListener="#{controlLiquidacionesLogs.seleccionarEmpleado()}" process="@this"/>
                             
-                            <p:commandButton id="atrasTCC" style="position: relative; left: 260px" icon="ui-icon-arrowreturnthick-1-w" value="Atras" actionListener="#{controlLiquidacionesLogs.cancelarCambioEmpleado()}" process="@this"/>
+                            <p:commandButton id="atrasTCC" style="position: relative; left: 260px;" icon="ui-icon-arrowreturnthick-1-w" value="Atras" actionListener="#{controlLiquidacionesLogs.cancelarCambioEmpleado()}" process="@this"/>
                         </p:dialog> 
 
 
@@ -227,77 +227,77 @@
 
                 <h:form id="formularioDialogos">
 
-                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'LIQUIDACIONESLOGS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlLiquidacionesLogs.secRegistro, 'LiquidacionesLogs', 'liquidacionlog')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlLiquidacionesLogs.secRegistro, 'LiquidacionesLogs', 'liquidacionlog')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla LIQUIDACIONESLOGS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('LiquidacionesLogs', 'liquidacionlog')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('LiquidacionesLogs', 'liquidacionlog')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlLiquidacionesLogs.secRegistro, 'LiquidacionesLogs', 'liquidacionlog')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlLiquidacionesLogs.secRegistro, 'LiquidacionesLogs', 'liquidacionlog')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'LIQUIDACIONESLOGS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicial" header="Fecha Desde" widgetVar="editarFechaInicial" resizable="false" draggable="false" modal="true" height="55" width="240" style="position: absolute; top: 10px;  padding: 0px">  
-                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.fechadesde}" style="overflow: auto; width: 200px; height: 40px" readonly="true">  
+                    <p:dialog id="editarFechaInicial" header="Fecha Desde" widgetVar="editarFechaInicial" resizable="false" draggable="false" modal="true" height="80" width="400" style="position: absolute; top: 10px;  padding: 0px">  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.fechadesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
-                    <p:dialog id="editarFechaHasta" header="Fecha Hasta" widgetVar="editarFechaHasta" resizable="false" draggable="false" modal="true" height="55" width="240" style="position: absolute; top: 10px;  padding: 0px">  
-                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.fechahasta}" style="overflow: auto; width: 200px; height: 40px" readonly="true">  
+                    <p:dialog id="editarFechaHasta" header="Fecha Hasta" widgetVar="editarFechaHasta" resizable="false" draggable="false" modal="true" height="80" width="400" style="position: absolute; top: 10px;  padding: 0px">  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.fechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
 
-                    <p:dialog id="editarEmpleado" header="Empleado" widgetVar="editarEmpleado" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.empleado.persona.nombreCompleto}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarEmpleado" header="Empleado" widgetVar="editarEmpleado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarOperandoE" header="Operando" widgetVar="editarOperandoE" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.operando.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarOperandoE" header="Operando" widgetVar="editarOperandoE" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.operando.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarProcesoE" header="Proceso" widgetVar="editarProcesoE" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.proceso.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarProcesoE" header="Proceso" widgetVar="editarProcesoE" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarValorE" header="Valor" widgetVar="editarValorE" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.valor}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarValorE" header="Valor" widgetVar="editarValorE" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.valor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>

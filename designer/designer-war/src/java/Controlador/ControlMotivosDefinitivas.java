@@ -169,15 +169,15 @@ public class ControlMotivosDefinitivas implements Serializable {
         if (bandera == 0) {
 
             codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
-            codigo.setFilterStyle("width: 60px");
+            codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
-            descripcion.setFilterStyle("width: 395px");
+            descripcion.setFilterStyle("width: 85%;");
             retiro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:retiro");
-            retiro.setFilterStyle("width: 80px");
+            retiro.setFilterStyle("width: 85%;");
             cambioRegimen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:cambioRegimen");
-            cambioRegimen.setFilterStyle("width: 80px");
+            cambioRegimen.setFilterStyle("width: 85%;");
             catedratico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:catedratico");
-            catedratico.setFilterStyle("width: 80px");
+            catedratico.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             System.out.println("Activar");
             bandera = 1;

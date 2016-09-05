@@ -226,7 +226,7 @@ public class ControlPryPlataformas implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosPrtPlataforma:codigo");
             codigo.setFilterStyle("width: 85%");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosPrtPlataforma:descripcion");

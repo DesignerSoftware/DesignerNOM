@@ -1981,7 +1981,7 @@ public void mostrarDialogoNuevoAporte() {
 
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "16";
+            altoTabla = "20";
             parametroAno = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroAno");
             parametroAno.setFilterStyle("width: 85%");
             parametroMes = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroMes");

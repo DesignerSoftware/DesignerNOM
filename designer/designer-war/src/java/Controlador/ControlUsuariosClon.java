@@ -171,14 +171,14 @@ public class ControlUsuariosClon implements Serializable {
         if (bandera == 0) {
             System.out.println("Activar");
             usuarioPersona = (Column) c.getViewRoot().findComponent("form:datosUsuarios:persona");
-            usuarioPersona.setFilterStyle("");
+            usuarioPersona.setFilterStyle("width: 85%");
             usuarioPerfil = (Column) c.getViewRoot().findComponent("form:datosUsuarios:perfil");
-            usuarioPerfil.setFilterStyle("width:40px");
+            usuarioPerfil.setFilterStyle("width: 85%");
             usuarioAlias = (Column) c.getViewRoot().findComponent("form:datosUsuarios:alias");
-            usuarioAlias.setFilterStyle("width:40px");
+            usuarioAlias.setFilterStyle("width: 85%");
             usuarioPantallaInicio = (Column) c.getViewRoot().findComponent("form:datosUsuarios:pantalla");
-            usuarioPantallaInicio.setFilterStyle("width:40px");
-            altoTabla = "246";
+            usuarioPantallaInicio.setFilterStyle("width: 85%");
+            altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
             bandera = 1;
             tipoLista = 1;

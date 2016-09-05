@@ -293,13 +293,13 @@ public class ControlValoresConceptos implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosValoresConceptos:codigo");
-            codigo.setFilterStyle("width: 130px");
+            codigo.setFilterStyle("width: 85%;");
             personafir = (Column) c.getViewRoot().findComponent("form:datosValoresConceptos:personafir");
-            personafir.setFilterStyle("width: 270px");
+            personafir.setFilterStyle("width: 85%");
             cargo = (Column) c.getViewRoot().findComponent("form:datosValoresConceptos:cargo");
-            cargo.setFilterStyle("width: 130px");
+            cargo.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosValoresConceptos");
             System.out.println("Activar");
             bandera = 1;

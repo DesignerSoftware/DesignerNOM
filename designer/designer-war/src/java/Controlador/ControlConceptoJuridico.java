@@ -693,13 +693,13 @@ public class ControlConceptoJuridico implements Serializable {
      */
     public void filtradoConcepto() {
         if (bandera == 0) {
-            altoTabla = "158";
+            altoTabla = "160";
             conceptoFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConcepto:conceptoFecha");
-            conceptoFecha.setFilterStyle("width: 60px");
+            conceptoFecha.setFilterStyle("width: 85%");
             conceptoNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConcepto:conceptoNombre");
-            conceptoNombre.setFilterStyle("width: 250px");
+            conceptoNombre.setFilterStyle("width: 85%");
             conceptoCargo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConcepto:conceptoCargo");
-            conceptoCargo.setFilterStyle("width: 220px");
+            conceptoCargo.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosConcepto");
             bandera = 1;
         } else if (bandera == 1) {

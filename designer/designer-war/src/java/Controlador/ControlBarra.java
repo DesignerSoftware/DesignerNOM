@@ -242,30 +242,30 @@ public class ControlBarra implements Serializable {
             if (banderaFiltros == 0) {
                 //LIQUIDACIONES CERRADAS
                 corte = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosLiquidacionesCerradas:corte");
-                corte.setFilterStyle("width: 45px;");
+                corte.setFilterStyle("width: 85%;");
                 empresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosLiquidacionesCerradas:empresa");
-                empresa.setFilterStyle("width: 15px;");
+                empresa.setFilterStyle("width: 85%;");
                 proceso = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosLiquidacionesCerradas:proceso");
-                proceso.setFilterStyle("width: 45px;");
+                proceso.setFilterStyle("width: 85%;");
                 totalEmpleados = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosLiquidacionesCerradas:totalEmpleados");
-                totalEmpleados.setFilterStyle("width: 15px;");
+                totalEmpleados.setFilterStyle("width: 85%;");
                 observacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosLiquidacionesCerradas:observacion");
-                observacion.setFilterStyle("width: 65px;");
+                observacion.setFilterStyle("width: 85%;");
 
                 //LIQUIDACIONES ABIERTAS
                 corteLA = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosLiquidacionesAbiertas:corteLA");
-                corteLA.setFilterStyle("width: 45px;");
+                corteLA.setFilterStyle("width: 85%;");
                 empresaLA = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosLiquidacionesAbiertas:empresaLA");
-                empresaLA.setFilterStyle("width: 15px;");
+                empresaLA.setFilterStyle("width: 85%;");
                 procesoLA = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosLiquidacionesAbiertas:procesoLA");
-                procesoLA.setFilterStyle("width: 45px;");
+                procesoLA.setFilterStyle("width: 85%;");
                 totalEmpleadosLA = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosLiquidacionesAbiertas:totalEmpleadosLA");
-                totalEmpleadosLA.setFilterStyle("width: 15px;");
+                totalEmpleadosLA.setFilterStyle("width: 85%;");
                 observacionLA = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosLiquidacionesAbiertas:observacionLA");
-                observacionLA.setFilterStyle("width: 65px;");
+                observacionLA.setFilterStyle("width: 85%;");
 
-                altoScrollLiquidacionesCerradas = "102";
-                altoScrollLiquidacionesAbiertas = "102";
+                altoScrollLiquidacionesCerradas = "105";
+                altoScrollLiquidacionesAbiertas = "105";
                 RequestContext context = RequestContext.getCurrentInstance();
                 context.update("form:datosLiquidacionesCerradas");
                 context.update("form:datosLiquidacionesAbiertas");

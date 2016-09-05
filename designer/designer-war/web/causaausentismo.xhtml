@@ -81,7 +81,7 @@ and open the template in the editor.
                                          value="#{controlCausasAusentismos.listaCausasAusentismos}" scrollable="true"
                                          filteredValue="#{controlCausasAusentismos.filtrarCausasAusentismos}"
                                          scrollHeight="#{controlCausasAusentismos.altoTabla}" scrollWidth="830"
-                                         style="border: 1px;width: 810px" liveScroll="true" scrollRows="80"
+                                         style="border: 1px;width: 810px;" liveScroll="true" scrollRows="80"
                                          emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell"
                                          selection="#{controlCausasAusentismos.causasAusentismoSeleccionado}" selectionMode="single">
@@ -241,7 +241,7 @@ and open the template in the editor.
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['remuneracion']}" style="width:15px" sortBy="#{causaausentismo.remunerada}" filterBy="#{causaausentismo.remunerada}" filterMatchMode="exact" id="Remunerada" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['remuneracion']}" style="width:15px;" sortBy="#{causaausentismo.remunerada}" filterBy="#{causaausentismo.remunerada}" filterMatchMode="exact" id="Remunerada" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerremunerada" value="#{msg['remuneracion']}" />
                                         <p:tooltip  for="headerremunerada" value="#{msg['remuneraciontt']}" />
@@ -251,7 +251,7 @@ and open the template in the editor.
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="#{msg['descuentatiempocontinuo']}" style="width:15px" sortBy="#{causaausentismo.descuentatiempocontinuo}" filterBy="#{causaausentismo.descuentatiempocontinuo}" filterMatchMode="exact" id="descuentaTiempoContinuo" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['descuentatiempocontinuo']}" style="width:15px;" sortBy="#{causaausentismo.descuentatiempocontinuo}" filterBy="#{causaausentismo.descuentatiempocontinuo}" filterMatchMode="exact" id="descuentaTiempoContinuo" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerdescuentaTiempoContinuo" value="#{msg['descuentatiempocontinuo']}" />
                                         <p:tooltip  for="headerdescuentaTiempoContinuo" value="#{msg['descuentatiempocontinuott']}" />
@@ -261,7 +261,7 @@ and open the template in the editor.
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="#{msg['descuentatiemposolops']}" style="width:15px" sortBy="#{causaausentismo.restatiemposoloprestaciones}" filterBy="#{causaausentismo.restatiemposoloprestaciones}" filterMatchMode="exact" id="descuentaTiempoSoloPS" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['descuentatiemposolops']}" style="width:15px;" sortBy="#{causaausentismo.restatiemposoloprestaciones}" filterBy="#{causaausentismo.restatiemposoloprestaciones}" filterMatchMode="exact" id="descuentaTiempoSoloPS" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerdescuentaTiempoSoloPS" value="#{msg['descuentatiemposolops']}" />
                                         <p:tooltip  for="headerdescuentaTiempoSoloPS" value="#{msg['descuentatiemposolopstt']}" />
@@ -271,7 +271,7 @@ and open the template in the editor.
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="#{msg['garantizabasesalario']}" style="width:15px" sortBy="#{causaausentismo.garantizabasesml}" filterBy="#{causaausentismo.garantizabasesml}" filterMatchMode="exact" id="garantizaBaseSalario" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['garantizabasesalario']}" style="width:15px;" sortBy="#{causaausentismo.garantizabasesml}" filterBy="#{causaausentismo.garantizabasesml}" filterMatchMode="exact" id="garantizaBaseSalario" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="headergarantizaBaseSalario" value="#{msg['garantizabasesalario']}" />
                                         <p:tooltip  for="headergarantizaBaseSalario" value="#{msg['garantizabasesalariott']}" />
@@ -300,49 +300,49 @@ and open the template in the editor.
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlCausasAusentismos.guardarCambiosCausaAusentismo()}" action="#{controlCausasAusentismos.redirigir()}" style="position: absolute; top: 50px; left: 125px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlCausasAusentismos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 260px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlCausasAusentismos.guardarCambiosCausaAusentismo()}" action="#{controlCausasAusentismos.redirigir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlCausasAusentismos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <!-- Ya Existe -->
 
                     <!--DIALOGO VALIDACION NUEVA CAUSA AUSENTISMO-->
-                    <p:dialog id="validacionNuevaCausaAusentismo" header="#{msg['atencion']}" widgetVar="validacionNuevaCausaAusentismo"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                    <p:dialog id="validacionNuevaCausaAusentismo" header="#{msg['atencion']}" widgetVar="validacionNuevaCausaAusentismo"  resizable="false" draggable="false" modal="true" height="95" width="400px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevo']} #{controlCausasAusentismos.mensajeValidacion}" style="position: absolute; left: 80px; top: 10px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevaCausaAusentismo.hide();"  icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevaCausaAusentismo.hide();"  icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionCodigo" header="#{msg['atencion']}" widgetVar="validacionCodigo"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                    <p:dialog id="validacionCodigo" header="#{msg['atencion']}" widgetVar="validacionCodigo"  resizable="false" draggable="false" modal="true" height="95" width="400px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionCodigo']}" style="position: absolute; left: 80px; top: 10px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionCodigo.hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionCodigo.hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px;" process="@this" />
                     </p:dialog>  
-                    <p:dialog id="validacionCodigo2" header="#{msg['atencion']}" widgetVar="validacionCodigo2"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                    <p:dialog id="validacionCodigo2" header="#{msg['atencion']}" widgetVar="validacionCodigo2"  resizable="false" draggable="false" modal="true" height="95" width="400px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionCodigodos']}" style="position: absolute; left: 80px; top: 10px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionCodigo2.hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionCodigo2.hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px;" process="@this" />
                     </p:dialog>  
 
                     <!-- Nuevo Registro -->                    
 
                     <p:dialog id="NuevoRegistroCausaAusentismo" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroCausaAusentismo" closable="false" resizable="false"  draggable="false" modal="true" height="440" width="380" style=" padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; left: 10px; top: 5px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; left: 10px; top: 5px;" /></strong></center> 
 
                         <p:panel id="nuevaCausasAusentismos" style="border: none;">
-                            <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px" /></strong>
+                            <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px;" /></strong>
                             <p:inputText maxlength="4" id="nuevoCodigo" value="#{controlCausasAusentismos.nuevaCausasAusentismos.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 70px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
-                            <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 105px" /></strong>
+                            <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 105px;" /></strong>
                             <p:inputText id="nuevoDescripcion" value="#{controlCausasAusentismos.nuevaCausasAusentismos.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
-                            <strong><h:outputText value="#{msg['claseN']}" style=" position: absolute; top: 135px" /></strong>
+                            <strong><h:outputText value="#{msg['claseN']}" style=" position: absolute; top: 135px;" /></strong>
                             <p:inputText id="nuevoClase" value="#{controlCausasAusentismos.nuevaCausasAusentismos.clase.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlCausasAusentismos.valoresBackupAutocompletar(1)}" />
                                 <p:ajax event="change" listener="#{controlCausasAusentismos.autocompletarNuevoyDuplicado(controlCausasAusentismos.nuevaCausasAusentismos.clase.descripcion,1)}"/>
@@ -350,7 +350,7 @@ and open the template in the editor.
                             </p:inputText>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border:none; position: absolute; left: 317px; top: 130px;" value=" " id="btnNuevoClaseAusentismo"  process="@this"  actionListener="#{controlCausasAusentismos.llamarLovClasesAusentismos(1)}"/>
 
-                            <strong><h:outputText value="#{msg['origenincapacidadN']}" style=" position: absolute; top: 165px" /></strong>
+                            <strong><h:outputText value="#{msg['origenincapacidadN']}" style=" position: absolute; top: 165px;" /></strong>
                             <p:selectOneMenu id="nuevoOrigenIncapacidad" value="#{controlCausasAusentismos.nuevaCausasAusentismos.origenincapacidad}"  style=" width: 122px; position: absolute; left: 185px; top: 160px; text-transform: uppercase">
                                 <f:selectItem itemLabel="AT" itemValue="AT" />  
                                 <f:selectItem itemLabel="EG" itemValue="EG" />  
@@ -361,17 +361,17 @@ and open the template in the editor.
                                 <p:ajax listener="#{controlCausasAusentismos.seleccionarNuevoOrigenIncapacidad(controlCausasAusentismos.nuevaCausasAusentismos.estadoOrigenIncapacidad, 1)}" update="@this" />
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="#{msg['porcentajeliquidacionN']}" style=" position: absolute; top: 195px" /></strong>
+                            <strong><h:outputText value="#{msg['porcentajeliquidacionN']}" style=" position: absolute; top: 195px;" /></strong>
                             <p:inputText id="nuevoPorcentajeLiquidacion" value="#{controlCausasAusentismos.nuevaCausasAusentismos.porcentajeliquidacion}" style=" width: 122px; position: absolute; left: 185px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
-                            <strong><h:outputText value="#{msg['restadiasincapacidadN']}" style=" position: absolute; top: 225px" /></strong>
+                            <strong><h:outputText value="#{msg['restadiasincapacidadN']}" style=" position: absolute; top: 225px;" /></strong>
                             <p:inputText id="nuevoRestaDiasIncapacidad" value="#{controlCausasAusentismos.nuevaCausasAusentismos.restadiasincapacidad}" style=" width: 122px; position: absolute; left: 185px; top: 220px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
-                            <strong><h:outputText value="#{msg['formaliquidacionN']}" style=" position: absolute; top: 255px" /></strong>
+                            <strong><h:outputText value="#{msg['formaliquidacionN']}" style=" position: absolute; top: 255px;" /></strong>
                             <p:selectOneMenu id="nuevoFormaLiquidacion" value="#{controlCausasAusentismos.nuevaCausasAusentismos.formaliquidacion}"  style=" width: 122px; position: absolute; left: 185px; top: 250px; text-transform: uppercase">
                                 <f:selectItem itemLabel="BASICO" itemValue="BASICO" />  
                                 <f:selectItem itemLabel="IBC MES ANTERIOR" itemValue="IBC MES ANTERIOR" />  
@@ -384,22 +384,22 @@ and open the template in the editor.
                                 <p:ajax listener="#{controlCausasAusentismos.seleccionarNuevoFormaLiquidacion(controlCausasAusentismos.nuevaCausasAusentismos.estadoFormaLiquidacion, 1)}" update="@this" />
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="#{msg['remuneracionN']}" style=" position: absolute; top: 285px" /></strong>
+                            <strong><h:outputText value="#{msg['remuneracionN']}" style=" position: absolute; top: 285px;" /></strong>
                             <p:selectBooleanCheckbox value="#{controlCausasAusentismos.nuevaCausasAusentismos.estadoRemunerada}" style="position: absolute; left: 185px; top: 285px;">
                                 <p:ajax update="@this"/>
                             </p:selectBooleanCheckbox>
 
-                            <strong><h:outputText value="#{msg['descuentatiempocontinuoN']}" style=" position: absolute; top: 315px" /></strong>
+                            <strong><h:outputText value="#{msg['descuentatiempocontinuoN']}" style=" position: absolute; top: 315px;" /></strong>
                             <p:selectBooleanCheckbox value="#{controlCausasAusentismos.nuevaCausasAusentismos.estadoDescuentaTiempoContinuo}" style="position: absolute; left: 185px; top: 315px;">
                                 <p:ajax update="@this"/>
                             </p:selectBooleanCheckbox>
 
-                            <strong><h:outputText value="#{msg['descuentatiemposolopsN']}" style=" position: absolute; top: 345px" /></strong>
+                            <strong><h:outputText value="#{msg['descuentatiemposolopsN']}" style=" position: absolute; top: 345px;" /></strong>
                             <p:selectBooleanCheckbox value="#{controlCausasAusentismos.nuevaCausasAusentismos.estadoRestaTiempoSoloPrestaciones}" style="position: absolute; left: 185px; top: 345px;">
                                 <p:ajax update="@this"/>
                             </p:selectBooleanCheckbox>
 
-                            <strong><h:outputText value="#{msg['garantizabasesalarioN']}" style=" position: absolute; top: 375px" /></strong>
+                            <strong><h:outputText value="#{msg['garantizabasesalarioN']}" style=" position: absolute; top: 375px;" /></strong>
                             <p:selectBooleanCheckbox value="#{controlCausasAusentismos.nuevaCausasAusentismos.estadoGarantizaBaseml}" style="position: absolute; left: 185px; top: 375px;">
                                 <p:ajax update="@this"/>
                             </p:selectBooleanCheckbox>
@@ -414,21 +414,21 @@ and open the template in the editor.
 
                     <p:dialog id="DuplicarRegistroCausaAusentismo" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroCausaAusentismo" closable="false" resizable="false"  draggable="false" modal="true" height="440" width="380" style=" padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarCausaAusentismo" style="border: none;">
 
-                            <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px" /></strong>
+                            <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px;" /></strong>
                             <p:inputText maxlength="4" id="duplicadoCodigo" value="#{controlCausasAusentismos.duplicarCausasAusentismos.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 70px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
-                            <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 105px" /></strong>
+                            <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 105px;" /></strong>
                             <p:inputText id="duplicadoDescripcion" value="#{controlCausasAusentismos.duplicarCausasAusentismos.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
-                            <strong><h:outputText value="#{msg['claseN']}" style=" position: absolute; top: 135px" /></strong>
+                            <strong><h:outputText value="#{msg['claseN']}" style=" position: absolute; top: 135px;" /></strong>
                             <p:inputText id="duplicadoClase" value="#{controlCausasAusentismos.duplicarCausasAusentismos.clase.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlCausasAusentismos.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlCausasAusentismos.autocompletarNuevoyDuplicado(controlCausasAusentismos.duplicarCausasAusentismos.clase.descripcion,2)}"/>
@@ -436,7 +436,7 @@ and open the template in the editor.
                             </p:inputText>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border:none; position: absolute; left: 317px; top: 130px;" value=" " id="btnDuplicarClaseAusentismo"  process="@this"  actionListener="#{controlCausasAusentismos.llamarLovClasesAusentismos(2)}"/>
 
-                            <strong><h:outputText value="#{msg['origenincapacidadN']}" style=" position: absolute; top: 165px" /></strong>
+                            <strong><h:outputText value="#{msg['origenincapacidadN']}" style=" position: absolute; top: 165px;" /></strong>
                             <p:selectOneMenu id="duplicadoOrigenIncapacidad" value="#{controlCausasAusentismos.duplicarCausasAusentismos.origenincapacidad}"  style=" width: 122px; position: absolute; left: 185px; top: 160px; text-transform: uppercase">
                                 <f:selectItem itemLabel="AT" itemValue="AT" />  
                                 <f:selectItem itemLabel="EG" itemValue="EG" />  
@@ -447,17 +447,17 @@ and open the template in the editor.
                                 <p:ajax listener="#{controlCausasAusentismos.seleccionarNuevoOrigenIncapacidad(controlCausasAusentismos.duplicarCausasAusentismos.estadoOrigenIncapacidad, 2)}" update="@this" />
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="#{msg['porcentajeliquidacionN']}" style=" position: absolute; top: 195px" /></strong>
+                            <strong><h:outputText value="#{msg['porcentajeliquidacionN']}" style=" position: absolute; top: 195px;" /></strong>
                             <p:inputText id="duplicadoPorcentajeLiquidacion" value="#{controlCausasAusentismos.duplicarCausasAusentismos.porcentajeliquidacion}" style=" width: 122px; position: absolute; left: 185px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
-                            <strong><h:outputText value="#{msg['restadiasincapacidadN']}" style=" position: absolute; top: 225px" /></strong>
+                            <strong><h:outputText value="#{msg['restadiasincapacidadN']}" style=" position: absolute; top: 225px;" /></strong>
                             <p:inputText id="duplicadoRestaDiasIncapacidad" value="#{controlCausasAusentismos.duplicarCausasAusentismos.restadiasincapacidad}" style=" width: 122px; position: absolute; left: 185px; top: 220px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
-                            <strong><h:outputText value="#{msg['formaliquidacionN']}" style=" position: absolute; top: 255px" /></strong>
+                            <strong><h:outputText value="#{msg['formaliquidacionN']}" style=" position: absolute; top: 255px;" /></strong>
                             <p:selectOneMenu id="duplicadoFormaLiquidacion" value="#{controlCausasAusentismos.duplicarCausasAusentismos.formaliquidacion}"  style=" width: 122px; position: absolute; left: 185px; top: 255px; text-transform: uppercase">
                                 <f:selectItem itemLabel="BASICO" itemValue="BASICO" />  
                                 <f:selectItem itemLabel="IBC MES ANTERIOR" itemValue="IBC MES ANTERIOR" />  
@@ -470,22 +470,22 @@ and open the template in the editor.
                                 <p:ajax listener="#{controlCausasAusentismos.seleccionarNuevoFormaLiquidacion(controlCausasAusentismos.duplicarCausasAusentismos.estadoFormaLiquidacion, 2)}" update="@this" />
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="#{msg['remuneracionN']}" style=" position: absolute; top: 285px" /></strong>
+                            <strong><h:outputText value="#{msg['remuneracionN']}" style=" position: absolute; top: 285px;" /></strong>
                             <p:selectBooleanCheckbox value="#{controlCausasAusentismos.duplicarCausasAusentismos.estadoRemunerada}" style="position: absolute; left: 185px; top: 285px;">
                                 <p:ajax update="@this"/>
                             </p:selectBooleanCheckbox>
 
-                            <strong><h:outputText value="#{msg['descuentatiempocontinuoN']}" style=" position: absolute; top: 315px" /></strong>
+                            <strong><h:outputText value="#{msg['descuentatiempocontinuoN']}" style=" position: absolute; top: 315px;" /></strong>
                             <p:selectBooleanCheckbox value="#{controlCausasAusentismos.duplicarCausasAusentismos.estadoDescuentaTiempoContinuo}" style="position: absolute; left: 185px; top: 315px;">
                                 <p:ajax update="@this"/>
                             </p:selectBooleanCheckbox>
 
-                            <strong><h:outputText value="#{msg['descuentatiemposolopsN']}" style=" position: absolute; top: 345px" /></strong>
+                            <strong><h:outputText value="#{msg['descuentatiemposolopsN']}" style=" position: absolute; top: 345px;" /></strong>
                             <p:selectBooleanCheckbox value="#{controlCausasAusentismos.duplicarCausasAusentismos.estadoRestaTiempoSoloPrestaciones}" style="position: absolute; left: 185px; top: 345px;">
                                 <p:ajax update="@this"/>
                             </p:selectBooleanCheckbox>
 
-                            <strong><h:outputText value="#{msg['garantizabasesalarioN']}" style=" position: absolute; top: 375px" /></strong>
+                            <strong><h:outputText value="#{msg['garantizabasesalarioN']}" style=" position: absolute; top: 375px;" /></strong>
                             <p:selectBooleanCheckbox value="#{controlCausasAusentismos.duplicarCausasAusentismos.estadoGarantizaBaseml}" style="position: absolute; left: 185px; top: 375px;">
                                 <p:ajax update="@this"/>
                             </p:selectBooleanCheckbox>
@@ -499,48 +499,48 @@ and open the template in the editor.
 
                     <!-- DIALOGOS RASTROS -->
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlCausasAusentismos.causasAusentismoSeleccionado.getSecuencia(), 'Causasausentismos', 'causaausentismo')}" style="position: absolute; top: 63px; left: 170px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 235px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlCausasAusentismos.causasAusentismoSeleccionado.getSecuencia(), 'Causasausentismos', 'causaausentismo')}" style="position: absolute; top: 63px; left: 170px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 235px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('Causasausentismos', 'causaausentismo')}" style="position: absolute; top: 60px; left: 170px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 235px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('Causasausentismos', 'causaausentismo')}" style="position: absolute; top: 60px; left: 170px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 235px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlCausasAusentismos.causasAusentismoSeleccionado.getSecuencia(), 'Causasausentismos', 'causaausentismo')}" style="position: absolute; top: 65px; left: 170px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" icon="ui-icon-close" style="position: absolute; top: 65px; left: 235px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlCausasAusentismos.causasAusentismoSeleccionado.getSecuencia(), 'Causasausentismos', 'causaausentismo')}" style="position: absolute; top: 65px; left: 170px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" icon="ui-icon-close" style="position: absolute; top: 65px; left: 235px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
@@ -548,7 +548,7 @@ and open the template in the editor.
                     <!-- DIALOGO L.O.V ESTATICO DE CLASES DE AUSENTISMO -->
                     <p:dialog header="#{msg['claseausentismoCLA']}" widgetVar="clasesAusentismosDialogo" draggable="false" resizable="false" closable="false" id="clasesAusentismosDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" height="350" modal="true" >
-                        <p:dataTable id="LOVClasesAusentismos" style="width: 330px" var="clasesAusentismos" value="#{controlCausasAusentismos.lovClasesAusentismos}" rowKey="#{clasesAusentismos.secuencia}"
+                        <p:dataTable id="LOVClasesAusentismos" style="width: 330px;" var="clasesAusentismos" value="#{controlCausasAusentismos.lovClasesAusentismos}" rowKey="#{clasesAusentismos.secuencia}"
                                      selection="#{controlCausasAusentismos.clasesAusentismosSeleccionado}" selectionMode="single" widgetVar="LOVClasesAusentismos" scrollable="true" scrollHeight="200" scrollWidth="345"
                                      filteredValue="#{controlCausasAusentismos.lovFiltradoClasesAusentismos}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlCausasAusentismos.activarAceptar()}" update=":formularioDialogos:aceptarCLA"/>
@@ -558,7 +558,7 @@ and open the template in the editor.
                                 <h:outputText value="#{msg['buscarCLA']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                 <p:inputText id="globalFilter" onkeyup="LOVClasesAusentismos.filter();" style="width:120px; position: relative; left: 80px;" />  
                             </f:facet>
-                            <p:column filterBy="#{clasesAusentismos.codigo}" width="10" filterStyle="width:30px" filterMatchMode="contains">
+                            <p:column filterBy="#{clasesAusentismos.codigo}" width="10" filterStyle="width:30px;" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigoCLA']}" />
                                 </f:facet>
@@ -582,23 +582,23 @@ and open the template in the editor.
                     <!-- DIALOGOS EDITAR -->
 
                     <p:dialog id="editarCodigo" header="#{msg['codigoe']}" widgetVar="editarCodigo" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlCausasAusentismos.editarCausasAusentismos.codigo}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlCausasAusentismos.editarCausasAusentismos.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDescripcion" header="#{msg['descripcione']}" widgetVar="editarDescripcion" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlCausasAusentismos.editarCausasAusentismos.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlCausasAusentismos.editarCausasAusentismos.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarClase" header="#{msg['clasee']}" widgetVar="editarClase" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlCausasAusentismos.editarCausasAusentismos.clase.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlCausasAusentismos.editarCausasAusentismos.clase.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarPorcentajeLiquidacion" header="#{msg['porcentajeliquidacione']}" widgetVar="editarPorcentajeLiquidacion" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlCausasAusentismos.editarCausasAusentismos.porcentajeliquidacion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlCausasAusentismos.editarCausasAusentismos.porcentajeliquidacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarRestaDiasIncapacidad" header="#{msg['restadiasincapacidade']}" widgetVar="editarRestaDiasIncapacidad" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlCausasAusentismos.editarCausasAusentismos.restadiasincapacidad}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlCausasAusentismos.editarCausasAusentismos.restadiasincapacidad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>

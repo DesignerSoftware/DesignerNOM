@@ -475,21 +475,19 @@ public class ControlJuzgados implements Serializable {
 
     public void activarCtrlF11() {
         System.out.println("\n ENTRE A CONTROLJUZGADOS ACTIVARCTRLF11 \n");
-
         try {
-
             if (bandera == 0) {
                 System.out.println("Activar");
                 codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosJuzgados:codigo");
-                codigo.setFilterStyle("width: 80px");
+                codigo.setFilterStyle("width: 85%;");
                 nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosJuzgados:nombre");
-                nombre.setFilterStyle("width: 105px");
+                nombre.setFilterStyle("width: 85%;");
                 ciudad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosJuzgados:ciudad");
-                ciudad.setFilterStyle("width: 100px");
+                ciudad.setFilterStyle("width: 85%;");
                 oficina = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosJuzgados:oficina");
-                oficina.setFilterStyle("width: 60px");
+                oficina.setFilterStyle("width: 85%;");
                 observaciones = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosJuzgados:observaciones");
-                observaciones.setFilterStyle("width: 90px");
+                observaciones.setFilterStyle("width: 85%;");
                 RequestContext.getCurrentInstance().update("form:datosJuzgados");
                 bandera = 1;
             } else if (bandera == 1) {

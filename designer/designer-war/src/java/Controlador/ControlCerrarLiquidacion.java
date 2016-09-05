@@ -149,10 +149,10 @@ public class ControlCerrarLiquidacion implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
             codigoEmpleado = (Column) c.getViewRoot().findComponent("form:datosEmpleadosParametros:codigoEmpleado");
-            codigoEmpleado.setFilterStyle("width: 60px");
+            codigoEmpleado.setFilterStyle("width: 85%");
             nombreEmpleado = (Column) c.getViewRoot().findComponent("form:datosEmpleadosParametros:nombreEmpleado");
-            nombreEmpleado.setFilterStyle("width: 200px");
-            altoTabla = "138";
+            nombreEmpleado.setFilterStyle("width: 85%");
+            altoTabla = "140";
             RequestContext.getCurrentInstance().update("form:datosEmpleadosParametros");
             bandera = 1;
         } else if (bandera == 1) {

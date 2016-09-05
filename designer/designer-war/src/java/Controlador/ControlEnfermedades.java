@@ -167,9 +167,9 @@ public class ControlEnfermedades implements Serializable {
         if (bandera == 0) {
 
             codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:codigo");
-            codigo.setFilterStyle("width: 370px");
+            codigo.setFilterStyle("width: 85%");
             descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
-            descripcion.setFilterStyle("width: 400px");
+            descripcion.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosEnfermedades");
             System.out.println("Activar");
             bandera = 1;

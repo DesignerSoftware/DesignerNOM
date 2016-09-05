@@ -12,15 +12,15 @@
             <ui:define name="body">                  
                 <h:form id="form"> 
                     <p:panel  id="PanelTotal" header="Certificado de Aportes Obligatorios Para Salud" style=" font-size: 12px; position: absolute; width: 874px; height: 530px; left: 300px; top: 100px;text-align: left" >  
-                        <p:commandButton style="background: url(Imagenes/salvar2.gif); position: absolute; top: 38px ; width: 43px;height: 43px"  value=" "  />
+                        <p:commandButton style="background: url(Imagenes/Iconos/salvar2.gif); position: absolute; top: 38px ; width: 43px;height: 43px;"  value=" "  />
                         <h:outputText value=" Esta pantalla permite calcular Retroactivos y Proyecciones de salariales individuales y colectivos
                                       (Por empleado(s) y por tipo de sueldo) en valor fijo arbitrario o a través de procentajes aprobados por la empresa" style="width:800px ; position: absolute; top: 45px; left: 65px ; "/>
                         <fieldset style="background:#dddddd ; position: absolute; left: 10px; top: 90px; font-size: 10px; width: 835px; height: 385px; border-radius: 10px; ">
                             <legend style="background: #ffffff; font-size: 14px; color: blue"><strong>Proyecciones y Retroactivos</strong></legend>
                             <fieldset style="background: #ffffff; position: absolute; left: 10px; top: 20px; font-size: 10px; width: 220px; height: 65px; border-radius: 10px;"  >
-                                <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">  
+                                <h:panelGrid columns="1" style="margin-bottom:10px;" cellpadding="5">  
 
-                                    <p:selectOneRadio style="columns: 2;position: absolute;left: -45px;top: 20px" id="options" value="#{controlLiquidarProyeccion1.numero}">  
+                                    <p:selectOneRadio style="columns: 2;position: absolute;left: -45px;top: 20px;" id="options" value="#{controlLiquidarProyeccion1.numero}">  
                                         <f:selectItem itemLabel="Aumentos y RetroActivos" itemValue="1" />  
                                         <f:selectItem itemLabel="Proyecciones" itemValue="2" />  
                                         <p:ajax listener="#{controlLiquidarProyeccion1.mostrar(controlLiquidarProyeccion1.numero)}" />
@@ -36,29 +36,29 @@
                             </fieldset>
                             <fieldset style="background: #ffffff;position: absolute; left: 255px; top: 20px; font-size: 10px; width: 565px; height: 355px; border-radius: 10px;"  >
 
-                                <p:commandButton style="background: url(Imagenes/GereAnalisisCargos.gif)  ;border-color:#045491; width:90px ; height: 100px ; border-width: 2px; position: absolute;top: 20px;left: 10px" id="b1" disabled="#{controlLiquidarProyeccion1.b1}" value=" "></p:commandButton>
+                                <p:commandButton style="background: url(Imagenes/Iconos/GereAnalisisCargos.gif)  ;border-color:#045491; width:90px ; height: 100px ; border-width: 2px; position: absolute;top: 20px;left: 10px;" id="b1" disabled="#{controlLiquidarProyeccion1.b1}" value=" "></p:commandButton>
                                 <h:outputText id="t1" value="Parámetros de Aumentos" style="font-weight: bold;position: absolute;top: 25px;left: 110px;font-size: 12px; color: #{controlLiquidarProyeccion1.color}"/>
                                 <h:outputText style="position: absolute;top: 40px;left: 110px; width: 130px; height: 200px; font-size: 12px  " value="Permite ingresar los parámetros para proyecciones/retroactivos individuales y/o colectivos"/>
 
-                                <p:commandButton style="background: url(Imagenes/nom_parametros.gif)  ;border-color:#045491; width:90px ; height: 100px ; border-width: 2px; position: absolute;top: 135px;left: 10px" id="b2" value=" "></p:commandButton>
+                                <p:commandButton style="background: url(Imagenes/Iconos/nom_parametros.gif)  ;border-color:#045491; width:90px ; height: 100px ; border-width: 2px; position: absolute;top: 135px;left: 10px;" id="b2" value=" "></p:commandButton>
                                 <h:outputText id="t2" value="Parámetros de Liquidación" style="font-weight: bold;position: absolute;top: 135px;left: 110px;font-size: 12px; color: #{controlLiquidarProyeccion1.color}"/>
                                 <h:outputText style="position: absolute;top: 155px;left: 110px; width: 130px; height: 200px; font-size: 12px  " value="Permite ingresar los parámetros de la liquidación como fecha,centro de costo,empleados etc"/>
 
-                                <p:commandButton style="background: url(Imagenes/nom_hojaconcepto.gif)  ;border-color:#045491; width:90px ; height: 100px ; border-width: 2px; position: absolute;top: 250px;left: 10px" id="b3" value=" "></p:commandButton>
+                                <p:commandButton style="background: url(Imagenes/Iconos/nom_hojaconcepto.gif)  ;border-color:#045491; width:90px ; height: 100px ; border-width: 2px; position: absolute;top: 250px;left: 10px;" id="b3" value=" "></p:commandButton>
                                 <h:outputText id="t3" value="Conceptos" style="font-weight: bold;position: absolute;top: 265px;left: 110px;font-size: 12px; color: #{controlLiquidarProyeccion1.color}"/>
                                 <h:outputText style="position: absolute;top: 285px;left: 110px; width: 130px; height: 200px; font-size: 12px  " value="Seleccione los conceptos que se encuentrar disponibles para la ejecución"/>
 
                                 <p:separator style="width: 2px; height: 345px"/>
 
-                                <p:commandButton style="background: url(Imagenes/nom_liquidar.gif)  ;border-color:#045491; width:90px ; height: 100px ; border-width: 2px; position: absolute;top: 20px;left: 305px" id="b4"  value=" "></p:commandButton>
+                                <p:commandButton style="background: url(Imagenes/Iconos/nom_liquidar.gif)  ;border-color:#045491; width:90px ; height: 100px ; border-width: 2px; position: absolute;top: 20px;left: 305px;" id="b4"  value=" "></p:commandButton>
                                 <h:outputText id="t4" value="Generar Liquidación" style="font-weight: bold;position: absolute;top: 25px;left: 405px;font-size: 12px; color: #{controlLiquidarProyeccion1.color}"/>
                                 <h:outputText style="position: absolute;top: 40px;left: 405px; width: 130px; height: 200px; font-size: 12px  " value="Ejecuta la liquidación de los retroactivos o proyecciones ya parametrizados anteriormente"/>
 
-                                <p:commandButton style="background: url(Imagenes/nom_comprobante.gif)  ;border-color:#045491; width:90px ; height: 100px ; border-width: 2px; position: absolute;top: 135px;left: 305px" id="b5" value=" "></p:commandButton>
+                                <p:commandButton style="background: url(Imagenes/Iconos/nom_comprobante.gif)  ;border-color:#045491; width:90px ; height: 100px ; border-width: 2px; position: absolute;top: 135px;left: 305px;" id="b5" value=" "></p:commandButton>
                                 <h:outputText id="t5" value="#{controlLiquidarProyeccion1.tituloBoton}" style="font-weight: bold;position: absolute;top: 135px;left: 405px;font-size: 12px; color: #{controlLiquidarProyeccion1.color}"/>
                                 <h:outputText style="position: absolute;top: 155px;left: 405px; width: 130px; height: 200px; font-size: 12px  " value="Presenta los resultados de la liquidación y los calculos de retroactivos o proyecciones"/>
 
-                                <p:commandButton  onclick="opciones.show();" process="@this" style="background: url(Imagenes/nom_borrar.gif)  ;border-color:#045491; width:90px ; height: 100px ; border-width: 2px; position: absolute;top: 250px;left: 305px" id="b6" disabled="#{controlLiquidarProyeccion1.b1}" action="opciones" value=" "></p:commandButton>
+                                <p:commandButton  onclick="opciones.show();" process="@this" style="background: url(Imagenes/Iconos/nom_borrar.gif)  ;border-color:#045491; width:90px ; height: 100px ; border-width: 2px; position: absolute;top: 250px;left: 305px;" id="b6" disabled="#{controlLiquidarProyeccion1.b1}" action="opciones" value=" "></p:commandButton>
                                 <h:outputText id="t6"  value="Borrar y/o Cerrar Proceso" style="font-weight: bold;position: absolute;top: 265px;left: 405px;font-size: 12px; color: #{controlLiquidarProyeccion1.color}"/>
                                 <h:outputText style="position: absolute;top: 285px;left: 405px; width: 130px; height: 200px; font-size: 12px  " value="Elimina los resultados de la liquidación y los calculos de retroactivos"/>
                             </fieldset>
@@ -70,11 +70,11 @@
                             <fieldset style="position: absolute; left: 10px; top: 10px; font-size: 10px; width: 250px; height: 140px; border-radius: 10px;" >
                                 <legend style="font-size: 14px; color: blue"><strong>Opciones</strong></legend>
 
-                                <h:graphicImage value="Imagenes/ManoOtrasNovedades.gif" width="50" height="90" style="position: absolute; left: 10px; top: 20px;"  />
+                                <h:graphicImage value="Imagenes/Iconos/ManoOtrasNovedades.gif" width="50" height="90" style="position: absolute; left: 10px; top: 20px;"  />
                                 <legend value="Opciones" style="font-size: 14px;position: absolute; left: 20px; top: 20px; width: 30px; font-weight:bold" />
-                                <p:commandButton style="font-size: 12px; border-color:#045491; width:180px; border-width: 2px; position: absolute;top: 25px;left: 75px" value="Borrar Liquidación"></p:commandButton>
-                                <p:commandButton style="font-size: 12px;border-color:#045491; width:180px; border-width: 2px; position: absolute;top: 65px;left: 75px" value="Cerrar Liquidación"></p:commandButton>
-                                <p:commandButton value="Atras" onclick="opciones.hide();" style="position: absolute; top: 110px; left: 195px" icon="ui-icon-arrowreturnthick-1-w" process="@this" />
+                                <p:commandButton style="font-size: 12px; border-color:#045491; width:180px; border-width: 2px; position: absolute;top: 25px;left: 75px;" value="Borrar Liquidación"></p:commandButton>
+                                <p:commandButton style="font-size: 12px;border-color:#045491; width:180px; border-width: 2px; position: absolute;top: 65px;left: 75px;" value="Cerrar Liquidación"></p:commandButton>
+                                <p:commandButton value="Atras" onclick="opciones.hide();" style="position: absolute; top: 110px; left: 195px;" icon="ui-icon-arrowreturnthick-1-w" process="@this" />
                             </fieldset>
                         </p:dialog>
                     </p:panel>

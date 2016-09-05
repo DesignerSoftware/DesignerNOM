@@ -12,7 +12,7 @@
             <ui:define name="body">                  
                 <h:form id="form"> 
                     <p:growl id="growl" showDetail="true"/> 
-                    <p:panel  id="PanelTotal" header="Tipos Documentos" style="position: absolute; width: 874px; height: 510px; text-align: left">    
+                    <p:panel  id="PanelTotal" header="Tipos Documentos" styleClass="panelTotal">    
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Tipo de Documento</strong></legend>
 
@@ -60,52 +60,52 @@
                         <p:toolbar style=" position: absolute; top: 40px; left: 20px;">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " actionListener="#{controlTiposDocumentos.guardarTiposDocumentos()}" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlTiposDocumentos.guardarTiposDocumentos()}" process="@this" />
                                 <p:tooltip style="" for="guardarRapido" value="Guardar" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposDocumentos.editarCelda()}"  process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlTiposDocumentos.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="Editar" />
 
                                 <p:separator />
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposDocumentos.listaValoresBoton()}"   process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlTiposDocumentos.listaValoresBoton()}"   process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="Lista de Valores" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposDocumentos.activarCtrlF11()}"  process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlTiposDocumentos.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="Activar filtrado" />
 
                                 <p:separator />
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposDocumentos.exportXLS()}"  ajax="false"/>
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " actionListener="#{controlTiposDocumentos.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposDocumentos.limpiarNuevoTiposDocumentos()}"  ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png) " actionListener="#{controlTiposDocumentos.limpiarNuevoTiposDocumentos()}"  ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosTiposDocumentosExportar" fileName="TIPOSDOCUMENTOS" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposDocumentos.exportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlTiposDocumentos.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
 
                                 <p:separator /> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg);  background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  oncomplete="nuevoRegistroTiposDocumentos.show()" update=":formularioDialogos:nuevaTipoempresa" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "  oncomplete="nuevoRegistroTiposDocumentos.show()" update=":formularioDialogos:nuevaTipoempresa" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="Nuevo Tipo Documento" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  actionListener="#{controlTiposDocumentos.verificarBorrado()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) "  actionListener="#{controlTiposDocumentos.verificarBorrado()}" process="@this"/>  
                                 <p:tooltip style="" for="eliminar" value="Eliminar Tipo Documento" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposDocumentos.duplicandoTiposDocumentos()}" process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlTiposDocumentos.duplicandoTiposDocumentos()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="Duplicar Tipo Documento" />
                                 <p:separator /> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposDocumentos.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlTiposDocumentos.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposDocumentos.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlTiposDocumentos.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="refrescar"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTiposDocumentos.salir()}"  process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlTiposDocumentos.salir()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
@@ -116,107 +116,107 @@
                         <p:commandButton style=" position: absolute; left: 785px; top: 470px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras"    />
 
                         <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
-                            <h:graphicImage value="Imagenes/alerta.jpg" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="confirmarGuardar.hide();" actionListener="#{controlTiposDocumentos.guardarTiposDocumentos()}" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="confirmarGuardar.hide();" actionListener="#{controlTiposDocumentos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <p:commandButton value="Si" onclick="confirmarGuardar.hide();" actionListener="#{controlTiposDocumentos.guardarTiposDocumentos()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="No" onclick="confirmarGuardar.hide();" actionListener="#{controlTiposDocumentos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
                     </p:panel>
 
-                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
+                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400px;" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="Necesita : #{controlTiposDocumentos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 50px; left: 300px" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="77" width="330px" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="77" width="330px;" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value=" #{controlTiposDocumentos.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 40px; left: 230px" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="77" width="400px" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="77" width="400px;" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionBorrar.hide();" style="position: absolute; top: 40px; left: 300px" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="validacionBorrar.hide();" style="position: absolute; top: 40px; left: 300px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="87" width="280px" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="87" width="280px;" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Se han borrado #{controlTiposDocumentos.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="mostrarBorrados.hide();" style="position: absolute; top: 50px; left: 180px" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="mostrarBorrados.hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
+                    <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="false" modal="true" height="95" width="400px;" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="Para agregar es necesario adicionar: #{controlTiposDocumentos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionNuevaCentroCosto.hide();" style="position: absolute; top: 50px; left: 300px" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="validacionNuevaCentroCosto.hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlTiposDocumentos.activarCtrlF11()}"/> 
                 </h:form>
 
                 <h:form id="formularioDialogos">
 
-                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'TIPOSDOCUMENTOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposDocumentos.secRegistro, 'TiposDocumentos', 'tipodocumento')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposDocumentos.secRegistro, 'TiposDocumentos', 'tipodocumento')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla TIPOSDOCUMENTOS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('TiposDocumentos', 'tipodocumento')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('TiposDocumentos', 'tipodocumento')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposDocumentos.secRegistro, 'TiposDocumentos', 'tipodocumento')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposDocumentos.secRegistro, 'TiposDocumentos', 'tipodocumento')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'TIPOSDOCUMENTOS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
 
 
-                    <p:dialog id="editCodigo" header="Nombre Corto" widgetVar="editCodigo" resizable="false" draggable="false" modal="true" height="55" width="240" style="text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlTiposDocumentos.editarTiposDocumentos.nombrecorto}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editCodigo" header="Nombre Corto" widgetVar="editCodigo" resizable="false" draggable="false" modal="true" height="80" width="400" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlTiposDocumentos.editarTiposDocumentos.nombrecorto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="false" modal="true" height="55" width="240" style="text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlTiposDocumentos.editarTiposDocumentos.nombrelargo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="false" modal="true" height="80" width="400" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlTiposDocumentos.editarTiposDocumentos.nombrelargo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
 
 
                     <p:dialog id="nuevoRegistroTiposDocumentos" header="Nuevo Registro" widgetVar="nuevoRegistroTiposDocumentos" closable="false" resizable="false"  draggable="false" modal="true" height="150" width="320" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Tipo Documento" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Tipo Documento" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevaTipoempresa" style="border: none;">
 
@@ -240,7 +240,7 @@
 
 
                     <p:dialog id="duplicarRegistroTiposDocumentos" header="duplicar Registro" widgetVar="duplicarRegistroTiposDocumentos" closable="false" resizable="false"  draggable="false" modal="true" height="150" width="320" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Tipo Documento" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Tipo Documento" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarTE" style="border: none;">
                             <strong><h:outputText value="Corto: "  style=" position: absolute; top: 60px;" /></strong>

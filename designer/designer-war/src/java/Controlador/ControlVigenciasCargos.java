@@ -1477,18 +1477,18 @@ public class ControlVigenciasCargos implements Serializable {
         if (bandera == 0) {
             System.out.println("Activar");
             vcFecha = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcFecha");
-            vcFecha.setFilterStyle("width: 85%");
+            vcFecha.setFilterStyle("width: 85%;");
             vcEstructura = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcEstructura");
-            vcEstructura.setFilterStyle("");
+            vcEstructura.setFilterStyle("width: 85%;");
             vcMotivo = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcMotivo");
-            vcMotivo.setFilterStyle("");
+            vcMotivo.setFilterStyle("width: 85%;");
             vcNombreCargo = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcNombreCargo");
-            vcNombreCargo.setFilterStyle("");
+            vcNombreCargo.setFilterStyle("width: 85%;");
             vcCentrosC = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcCentrosC");
-            vcCentrosC.setFilterStyle("");
+            vcCentrosC.setFilterStyle("width: 85%;");
             vcNombreJefe = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcNombreJefe");
-            vcNombreJefe.setFilterStyle("");
-            altoTabla = "268";
+            vcNombreJefe.setFilterStyle("width: 85%;");
+            altoTabla = "272";
             RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
             bandera = 1;
         } else if (bandera == 1) {

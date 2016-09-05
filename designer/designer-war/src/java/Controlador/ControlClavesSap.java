@@ -274,15 +274,15 @@ public class ControlClavesSap implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             clave = (Column) c.getViewRoot().findComponent("form:datosClavesSap:clave");
-            clave.setFilterStyle("width: 100px");
+            clave.setFilterStyle("width: 85%;");
             claveajuste = (Column) c.getViewRoot().findComponent("form:datosClavesSap:claveajuste");
-            claveajuste.setFilterStyle("width: 100px");
+            claveajuste.setFilterStyle("width: 85%;");
             clasificacion = (Column) c.getViewRoot().findComponent("form:datosClavesSap:clasificacion");
-            clasificacion.setFilterStyle("width: 100px");
+            clasificacion.setFilterStyle("width: 85%;");
             naturaleza = (Column) c.getViewRoot().findComponent("form:datosClavesSap:naturaleza");
-            naturaleza.setFilterStyle("width: 100px");
+            naturaleza.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosClavesSap");
             System.out.println("Activar");
             bandera = 1;

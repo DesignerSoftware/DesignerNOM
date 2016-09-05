@@ -1283,7 +1283,7 @@ public class ControlBetaCentrosCostos implements Serializable {
         try {
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 0) {
-                altoTabla = 261;
+                altoTabla = 265;
                 System.out.println("Activar");
                 codigoCC = (Column) c.getViewRoot().findComponent("form:datosCentrosCostos:codigoCC");
                 codigoCC.setFilterStyle("width: 85%");

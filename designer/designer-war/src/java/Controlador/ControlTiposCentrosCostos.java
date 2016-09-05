@@ -591,13 +591,13 @@ public class ControlTiposCentrosCostos implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:codigo");
-            codigo.setFilterStyle("width: 200px");
+            codigo.setFilterStyle("width: 85%;");
             nombre = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:nombre");
-            nombre.setFilterStyle("width: 270px");
+            nombre.setFilterStyle("width: 85%;");
             grupoTipoCC = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:grupoTipoCC");
-            grupoTipoCC.setFilterStyle("width: 270px");
+            grupoTipoCC.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
             System.out.println("Activar");
             bandera = 1;

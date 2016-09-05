@@ -503,31 +503,31 @@ public class ControlTipoCotizante implements Serializable {
     public void activarCtrlF11() {
         System.out.println("TipoLista= " + tipoLista);
         if (bandera == 0 && CualTabla == 0) {
-            altoTabla = "71";
+            altoTabla = "75";
             System.out.println("Activar");
             System.out.println("TipoLista= " + tipoLista);
             tcCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcCodigo");
-            tcCodigo.setFilterStyle("width: 60px");
+            tcCodigo.setFilterStyle("width: 85%;");
             tcDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcDescripcion");
-            tcDescripcion.setFilterStyle("width: 60px");
+            tcDescripcion.setFilterStyle("width: 85%;");
             tcPension = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcPension");
-            tcPension.setFilterStyle("width: 60px");
+            tcPension.setFilterStyle("width: 85%;");
             tcSalud = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcSalud");
-            tcSalud.setFilterStyle("width: 60px");
+            tcSalud.setFilterStyle("width: 85%;");
             tcRiesgo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcRiesgo");
-            tcRiesgo.setFilterStyle("width: 60px");
+            tcRiesgo.setFilterStyle("width: 85%;");
             tcParafiscal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcParafiscal");
-            tcParafiscal.setFilterStyle("width: 60px");
+            tcParafiscal.setFilterStyle("width: 85%;");
             tcEsap = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcEsap");
-            tcEsap.setFilterStyle("width: 60px");
+            tcEsap.setFilterStyle("width: 85%;");
             tcMen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcMen");
-            tcMen.setFilterStyle("width: 60px");
+            tcMen.setFilterStyle("width: 85%;");
             tcExtranjero = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcExtranjero");
-            tcExtranjero.setFilterStyle("width: 60px");
+            tcExtranjero.setFilterStyle("width: 85%;");
             tcSubtipoCotizante = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcSubtipoCotizante");
-            tcSubtipoCotizante.setFilterStyle("width: 60px");
+            tcSubtipoCotizante.setFilterStyle("width: 85%;");
             tcCodigoAlternativo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcCodigoAlternativo");
-            tcCodigoAlternativo.setFilterStyle("width: 60px");
+            tcCodigoAlternativo.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
             bandera = 1;
 
@@ -560,11 +560,11 @@ public class ControlTipoCotizante implements Serializable {
         } else if (banderaNF == 0 && CualTabla == 1) {
             altoTablaNF = "71";
             dtcTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcTipoEntidad");
-            dtcTipoEntidad.setFilterStyle("width: 60px");
+            dtcTipoEntidad.setFilterStyle("width: 85%;");
             dtcMinimo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMinimo");
-            dtcMinimo.setFilterStyle("width: 60px");
+            dtcMinimo.setFilterStyle("width: 85%;");
             dtcMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMaximo");
-            dtcMaximo.setFilterStyle("width: 60px");
+            dtcMaximo.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
             banderaNF = 1;
 

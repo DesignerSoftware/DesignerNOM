@@ -829,11 +829,11 @@ public class ControlConceptoRedondeo implements Serializable {
      */
     public void activarCtrlF11() {
         if (bandera == 0) {
-            altoScrollConceptosRedondeos = "223";
+            altoScrollConceptosRedondeos = "225";
             conceptoRedondeoConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConceptosRedondeos:conceptoRedondeoConcepto");
-            conceptoRedondeoConcepto.setFilterStyle("width: 60px");
+            conceptoRedondeoConcepto.setFilterStyle("width: 85%");
             conceptoRedondeoTipoRedondeo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConceptosRedondeos:conceptoRedondeoTipoRedondeo");
-            conceptoRedondeoTipoRedondeo.setFilterStyle("width: 60px");
+            conceptoRedondeoTipoRedondeo.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
             bandera = 1;
 

@@ -722,21 +722,21 @@ public class ControlAdminreportes implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {
-            altoTabla = "246";
+            altoTabla = "250";
             System.out.println("Activar");
             System.out.println("TipoLista= " + tipoLista);
             inforeportesCodigos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesCodigos");
-            inforeportesCodigos.setFilterStyle("width: 20px");
+            inforeportesCodigos.setFilterStyle("width: 85%;");
             inforeportesNombres = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesNombres");
             inforeportesNombres.setFilterStyle("");
             inforeportesContadores = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesContadores");
-            inforeportesContadores.setFilterStyle("width: 30px");
+            inforeportesContadores.setFilterStyle("width: 85%;");
             inforeportesNombresReportes = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesNombresReportes");
             inforeportesNombresReportes.setFilterStyle("");
             inforeportesTipos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesTipos");
-            inforeportesTipos.setFilterStyle("width: 30px");
+            inforeportesTipos.setFilterStyle("width: 85%;");
             inforeportesModulos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesModulos");
-            inforeportesModulos.setFilterStyle("width: 30px");
+            inforeportesModulos.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosInforeportes");
             bandera = 1;
             tipoLista = 1;

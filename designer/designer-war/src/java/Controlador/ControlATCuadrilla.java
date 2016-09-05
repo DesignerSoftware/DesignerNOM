@@ -1861,14 +1861,14 @@ public class ControlATCuadrilla implements Serializable {
         if (indexCuadrilla >= 0) {
             if (banderaCuadrilla == 0) {
                 cuadrillaCodigo = (Column) c.getViewRoot().findComponent("form:datosCuadrilla:cuadrillaCodigo");
-                cuadrillaCodigo.setFilterStyle("width: 60px");
+                cuadrillaCodigo.setFilterStyle("width: 85%;");
                 cuadrillaDescripcion = (Column) c.getViewRoot().findComponent("form:datosCuadrilla:cuadrillaDescripcion");
-                cuadrillaDescripcion.setFilterStyle("width: 60px");
+                cuadrillaDescripcion.setFilterStyle("width: 85%;");
                 cuadrillaDias = (Column) c.getViewRoot().findComponent("form:datosCuadrilla:cuadrillaDias");
-                cuadrillaDias.setFilterStyle("width: 60px");
+                cuadrillaDias.setFilterStyle("width: 85%;");
                 cuadrillaModulo = (Column) c.getViewRoot().findComponent("form:datosCuadrilla:cuadrillaModulo");
-                cuadrillaModulo.setFilterStyle("width: 60px");
-                altoTablaCuadrilla = "48";
+                cuadrillaModulo.setFilterStyle("width: 85%;");
+                altoTablaCuadrilla = "50";
                 RequestContext.getCurrentInstance().update("form:datosCuadrilla");
                 banderaCuadrilla = 1;
             } else if (banderaCuadrilla == 1) {
@@ -1891,20 +1891,20 @@ public class ControlATCuadrilla implements Serializable {
         if (indexTurno >= 0) {
             if (banderaTurno == 0) {
                 turnoCodigo = (Column) c.getViewRoot().findComponent("form:datosTurno:turnoCodigo");
-                turnoCodigo.setFilterStyle("width: 60px");
+                turnoCodigo.setFilterStyle("width: 85%;");
                 turnoDescripcion = (Column) c.getViewRoot().findComponent("form:datosTurno:turnoDescripcion");
-                turnoDescripcion.setFilterStyle("width: 60px");
+                turnoDescripcion.setFilterStyle("width: 85%;");
                 turnoFecha = (Column) c.getViewRoot().findComponent("form:datosTurno:turnoFecha");
-                turnoFecha.setFilterStyle("width: 60px");
+                turnoFecha.setFilterStyle("width: 85%;");
                 turnoHoraInicial = (Column) c.getViewRoot().findComponent("form:datosTurno:turnoHoraInicial");
-                turnoHoraInicial.setFilterStyle("width: 60px");
+                turnoHoraInicial.setFilterStyle("width: 85%;");
                 turnoHoraFinal = (Column) c.getViewRoot().findComponent("form:datosTurno:turnoHoraFinal");
-                turnoHoraFinal.setFilterStyle("width: 60px");
+                turnoHoraFinal.setFilterStyle("width: 85%;");
                 turnoMinInicial = (Column) c.getViewRoot().findComponent("form:datosTurno:turnoMinInicial");
-                turnoMinInicial.setFilterStyle("width: 60px");
+                turnoMinInicial.setFilterStyle("width: 85%;");
                 turnoMinFinal = (Column) c.getViewRoot().findComponent("form:datosTurno:turnoMinFinal");
-                turnoMinFinal.setFilterStyle("width: 60px");
-                altoTablaTurno = "58";
+                turnoMinFinal.setFilterStyle("width: 85%;");
+                altoTablaTurno = "60";
                 RequestContext.getCurrentInstance().update("form:datosTurno");
                 banderaTurno = 1;
             } else if (banderaTurno == 1) {
@@ -1933,12 +1933,12 @@ public class ControlATCuadrilla implements Serializable {
         if (indexDetalle >= 0) {
             if (banderaDetalle == 0) {
                 detalleOrden = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleOrden");
-                detalleOrden.setFilterStyle("width: 60px");
+                detalleOrden.setFilterStyle("width: 85%;");
                 detalleCodigo = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleCodigo");
-                detalleCodigo.setFilterStyle("width: 60px");
+                detalleCodigo.setFilterStyle("width: 85%;");
                 detalleEmpleado = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleEmpleado");
-                detalleEmpleado.setFilterStyle("width: 60px");
-                altoTablaDetalle = "58";
+                detalleEmpleado.setFilterStyle("width: 85%;");
+                altoTablaDetalle = "60";
                 RequestContext.getCurrentInstance().update("form:datosDetalle");
                 banderaDetalle = 1;
             } else if (banderaDetalle == 1) {

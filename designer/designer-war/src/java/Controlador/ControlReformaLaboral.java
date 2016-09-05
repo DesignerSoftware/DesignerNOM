@@ -1161,13 +1161,13 @@ public class ControlReformaLaboral implements Serializable {
     public void activarCtrlF11() {
         if (index >= 0) {
             if (bandera == 0) {
-                altoTablaReforma = "135";
+                altoTablaReforma = "137";
                 reformaCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosReformaLaboral:reformaCodigo");
-                reformaCodigo.setFilterStyle("width: 125px");
+                reformaCodigo.setFilterStyle("width: 85%;");
                 reformaNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosReformaLaboral:reformaNombre");
-                reformaNombre.setFilterStyle("width: 125px");
+                reformaNombre.setFilterStyle("width: 85%;");
                 reformaIntegral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosReformaLaboral:reformaIntegral");
-                reformaIntegral.setFilterStyle("width: 15px");
+                reformaIntegral.setFilterStyle("width: 85%;");
                 RequestContext.getCurrentInstance().update("form:datosReformaLaboral");
                 bandera = 1;
             } else if (bandera == 1) {
@@ -1188,9 +1188,9 @@ public class ControlReformaLaboral implements Serializable {
             if (banderaDetalle == 0) {
                 altoTablaDetalles = "113";
                 detalleFactor = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalleReformaLaboral:detalleFactor");
-                detalleFactor.setFilterStyle("width: 80px");
+                detalleFactor.setFilterStyle("width: 85%;");
                 detalleTipoPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalleReformaLaboral:detalleTipoPago");
-                detalleTipoPago.setFilterStyle("width: 80px");
+                detalleTipoPago.setFilterStyle("width: 85%;");
                 RequestContext.getCurrentInstance().update("form:datosDetalleReformaLaboral");
                 banderaDetalle = 1;
             } else if (banderaDetalle == 1) {

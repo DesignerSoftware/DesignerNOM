@@ -22,62 +22,62 @@
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlParametroAutoliq.guardadoGeneral()}" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none; " actionListener="#{controlParametroAutoliq.guardadoGeneral()}" process="@this" />
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlParametroAutoliq.editarCelda()}" process="@this"
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; " actionListener="#{controlParametroAutoliq.editarCelda()}" process="@this"
                                                  onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"
                                                  />
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlParametroAutoliq.listaValoresBoton()}" process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; " actionListener="#{controlParametroAutoliq.listaValoresBoton()}" process="@this"/>
                                 <p:tooltip for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlParametroAutoliq.activarCtrlF11()}" process="@this"
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlParametroAutoliq.activarCtrlF11()}" process="@this"
                                                  onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"
                                                  />
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " ajax="false" actionListener="#{controlParametroAutoliq.validarExportXLS()}" />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " ajax="false" actionListener="#{controlParametroAutoliq.validarExportXLS()}" />
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none; " ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlParametroAutoliq.exportXMLTabla()}" fileName="#{controlParametroAutoliq.exportXMLNombreArchivo()}" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlParametroAutoliq.validarExportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none; " actionListener="#{controlParametroAutoliq.validarExportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlParametroAutoliq.mostrarDialogoElegirTabla()}" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; " actionListener="#{controlParametroAutoliq.mostrarDialogoElegirTabla()}" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlParametroAutoliq.validarBorradoPagina()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none; " actionListener="#{controlParametroAutoliq.validarBorradoPagina()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlParametroAutoliq.duplicarParametroAutoliq()}"  process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none; " actionListener="#{controlParametroAutoliq.duplicarParametroAutoliq()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlParametroAutoliq.verificarRastroTablas()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " actionListener="#{controlParametroAutoliq.verificarRastroTablas()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlParametroAutoliq.cancelarModificacion()}" process="@this"
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlParametroAutoliq.cancelarModificacion()}" process="@this"
                                                  oncomplete="window.location.reload(),operacionEnProceso.show()" onclick="operacionEnProceso.show()"
                                                  /> 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlParametroAutoliq.salir()}" action="#{controlParametroAutoliq.redirigir()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " actionListener="#{controlParametroAutoliq.salir()}" action="#{controlParametroAutoliq.redirigir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -92,7 +92,7 @@
                         <fieldset style="position: absolute; left: 445px; top: 70px;width: 400px; height: 105px; border-radius: 10px; ">
                             <legend style="color: blue;text-align:left"><strong>#{msg['parametroautoliq']}</strong></legend>
 
-                            <p:dataTable id="datosParametroAuto" var="infoPA" rowKey="#{infoPA.secuencia}" rowIndexVar="indice" style="border: 0px; width: 385px"  scrollWidth="400"                      
+                            <p:dataTable id="datosParametroAuto" var="infoPA" rowKey="#{infoPA.secuencia}" rowIndexVar="indice" style="border: 0px; width: 385px;"  scrollWidth="400"                      
                                          value="#{controlParametroAutoliq.listaParametrosAutoliq}" scrollable="true" scrollHeight="#{controlParametroAutoliq.altoTabla}" 
                                          filteredValue="#{controlParametroAutoliq.filtrarListaParametrosAutoliq}" emptyMessage="#{msg['vacio']}" selectionMode="single"
                                          editable="true" editMode="cell" selection="#{controlParametroAutoliq.parametroTablaSeleccionado}" >
@@ -115,7 +115,7 @@
                                     </f:facet>
                                 </p:column>  
 
-                                <p:column style="padding: 0px" headerText="#{msg['mes']}" sortBy="#{infoPA.mes}" filterBy="#{infoPA.mes}" width="80"
+                                <p:column style="padding: 0px;" headerText="#{msg['mes']}" sortBy="#{infoPA.mes}" filterBy="#{infoPA.mes}" width="80"
                                           filterMatchMode="contains" id="parametroMes" filterStyle="display: none; visibility: hidden;"  >                                  
                                     <p:selectOneMenu value="#{infoPA.mes}" id="editarMes"  style="font-weight: bold;text-transform: uppercase;"  >  
                                         <f:selectItem itemLabel="#{msg['enero']}" itemValue="1" />  
@@ -1372,7 +1372,7 @@
 
                     <p:dialog header="#{msg['tipoTrabajadorM']}" widgetVar="TipoTrabajadorDialogo" draggable="false" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                        <p:dataTable id="lovTipoTrabajador" liveScroll="true" scrollRows="20" style="width: 400px" var="tipoT" value="#{controlParametroAutoliq.lovTiposTrabajadores}" rowKey="#{tipoT.secuencia}"
+                        <p:dataTable id="lovTipoTrabajador" liveScroll="true" scrollRows="20" style="width: 400px;" var="tipoT" value="#{controlParametroAutoliq.lovTiposTrabajadores}" rowKey="#{tipoT.secuencia}"
                                      selection="#{controlParametroAutoliq.tipoTrabajadorSeleccionado}" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollWidth="415" scrollHeight="250"
                                      filteredValue="#{controlParametroAutoliq.filtrarLovTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametroAutoliq.activarAceptar()}" update=":formularioLovTipoTrabajador:aceptarTT"/>
@@ -1393,9 +1393,9 @@
 
                         <h:outputText id="infoRegistroTipoTrabajador" value="#{msg['infoRegistro']} #{controlParametroAutoliq.infoRegistroTipoTrabajador}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
-                        <p:commandButton id="aceptarTT" icon="ui-icon-check" style="position: relative; left: 225px" value="#{msg['aceptar']}" disabled="#{controlParametroAutoliq.aceptar}" actionListener="#{controlParametroAutoliq.actualizarTipoTrabajador()}" process="@this"/>
+                        <p:commandButton id="aceptarTT" icon="ui-icon-check" style="position: relative; left: 225px;" value="#{msg['aceptar']}" disabled="#{controlParametroAutoliq.aceptar}" actionListener="#{controlParametroAutoliq.actualizarTipoTrabajador()}" process="@this"/>
 
-                        <p:commandButton id="atrasTT" style="position: relative; left: 225px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlParametroAutoliq.cancelarCambioTipoTrabajador()}" process="@this"/>
+                        <p:commandButton id="atrasTT" style="position: relative; left: 225px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlParametroAutoliq.cancelarCambioTipoTrabajador()}" process="@this"/>
                     </p:dialog> 
 
                 </h:form>
@@ -1404,7 +1404,7 @@
 
                     <p:dialog header="#{msg['empresaM']}" widgetVar="EmpresaDialogo" draggable="false" resizable="false" closable="false" id="EmpresaDialogo"  
                               showEffect="fade" hideEffect="fade" width="531" modal="true" >
-                        <p:dataTable id="lovEmpresa" liveScroll="true" scrollRows="20" style="width: 500px" var="empresa" value="#{controlParametroAutoliq.lovEmpresas}" rowKey="#{empresa.secuencia}"
+                        <p:dataTable id="lovEmpresa" liveScroll="true" scrollRows="20" style="width: 500px;" var="empresa" value="#{controlParametroAutoliq.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlParametroAutoliq.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="515" scrollHeight="250"
                                      filteredValue="#{controlParametroAutoliq.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametroAutoliq.activarAceptar()}" update=":formularioLovEmpresa:aceptarE"/>
@@ -1437,9 +1437,9 @@
 
                         <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistro']} #{controlParametroAutoliq.infoRegistroEmpresa}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
-                        <p:commandButton id="aceptarE" icon="ui-icon-check" style="position: relative; left: 330px" value="#{msg['aceptar']}" disabled="#{controlParametroAutoliq.aceptar}" actionListener="#{controlParametroAutoliq.actualizarEmpresa()}" process="@this"/>
+                        <p:commandButton id="aceptarE" icon="ui-icon-check" style="position: relative; left: 330px;" value="#{msg['aceptar']}" disabled="#{controlParametroAutoliq.aceptar}" actionListener="#{controlParametroAutoliq.actualizarEmpresa()}" process="@this"/>
 
-                        <p:commandButton id="atrasI" style="position: relative; left: 330px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlParametroAutoliq.cancelarCambioEmpresa()}" process="@this"/>
+                        <p:commandButton id="atrasI" style="position: relative; left: 330px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlParametroAutoliq.cancelarCambioEmpresa()}" process="@this"/>
                     </p:dialog> 
 
                 </h:form>
@@ -1448,7 +1448,7 @@
 
                     <p:dialog header="#{msg['tipoEntidadM']}" widgetVar="TipoEntidadDialogo" draggable="false" resizable="false" closable="false" id="TipoEntidadDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                        <p:dataTable id="lovTipoEntidad" liveScroll="true" scrollRows="20" style="width: 400px" var="tipoE" value="#{controlParametroAutoliq.lovTiposEntidades}" rowKey="#{tipoE.secuencia}"
+                        <p:dataTable id="lovTipoEntidad" liveScroll="true" scrollRows="20" style="width: 400px;" var="tipoE" value="#{controlParametroAutoliq.lovTiposEntidades}" rowKey="#{tipoE.secuencia}"
                                      selection="#{controlParametroAutoliq.tipoEntidadSeleccionado}" selectionMode="single" widgetVar="lovTipoEntidad" scrollable="true" scrollWidth="415" scrollHeight="250"
                                      filteredValue="#{controlParametroAutoliq.filtrarLovTiposEntidades}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametroAutoliq.activarAceptar()}" update=":formularioLovTipoEntidad:aceptarTE"/>
@@ -1469,9 +1469,9 @@
 
                         <h:outputText id="infoRegistroTipoEntidad" value="#{msg['infoRegistro']} #{controlParametroAutoliq.infoRegistroTipoEntidad}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
-                        <p:commandButton id="aceptarTE" icon="ui-icon-check" style="position: relative; left: 230px" value="#{msg['aceptar']}" disabled="#{controlParametroAutoliq.aceptar}"  actionListener="#{controlParametroAutoliq.actualizarTipoEntidad()}"  process="@this"/>
+                        <p:commandButton id="aceptarTE" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlParametroAutoliq.aceptar}"  actionListener="#{controlParametroAutoliq.actualizarTipoEntidad()}"  process="@this"/>
 
-                        <p:commandButton id="atrasTE" style="position: relative; left: 230px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  actionListener="#{controlParametroAutoliq.cancelarCambioTipoEntidad()}"  process="@this"/>
+                        <p:commandButton id="atrasTE" style="position: relative; left: 230px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  actionListener="#{controlParametroAutoliq.cancelarCambioTipoEntidad()}"  process="@this"/>
                     </p:dialog> 
 
                 </h:form>
@@ -1480,7 +1480,7 @@
 
                     <p:dialog header="#{msg['empleadoM']}" widgetVar="EmpleadoDialogo" draggable="false" resizable="false" closable="false" id="EmpleadoDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                        <p:dataTable id="lovEmpleado" liveScroll="true" scrollRows="20" style="width: 400px" var="empleado" value="#{controlParametroAutoliq.lovEmpleados}" rowKey="#{empleado.secuencia}"
+                        <p:dataTable id="lovEmpleado" liveScroll="true" scrollRows="20" style="width: 400px;" var="empleado" value="#{controlParametroAutoliq.lovEmpleados}" rowKey="#{empleado.secuencia}"
                                      selection="#{controlParametroAutoliq.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleado" scrollable="true" scrollWidth="415" scrollHeight="250"
                                      filteredValue="#{controlParametroAutoliq.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametroAutoliq.activarAceptar()}" update=":formularioLovEmpleado:aceptarEMPL"/>
@@ -1508,9 +1508,9 @@
 
                         <h:outputText id="infoRegistroEmpleado" value="#{msg['infoRegistro']} #{controlParametroAutoliq.infoRegistroEmpleado}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
-                        <p:commandButton id="aceptarEMPL" icon="ui-icon-check" style="position: relative; left: 230px" value="#{msg['aceptar']}" disabled="#{controlParametroAutoliq.aceptar}"  actionListener="#{controlParametroAutoliq.actualizarEmpleado()}" process="@this"/>
+                        <p:commandButton id="aceptarEMPL" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlParametroAutoliq.aceptar}"  actionListener="#{controlParametroAutoliq.actualizarEmpleado()}" process="@this"/>
 
-                        <p:commandButton id="atrasEMPL" style="position: relative; left: 230px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  actionListener="#{controlParametroAutoliq.cancelarCambioEmpleado()}" process="@this"/>
+                        <p:commandButton id="atrasEMPL" style="position: relative; left: 230px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  actionListener="#{controlParametroAutoliq.cancelarCambioEmpleado()}" process="@this"/>
                     </p:dialog> 
 
                 </h:form>
@@ -1519,7 +1519,7 @@
 
                     <p:dialog header="#{msg['terceroM']}" widgetVar="TerceroDialogo" draggable="false" resizable="false" closable="false" id="TerceroDialogo"  
                               showEffect="fade" hideEffect="fade" width="531" modal="true" >
-                        <p:dataTable id="lovTercero" liveScroll="true" scrollRows="20" style="width: 500px" var="tercero" value="#{controlParametroAutoliq.lovTerceros}" rowKey="#{tercero.secuencia}"
+                        <p:dataTable id="lovTercero" liveScroll="true" scrollRows="20" style="width: 500px;" var="tercero" value="#{controlParametroAutoliq.lovTerceros}" rowKey="#{tercero.secuencia}"
                                      selection="#{controlParametroAutoliq.terceroSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="515" scrollHeight="250"
                                      filteredValue="#{controlParametroAutoliq.filtrarLovTerceros}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametroAutoliq.activarAceptar()}" update=":formularioLovTercero:aceptarT"/>
@@ -1552,9 +1552,9 @@
 
                         <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistro']} #{controlParametroAutoliq.infoRegistroTercero}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
-                        <p:commandButton id="aceptarT" icon="ui-icon-check" style="position: relative; left: 330px" value="#{msg['aceptar']}" disabled="#{controlParametroAutoliq.aceptar}"  actionListener="#{controlParametroAutoliq.actualizarTercero()}"  process="@this"/>
+                        <p:commandButton id="aceptarT" icon="ui-icon-check" style="position: relative; left: 330px;" value="#{msg['aceptar']}" disabled="#{controlParametroAutoliq.aceptar}"  actionListener="#{controlParametroAutoliq.actualizarTercero()}"  process="@this"/>
 
-                        <p:commandButton id="atrasT" style="position: relative; left: 330px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  actionListener="#{controlParametroAutoliq.cancelarCambioTercero()}"  process="@this"/>
+                        <p:commandButton id="atrasT" style="position: relative; left: 330px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  actionListener="#{controlParametroAutoliq.cancelarCambioTercero()}"  process="@this"/>
                     </p:dialog> 
 
                 </h:form>
@@ -1563,7 +1563,7 @@
 
                     <p:dialog header="#{msg['aporteEntidadM']}" widgetVar="BuscarAporteDialogo" draggable="false" resizable="false" closable="false" id="BuscarAporteDialogo"  
                               showEffect="fade" hideEffect="fade" width="531" modal="true" >
-                        <p:dataTable id="lovBuscarAporte" liveScroll="true" scrollRows="20" style="width: 500px" var="buscarA" value="#{controlParametroAutoliq.lovAportesEntidades}" rowKey="#{buscarA.secuencia}"
+                        <p:dataTable id="lovBuscarAporte" liveScroll="true" scrollRows="20" style="width: 500px;" var="buscarA" value="#{controlParametroAutoliq.lovAportesEntidades}" rowKey="#{buscarA.secuencia}"
                                      selection="#{controlParametroAutoliq.aporteEntidadSeleccionado}" selectionMode="single" widgetVar="lovBuscarAporte" scrollable="true" scrollWidth="515" scrollHeight="250"
                                      filteredValue="#{controlParametroAutoliq.filtrarLovAportesEntidades}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametroAutoliq.activarAceptar()}" update=":formularioLovAporteEntidad:aceptarBA"/>
@@ -1597,9 +1597,9 @@
 
                         <h:outputText id="infoRegistroAporteEntidad" value="#{msg['infoRegistro']} #{controlParametroAutoliq.infoRegistroAporteEntidad}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
-                        <p:commandButton id="aceptarBA" icon="ui-icon-check" style="position: relative; left: 330px" value="#{msg['aceptar']}" disabled="#{controlParametroAutoliq.aceptar}" actionListener="#{controlParametroAutoliq.actualizarAporteEntidad()}" process="@this"/>
+                        <p:commandButton id="aceptarBA" icon="ui-icon-check" style="position: relative; left: 330px;" value="#{msg['aceptar']}" disabled="#{controlParametroAutoliq.aceptar}" actionListener="#{controlParametroAutoliq.actualizarAporteEntidad()}" process="@this"/>
 
-                        <p:commandButton id="atrasBA" style="position: relative; left: 330px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlParametroAutoliq.cancelarCambioAporteEntidad()}" process="@this"/>
+                        <p:commandButton id="atrasBA" style="position: relative; left: 330px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlParametroAutoliq.cancelarCambioAporteEntidad()}" process="@this"/>
                     </p:dialog> 
 
                 </h:form>
@@ -1609,126 +1609,126 @@
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlParametroAutoliq.guardarYSalir()}" action="#{controlParametroAutoliq.redirigir()}" style="position: absolute; top: 50px; left: 125px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlParametroAutoliq.cancelarYSalir()}" action="#{controlParametroAutoliq.redirigir()}" style="position: absolute; top: 50px; left: 190px" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 260px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlParametroAutoliq.guardarYSalir()}" action="#{controlParametroAutoliq.redirigir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlParametroAutoliq.cancelarYSalir()}" action="#{controlParametroAutoliq.redirigir()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlParametroAutoliq.guardadoGeneral()}" style="position: absolute; top: 50px; left: 125px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlParametroAutoliq.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 260px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlParametroAutoliq.guardadoGeneral()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlParametroAutoliq.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 63px; left: 175px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 240px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroAporte"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="confirmarRastroAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroAporte"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroAporte']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroAporte.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistroAporte, 'AportesEntidades', 'parametroAutoliqRastro')}" style="position: absolute; top: 63px; left: 175px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroAporte.hide();" style="position: absolute; top: 63px; left: 240px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroAporte.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistroAporte, 'AportesEntidades', 'parametroAutoliqRastro')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroAporte.hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 60px; left: 175px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 240px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistoricoAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoAporte"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="confirmarRastroHistoricoAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoAporte"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistoricoAporte']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroHistoricoAporte.hide();" actionListener="#{controlRastro.historicosTabla('AportesEntidades', 'parametroAutoliqRastro')}" style="position: absolute; top: 60px; left: 175px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroHistoricoAporte.hide();" style="position: absolute; top: 60px; left: 240px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroHistoricoAporte.hide();" actionListener="#{controlRastro.historicosTabla('AportesEntidades', 'parametroAutoliqRastro')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroHistoricoAporte.hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 70px; left: 175px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 70px; left: 240px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDBAporte" header="#{msg['error']}" widgetVar="errorObjetosDBAporte"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorObjetosDBAporte" header="#{msg['error']}" widgetVar="errorObjetosDBAporte"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDBAporte']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegNullParametro" header="#{msg['error']}" widgetVar="errorRegNullParametro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorRegNullParametro" header="#{msg['error']}" widgetVar="errorRegNullParametro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegNullParametro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorBorrarParametro" header="#{msg['error']}" widgetVar="errorBorrarParametro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorBorrarParametro" header="#{msg['error']}" widgetVar="errorBorrarParametro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorBorrarParametro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarBorrarTodoAuto" header="#{msg['informacion']}" widgetVar="confirmarBorrarTodoAuto"  resizable="false" draggable="false" modal="true" height="85" width="290px"  closable="false">  
+                    <p:dialog id="confirmarBorrarTodoAuto" header="#{msg['informacion']}" widgetVar="confirmarBorrarTodoAuto"  resizable="false" draggable="false" modal="true" height="85" width="290px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarBorrarTodoAuto']}" style="position: absolute; left: 60px; top: 15px; width: 200px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="confirmarBorrarTodoAuto.hide();
-                                operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" actionListener="#{controlParametroAutoliq.borrarAporteEntidadProcesoAutomatico()}" style="position: absolute; top: 50px; left: 70px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarBorrarTodoAuto.hide();" style="position: absolute; top: 50px; left: 170px" process="@this" icon="ui-icon-close" />
+                                operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" actionListener="#{controlParametroAutoliq.borrarAporteEntidadProcesoAutomatico()}" style="position: absolute; top: 50px; left: 70px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarBorrarTodoAuto.hide();" style="position: absolute; top: 50px; left: 170px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="errorProcesoLiquidacionFechas" header="#{msg['atencion']}" widgetVar="errorProcesoLiquidacionFechas"  resizable="false" draggable="false" modal="true" height="105" width="435" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['errorProcesoLiquidacionFechas']}" style="position: absolute; left: 120px; top: 10px; width: 280px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorProcesoLiquidacionFechas.hide();" actionListener="#{controlParametroAutoliq.cambiarFechasParametros()}" style="position: absolute; top: 70px; left: 207px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="errorProcesoLiquidacionFechas.hide();" style="position: absolute; top: 70px; left: 307px" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="errorProcesoLiquidacionFechas.hide();" actionListener="#{controlParametroAutoliq.cambiarFechasParametros()}" style="position: absolute; top: 70px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="errorProcesoLiquidacionFechas.hide();" style="position: absolute; top: 70px; left: 307px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="procesoLiquidacionOK" header="#{msg['atencion']}" widgetVar="procesoLiquidacionOK"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['procesoLiquidacionOK']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="procesoLiquidacionOK.hide();
-                                operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" actionListener="#{controlParametroAutoliq.procesoLiquidacionOK()}" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="procesoLiquidacionOK.hide();" style="position: absolute; top: 50px; left: 307px" process="@this" icon="ui-icon-close" />
+                                operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" actionListener="#{controlParametroAutoliq.procesoLiquidacionOK()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="procesoLiquidacionOK.hide();" style="position: absolute; top: 50px; left: 307px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="acumularDiferenciaOK" header="#{msg['atencion']}" widgetVar="acumularDiferenciaOK"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['acumularDiferenciaOK']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="acumularDiferenciaOK.hide();
-                                operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" actionListener="#{controlParametroAutoliq.acumularDiferenciaOK()}" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="acumularDiferenciaOK.hide();" style="position: absolute; top: 50px; left: 307px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                                operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" actionListener="#{controlParametroAutoliq.acumularDiferenciaOK()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="acumularDiferenciaOK.hide();" style="position: absolute; top: 50px; left: 307px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="errorAcumularDiferencia" header="#{msg['atencion']}" widgetVar="errorAcumularDiferencia"  resizable="false" draggable="false" modal="true" height="85" width="355px"  closable="true">  
+                    <p:dialog id="errorAcumularDiferencia" header="#{msg['atencion']}" widgetVar="errorAcumularDiferencia"  resizable="false" draggable="false" modal="true" height="85" width="355px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 20px;"  />
                         <h:outputText value="#{msg['errorAcumularDiferencia']}" style="position: absolute; left: 70px; top: 10px; width: 270px; font-weight:bold;text-align: center" />
                     </p:dialog>
@@ -1738,17 +1738,17 @@
 
                     <p:dialog id="NuevoRegistroParametro" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroParametro" closable="false" resizable="false"  draggable="false" modal="true" height="225" width="400" style="padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevaParametro" style="border: none;">
 
-                            <strong><h:outputText value="*#{msg['anoN']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['anoN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <p:inputText id="nuevaAnoParametro" value="#{controlParametroAutoliq.nuevoParametro.ano}" maxlength="4" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="nuevaAnoParametro"/>
                             </p:inputText>
                             <p:watermark for="nuevaAnoParametro" value="#{msg['ano']}" />
 
-                            <strong><h:outputText value="*#{msg['mesN']}" style="position: absolute; top: 105px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['mesN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <p:selectOneMenu value="#{controlParametroAutoliq.nuevoParametro.mes}" id="nuevaMesParametro"  style="position: absolute; top: 100px; left: 200px; font-weight: bold;text-transform: uppercase;" >  
                                 <f:selectItem itemLabel="" itemValue="0" />  
                                 <f:selectItem itemLabel="#{msg['enero']}" itemValue="1" />  
@@ -1766,7 +1766,7 @@
                                 <p:ajax event="change" update="@this"/>
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="#{msg['tipoTrabajadorN']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['tipoTrabajadorN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
                             <p:inputText id="nuevaTipoTrabajadorParametro" value="#{controlParametroAutoliq.nuevoParametro.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,1, 1)}"/>
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'TIPOTRABAJADOR')}" />
@@ -1776,7 +1776,7 @@
                             <p:watermark for="nuevaTipoTrabajadorParametro" value="#{msg['tipoTrabajador']}" />
 
 
-                            <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 165px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
                             <p:inputText id="nuevaEmpresaParametro" value="#{controlParametroAutoliq.nuevoParametro.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,1, 2)}"/>
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'EMPRESA')}" />
@@ -1793,17 +1793,17 @@
 
                     <p:dialog id="DuplicarRegistroParametro" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroParametro" closable="false" resizable="false"  draggable="false" modal="true" height="225" width="400" style="padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarParametro" style="border: none;">
 
-                            <strong><h:outputText value="*#{msg['anoN']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['anoN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <p:inputText id="duplicarAnoParametro" value="#{controlParametroAutoliq.duplicarParametro.ano}" maxlength="4" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="duplicarAnoParametro"/>
                             </p:inputText>
                             <p:watermark for="duplicarAnoParametro" value="#{msg['ano']}" />
 
-                            <strong><h:outputText value="*#{msg['mesN']}" style="position: absolute; top: 105px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['mesN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <p:selectOneMenu value="#{controlParametroAutoliq.duplicarParametro.mes}" id="duplicarMesParametro"  style="position: absolute; top: 100px; left: 200px; font-weight: bold;text-transform: uppercase;" >  
                                 <f:selectItem itemLabel="" itemValue="0" />  
                                 <f:selectItem itemLabel="#{msg['enero']}" itemValue="1" />  
@@ -1821,7 +1821,7 @@
                                 <p:ajax event="change" update="@this"/>
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="#{msg['tipoTrabajadorN']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['tipoTrabajadorN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
                             <p:inputText id="duplicarTipoTrabajadorParametro" value="#{controlParametroAutoliq.duplicarParametro.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'TIPOTRABAJADOR')}" />
@@ -1830,7 +1830,7 @@
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 331px; top: 130px;  " id="btnDuplicarTipoTrabajador" value="" process="@this"  actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,2,1)}"/>   
                             <p:watermark for="duplicarTipoTrabajadorParametro" value="#{msg['tipoTrabajador']}" />
 
-                            <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 165px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
                             <p:inputText id="duplicarEmpresaParametro" value="#{controlParametroAutoliq.duplicarParametro.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(2, 'EMPRESA')}" />
@@ -2176,7 +2176,7 @@
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="SubTipo Cotizante" style=" position: absolute; top: 535px; left: 450px" /></strong>
+                            <strong><h:outputText value="SubTipo Cotizante" style=" position: absolute; top: 535px; left: 450px;" /></strong>
                             <p:selectOneMenu id="nuevoTipo" value="#{controlParametroAutoliq.nuevoAporteEntidad.subtipocotizante}"  
                                              style=" width: 122px; position: absolute; left: 600px; top: 530px; text-transform: uppercase">
                                 <f:selectItem itemLabel="#{msg['subTipoCotizante1']}" itemValue="1" />  
@@ -2550,7 +2550,7 @@
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="SubTipo Cotizante" style=" position: absolute; top: 535px; left: 450px" /></strong>
+                            <strong><h:outputText value="SubTipo Cotizante" style=" position: absolute; top: 535px; left: 450px;" /></strong>
                             <p:selectOneMenu id="duplicarTipo" value="#{controlParametroAutoliq.duplicarAporteEntidad.subtipocotizante}"  
                                              style=" width: 122px; position: absolute; left: 600px; top: 530px; text-transform: uppercase">
                                 <f:selectItem itemLabel="#{msg['subTipoCotizante1']}" itemValue="1" />  
@@ -2603,258 +2603,258 @@
                         <h:outputText value="Seleccione la tabla en la cual quiere insertar el nuevo Registro" style="color: blue; position: absolute; left: 15px; top: 10px; font-weight:bold; text-align: center" />
                         <p:commandButton value="Parámetros" style="position: absolute; left: 90px; top: 55px; font-weight:bold; width: 180px; text-align: center" process="@this"  actionListener="#{controlParametroAutoliq.mostrarDialogoNuevoParametro()}" onclick="seleccionarTablaNewReg.hide()" />
                         <p:commandButton value="Aportes Entidades" style="position: absolute; left: 90px; top: 85px; font-weight:bold; width: 180px; text-align: center" process="@this" actionListener="#{controlParametroAutoliq.mostrarDialogoNuevoAporte()}" onclick="seleccionarTablaNewReg.hide()" />
-                        <p:commandButton value="#{msg['salir']}" icon="ui-icon-closethick" style="position: absolute; top: 150px; left: 250px" onclick="seleccionarTablaNewReg.hide()"  />
+                        <p:commandButton value="#{msg['salir']}" icon="ui-icon-closethick" style="position: absolute; top: 150px; left: 250px;" onclick="seleccionarTablaNewReg.hide()"  />
                     </p:dialog>
 
                     <p:dialog id="editarAnoD" header="#{msg['editarAnoD']}" widgetVar="editarAnoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarParametro.ano}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarParametro.ano}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTipoTrabajadorD" header="#{msg['editarTipoTrabajadorD']}" widgetVar="editarTipoTrabajadorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarParametro.tipotrabajador.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarParametro.tipotrabajador.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarEmpresaD" header="#{msg['editarEmpresaD']}" widgetVar="editarEmpresaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarParametro.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarParametro.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- -->
 
                     <p:dialog id="editarCodEmplD" header="#{msg['editarCodEmplD']}" widgetVar="editarCodEmplD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.empleado.codigoempleado}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.empleado.codigoempleado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarAnoAD" header="#{msg['editarAnoAD']}" widgetVar="editarAnoAD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.ano}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.ano}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarMesAD" header="#{msg['editarMesAD']}" widgetVar="editarMesAD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.mes}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.mes}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarNombreEmplD" header="#{msg['editarNombreEmplD']}" widgetVar="editarNombreEmplD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarNitTerceroD" header="#{msg['editarNitTerceroD']}" widgetVar="editarNitTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.terceroRegistro.nit}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.terceroRegistro.nit}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarNombreTerceroD" header="#{msg['editarNombreTerceroD']}" widgetVar="editarNombreTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.terceroRegistro.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.terceroRegistro.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTipoEntidadD" header="#{msg['editarTipoEntidadD']}" widgetVar="editarTipoEntidadD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.terceroRegistro.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.terceroRegistro.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarEmpleadoD" header="#{msg['editarEmpleadoD']}" widgetVar="editarEmpleadoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.cotizacion1}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.cotizacion1}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarEmpleadorD" header="#{msg['editarEmpleadorD']}" widgetVar="editarEmpleadorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.cotizacion2}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.cotizacion2}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarAjustePatronalD" header="#{msg['editarAjustePatronalD']}" widgetVar="editarAjustePatronalD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.cotizacion5}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.cotizacion5}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarSolidaridadD" header="#{msg['editarSolidaridadD']}" widgetVar="editarSolidaridadD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.novedad3}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.novedad3}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarSubSistenciaD" header="#{msg['editarSubSistenciaD']}" widgetVar="editarSubSistenciaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.novedad4}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.novedad4}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarSubsPensionadosD" header="#{msg['editarSubsPensionadosD']}" widgetVar="editarSubsPensionadosD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.novedad5}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.novedad5}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarSalarioBasicoD" header="#{msg['editarSalarioBasicoD']}" widgetVar="editarSalarioBasicoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.salariobasico}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.salariobasico}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarIBCD" header="#{msg['editarIBCD']}" widgetVar="editarIBCD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.ibc}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.ibc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarIBCReferenciaD" header="#{msg['editarIBCReferenciaD']}" widgetVar="editarIBCReferenciaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.ibcreferencia}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.ibcreferencia}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDiasCotizadosD" header="#{msg['editarDiasCotizadosD']}" widgetVar="editarDiasCotizadosD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.diascotizados}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.diascotizados}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTipoAportanteD" header="#{msg['editarTipoAportanteD']}" widgetVar="editarTipoAportanteD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tipoaportante}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tipoaportante}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarINGD" header="#{msg['editarINGD']}" widgetVar="editarINGD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.ing}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.ing}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarRETD" header="#{msg['editarRETD']}" widgetVar="editarRETD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.ret}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.ret}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTDAD" header="#{msg['editarTDAD']}" widgetVar="editarTDAD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tda}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tda}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTAAD" header="#{msg['editarTAAD']}" widgetVar="editarTAAD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.taa}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.taa}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarVSPD" header="#{msg['editarVSPD']}" widgetVar="editarVSPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.vsp}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.vsp}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarVTED" header="#{msg['editarVTED']}" widgetVar="editarVTED" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.vte}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.vte}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarVSTD" header="#{msg['editarVSTD']}" widgetVar="editarVSTD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.vst}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.vst}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarSLND" header="#{msg['editarSLND']}" widgetVar="editarSLND" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.sln}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.sln}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarIGED" header="#{msg['editarIGED']}" widgetVar="editarIGED" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.ige}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.ige}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarLMAD" header="#{msg['editarLMAD']}" widgetVar="editarLMAD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.lma}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.lma}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarVCAD" header="#{msg['editarVCAD']}" widgetVar="editarVCAD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.vac}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.vac}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarAVPD" header="#{msg['editarAVPD']}" widgetVar="editarAVPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.avp}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.avp}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarVCTD" header="#{msg['editarVCTD']}" widgetVar="editarVCTD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.vct}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.vct}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarIRPD" header="#{msg['editarIRPD']}" widgetVar="editarIRPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.irp}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.irp}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarSUSD" header="#{msg['editarSUSD']}" widgetVar="editarSUSD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.sus}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.sus}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarINTED" header="#{msg['editarINTED']}" widgetVar="editarINTED" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.integral}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.integral}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTarifaEPSD" header="#{msg['editarTarifaEPSD']}" widgetVar="editarTarifaEPSD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifaeps}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifaeps}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTarifaAAFPD" header="#{msg['editarTarifaAAFPD']}" widgetVar="editarTarifaAAFPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifaafp}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifaafp}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTarifaACTTD" header="#{msg['editarTarifaACTTD']}" widgetVar="editarTarifaACTTD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifactt}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifactt}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCodigoCTTD" header="#{msg['editarCodigoCTTD']}" widgetVar="editarCodigoCTTD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.codigoctt}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.codigoctt}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarAvpeValorD" header="#{msg['editarAvpeValorD']}" widgetVar="editarAvpeValorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.avpevalor}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.avpevalor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarAvppValorD" header="#{msg['editarAvppValorD']}" widgetVar="editarAvppValorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.avppvalor}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.avppvalor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarRetcontaValorD" header="#{msg['editarRetcontaValorD']}" widgetVar="editarRetcontaValorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.retcontavpvalor}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.retcontavpvalor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCodigoNEPSD" header="#{msg['editarCodigoNEPSD']}" widgetVar="editarCodigoNEPSD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.codigoneps}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.codigoneps}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCodigoNAFPD" header="#{msg['editarCodigoNAFPD']}" widgetVar="editarCodigoNAFPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.codigonafp}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.codigonafp}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarEgValorD" header="#{msg['editarEgValorD']}" widgetVar="editarEgValorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.egvalor}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.egvalor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarEgAutorizacionD" header="#{msg['editarEgAutorizacionD']}" widgetVar="editarEgAutorizacionD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.egautorizacion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.egautorizacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarMaternidadValorD" header="#{msg['editarMaternidadValorD']}" widgetVar="editarMaternidadValorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.maternidadvalor}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.maternidadvalor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarMaternidadAutoD" header="#{msg['editarMaternidadAutoD']}" widgetVar="editarMaternidadAutoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.maternidadautorizacion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.maternidadautorizacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarUpcValorD" header="#{msg['editarUpcValorD']}" widgetVar="editarUpcValorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.upcvalor}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.upcvalor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTipoD" header="#{msg['editarTipoD']}" widgetVar="editarTipoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tipo}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tipo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTPD" header="#{msg['editarTPD']}" widgetVar="editarTPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tipopensionado}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tipopensionado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarPCD" header="#{msg['editarPCD']}" widgetVar="editarPCD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.pensioncompartida}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.pensioncompartida}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarEXTRD" header="#{msg['editarEXTRD']}" widgetVar="editarEXTRD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.extranjero}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.extranjero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarFechaIngreso" header="#{msg['editarFechaIngreso']}" widgetVar="editarFechaIngreso" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.fechaingreso}" style="overflow: auto; width: 360px; height: 60px" readonly="true">
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.fechaingreso}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>    
                     </p:dialog>
 
                     <p:dialog id="editarTarifaCajaD" header="#{msg['editarTarifaCajaD']}" widgetVar="editarTarifaCajaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifacaja}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifacaja}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTarifaSenaD" header="#{msg['editarTarifaSenaD']}" widgetVar="editarTarifaSenaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifasena}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifasena}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTarifaICBFD" header="#{msg['editarTarifaICBFD']}" widgetVar="editarTarifaICBFD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifaicbf}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifaicbf}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTarifaESAPD" header="#{msg['editarTarifaESAPD']}" widgetVar="editarTarifaESAPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifaesap}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifaesap}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTarifaMEND" header="#{msg['editarTarifaMEND']}" widgetVar="editarTarifaMEND" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifamen}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifamen}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350px" style="font-size: 12px" closable="false">  
+                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350px;" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
                     </p:dialog>

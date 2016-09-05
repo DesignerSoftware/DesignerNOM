@@ -600,7 +600,7 @@ public class ControlIdiomaPersona implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "280";
+            altoTabla = "284";
             idIdioma = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idIdioma");
             idIdioma.setFilterStyle("width: 85%");
             idConversacion = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idConversacion");

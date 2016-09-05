@@ -260,10 +260,10 @@ public class ControlVigenciasViajeros implements Serializable {
         if (bandera == 0) {
             FacesContext c = FacesContext.getCurrentInstance();
             fecha = (Column) c.getViewRoot().findComponent("form:datosViajeros:fecha");
-            fecha.setFilterStyle("width: 60px");
+            fecha.setFilterStyle("width: 85%;");
             parentesco = (Column) c.getViewRoot().findComponent("form:datosViajeros:parentesco");
-            parentesco.setFilterStyle("width: 600px");
-            altoTabla = "268";
+            parentesco.setFilterStyle("width: 85%");
+            altoTabla = "272";
             RequestContext.getCurrentInstance().update("form:datosViajeros");
             bandera = 1;
         } else if (bandera == 1) {

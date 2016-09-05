@@ -401,20 +401,20 @@ public class ControlUsuariosVistas implements Serializable {
         if (bandera == 0) {
             System.out.println("Activar");
             usuariovistaDescripcion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:descripcion");
-            usuariovistaDescripcion.setFilterStyle("width:50px");
+            usuariovistaDescripcion.setFilterStyle("width: 85%");
             usuariovistaNombreVista = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:nombrevista");
-            usuariovistaNombreVista.setFilterStyle("width:40px");
+            usuariovistaNombreVista.setFilterStyle("width: 85%");
             usuariovistaObjetoDB = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:objetodb");
-            usuariovistaObjetoDB.setFilterStyle("width:40px");
+            usuariovistaObjetoDB.setFilterStyle("width: 85%");
             usuariovistaAlias = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:alias");
-            usuariovistaAlias.setFilterStyle("width:30px");
+            usuariovistaAlias.setFilterStyle("width: 85%");
             usuariovistaEstructuraJOIN = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:estructurajoin");
-            usuariovistaEstructuraJOIN.setFilterStyle("width:60px");
+            usuariovistaEstructuraJOIN.setFilterStyle("width: 85%;");
             usuariovistaCondicion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:condicion");
-            usuariovistaCondicion.setFilterStyle("width:60px");
+            usuariovistaCondicion.setFilterStyle("width: 85%;");
             usuariovistaHINTPrincipal = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:hintprincipal");
-            usuariovistaHINTPrincipal.setFilterStyle("width:60px");
-            altoTabla = "246";
+            usuariovistaHINTPrincipal.setFilterStyle("width: 85%;");
+            altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
             bandera = 1;
             tipoLista = 1;

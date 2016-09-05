@@ -1055,23 +1055,23 @@ public class ControlPerExperienciaLaboral implements Serializable {
     public void filtradoExperiencia() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "168";
+            altoTabla = "170";
             expEmpresa = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expEmpresa");
-            expEmpresa.setFilterStyle("width: 90px");
+            expEmpresa.setFilterStyle("width: 85%;");
             expCargoDes = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expCargoDes");
-            expCargoDes.setFilterStyle("width: 60px");
+            expCargoDes.setFilterStyle("width: 85%;");
             expJefe = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expJefe");
-            expJefe.setFilterStyle("width: 80px");
+            expJefe.setFilterStyle("width: 85%;");
             expTelefono = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expTelefono");
-            expTelefono.setFilterStyle("width: 80px");
+            expTelefono.setFilterStyle("width: 85%;");
             expSectorEco = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expSectorEco");
-            expSectorEco.setFilterStyle("width: 90px");
+            expSectorEco.setFilterStyle("width: 85%;");
             expMotivos = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expMotivos");
-            expMotivos.setFilterStyle("width: 90px");
+            expMotivos.setFilterStyle("width: 85%;");
             expFechaInicio = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaInicio");
-            expFechaInicio.setFilterStyle("width: 60px");
+            expFechaInicio.setFilterStyle("width: 85%;");
             expFechaRetiro = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaRetiro");
-            expFechaRetiro.setFilterStyle("width: 60px");
+            expFechaRetiro.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosExperiencia");
             tipoLista = 1;
             bandera = 1;

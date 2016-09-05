@@ -163,9 +163,9 @@ public class ControlMotivosEmbargos implements Serializable {
         if (bandera == 0) {
 
             codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
-            codigo.setFilterStyle("width: 205px");
+            codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
-            descripcion.setFilterStyle("width: 550px");
+            descripcion.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             System.out.println("Activar");
             bandera = 1;

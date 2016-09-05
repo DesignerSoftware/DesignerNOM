@@ -352,19 +352,19 @@ public class ControlFirmasReportes implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosFirmasReportes:codigo");
-            codigo.setFilterStyle("width: 20px");
+            codigo.setFilterStyle("width: 85%");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosFirmasReportes:descripcion");
-            descripcion.setFilterStyle("width: 110px");
+            descripcion.setFilterStyle("width: 85%");
             pais = (Column) c.getViewRoot().findComponent("form:datosFirmasReportes:pais");
-            pais.setFilterStyle("width: 130px");
+            pais.setFilterStyle("width: 85%");
             subTituloFirma = (Column) c.getViewRoot().findComponent("form:datosFirmasReportes:subTituloFirma");
-            subTituloFirma.setFilterStyle("width: 100px");
+            subTituloFirma.setFilterStyle("width: 85%");
             personafir = (Column) c.getViewRoot().findComponent("form:datosFirmasReportes:personafir");
-            personafir.setFilterStyle("width: 100px");
+            personafir.setFilterStyle("width: 85%");
             cargo = (Column) c.getViewRoot().findComponent("form:datosFirmasReportes:cargo");
-            cargo.setFilterStyle("width: 100px");
+            cargo.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosFirmasReportes");
             System.out.println("Activar");
             bandera = 1;

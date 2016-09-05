@@ -1184,13 +1184,13 @@ public class ControlEscalafonSalarial implements Serializable {
     public void activarCtrlF11() {
         if (index >= 0) {
             if (bandera == 0) {
-                altoTablaEscalafon = "148";
+                altoTablaEscalafon = "150";
                 escalafonCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafonSalarial:escalafonCodigo");
-                escalafonCodigo.setFilterStyle("width: 45px");
+                escalafonCodigo.setFilterStyle("width: 85%");
                 escalafonDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafonSalarial:escalafonDescripcion");
-                escalafonDescripcion.setFilterStyle("width: 120px");
+                escalafonDescripcion.setFilterStyle("width: 85%;");
                 escalafonTipoTrabajador = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafonSalarial:escalafonTipoTrabajador");
-                escalafonTipoTrabajador.setFilterStyle("width: 85px");
+                escalafonTipoTrabajador.setFilterStyle("width: 85%");
                 RequestContext.getCurrentInstance().update("form:datosEscalafonSalarial");
                 bandera = 1;
             } else if (bandera == 1) {
@@ -1211,9 +1211,9 @@ public class ControlEscalafonSalarial implements Serializable {
             if (banderaGS == 0) {
                 altoTablaGrupo = "98";
                 grupoSalario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGrupoSalarial:grupoSalario");
-                grupoSalario.setFilterStyle("width: 80px");
+                grupoSalario.setFilterStyle("width: 85%;");
                 grupoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGrupoSalarial:grupoDescripcion");
-                grupoDescripcion.setFilterStyle("width: 120px");
+                grupoDescripcion.setFilterStyle("width: 85%;");
                 RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
                 banderaGS = 1;
             } else if (banderaGS == 1) {

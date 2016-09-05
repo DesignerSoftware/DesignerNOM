@@ -1019,12 +1019,12 @@ public class ControlSucursalesPila implements Serializable {
         try {
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 0) {
-                tamano = 246;
+                tamano = 250;
                 System.out.println("Activar");
                 codigoCC = (Column) c.getViewRoot().findComponent("form:datosSucursalesPila:codigoCC");
-                codigoCC.setFilterStyle("width: 80px");
+                codigoCC.setFilterStyle("width: 85%;");
                 nombreCentroCosto = (Column) c.getViewRoot().findComponent("form:datosSucursalesPila:nombreCentroCosto");
-                nombreCentroCosto.setFilterStyle("width: 105px");
+                nombreCentroCosto.setFilterStyle("width: 85%;");
                 RequestContext.getCurrentInstance().update("form:datosSucursalesPila");
                 bandera = 1;
             } else if (bandera == 1) {

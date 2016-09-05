@@ -1555,11 +1555,11 @@ public class ControlNReporteNomina implements Serializable {
         System.out.println(this.getClass().getName() + ".activarCtrlF11()");
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "118";
+            altoTabla = "120";
             codigoIR = (Column) c.getViewRoot().findComponent("form:reportesNomina:codigoIR");
-            codigoIR.setFilterStyle("width: 96%");
+            codigoIR.setFilterStyle("width: 85%");
             reporteIR = (Column) c.getViewRoot().findComponent("form:reportesNomina:reporteIR");
-            reporteIR.setFilterStyle("width: 96%");
+            reporteIR.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:reportesNomina");
             bandera = 1;
         } else if (bandera == 1) {

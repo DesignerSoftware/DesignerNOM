@@ -2342,17 +2342,17 @@ public class ControlTipoSueldo implements Serializable {
     public void activarCtrlF11() {
         if (index >= 0) {
             if (bandera == 0) {
-                altoTablaTiposSueldos = "58";
+                altoTablaTiposSueldos = "60";
                 tipoSueldoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCodigo");
-                tipoSueldoCodigo.setFilterStyle("width: 65px");
+                tipoSueldoCodigo.setFilterStyle("width: 85%;");
                 tipoSueldoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoDescripcion");
-                tipoSueldoDescripcion.setFilterStyle("width: 120px");
+                tipoSueldoDescripcion.setFilterStyle("width: 85%;");
                 tipoSueldoCap = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCap");
-                tipoSueldoCap.setFilterStyle("width: 20px");
+                tipoSueldoCap.setFilterStyle("width: 85%;");
                 tipoSueldoBas = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoBas");
-                tipoSueldoBas.setFilterStyle("width: 20px");
+                tipoSueldoBas.setFilterStyle("width: 85%;");
                 tipoSueldoAdi = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoAdi");
-                tipoSueldoAdi.setFilterStyle("width: 20px");
+                tipoSueldoAdi.setFilterStyle("width: 85%;");
                 RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
                 bandera = 1;
             } else {
@@ -2377,13 +2377,13 @@ public class ControlTipoSueldo implements Serializable {
             if (banderaTSFormulas == 0) {
                 altoTablaTSFormulas = "208";
                 tsFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaConcepto");
-                tsFormulaConcepto.setFilterStyle("width: 80px");
+                tsFormulaConcepto.setFilterStyle("width: 85%;");
                 tsFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaFormula");
-                tsFormulaFormula.setFilterStyle("width: 70px");
+                tsFormulaFormula.setFilterStyle("width: 85%;");
                 tsFormulaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaEmpresa");
-                tsFormulaEmpresa.setFilterStyle("width: 70px");
+                tsFormulaEmpresa.setFilterStyle("width: 85%;");
                 tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
-                tsFormulaOrigen.setFilterStyle("width: 70px");
+                tsFormulaOrigen.setFilterStyle("width: 85%;");
                 RequestContext.getCurrentInstance().update("form:datosTSFormula");
                 banderaTSFormulas = 1;
             } else {
@@ -2406,7 +2406,7 @@ public class ControlTipoSueldo implements Serializable {
             if (banderaTSGrupos == 0) {
                 altoTablaTSGrupos = "51";
                 tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
-                tsGrupoGrupo.setFilterStyle("width: 200px");
+                tsGrupoGrupo.setFilterStyle("width: 85%;");
                 RequestContext.getCurrentInstance().update("form:datosTSGrupo");
                 banderaTSGrupos = 1;
             } else {
@@ -2423,13 +2423,13 @@ public class ControlTipoSueldo implements Serializable {
             if (banderaTEFormulas == 0) {
                 altoTablaTEFormulas = "51";
                 teFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaConcepto");
-                teFormulaConcepto.setFilterStyle("width: 80px");
+                teFormulaConcepto.setFilterStyle("width: 85%;");
                 teFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaFormula");
-                teFormulaFormula.setFilterStyle("width: 70px");
+                teFormulaFormula.setFilterStyle("width: 85%;");
                 teFormulaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaEmpresa");
-                teFormulaEmpresa.setFilterStyle("width: 70px");
+                teFormulaEmpresa.setFilterStyle("width: 85%;");
                 teFormulaTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaTipoEntidad");
-                teFormulaTipoEntidad.setFilterStyle("width: 70px");
+                teFormulaTipoEntidad.setFilterStyle("width: 85%;");
                 RequestContext.getCurrentInstance().update("form:datosTEFormula");
                 banderaTEFormulas = 1;
             } else {

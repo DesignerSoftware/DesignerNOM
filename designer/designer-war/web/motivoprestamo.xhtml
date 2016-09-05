@@ -60,45 +60,45 @@
                         <p:toolbar style="font-size: 12px; position: absolute; top: 40px; left: 20px;">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " actionListener="#{controlMotivosPrestamos.guardarMotivoPrestamo()}" process="@this" />
-                                <p:tooltip style="font-size: 12px" for="guardarRapido" value="Guardar" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlMotivosPrestamos.guardarMotivoPrestamo()}" process="@this" />
+                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="Guardar" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlMotivosPrestamos.editarCelda()}"  process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="editar" value="Editar" />
-
-                                <p:separator />
-
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlMotivosPrestamos.listaValoresBoton()}"   process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="listaValores" value="Lista de Valores" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlMotivosPrestamos.activarCtrlF11()}"  process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="filtrar" value="Activar filtrado" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlMotivosPrestamos.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="editar" value="Editar" />
 
                                 <p:separator />
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlMotivosPrestamos.exportXLS()}"  ajax="false"/>
-                                <p:tooltip style="font-size: 12px" for="exportarXLS" value="Exportar a XLS" />
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlMotivosPrestamos.listaValoresBoton()}"   process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="listaValores" value="Lista de Valores" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlMotivosPrestamos.limpiarNuevoMotivosPrestamos()}"  ajax="false">
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlMotivosPrestamos.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="filtrar" value="Activar filtrado" />
+
+                                <p:separator />
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " actionListener="#{controlMotivosPrestamos.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="Exportar a XLS" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlMotivosPrestamos.limpiarNuevoMotivosPrestamos()}"  ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosTipoReemplazoExportar" fileName="MOTIVOSPRESTAMOS" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip style="font-size: 12px" for="exportarXML" value="Exportar a XML" />
+                                <p:tooltip style="font-size: 12px;" for="exportarXML" value="Exportar a XML" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlMotivosPrestamos.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="font-size: 12px" for="exportarPDF" value="Exportar a PDF" />
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlMotivosPrestamos.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="Exportar a PDF" />
 
                                 <p:separator /> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg);  background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  oncomplete="nuevoRegistroTiposReemplazos.show()" update=":formularioDialogos:nuevaTipoReemplazo" process="@this"/> 
-                                <p:tooltip style="font-size: 12px" for="insertar" value="Nueva Motivo Préstamo" />
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "  oncomplete="nuevoRegistroTiposReemplazos.show()" update=":formularioDialogos:nuevaTipoReemplazo" process="@this"/> 
+                                <p:tooltip style="font-size: 12px;" for="insertar" value="Nueva Motivo Préstamo" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  actionListener="#{controlMotivosPrestamos.verificarBorrado()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="eliminar" value="Eliminar Motivo Préstamo" />
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) "  actionListener="#{controlMotivosPrestamos.verificarBorrado()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="eliminar" value="Eliminar Motivo Préstamo" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlMotivosPrestamos.duplicandoMotivosPrestamos()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="duplicar" value="Duplicar Motivo Préstamo" />
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlMotivosPrestamos.duplicandoMotivosPrestamos()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="duplicar" value="Duplicar Motivo Préstamo" />
                                 <p:separator /> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlMotivosPrestamos.verificarRastro()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="rastro" value="Rastro"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlMotivosPrestamos.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="rastro" value="Rastro"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
@@ -109,108 +109,108 @@
 
                         <p:dialog header="ATENCIÓN...!" widgetVar="confirmarGuardar" draggable="false" resizable="false" closable="false" id="confirmarGuardar"  
                                   showEffect="fade" hideEffect="fade" width="400" height="110" modal="true" style="font-size: 11px;">
-                            <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
                             <p:commandButton value="Si" onclick="confirmarGuardar.hide();" actionListener="#{controlMotivosPrestamos.guardarMotivoPrestamo()}" style="position: absolute; top: 60px; left: 215px " process="@this" />
-                            <p:commandButton value="No" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 255px" process="@this" />
-                            <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                            <p:commandButton value="No" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
+                            <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                         </p:dialog>
 
                     </p:panel>
 
 
-                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="font-size: 12px" closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"  />
+                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400px;" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="Necesita : #{controlMotivosPrestamos.mensajeValidacion}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
-                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 20px;"  />
+                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 20px;"  />
                         <h:outputText value=" #{controlMotivosPrestamos.mensajeValidacion}" style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 60px; left: 250px" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
                     </p:dialog>
-                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="font-size: 12px" closable="false">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"  />
+                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="95" width="400px;" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"  />
                         <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionBorrar.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="validacionBorrar.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
-                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="50" height="70" style="position: absolute; left: 40px; top: 10px;"  />
+                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="50" height="70" style="position: absolute; left: 40px; top: 10px;"  />
                         <h:outputText value="Se han borrado #{controlMotivosPrestamos.registrosBorrados}  Registros" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="mostrarBorrados.hide();" style="position: absolute; top: 60px; left: 200px" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="mostrarBorrados.hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
                     </p:dialog>
-                    <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="false" modal="true" height="95" width="450px" style="font-size: 12px" closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                    <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="false" modal="true" height="95" width="450px;" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="Para agregar es necesario adicionar: #{controlMotivosPrestamos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionNuevaCentroCosto.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="validacionNuevaCentroCosto.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlMotivosPrestamos.activarCtrlF11()}"/> 
                 </h:form>
 
                 <h:form id="formularioDialogos">
 
-                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'TIPOSCERTIFICADOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosPrestamos.secRegistro,'MotivosPrestamos', 'motivoprestamo')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosPrestamos.secRegistro,'MotivosPrestamos', 'motivoprestamo')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla ENCARGATURAS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('MotivosPrestamos', 'motivoprestamo')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('MotivosPrestamos', 'motivoprestamo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosPrestamos.secRegistro,'MotivosPrestamos', 'motivoprestamo')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosPrestamos.secRegistro,'MotivosPrestamos', 'motivoprestamo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="font-size: 12px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'ENCARGATURAS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
 
 
                     <p:dialog id="editCodigo" header="Editar Código" widgetVar="editCodigo" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px;text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlMotivosPrestamos.editarMotivoPrestamo.codigo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarCodigo" value="Atras" onclick="editCodigo.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlMotivosPrestamos.editarMotivoPrestamo.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarCodigo" value="Atras" onclick="editCodigo.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editDescripcion" header="Editar Nombre" widgetVar="editDescripcion" resizable="false" draggable="false" modal="true" height="93" width="270" style="font-size: 12px;text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlMotivosPrestamos.editarMotivoPrestamo.nombre}" style="overflow: auto; width: 225px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarNombre" value="Atras" onclick="editDescripcion.hide();" style="position: absolute; top: 60px; left: 180px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlMotivosPrestamos.editarMotivoPrestamo.nombre}" style="overflow: auto; width: 225px; height: 40px;" readonly="true"/>
+                        <p:commandButton id="cancelarNombre" value="Atras" onclick="editDescripcion.hide();" style="position: absolute; top: 60px; left: 180px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
 
 
                     <p:dialog id="nuevoRegistroTiposReemplazos" header="Nuevo Registro" widgetVar="nuevoRegistroTiposReemplazos" closable="false" resizable="false"  draggable="false" modal="true" height="255" width="340" style="font-size: 12px; padding: 0px">  
-                        <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Motivo Prestamo" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Motivo Prestamo" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevaTipoReemplazo" style="border: none;">
 
@@ -235,7 +235,7 @@
 
 
                     <p:dialog id="duplicarRegistroTiposReemplazos" header="duplicar Registro" widgetVar="duplicarRegistroTiposReemplazos" closable="false" resizable="false"  draggable="false" modal="true" height="255" width="340" style="font-size: 12px; padding: 0px">  
-                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Motivo Prestamo" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Motivo Prestamo" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarTTR" style="border: none;">
                             <strong><h:outputText value="código "  style="font-size: 12px; position: absolute; top: 60px;text-transform: uppercase" /></strong>

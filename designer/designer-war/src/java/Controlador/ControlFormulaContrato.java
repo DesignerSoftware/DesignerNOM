@@ -1058,17 +1058,17 @@ public class ControlFormulaContrato implements Serializable {
     public void filtradoFormula() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (banderaFormulaContrato == 0) {
-            altoTabla = "288";
+            altoTabla = "290";
             formulaFechaInicial = (Column) c.getViewRoot().findComponent("form:datosFormulaContrato:formulaFechaInicial");
-            formulaFechaInicial.setFilterStyle("width: 60px");
+            formulaFechaInicial.setFilterStyle("width: 85%;");
             formulaFechaFinal = (Column) c.getViewRoot().findComponent("form:datosFormulaContrato:formulaFechaFinal");
-            formulaFechaFinal.setFilterStyle("width: 60px");
+            formulaFechaFinal.setFilterStyle("width: 85%;");
             formulaLegislacion = (Column) c.getViewRoot().findComponent("form:datosFormulaContrato:formulaLegislacion");
-            formulaLegislacion.setFilterStyle("width: 80px");
+            formulaLegislacion.setFilterStyle("width: 85%");
             formulaPeriodicidad = (Column) c.getViewRoot().findComponent("form:datosFormulaContrato:formulaPeriodicidad");
-            formulaPeriodicidad.setFilterStyle("width: 80px");
+            formulaPeriodicidad.setFilterStyle("width: 85%");
             formulaTercero = (Column) c.getViewRoot().findComponent("form:datosFormulaContrato:formulaTercero");
-            formulaTercero.setFilterStyle("width: 80px");
+            formulaTercero.setFilterStyle("width: 85%");
 
             RequestContext.getCurrentInstance().update("form:datosFormulaContrato");
             banderaFormulaContrato = 1;

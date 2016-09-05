@@ -2377,7 +2377,7 @@ public class ControlAusentismos implements Serializable {
 
         System.out.println("TipoLista= " + tipoLista);
         if (bandera == 0) {
-            altoTabla = "121";
+            altoTabla = "125";
             System.out.println("Activar");
             System.out.println("TipoLista= " + tipoLista);
             ATipo = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ATipo");

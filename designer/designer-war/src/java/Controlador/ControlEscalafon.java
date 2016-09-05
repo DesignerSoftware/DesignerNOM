@@ -716,13 +716,13 @@ public class ControlEscalafon implements Serializable {
 
     public void activarCtrlF11() {
         if (bandera == 0) {
-            algoTabla = "278";
+            algoTabla = "280";
             escalafonCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafon:escalafonCodigo");
-            escalafonCodigo.setFilterStyle("width: 100px");
+            escalafonCodigo.setFilterStyle("width: 85%;");
             escalafonSubCategoria = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafon:escalafonSubCategoria");
-            escalafonSubCategoria.setFilterStyle("width: 100px");
+            escalafonSubCategoria.setFilterStyle("width: 85%;");
             escalafonCategoria = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafon:escalafonCategoria");
-            escalafonCategoria.setFilterStyle("width: 100px");
+            escalafonCategoria.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosEscalafon");
             bandera = 1;
         } else if (bandera == 1) {

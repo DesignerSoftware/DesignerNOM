@@ -517,7 +517,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {
-            altotabla = 101;
+            altotabla = 105;
             fechaCorteCesantias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:fechacortecesantias");
             fechaCorteCesantias.setFilterStyle("width: 85%");
             fechaCorteIntCesantias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:fechacorteintcesantias");

@@ -382,11 +382,11 @@ public class ControlNovedadesVacaciones implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {
-            altoTabla = "101";
+            altoTabla = "105";
             nEFechaInicialDisfrute = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaInicialDisfrute");
             nEFechaInicialDisfrute.setFilterStyle("width: 85%");
             nEPeriodo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEPeriodo");
-            nEPeriodo.setFilterStyle("");
+            nEPeriodo.setFilterStyle("85%");
             nEDias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEDias");
             nEDias.setFilterStyle("width: 85%");
             nEFechaSiguiente = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaSiguiente");

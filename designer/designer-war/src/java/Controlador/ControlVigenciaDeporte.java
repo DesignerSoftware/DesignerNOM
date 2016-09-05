@@ -762,7 +762,7 @@ public class ControlVigenciaDeporte implements Serializable {
 
     public void activarCtrlF11() {
         if (bandera == 0) {
-            altoTabla = "291";
+            altoTabla = "295";
             veFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veFechaInicial");
             veFechaInicial.setFilterStyle("width: 85%");
             veFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veFechaFinal");

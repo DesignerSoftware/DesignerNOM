@@ -424,19 +424,19 @@ public class ControlLiquidacionesLogs implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             fechaInicial = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:fechaInicial");
-            fechaInicial.setFilterStyle("width: 60px");
+            fechaInicial.setFilterStyle("width: 85%;");
             fechaFinal = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:fechaFinal");
-            fechaFinal.setFilterStyle("width: 60px");
+            fechaFinal.setFilterStyle("width: 85%;");
             empleado = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:empleado");
-            empleado.setFilterStyle("width: 170px");
+            empleado.setFilterStyle("width: 85%;");
             operando = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:operando");
-            operando.setFilterStyle("width: 110px");
+            operando.setFilterStyle("width: 85%;");
             proceso = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:proceso");
-            proceso.setFilterStyle("width: 110px");
+            proceso.setFilterStyle("width: 85%;");
             valor = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:valor");
-            valor.setFilterStyle("width: 40px");
+            valor.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
 
             System.out.println("Activar");

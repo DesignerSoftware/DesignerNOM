@@ -17,44 +17,44 @@
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlConceptoRedondeo.guardarCambiosConceptosRedondeos()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="guardarRapido" value="#{msg['guardar']}"/>
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlConceptoRedondeo.guardarCambiosConceptosRedondeos()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlConceptoRedondeo.editarCelda()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="editar" value="#{msg['editar']}"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlConceptoRedondeo.editarCelda()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}"/>
                                 <p:separator />
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlConceptoRedondeo.listaValoresBoton()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="listaValores" value="#{msg['lista']}"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlConceptoRedondeo.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}"/>
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlConceptoRedondeo.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="filtrar" value="#{msg['filtrar']}"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlConceptoRedondeo.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}"/>
                                 <p:separator />
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" ajax="false" actionListener="#{controlConceptoRedondeo.exportXLS()}" />
-                                <p:tooltip style="font-size: 12px" for="exportarXLS" value="#{msg['xls']}"/>
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlConceptoRedondeo.exportXLS()}" />
+                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlConceptoRedondeo.limpiarNuevaConceptosRedondeos()}" ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlConceptoRedondeo.limpiarNuevaConceptosRedondeos()}" ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosConceptosRedondeosExportar" fileName="ConceptosRedondeosXML" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip style="font-size: 12px" for="exportarXML" value="#{msg['xml']}"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarXML" value="#{msg['xml']}"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlConceptoRedondeo.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="font-size: 12px" for="exportarPDF" value="#{msg['pdf']}"/>
-
-                                <p:separator /> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" oncomplete="NuevoRegistroConceptosRedondeos.show()" update=":formularioDialogos:nuevoConceptoRedondeo" process="@this"/> 
-                                <p:tooltip style="font-size: 12px" for="insertar" value="#{msg['nuevo']}"/>
-
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlConceptoRedondeo.borrarConceptosRedondeos()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="eliminar" value="#{msg['eliminar']}"/>
-
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlConceptoRedondeo.duplicarConceptosRedondeos()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="duplicar" value="#{msg['duplicar']}"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlConceptoRedondeo.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator /> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlConceptoRedondeo.verificarRastro()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="rastro" value="#{msg['rastro']}"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="NuevoRegistroConceptosRedondeos.show()" update=":formularioDialogos:nuevoConceptoRedondeo" process="@this"/> 
+                                <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}"/>
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlConceptoRedondeo.borrarConceptosRedondeos()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlConceptoRedondeo.duplicarConceptosRedondeos()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="duplicar" value="#{msg['duplicar']}"/>
+
+                                <p:separator /> 
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlConceptoRedondeo.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
@@ -127,28 +127,28 @@
 
                     <!-- DIALOGOS EDITAR -->
                     <p:dialog id="editarConcepto" header="#{msg['editarConcepto']}"  widgetVar="editarConcepto" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px; padding: 0px">  
-                        <p:inputTextarea value="#{controlConceptoRedondeo.editarConceptosRedondeos.concepto.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarConcepto" value="#{msg['atras']}"  onclick="editarConcepto.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlConceptoRedondeo.editarConceptosRedondeos.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarConcepto" value="#{msg['atras']}"  onclick="editarConcepto.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarTipoRedondeo" header="#{msg['editarTipoRedondeo']}"  widgetVar="editarTipoRedondeo" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px; padding: 0px">  
-                        <p:inputTextarea value="#{controlConceptoRedondeo.editarConceptosRedondeos.concepto.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarTipoRedondeo" value="#{msg['atras']}"  onclick="editarTipoRedondeo.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlConceptoRedondeo.editarConceptosRedondeos.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarTipoRedondeo" value="#{msg['atras']}"  onclick="editarTipoRedondeo.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="font-size: 12px" closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400px;" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlConceptoRedondeo.guardarCambiosConceptosRedondeos()}" style="position: absolute; top: 60px; left: 215px" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 255px" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlConceptoRedondeo.guardarCambiosConceptosRedondeos()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <!-- Nuevo Registro -->
 
                     <p:dialog id="NuevoRegistroConceptosRedondeos" header="#{msg['nuevoregistro']}"   widgetVar="NuevoRegistroConceptosRedondeos" closable="false" resizable="false"  draggable="false" modal="true" height="200" width="400" style="font-size: 12px; padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevoConceptoRedondeo" style="border: none;">
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 345px; height: 88px; border-radius: 10px; ">
@@ -180,7 +180,7 @@
 
                     <p:dialog id="DuplicarRegistroConceptosRedondeos" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroConceptosRedondeos" closable="false" resizable="false"  draggable="false" modal="true" height="200" width="400" style="font-size: 12px; padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarConceptosRedondeos" style="border: none;">
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 345px; height: 88px; border-radius: 10px; ">
@@ -208,56 +208,56 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="validacionNuevoConceptoRedondeo" header="#{msg['atencion']}" widgetVar="validacionNuevoConceptoRedondeo"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="font-size: 12px" closable="false">  
+                    <p:dialog id="validacionNuevoConceptoRedondeo" header="#{msg['atencion']}" widgetVar="validacionNuevoConceptoRedondeo"  resizable="false" draggable="false" modal="true" height="95" width="400px;" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevo']} #{controlConceptoRedondeo.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevoConceptoRedondeo.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevoConceptoRedondeo.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <!-- DIALOGOS RASTROS -->
 
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center"/>
                         <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlConceptoRedondeo.secRegistro, 'ConceptosRedondeos', 'conceptosredondeos')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this"/>
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center"/>
                         <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('ConceptosRedondeos', 'conceptosredondeos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this"/>
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center"/>
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center"/>
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlConceptoRedondeo.secRegistro, 'ConceptosRedondeos', 'conceptosredondeos')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlConceptoRedondeo.secRegistro, 'ConceptosRedondeos', 'conceptosredondeos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
@@ -266,7 +266,7 @@
                     <p:dialog header="#{msg['conceptosC']}" widgetVar="conceptosDialogo" draggable="false" resizable="false" closable="false" 
                               id="conceptosDialogo"  
                               showEffect="fade" hideEffect="fade" width="560" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="LOVConceptos" widgetVar="LOVConceptos" style="font-size: 11px; width: 520px" var="concepto" value="#{controlConceptoRedondeo.lovlistaConceptos}" rowKey="#{concepto.secuencia}"
+                        <p:dataTable id="LOVConceptos" widgetVar="LOVConceptos" style="font-size: 11px; width: 520px;" var="concepto" value="#{controlConceptoRedondeo.lovlistaConceptos}" rowKey="#{concepto.secuencia}"
                                      scrollWidth="540" selectionMode="single" selection="#{controlConceptoRedondeo.conceptosSeleccionado}" scrollable="true" scrollHeight="250"
                                      filteredValue="#{controlConceptoRedondeo.lovfiltradoslistaConceptos}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlConceptoRedondeo.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
@@ -276,7 +276,7 @@
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                 <p:inputText id="globalFilter" onkeyup="LOVConcepto.filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
-                            <p:column filterBy="#{concepto.codigo}" style="width:50px" filterStyle="width:40px" filterMatchMode="contains">
+                            <p:column filterBy="#{concepto.codigo}" style="width:50px;" filterStyle="width:40px;" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigoC']}" />
                                 </f:facet>
@@ -290,16 +290,16 @@
                             </p:column>
 
                         </p:dataTable>
-                        <p:commandButton id="aceptarC" style="position: relative; left: 360px" value="#{msg['aceptar']}" disabled="#{controlConceptoRedondeo.aceptar}" actionListener="#{controlConceptoRedondeo.actualizarConceptos()}" process="@this"/>
+                        <p:commandButton id="aceptarC" style="position: relative; left: 360px;" value="#{msg['aceptar']}" disabled="#{controlConceptoRedondeo.aceptar}" actionListener="#{controlConceptoRedondeo.actualizarConceptos()}" process="@this"/>
                         
-                        <p:commandButton id="atrasC" style="position: relative; left: 370px" value="#{msg['atras']}" actionListener="#{controlConceptoRedondeo.cancelarCambiosConceptos()}" process="@this"/>
+                        <p:commandButton id="atrasC" style="position: relative; left: 370px;" value="#{msg['atras']}" actionListener="#{controlConceptoRedondeo.cancelarCambiosConceptos()}" process="@this"/>
                     </p:dialog>
 
                     <!-- DIALOGO L.O.V TIPOS REDONDEOS-->
                     <p:dialog header="#{msg['tiposredondeosT']}" widgetVar="tiposRedondeosDialogo" draggable="false" resizable="false" closable="false" 
                               id="tiposRedondeosDialogo"  
                               showEffect="fade" hideEffect="fade" width="410" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="LOVTiposRedondeos" style="font-size: 11px; width: 370px" var="t" value="#{controlConceptoRedondeo.lovlistaTiposRedondeos}" rowKey="#{t.secuencia}"
+                        <p:dataTable id="LOVTiposRedondeos" style="font-size: 11px; width: 370px;" var="t" value="#{controlConceptoRedondeo.lovlistaTiposRedondeos}" rowKey="#{t.secuencia}"
                                      selection="#{controlConceptoRedondeo.tiposRedondeosSeleccionado}" scrollWidth="390" selectionMode="single" widgetVar="LOVTiposRedondeos" scrollable="true" scrollHeight="250"
                                      filteredValue="#{controlConceptoRedondeo.lovfiltradoslistaTiposRedondeos}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlConceptoRedondeo.activarAceptar()}" update=":formularioDialogos:aceptarT"/>
@@ -323,16 +323,16 @@
                             </p:column>
 
                         </p:dataTable>
-                        <p:commandButton id="aceptarT" style="position: relative; left: 190px" value="#{msg['aceptar']}" disabled="#{controlConceptoRedondeo.aceptar}"  actionListener="#{controlConceptoRedondeo.actualizarTiposRedondeos()}"  process="@this"/>
+                        <p:commandButton id="aceptarT" style="position: relative; left: 190px;" value="#{msg['aceptar']}" disabled="#{controlConceptoRedondeo.aceptar}"  actionListener="#{controlConceptoRedondeo.actualizarTiposRedondeos()}"  process="@this"/>
                         
-                        <p:commandButton id="atrasT" style="position: relative; left: 200px" value="#{msg['atras']}"  actionListener="#{controlConceptoRedondeo.cancelarCambiosTiposRedondeos()}" process="@this"/>
+                        <p:commandButton id="atrasT" style="position: relative; left: 200px;" value="#{msg['atras']}"  actionListener="#{controlConceptoRedondeo.cancelarCambiosTiposRedondeos()}" process="@this"/>
                     </p:dialog>
 
                     <!-- DIALOGO L.O.V CONCEPTOS REDONDEOS-->
                     <p:dialog header="#{msg['conceptosredondeosCR']}" widgetVar="conceptosRedondeosDialogo" draggable="false" resizable="false" closable="false" 
                               id="conceptosRedondeosDialogo"  
                               showEffect="fade" hideEffect="fade" width="560" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="LOVConceptosRedondeos" style="font-size: 11px; width: 540px" var="cr" value="#{controlConceptoRedondeo.lovlistaConceptosRedondeos}" rowKey="#{cr.secuencia}"
+                        <p:dataTable id="LOVConceptosRedondeos" style="font-size: 11px; width: 540px;" var="cr" value="#{controlConceptoRedondeo.lovlistaConceptosRedondeos}" rowKey="#{cr.secuencia}"
                                      selection="#{controlConceptoRedondeo.conceptosRedondeosSeleccionado}" scrollWidth="540" selectionMode="single" widgetVar="LOVConceptosRedondeos" scrollable="true" scrollHeight="250"
                                      filteredValue="#{controlConceptoRedondeo.lovfiltradoslistaConceptosRedondeos}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlConceptoRedondeo.activarAceptar()}" update=":formularioDialogos:aceptarCR"/>
@@ -362,9 +362,9 @@
                             </p:column>
 
                         </p:dataTable>
-                        <p:commandButton id="aceptarCR" style="position: relative; left: 190px" value="#{msg['aceptar']}" disabled="#{controlConceptoRedondeo.aceptar}" actionListener="#{controlConceptoRedondeo.actualizarConceptosRedondeos()}"  process="@this"/>
+                        <p:commandButton id="aceptarCR" style="position: relative; left: 190px;" value="#{msg['aceptar']}" disabled="#{controlConceptoRedondeo.aceptar}" actionListener="#{controlConceptoRedondeo.actualizarConceptosRedondeos()}"  process="@this"/>
                         
-                        <p:commandButton id="atrasCR" style="position: relative; left: 230px" value="#{msg['atras']}"  actionListener="#{controlConceptoRedondeo.cancelarCambiosConceptosRedondeos()}"  process="@this"/>
+                        <p:commandButton id="atrasCR" style="position: relative; left: 230px;" value="#{msg['atras']}"  actionListener="#{controlConceptoRedondeo.cancelarCambiosConceptosRedondeos()}"  process="@this"/>
                     </p:dialog>
 
                 </h:form>

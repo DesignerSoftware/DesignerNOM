@@ -1889,7 +1889,7 @@ public class ControlVigenciaJornada implements Serializable {
                 vJNombreJornada.setFilterStyle("width: 86%");
                 vJTipoDescanso = (Column) c.getViewRoot().findComponent("form:datosVJEmpleado:vJTipoDescanso");
                 vJTipoDescanso.setFilterStyle("width: 86%");
-                altoTabla1 = "91";
+                altoTabla1 = "95";
                 RequestContext.getCurrentInstance().update("form:datosVJEmpleado");
                 bandera = 1;
             } else if (bandera == 1) {
@@ -1922,7 +1922,7 @@ public class ControlVigenciaJornada implements Serializable {
                 vCTFechaFinal.setFilterStyle("width: 86%");
                 vCTComentario = (Column) c.getViewRoot().findComponent("form:datosVigenciaCT:vCTComentario");
                 vCTComentario.setFilterStyle("width: 86%");
-                altoTabla2 = "91";
+                altoTabla2 = "95";
                 RequestContext.getCurrentInstance().update("form:datosVigenciaCT");
                 banderaVCT = 1;
             } else if (banderaVCT == 1) {
@@ -1955,7 +1955,7 @@ public class ControlVigenciaJornada implements Serializable {
                 vCDFechaInicial.setFilterStyle("width: 86%");
                 vCDFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVigenciaCD:vCDFechaFinal");
                 vCDFechaFinal.setFilterStyle("width: 86%");
-                altoTabla3 = "91";
+                altoTabla3 = "95";
                 RequestContext.getCurrentInstance().update("form:datosVigenciaCD");
                 banderaVCD = 1;
             } else if (banderaVCD == 1) {

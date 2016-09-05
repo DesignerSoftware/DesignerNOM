@@ -307,8 +307,8 @@ public class ControlComprobantes implements Serializable {
             FechaModificacioSNER = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionesNodosEmpleador:FechaModificacioSNER");
             FechaModificacioSNER.setFilterStyle("width: 85%");
 
-            altoScrollSolucionesNodosEmpleado = "72";
-            altoScrollSolucionesNodosEmpleador = "72";
+            altoScrollSolucionesNodosEmpleado = "75";
+            altoScrollSolucionesNodosEmpleador = "75";
             RequestContext context = RequestContext.getCurrentInstance();
             context.update("form:datosSolucionesNodosEmpleado");
             context.update("form:datosSolucionesNodosEmpleador");

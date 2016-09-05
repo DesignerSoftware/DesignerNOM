@@ -1161,21 +1161,21 @@ public class ControlFormulaConcepto implements Serializable {
      */
     public void filtradoFormula() {
         if (banderaFormulasConceptos == 0) {
-            altoTabla = "288";
+            altoTabla = "290";
             formulaFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaConcepto:formulaFechaInicial");
-            formulaFechaInicial.setFilterStyle("width: 60px");
+            formulaFechaInicial.setFilterStyle("width: 85%;");
             formulaFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaConcepto:formulaFechaFinal");
-            formulaFechaFinal.setFilterStyle("width: 60px");
+            formulaFechaFinal.setFilterStyle("width: 85%;");
             formulaCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaConcepto:formulaCodigo");
-            formulaCodigo.setFilterStyle("width: 80px");
+            formulaCodigo.setFilterStyle("width: 85%");
             formulaDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaConcepto:formulaDescripcion");
-            formulaDescripcion.setFilterStyle("width: 80px");
+            formulaDescripcion.setFilterStyle("width: 85%");
             formulaOrden = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaConcepto:formulaOrden");
-            formulaOrden.setFilterStyle("width: 80px");
+            formulaOrden.setFilterStyle("width: 85%");
             formulaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaConcepto:formulaEmpresa");
-            formulaEmpresa.setFilterStyle("width: 80px");
+            formulaEmpresa.setFilterStyle("width: 85%");
             formulaNIT = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaConcepto:formulaNIT");
-            formulaNIT.setFilterStyle("width: 80px");
+            formulaNIT.setFilterStyle("width: 85%");
 
             RequestContext.getCurrentInstance().update("form:datosFormulaConcepto");
             banderaFormulasConceptos = 1;

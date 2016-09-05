@@ -256,11 +256,11 @@ public class ControlConceptosProyecciones implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             porcentaje = (Column) c.getViewRoot().findComponent("form:datosConceptosProyecciones:porcentaje");
-            porcentaje.setFilterStyle("width: 20px");
+            porcentaje.setFilterStyle("width: 85%");
             concepto = (Column) c.getViewRoot().findComponent("form:datosConceptosProyecciones:concepto");
-            concepto.setFilterStyle("width: 350px");
+            concepto.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosConceptosProyecciones");
             System.out.println("Activar");
             bandera = 1;

@@ -359,7 +359,7 @@ public class ControlCiudades implements Serializable {
             nombresDepartamentos.setFilterStyle("width: 85%");
             ciudadesCodigosAlternativos = (Column) c.getViewRoot().findComponent("form:datosCiudades:ciudadesCodigosAlternativos");
             ciudadesCodigosAlternativos.setFilterStyle("width: 85%");
-            altoTabla = "286";
+            altoTabla = "290";
             RequestContext.getCurrentInstance().update("form:datosCiudades");
             bandera = 1;
             anularBotonLOV();

@@ -773,20 +773,20 @@ public class ControlVigenciasFormasPagos implements Serializable {
         if (bandera == 0) {
             //Columnas de la Tabla  
             fechaVigencia = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormasPagos:fechaVigencia");
-            fechaVigencia.setFilterStyle("width: 50px");
+            fechaVigencia.setFilterStyle("width: 85%;");
             cuenta = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormasPagos:cuenta");
-            cuenta.setFilterStyle("width: 60px");
+            cuenta.setFilterStyle("width: 85%;");
             fechaCuenta = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormasPagos:fechaCuenta");
-            fechaCuenta.setFilterStyle("width: 70px");
+            fechaCuenta.setFilterStyle("width: 85%;");
             sucursal = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormasPagos:sucursal");
-            sucursal.setFilterStyle("width: 190px");
+            sucursal.setFilterStyle("width: 85%;");
             formaPago = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormasPagos:formaPago");
-            formaPago.setFilterStyle("width: 190px");
+            formaPago.setFilterStyle("width: 85%;");
             tc = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormasPagos:tc");
-            tc.setFilterStyle("width: 15px");
+            tc.setFilterStyle("width: 85%;");
             metodoPago = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormasPagos:metodoPago");
-            metodoPago.setFilterStyle("width: 80px");
-            altoTabla = "268";
+            metodoPago.setFilterStyle("width: 85%;");
+            altoTabla = "272";
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormasPagos");
             bandera = 1;
         } else if (bandera == 1) {

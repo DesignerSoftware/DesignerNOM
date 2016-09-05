@@ -245,17 +245,17 @@ public class ControlTiposExamenes implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTipoExamen:codigo");
-            codigo.setFilterStyle("width: 60px");
+            codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoExamen:descripcion");
-            descripcion.setFilterStyle("width: 170px");
+            descripcion.setFilterStyle("width: 85%;");
             minimoNormal = (Column) c.getViewRoot().findComponent("form:datosTipoExamen:minimoNormal");
-            minimoNormal.setFilterStyle("width: 145px");
+            minimoNormal.setFilterStyle("width: 85%;");
             maximoNormal = (Column) c.getViewRoot().findComponent("form:datosTipoExamen:maximoNormal");
-            maximoNormal.setFilterStyle("width: 135px");
+            maximoNormal.setFilterStyle("width: 85%;");
             diasRecurrencia = (Column) c.getViewRoot().findComponent("form:datosTipoExamen:diasRecurrencia");
-            diasRecurrencia.setFilterStyle("width: 130px");
+            diasRecurrencia.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosTipoExamen");
             System.out.println("Activar");
             bandera = 1;

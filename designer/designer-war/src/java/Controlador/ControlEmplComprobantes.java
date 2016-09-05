@@ -1572,7 +1572,7 @@ public class ControlEmplComprobantes implements Serializable {
             fechaC.setFilterStyle("width: 85%;");
             fechaEntregaC = (Column) c.getViewRoot().findComponent("form:datosComprobantes:fechaEntregaC");
             fechaEntregaC.setFilterStyle("width: 85%;");
-            altoScrollComprobante = "38";
+            altoScrollComprobante = "44";
             RequestContext.getCurrentInstance().update("form:datosComprobantes");
             banderaComprobantes = 1;
         } else if (banderaComprobantes == 1) {
@@ -1583,7 +1583,7 @@ public class ControlEmplComprobantes implements Serializable {
             fechaCorteCP.setFilterStyle("width: 85%;");
             procesoCP = (Column) c.getViewRoot().findComponent("form:datosCortesProcesos:procesoCP");
             procesoCP.setFilterStyle("width: 85%;");
-            altoScrollComprobante = "38";
+            altoScrollComprobante = "44";
             RequestContext.getCurrentInstance().update("form:datosCortesProcesos");
             banderaCortesProcesos = 1;
         } else if (banderaCortesProcesos == 1) {

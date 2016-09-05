@@ -737,7 +737,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "248";
+            altoTabla = "252";
             veFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVigenciaEventos:veFechaInicial");
             veFechaInicial.setFilterStyle("width: 85%");
             veFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVigenciaEventos:veFechaFinal");

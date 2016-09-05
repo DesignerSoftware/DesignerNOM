@@ -22,57 +22,57 @@
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlInterfaseContableTotal.guardadoGeneral()}" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none; " actionListener="#{controlInterfaseContableTotal.guardadoGeneral()}" process="@this" />
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlInterfaseContableTotal.editarCelda()}" process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; " actionListener="#{controlInterfaseContableTotal.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlInterfaseContableTotal.listaValoresBoton()}" disabled="#{controlInterfaseContableTotal.activarLov}" process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; " actionListener="#{controlInterfaseContableTotal.listaValoresBoton()}" disabled="#{controlInterfaseContableTotal.activarLov}" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlInterfaseContableTotal.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlInterfaseContableTotal.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " ajax="false" actionListener="#{controlInterfaseContableTotal.validarExportXLS()}" />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " ajax="false" actionListener="#{controlInterfaseContableTotal.validarExportXLS()}" />
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "  ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none; "  ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlInterfaseContableTotal.validarExportXML()}" fileName="#{controlInterfaseContableTotal.validarNombreExportXML()}" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlInterfaseContableTotal.validarExportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none; " actionListener="#{controlInterfaseContableTotal.validarExportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="insertar" disabled="#{controlInterfaseContableTotal.activarAgregar}" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " oncomplete="NuevoRegistroPC.show()" update=":formularioDialogos:nuevaParametroContable" process="@this"/> 
+                                <p:commandButton id="insertar" disabled="#{controlInterfaseContableTotal.activarAgregar}" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; " oncomplete="NuevoRegistroPC.show()" update=":formularioDialogos:nuevaParametroContable" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" disabled="#{controlInterfaseContableTotal.activarOtros}" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlInterfaseContableTotal.borrarParametroContable()}" process="@this"/>  
+                                <p:commandButton id="eliminar" disabled="#{controlInterfaseContableTotal.activarOtros}" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none; " actionListener="#{controlInterfaseContableTotal.borrarParametroContable()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "   process="@this"/>  
+                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none; "   process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlInterfaseContableTotal.validarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " actionListener="#{controlInterfaseContableTotal.validarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; "
                                                  oncomplete="window.location.reload()" actionListener="#{controlInterfaseContableTotal.cancelarModificaciones()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlInterfaseContableTotal.salir()}" action="#{controlInterfaseContableTotal.redirigir()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " actionListener="#{controlInterfaseContableTotal.salir()}" action="#{controlInterfaseContableTotal.redirigir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -84,7 +84,7 @@
 
                                 <p:commandButton  value=" " style="position: relative; top: 2px; left: 5px;text-align: left; width: 45px; height: 45px;"  actionListener="#{controlInterfaseContableTotal.actionBtnRecontabilizar()}" process="@this"/>
 
-                                <div id="pempresa" style="position: relative; top: -35px; left: 10px" > 
+                                <div id="pempresa" style="position: relative; top: -35px; left: 10px;" > 
                                     <strong><h:outputText value="#{msg['empresa']}" style="position: relative; top: -10px; left: 45px"/></strong>
                                     <p:inputText id="parametroEmpresa" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.empresaRegistro.nombre}" style="position: relative; top: -10px; left: 50px;width: 300px;text-transform: uppercase">
                                         <p:ajax event="change" listener="#{controlInterfaseContableTotal.modificarParametroContable(controlInterfaseContableTotal.parametroContableActual.empresaRegistro.nombre, 'EMPRESA')}" update="@this"/>
@@ -93,7 +93,7 @@
                                     </p:inputText>
                                 </div>
 
-                                <div id="pdoccontable" style="position: relative; top: -60px; left: 410px" >
+                                <div id="pdoccontable" style="position: relative; top: -60px; left: 410px;" >
                                     <strong><h:outputText value="#{msg['docContable']}" style="position: relative; top: 20px; left: -352px"/></strong>
                                     <p:inputText maxlength="4" id="parametroDocContable" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.documentoContable}" style="position: relative; top: 20px; left: -347px;text-transform: uppercase;width: 100px;">
                                         <p:ajax event="change" listener="#{controlInterfaseContableTotal.modificarParametroContable()}" update="@this"/>
@@ -127,8 +127,8 @@
                                     </p:calendar>
                                 </div>
 
-<!--                                <p:commandButton id="btnArriba" style="position: absolute; left: 695px; top: 19px; width: 20px; height: 20px; background-image: url(Imagenes/Iconos/arriba.JPG); background-size: 100% 100%; background-repeat: no-repeat; " actionListener="#{controlInterfaseContableTotal.anteriorParametro()}" value="" disabled="#{controlInterfaseContableTotal.estadoBtnArriba}" process="@this" />
-                                <p:commandButton id="btnAbajo" style="position: absolute; left: 695px; top: 40px; width: 20px; height: 20px; background-image: url(Imagenes/Iconos/abajo.JPG); background-size: 100% 100%; background-repeat: no-repeat; " value="" actionListener="#{controlInterfaseContableTotal.siguienteParametro()}" disabled="#{controlInterfaseContableTotal.estadoBtnAbajo}" process="@this" />-->
+<!--                                <p:commandButton id="btnArriba" style="position: absolute; left: 695px; top: 19px; width: 20px; height: 20px; background-image: url(Imagenes/Iconos/arriba.png); background-size: 100% 100%; background-repeat: no-repeat; " actionListener="#{controlInterfaseContableTotal.anteriorParametro()}" value="" disabled="#{controlInterfaseContableTotal.estadoBtnArriba}" process="@this" />
+                                <p:commandButton id="btnAbajo" style="position: absolute; left: 695px; top: 40px; width: 20px; height: 20px; background-image: url(Imagenes/Iconos/abajo.png); background-size: 100% 100%; background-repeat: no-repeat; " value="" actionListener="#{controlInterfaseContableTotal.siguienteParametro()}" disabled="#{controlInterfaseContableTotal.estadoBtnAbajo}" process="@this" />-->
 
                                 <p:commandButton value="#{msg['actualizar']}" style="position: relative; top: -160px; left: 690px;" icon="ui-icon-refresh" actionListener="#{controlInterfaseContableTotal.actionBtnActualizar()}" process="@this" onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"/>
                                 <p:commandButton id="btnAnular" value="." style="position: relative; top: -160px; left: 695px;width: 10px; text-align: left" oncomplete="anularComprobantesCerrados.show()" />
@@ -276,8 +276,8 @@
                             <h:outputText id="infoRegistroGenerados" value="#{msg['infoRegistros']} #{controlInterfaseContableTotal.infoRegistroGenerados}" style="position: raltive; left: 20px; top: 1px; font-weight: bold"/>
 
                             <p:commandButton id="btnEnviar" onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" disabled="#{controlInterfaseContableTotal.activarEnviar}" value="#{msg['enviar']}" icon="ui-icon-arrowreturnthick-1-s" style="position: relative; top: 5px; left: 40px;height: 22px;text-align: center" actionListener="#{controlInterfaseContableTotal.actionBtnEnviar()}"/>
-                            <p:commandButton id="btnDeshacer"  disabled="#{controlInterfaseContableTotal.activarDeshacer}" value="#{msg['deshacer']}"  style="position: relative; top: 2px; left: 45px" onclick="procesoDeshacer.show()"/>
-                            <p:commandButton id="reporteControl"   value="#{msg['reportecontrol']}"  style="position: relative; top: 2px; left: 55px" actionListener="#{controlInterfaseContableTotal.generarReporte()}" />
+                            <p:commandButton id="btnDeshacer"  disabled="#{controlInterfaseContableTotal.activarDeshacer}" value="#{msg['deshacer']}"  style="position: relative; top: 2px; left: 45px;" onclick="procesoDeshacer.show()"/>
+                            <p:commandButton id="reporteControl"   value="#{msg['reportecontrol']}"  style="position: relative; top: 2px; left: 55px;" actionListener="#{controlInterfaseContableTotal.generarReporte()}" />
 
                             <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 5px; left: 62px"/></strong>
                             <p:inputText id="totalCGenerado" value="#{controlInterfaseContableTotal.totalCGenerado}" readonly="true" style="position: relative; top: 5px; left: 65px;width: 90px">
@@ -466,7 +466,7 @@
 
                         <p:dialog header="#{msg['procesoM']}" widgetVar="ProcesoDialogo" draggable="false" resizable="false" closable="false" id="ProcesoDialogo"  
                                   showEffect="fade" hideEffect="fade" width="460" modal="true" >
-                            <p:dataTable id="lovProceso" style=" width: 430px" var="proceso" value="#{controlInterfaseContableTotal.lovProcesos}" rowKey="#{proceso.secuencia}"
+                            <p:dataTable id="lovProceso" style=" width: 430px;" var="proceso" value="#{controlInterfaseContableTotal.lovProcesos}" rowKey="#{proceso.secuencia}"
                                          selection="#{controlInterfaseContableTotal.procesoSeleccionado}" selectionMode="single" widgetVar="lovProceso" scrollable="true" scrollWidth="445" scrollHeight="250"
                                          filteredValue="#{controlInterfaseContableTotal.filtrarLovProcesos}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlInterfaseContableTotal.activarAceptar()}" update=":form:aceptarP"/>
@@ -492,15 +492,15 @@
 
                             <h:outputText id="infoRegistroProceso" value="#{msg['infoRegistros']} #{controlInterfaseContableTotal.infoRegistroProceso}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
-                            <p:commandButton id="aceptarP" style="position: relative; left: 265px" value="#{msg['aceptar']}" disabled="#{controlInterfaseContableTotal.aceptar}" actionListener="#{controlInterfaseContableTotal.actualizarProceso()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="aceptarP" style="position: relative; left: 265px;" value="#{msg['aceptar']}" disabled="#{controlInterfaseContableTotal.aceptar}" actionListener="#{controlInterfaseContableTotal.actualizarProceso()}" process="@this" icon="ui-icon-check"/>
 
-                            <p:commandButton id="atrasP" style="position: relative; left: 265px" value="#{msg['atras']}" actionListener="#{controlInterfaseContableTotal.cancelarProceso()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            <p:commandButton id="atrasP" style="position: relative; left: 265px;" value="#{msg['atras']}" actionListener="#{controlInterfaseContableTotal.cancelarProceso()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
 
                         </p:dialog> 
 
                         <p:dialog header="#{msg['empresaM']}" widgetVar="EmpresaDialogo" draggable="false" resizable="false" closable="false" id="EmpresaDialogo"  
                                   showEffect="fade" hideEffect="fade" width="460" modal="true" >
-                            <p:dataTable id="lovEmpresa" style=" width: 430px" var="empresa" value="#{controlInterfaseContableTotal.lovEmpresas}" rowKey="#{empresa.secuencia}"
+                            <p:dataTable id="lovEmpresa" style=" width: 430px;" var="empresa" value="#{controlInterfaseContableTotal.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                          selection="#{controlInterfaseContableTotal.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="445" scrollHeight="250"
                                          filteredValue="#{controlInterfaseContableTotal.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlInterfaseContableTotal.activarAceptar()}" update=":form:aceptarE"/>
@@ -526,9 +526,9 @@
 
                             <h:outputText id="infoRegistroEmpresa"  value="#{msg['infoRegistros']} #{controlInterfaseContableTotal.infoRegistroEmpresa}" style="position: absolute; left: 20px; top: 345px; font-weight: bold"/>
 
-                            <p:commandButton id="aceptarE" style="position: relative; left: 265px" value="#{msg['aceptar']}" disabled="#{controlInterfaseContableTotal.aceptar}" actionListener="#{controlInterfaseContableTotal.actualizarEmpresa()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="aceptarE" style="position: relative; left: 265px;" value="#{msg['aceptar']}" disabled="#{controlInterfaseContableTotal.aceptar}" actionListener="#{controlInterfaseContableTotal.actualizarEmpresa()}" process="@this" icon="ui-icon-check"/>
 
-                            <p:commandButton id="atrasE" style="position: relative; left: 265px" value="#{msg['atras']}" actionListener="#{controlInterfaseContableTotal.cancelarEmpresa()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            <p:commandButton id="atrasE" style="position: relative; left: 265px;" value="#{msg['atras']}" actionListener="#{controlInterfaseContableTotal.cancelarEmpresa()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
 
                         </p:dialog> 
 
@@ -540,170 +540,170 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlInterfaseContableTotal.guardarSalir()}" action="#{controlInterfaseContableTotal.redirigir()}" style="position: absolute; top: 50px; left: 125px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlInterfaseContableTotal.cancelarSalir()}" action="#{controlInterfaseContableTotal.redirigir()}" style="position: absolute; top: 50px; left: 190px" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 260px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlInterfaseContableTotal.guardarSalir()}" action="#{controlInterfaseContableTotal.redirigir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlInterfaseContableTotal.cancelarSalir()}" action="#{controlInterfaseContableTotal.redirigir()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSinSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSinSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSinSalida.hide();" actionListener="#{controlInterfaseContableTotal.guardadoGeneral()}" style="position: absolute; top: 50px; left: 125px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSinSalida.hide();" actionListener="#{controlInterfaseContableTotal.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 190px" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSinSalida.hide();" style="position: absolute; top: 50px; left: 260px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSinSalida.hide();" actionListener="#{controlInterfaseContableTotal.guardadoGeneral()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSinSalida.hide();" actionListener="#{controlInterfaseContableTotal.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSinSalida.hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableTotal.interconTablaSeleccionada.getSecuencia(), 'InterconTotal', 'interfaseRastro')}" style="position: absolute; top: 63px; left: 175px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 240px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableTotal.interconTablaSeleccionada.getSecuencia(), 'InterconTotal', 'interfaseRastro')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('InterconTotal', 'interfaseRastro')}" style="position: absolute; top: 60px; left: 175px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 240px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('InterconTotal', 'interfaseRastro')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableTotal.interconTablaSeleccionada.getSecuencia(), 'InterconTotal', 'interfaseRastro')}" style="position: absolute; top: 70px; left: 175px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-check" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 70px; left: 240px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableTotal.interconTablaSeleccionada.getSecuencia(), 'InterconTotal', 'interfaseRastro')}" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-check" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechasParametro" header="#{msg['error']}" widgetVar="errorFechasParametro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorFechasParametro" header="#{msg['error']}" widgetVar="errorFechasParametro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechasParametro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorNewRegNull" header="#{msg['error']}" widgetVar="errorNewRegNull"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorNewRegNull" header="#{msg['error']}" widgetVar="errorNewRegNull"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorNewRegNull']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechasNull" header="#{msg['error']}" widgetVar="errorFechasNull"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorFechasNull" header="#{msg['error']}" widgetVar="errorFechasNull"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechasNull']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechasParametros" header="#{msg['error']}" widgetVar="errorFechasParametros"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorFechasParametros" header="#{msg['error']}" widgetVar="errorFechasParametros"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechasParametros']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="procesoSinDatos" header="#{msg['error']}" widgetVar="procesoSinDatos"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="procesoSinDatos" header="#{msg['error']}" widgetVar="procesoSinDatos"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['procesoSinDatos']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="anteriorContabilizacion" header="#{msg['informacion']}" widgetVar="anteriorContabilizacion"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="anteriorContabilizacion" header="#{msg['informacion']}" widgetVar="anteriorContabilizacion"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:outputText value="#{msg['anteriorContabilizacion']} #{controlInterfaseContableTotal.msnFechasActualizar}" style="position: absolute; left: 20px; top: 10px; width: 235px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="nuncaContabilizo" header="#{msg['informacion']}" widgetVar="nuncaContabilizo"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="nuncaContabilizo" header="#{msg['informacion']}" widgetVar="nuncaContabilizo"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['nuncaContabilizo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="contadoCeroPerContable" header="#{msg['informacion']}" widgetVar="contadoCeroPerContable"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="contadoCeroPerContable" header="#{msg['informacion']}" widgetVar="contadoCeroPerContable"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['contadoCeroPerContable']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="anularComprobantesCerrados" header="#{msg['informacion']}" widgetVar="anularComprobantesCerrados"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="anularComprobantesCerrados" header="#{msg['informacion']}" widgetVar="anularComprobantesCerrados"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['anularComprobantesCerrados']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="anularComprobantesCerrados.hide();" actionListener="#{controlInterfaseContableTotal.anularComprobantesCerrados()}" style="position: absolute; top: 63px; left: 125px"  process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="anularComprobantesCerrados.hide();" style="position: absolute; top: 63px; left: 225px" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="anularComprobantesCerrados.hide();" actionListener="#{controlInterfaseContableTotal.anularComprobantesCerrados()}" style="position: absolute; top: 63px; left: 125px;"  process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="anularComprobantesCerrados.hide();" style="position: absolute; top: 63px; left: 225px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="procesoDeshacer" header="#{msg['informacion']}" widgetVar="procesoDeshacer"  resizable="false" draggable="false" modal="true" height="100" width="350px"  closable="false">  
+                    <p:dialog id="procesoDeshacer" header="#{msg['informacion']}" widgetVar="procesoDeshacer"  resizable="false" draggable="false" modal="true" height="100" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['procesoDeshacer']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; " />
                         <p:commandButton value="#{msg['aceptar']}"  onclick="procesoDeshacer.hide();
-                                operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" icon="ui-icon-check"  actionListener="#{controlInterfaseContableTotal.actionBtnDeshacer()}" style="position: absolute; top: 63px; left: 125px"  process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="procesoDeshacer.hide();" style="position: absolute; top: 63px; left: 225px" process="@this" />
+                                operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" icon="ui-icon-check"  actionListener="#{controlInterfaseContableTotal.actionBtnDeshacer()}" style="position: absolute; top: 63px; left: 125px;"  process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="procesoDeshacer.hide();" style="position: absolute; top: 63px; left: 225px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="paso1Recon" header="#{msg['informacion']}" widgetVar="paso1Recon"  resizable="false" draggable="false" modal="true" height="115" width="350px"  closable="false">  
+                    <p:dialog id="paso1Recon" header="#{msg['informacion']}" widgetVar="paso1Recon"  resizable="false" draggable="false" modal="true" height="115" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['paso1Recon']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="paso1Recon.hide();
-                                paso2Recon.show();"  style="position: absolute; top: 90px; left: 125px" icon="ui-icon-check"  process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="paso1Recon.hide();" icon="ui-icon-close" style="position: absolute; top: 90px; left: 225px" process="@this" />
+                                paso2Recon.show();"  style="position: absolute; top: 90px; left: 125px;" icon="ui-icon-check"  process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="paso1Recon.hide();" icon="ui-icon-close" style="position: absolute; top: 90px; left: 225px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="paso2Recon" header="#{msg['informacion']}" widgetVar="paso2Recon"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="paso2Recon" header="#{msg['informacion']}" widgetVar="paso2Recon"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['paso2Recon']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="paso2Recon.hide();" actionListener="#{controlInterfaseContableTotal.ejecutarPaso3Recon()}" style="position: absolute; top: 63px; left: 125px"  process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="paso2Recon.hide();" style="position: absolute; top: 63px; left: 225px" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="paso2Recon.hide();" actionListener="#{controlInterfaseContableTotal.ejecutarPaso3Recon()}" style="position: absolute; top: 63px; left: 125px;"  process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="paso2Recon.hide();" style="position: absolute; top: 63px; left: 225px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="paso3Recon" header="#{msg['informacion']}" widgetVar="paso3Recon"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="paso3Recon" header="#{msg['informacion']}" widgetVar="paso3Recon"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['paso3Recon1']}  #{controlInterfaseContableTotal.fechaIniRecon} - #{controlInterfaseContableTotal.fechaFinRecon}  #{msg['paso3Recon2']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="paso3Recon.hide();" actionListener="#{controlInterfaseContableTotal.finalizarProcesoRecontabilizacion()}" style="position: absolute; top: 63px; left: 125px"  process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="paso3Recon.hide();" style="position: absolute; top: 63px; left: 225px" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="paso3Recon.hide();" actionListener="#{controlInterfaseContableTotal.finalizarProcesoRecontabilizacion()}" style="position: absolute; top: 63px; left: 125px;"  process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="paso3Recon.hide();" style="position: absolute; top: 63px; left: 225px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRecon" header="#{msg['informacion']}" widgetVar="errorRecon"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorRecon" header="#{msg['informacion']}" widgetVar="errorRecon"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRecon']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="paso1CerrarPeriodo" header="#{msg['informacion']}" widgetVar="paso1CerrarPeriodo"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="paso1CerrarPeriodo" header="#{msg['informacion']}" widgetVar="paso1CerrarPeriodo"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['paso1CerrarPeriodo']} #{controlInterfaseContableTotal.msnPaso1()}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="paso1CerrarPeriodo.hide();
-                                paso2CerrarPeriodo.show()" style="position: absolute; top: 63px; left: 125px" icon="ui-icon-check"  process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="paso1CerrarPeriodo.hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 225px" process="@this" />
+                                paso2CerrarPeriodo.show()" style="position: absolute; top: 63px; left: 125px;" icon="ui-icon-check"  process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="paso1CerrarPeriodo.hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 225px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="paso2CerrarPeriodo" header="#{msg['informacion']}" widgetVar="paso2CerrarPeriodo"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="paso2CerrarPeriodo" header="#{msg['informacion']}" widgetVar="paso2CerrarPeriodo"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['paso2CerrarPeriodo']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="paso2CerrarPeriodo.hide();" actionListener="#{controlInterfaseContableTotal.finCerrarPeriodoContable()}" style="position: absolute; top: 63px; left: 125px"  process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="paso2CerrarPeriodo.hide();" style="position: absolute; top: 63px; left: 225px" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="paso2CerrarPeriodo.hide();" actionListener="#{controlInterfaseContableTotal.finCerrarPeriodoContable()}" style="position: absolute; top: 63px; left: 125px;"  process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="paso2CerrarPeriodo.hide();" style="position: absolute; top: 63px; left: 225px;" process="@this" />
                     </p:dialog>
 
                 </h:form>
                 <h:form id="formularioDialogos" >
 
                     <p:dialog id="NuevoRegistroPC" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroPC" closable="false" resizable="false"  draggable="false" modal="true" height="255" width="400" style=" padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevaParametroContable" style="border: none;">
 
-                            <strong><h:outputText value="*#{msg['empresaN']}" style=" position: absolute; top: 75px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['empresaN']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
                             <p:inputText id="nuevaEmpresaParametro" value="#{controlInterfaseContableTotal.nuevoParametroContable.empresaRegistro.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlInterfaseContableTotal.asignarIndex(-1,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlInterfaseContableTotal.autocompletarNuevo('EMPRESA',controlInterfaseContableTotal.nuevoParametroContable.empresaRegistro.nombre)}" />
@@ -712,13 +712,13 @@
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 331px; top: 70px; " id="btnNuevaEmpresa" value="" process="@this"  actionListener="#{controlInterfaseContableTotal.asignarIndex(-1,0,1)}"/>   
                             <p:watermark for="nuevaEmpresaParametro" value="#{msg['empresa']}" />
 
-                            <strong><h:outputText value="#{msg['docContableN']}" style=" position: absolute; top: 105px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['docContableN']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
                             <p:inputText id="nuevaDocContaParametro" maxlength="4" value="#{controlInterfaseContableTotal.nuevoParametroContable.documentoContable}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaDocContaParametro" process="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaDocContaParametro" value="#{msg['docContable']}" />
 
-                            <strong><h:outputText value="#{msg['procesoN']}" style=" position: absolute; top: 135px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['procesoN']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
                             <p:inputText id="nuevaProcesoParametro" value="#{controlInterfaseContableTotal.nuevoParametroContable.proceso.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlInterfaseContableTotal.asignarIndex(-1,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlInterfaseContableTotal.autocompletarNuevo('PROCESO', controlInterfaseContableTotal.nuevoParametroContable.proceso.descripcion)}" />
@@ -750,116 +750,116 @@
                     </p:dialog>
 
 
-                    <p:dialog  id="verReportePDF" header="#{controlInterfaseContableTotal.cabezeraVisor}" widgetVar="verReportePDF" width="1024px" height="530px" resizable="false" draggable="false" modal="true" onHide="reiniciarStreamedContent();">
-                        <p:media value="#{controlInterfaseContableTotal.reporte}" width="100%" height="500px" player="pdf" rendered="#{controlInterfaseContableTotal.reporte != null}"/>
+                    <p:dialog  id="verReportePDF" header="#{controlInterfaseContableTotal.cabezeraVisor}" widgetVar="verReportePDF" width="1024px;" height="530px;" resizable="false" draggable="false" modal="true" onHide="reiniciarStreamedContent();">
+                        <p:media value="#{controlInterfaseContableTotal.reporte}" width="100%" height="500px;" player="pdf" rendered="#{controlInterfaseContableTotal.reporte != null}"/>
                     </p:dialog>
                     <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlInterfaseContableTotal.reiniciarStreamedContent()}"/>
                     
-                    <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="false" modal="true" height="90" width="350px" style="font-size: 12px">  
+                    <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="false" modal="true" height="90" width="350px;" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlInterfaseContableTotal.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true" />
                     </p:dialog>
 
-                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="false" modal="true" height="85" width="350px" style="font-size: 12px" closable="false">  
+                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="false" modal="true" height="85" width="350px;" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
                         <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="generandoReporte.hide();" actionListener="#{controlInterfaseContableTotal.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="generandoReporte.hide();" actionListener="#{controlInterfaseContableTotal.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px;" process="@this" />
                     </p:dialog>
 
-                      <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="false" modal="true" height="90" width="330px" style="font-size: 12px" closable="false">  
+                      <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="false" modal="true" height="90" width="330px;" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/descargar.gif" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['mensajeExitoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
-                        <p:commandButton value="#{msg['descargar']}" icon="ui-icon-download" actionListener="#{controlInterfaseContableTotal.exportarReporte()}" style="position: absolute; top: 50px; left: 100px" process="@this" ajax="false" onclick="descargarReporte.hide();"/>
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="descargarReporte.hide();" style="position: absolute; top: 50px; left: 212px" process="@this" />
+                        <p:commandButton value="#{msg['descargar']}" icon="ui-icon-download" actionListener="#{controlInterfaseContableTotal.exportarReporte()}" style="position: absolute; top: 50px; left: 100px;" process="@this" ajax="false" onclick="descargarReporte.hide();"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="descargarReporte.hide();" style="position: absolute; top: 50px; left: 212px;" process="@this" />
                     </p:dialog> 
                     
                     <p:dialog id="editarEmpresaParametro" header="#{msg['editarEmpresaParametro']}" widgetVar="editarEmpresaParametro" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.parametroContableActual.empresaRegistro.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.parametroContableActual.empresaRegistro.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDocContableParametro" header="#{msg['editarDocContableParametro']}" widgetVar="editarDocContableParametro" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.parametroContableActual.documentoContable}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.parametroContableActual.documentoContable}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarProcesoParametro" header="#{msg['editarProcesoParametro']}" widgetVar="editarProcesoParametro" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.parametroContableActual.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.parametroContableActual.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarFechaInicialParametro" header="#{msg['editarFechaInicialParametro']}" widgetVar="editarFechaInicialParametro" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.parametroContableActual.fechainicialcontabilizacion}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.parametroContableActual.fechainicialcontabilizacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarFechaFinalParametro" header="#{msg['editarFechaFinalParametro']}" widgetVar="editarFechaFinalParametro" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.parametroContableActual.fechafinalcontabilizacion}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.parametroContableActual.fechafinalcontabilizacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarProcesoGenerado" header="#{msg['editarProcesoGenerado']}" widgetVar="editarProcesoGenerado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarEmpleadoGenerado" header="#{msg['editarEmpleadoGenerado']}" widgetVar="editarEmpleadoGenerado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCreditoGenerado" header="#{msg['editarCreditoGenerado']}" widgetVar="editarCreditoGenerado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.cuentac.codigo}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.cuentac.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDebitoGenerado" header="#{msg['editarDebitoGenerado']}" widgetVar="editarDebitoGenerado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.cuentad.codigo}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.cuentad.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTerceroGenerado" header="#{msg['editarTerceroGenerado']}" widgetVar="editarTerceroGenerado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.nit.nit}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.nit.nit}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarValorGenerado" header="#{msg['editarValorGenerado']}" widgetVar="editarValorGenerado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.valor}" style="overflow: auto; width: 360px; height: 60px" readonly="true">
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.valor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber currencySymbol="$" type="currency" />
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarConceptoGenerado" header="#{msg['editarConceptoGenerado']}" widgetVar="editarConceptoGenerado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- -->
                     <p:dialog id="editarEmpleadoIntercon" header="#{msg['editarEmpleadoIntercon']}" widgetVar="editarEmpleadoIntercon" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTerceroIntercon" header="#{msg['editarTerceroIntercon']}" widgetVar="editarTerceroIntercon" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.codigotercero}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.codigotercero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCuentaIntercon" header="#{msg['editarCuentaIntercon']}" widgetVar="editarCuentaIntercon" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.cuenta.codigo}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.cuenta.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDebitoIntercon" header="#{msg['editarDebitoIntercon']}" widgetVar="editarDebitoIntercon" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.valord}" style="overflow: auto; width: 360px; height: 60px" readonly="true">
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.valord}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber currencySymbol="$" type="currency" />
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarCreditoIntercon" header="#{msg['editarCreditoIntercon']}" widgetVar="editarCreditoIntercon" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.valorc}" style="overflow: auto; width: 360px; height: 60px" readonly="true">
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.valorc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber currencySymbol="$" type="currency" />
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarConceptoIntercon" header="#{msg['editarConceptoIntercon']}" widgetVar="editarConceptoIntercon" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCentroCostoIntercon" header="#{msg['editarCentroCostoIntercon']}" widgetVar="editarCentroCostoIntercon" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.centrocosto.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.centrocosto.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
+                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
                     </p:dialog>
@@ -869,11 +869,11 @@
                         <h:outputText value="#{msg['planoGeneradoOK']}" style="position: absolute; left: 70px; top: 15px; font-weight:bold;width: 250px;"  />
                         <p:inputText value="#{controlInterfaseContableTotal.rutaArchivo}" style="position: absolute; left: 70px; top: 50px;text-transform: uppercase;width: 230px;" readonly="true"/>
                         <h:outputText value="#{msg['deseaGuardarTxt']}" style="position: absolute; left: 70px; top: 80px; font-weight:bold;width: 230px;"  />
-                        <p:commandButton id="downloadLink" value="#{msg['descargar']}" ajax="false" style="position: absolute; top: 130px; left: 70px" onclick="cerrarPaginaDescarga()" actionListener="#{controlInterfaseContableTotal.descargarArchivoFTP()}">
+                        <p:commandButton id="downloadLink" value="#{msg['descargar']}" ajax="false" style="position: absolute; top: 130px; left: 70px;" onclick="cerrarPaginaDescarga()" actionListener="#{controlInterfaseContableTotal.descargarArchivoFTP()}">
                             <p:fileDownload value="#{controlInterfaseContableTotal.download}" />
                         </p:commandButton>
 
-                        <p:commandButton icon="ui-icon-close" value="#{msg['salir']}" onclick="planoGeneradoOK.hide();" style="position: absolute; top: 130px; left: 255px" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['salir']}" onclick="planoGeneradoOK.hide();" style="position: absolute; top: 130px; left: 255px;" process="@this" />
                     </p:dialog>
 
                     <p:remoteCommand name="cerrarPaginaDescarga" actionListener="#{controlInterfaseContableTotal.cerrarPaginaDescarga()}"/>

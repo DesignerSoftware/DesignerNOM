@@ -257,29 +257,29 @@ public class ControlEmplNovedad implements Serializable {
 
     public void activarCtrlF11() {
         if (bandera == 0) {
-            altoTabla = "246";
+            altoTabla = "250";
             novedadCodigoConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNovedadesEmpleado:novedadCodigoConcepto");
-            novedadCodigoConcepto.setFilterStyle("width: 60px");
+            novedadCodigoConcepto.setFilterStyle("width: 85%");
             novedadDescripcionConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNovedadesEmpleado:novedadDescripcionConcepto");
-            novedadDescripcionConcepto.setFilterStyle("width: 60px");
+            novedadDescripcionConcepto.setFilterStyle("width: 85%");
             novedadValor = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNovedadesEmpleado:novedadValor");
-            novedadValor.setFilterStyle("width: 60px");
+            novedadValor.setFilterStyle("width: 85%");
             novedadFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNovedadesEmpleado:novedadFechaInicial");
-            novedadFechaInicial.setFilterStyle("width: 60px");
+            novedadFechaInicial.setFilterStyle("width: 85%");
             novedadFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNovedadesEmpleado:novedadFechaFinal");
-            novedadFechaFinal.setFilterStyle("width: 60px");
+            novedadFechaFinal.setFilterStyle("width: 85%");
             novedadSaldo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNovedadesEmpleado:novedadSaldo");
-            novedadSaldo.setFilterStyle("width: 60px");
+            novedadSaldo.setFilterStyle("width: 85%");
             novedadCodigoPeriodicidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNovedadesEmpleado:novedadCodigoPeriodicidad");
-            novedadCodigoPeriodicidad.setFilterStyle("width: 60px");
+            novedadCodigoPeriodicidad.setFilterStyle("width: 85%");
             novedadDescripcionPeriodicidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNovedadesEmpleado:novedadDescripcionPeriodicidad");
-            novedadDescripcionPeriodicidad.setFilterStyle("width: 60px");
+            novedadDescripcionPeriodicidad.setFilterStyle("width: 85%");
             novedadTercero = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNovedadesEmpleado:novedadTercero");
-            novedadTercero.setFilterStyle("width: 60px");
+            novedadTercero.setFilterStyle("width: 85%");
             novedadObservacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNovedadesEmpleado:novedadObservacion");
-            novedadObservacion.setFilterStyle("width: 60px");
+            novedadObservacion.setFilterStyle("width: 85%");
             novedadFechaReporte = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNovedadesEmpleado:novedadFechaReporte");
-            novedadFechaReporte.setFilterStyle("width: 60px");
+            novedadFechaReporte.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
             bandera = 1;
         } else if (bandera == 1) {

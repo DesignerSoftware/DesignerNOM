@@ -1764,22 +1764,22 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
         if (banderaVA == 0) {
             //Columnas Tabla VPP
             vAFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaInicial");
-            vAFechaInicial.setFilterStyle("width: 60px");
+            vAFechaInicial.setFilterStyle("width: 85%");
             vAFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaFinal");
-            vAFechaFinal.setFilterStyle("width: 60px");
+            vAFechaFinal.setFilterStyle("width: 85%");
             vATercero = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vATercero");
-            vATercero.setFilterStyle("width: 80px");
+            vATercero.setFilterStyle("width: 85%");
             vATipoEntidad = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vATipoEntidad");
-            vATipoEntidad.setFilterStyle("width: 80px");
+            vATipoEntidad.setFilterStyle("width: 85%");
             vANITTercero = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vANITTercero");
-            vANITTercero.setFilterStyle("width: 80px");
+            vANITTercero.setFilterStyle("width: 85%");
             vACodigo = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vACodigo");
-            vACodigo.setFilterStyle("width: 80px");
+            vACodigo.setFilterStyle("width: 85%");
             vAEstadoAfiliacion = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAEstadoAfiliacion");
-            vAEstadoAfiliacion.setFilterStyle("width: 80px");
+            vAEstadoAfiliacion.setFilterStyle("width: 85%");
             vAObservaciones = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAObservaciones");
-            vAObservaciones.setFilterStyle("width: 80px");
-            altoTabla = "268";
+            vAObservaciones.setFilterStyle("width: 85%");
+            altoTabla = "272";
             RequestContext.getCurrentInstance().update("form:datosVAVigencia");
             banderaVA = 1;
         } else if (banderaVA == 1) {

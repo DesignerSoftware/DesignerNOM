@@ -375,15 +375,15 @@ public class ControlVigenciasTallas implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             fecha = (Column) c.getViewRoot().findComponent("form:datosVigenciasTallas:fecha");
-            fecha.setFilterStyle("width: 200px");
+            fecha.setFilterStyle("width: 85%;");
             idTipoTalla = (Column) c.getViewRoot().findComponent("form:datosVigenciasTallas:idTipoTalla");
-            idTipoTalla.setFilterStyle("width: 145px");
+            idTipoTalla.setFilterStyle("width: 85%;");
             idTalla = (Column) c.getViewRoot().findComponent("form:datosVigenciasTallas:idTalla");
-            idTalla.setFilterStyle("width: 130px");
+            idTalla.setFilterStyle("width: 85%;");
             idObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasTallas:idObservaciones");
-            idObservaciones.setFilterStyle("width: 130px");
+            idObservaciones.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosVigenciasTallas");
             System.out.println("Activar");
             bandera = 1;

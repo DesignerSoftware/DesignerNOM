@@ -335,11 +335,11 @@ public class ControlGrupoConcepto implements Serializable {
         if (pasa == 0 && pasar == 0) {
             if (bandera == 1) {
                 vCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:vCodigo");
-                vCodigo.setFilterStyle("width: 100px");
+                vCodigo.setFilterStyle("width: 85%;");
                 vDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:vDescripcion");
-                vDescripcion.setFilterStyle("width: 30px");
+                vDescripcion.setFilterStyle("width: 85%;");
                 vNaturaleza = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:vNaturaleza");
-                vNaturaleza.setFilterStyle("width: 30px");
+                vNaturaleza.setFilterStyle("width: 85%;");
                 vInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:vInicial");
                 vInicial.setFilterStyle("");
                 vFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:vFinal");
@@ -652,12 +652,12 @@ public class ControlGrupoConcepto implements Serializable {
             System.out.println("Activa 1");
             //Tabla Vigencias VigenciasGruposConceptos
             gcCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGruposConceptos:gcCodigo");
-            gcCodigo.setFilterStyle("width: 40px");
+            gcCodigo.setFilterStyle("width: 85%");
             gcDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGruposConceptos:gcDescripcion");
-            gcDescripcion.setFilterStyle("width: 100px");
+            gcDescripcion.setFilterStyle("width: 85%");
             gcFundamental = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGruposConceptos:gcFundamental");
-            gcFundamental.setFilterStyle("width: 30px");
-            altoScrollGruposConceptos = "66";
+            gcFundamental.setFilterStyle("width: 85%");
+            altoScrollGruposConceptos = "70";
             RequestContext context = RequestContext.getCurrentInstance();
             context.update("form:datosGruposConceptos");
             bandera = 1;
@@ -679,11 +679,11 @@ public class ControlGrupoConcepto implements Serializable {
         } else if (bandera == 0 && cualTabla == 1) {
             System.out.println("Activa 2");
             vCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:vCodigo");
-            vCodigo.setFilterStyle("width: 100px");
+            vCodigo.setFilterStyle("width: 85%;");
             vDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:vDescripcion");
-            vDescripcion.setFilterStyle("width: 30px");
+            vDescripcion.setFilterStyle("width: 85%;");
             vNaturaleza = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:vNaturaleza");
-            vNaturaleza.setFilterStyle("width: 30px");
+            vNaturaleza.setFilterStyle("width: 85%;");
             vInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:vInicial");
             vInicial.setFilterStyle("");
             vFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:vFinal");

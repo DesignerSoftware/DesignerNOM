@@ -331,17 +331,17 @@ public class ControlEmpresasBancos implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             obsoleto = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:obsoleto");
-            obsoleto.setFilterStyle("width: 20px");
+            obsoleto.setFilterStyle("width: 85%;");
             pais = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:pais");
-            pais.setFilterStyle("width: 130px");
+            pais.setFilterStyle("width: 85%;");
             subTituloFirma = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:subTituloFirma");
-            subTituloFirma.setFilterStyle("width: 130px");
+            subTituloFirma.setFilterStyle("width: 85%;");
             personafir = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:personafir");
-            personafir.setFilterStyle("width: 130px");
+            personafir.setFilterStyle("width: 85%;");
             cargo = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:cargo");
-            cargo.setFilterStyle("width: 130px");
+            cargo.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
             System.out.println("Activar");
             bandera = 1;

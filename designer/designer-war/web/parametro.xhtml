@@ -19,55 +19,55 @@
                         <p:toolbar styleClass="cssToolbar">
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; " actionListener="#{controlParametro.validarGuardado('GUARDADO RAPIDO')}" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlParametro.validarGuardado('GUARDADO RAPIDO')}" process="@this" />
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlParametro.editarCelda()}" process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlParametro.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlParametro.listaValoresBoton()}" process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlParametro.listaValoresBoton()}" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlParametro.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlParametro.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " ajax="false" actionListener="#{controlParametro.exportXLS()}" process="@this"/>
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlParametro.exportXLS()}" process="@this"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  ajax="false" process="@this">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"  ajax="false" process="@this">
                                     <p:dataExporter type="xml"  target=":formExportar:empleadosParametrosExportar" fileName="EmpleadosParametrosXML" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlParametro.exportPDF()}" ajax="false" process="@this"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlParametro.exportPDF()}" ajax="false" process="@this"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  disabled="true" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  disabled="true" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " disabled="true" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" disabled="true" process="@this"/>  
                                 <p:tooltip for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  disabled="true" process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  disabled="true" process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " disabled="true" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" disabled="true" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                                  actionListener="#{controlParametro.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " action="nomina" process="@this">
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" action="nomina" process="@this">
                                     <f:actionListener binding="#{controlParametro.salir()}" />
                                     <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}" />
                                 </p:commandButton>
@@ -336,7 +336,7 @@
                     <p:dialog header="#{msg['estructurasE']}" widgetVar="estructurasDialogo" draggable="false" resizable="false" id="estructurasDialogo"  
                               showEffect="fade" hideEffect="fade" modal="true" width="640" height="380"  closable="false">
 
-                        <p:dataTable  id="lOVEstructuras" style=" width: 600px" var="estructura" value="#{controlParametro.lovEstructuras}"
+                        <p:dataTable  id="lOVEstructuras" style=" width: 600px;" var="estructura" value="#{controlParametro.lovEstructuras}"
                                       scrollable="true" scrollHeight="250" scrollWidth="620" widgetVar="lOVEstructuras" 
                                       filteredValue="#{controlParametro.filtradoLovEstructuras}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{estructura.secuencia}" selection="#{controlParametro.seleccionEstructura}" selectionMode="single">
@@ -370,7 +370,7 @@
 
                     <p:dialog header="#{msg['tipostrabajadoresTT']}" widgetVar="TipoTrabajadorDialogo" draggable="false" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
                               showEffect="fade" hideEffect="fade" width="445" height="380" modal="true" >
-                        <p:dataTable id="lovTipoTrabajador" style=" width: 405px" var="tipoTrabajador" value="#{controlParametro.lovTiposTrabajadores}" rowKey="#{tipoTrabajador.secuencia}"
+                        <p:dataTable id="lovTipoTrabajador" style=" width: 405px;" var="tipoTrabajador" value="#{controlParametro.lovTiposTrabajadores}" rowKey="#{tipoTrabajador.secuencia}"
                                      selection="#{controlParametro.seleccionTipoTrabajador}" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollHeight="250" scrollWidth="425"
                                      filteredValue="#{controlParametro.filtradoLovTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -405,7 +405,7 @@
 
                     <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesosDialogo" draggable="false" resizable="false" closable="false" id="ProcesosDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" height="380" >
-                        <p:dataTable id="lovProcesos" style=" width: 390px" var="proceso" value="#{controlParametro.lovProcesos}" rowKey="#{proceso.secuencia}"
+                        <p:dataTable id="lovProcesos" style=" width: 390px;" var="proceso" value="#{controlParametro.lovProcesos}" rowKey="#{proceso.secuencia}"
                                      selection="#{controlParametro.seleccionProcesos}" selectionMode="single" widgetVar="lovProcesos" scrollable="true" scrollWidth="415" scrollHeight="255"
                                      filteredValue="#{controlParametro.filtradoLovProcesos}" emptyMessage="#{msg['lovvacio']}">              
                             
@@ -440,7 +440,7 @@
 
                     <p:dialog id="buscarEmpleadoDialogo" header="#{msg['empleadosEM']}" widgetVar="buscarEmpleadoDialogo" resizable="false" draggable="false" 
                               modal="true"  width="695" height="365" closable="false">  
-                        <p:dataTable  id="lovEmpleados" style=" width: 650px" var="empleado" value="#{controlParametro.lovEmpleados}"
+                        <p:dataTable  id="lovEmpleados" style=" width: 650px;" var="empleado" value="#{controlParametro.lovEmpleados}"
                                       scrollable="true" scrollHeight="225" scrollWidth="670" widgetVar="lovEmpleados" 
                                       filteredValue="#{controlParametro.filtradoLovEmpleados}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{empleado.secuencia}" selection="#{controlParametro.seleccionEmpleado}" selectionMode="single" >
@@ -481,79 +481,79 @@
                     </p:dialog>
 
                     <p:dialog id="editarFechaDesde" header="#{msg['editarFechaDesde']}" widgetVar="editarFechaDesde" resizable="false" closable="true" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.fechadesdecausado}" style="overflow: auto; width: 360px; height: 60px" readonly="true">
+                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.fechadesdecausado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarFechaHasta" header="#{msg['editarFechaHasta']}" widgetVar="editarFechaHasta" resizable="false" closable="true" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.fechahastacausado}" style="overflow: auto; width: 360px; height: 60px" readonly="true">
+                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.fechahastacausado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarFechaCorte" header="#{msg['editarFechaCorte']}" widgetVar="editarFechaCorte" resizable="false" closable="true" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.fechasistema}" style="overflow: auto; width: 360px; height: 60px" readonly="true">
+                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.fechasistema}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarEstructura" header="#{msg['editarEstructura']}" widgetVar="editarEstructura" resizable="false" closable="true"  draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.estructura.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.estructura.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCodigoCC" header="#{msg['editarCodigoCC']}" widgetVar="editarCodigoCC" resizable="false" draggable="false" closable="true"  modal="true" height="80" width="400"  >  
-                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.codigo}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarNombreCentroCosto" header="#{msg['editarNombreCentroCosto']}" widgetVar="editarNombreCentroCosto" resizable="false" closable="true"  draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTipoTrabajador" header="#{msg['editarTipoTrabajador']}" widgetVar="editarTipoTrabajador" resizable="false" closable="true"  draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.tipotrabajador.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.tipotrabajador.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarProceso" header="#{msg['editarProceso']}" widgetVar="editarProceso" resizable="false" closable="true"  draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametro.parametroLiquidacion.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- EDITOR TABLA -->
 
                     <p:dialog id="editarDesde" header="#{msg['editarDesde']}" widgetVar="editarDesde" resizable="false" closable="true" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.parametroestructura.fechadesdecausado}" style="overflow: auto; width: 360px; height: 60px" readonly="true">
+                        <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.parametroestructura.fechadesdecausado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarHasta" header="#{msg['editarHasta']}" widgetVar="editarHasta" resizable="false" closable="true" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.parametroestructura.fechahastacausado}" style="overflow: auto; width: 360px; height: 60px" readonly="true">
+                        <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.parametroestructura.fechahastacausado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarCodigo" header="#{msg['editarCodigo']}" widgetVar="editarCodigo" resizable="false" closable="true"  draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.codigoempleado}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.codigoempleado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarPApellido" header="#{msg['editarPApellido']}" widgetVar="editarPApellido" resizable="false" closable="true"  draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.persona.primerapellido}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.persona.primerapellido}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarSApellido" header="#{msg['editarSApellido']}" widgetVar="editarSApellido" resizable="false" closable="true"  draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.persona.segundoapellido}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.persona.segundoapellido}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarNombre" header="#{msg['editarNombre']}" widgetVar="editarNombre" resizable="false" closable="true"  draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.persona.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.persona.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarEstado" header="#{msg['editarEstado']}" widgetVar="editarEstado" resizable="false" closable="true"  draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.estadoParametro}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.estadoParametro}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
                     
-                    <p:dialog id="errorSeleccionEmpleado" header="#{msg['atencion']}" widgetVar="errorSeleccionEmpleado"  resizable="false" draggable="false" modal="true" height="70" width="300px" closable="true">  
+                    <p:dialog id="errorSeleccionEmpleado" header="#{msg['atencion']}" widgetVar="errorSeleccionEmpleado"  resizable="false" draggable="false" modal="true" height="70" width="300px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorSeleccionEmpleado']}" style="position: absolute; left: 80px; top: 15px; width: 185px; font-weight: bold;" />
                     </p:dialog>
@@ -565,7 +565,7 @@
                         <p:commandButton value="#{msg['aceptar']}" onclick="confirmarAdicionarEmpleados.hide(); operacionEnProceso.show()" oncomplete=" operacionEnProceso.hide()"
                                          actionListener="#{controlParametro.adicionarEmpleados()}" 
                                          style="position: absolute; top: 120px; left: 210px; " process="@this" icon="ui-icon-check"/>
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarAdicionarEmpleados.hide();" style="position: absolute; top: 120px; left: 310px" process="@this" icon="ui-icon-close"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarAdicionarEmpleados.hide();" style="position: absolute; top: 120px; left: 310px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
                     <p:dialog id="errorDias" header="#{msg['atencion']}" widgetVar="errorDias"  resizable="false" draggable="false" modal="true" height="149" width="500"  closable="false">  
@@ -574,7 +574,7 @@
                         <h:outputText value="#{msg['deseacontinuar']}" style="position: absolute; left: 100px; top: 95px; width: 360px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="errorDias.hide();" actionListener="#{controlParametro.guardarCambios()}" 
                                          style="position: absolute; top: 120px; left: 270px; " process="@this" icon="ui-icon-check"/>
-                        <p:commandButton value="#{msg['cancelar']}" onclick="errorDias.hide();" style="position: absolute; top: 120px; left: 370px" process="@this" icon="ui-icon-close"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="errorDias.hide();" style="position: absolute; top: 120px; left: 370px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
                     <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="109" width="450"  closable="false">  
@@ -583,76 +583,76 @@
                         <h:outputText value="#{msg['deseacontinuar']}" style="position: absolute; left: 130px; top: 65px; width: 300px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="errorFechas.hide();" actionListener="#{controlParametro.seguirErrorFechas()}" 
                                          style="position: absolute; top: 85px; left: 220px; " process="@this" icon="ui-icon-check"/>
-                        <p:commandButton value="#{msg['cancelar']}" onclick="errorFechas.hide();" style="position: absolute; top: 85px; left: 320px" process="@this" icon="ui-icon-close"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="errorFechas.hide();" style="position: absolute; top: 85px; left: 320px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
                     <p:dialog id="errorDiaFechaCorte" header="#{msg['atencion']}" widgetVar="errorDiaFechaCorte"  resizable="false" draggable="false" modal="true" height="90" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="Error en la fecha de corte, ésta debe ser el día: 1, 15, 16 ó ultimo día del mes." style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorDiaFechaCorte.hide();" style="position: absolute; top: 65px; left: 280px" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="errorDiaFechaCorte.hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                     </p:dialog>
 
                     <p:dialog id="errorDiaFechaHasta" header="#{msg['atencion']}" widgetVar="errorDiaFechaHasta"  resizable="false" draggable="false" modal="true" height="90" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="Error en la fecha hasta, ésta debe ser el día: 15 ó ultimo día del mes." style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorDiaFechaHasta.hide();" style="position: absolute; top: 65px; left: 280px" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="errorDiaFechaHasta.hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                     </p:dialog>
 
                     <p:dialog id="errorDiaFechaDesde" header="#{msg['atencion']}" widgetVar="errorDiaFechaDesde"  resizable="false" draggable="false" modal="true" height="90" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="Error en la fecha desde, ésta debe ser el día: 1 ó 16." style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorDiaFechaDesde.hide();" style="position: absolute; top: 65px; left: 280px" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="errorDiaFechaDesde.hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                     </p:dialog>
 
                     <p:dialog id="errorFechaHasta_Desde" header="#{msg['atencion']}" widgetVar="errorFechaHasta_Desde"  resizable="false" draggable="false" modal="true" height="90" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="La fecha desde no puede ser mayor que la fecha hasta, por favor corregirla" style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorFechaHasta_Desde.hide();" style="position: absolute; top: 65px; left: 280px" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="errorFechaHasta_Desde.hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                     </p:dialog>
 
                     <p:dialog id="errorProceso" header="#{msg['atencion']}" widgetVar="errorProceso"  resizable="false" draggable="false" modal="true" height="90" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="El proceso no puede estar vacío." style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorProceso.hide();" style="position: absolute; top: 65px; left: 280px" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="errorProceso.hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                     </p:dialog>
 
                     <p:dialog id="errorFechaCorte" header="#{msg['atencion']}" widgetVar="errorFechaCorte"  resizable="false" draggable="false" modal="true" height="90" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="La fecha corte no puede estar vacia." style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorFechaCorte.hide();" style="position: absolute; top: 65px; left: 280px" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="errorFechaCorte.hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                     </p:dialog>
 
                     <p:dialog id="errorFechaHasta" header="#{msg['atencion']}" widgetVar="errorFechaHasta"  resizable="false" draggable="false" modal="true" height="90" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="La fecha hasta no puede estar vacia." style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorFechaHasta.hide();" style="position: absolute; top: 65px; left: 280px" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="errorFechaHasta.hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                     </p:dialog>
 
                     <p:dialog id="errorFechaDesde" header="#{msg['atencion']}" widgetVar="errorFechaDesde"  resizable="false" draggable="false" modal="true" height="90" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="La fecha desde no puede estar vacia." style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorFechaDesde.hide();" style="position: absolute; top: 65px; left: 280px" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="errorFechaDesde.hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar" resizable="false" draggable="false" modal="true" height="85" width="400" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" action="nomina" style="position: absolute; top: 50px; left: 137px" 
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" action="nomina" style="position: absolute; top: 50px; left: 137px;" 
                                          process="@this" icon="ui-icon-check" >
                             <f:actionListener binding="#{controlParametro.guardarCambios()}" />
                             <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}" />
                         </p:commandButton>
                         <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlParametro.salir()}" action="nomina" 
-                                         style="position: absolute; top: 50px; left: 198px" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 264px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                                         style="position: absolute; top: 50px; left: 198px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 264px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="lovVacia" header="#{msg['atencion']}" widgetVar="lovVacia"  resizable="false" draggable="false" modal="true" height="100" width="400px"  closable="true">  
+                    <p:dialog id="lovVacia" header="#{msg['atencion']}" widgetVar="lovVacia"  resizable="false" draggable="false" modal="true" height="100" width="400px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="110" height="80" style="position: absolute; left: 5px; top: 20px;"  />
                         <h:outputText value="#{msg['lovvacia']}" style="position: absolute; left: 110px; top: 20px; width: 270px; font-weight:bold; text-align: center" />
                     </p:dialog>
                     
-                    <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350px" style="font-size: 12px" closable="false">  
+                    <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350px;" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
                     </p:dialog>

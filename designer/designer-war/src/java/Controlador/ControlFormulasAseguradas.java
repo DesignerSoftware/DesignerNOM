@@ -409,13 +409,13 @@ public class ControlFormulasAseguradas implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             personafir = (Column) c.getViewRoot().findComponent("form:datosFormulasAseguradas:personafir");
-            personafir.setFilterStyle("width: 270px");
+            personafir.setFilterStyle("width: 85%");
             proceso = (Column) c.getViewRoot().findComponent("form:datosFormulasAseguradas:proceso");
-            proceso.setFilterStyle("width: 130px");
+            proceso.setFilterStyle("width: 85%");
             periodicidad = (Column) c.getViewRoot().findComponent("form:datosFormulasAseguradas:periodicidad");
-            periodicidad.setFilterStyle("width: 130px");
+            periodicidad.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosFormulasAseguradas");
             System.out.println("Activar");
             bandera = 1;

@@ -841,13 +841,13 @@ public class ControlEmplDemanda implements Serializable {
      */
     public void filtradoDemanda() {
         if (banderaD == 0) {
-            altoTabla = "288";
+            altoTabla = "290";
             dMotivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dMotivo");
-            dMotivo.setFilterStyle("width: 40px");
+            dMotivo.setFilterStyle("width: 85%");
             dSeguimiento = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dSeguimiento");
-            dSeguimiento.setFilterStyle("width: 90px");
+            dSeguimiento.setFilterStyle("width: 85%");
             dFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dFecha");
-            dFecha.setFilterStyle("width: 90px");
+            dFecha.setFilterStyle("width: 85%");
             ///
             RequestContext.getCurrentInstance().update("form:datosDemanda");
             tipoLista = 1;

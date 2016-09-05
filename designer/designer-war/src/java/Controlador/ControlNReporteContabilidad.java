@@ -740,13 +740,13 @@ public class ControlNReporteContabilidad implements Serializable {
 
     public void activarCtrlF11() {
         if (bandera == 0) {
-            altoTabla = "163";
+            altoTabla = "165";
             codigoIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesContabilidad:codigoIR");
-            codigoIR.setFilterStyle("width: 25px");
+            codigoIR.setFilterStyle("width: 85%;");
             reporteIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesContabilidad:reporteIR");
-            reporteIR.setFilterStyle("width: 200px");
+            reporteIR.setFilterStyle("width: 85%;");
             tipoIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesContabilidad:tipoIR");
-            tipoIR.setFilterStyle("width: 80px");
+            tipoIR.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:reportesContabilidad");
             tipoLista = 1;
             bandera = 1;

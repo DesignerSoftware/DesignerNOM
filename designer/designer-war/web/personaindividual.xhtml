@@ -26,52 +26,52 @@
 
                         <p:toolbar styleClass="cssToolbar">
                             <p:toolbarGroup align="left"> 
-                                <p:commandButton id="guardarRapido" disabled="true" value="" style="background-size: 100% 100%;background-image: url(Imagenes/Iconos/guardar.png) ;background-repeat: no-repeat; border: none; width: 25px; height: 25px;"  process="@this"/>
+                                <p:commandButton id="guardarRapido" disabled="true" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"  process="@this"/>
                                 <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlPersonaIndividual.editarCelda()}" onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlPersonaIndividual.editarCelda()}" onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" process="@this"/>
                                 <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlPersonaIndividual.botonListaValores()}" onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlPersonaIndividual.botonListaValores()}" onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" process="@this"/>
                                 <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  process="@this"/>
+                                <p:commandButton id="filtrar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"  process="@this"/>
                                 <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="exportarXLS" disabled="true" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  ajax="false"  />
+                                <p:commandButton id="exportarXLS" disabled="true" value="" style="background-image: url(Imagenes/Iconos/excel.png);"  ajax="false"  />
                                 <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" disabled="true" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  ajax="false"/>
+                                <p:commandButton id="exportarXML" disabled="true" value="" style="background-image: url(Imagenes/Iconos/xml.png);"  ajax="false"/>
                                 <p:tooltip style="font-size: 12px;" for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" disabled="true" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  ajax="false"/>
+                                <p:commandButton id="exportarPDF" disabled="true" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"  ajax="false"/>
                                 <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px;"/>
-                                <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " process="@this"/> 
+                                <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" process="@this"/> 
                                 <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " process="@this"/>  
+                                <p:commandButton id="eliminar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/delete.png);" process="@this"/>  
                                 <p:tooltip style="font-size: 12px;" for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " process="@this"/>  
+                                <p:commandButton id="duplicar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/duplicar.png);" process="@this"/>  
                                 <p:tooltip style="font-size: 12px;" for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px;"/>
-                                <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  process="@this"/>  
+                                <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png);"  process="@this"/>  
                                 <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/> 
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlPersonaIndividual.cancelarModificaciones()}" onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide(), window.location.reload()"  process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlPersonaIndividual.cancelarModificaciones()}" onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide(), window.location.reload()"  process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/> 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " action="nomina" onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" process="@this">
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" action="nomina" onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" process="@this">
                                     <f:actionListener binding="#{controlPersonaIndividual.cancelarModificaciones()}" />
                                     <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}" />
                                 </p:commandButton>

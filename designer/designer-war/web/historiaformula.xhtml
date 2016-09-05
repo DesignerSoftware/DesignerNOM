@@ -19,51 +19,51 @@
                         <p:toolbar styleClass="cssToolbar">
                             <p:toolbarGroup align="left"> 
                                 <p:commandButton id="guardarRapido" value="" style="background-size: 100% 100%; background-image: url(Imagenes/Iconos/guardar.png); background-repeat: no-repeat; border: none; width: 25px; height: 25px;" process="@this" actionListener="#{controlHistoriaFormula.guardadoGeneral()}"/>
-                                <p:tooltip style="font-size: 12px" for="guardarRapido" value="Guardar"/>
+                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="Guardar"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlHistoriaFormula.editarCelda()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="editar" value="Editar"/>
-
-                                <p:separator />
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlHistoriaFormula.dispararDialogoNodo()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="listaValores" value="Lista de Valores"/>
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlHistoriaFormula.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="filtrar" value="Activar filtrado"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlHistoriaFormula.editarCelda()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="editar" value="Editar"/>
 
                                 <p:separator />
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlHistoriaFormula.verificarExportXLS()}" ajax="false"/>
-                                <p:tooltip style="font-size: 12px" for="exportarXLS" value="Exportar a XLS"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlHistoriaFormula.dispararDialogoNodo()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="listaValores" value="Lista de Valores"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" ajax="false">
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlHistoriaFormula.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="filtrar" value="Activar filtrado"/>
+
+                                <p:separator />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlHistoriaFormula.verificarExportXLS()}" ajax="false"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="Exportar a XLS"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlHistoriaFormula.exportXML()}" fileName="#{controlHistoriaFormula.nombreXML}" encoding="UTF-8"/>
                                 </p:commandButton> 
-                                <p:tooltip style="font-size: 12px" for="exportarXML" value="Exportar a XML"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarXML" value="Exportar a XML"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlHistoriaFormula.validarExportPDF()}" ajax="false"/>
-                                <p:tooltip style="font-size: 12px" for="exportarPDF" value="Exportar a PDF"/>
-
-                                <p:separator /> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlHistoriaFormula.ingresoNuevoRegistro()}"  process="@this"/> 
-                                <p:tooltip style="font-size: 12px" for="insertar" value="Nuevo Registro"/>
-
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlHistoriaFormula.validarBorradoRegistro()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="eliminar" value="Eliminar Registro"/>
-
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlHistoriaFormula.validarDuplicadoRegistro()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="duplicar" value="Duplicar Registro"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlHistoriaFormula.validarExportPDF()}" ajax="false"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="Exportar a PDF"/>
 
                                 <p:separator /> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" actionListener="#{controlHistoriaFormula.verificarRastroTabla()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="rastro" value="Rastro"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlHistoriaFormula.ingresoNuevoRegistro()}"  process="@this"/> 
+                                <p:tooltip style="font-size: 12px;" for="insertar" value="Nuevo Registro"/>
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlHistoriaFormula.validarBorradoRegistro()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="eliminar" value="Eliminar Registro"/>
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlHistoriaFormula.validarDuplicadoRegistro()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="duplicar" value="Duplicar Registro"/>
 
                                 <p:separator /> 
-                                <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" 
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlHistoriaFormula.verificarRastroTabla()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="rastro" value="Rastro"/>
+
+                                <p:separator /> 
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png);" 
                                                  id="refrescar" value="" actionListener="#{controlHistoriaFormula.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
 
                                 <p:separator /> 
-                                <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" 
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);" 
                                                  id="salir" value="" actionListener="#{controlHistoriaFormula.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
                             </p:toolbarGroup>  
@@ -93,7 +93,7 @@
                                     <p:cellEditor>
                                         <f:facet name="header">
                                             <h:outputText id="headerFechaInicial" value="Fecha Inicial" />
-                                            <p:tooltip style="font-size: 12px" for="headerFechaInicial" value="Ingrese la fecha inicial."/>
+                                            <p:tooltip style="font-size: 12px;" for="headerFechaInicial" value="Ingrese la fecha inicial."/>
                                         </f:facet>
                                         <f:facet name="output">
                                             <h:outputText value="#{infoHF.fechainicial}" style="width: 50px; font-size: 11px;text-transform: uppercase;">
@@ -118,7 +118,7 @@
                                     <p:cellEditor>
                                         <f:facet name="header">
                                             <h:outputText id="headerFechaFinal" value="Fecha Final" />
-                                            <p:tooltip style="font-size: 12px" for="headerFechaFinal" value="Ingrese la fecha final."/>
+                                            <p:tooltip style="font-size: 12px;" for="headerFechaFinal" value="Ingrese la fecha final."/>
                                         </f:facet>
                                         <f:facet name="output">
                                             <h:outputText value="#{infoHF.fechafinal}" style="width: 50px; font-size: 11px;text-transform: uppercase">
@@ -346,7 +346,7 @@
                         <fieldset style="position: absolute; top: 325px; font-size: 10px; width: 840px; height: 140px; border-radius: 10px; text-align: left; left: 10px;">
                             <legend style="font-size: 12px; color: blue"><strong>Estructura de la Formula</strong></legend>
 
-                            <p:dataTable id="datosEstructuraFormula" var="infoEF" rowKey="#{infoEF.id}" widgetVar="datosEstructuraFormula" rowIndexVar="indiceEF"  style="font-size: 10px; border: 1px;width: 810px"   
+                            <p:dataTable id="datosEstructuraFormula" var="infoEF" rowKey="#{infoEF.id}" widgetVar="datosEstructuraFormula" rowIndexVar="indiceEF"  style="font-size: 10px; border: 1px;width: 810px;"   
                                          value="#{controlHistoriaFormula.listEstructurasFormulas}" scrollable="true" scrollHeight="90" scrollWidth="830"
                                          filteredValue="#{controlHistoriaFormula.filtrarListEstructurasFormulas}" selectionMode="single" emptyMessage="No se encontrarón resultados para la búsqueda"
                                          editable="true" editMode="cell"  selection="#{controlHistoriaFormula.seleccionEstructuraF}" 
@@ -401,13 +401,13 @@
 
                         <p:commandButton icon="ui-icon-extlink" style="position: absolute; left: 20px; top: 480px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; 
                                          background-repeat: no-repeat; border: none; width: 170px; height: 30px; color: white;" id="OPERANDOS" value="[Operandos]" process="@this"/>
-                        <p:tooltip style="font-size: 12px" for="OPERANDOS" value="Visualizar Operandos."/>
+                        <p:tooltip style="font-size: 12px;" for="OPERANDOS" value="Visualizar Operandos."/>
                         <p:commandButton icon="ui-icon-extlink" style="position: absolute; left: 190px; top: 480px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; 
                                          background-repeat: no-repeat; border: none; width: 170px; height: 30px; color: white;" id="CAMBIOANUAL" value="[Cambio Anual]" process="@this"/>
-                        <p:tooltip style="font-size: 12px" for="CAMBIOANUAL" value="Visualizar Operandos."/>
+                        <p:tooltip style="font-size: 12px;" for="CAMBIOANUAL" value="Visualizar Operandos."/>
                         <p:commandButton icon="ui-icon-extlink" style="position: absolute; left: 360px; top: 480px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%;
                                          background-repeat: no-repeat; border: none; width: 170px; height: 30px; color: white;" id="VALORESUNIT" value="Valores Un. Concep" action="valoresconceptos" process="@this"/>
-                        <p:tooltip style="font-size: 12px" for="VALORESUNIT" value="Visualizar Operandos."/>
+                        <p:tooltip style="font-size: 12px;" for="VALORESUNIT" value="Visualizar Operandos."/>
                         <!--<p:separator style="position: absolute; left: 400px; top: 510px;width: 2px; height: 30px;"  />--> 
                         <!--<p:commandButton style="position: absolute; left: 415px; top: 480px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="REFRESCAR" value="Refrescar" icon="ui-icon-refresh" actionListener="#/{controlHistoriaFormula.cancelarModificacion()}" process="@this" />-->
 
@@ -419,106 +419,106 @@
 
                     </p:panel>
 
-                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlHistoriaFormula.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center;" />
-                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastro.hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastro.hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlHistoriaFormula.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="font-size: 12px" closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegNuevo" header="ATENCIÓN" widgetVar="errorRegNuevo"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorRegNuevo" header="ATENCIÓN" widgetVar="errorRegNuevo"  resizable="false" draggable="false" modal="true" height="60" width="285px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Los campos Fecha Inicial y Fecha Final son obligatorios." style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechasHF" header="ATENCIÓN" widgetVar="errorFechasHF"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorFechasHF" header="ATENCIÓN" widgetVar="errorFechasHF"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La fecha inicial es menor a 01/01/1990 y/o la fecha final es menor a la fecha inicial." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorSolapamientoFechas" header="ATENCIÓN" widgetVar="errorSolapamientoFechas"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorSolapamientoFechas" header="ATENCIÓN" widgetVar="errorSolapamientoFechas"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Error de solapamiento de fechas. Verifique las fechas del registro" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorNotaHF" header="ATENCIÓN" widgetVar="errorNotaHF"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorNotaHF" header="ATENCIÓN" widgetVar="errorNotaHF"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="El campo Nota no puede ser mayor a 200 caracteres." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistroNodo" header="ATENCIÓN" widgetVar="seleccionarRegistroNodo"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="seleccionarRegistroNodo" header="ATENCIÓN" widgetVar="seleccionarRegistroNodo"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Por favor seleccione un registro tipo : Generar Formula." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorDuplicarNodo" header="ATENCIÓN" widgetVar="errorDuplicarNodo"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorDuplicarNodo" header="ATENCIÓN" widgetVar="errorDuplicarNodo"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La opcion Duplicar no esta habilitada." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorEliminarEF" header="ATENCIÓN" widgetVar="errorEliminarEF"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorEliminarEF" header="ATENCIÓN" widgetVar="errorEliminarEF"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La opcion Eliminar no esta habilitada." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorModificacionEF" header="ATENCIÓN" widgetVar="errorModificacionEF"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorModificacionEF" header="ATENCIÓN" widgetVar="errorModificacionEF"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Los datos de la tabla no pueden ser modificados." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
 
-                    <p:dialog id="errorBorradoHistoriaF" header="ATENCIÓN" widgetVar="errorBorradoHistoriaF"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="font-size: 12px" closable="true">  
+                    <p:dialog id="errorBorradoHistoriaF" header="ATENCIÓN" widgetVar="errorBorradoHistoriaF"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Para eliminar el registro es necesario que no tenga Nodos asociados." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
 
 
-                    <p:dialog id="confirmarGuardar" header="ATENCIÓN...!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="font-size: 12px" closable="false">  
+                    <p:dialog id="confirmarGuardar" header="ATENCIÓN...!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400px;" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="Si" onclick="confirmarGuardar.hide();" actionListener="#{controlHistoriaFormula.guardarYSalir()}" style="position: absolute; top: 60px; left: 215px" action="retornoFormula" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarGuardar.hide();"  style="position: absolute; top: 60px; left: 255px" actionListener="#{controlHistoriaFormula.cancelarModificacion()}" process="@this" />
-                        <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                        <p:commandButton value="Si" onclick="confirmarGuardar.hide();" actionListener="#{controlHistoriaFormula.guardarYSalir()}" style="position: absolute; top: 60px; left: 215px;" action="retornoFormula" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarGuardar.hide();"  style="position: absolute; top: 60px; left: 255px;" actionListener="#{controlHistoriaFormula.cancelarModificacion()}" process="@this" />
+                        <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlHistoriaFormula.activarCtrlF11()}"/>
@@ -528,30 +528,30 @@
                 <h:form id="formularioDialogos">
 
                     <p:dialog id="NuevoRegistroPagina" header="Ingreso Nuevo Registro" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="false" modal="true" height="160" width="400" style="font-size: 12px; padding: 0px">  
-                        <center><strong><h:outputText value="Seleccione la tabla para el nuevo registro" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="Seleccione la tabla para el nuevo registro" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
                         <h:outputText value="Historia Formula" style="position: absolute; top: 47px;left: 60px"/>
-                        <p:commandButton id="NuevoRegHistoriaFormula" icon="ui-icon-circle-check" style="position: absolute; top: 45px;left: 300px; height: 25px; width: 40px" actionListener="#{controlHistoriaFormula.validarIngresoNuevaHistoriaFormula()}" onclick="NuevoRegistroPagina.hide();" process="@this"/>
+                        <p:commandButton id="NuevoRegHistoriaFormula" icon="ui-icon-circle-check" style="position: absolute; top: 45px;left: 300px; height: 25px; width: 40px;" actionListener="#{controlHistoriaFormula.validarIngresoNuevaHistoriaFormula()}" onclick="NuevoRegistroPagina.hide();" process="@this"/>
 
                         <h:outputText value="Generar Formula" style="position: absolute; top: 92px;left: 60px"/>
-                        <p:commandButton id="NuevoregGenerarFormula" icon="ui-icon-circle-check" style="position: absolute; top: 90px;left: 300px; height: 25px; width: 40px" onclick="NuevoRegistroPagina.hide();" actionListener="#{controlHistoriaFormula.dispararDialogoNodoNuevo()}" process="@this"/>
+                        <p:commandButton id="NuevoregGenerarFormula" icon="ui-icon-circle-check" style="position: absolute; top: 90px;left: 300px; height: 25px; width: 40px;" onclick="NuevoRegistroPagina.hide();" actionListener="#{controlHistoriaFormula.dispararDialogoNodoNuevo()}" process="@this"/>
 
                         <p:commandButton id="CancelarNuevosRegistros" onclick="NuevoRegistroPagina.hide();"  process="@this" value="Cancelar" style="position: absolute; top: 137px;left: 280px"/>
                     </p:dialog>
 
                     <p:dialog id="SeleccionRegGenerarFormula" header="Tipo de Nodo" widgetVar="SeleccionRegGenerarFormula" closable="false" resizable="false"  draggable="false" modal="true" height="160" width="280" style="font-size: 12px; padding: 0px">  
-                        <center><strong><h:outputText value="Seleccione el tipo de nodo a crear" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="Seleccione el tipo de nodo a crear" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
                         <h:outputText value="Operador" style="position: absolute; top: 47px;left: 60px"/>
-                        <p:commandButton id="NuevoRegOperador" icon="ui-icon-circle-check" style="position: absolute; top: 45px;left: 200px; height: 25px; width: 40px"  onclick="SeleccionRegGenerarFormula.hide();" actionListener="#{controlHistoriaFormula.dialogoNuevoOperandor()}" process="@this"/>
+                        <p:commandButton id="NuevoRegOperador" icon="ui-icon-circle-check" style="position: absolute; top: 45px;left: 200px; height: 25px; width: 40px;"  onclick="SeleccionRegGenerarFormula.hide();" actionListener="#{controlHistoriaFormula.dialogoNuevoOperandor()}" process="@this"/>
 
                         <h:outputText value="Operando" style="position: absolute; top: 92px;left: 60px"/>
-                        <p:commandButton id="NuevoRegOperando" icon="ui-icon-circle-check" style="position: absolute; top: 90px;left: 200px; height: 25px; width: 40px" onclick="SeleccionRegGenerarFormula.hide();" actionListener="#{controlHistoriaFormula.dialogoNuevoOperando()}" process="@this"/>
+                        <p:commandButton id="NuevoRegOperando" icon="ui-icon-circle-check" style="position: absolute; top: 90px;left: 200px; height: 25px; width: 40px;" onclick="SeleccionRegGenerarFormula.hide();" actionListener="#{controlHistoriaFormula.dialogoNuevoOperando()}" process="@this"/>
 
                         <p:commandButton id="CancelarNuevoRegGenerarFormula" onclick="SeleccionRegGenerarFormula.hide();"  process="@this" value="Cancelar" style="position: absolute; top: 125px;left: 180px"/>
                     </p:dialog>
 
                     <p:dialog header="Operandos" widgetVar="OperandoDialogo" draggable="false" resizable="false" closable="false" id="OperandoDialogo"  
                               showEffect="fade" hideEffect="fade" width="575" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovOperando" style="font-size: 11px; width: 560px" var="operando" value="#{controlHistoriaFormula.listOperandos}" rowKey="#{operando.secuencia}"
+                        <p:dataTable id="lovOperando" style="font-size: 11px; width: 560px;" var="operando" value="#{controlHistoriaFormula.listOperandos}" rowKey="#{operando.secuencia}"
                                      selection="#{controlHistoriaFormula.operandoSeleccionado}" selectionMode="single" widgetVar="lovOperando" scrollable="true" scrollHeight="250" scrollWidth="560"
                                      filteredValue="#{controlHistoriaFormula.filtrarListOperandos}" emptyMessage="No se encontrarón resultados para la búsqueda">              
                             <p:ajax event="rowSelect" listener="#{controlHistoriaFormula.activarAceptar()}" update=":formularioDialogos:aceptarOperando"/>
@@ -585,14 +585,14 @@
                                 <h:outputText value="#{operando.codigo}" />
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton id="aceptarOperando" style="position: relative; left: 190px" value="Aceptar" disabled="#{controlHistoriaFormula.aceptar}" actionListener="#{controlHistoriaFormula.actualizarOperando()}"  process="@this"/>
+                        <p:commandButton id="aceptarOperando" style="position: relative; left: 190px;" value="Aceptar" disabled="#{controlHistoriaFormula.aceptar}" actionListener="#{controlHistoriaFormula.actualizarOperando()}"  process="@this"/>
 
-                        <p:commandButton id="cancelarOperando" style="position: relative; left: 230px" value="Atras" actionListener="#{controlHistoriaFormula.cancelarCambioOperando()}" process="@this"/>
+                        <p:commandButton id="cancelarOperando" style="position: relative; left: 230px;" value="Atras" actionListener="#{controlHistoriaFormula.cancelarCambioOperando()}" process="@this"/>
                     </p:dialog> 
 
                     <p:dialog header="Operadores" widgetVar="OperadorDialogo" draggable="false" resizable="false" closable="false" id="OperadorDialogo"  
                               showEffect="fade" hideEffect="fade" width="575" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovOperador" style="font-size: 11px; width: 560px" var="operador" value="#{controlHistoriaFormula.listOperadores}" rowKey="#{operador.secuencia}"
+                        <p:dataTable id="lovOperador" style="font-size: 11px; width: 560px;" var="operador" value="#{controlHistoriaFormula.listOperadores}" rowKey="#{operador.secuencia}"
                                      selection="#{controlHistoriaFormula.operadorSeleccionado}" selectionMode="single" widgetVar="lovOperador" scrollable="true" scrollHeight="250" scrollWidth="560"
                                      filteredValue="#{controlHistoriaFormula.filtrarListOperadores}" emptyMessage="No se encontrarón resultados para la búsqueda">              
                             <p:ajax event="rowSelect" listener="#{controlHistoriaFormula.activarAceptar()}" update=":formularioDialogos:aceptarOperador"/>
@@ -614,14 +614,14 @@
                                 <h:outputText value="#{operador.signo}" />
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton id="aceptarOperador" style="position: relative; left: 190px" value="Aceptar" disabled="#{controlHistoriaFormula.aceptar}" actionListener="#{controlHistoriaFormula.actualizarOperador()}"  process="@this"/>
+                        <p:commandButton id="aceptarOperador" style="position: relative; left: 190px;" value="Aceptar" disabled="#{controlHistoriaFormula.aceptar}" actionListener="#{controlHistoriaFormula.actualizarOperador()}"  process="@this"/>
 
-                        <p:commandButton id="cancelarOperador" style="position: relative; left: 230px" value="Atras" actionListener="#{controlHistoriaFormula.cancelarCambioOperador()}" process="@this"/>
+                        <p:commandButton id="cancelarOperador" style="position: relative; left: 230px;" value="Atras" actionListener="#{controlHistoriaFormula.cancelarCambioOperador()}" process="@this"/>
                     </p:dialog> 
 
                     <p:dialog id="NuevoRegistroHistoria" header="Nuevo Registro Historia Formula" widgetVar="NuevoRegistroHistoria" closable="false" resizable="false"  draggable="false" modal="true" height="240" width="400" style="font-size: 12px; padding: 0px">  
 
-                        <center><strong><h:outputText value="Ingresar nueva información" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="Ingresar nueva información" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevaHF" style="border: none;">
 
@@ -641,7 +641,7 @@
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="Observaciones: " style="font-size: 14px; position: absolute; top: 150px; left: 50px" /></strong>
+                            <strong><h:outputText value="Observaciones: " style="font-size: 14px; position: absolute; top: 150px; left: 50px;" /></strong>
                             <p:inputTextarea id="nuevaHistoriaOrden" value="#{controlHistoriaFormula.nuevaHistoriaFormula.observaciones}" style="font-size: 12px; width: 122px; position: absolute; left: 220px; top: 150px; text-transform: uppercase" onclick="select();" autoResize="false" >
                                 <p:ajax event="change" update="nuevaHistoriaOrden" process="@this"/>
                             </p:inputTextarea>
@@ -655,7 +655,7 @@
 
                     <p:dialog id="DuplicarRegistroHistoria" header="Duplicar Registro Historia Formula" widgetVar="DuplicarRegistroHistoria" closable="false" resizable="false"  draggable="false" modal="true" height="240" width="400" style="font-size: 12px; padding: 0px">  
 
-                        <center><strong><h:outputText value="Ingresar nueva información" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="Ingresar nueva información" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarHF" style="border: none;">
 
@@ -675,7 +675,7 @@
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="Observaciones: " style="font-size: 14px; position: absolute; top: 150px; left: 50px" /></strong>
+                            <strong><h:outputText value="Observaciones: " style="font-size: 14px; position: absolute; top: 150px; left: 50px;" /></strong>
                             <p:inputTextarea id="duplicarHistoriaNota" value="#{controlHistoriaFormula.duplicarHistoriaFormula.observaciones}" style="font-size: 12px; width: 122px; position: absolute; left: 220px; top: 150px; text-transform: uppercase" onclick="select();" autoResize="false" >
                                 <p:ajax event="change" update="duplicarHistoriaNota" process="@this"/>
                             </p:inputTextarea>
@@ -689,48 +689,48 @@
 
                     <p:dialog id="editarFechaInicialHFD" header="Fecha Inicial - Historia Formula" widgetVar="editarFechaInicialHFD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlHistoriaFormula.editarHistoriaFormula.strFechaIni}" style="overflow: auto; width: 200px; height: 40px;text-transform: uppercase" readonly="true"/>
-                        <p:commandButton id="cancelarFechaInicialHFD" value="Atras" onclick="editarFechaInicialHFD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:commandButton id="cancelarFechaInicialHFD" value="Atras" onclick="editarFechaInicialHFD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarFechaFinalHFD" header="Fecha Final - Historia Formula" widgetVar="editarFechaFinalHFD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlHistoriaFormula.editarHistoriaFormula.strFechaFin}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarFechaFinalHFD" value="Atras" onclick="editarFechaFinalHFD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlHistoriaFormula.editarHistoriaFormula.strFechaFin}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarFechaFinalHFD" value="Atras" onclick="editarFechaFinalHFD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarObservacionHFD" header="Nota - Historia Formula" widgetVar="editarObservacionHFD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlHistoriaFormula.editarHistoriaFormula.observaciones}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarEditarObservacionHFD" value="Atras" onclick="editarObservacionHFD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlHistoriaFormula.editarHistoriaFormula.observaciones}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarEditarObservacionHFD" value="Atras" onclick="editarObservacionHFD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarOperandoNodoD" header="Operando - Generar Formula" widgetVar="editarOperandoNodoD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlHistoriaFormula.editarNodo.descripcionNodo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarEditarOperandoNodoD" value="Atras" onclick="editarOperandoNodoD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlHistoriaFormula.editarNodo.descripcionNodo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarEditarOperandoNodoD" value="Atras" onclick="editarOperandoNodoD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarOperadorNodoD" header="Operador - Generar Formula" widgetVar="editarOperadorNodoD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlHistoriaFormula.editarNodo.descripcionNodo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarEditarOperadorNodoD" value="Atras" onclick="editarOperadorNodoD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlHistoriaFormula.editarNodo.descripcionNodo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarEditarOperadorNodoD" value="Atras" onclick="editarOperadorNodoD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
 
                     <p:dialog id="editarDescripcionEFD" header="Descripcion - Estructura Formula" widgetVar="editarDescripcionEFD" resizable="false" draggable="false" modal="true" height="93" width="255" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.descripcion}" style="overflow: auto; width: 215px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarEditarDescripcionEFD" value="Atras" onclick="editarDescripcionEFD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.descripcion}" style="overflow: auto; width: 215px; height: 40px;" readonly="true"/>
+                        <p:commandButton id="cancelarEditarDescripcionEFD" value="Atras" onclick="editarDescripcionEFD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarIdFormulaEFD" header="ID Formula - Estructura Formula" widgetVar="editarIdFormulaEFD" resizable="false" draggable="false" modal="true" height="93" width="255" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.strFormula}" style="overflow: auto; width: 215px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarEditarIdFormulaEFD" value="Atras" onclick="editarIdFormulaEFD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.strFormula}" style="overflow: auto; width: 215px; height: 40px;" readonly="true"/>
+                        <p:commandButton id="cancelarEditarIdFormulaEFD" value="Atras" onclick="editarIdFormulaEFD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarIdHijoEFD" header="ID Hijo - Estructura Formula" widgetVar="editarIdHijoEFD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.strHijo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarEditarIdHijoEFD" value="Atras" onclick="editarIdHijoEFD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.strHijo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarEditarIdHijoEFD" value="Atras" onclick="editarIdHijoEFD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarFormulaEFD" header="Formula - Estructura Formula" widgetVar="editarFormulaEFD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.nombreNodo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                        <p:commandButton id="cancelarEditarFormulaEFD" value="Atras" onclick="editarFormulaEFD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this"/>
+                        <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.nombreNodo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:commandButton id="cancelarEditarFormulaEFD" value="Atras" onclick="editarFormulaEFD.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                 </h:form>

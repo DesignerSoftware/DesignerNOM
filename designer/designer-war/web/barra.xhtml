@@ -19,53 +19,53 @@
                         <p:toolbar styleClass="cssToolbar">
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; " disabled="true" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" disabled="true" process="@this" />
                                 <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " disabled="true" process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" disabled="true" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " disabled="true" process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlBarra.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlBarra.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " onclick="exportarExcel.show();" />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" onclick="exportarExcel.show();" />
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " onclick="exportarXML.show();"/>
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" onclick="exportarXML.show();"/>
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " onclick="exportarPDF.show();"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" onclick="exportarPDF.show();"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  disabled="true" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  disabled="true" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " disabled="true" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" disabled="true" process="@this"/>  
                                 <p:tooltip for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  disabled="true" process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  disabled="true" process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " disabled="true" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" disabled="true" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " disabled="true" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" disabled="true" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlBarra.salir()}" action="nomina" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlBarra.salir()}" action="nomina" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -149,7 +149,7 @@
 
                                     <p:ajax event="filter" listener="#{controlBarra.contarRegistrosCerrada(1)}"/>
 
-                                    <p:column id="corte" headerText="#{msg['corte']}" sortBy="#{liquidacionCerrada.corte}" width="60" filterBy="#{liquidacionCerrada.corte}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px" > 
+                                    <p:column id="corte" headerText="#{msg['corte']}" sortBy="#{liquidacionCerrada.corte}" width="60" filterBy="#{liquidacionCerrada.corte}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px;" > 
                                         <f:facet name="header">
                                             <h:outputText id="headCorte" value="#{msg['corte']}"/>
                                             <p:tooltip for="headCorte" value="#{msg['corteH']}"/>
@@ -375,13 +375,13 @@
                     </p:panel>
                 </h:form>
                 <h:form>
-                    <p:dialog id="permisoLiquidacion" header="#{msg['atencion']}" widgetVar="permisoLiquidacion"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                    <p:dialog id="permisoLiquidacion" header="#{msg['atencion']}" widgetVar="permisoLiquidacion"  resizable="false" draggable="false" modal="true" height="95" width="400px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['permisoLiquidacion']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="permisoLiquidacion.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="permisoLiquidacion.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="exportarExcel" header="#{msg['informacion']}" widgetVar="exportarExcel"  resizable="false" draggable="false" modal="true" height="110" width="400px" style=";">  
+                    <p:dialog id="exportarExcel" header="#{msg['informacion']}" widgetVar="exportarExcel"  resizable="false" draggable="false" modal="true" height="110" width="400px;" style=";">  
                         <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;" />
                         <p:commandButton value="#{msg['liquidacionesCerradas']}" actionListener="#{controlBarra.exportXLS(0)}" ajax="false" 
                                          onclick="exportarExcel.hide();" style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this" />
@@ -389,7 +389,7 @@
                                          onclick="exportarExcel.hide();" style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="exportarPDF" header="#{msg['informacion']}" widgetVar="exportarPDF"  resizable="false" draggable="false" modal="true" height="110" width="400px" style=";">  
+                    <p:dialog id="exportarPDF" header="#{msg['informacion']}" widgetVar="exportarPDF"  resizable="false" draggable="false" modal="true" height="110" width="400px;" style=";">  
                         <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;" />
                         <p:commandButton value="#{msg['liquidacionesCerradas']}" actionListener="#{controlBarra.exportPDF(0)}" ajax="false" onclick="exportarPDF.hide();" 
                                          style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this" />
@@ -397,7 +397,7 @@
                                          style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="exportarXML" header="#{msg['informacion']}" widgetVar="exportarXML"  resizable="false" draggable="false" modal="true" height="110" width="400px" style=";">  
+                    <p:dialog id="exportarXML" header="#{msg['informacion']}" widgetVar="exportarXML"  resizable="false" draggable="false" modal="true" height="110" width="400px;" style=";">  
                         <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;" />
                         <p:commandButton value="#{msg['liquidacionesCerradas']}" ajax="false" onclick="exportarXML.hide();" 
                                          style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this">

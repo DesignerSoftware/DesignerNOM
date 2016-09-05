@@ -13,7 +13,7 @@
                 <h:form id="form"> 
                     <p:growl id="growl" showDetail="true"/>
                     <f:loadBundle basename="Recursos.emplibcs" var="msg" />
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="position: absolute; width: 874px; height: 510px; text-align: left">  
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
                         <h:outputText style="position: absolute; top: 50px; height: 12px;position: absolute;color: #BF1A1A; font-weight: bold;text-align: right;width: 240px;left: 600px;" id="nombreEmpleado" value="#{controlEmplIbcs.empleadoSeleccionado.persona.nombreCompleto}"/>
 
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
@@ -88,50 +88,50 @@
                         
                         <p:remoteCommand name="posicionIBCS" actionListener="#{controlEmplIbcs.posicionIBCS()}"/>
 
-                        <p:toolbar style=" position: absolute; top: 40px; left: 20px; height: 24px">  
+                        <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " onclick="botones.show();"  process="@this" disabled="true" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " onclick="botones.show();"  process="@this" disabled="true" />
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  actionListener="#{controlEmplIbcs.editarCelda()}" process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) "  actionListener="#{controlEmplIbcs.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " onclick="botones.show();" process="@this" disabled="true"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " onclick="botones.show();" process="@this" disabled="true"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  actionListener="#{controlEmplIbcs.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) "  actionListener="#{controlEmplIbcs.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlEmplIbcs.exportXLS()}" ajax="false"/>
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " actionListener="#{controlEmplIbcs.exportXLS()}" ajax="false"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlEmplIbcs.limpiarNuevaIbcs()}" ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlEmplIbcs.limpiarNuevaIbcs()}" ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosIbcsExportar" fileName="EmplIBCSXML" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlEmplIbcs.exportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlEmplIbcs.exportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg);  background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " onclick="botones.show();" process="@this" disabled="true"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " onclick="botones.show();" process="@this" disabled="true"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " onclick="botones.show();" process="@this" disabled="true"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " onclick="botones.show();" process="@this" disabled="true"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " onclick="botones.show();"  process="@this" disabled="true"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " onclick="botones.show();"  process="@this" disabled="true"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlEmplIbcs.cancelarModificacion()}"  process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlEmplIbcs.cancelarModificacion()}"  process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlEmplIbcs.cancelarModificacion()}" action="atrasEmplIbcs" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlEmplIbcs.cancelarModificacion()}" action="atrasEmplIbcs" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -143,16 +143,16 @@
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplIbcs.activarCtrlF11()}"  /> 
 
-                    <p:dialog id="botones" header="#{msg['atencion']}" widgetVar="botones"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
+                    <p:dialog id="botones" header="#{msg['atencion']}" widgetVar="botones"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['botones']}" style="position: absolute; left: 100px; top: 30px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="botones.hide();" style="position: absolute; top: 60px; left: 250px" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="botones.hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="repeticiones" header="#{msg['atencion']}" widgetVar="repeticiones"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
+                    <p:dialog id="repeticiones" header="#{msg['atencion']}" widgetVar="repeticiones"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['repeticiones']}" style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="repeticiones.hide();" style="position: absolute; top: 60px; left: 250px" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="repeticiones.hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
                     </p:dialog>
                 </h:form>
 
@@ -165,27 +165,27 @@
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputText>
                         <h:outputText value="#{msg['fechaFinalN']}" style=" position: absolute;left: 15px ; top: 75px "  />
-                        <p:inputText readonly="true"  style=" position: absolute;left:110px ; top: 70px"  value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.fechafinal}" styleClass="ui-datepicker, myClass">
+                        <p:inputText readonly="true"  style=" position: absolute;left:110px ; top: 70px;"  value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.fechafinal}" styleClass="ui-datepicker, myClass">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputText>
                         <h:outputText value="#{msg['valorN']}" style=" position: absolute;left: 15px ; top: 125px "  />
-                        <p:inputTextarea value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.valor}" style="overflow: auto; width: 160px; height: 40px;position: absolute;left: 110px; top: 120px" readonly="true"/>
+                        <p:inputTextarea value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.valor}" style="overflow: auto; width: 160px; height: 40px;position: absolute;left: 110px; top: 120px;" readonly="true"/>
 
                         <p:commandButton id="cancelareditDialogoIbcs" value="#{msg['atras']}" onclick="dialogoIbcs.hide();" style="position: absolute; top: 190px; left: 225px; " process="@this" />
 
                     </p:dialog>
-                    <p:dialog id="editFechaInicial" header="#{msg['editFechaInicial']}" widgetVar="editFechaInicial" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
-                        <p:inputTextarea readonly="true"  style="overflow: auto; width: 200px; height: 40px" value="#{controlEmplIbcs.editarIbcsPorEmpleado.fechainicial}">
+                    <p:dialog id="editFechaInicial" header="#{msg['editFechaInicial']}" widgetVar="editFechaInicial" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea readonly="true"  style="overflow: auto; width: 200px; height: 40px;" value="#{controlEmplIbcs.editarIbcsPorEmpleado.fechainicial}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
-                    <p:dialog id="editFechaFinal" header="#{msg['editFechaFinal']}" widgetVar="editFechaFinal" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
+                    <p:dialog id="editFechaFinal" header="#{msg['editFechaFinal']}" widgetVar="editFechaFinal" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea readonly="true"  value="#{controlEmplIbcs.editarIbcsPorEmpleado.fechafinal}" style="overflow: auto; width: 200px; height: 40px">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
-                    <p:dialog id="editValor" header="#{msg['editValor']}" widgetVar="editValor" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlEmplIbcs.editarIbcsPorEmpleado.valor}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editValor" header="#{msg['editValor']}" widgetVar="editValor" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlEmplIbcs.editarIbcsPorEmpleado.valor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>

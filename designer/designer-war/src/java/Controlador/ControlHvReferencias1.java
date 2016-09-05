@@ -314,7 +314,7 @@ public class ControlHvReferencias1 implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             nombre = (Column) c.getViewRoot().findComponent("form:datosHvReferencia:nombre");
             nombre.setFilterStyle("width: 85%");
             cargo = (Column) c.getViewRoot().findComponent("form:datosHvReferencia:cargo");

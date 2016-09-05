@@ -1660,29 +1660,29 @@ public class ControlUbicacionesGeograficas implements Serializable {
 
             if (bandera == 0) {
                 System.out.println("Activar");
-                tamano = 246;
+                tamano = 250;
                 codigoCC = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:codigoCC");
-                codigoCC.setFilterStyle("width: 40px");
+                codigoCC.setFilterStyle("width: 85%;");
                 nombreCentroCosto = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:nombreCentroCosto");
-                nombreCentroCosto.setFilterStyle("width: 150px");
+                nombreCentroCosto.setFilterStyle("width: 85%;");
                 tipoCentroCosto = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:tipoCentroCosto");
-                tipoCentroCosto.setFilterStyle("width: 110px");
+                tipoCentroCosto.setFilterStyle("width: 85%;");
                 codigoCTT = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:codigoCTT");
-                codigoCTT.setFilterStyle("width: 60px");
+                codigoCTT.setFilterStyle("width: 85%;");
                 telefono = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:telefono");
-                telefono.setFilterStyle("width: 30px");
+                telefono.setFilterStyle("width: 85%;");
                 fax = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:fax");
-                fax.setFilterStyle("width: 30px");
+                fax.setFilterStyle("width: 85%;");
                 observacion = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:observacion");
-                observacion.setFilterStyle("width: 90px");
+                observacion.setFilterStyle("width: 85%;");
                 manoDeObra = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:manoDeObra");
-                manoDeObra.setFilterStyle("width: 60px");
+                manoDeObra.setFilterStyle("width: 85%;");
                 actividadEconomica = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:actividadEconomica");
-                actividadEconomica.setFilterStyle("width: 60px");
+                actividadEconomica.setFilterStyle("width: 85%;");
                 sucursalPila = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:sucursalPila");
-                sucursalPila.setFilterStyle("width: 80px");
+                sucursalPila.setFilterStyle("width: 85%;");
                 codigoAT = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:codigoAT");
-                codigoAT.setFilterStyle("width: 60px");
+                codigoAT.setFilterStyle("width: 85%;");
                 RequestContext.getCurrentInstance().update("form:datosUbicacionesGeograficas");
                 bandera = 1;
             } else if (bandera == 1) {
@@ -1718,7 +1718,6 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 tipoLista = 0;
             }
         } catch (Exception e) {
-
             System.out.println("ERROR CONTROLUBICACIONESGEOGRAFICAS.activarCtrlF11 ERROR " + e);
         }
     }

@@ -403,9 +403,9 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
         if (bandera == 0) {
             System.out.println("Activar");
             vneFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVNEmpleados:vneFecha");
-            vneFecha.setFilterStyle("width: 60px");
+            vneFecha.setFilterStyle("width: 85%;");
             vneNombreNormaLaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVNEmpleados:vneNombreNormaLaboral");
-            vneNombreNormaLaboral.setFilterStyle("");
+            vneNombreNormaLaboral.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosVNEmpleados");
             bandera = 1;
         } else if (bandera == 1) {

@@ -961,13 +961,13 @@ public class ControlGrupoSalarial implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         if (index >= 0) {
             if (bandera == 0) {
-                altoTablaGrupo = "138";
+                altoTablaGrupo = "140";
                 gsCodigo = (Column) c.getViewRoot().findComponent("form:datosGrupoSalarial:gsCodigo");
-                gsCodigo.setFilterStyle("width: 120px");
+                gsCodigo.setFilterStyle("width: 85%");
                 gsDescripcion = (Column) c.getViewRoot().findComponent("form:datosGrupoSalarial:gsDescripcion");
-                gsDescripcion.setFilterStyle("width: 120px");
+                gsDescripcion.setFilterStyle("width: 85%");
                 gsSalario = (Column) c.getViewRoot().findComponent("form:datosGrupoSalarial:gsSalario");
-                gsSalario.setFilterStyle("width: 120px");
+                gsSalario.setFilterStyle("width: 85%");
                 RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
                 bandera = 1;
             } else if (bandera == 1) {
@@ -990,7 +990,7 @@ public class ControlGrupoSalarial implements Serializable {
                 vgsValor = (Column) c.getViewRoot().findComponent("form:datosVigenciaGrupoSalarial:vgsValor");
                 vgsValor.setFilterStyle("width: 180px");
                 vgsFechaVigencia = (Column) c.getViewRoot().findComponent("form:datosVigenciaGrupoSalarial:vgsFechaVigencia");
-                vgsFechaVigencia.setFilterStyle("width: 40px");
+                vgsFechaVigencia.setFilterStyle("width: 85%;");
                 RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoSalarial");
                 banderaVGS = 1;
             } else if (banderaVGS == 1) {

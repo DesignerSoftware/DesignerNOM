@@ -1484,18 +1484,18 @@ public class ControlATExtraRecargo implements Serializable {
     public void activarCtrlF11() {
         if (index >= 0) {
             if (bandera == 0) {
-                altoTablaRecargo = "113";
+                altoTablaRecargo = "117";
                 FacesContext c = FacesContext.getCurrentInstance();
                 extraCodigo = (Column) c.getViewRoot().findComponent("form:datosExtraRecargo:extraCodigo");
-                extraCodigo.setFilterStyle("width: 25px");
+                extraCodigo.setFilterStyle("width: 85%;");
                 extraDescripcion = (Column) c.getViewRoot().findComponent("form:datosExtraRecargo:extraDescripcion");
-                extraDescripcion.setFilterStyle("width: 120px");
+                extraDescripcion.setFilterStyle("width: 85%;");
                 extraTipoDia = (Column) c.getViewRoot().findComponent("form:datosExtraRecargo:extraTipoDia");
                 extraTipoDia.setFilterStyle("width: 65px");
                 extraTipoJornada = (Column) c.getViewRoot().findComponent("form:datosExtraRecargo:extraTipoJornada");
-                extraTipoJornada.setFilterStyle("width: 80px");
+                extraTipoJornada.setFilterStyle("width: 85%;");
                 extraTipoLegislacion = (Column) c.getViewRoot().findComponent("form:datosExtraRecargo:extraTipoLegislacion");
-                extraTipoLegislacion.setFilterStyle("width: 120px");
+                extraTipoLegislacion.setFilterStyle("width: 85%;");
                 extraTurno = (Column) c.getViewRoot().findComponent("form:datosExtraRecargo:extraTurno");
                 extraTurno.setFilterStyle("width: 10px");
                 extraAprobacion = (Column) c.getViewRoot().findComponent("form:datosExtraRecargo:extraAprobacion");
@@ -1530,25 +1530,25 @@ public class ControlATExtraRecargo implements Serializable {
                 altoTablaDetalle = "113";
                 FacesContext c = FacesContext.getCurrentInstance();
                 detalleHF = (Column) c.getViewRoot().findComponent("form:datosDetalleExtraRecargo:detalleHF");
-                detalleHF.setFilterStyle("width: 40px");
+                detalleHF.setFilterStyle("width: 85%;");
                 detalleHI = (Column) c.getViewRoot().findComponent("form:datosDetalleExtraRecargo:detalleHI");
-                detalleHI.setFilterStyle("width: 40px");
+                detalleHI.setFilterStyle("width: 85%;");
                 detalleConcepto = (Column) c.getViewRoot().findComponent("form:datosDetalleExtraRecargo:detalleConcepto");
-                detalleConcepto.setFilterStyle("width: 120px");
+                detalleConcepto.setFilterStyle("width: 85%;");
                 detalleEmpresa = (Column) c.getViewRoot().findComponent("form:datosDetalleExtraRecargo:detalleEmpresa");
-                detalleEmpresa.setFilterStyle("width: 120px");
+                detalleEmpresa.setFilterStyle("width: 85%;");
                 detalleDia = (Column) c.getViewRoot().findComponent("form:datosDetalleExtraRecargo:detalleDia");
-                detalleDia.setFilterStyle("width: 80px");
+                detalleDia.setFilterStyle("width: 85%;");
                 detalleAdicion = (Column) c.getViewRoot().findComponent("form:datosDetalleExtraRecargo:detalleAdicion");
-                detalleAdicion.setFilterStyle("width: 15px");
+                detalleAdicion.setFilterStyle("width: 85%;");
                 detalleMinutos = (Column) c.getViewRoot().findComponent("form:datosDetalleExtraRecargo:detalleMinutos");
-                detalleMinutos.setFilterStyle("width: 25px");
+                detalleMinutos.setFilterStyle("width: 85%;");
                 detallePagoAdicion = (Column) c.getViewRoot().findComponent("form:datosDetalleExtraRecargo:detallePagoAdicion");
-                detallePagoAdicion.setFilterStyle("width: 15px");
+                detallePagoAdicion.setFilterStyle("width: 85%;");
                 detalleIniFin = (Column) c.getViewRoot().findComponent("form:datosDetalleExtraRecargo:detalleIniFin");
-                detalleIniFin.setFilterStyle("width: 70px");
+                detalleIniFin.setFilterStyle("width: 85%;");
                 detalleGarantiza = (Column) c.getViewRoot().findComponent("form:datosDetalleExtraRecargo:detalleGarantiza");
-                detalleGarantiza.setFilterStyle("width: 15px");
+                detalleGarantiza.setFilterStyle("width: 85%;");
                 RequestContext.getCurrentInstance().update("form:datosDetalleExtraRecargo");
                 banderaDER = 1;
             } else {

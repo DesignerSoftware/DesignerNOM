@@ -875,31 +875,31 @@ public class ControlCuenta implements Serializable {
 
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "312";
+            altoTabla = "315";
             cuentaCodigo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigo");
-            cuentaCodigo.setFilterStyle("width: 80px");
+            cuentaCodigo.setFilterStyle("width: 85%");
             cuentasDescripcion = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentasDescripcion");
-            cuentasDescripcion.setFilterStyle("width: 80px");
+            cuentasDescripcion.setFilterStyle("width: 85%");
             cuentaContracuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaContracuenta");
-            cuentaContracuenta.setFilterStyle("width: 80px");
+            cuentaContracuenta.setFilterStyle("width: 85%");
             cuentaRubro = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaRubro");
-            cuentaRubro.setFilterStyle("width: 80px");
+            cuentaRubro.setFilterStyle("width: 85%");
             cuentaManejaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNit");
-            cuentaManejaNit.setFilterStyle("width: 10px");
+            cuentaManejaNit.setFilterStyle("width: 85%");
             cuentaManejaNitEmpleado = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNitEmpleado");
-            cuentaManejaNitEmpleado.setFilterStyle("width: 10px");
+            cuentaManejaNitEmpleado.setFilterStyle("width: 85%");
             cuentaProrrateo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaProrrateo");
-            cuentaProrrateo.setFilterStyle("width: 10px");
+            cuentaProrrateo.setFilterStyle("width: 85%");
             cuentaCodigoA = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigoA");
-            cuentaCodigoA.setFilterStyle("width: 80px");
+            cuentaCodigoA.setFilterStyle("width: 85%");
             cuentaConsolidaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaConsolidaNit");
-            cuentaConsolidaNit.setFilterStyle("width: 10px");
+            cuentaConsolidaNit.setFilterStyle("width: 85%");
             cuentaIncluyeShort = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaIncluyeShort");
-            cuentaIncluyeShort.setFilterStyle("width: 10px");
+            cuentaIncluyeShort.setFilterStyle("width: 85%");
             cuentaAsociadaSAP = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaAsociadaSAP");
-            cuentaAsociadaSAP.setFilterStyle("width: 10px");
+            cuentaAsociadaSAP.setFilterStyle("width: 85%");
             cuentaSubCuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaSubCuenta");
-            cuentaSubCuenta.setFilterStyle("width: 10px");
+            cuentaSubCuenta.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosCuenta");
             bandera = 1;
         } else if (bandera == 1) {

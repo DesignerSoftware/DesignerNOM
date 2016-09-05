@@ -238,13 +238,13 @@ public class ControlMotivosCambiosSueldos implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioSueldo:codigo");
-            codigo.setFilterStyle("width: 90px");
+            codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioSueldo:descripcion");
-            descripcion.setFilterStyle("width: 390px");
+            descripcion.setFilterStyle("width: 85%;");
             estadoSueldoPromedio = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioSueldo:estadoSueldoPromedio");
-            estadoSueldoPromedio.setFilterStyle("width: 200px");
+            estadoSueldoPromedio.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosMotivoCambioSueldo");
             System.out.println("Activar");
             bandera = 1;

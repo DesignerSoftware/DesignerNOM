@@ -486,7 +486,7 @@ public class ControlActualizarConceptos implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosActualizarConceptos:codigo");
             codigo.setFilterStyle("width: 50px");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosActualizarConceptos:descripcion");
@@ -500,7 +500,7 @@ public class ControlActualizarConceptos implements Serializable {
             indiceAcredor = (Column) c.getViewRoot().findComponent("form:datosActualizarConceptos:indiceAcredor");
             indiceAcredor.setFilterStyle("width: 10px");
             fechaCreacion = (Column) c.getViewRoot().findComponent("form:datosActualizarConceptos:fechaCreacion");
-            fechaCreacion.setFilterStyle("width: 80px");
+            fechaCreacion.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
             System.out.println("Activar");
             bandera = 1;

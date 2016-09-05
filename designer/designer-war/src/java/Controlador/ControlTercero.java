@@ -1239,29 +1239,29 @@ public class ControlTercero implements Serializable {
             System.err.println("Entre a filtradoTercero()");
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 0) {
-                altoTablaTercero = "128";
+                altoTablaTercero = "130";
                 terceroNombre = (Column) c.getViewRoot().findComponent("form:datosTerceros:terceroNombre");
-                terceroNombre.setFilterStyle("width: 80px");
+                terceroNombre.setFilterStyle("width: 85%;");
                 terceroNIT = (Column) c.getViewRoot().findComponent("form:datosTerceros:terceroNIT");
-                terceroNIT.setFilterStyle("width: 80px");
+                terceroNIT.setFilterStyle("width: 85%;");
                 terceroDigitoVerificacion = (Column) c.getViewRoot().findComponent("form:datosTerceros:terceroDigitoVerificacion");
-                terceroDigitoVerificacion.setFilterStyle("width: 80px");
+                terceroDigitoVerificacion.setFilterStyle("width: 85%;");
                 terceroNITAlternativo = (Column) c.getViewRoot().findComponent("form:datosTerceros:terceroNITAlternativo");
-                terceroNITAlternativo.setFilterStyle("width: 80px");
+                terceroNITAlternativo.setFilterStyle("width: 85%;");
                 terceroCodigoSS = (Column) c.getViewRoot().findComponent("form:datosTerceros:terceroCodigoSS");
-                terceroCodigoSS.setFilterStyle("width: 80px");
+                terceroCodigoSS.setFilterStyle("width: 85%;");
                 terceroCodigoSP = (Column) c.getViewRoot().findComponent("form:datosTerceros:terceroCodigoSP");
-                terceroCodigoSP.setFilterStyle("width: 80px");
+                terceroCodigoSP.setFilterStyle("width: 85%;");
                 terceroCodigoSC = (Column) c.getViewRoot().findComponent("form:datosTerceros:terceroCodigoSC");
-                terceroCodigoSC.setFilterStyle("width: 80px");
+                terceroCodigoSC.setFilterStyle("width: 85%;");
                 terceroTConsolidador = (Column) c.getViewRoot().findComponent("form:datosTerceros:terceroTConsolidador");
-                terceroTConsolidador.setFilterStyle("width: 80px");
+                terceroTConsolidador.setFilterStyle("width: 85%;");
                 terceroNITConsolidado = (Column) c.getViewRoot().findComponent("form:datosTerceros:terceroNITConsolidado");
-                terceroNITConsolidado.setFilterStyle("width: 80px");
+                terceroNITConsolidado.setFilterStyle("width: 85%;");
                 terceroCiudad = (Column) c.getViewRoot().findComponent("form:datosTerceros:terceroCiudad");
-                terceroCiudad.setFilterStyle("width: 80px");
+                terceroCiudad.setFilterStyle("width: 85%;");
                 terceroCodigoAlterno = (Column) c.getViewRoot().findComponent("form:datosTerceros:terceroCiudad");
-                terceroCodigoAlterno.setFilterStyle("width: 80px");
+                terceroCodigoAlterno.setFilterStyle("width: 85%;");
                 RequestContext.getCurrentInstance().update("form:datosTerceros");
                 bandera = 1;
             } else if (bandera == 1) {
@@ -1274,15 +1274,15 @@ public class ControlTercero implements Serializable {
         if (terceroSucursalTablaSeleccionado != null) {
             FacesContext c = FacesContext.getCurrentInstance();
             if (banderaTS == 0) {
-                altoTablaSucursal = "45";
+                altoTablaSucursal = "50";
                 terceroSucursalCodigo = (Column) c.getViewRoot().findComponent("form:datosTercerosSucursales:terceroSucursalCodigo");
-                terceroSucursalCodigo.setFilterStyle("width: 80px");
+                terceroSucursalCodigo.setFilterStyle("width: 85%;");
                 terceroSucursalPatronal = (Column) c.getViewRoot().findComponent("form:datosTercerosSucursales:terceroSucursalPatronal");
-                terceroSucursalPatronal.setFilterStyle("width: 80px");
+                terceroSucursalPatronal.setFilterStyle("width: 85%;");
                 terceroSucursalObservacion = (Column) c.getViewRoot().findComponent("form:datosTercerosSucursales:terceroSucursalObservacion");
-                terceroSucursalObservacion.setFilterStyle("width: 80px");
+                terceroSucursalObservacion.setFilterStyle("width: 85%;");
                 terceroSucursalCiudad = (Column) c.getViewRoot().findComponent("form:datosTercerosSucursales:terceroSucursalCiudad");
-                terceroSucursalCiudad.setFilterStyle("width: 80px");
+                terceroSucursalCiudad.setFilterStyle("width: 85%;");
                 RequestContext.getCurrentInstance().update("form:datosTercerosSucursales");
                 banderaTS = 1;
             } else if (banderaTS == 1) {

@@ -246,7 +246,7 @@ public class ControlPryClientes implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             nombre = (Column) c.getViewRoot().findComponent("form:datosPryCliente:nombre");
             nombre.setFilterStyle("width: 85%");
             direccion = (Column) c.getViewRoot().findComponent("form:datosPryCliente:direccion");

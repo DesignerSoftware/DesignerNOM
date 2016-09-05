@@ -535,17 +535,17 @@ public class ControlFormula implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         formulaSeleccionada = null;
         if (bandera == 0) {
-            altoTabla = "182";
+            altoTabla = "184";
             columnaNombreLargo = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaNombreLargo");
-            columnaNombreLargo.setFilterStyle("width: 94%;");
+            columnaNombreLargo.setFilterStyle("width: 90%;");
             columnaNombreCorto = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaNombreCorto");
-            columnaNombreCorto.setFilterStyle("width: 94%;");
+            columnaNombreCorto.setFilterStyle("width: 90%;");
             columnaEstado = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaEstado");
-            columnaEstado.setFilterStyle("width: 94%;");
+            columnaEstado.setFilterStyle("width: 90%;");
             columnaNota = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaNota");
-            columnaNota.setFilterStyle("width: 94%;");
+            columnaNota.setFilterStyle("width: 90%;");
             columnaTipo = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaTipo");
-            columnaTipo.setFilterStyle("width: 94%;");
+            columnaTipo.setFilterStyle("width: 90%;");
 //            columnaPeriodicidad = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaPeriodicidad");
 //            columnaPeriodicidad.setFilterStyle("width: 94%;");
             context.update("form:datosFormulas");

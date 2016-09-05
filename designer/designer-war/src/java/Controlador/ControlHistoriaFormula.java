@@ -984,11 +984,11 @@ public class ControlHistoriaFormula implements Serializable {
     public void filtradoFormula() {
         if (banderaHistoriasFormulas == 0) {
             historiaFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosHistoriaFormula:historiaFechaInicial");
-            historiaFechaInicial.setFilterStyle("width: 60px");
+            historiaFechaInicial.setFilterStyle("width: 85%;");
             historiaFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosHistoriaFormula:historiaFechaFinal");
-            historiaFechaFinal.setFilterStyle("width: 60px");
+            historiaFechaFinal.setFilterStyle("width: 85%;");
             historiaNota = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosHistoriaFormula:historiaNota");
-            historiaNota.setFilterStyle("width: 200px");
+            historiaNota.setFilterStyle("width: 85%");
 
             RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
             banderaHistoriasFormulas = 1;

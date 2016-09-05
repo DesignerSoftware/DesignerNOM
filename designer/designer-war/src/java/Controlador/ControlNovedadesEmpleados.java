@@ -877,7 +877,7 @@ public class ControlNovedadesEmpleados implements Serializable {
             nEMinutosHoras.setFilterStyle("width: 85%");
             nETipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nETipo");
             nETipo.setFilterStyle("width: 85%");
-            altoTabla = "131";
+            altoTabla = "135";
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
             bandera = 1;
             tipoLista = 1;

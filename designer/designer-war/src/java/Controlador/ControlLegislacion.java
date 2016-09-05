@@ -686,7 +686,7 @@ public class ControlLegislacion implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "206";
+            altoTabla = "210";
             columnaCodigo = (Column) c.getViewRoot().findComponent("form:datosContratos:columnaCodigo");
             columnaCodigo.setFilterStyle("width: 85%;");
             columnaDescripción = (Column) c.getViewRoot().findComponent("form:datosContratos:columnaDescripción");

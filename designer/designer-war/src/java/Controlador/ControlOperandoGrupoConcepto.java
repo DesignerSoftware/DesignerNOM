@@ -426,10 +426,10 @@ public class ControlOperandoGrupoConcepto implements Serializable {
             System.out.println("Activa 1");
             //Tabla Vigencias OperandosGruposConceptos
             oOperando = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperandosGruposConceptos:oOperando");
-            oOperando.setFilterStyle("width: 40px");
+            oOperando.setFilterStyle("width: 85%;");
             oGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperandosGruposConceptos:oGrupo");
-            oGrupo.setFilterStyle("width: 100px");
-            altoScrollOperandosGruposConceptos = "66";
+            oGrupo.setFilterStyle("width: 85%;");
+            altoScrollOperandosGruposConceptos = "70";
             RequestContext context = RequestContext.getCurrentInstance();
             context.update("form:datosOperandosGruposConceptos");
             bandera = 1;

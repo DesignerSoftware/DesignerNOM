@@ -674,7 +674,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
             vrlFecha.setFilterStyle("width: 85%");
             vrlNombre = (Column) c.getViewRoot().findComponent("form:datosVRLEmpleado:vrlNombre");
             vrlNombre.setFilterStyle("width: 85%");
-            altoTabla = "266";
+            altoTabla = "270";
             RequestContext.getCurrentInstance().update("form:datosVRLEmpleado");
             bandera = 1;
         } else if (bandera == 1) {

@@ -335,10 +335,10 @@ public class ControlTiposTelefonos implements Serializable {
             System.out.println("TipoLista= " + tipoLista);
             FacesContext c = FacesContext.getCurrentInstance();
             tiposTelefonosCodigos = (Column) c.getViewRoot().findComponent("form:datosTiposTelefonos:tiposTelefonosCodigos");
-            tiposTelefonosCodigos.setFilterStyle("width:75%");
+            tiposTelefonosCodigos.setFilterStyle("width: 85%;");
             tiposTelefonosNombres = (Column) c.getViewRoot().findComponent("form:datosTiposTelefonos:tiposTelefonosNombres");
-            tiposTelefonosNombres.setFilterStyle("width:75%");
-            altoTabla = "246";
+            tiposTelefonosNombres.setFilterStyle("width: 85%;");
+            altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosTiposTelefonos");
             bandera = 1;
             tipoLista = 1;

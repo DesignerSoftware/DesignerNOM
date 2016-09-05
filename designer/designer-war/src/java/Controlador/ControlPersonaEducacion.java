@@ -919,9 +919,9 @@ public class ControlPersonaEducacion implements Serializable {
             pEFechas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechas");
             pEFechas.setFilterStyle("width: 85%");
             pETiposEducaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pETiposEducaciones");
-            pETiposEducaciones.setFilterStyle("");
+            pETiposEducaciones.setFilterStyle("width: 85%");
             pEProfesiones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEProfesiones");
-            pEProfesiones.setFilterStyle("");
+            pEProfesiones.setFilterStyle("width: 85%");
             pEInstituciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEInstituciones");
             pEInstituciones.setFilterStyle("width: 85%");
             pEAdiestramientosF = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEAdiestramientosF");
@@ -936,7 +936,7 @@ public class ControlPersonaEducacion implements Serializable {
             pEFechasVencimientos.setFilterStyle("width: 85%");
             pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
             pEObservaciones.setFilterStyle("width: 85%");
-            altoTabla1 = "91";
+            altoTabla1 = "95";
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
             bandera = 1;
 
@@ -946,9 +946,9 @@ public class ControlPersonaEducacion implements Serializable {
             pEFechasNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEFechasNF");
             pEFechasNF.setFilterStyle("width: 85%");
             pECursosNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pECursosNF");
-            pECursosNF.setFilterStyle("");
+            pECursosNF.setFilterStyle("width: 85%");
             pETitulosNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pETitulosNF");
-            pETitulosNF.setFilterStyle("");
+            pETitulosNF.setFilterStyle("width: 85%");
             pEInstitucionesNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEInstitucionesNF");
             pEInstitucionesNF.setFilterStyle("width: 85%");
             pEAdiestramientosNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEAdiestramientosNF");
@@ -957,7 +957,7 @@ public class ControlPersonaEducacion implements Serializable {
             pECalificacionesNF.setFilterStyle("width: 85%");
             pEObservacionesNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEObservacionesNF");
             pEObservacionesNF.setFilterStyle("width: 85%");
-            altoTabla2 = "91";
+            altoTabla2 = "95";
             RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
             banderaNF = 1;
 

@@ -261,13 +261,13 @@ public class ControlDependenciaOperando implements Serializable {
     public void activarCtrlF11() {
 
         if (bandera == 0) {
-            altoTabla = "223";
+            altoTabla = "225";
             dependenciasOperandosCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosCodigo");
-            dependenciasOperandosCodigo.setFilterStyle("width: 60px");
+            dependenciasOperandosCodigo.setFilterStyle("width: 85%");
             dependenciasOperandosNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosNombre");
-            dependenciasOperandosNombre.setFilterStyle("width: 60px");
+            dependenciasOperandosNombre.setFilterStyle("width: 85%");
             dependenciasOperandosConsecutivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosConsecutivo");
-            dependenciasOperandosConsecutivo.setFilterStyle("width: 60px");
+            dependenciasOperandosConsecutivo.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosDependenciasOperandos");
             bandera = 1;
             tipoLista = 1;

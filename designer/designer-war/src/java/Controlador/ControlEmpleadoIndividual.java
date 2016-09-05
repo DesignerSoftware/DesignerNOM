@@ -852,7 +852,7 @@ public class ControlEmpleadoIndividual implements Serializable {
         try {
             //extencion = fileName.split("[.]")[1];
             //System.out.println(extencion); 
-            OutputStream out = new FileOutputStream(new File(destino + identificacionEmpleado + ".jpg"));
+            OutputStream out = new FileOutputStream(new File(destino + identificacionEmpleado + ".png"));
             int reader = 0;
             byte[] bytes = new byte[(int) size];
             while ((reader = in.read(bytes)) != -1) {

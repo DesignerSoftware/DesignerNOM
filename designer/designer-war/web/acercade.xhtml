@@ -13,7 +13,7 @@
                 <h:form id="form">
                     <p:panel  id="PanelTotal" header="Acerca de Designer Software" styleClass="panelTotal" > 
                         <fieldset style="position: absolute; left: 5px; top: 70px; width: 430px; height: 170px; border-radius: 11px; ">
-                            <img src="Imagenes\logoDesigner2014face.png" style="border-radius: 11px" width="430" height="100" alt="Foto Designer" />
+                            <img src="Imagenes\logoDesigner2014face.png" style="border-radius: 11px;" width="430" height="100" alt="Foto Designer" />
                             <h:outputText value="#{controlAcercaDe.version}" style="position: absolute; left: 200px; top: 110px; width:180px ;height:50px; color: darkblue;font-weight: bold " />
                             <p:separator style="position: relative; border-color: darkblue; direction: ltr; top: 15px;"/>
                             <div>
@@ -70,44 +70,44 @@
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" disabled="true" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/>
+                                <p:commandButton id="guardarRapido" disabled="true" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none; "/>
                                 <p:tooltip style="" for="guardarRapido" value="Guardado Rapido" />
-                                <p:commandButton id="editar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/>
+                                <p:commandButton id="editar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/editar.png); border: none; "/>
                                 <p:tooltip style="" for="editar" value="Editar" />
 
                                 <p:separator style="position: relative; top: -11px;"/>
 
-                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/>
+                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; "/>
                                 <p:tooltip style="" for="listaValores" value="Lista de Valores" />
 
-                                <p:commandButton id="filtrar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/>
+                                <p:commandButton id="filtrar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; "/>
                                 <p:tooltip style="" for="filtrar" value="Filtrar" />
 
                                 <p:separator style="position: relative; top: -11px;"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlAcercaDe.exportXLS()}"  ajax="false"/>
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " actionListener="#{controlAcercaDe.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlAcercaDe.limpiarNuevoEmpresas()}"  ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none; " actionListener="#{controlAcercaDe.limpiarNuevoEmpresas()}"  ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosExportar" fileName="ACERCADE" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlAcercaDe.exportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none; " actionListener="#{controlAcercaDe.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
 
                                 <p:separator style="position: relative; top: -11px;"/> 
-                                <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/> 
+                                <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; "/> 
                                 <p:tooltip style="" for="insertar" value="Nuevo" />
 
-                                <p:commandButton id="eliminar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/>  
+                                <p:commandButton id="eliminar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/delete.png); border: none; "/>  
                                 <p:tooltip style="" for="eliminar" value="Eliminar" />
 
-                                <p:commandButton id="duplicar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/>  
+                                <p:commandButton id="duplicar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none; "/>  
                                 <p:tooltip style="" for="duplicar" value="Duplicar" />
 
                                 <p:separator style="position: relative; top: -11px;"/> 
-                                <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "/>  
+                                <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; "/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
                             </p:toolbarGroup>  
                         </p:toolbar> 
@@ -122,7 +122,7 @@
                     <!-- LOV EMPRESAS -->
                     <p:dialog header="Empresas" widgetVar="EmpresasDialogo" draggable="false" resizable="false" closable="false" id="EmpresasDialogo"  
                               showEffect="fade" hideEffect="fade" width="350" modal="true" style="">
-                        <p:dataTable id="lovEmpresas" style=" width: 311px" var="empresa" value="#{controlAcercaDe.listaEmpresas}" rowKey="#{empresa.secuencia}"
+                        <p:dataTable id="lovEmpresas" style=" width: 311px;" var="empresa" value="#{controlAcercaDe.listaEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlAcercaDe.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="330" scrollHeight="250"
                                      filteredValue="#{controlAcercaDe.filtradoListaEmpresas}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                             <p:ajax event="rowSelect" listener="#{controlAcercaDe.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
@@ -144,9 +144,9 @@
                                 <h:outputText  value="#{empresa.nombre}" />
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton id="aceptarE" style="position: relative; left: 180px" value="Aceptar" disabled="#{controlAcercaDe.aceptar}" actionListener="#{controlAcercaDe.cambiarEmpresa()}" process="@this"/>
+                        <p:commandButton id="aceptarE" style="position: relative; left: 180px;" value="Aceptar" disabled="#{controlAcercaDe.aceptar}" actionListener="#{controlAcercaDe.cambiarEmpresa()}" process="@this"/>
                         
-                        <p:commandButton id="atrasE" style="position: relative; left: 180px" value="Cancelar"  actionListener="#{controlAcercaDe.cancelarCambioEmpresa()}"  process="@this"/>
+                        <p:commandButton id="atrasE" style="position: relative; left: 180px;" value="Cancelar"  actionListener="#{controlAcercaDe.cancelarCambioEmpresa()}"  process="@this"/>
                     </p:dialog>
                 </h:form>
                 <h:form id="formExportar">

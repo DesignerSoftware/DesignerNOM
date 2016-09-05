@@ -229,21 +229,21 @@ public class ControlRastro implements Serializable {
     public void activarCtrlF11() {
         if (bandera == 0) {
             nombreTabla = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:nombreTabla");
-            nombreTabla.setFilterStyle("width: 130px;");
+            nombreTabla.setFilterStyle("width: 85%;");
             fechaRastro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:fechaRastro");
-            fechaRastro.setFilterStyle("width: 80px;");
+            fechaRastro.setFilterStyle("width: 85%;");
             estacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:estacion");
-            estacion.setFilterStyle("width: 130px;");
+            estacion.setFilterStyle("width: 85%;");
             usuarioSO = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:usuarioSO");
-            usuarioSO.setFilterStyle("width: 170px");
+            usuarioSO.setFilterStyle("width: 85%;");
             direccionIP = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:direccionIP");
-            direccionIP.setFilterStyle("width: 70px");
+            direccionIP.setFilterStyle("width: 85%;");
             usuarioID = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:usuarioID");
-            usuarioID.setFilterStyle("width: 40px");
+            usuarioID.setFilterStyle("width: 85%;");
             usuarioBD = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:usuarioBD");
-            usuarioBD.setFilterStyle("90");
+            usuarioBD.setFilterStyle("width: 85%;");
             tipoManipulacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:tipoManipulacion");
-            tipoManipulacion.setFilterStyle("");
+            tipoManipulacion.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosRastro");
             bandera = 1;
         } else if (bandera == 1) {

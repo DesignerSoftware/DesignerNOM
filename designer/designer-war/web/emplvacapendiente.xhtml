@@ -26,75 +26,75 @@
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; " 
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                                  actionListener="#{controlEmplVacaPendiente.guardarGeneral()}" oncomplete="datosVacacionesPEmpleado.unselectAllRows(), datosVacacionesDEmpleado.unselectAllRows()" process="@this" />
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlEmplVacaPendiente.editarCelda()}" process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlEmplVacaPendiente.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "/>
+                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlEmplVacaPendiente.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlEmplVacaPendiente.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " ajax="false" actionListener="#{controlEmplVacaPendiente.verificarExportXLS()}"/>
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlEmplVacaPendiente.verificarExportXLS()}"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlEmplVacaPendiente.exportXML()}" fileName="#{controlEmplVacaPendiente.nombreXML}" encoding="UTF-8"/>  
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlEmplVacaPendiente.validarExportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlEmplVacaPendiente.validarExportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " oncomplete="NuevoRegistroVP.show()" update=":formularioDialogos:nuevaVP" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="NuevoRegistroVP.show()" update=":formularioDialogos:nuevaVP" process="@this"/> 
 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlEmplVacaPendiente.eliminarRegistroTabla()}" update=":form:datosVacacionesPEmpleado" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlEmplVacaPendiente.eliminarRegistroTabla()}" update=":form:datosVacacionesPEmpleado" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlEmplVacaPendiente.duplicarRegistroTabla()}"  process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlEmplVacaPendiente.duplicarRegistroTabla()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="rastro" disabled="true" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px"/>
+                                <p:commandButton id="rastro" disabled="true" value="" style="background-image: url(Imagenes/Iconos/rastro.png)"/>
                                
                                     <p:separator style="position: relative; top: -9px"/> 
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlEmplVacaPendiente.cancelarModificaciones()}" oncomplete="window.location.reload()" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlEmplVacaPendiente.cancelarModificaciones()}" oncomplete="window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlEmplVacaPendiente.salir()}" action="nomina" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmplVacaPendiente.salir()}" action="nomina" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
                         
                         <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
                             
-                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px" />
+                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
                             <h:outputText id="nombreEmpleado" value="#{controlEmplVacaPendiente.empleado.persona.nombreCompleto}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px" />
+                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
                             <h:outputText id="docEmpleado" value="#{controlEmplVacaPendiente.empleado.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px" />
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
                         </fieldset>
 
                         <fieldset style="position: absolute;top: 110px;left: 10px;height: 360px;width: 400px; border-radius: 10px; text-align: left">
                             <legend style=" color: blue"><strong>#{msg['pendientes']}</strong></legend>
                             <!-- TABLA EMPLVACACIONESEMPLEADO -->
-                            <p:dataTable id="datosVacacionesPEmpleado" widgetVar="datosVacacionesPEmpleado"  rowIndexVar="indice" style=" position: relative; border: 1px; text-align: center; width: 390px"                           
+                            <p:dataTable id="datosVacacionesPEmpleado" widgetVar="datosVacacionesPEmpleado"  rowIndexVar="indice" style=" position: relative; border: 1px; text-align: center; width: 390px;"                           
                                          value="#{controlEmplVacaPendiente.listVacaPendientes}" emptyMessage="#{msg['vacio']}"
                                          filteredValue="#{controlEmplVacaPendiente.filtrarListVacaPendientes}" scrollable="true" scrollHeight="#{controlEmplVacaPendiente.altoTabla1}" 
                                          scrollWidth="390" editable="true" editMode="cell" var="info" rowKey="#{info.inicialcausacion}"
@@ -258,12 +258,12 @@
 
                     </p:panel>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistroP" header="#{msg['error']}" widgetVar="seleccionarRegistroP"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="seleccionarRegistroP" header="#{msg['error']}" widgetVar="seleccionarRegistroP"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistroP']}" style="position: absolute; left: 70px; top: 17px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
@@ -272,34 +272,34 @@
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEmplVacaPendiente.guardarGeneral()}" action="nomina" 
-                                         style="position: absolute; top: 50px; left: 157px" process="@this" icon="ui-icon-check" />
+                                         style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEmplVacaPendiente.salir()}" 
-                                         style="position: absolute; top: 50px; left: 218px" process="@this" icon="ui-icon-close" />
+                                         style="position: absolute; top: 50px; left: 218px;" process="@this" icon="ui-icon-close" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" icon="ui-icon-arrowreturnthick-1-w" 
-                                         style="position: absolute; top: 50px; left: 285px" process="@this" />
+                                         style="position: absolute; top: 50px; left: 285px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegNew" header="#{msg['error']}" widgetVar="errorRegNew"  resizable="false" draggable="false" modal="true" height="80" width="380px"  closable="true">  
+                    <p:dialog id="errorRegNew" header="#{msg['error']}" widgetVar="errorRegNew"  resizable="false" draggable="false" modal="true" height="80" width="380px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 300px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechaContratacion" header="#{msg['error']}" widgetVar="errorFechaContratacion"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorFechaContratacion" header="#{msg['error']}" widgetVar="errorFechaContratacion"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechaContratacion']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechaContratacionMargenAnio" header="#{msg['error']}" widgetVar="errorFechaContratacionMargenAnio"  resizable="false" draggable="false" modal="true" height="70" width="275px"  closable="true">  
+                    <p:dialog id="errorFechaContratacionMargenAnio" header="#{msg['error']}" widgetVar="errorFechaContratacionMargenAnio"  resizable="false" draggable="false" modal="true" height="70" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechaContratacionMargenAnio']}" style="position: absolute; left: 70px; top: 7px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechaContratacionTras" header="#{msg['error']}" widgetVar="errorFechaContratacionTras"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorFechaContratacionTras" header="#{msg['error']}" widgetVar="errorFechaContratacionTras"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechaContratacionTras']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
@@ -340,47 +340,47 @@
 
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="editarFechaInicialP" header="#{msg['fechainicialEP']}" widgetVar="editarFechaInicialP" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.inicialcausacion}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                    <p:dialog id="editarFechaInicialP" header="#{msg['fechainicialEP']}" widgetVar="editarFechaInicialP" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.inicialcausacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalP" header="#{msg['fechafinalEP']}" widgetVar="editarFechaFinalP" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.finalcausacion}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>
-                    </p:dialog>
-
-
-                    <p:dialog id="editarDiasPendientesP" header="#{msg['diaspendientesEP']}" widgetVar="editarDiasPendientesP" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.diaspendientes}"  style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarFechaInicialD" header="#{msg['fechainicialED']}" widgetVar="editarFechaInicialD" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.inicialcausacion}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>
-                    </p:dialog>
-
-                    <p:dialog id="editarFechaFinalD" header="#{msg['fechafinalED']}" widgetVar="editarFechaFinalD" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.finalcausacion}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                    <p:dialog id="editarFechaFinalP" header="#{msg['fechafinalEP']}" widgetVar="editarFechaFinalP" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.finalcausacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
 
-                    <p:dialog id="editarDiasPendientesD" header="#{msg['diaspendientesED']}" widgetVar="editarDiasPendientesD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.diaspendientes}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarDiasPendientesP" header="#{msg['diaspendientesEP']}" widgetVar="editarDiasPendientesP" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.diaspendientes}"  style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaInicialD" header="#{msg['fechainicialED']}" widgetVar="editarFechaInicialD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.inicialcausacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaFinalD" header="#{msg['fechafinalED']}" widgetVar="editarFechaFinalD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.finalcausacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+
+                    <p:dialog id="editarDiasPendientesD" header="#{msg['diaspendientesED']}" widgetVar="editarDiasPendientesD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.diaspendientes}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="NuevoRegistroVP" header="#{msg['nuevoregistroVP']}" widgetVar="NuevoRegistroVP" closable="false" resizable="false"  draggable="false" modal="true" height="210" width="380" style=" padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoVP']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoVP']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevaVP" style="border: none;">
 
-                            <strong><h:outputText value="*#{msg['diaspendientesVP']}" style=" position: absolute; top: 65px;left: 55px" /></strong>
+                            <strong><h:outputText value="*#{msg['diaspendientesVP']}" style=" position: absolute; top: 65px;left: 55px;" /></strong>
                             <p:inputText value="#{controlEmplVacaPendiente.nuevaVacacion.diaspendientes}" id="nuevaDiasPendientes" 
                                          style=" width: 80px; position: absolute; left: 200px; top: 60px;">
                                 <p:ajax event="change" update="nuevaDiasPendientes"/>
@@ -410,11 +410,11 @@
 
                     <p:dialog id="DuplicarRegistroVP" header="#{msg['duplicarregistroVP']}" widgetVar="DuplicarRegistroVP" closable="false" resizable="false"  draggable="false" modal="true" height="210" width="380"  style=" padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoVP']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoVP']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarVP" style="border: none;">
 
-                            <strong><h:outputText value="*#{msg['diaspendientesVP']}" style=" position: absolute; top: 65px;left: 55px" /></strong>
+                            <strong><h:outputText value="*#{msg['diaspendientesVP']}" style=" position: absolute; top: 65px;left: 55px;" /></strong>
                             <p:inputText value="#{controlEmplVacaPendiente.duplicarVacacion.diaspendientes}" id="duplicarDiasPendientes" 
                                          style="  width: 80px; position: absolute; left: 200px; top: 60px;">
                                 <p:ajax event="change" update="duplicarDiasPendientes"/>

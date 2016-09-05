@@ -829,7 +829,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
     public void filtradoVigencia() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (banderaV == 0) {
-            altoTabla = "288";
+            altoTabla = "290";
             viFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVigencia:viFechaInicial");
             viFechaInicial.setFilterStyle("width: 85%");
 

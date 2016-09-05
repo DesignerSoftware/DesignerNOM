@@ -2230,7 +2230,7 @@ public class ControlCargo implements Serializable {
         if ("C".equals(tablaActiva)) {
             if (cargoTablaSeleccionado != null) {
                 if (bandera == 0) {
-                    altoTablaCargo = "68";
+                    altoTablaCargo = "72";
                     cargoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCargo:cargoCodigo");
                     cargoCodigo.setFilterStyle("width: 85%");
                     cargoNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCargo:cargoNombre");
@@ -2262,7 +2262,7 @@ public class ControlCargo implements Serializable {
         } else if ("SM".equals(tablaActiva)) {
             if (sueldoMercadoSeleccionado != null) {
                 if (banderaSueldoMercado == 0) {
-                    altoTablaSueldoMercado = "46";
+                    altoTablaSueldoMercado = "50";
                     sueldoMercadoTipoEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSueldoMercado:sueldoMercadoTipoEmpresa");
                     sueldoMercadoTipoEmpresa.setFilterStyle("width: 85%");
                     sueldoMercadoSueldoMinimo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSueldoMercado:sueldoMercadoSueldoMinimo");
@@ -2278,7 +2278,7 @@ public class ControlCargo implements Serializable {
         } else if ("CC".equals(tablaActiva)) {
             if (competenciaCargoSeleccionado != null) {
                 if (banderaCompetencia == 0) {
-                    altoTablaCompetencia = "46";
+                    altoTablaCompetencia = "50";
                     competenciaCargoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCompetenciaCargo:competenciaCargoDescripcion");
                     competenciaCargoDescripcion.setFilterStyle("width: 85%");
                     RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
@@ -2290,7 +2290,7 @@ public class ControlCargo implements Serializable {
         } else if ("TD".equals(tablaActiva)) {
             if (tipoDetalleSeleccionado != null) {
                 if (banderaTipoDetalle == 0) {
-                    altoTablaTipoDetalle = "46";
+                    altoTablaTipoDetalle = "50";
 
                     tipoDetalleDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoDetalle:tipoDetalleDescripcion");
                     tipoDetalleDescripcion.setFilterStyle("width: 85%");

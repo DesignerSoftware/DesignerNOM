@@ -697,19 +697,19 @@ public class ControlSets implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {
-            altoTabla = "263";
+            altoTabla = "267";
             setsFechaInicial = (Column) c.getViewRoot().findComponent("form:datosSetsEmpleado:setsFechaInicial");
-            setsFechaInicial.setFilterStyle("width: 60px");
+            setsFechaInicial.setFilterStyle("width: 85%;");
             setsFechaFinal = (Column) c.getViewRoot().findComponent("form:datosSetsEmpleado:setsFechaFinal");
-            setsFechaFinal.setFilterStyle("width: 60px");
+            setsFechaFinal.setFilterStyle("width: 85%;");
             setsPorcentaje = (Column) c.getViewRoot().findComponent("form:datosSetsEmpleado:setsPorcentaje");
-            setsPorcentaje.setFilterStyle("width: 60px");
+            setsPorcentaje.setFilterStyle("width: 85%;");
             setsPromedio = (Column) c.getViewRoot().findComponent("form:datosSetsEmpleado:setsPromedio");
-            setsPromedio.setFilterStyle("width: 60px");
+            setsPromedio.setFilterStyle("width: 85%;");
             setsTipo = (Column) c.getViewRoot().findComponent("form:datosSetsEmpleado:setsTipo");
-            setsTipo.setFilterStyle("width: 60px");
+            setsTipo.setFilterStyle("width: 85%;");
             setsTotalIngresos = (Column) c.getViewRoot().findComponent("form:datosSetsEmpleado:setsTotalIngresos");
-            setsTotalIngresos.setFilterStyle("width: 60px");
+            setsTotalIngresos.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosSetsEmpleado");
             bandera = 1;
         } else if (bandera == 1) {

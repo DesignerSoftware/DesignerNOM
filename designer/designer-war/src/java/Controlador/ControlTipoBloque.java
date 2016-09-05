@@ -271,15 +271,15 @@ public class ControlTipoBloque implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {
-            altoTabla = "246";
+            altoTabla = "250";
             tiposBloquesIniciales = (Column) c.getViewRoot().findComponent("form:datosTiposBloques:tiposBloquesIniciales");
-            tiposBloquesIniciales.setFilterStyle("width: 60px");
+            tiposBloquesIniciales.setFilterStyle("width: 85%;");
             tiposBloquesFinales = (Column) c.getViewRoot().findComponent("form:datosTiposBloques:tiposBloquesFinales");
-            tiposBloquesFinales.setFilterStyle("width: 60px");
+            tiposBloquesFinales.setFilterStyle("width: 85%;");
             tiposBloquesTipos = (Column) c.getViewRoot().findComponent("form:datosTiposBloques:tiposBloquesTipos");
-            tiposBloquesTipos.setFilterStyle("width: 60px");
+            tiposBloquesTipos.setFilterStyle("width: 85%;");
             tiposBloquesSQL = (Column) c.getViewRoot().findComponent("form:datosTiposBloques:tiposBloquesSQL");
-            tiposBloquesSQL.setFilterStyle("width: 60px");
+            tiposBloquesSQL.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosTiposBloques");
             bandera = 1;
             tipoLista = 1;

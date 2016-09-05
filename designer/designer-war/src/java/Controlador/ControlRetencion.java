@@ -465,12 +465,12 @@ public class ControlRetencion implements Serializable {
             System.out.println("Activa 1");
             //Tabla Vigencias Retenciones
             vCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vCodigo");
-            vCodigo.setFilterStyle("width: 40px");
+            vCodigo.setFilterStyle("width: 85%;");
             vFechaVigencia = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vFechaVigencia");
-            vFechaVigencia.setFilterStyle("width: 100px");
+            vFechaVigencia.setFilterStyle("width: 85%;");
             vUvt = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vUvt");
-            vUvt.setFilterStyle("width: 30px");
-            altoScrollVigenciasRetenciones = "66";
+            vUvt.setFilterStyle("width: 85%;");
+            altoScrollVigenciasRetenciones = "70";
             RequestContext context = RequestContext.getCurrentInstance();
             context.update("form:datosVigenciasRetenciones");
             bandera = 1;
@@ -492,11 +492,11 @@ public class ControlRetencion implements Serializable {
         } else if (bandera == 0 && cualTabla == 1) {
             System.out.println("Activa 2");
             rValorMinimo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rValorMinimo");
-            rValorMinimo.setFilterStyle("width: 100px");
+            rValorMinimo.setFilterStyle("width: 85%;");
             rValorMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rValorMaximo");
-            rValorMaximo.setFilterStyle("width: 30px");
+            rValorMaximo.setFilterStyle("width: 85%;");
             rPorcentaje = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rPorcentaje");
-            rPorcentaje.setFilterStyle("width: 30px");
+            rPorcentaje.setFilterStyle("width: 85%;");
             rValor = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rValor");
             rValor.setFilterStyle("");
             rAdicionarUvt = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rAdicionarUvt");

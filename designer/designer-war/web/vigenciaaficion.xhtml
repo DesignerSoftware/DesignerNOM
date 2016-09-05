@@ -25,53 +25,53 @@
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border : none " actionListener="#{controlVigenciaAficion.guardarCambios()}" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border : none " actionListener="#{controlVigenciaAficion.guardarCambios()}" process="@this" />
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border : none " actionListener="#{controlVigenciaAficion.editarCelda()}" process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border : none " actionListener="#{controlVigenciaAficion.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border : none " actionListener="#{controlVigenciaAficion.listaValoresBoton()}" process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border : none " actionListener="#{controlVigenciaAficion.listaValoresBoton()}" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border : none " actionListener="#{controlVigenciaAficion.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border : none " actionListener="#{controlVigenciaAficion.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border : none " ajax="false" actionListener="#{controlVigenciaAficion.exportXLS()}" />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border : none " ajax="false" actionListener="#{controlVigenciaAficion.exportXLS()}" />
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border : none " actionListener="#{controlVigenciaAficion.limpiarNuevaVigenciaAficion()}" ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border : none " actionListener="#{controlVigenciaAficion.limpiarNuevaVigenciaAficion()}" ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosVigenciaExportar" fileName="VigenciasAficionesXML" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border : none " actionListener="#{controlVigenciaAficion.exportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border : none " actionListener="#{controlVigenciaAficion.exportPDF()}" ajax="false"/>
                                 <p:tooltip for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border : none " oncomplete="NuevoRegistroVigencias.show()" update=":formularioDialogos:nuevaVigencias" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border : none " oncomplete="NuevoRegistroVigencias.show()" update=":formularioDialogos:nuevaVigencias" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border : none " actionListener="#{controlVigenciaAficion.borrarVigenciaAficion()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border : none " actionListener="#{controlVigenciaAficion.borrarVigenciaAficion()}" process="@this"/>  
                                 <p:tooltip for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border : none " actionListener="#{controlVigenciaAficion.duplicarVigenciaAficionM()}"  process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border : none " actionListener="#{controlVigenciaAficion.duplicarVigenciaAficionM()}"  process="@this"/>  
                                 <p:tooltip for="duplicar" value="#{msg['duplicar']}" />
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border : none " actionListener="#{controlVigenciaAficion.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border : none " actionListener="#{controlVigenciaAficion.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
                                 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border : none " actionListener="#{controlVigenciaAficion.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border : none " actionListener="#{controlVigenciaAficion.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border : none " actionListener="#{controlVigenciaAficion.salir()}" action="vigAfiEmplInd" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border : none " actionListener="#{controlVigenciaAficion.salir()}" action="vigAfiEmplInd" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar> 
@@ -83,7 +83,7 @@
                         <fieldset style="position: absolute; left: 10px; top: 80px;width: 830px; height: 375px; border-radius: 10px; ">
                             <legend style="color: blue;text-align:left"><strong>#{msg['aficionesPersona']}</strong></legend>
 
-                            <p:dataTable id="datosVigenciasAficiones" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left;width: 820px"                           
+                            <p:dataTable id="datosVigenciasAficiones" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left;width: 820px;"                           
                                          value="#{controlVigenciaAficion.listVigenciasAficiones}" scrollable="true" scrollHeight="#{controlVigenciaAficion.altoTabla}" scrollWidth="820"
                                          filteredValue="#{controlVigenciaAficion.filtrarListVigenciasAficiones}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" liveScroll="true" scrollRows="15"
@@ -221,7 +221,7 @@
 
                         <p:dialog header="#{msg['aficionM']}" widgetVar="AficionesDialogo" draggable="false" resizable="false" closable="false" id="AficionesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                            <p:dataTable id="lovAficiones" style="width: 400px" var="aficion" value="#{controlVigenciaAficion.listAficiones}" rowKey="#{aficion.secuencia}"
+                            <p:dataTable id="lovAficiones" style="width: 400px;" var="aficion" value="#{controlVigenciaAficion.listAficiones}" rowKey="#{aficion.secuencia}"
                                          selection="#{controlVigenciaAficion.aficionSeleccionada}" selectionMode="single" widgetVar="lovAficiones" scrollable="true" scrollWidth="415" scrollHeight="250"
                                          filteredValue="#{controlVigenciaAficion.filtrarListAficiones}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaAficion.activarAceptar()}" update=":form:aceptarA"/>
@@ -241,9 +241,9 @@
                             
                             <h:outputText id="infoRegistroAficion" value="#{controlVigenciaAficion.infoRegistroAficion}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
                             
-                            <p:commandButton id="aceptarA" style="position: relative; left: 230px" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlVigenciaAficion.aceptar}"  actionListener="#{controlVigenciaAficion.actualizarAficion()}"  process="@this"/>
+                            <p:commandButton id="aceptarA" style="position: relative; left: 230px;" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlVigenciaAficion.aceptar}"  actionListener="#{controlVigenciaAficion.actualizarAficion()}"  process="@this"/>
                             
-                            <p:commandButton id="atrasA" style="position: relative; left: 230px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlVigenciaAficion.cancelarCambioAficion()}"  process="@this"/>
+                            <p:commandButton id="atrasA" style="position: relative; left: 230px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlVigenciaAficion.cancelarCambioAficion()}"  process="@this"/>
                         </p:dialog> 
 
                     </p:panel>
@@ -251,63 +251,63 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" action="vigAfiEmplInd" onclick="confirmarGuardar.hide();" actionListener="#{controlVigenciaAficion.guardarSalir()}" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" action="vigAfiEmplInd" onclick="confirmarGuardar.hide();" actionListener="#{controlVigenciaAficion.cancelarSalir()}" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" action="vigAfiEmplInd" onclick="confirmarGuardar.hide();" actionListener="#{controlVigenciaAficion.guardarSalir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" action="vigAfiEmplInd" onclick="confirmarGuardar.hide();" actionListener="#{controlVigenciaAficion.cancelarSalir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
                     
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaAficion.backUpSecRegistro, 'VigenciasAficiones', 'vigenciaAfiRastro')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaAficion.backUpSecRegistro, 'VigenciasAficiones', 'vigenciaAfiRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px" closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('VigenciasAficiones', 'vigenciaAfiRastro')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('VigenciasAficiones', 'vigenciaAfiRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaAficion.backUpSecRegistro, 'VigenciasAficiones', 'vigenciaAfiRastro')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaAficion.backUpSecRegistro, 'VigenciasAficiones', 'vigenciaAfiRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px" closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px" closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="60" width="275px" closable="true">  
+                    <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="60" width="275px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
@@ -319,7 +319,7 @@
 
                     <p:dialog id="NuevoRegistroVigencias" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroVigencias" closable="false" resizable="false"  draggable="false" modal="true" height="310" width="400" style="padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevaVigencias" style="border: none;">
 
@@ -339,7 +339,7 @@
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="*#{msg['aficionN']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['aficionN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
                             <p:inputText id="nuevaDescripcion" value="#{controlVigenciaAficion.nuevaVigenciaAficion.aficion.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px;">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaAficion.asignarIndex(indice,1)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaAficion.valoresBackupAutocompletar(1, 'AFICIONES')}" />
@@ -348,25 +348,25 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 351px; top: 130px;  " id="btnNuevaDescripcion" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciaAficion.asignarIndex(indice,1)}"/>   
                             <p:watermark for="nuevaDescripcion" value="#{msg['descripcion']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeIN']}" style="position: absolute; top: 165px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['puntajeIN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
                             <p:inputText id="nuevaIndividual" value="#{controlVigenciaAficion.nuevaVigenciaAficion.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 160px;">
                                 <p:ajax event="change" update="nuevaIndividual"/>
                             </p:inputText>
                             <p:watermark for="nuevaIndividual" value="#{msg['puntajeI']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeCIN']}" style="position: absolute; top: 195px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['puntajeCIN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
                             <p:inputText id="nuevaGIndividual" value="#{controlVigenciaAficion.nuevaVigenciaAficion.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 190px;">
                                 <p:ajax event="change" update="nuevaGIndividual"/>
                             </p:inputText>
                             <p:watermark for="nuevaGIndividual" value="#{msg['puntajeCI']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeGN']}" style="position: absolute; top: 225px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['puntajeGN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
                             <p:inputText id="nuevaGrupal" value="#{controlVigenciaAficion.nuevaVigenciaAficion.valorcuantitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 220px;">
                                 <p:ajax event="change" update="nuevaGrupal"/>
                             </p:inputText>
                             <p:watermark for="nuevaGrupal" value="#{msg['puntajeG']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeCGN']}" style="position: absolute; top: 255px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['puntajeCGN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
                             <p:inputText id="nuevaCGrupal" value="#{controlVigenciaAficion.nuevaVigenciaAficion.valorcualitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 250px;">
                                 <p:ajax event="change" update="nuevaCGrupal"/>
                             </p:inputText>
@@ -380,7 +380,7 @@
 
                     <p:dialog id="DuplicarRegistroVigencias" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroVigencias" closable="false" resizable="false"  draggable="false" modal="true" height="310" width="400" style="padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarVigencias" style="border: none;">
 
@@ -403,7 +403,7 @@
                             </div>
 
 
-                            <strong><h:outputText value="*#{msg['aficionN']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['aficionN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
                             <p:inputText id="duplicarDescripcion" value="#{controlVigenciaAficion.duplicarVigenciaAficion.aficion.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px;">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaAficion.asignarIndex(indice,2)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaAficion.valoresBackupAutocompletar(2, 'AFICIONES')}" />
@@ -412,25 +412,25 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 351px; top: 130px;  " id="btnDuplicarDescripcion" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciaAficion.asignarIndex(indice,2)}"/>   
                             <p:watermark for="duplicarDescripcion" value="#{msg['descripcion']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeIN']}" style="position: absolute; top: 165px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['puntajeIN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
                             <p:inputText id="duplicarIndividual" value="#{controlVigenciaAficion.duplicarVigenciaAficion.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 160px;">
                                 <p:ajax event="change" update="duplicarIndividual"/>
                             </p:inputText>
                             <p:watermark for="duplicarIndividual" value="#{msg['puntajeI']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeCIN']}" style="position: absolute; top: 195px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['puntajeCIN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
                             <p:inputText id="duplicarGIndividual" value="#{controlVigenciaAficion.duplicarVigenciaAficion.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 190px;">
                                 <p:ajax event="change" update="duplicarGIndividual"/>
                             </p:inputText>
                             <p:watermark for="duplicarGIndividual" value="#{msg['puntajeCI']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeGN']}" style="position: absolute; top: 225px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['puntajeGN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
                             <p:inputText id="duplicarGrupal" value="#{controlVigenciaAficion.duplicarVigenciaAficion.valorcuantitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 220px;">
                                 <p:ajax event="change" update="duplicarGrupal"/>
                             </p:inputText>
                             <p:watermark for="duplicarGrupal" value="#{msg['puntajeG']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeCGN']}" style="position: absolute; top: 255px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['puntajeCGN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
                             <p:inputText id="duplicarCGrupal" value="#{controlVigenciaAficion.duplicarVigenciaAficion.valorcualitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 250px;">
                                 <p:ajax event="change" update="duplicarCGrupal"/>
                             </p:inputText>
@@ -442,36 +442,36 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicialD" header="#{msg['editarFechaInicialD']}" widgetVar="editarFechaInicialD" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlVigenciaAficion.editarVigenciaAficion.fechainicial}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                    <p:dialog id="editarFechaInicialD" header="#{msg['editarFechaInicialD']}" widgetVar="editarFechaInicialD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlVigenciaAficion.editarVigenciaAficion.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalD" header="#{msg['editarFechaFinalD']}" widgetVar="editarFechaFinalD" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlVigenciaAficion.editarVigenciaAficion.fechafinal}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                    <p:dialog id="editarFechaFinalD" header="#{msg['editarFechaFinalD']}" widgetVar="editarFechaFinalD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlVigenciaAficion.editarVigenciaAficion.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionD" header="#{msg['editarDescripcionD']}" widgetVar="editarDescripcionD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlVigenciaAficion.editarVigenciaAficion.aficion.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarDescripcionD" header="#{msg['editarDescripcionD']}" widgetVar="editarDescripcionD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlVigenciaAficion.editarVigenciaAficion.aficion.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarIndividualD" header="#{msg['editarIndividualD']}" widgetVar="editarIndividualD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.tipocc.nombrecontrolVigenciaAficion.editarVigenciaAficion.valorcuantitativo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarIndividualD" header="#{msg['editarIndividualD']}" widgetVar="editarIndividualD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.tipocc.nombrecontrolVigenciaAficion.editarVigenciaAficion.valorcuantitativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCIndividualD" header="#{msg['editarCIndividualD']}" widgetVar="editarCIndividualD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlVigenciaAficion.editarVigenciaAficion.valorcualitativo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarCIndividualD" header="#{msg['editarCIndividualD']}" widgetVar="editarCIndividualD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlVigenciaAficion.editarVigenciaAficion.valorcualitativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarGrupalD" header="#{msg['editarGrupalD']}" widgetVar="editarGrupalD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlVigenciaAficion.editarVigenciaAficion.valorcuantitativogrupo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarGrupalD" header="#{msg['editarGrupalD']}" widgetVar="editarGrupalD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlVigenciaAficion.editarVigenciaAficion.valorcuantitativogrupo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCGrupalD" header="#{msg['editarCGrupalD']}" widgetVar="editarCGrupalD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlVigenciaAficion.editarVigenciaAficion.valorcualitativogrupo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarCGrupalD" header="#{msg['editarCGrupalD']}" widgetVar="editarCGrupalD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlVigenciaAficion.editarVigenciaAficion.valorcualitativogrupo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>

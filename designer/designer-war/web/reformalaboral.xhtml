@@ -23,7 +23,7 @@
                         <fieldset style="position: absolute; left: 10px; top: 65px;width: 830px; height: 205px; border-radius: 10px; ">
                             <legend style="color: blue"><strong>#{msg['reformaLaboral']}</strong></legend>
 
-                            <p:dataTable id="datosReformaLaboral" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left;width: 810px"                           
+                            <p:dataTable id="datosReformaLaboral" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left;width: 810px;"                           
                                          value="#{controlReformaLaboral.listaReformasLaborales}" scrollable="true" scrollHeight="#{controlReformaLaboral.altoTablaReforma}"  scrollWidth="825"
                                          filteredValue="#{controlReformaLaboral.filtrarListaReformasLaborales}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" selection="#{controlReformaLaboral.reformaActualTabla}" selectionMode="single"
@@ -80,55 +80,55 @@
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; " actionListener="#{controlReformaLaboral.guardarGeneral()}" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlReformaLaboral.guardarGeneral()}" process="@this" />
                                 <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlReformaLaboral.editarCelda()}" process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlReformaLaboral.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlReformaLaboral.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlReformaLaboral.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " ajax="false" actionListener="#{controlReformaLaboral.validarExportXLS()}" />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlReformaLaboral.validarExportXLS()}" />
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlReformaLaboral.exportXML()}" fileName="#{controlReformaLaboral.nombreXML}" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlReformaLaboral.validarExportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlReformaLaboral.validarExportPDF()}" ajax="false"/>
                                 <p:tooltip for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlReformaLaboral.dialogoNuevoRegistro()}" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlReformaLaboral.dialogoNuevoRegistro()}" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlReformaLaboral.verificarRegistroBorrar()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlReformaLaboral.verificarRegistroBorrar()}" process="@this"/>  
                                 <p:tooltip for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlReformaLaboral.verificarRegistroDuplicar()}" process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlReformaLaboral.verificarRegistroDuplicar()}" process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlReformaLaboral.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlReformaLaboral.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
                                 
                                 <p:separator style="position: relative; top: -9px"/> 
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlReformaLaboral.cancelarModificacionGeneral()}"   process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlReformaLaboral.cancelarModificacionGeneral()}"   process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                                 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlReformaLaboral.cancelarYSalir()}" action="emplRefLab" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlReformaLaboral.cancelarYSalir()}" action="emplRefLab" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                                 
                                 
@@ -217,17 +217,17 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlReformaLaboral.guardarGeneral()}"  style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlReformaLaboral.cancelarModificacionGeneral()}" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlReformaLaboral.guardarGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlReformaLaboral.cancelarModificacionGeneral()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
                     
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlReformaLaboral.guardarYSalir()}" action="emplRefLab" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlReformaLaboral.cancelarYSalir()}" action="emplRefLab" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 315px" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlReformaLaboral.guardarYSalir()}" action="emplRefLab" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlReformaLaboral.cancelarYSalir()}" action="emplRefLab" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 315px;" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="false" modal="true" height="95" width="430px">
@@ -236,94 +236,94 @@
                         <p:commandButton value="#{msg['detalleReforma']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 200px; top: 50px;" actionListener="#{controlReformaLaboral.verificarRastroDetalleReformaLaboral()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlReformaLaboral.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlReformaLaboral.backUp, controlReformaLaboral.nombreTablaRastro , 'rastroReformaLab')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlReformaLaboral.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlReformaLaboral.backUp, controlReformaLaboral.nombreTablaRastro , 'rastroReformaLab')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlReformaLaboral.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px" closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlReformaLaboral.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlReformaLaboral.nombreTablaRastro , 'rastroReformaLab')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlReformaLaboral.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlReformaLaboral.nombreTablaRastro , 'rastroReformaLab')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlReformaLaboral.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlReformaLaboral.backUp, controlReformaLaboral.nombreTablaRastro , 'rastroReformaLab')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlReformaLaboral.backUp, controlReformaLaboral.nombreTablaRastro , 'rastroReformaLab')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorDatosNullReformaLaboral" header="#{msg['error']}" widgetVar="errorDatosNullReformaLaboral"  resizable="false" draggable="false" modal="true" height="60" width="275px" closable="true">  
+                    <p:dialog id="errorDatosNullReformaLaboral" header="#{msg['error']}" widgetVar="errorDatosNullReformaLaboral"  resizable="false" draggable="false" modal="true" height="60" width="275px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullReformaLaboral']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorNombreReformaLaboral" header="#{msg['error']}" widgetVar="errorNombreReformaLaboral"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorNombreReformaLaboral" header="#{msg['error']}" widgetVar="errorNombreReformaLaboral"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorNombreReformaLaboral']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorDatosNullDetalleReforma" header="#{msg['error']}" widgetVar="errorDatosNullDetalleReforma"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorDatosNullDetalleReforma" header="#{msg['error']}" widgetVar="errorDatosNullDetalleReforma"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullDetalleReforma']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorTipoPagoDetalleReforma" header="#{msg['error']}" widgetVar="errorTipoPagoDetalleReforma"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorTipoPagoDetalleReforma" header="#{msg['error']}" widgetVar="errorTipoPagoDetalleReforma"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTipoPagoDetalleReforma']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorCodigoClonado" header="#{msg['error']}" widgetVar="errorCodigoClonado"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorCodigoClonado" header="#{msg['error']}" widgetVar="errorCodigoClonado"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorCodigoClonado']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorClonadoReforma" header="#{msg['error']}" widgetVar="errorClonadoReforma"  resizable="false" draggable="false" modal="true" height="60" width="300px" closable="true">  
+                    <p:dialog id="errorClonadoReforma" header="#{msg['error']}" widgetVar="errorClonadoReforma"  resizable="false" draggable="false" modal="true" height="60" width="300px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorClonadoReforma']}" style="position: absolute; left: 70px; top: 10px; width: 210px; font-weight:bold;" />
                     </p:dialog>
 
 
-                    <p:dialog id="continuarOperacionClonado" header="#{msg['atencion']}" widgetVar="continuarOperacionClonado"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
+                    <p:dialog id="continuarOperacionClonado" header="#{msg['atencion']}" widgetVar="continuarOperacionClonado"  resizable="false" draggable="false" modal="true" height="95" width="400px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['continuarOperacionClonado']}" style="position: absolute; left: 100px; top: 20px; width: 300px" />
-                        <p:commandButton value="#{msg['si']}" onclick="continuarOperacionClonado.hide();" style="position: absolute; top: 60px; left: 215px" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="continuarOperacionClonado.hide();" style="position: absolute; top: 60px; left: 255px" process="@this" />
+                        <h:outputText value="#{msg['continuarOperacionClonado']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['si']}" onclick="continuarOperacionClonado.hide();" style="position: absolute; top: 60px; left: 215px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="continuarOperacionClonado.hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
                     </p:dialog>
 
 
                     <p:dialog header="#{msg['reformaLaboralD']}" widgetVar="ReformaLaboralDialogo" draggable="false" resizable="false" closable="false" id="ReformaLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                        <p:dataTable id="lovReformaLaboral" style="width: 400px" var="reforma" value="#{controlReformaLaboral.lovReformasLaborales}" rowKey="#{reforma.secuencia}"
+                        <p:dataTable id="lovReformaLaboral" style="width: 400px;" var="reforma" value="#{controlReformaLaboral.lovReformasLaborales}" rowKey="#{reforma.secuencia}"
                                      selection="#{controlReformaLaboral.reformaLaboralSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovReformaLaboral" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlReformaLaboral.filtrarLovReformasLaborales}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlReformaLaboral.activarAceptar()}" update=":form:aceptarRL"/>
@@ -348,43 +348,43 @@
                         
                         <h:outputText id="infoRegistroReforma" value="#{controlReformaLaboral.infoRegistroReforma}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
                         
-                        <p:commandButton id="aceptarRL" icon="ui-icon-check" style="position: relative; left: 230px" value="#{msg['aceptar']}" disabled="#{controlReformaLaboral.aceptar}"   actionListener="#{controlReformaLaboral.seleccionarReformaLaboralClonar()}"  process="@this"/>
+                        <p:commandButton id="aceptarRL" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlReformaLaboral.aceptar}"   actionListener="#{controlReformaLaboral.seleccionarReformaLaboralClonar()}"  process="@this"/>
                         
-                        <p:commandButton id="atrasRL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px" value="#{msg['atras']}" actionListener="#{controlReformaLaboral.cancelarReformaLaboralClonar()}" process="@this"/>
+                        <p:commandButton id="atrasRL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlReformaLaboral.cancelarReformaLaboralClonar()}" process="@this"/>
                     </p:dialog>
 
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlReformaLaboral.activarCtrlF11()}"/> 
                 </h:form>
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="false" modal="true" height="80" width="275px"  closable="true">  
+                    <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="false" modal="true" height="80" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="false" modal="true" height="95" width="430px"  >
+                    <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="false" modal="true" height="95" width="430px;"  >
                         <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
                         <p:commandButton value="#{msg['reformaLaboral']}" onclick="verificarNuevoRegistro.hide();" style="position: absolute; left: 30px; top: 50px;" oncomplete="NuevoRegistroReformaLaboral.show()" update=":formularioDialogos:nuevoReformaLaboral"  process="@this" />
                         <p:commandButton value="#{msg['detalleReforma']}" onclick="verificarNuevoRegistro.hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="NuevoRegistroDetalleReformaLaboral.show()" update=":formularioDialogos:nuevoDetalleReformaLaboral"  process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="NuevoRegistroReformaLaboral" header="#{msg['nuevoregistroRL']}" widgetVar="NuevoRegistroReformaLaboral" closable="false" resizable="false"  draggable="false" modal="true" height="200" width="400" style=" padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoRL']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevoReformaLaboral" style="border: none;">
 
-                            <strong><h:outputText value="*#{msg['codigoNRL']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['codigoNRL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <p:inputText id="nuevoReformaLaboralCodigo" onclick="select();" maxlength="30" value="#{controlReformaLaboral.nuevoReformaLaboral.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="nuevoReformaLaboralCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="nuevoReformaLaboralCodigo"/>
 
-                            <strong><h:outputText value="*#{msg['nombreNRL']}" style="position: absolute; top: 105px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['nombreNRL']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <p:inputText id="nuevoReformaLaboralNombre" maxlength="30" onclick="select();" value="#{controlReformaLaboral.nuevoReformaLaboral.nombre}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="nuevoReformaLaboralNombre"/>
                             </p:inputText>
                             <p:watermark value="#{msg['nombre']}" for="nuevoReformaLaboralNombre"/>
 
-                            <strong><h:outputText value="#{msg['intNRL']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['intNRL']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
                             <p:selectOneMenu id="nuevoReformaLaboralInt" value="#{controlReformaLaboral.nuevoReformaLaboral.integral}"  style="width: 100px; font-weight: bold;position: absolute; left: 200px; top: 130px;">  
                                 <f:selectItem itemLabel="#{msg['si']}" itemValue="S" />  
                                 <f:selectItem itemLabel="#{msg['no']}" itemValue="N" />  
@@ -399,24 +399,24 @@
 
                     <p:dialog id="DuplicarRegistroReformaLaboral" header="#{msg['duplicarregistroRL']}" widgetVar="DuplicarRegistroReformaLaboral" closable="false" resizable="false"  draggable="false" modal="true" height="200" width="400" style="padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoRL']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarReformaLaboral" style="border: none;">
 
 
-                            <strong><h:outputText value="*#{msg['codigoNRL']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['codigoNRL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <p:inputText id="duplicarReformaLaboralCodigo" onclick="select();" maxlength="30" value="#{controlReformaLaboral.duplicarReformaLaboral.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="duplicarReformaLaboralCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="duplicarReformaLaboralCodigo"/>
 
-                            <strong><h:outputText value="*#{msg['nombreNRL']}" style=" position: absolute; top: 105px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['nombreNRL']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
                             <p:inputText id="duplicarReformaLaboralNombre" maxlength="30" onclick="select();" value="#{controlReformaLaboral.duplicarReformaLaboral.nombre}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="duplicarReformaLaboralNombre"/>
                             </p:inputText>
                             <p:watermark value="#{msg['nombre']}" for="duplicarReformaLaboralNombre"/>
 
-                            <strong><h:outputText value="#{msg['intNRL']}" style="position: absolute; top: 135px; left: 50px" /></strong>
+                            <strong><h:outputText value="#{msg['intNRL']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
                             <p:selectOneMenu id="duplicarReformaLaboralInt" value="#{controlReformaLaboral.duplicarReformaLaboral.integral}"  style="width: 100px; font-weight: bold;position: absolute; left: 200px; top: 130px;">  
                                 <f:selectItem itemLabel="#{msg['si']}" itemValue="S" />  
                                 <f:selectItem itemLabel="#{msg['no']}" itemValue="N" />  
@@ -431,16 +431,16 @@
                     </p:dialog>
 
                     <p:dialog id="NuevoRegistroDetalleReformaLaboral" header="#{msg['nuevoregistroDRL']}" widgetVar="NuevoRegistroDetalleReformaLaboral" closable="false" resizable="false"  draggable="false" modal="true" height="170" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoDRL']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoDRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevoDetalleReformaLaboral" style="border: none;">
 
-                            <strong><h:outputText value="*#{msg['tipoPagoNDRL']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['tipoPagoNDRL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <p:inputText id="nuevoTipoPagoDetalle" onclick="select();" maxlength="10"  value="#{controlReformaLaboral.nuevoDetalleReformaLaboral.tipopago}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="nuevoTipoPagoDetalle" />
                             </p:inputText>
                             <p:watermark value="#{msg['tipoPago']}" for="nuevoTipoPagoDetalle"/>
 
-                            <strong><h:outputText value="*#{msg['factorNDRL']}" style="position: absolute; top: 105px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['factorNDRL']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <p:inputText id="nuevoFactorDetalle" onclick="select();" value="#{controlReformaLaboral.nuevoDetalleReformaLaboral.factor}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="nuevoFactorDetalle" />
                             </p:inputText>
@@ -454,16 +454,16 @@
                     </p:dialog>
 
                     <p:dialog id="DuplicarRegistroDetalleReformaLaboral" header="#{msg['duplicarregistroDRL']}" widgetVar="DuplicarRegistroDetalleReformaLaboral" closable="false" resizable="false"  draggable="false" modal="true" height="170" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoDRL']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevoDRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="duplicarDetalleReformaLaboral" style="border: none;">
 
-                            <strong><h:outputText value="*#{msg['tipoPagoNDRL']}" style="position: absolute; top: 75px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['tipoPagoNDRL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <p:inputText id="duplicarTipoPagoDetalle" maxlength="10" onclick="select();" value="#{controlReformaLaboral.duplicarDetalleReformaLaboral.tipopago}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="duplicarTipoPagoDetalle" />
                             </p:inputText>
                             <p:watermark value="#{msg['tipoPago']}" for="duplicarTipoPagoDetalle"/>
 
-                            <strong><h:outputText value="*#{msg['factorNDRL']}" style="position: absolute; top: 105px; left: 50px" /></strong>
+                            <strong><h:outputText value="*#{msg['factorNDRL']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <p:inputText id="duplicarFactorDetalle" onclick="select();" value="#{controlReformaLaboral.duplicarDetalleReformaLaboral.factor}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="duplicarFactorDetalle" />
                             </p:inputText>
@@ -478,22 +478,22 @@
 
                     <!-- editar celdas reforma laboral -->
 
-                    <p:dialog id="editarCodigoReformaLaboralD" header="#{msg['editarCodigoReformaLaboralD']}" widgetVar="editarCodigoReformaLaboralD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlReformaLaboral.editarReformaLaboral.codigo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarCodigoReformaLaboralD" header="#{msg['editarCodigoReformaLaboralD']}" widgetVar="editarCodigoReformaLaboralD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlReformaLaboral.editarReformaLaboral.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNombreReformaLaboralD" header="#{msg['editarNombreReformaLaboralD']}" widgetVar="editarNombreReformaLaboralD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlReformaLaboral.editarReformaLaboral.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarNombreReformaLaboralD" header="#{msg['editarNombreReformaLaboralD']}" widgetVar="editarNombreReformaLaboralD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlReformaLaboral.editarReformaLaboral.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- editar celdas detalles reforma laboral -->
 
-                    <p:dialog id="editarTipoPagoDetalleD" header="#{msg['editarTipoPagoDetalleD']}" widgetVar="editarTipoPagoDetalleD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlReformaLaboral.editarDetalleReformaLaboral.tipopago}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarTipoPagoDetalleD" header="#{msg['editarTipoPagoDetalleD']}" widgetVar="editarTipoPagoDetalleD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlReformaLaboral.editarDetalleReformaLaboral.tipopago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFactorDetalleD" header="#{msg['editarFactorDetalleD']}" widgetVar="editarFactorDetalleD" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlReformaLaboral.editarDetalleReformaLaboral.factor}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarFactorDetalleD" header="#{msg['editarFactorDetalleD']}" widgetVar="editarFactorDetalleD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlReformaLaboral.editarDetalleReformaLaboral.factor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
 

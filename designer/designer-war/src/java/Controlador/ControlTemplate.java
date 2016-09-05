@@ -73,7 +73,7 @@ public class ControlTemplate implements Serializable {
             if (rutaFoto != null) {
                 String bckRuta = rutaFoto;
                 try {
-                    rutaFoto = rutaFoto + actualUsuario.getAlias() + ".jpg";
+                    rutaFoto = rutaFoto + actualUsuario.getAlias() + ".png";
                     fis = new FileInputStream(new File(rutaFoto));
                     fotoUsuario = new DefaultStreamedContent(fis, "image/jpg");
                 } catch (FileNotFoundException e) {
@@ -139,7 +139,7 @@ public class ControlTemplate implements Serializable {
                     logoEmpresa = null;
                     fis = null;
                     rutaFoto = administrarTemplate.rutaFotoUsuario() + "sinLogo.png";
-                    //rutaFoto = "Imagenes/" + "sinLogo.png";
+                    //rutaFoto = "Imagenes/Iconos/" + "sinLogo.png";
                     System.out.println("ruta sin logo: "+rutaFoto);
                     fis = new FileInputStream(new File(rutaFoto));
                     logoEmpresa = new DefaultStreamedContent(fis, "image/png");

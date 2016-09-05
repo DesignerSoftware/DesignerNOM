@@ -429,7 +429,7 @@ public class ControlTiposEntidades implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 266;
+            tamano = 270;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTipoEntidad:codigo");
             codigo.setFilterStyle("width: 85%");
             nombre = (Column) c.getViewRoot().findComponent("form:datosTipoEntidad:nombre");

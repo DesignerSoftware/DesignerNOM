@@ -253,13 +253,13 @@ public class ControlDepartamentos implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosDepartamentos:codigo");
-            codigo.setFilterStyle("width: 70px");
+            codigo.setFilterStyle("width: 85%");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosDepartamentos:descripcion");
-            descripcion.setFilterStyle("width: 280px");
+            descripcion.setFilterStyle("width: 85%");
             pais = (Column) c.getViewRoot().findComponent("form:datosDepartamentos:pais");
-            pais.setFilterStyle("width: 230px");
+            pais.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosDepartamentos");
             System.out.println("Activar");
             bandera = 1;

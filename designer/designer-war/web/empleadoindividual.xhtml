@@ -17,58 +17,58 @@
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" > 
                         <p:toolbar styleClass="cssToolbar" >   
                             <p:toolbarGroup align="left"> 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none;"
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border:none;"
                                                  actionListener="#{controlEmpleadoIndividual.guardarCambios()}" process="@this" />
-                                <p:tooltip style="font-size: 12px" for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none;" 
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border:none;" 
                                                  actionListener="#{controlVigenciasCargos.editarCelda()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="editar" value="#{msg['editar']}" />
+                                <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none; " 
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border:none; " 
                                                  actionListener="#{controlEmpleadoIndividual.listaValoresBoton()}" process="@this"/> 
-                                <p:tooltip style="font-size: 12px" for="listaValores" value="#{msg['lista']}" />
+                                <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none; "/>
+                                <p:commandButton id="filtrar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/embudo.png); border:none; "/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px;" />
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none; "
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border:none; "
                                                  ajax="false" actionListener="#{controlEmpleadoIndividual.exportXLS()}" />
-                                <p:tooltip style="font-size: 12px" for="exportarXLS" value="#{msg['xls']}" />
+                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none;" ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border:none;" ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosEmpleadoExportar" fileName="HojaVidaEmpleadoXML" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip style="font-size: 12px" for="exportarXML" value="#{msg['xml']}" />
+                                <p:tooltip style="font-size: 12px;" for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none;"
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border:none;"
                                                  actionListener="#{controlEmpleadoIndividual.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="font-size: 12px" for="exportarPDF" value="#{msg['pdf']}" />
+                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none;"/> 
+                                <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border:none;"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none; "/>  
+                                <p:commandButton id="eliminar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/delete.png); border:none; "/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none; "/>  
+                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border:none; "/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none; " 
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border:none; " 
                                                  actionListener="#{controlEmpleadoIndividual.verificarRastro()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="rastro" value="#{msg['rastro']}"/>
+                                <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none; "
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border:none; "
                                                  actionListener="#{controlEmpleadoIndividual.refrescar()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none; " 
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border:none; " 
                                                  actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nomina" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
@@ -507,7 +507,7 @@
                                 <p:inputText id="demandas" value="#{controlEmpleadoIndividual.demandasP}" readonly="true" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none;"/>
 
                                 <p:commandButton id="btnVisitasDomiciliarias" value="" style="background-image: url(Imagenes/Iconos/visitadomiciliaria.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 164px; border:none;" process="@this"/>
-                                <h:commandLink value="#{msg['visitasdomiciliarias']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 164px" />
+                                <h:commandLink value="#{msg['visitasdomiciliarias']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 164px;" />
                                 <p:inputText id="visitasDomiciliarias" value="#{controlEmpleadoIndividual.visitasDomiciliariasP}" readonly="true" style="position: absolute; left: 45px; top: 179px; width: 140px; box-shadow: none; border: none;"/>
                             </fieldset>
 
@@ -535,7 +535,7 @@
 
                                 <p:commandButton id="btnFamiliares" value="" style="background-image: url(Imagenes/Iconos/familiar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; left: 211px; border:none;" 
                                                  process="@this"/>
-                                <h:commandLink value="#{msg['familiares']}" style="position: absolute; left: 255px; font-weight: bold; color: #14388B; top: 41px" />
+                                <h:commandLink value="#{msg['familiares']}" style="position: absolute; left: 255px; font-weight: bold; color: #14388B; top: 41px;" />
                                 <p:inputText id="familiares" value="#{controlEmpleadoIndividual.familiaresP}" readonly="true" style="position: absolute; left: 249px; top: 56px; width: 140px; box-shadow: none; border: none;"/>
                             </fieldset>
                         </fieldset>
@@ -574,7 +574,7 @@
                 <h:form id="formDialogos">
                     <p:dialog id="TiposDocumentosDialogo" header="#{msg['tiposdedocumentosTD']}" widgetVar="TiposDocumentosDialogo" draggable="false" resizable="false" closable="false"   
                               showEffect="fade" hideEffect="fade" width="431" modal="true" style="position: absolute; top: 0px; left: 0px;">
-                        <p:dataTable id="lovTiposDocumentos" style="width: 400px" var="tipoDocumento" value="#{controlEmpleadoIndividual.listaTiposDocumentos}" rowKey="#{tipoDocumento.secuencia}"
+                        <p:dataTable id="lovTiposDocumentos" style="width: 400px;" var="tipoDocumento" value="#{controlEmpleadoIndividual.listaTiposDocumentos}" rowKey="#{tipoDocumento.secuencia}"
                                      selection="#{controlEmpleadoIndividual.seleccionTipoDocumento}" selectionMode="single" widgetVar="lovTiposDocumentos" scrollable="true" scrollWidth="416" scrollHeight="180"
                                      filteredValue="#{controlEmpleadoIndividual.filtradoListaTiposDocumentos}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formDialogos:aceptarTD"/>
@@ -606,7 +606,7 @@
                     <!-- ********************************************************************** -->
                     <p:dialog id="CiudadesDialogo" header="#{controlEmpleadoIndividual.cabezeraDialogoCiudad}" widgetVar="CiudadesDialogo" draggable="false" resizable="false" closable="false" 
                               showEffect="fade" hideEffect="fade" width="440" modal="true">
-                        <p:dataTable id="lovCiudades" style="width: 400px" var="ciudad" value="#{controlEmpleadoIndividual.listaCiudades}" rowKey="#{ciudad.secuencia}"
+                        <p:dataTable id="lovCiudades" style="width: 400px;" var="ciudad" value="#{controlEmpleadoIndividual.listaCiudades}" rowKey="#{ciudad.secuencia}"
                                      selection="#{controlEmpleadoIndividual.seleccionCiudades}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="418" scrollHeight="250"
                                      filteredValue="#{controlEmpleadoIndividual.filtradoListaCiudades}" emptyMessage="#{msg['lovvacio']}" liveScroll="true"
                                      scrollRows="15">              
@@ -645,7 +645,7 @@
                     <!-- ********************************************************************** -->
                     <p:dialog id="CargosDialogo" header="#{msg['cargopostuladoCP']}" widgetVar="CargosDialogo" draggable="false" resizable="false" closable="false"   
                               showEffect="fade" hideEffect="fade" width="487" modal="true" >
-                        <p:dataTable id="lovCargos" style="width: 446px" var="cargo" value="#{controlEmpleadoIndividual.listaCargos}" rowKey="#{cargo.secuencia}"
+                        <p:dataTable id="lovCargos" style="width: 446px;" var="cargo" value="#{controlEmpleadoIndividual.listaCargos}" rowKey="#{cargo.secuencia}"
                                      selection="#{controlEmpleadoIndividual.seleccionCargo}" selectionMode="single" widgetVar="lovCargos" scrollable="true" scrollWidth="464" scrollHeight="250"
                                      filteredValue="#{controlEmpleadoIndividual.filtradoListaCargos}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formDialogos:aceptarCA"/>
@@ -673,7 +673,7 @@
                         <p:commandButton id="atrasCA" icon="ui-icon-arrowreturnthick-1-w"  style="position: relative; left: 101px; width: 98px;" value="#{msg['atras']}"  actionListener="#{controlEmpleadoIndividual.cancelarSeleccionCargo()}"  process="@this"/>
                     </p:dialog> 
                     <!-- ********************************************************************** -->
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro" resizable="false" draggable="false" modal="true" height="95" width="350px" closable="false" 
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro" resizable="false" draggable="false" modal="true" height="95" width="350px;" closable="false" 
                               style="font-size: 12px;">  
                         <div style="float: left;">
                             <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
@@ -687,7 +687,7 @@
                         </div>
                     </p:dialog>
                     <!-- ********************************************************************** -->
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px" 
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;" 
                               style="font-size: 12px;" closable="false">  
                         <div style="float: left;">
                             <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
@@ -701,7 +701,7 @@
                         </div>
                     </p:dialog>
                     <!-- ********************************************************************** -->
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" 
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;" 
                               style="font-size: 12px;" closable="true">  
                         <div style="float: left;">
                             <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
@@ -711,7 +711,7 @@
                         </div>
                     </p:dialog>
                     <!-- ********************************************************************** -->
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" 
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" 
                               style="font-size: 12px; " closable="true">  
                         <div style="float: left;">
                             <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
@@ -721,7 +721,7 @@
                         </div>
                     </p:dialog>
                     <!-- ********************************************************************** -->
-                    <p:dialog id="errorTablaConRastro" header="#{msg['error']}" widgetVar="errorTablaConRastro" resizable="false" draggable="false" modal="true" height="95" width="350px" 
+                    <p:dialog id="errorTablaConRastro" header="#{msg['error']}" widgetVar="errorTablaConRastro" resizable="false" draggable="false" modal="true" height="95" width="350px;" 
                               style="font-size: 12px;" closable="false">  
                         <div style="float: left;">
                             <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
@@ -735,7 +735,7 @@
                         </div>
                     </p:dialog>
                     <!-- ********************************************************************** -->
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro" resizable="false" draggable="false" modal="true" height="60" width="285px" 
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro" resizable="false" draggable="false" modal="true" height="60" width="285px;" 
                               style="font-size: 12px;" closable="true">  
                         <div style="float: left;">
                             <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
@@ -745,7 +745,7 @@
                         </div>
                     </p:dialog>
                     <!-- ********************************************************************** -->
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px" 
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" 
                               style="font-size: 12px;" closable="true">  
                         <div style="float: left;">
                             <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
@@ -755,7 +755,7 @@
                         </div>
                     </p:dialog>
                     <!-- ********************************************************************** -->
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px" 
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;" 
                               style="font-size: 12px;" closable="true">  
                         <div style="float: left;">
                             <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
@@ -765,7 +765,7 @@
                         </div>
                     </p:dialog>
                     <!-- ********************************************************************** -->
-                    <p:dialog id="subirFoto" header="#{msg['subirfotoempleado']}" widgetVar="subirFoto" resizable="false" draggable="false" modal="true" height="80" width="350px" closable="true"
+                    <p:dialog id="subirFoto" header="#{msg['subirfotoempleado']}" widgetVar="subirFoto" resizable="false" draggable="false" modal="true" height="80" width="350px;" closable="true"
                               >  
                         <div style="text-align: center;">
                             <h:outputText value="#{msg['infCargueFoto']}" style="position: relative; left: 0px; top: 0px; font-weight: bold; width: 335px"/>
@@ -777,7 +777,7 @@
                         </div>
                     </p:dialog>
 
-                    <p:dialog id="validarPerfilProfesional" header="#{msg['error']}" widgetVar="validarPerfilProfesional"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="validarPerfilProfesional" header="#{msg['error']}" widgetVar="validarPerfilProfesional"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;" />
                         <h:outputText value="#{msg['validarPerfilProfesional']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>

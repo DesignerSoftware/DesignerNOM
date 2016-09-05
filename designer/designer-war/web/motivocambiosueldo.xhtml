@@ -48,7 +48,7 @@
                                     </p:cellEditor>
 
                                 </p:column>
-                                <p:column headerText="..." width="15" sortBy="#{info.estadoSueldoPromedio}"  id="estadoSueldoPromedio" filterMatchMode="contains" style="height: 12px; padding: 0px"  exportable="false">  
+                                <p:column headerText="..." width="15" sortBy="#{info.estadoSueldoPromedio}"  id="estadoSueldoPromedio" filterMatchMode="contains" style="height: 12px; padding: 0px;"  exportable="false">  
                                     <p:selectBooleanCheckbox id="sueldo" value="#{info.estadoSueldoPromedio}">  
                                         <p:ajax update="@this"  event="change" listener="#{controlMotivosCambiosSueldos.modificarMotivosCambiosSueldos(indice,'N',info.estadoSueldoPromedio)}" />  
                                     </p:selectBooleanCheckbox>   
@@ -64,52 +64,52 @@
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; "  actionListener="#{controlMotivosCambiosSueldos.guardarMotivosCambiosSueldos()}" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"  actionListener="#{controlMotivosCambiosSueldos.guardarMotivosCambiosSueldos()}" process="@this" />
                                 <p:tooltip style="" for="guardarRapido" value="Guardar" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  actionListener="#{controlMotivosCambiosSueldos.editarCelda()}" process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"  actionListener="#{controlMotivosCambiosSueldos.editarCelda()}" process="@this"/>
                                 <p:tooltip style="" for="editar" value="Editar" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "    process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"    process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="Lista de Valores" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlMotivosCambiosSueldos.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlMotivosCambiosSueldos.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="Activar filtrado" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlMotivosCambiosSueldos.exportXLS()}" ajax="false"/>
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlMotivosCambiosSueldos.exportXLS()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  actionListener="#{controlMotivosCambiosSueldos.limpiarNuevoMotivoCambioSueldo()}"  ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"  actionListener="#{controlMotivosCambiosSueldos.limpiarNuevoMotivoCambioSueldo()}"  ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosMotivoSueldoExportar" fileName="MotivosCambiosCargosXML" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlMotivosCambiosSueldos.exportPDF()}"  ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlMotivosCambiosSueldos.exportPDF()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " oncomplete="nuevoRegistroMotivoCambiosSueldos.show()" update=":formularioDialogos:nuevoMotivoCambioSueldo" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="Nuevo Motivos Cambios Cargos" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlMotivosCambiosSueldos.verificarBorrado()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlMotivosCambiosSueldos.verificarBorrado()}" process="@this"/>  
                                 <p:tooltip style="" for="eliminar" value="Eliminar Motivos Cambios Cargos" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlMotivosCambiosSueldos.duplicarMotivosCambiosSueldos()}"  process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlMotivosCambiosSueldos.duplicarMotivosCambiosSueldos()}"  process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="Duplicar Motivos Cambios Cargos" />
 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlMotivosCambiosSueldos.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlMotivosCambiosSueldos.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlMotivosCambiosSueldos.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlMotivosCambiosSueldos.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Refrescar"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " actionListener="#{controlMotivosCambiosSueldos.salir()}" action="atrasmotivocambiosueldo"  process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlMotivosCambiosSueldos.salir()}" action="atrasmotivocambiosueldo"  process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
@@ -123,9 +123,9 @@
                         <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="confirmarGuardar.hide();" action="atrasmotivocambiosueldo" actionListener="#{controlMotivosCambiosSueldos.guardarMotivosCambiosSueldos()}" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="confirmarGuardar.hide();" action="atrasmotivocambiosueldo" actionListener="#{controlMotivosCambiosSueldos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <p:commandButton value="Si" onclick="confirmarGuardar.hide();" action="atrasmotivocambiosueldo" actionListener="#{controlMotivosCambiosSueldos.guardarMotivosCambiosSueldos()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="No" onclick="confirmarGuardar.hide();" action="atrasmotivocambiosueldo" actionListener="#{controlMotivosCambiosSueldos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
 
                     </p:panel>
@@ -134,34 +134,34 @@
 
 
 
-                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="85" width="400px" style="" closable="false">  
+                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="85" width="400px;" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="Necesita : #{controlMotivosCambiosSueldos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 290px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 55px; left: 300px" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 55px; left: 300px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="77" width="330px" style="" closable="false">  
+                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="77" width="330px;" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value=" #{controlMotivosCambiosSueldos.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 40px; left: 230px" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="77" width="400px" style="" closable="false">  
+                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="77" width="400px;" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionBorrar.hide();" style="position: absolute; top: 40px; left: 300px" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="validacionBorrar.hide();" style="position: absolute; top: 40px; left: 300px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="87" width="280px" style="" closable="false">  
+                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="87" width="280px;" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Se han borrado #{controlMotivosCambiosSueldos.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="mostrarBorrados.hide();" style="position: absolute; top: 50px; left: 180px" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="mostrarBorrados.hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="false" modal="true" height="87" width="387px" style="" closable="false">  
+                    <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="false" modal="true" height="87" width="387px;" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="Para agregar es necesario adicionar: #{controlMotivosCambiosSueldos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionNuevaCentroCosto.hide();" style="position: absolute; top: 55px; left: 280px" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="validacionNuevaCentroCosto.hide();" style="position: absolute; top: 55px; left: 280px;" process="@this" />
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlMotivosCambiosSueldos.activarCtrlF11()}" /> 
 
@@ -170,48 +170,48 @@
 
                 <h:form id="formularioDialogos">
 
-                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
+                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'MOTIVOSCAMBIOSSUELDOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosCambiosSueldos.secRegistro, 'MotivosCambiosSueldos', 'motivocambiosueldo')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosCambiosSueldos.secRegistro, 'MotivosCambiosSueldos', 'motivocambiosueldo')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla MOTIVOSCAMBIOSSUELDOS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('MotivosCambiosSueldos', 'motivocambiosueldo')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('MotivosCambiosSueldos', 'motivocambiosueldo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px" style="" closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosCambiosSueldos.secRegistro, 'MotivosCambiosSueldos', 'motivocambiosueldo')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosCambiosSueldos.secRegistro, 'MotivosCambiosSueldos', 'motivocambiosueldo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" style="" closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px" style="" closable="true">  
+                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'MOTIVOSCAMBIOSSUELDOS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
@@ -219,25 +219,25 @@
 
 
 
-                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="false" modal="true" height="55" width="240" style="">  
-                        <p:inputTextarea value="#{controlMotivosCambiosSueldos.editarMotivoCambioSueldo.codigo}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                        <p:inputTextarea value="#{controlMotivosCambiosSueldos.editarMotivoCambioSueldo.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDescripcion" header="Descripción" widgetVar="editDescripcion" resizable="false" draggable="false" modal="true" height="55" width="240" style="text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlMotivosCambiosSueldos.editarMotivoCambioSueldo.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editDescripcion" header="Descripción" widgetVar="editDescripcion" resizable="false" draggable="false" modal="true" height="80" width="400" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlMotivosCambiosSueldos.editarMotivoCambioSueldo.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="nuevoRegistroMotivoCambiosSueldos" header="Nuevo Registro" widgetVar="nuevoRegistroMotivoCambiosSueldos" closable="false" resizable="false"  draggable="false" modal="true" height="187" width="310" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacion" value="Nuevo Motivo Cambio Sueldo " style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText id="informacion" value="Nuevo Motivo Cambio Sueldo " style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevoMotivoCambioSueldo" style="border: none;">
 
-                            <strong><h:outputText value="*Código: "  style="left: 10px; position: absolute; top: 60px" /></strong>
+                            <strong><h:outputText value="*Código: "  style="left: 10px; position: absolute; top: 60px;" /></strong>
                             <p:inputText id="nuevoCodigo" maxlength="4" value="#{controlMotivosCambiosSueldos.nuevoMotivoCambioSueldo.codigo}" style="text-transform: uppercase ; width: 140px; position: absolute; left: 150px; top: 55px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
 
-                            <strong><h:outputText value="*Descripción: "  style="left: 10px; position: absolute; top: 90px" /></strong>
+                            <strong><h:outputText value="*Descripción: "  style="left: 10px; position: absolute; top: 90px;" /></strong>
                             <p:inputText  id="nuevoNombre" maxlength="30" value="#{controlMotivosCambiosSueldos.nuevoMotivoCambioSueldo.nombre}" style="text-transform: uppercase ; width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
@@ -245,7 +245,7 @@
 
 
 
-                            <strong><h:outputText value="Sueldo Promedio: "  style="left: 10px; position: absolute; top: 120px" /></strong>
+                            <strong><h:outputText value="Sueldo Promedio: "  style="left: 10px; position: absolute; top: 120px;" /></strong>
                             <p:selectBooleanCheckbox id="nuevoSueldo" value="#{controlMotivosCambiosSueldos.nuevoMotivoCambioSueldo.estadoSueldoPromedio}" style="text-transform: uppercase ; width: 140px; position: absolute; left: 150px; top: 120px;">  
                                 <p:ajax update="@this"/>
                             </p:selectBooleanCheckbox>
@@ -259,16 +259,16 @@
                     </p:dialog>
 
                     <p:dialog id="duplicarRegistroMotivosCambiosSueldos" header="duplicar Registro" widgetVar="duplicarRegistroMotivosCambiosSueldos" closable="false" resizable="false"  draggable="false" modal="true" height="187" width="310" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Motivo Cambio Sueldo" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Motivo Cambio Sueldo" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarMotivosCambiosSueldos" style="border: none;">
-                            <strong><h:outputText value="*Codigo "  style="left: 10px; position: absolute; top: 60px" /></strong>
+                            <strong><h:outputText value="*Codigo "  style="left: 10px; position: absolute; top: 60px;" /></strong>
                             <p:inputText id="duplicarCodigo" maxlength="4" value="#{controlMotivosCambiosSueldos.duplicarMotivoCambioSueldo.codigo}" style="text-transform: uppercase ;width: 140px; position: absolute; left: 150px; top: 55px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 
-                            <strong><h:outputText value="*Descripción:"  style="left: 10px; position: absolute; top: 90px" /></strong>
+                            <strong><h:outputText value="*Descripción:"  style="left: 10px; position: absolute; top: 90px;" /></strong>
                             <p:inputText id="duplicarNombre" maxlength="30" value="#{controlMotivosCambiosSueldos.duplicarMotivoCambioSueldo.nombre}"  style="text-transform: uppercase ; width: 140px; position: absolute; left: 150px; top: 85px;" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>

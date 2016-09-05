@@ -156,11 +156,11 @@ public class ControlTiposAuxilios implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "308";
+            altoTabla = "310";
             codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
-            codigo.setFilterStyle("width: 80px");
+            codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
-            descripcion.setFilterStyle("width: 150px");
+            descripcion.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             bandera = 1;
         } else if (bandera == 1) {

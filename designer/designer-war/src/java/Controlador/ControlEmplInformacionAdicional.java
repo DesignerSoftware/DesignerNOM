@@ -730,15 +730,15 @@ public class ControlEmplInformacionAdicional implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla ="281";
+            altoTabla ="285";
             infoAdFechaInicial = (Column) c.getViewRoot().findComponent("form:datosInfoAdEmpleado:infoAdFechaInicial");
             infoAdFechaInicial.setFilterStyle("width: 85%");
             infoAdFechaFinal = (Column) c.getViewRoot().findComponent("form:datosInfoAdEmpleado:infoAdFechaFinal");
             infoAdFechaFinal.setFilterStyle("width: 85%");
             infoAdGrupo = (Column) c.getViewRoot().findComponent("form:datosInfoAdEmpleado:infoAdGrupo");
-            infoAdGrupo.setFilterStyle("width: 80px");
+            infoAdGrupo.setFilterStyle("width: 85%;");
             infoAdCaracter = (Column) c.getViewRoot().findComponent("form:datosInfoAdEmpleado:infoAdCaracter");
-            infoAdCaracter.setFilterStyle("width: 80px");
+            infoAdCaracter.setFilterStyle("width: 85%;");
             ////
             infoAdNumerico = (Column) c.getViewRoot().findComponent("form:datosInfoAdEmpleado:infoAdNumerico");
             infoAdNumerico.setFilterStyle("width: 85%");

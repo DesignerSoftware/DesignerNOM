@@ -526,7 +526,7 @@ public class ControlTiposTrabajadores implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "156";
+            altoTabla = "160";
             altoTablaVD = "26";
             tTCodigo = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTCodigo");
             tTCodigo.setFilterStyle("width: 85%");

@@ -304,7 +304,7 @@ public class ControlProverbio implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0 && CualTabla == 0) {
-            altoTabla = "91";
+            altoTabla = "95";
             pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
             pMensaje.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosProverbios");

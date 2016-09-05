@@ -877,17 +877,17 @@ public class ControlCategoriaEsca implements Serializable {
     public void activarCtrlF11() {
 
         if (bandera == 0) {
-            algoTabla = "178";
+            algoTabla = "180";
             categoriaCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCategoria:categoriaCodigo");
-            categoriaCodigo.setFilterStyle("width: 30px");
+            categoriaCodigo.setFilterStyle("width: 85%");
             categoriaClase = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCategoria:categoriaClase");
-            categoriaClase.setFilterStyle("width: 100px");
+            categoriaClase.setFilterStyle("width: 85%");
             categoriaDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCategoria:categoriaDescripcion");
-            categoriaDescripcion.setFilterStyle("width: 100px");
+            categoriaDescripcion.setFilterStyle("width: 85%");
             categoriaTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCategoria:categoriaTipo");
-            categoriaTipo.setFilterStyle("width: 100px");
+            categoriaTipo.setFilterStyle("width: 85%");
             categoriaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCategoria:categoriaConcepto");
-            categoriaConcepto.setFilterStyle("width: 100px");
+            categoriaConcepto.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosCategoria");
             bandera = 1;
         } else if (bandera == 1) {

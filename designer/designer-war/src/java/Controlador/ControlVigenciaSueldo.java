@@ -1710,7 +1710,7 @@ public class ControlVigenciaSueldo implements Serializable {
                 vSObservaciones.setFilterStyle("width: 85%");
                 vSRetroactivo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSRetroactivo");
                 vSRetroactivo.setFilterStyle("width: 85%");
-                altoTabla1 = "81";
+                altoTabla1 = "85";
                 RequestContext.getCurrentInstance().update("form:datosVSEmpleado");
                 bandera = 1;
             } else if (bandera == 1) {
@@ -1755,7 +1755,7 @@ public class ControlVigenciaSueldo implements Serializable {
                 vATipoEntidad.setFilterStyle("width: 85%");
                 vAValor = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAValor");
                 vAValor.setFilterStyle("width: 85%");
-                altoTabla2 = "81";
+                altoTabla2 = "85";
                 RequestContext.getCurrentInstance().update("form:datosVAVigencia");
                 banderaVA = 1;
             } else if (banderaVA == 1) {

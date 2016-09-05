@@ -920,13 +920,13 @@ public class ControlNReporteLaboral implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "161";
+            altoTabla = "165";
             codigoIR = (Column) c.getViewRoot().findComponent("form:reportesLaboral:codigoIR");
-            codigoIR.setFilterStyle("width: 25px");
+            codigoIR.setFilterStyle("width: 85%;");
             reporteIR = (Column) c.getViewRoot().findComponent("form:reportesLaboral:reporteIR");
-            reporteIR.setFilterStyle("width: 200px");
+            reporteIR.setFilterStyle("width: 85%;");
             tipoIR = (Column) c.getViewRoot().findComponent("form:reportesLaboral:tipoIR");
-            tipoIR.setFilterStyle("width: 80px");
+            tipoIR.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:reportesLaboral");
             tipoLista = 1;
             bandera = 1;

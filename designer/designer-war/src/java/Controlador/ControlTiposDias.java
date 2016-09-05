@@ -240,13 +240,13 @@ public class ControlTiposDias implements Serializable {
     public void activarCtrlF11() {
         if (bandera == 0) {
             FacesContext c = FacesContext.getCurrentInstance();
-            tamano = 246;
+            tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
-            codigo.setFilterStyle("width: 285px");
+            codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
-            descripcion.setFilterStyle("width: 365px");
+            descripcion.setFilterStyle("width: 85%;");
             tipo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:tipo");
-            tipo.setFilterStyle("width: 80px");
+            tipo.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             System.out.println("Activar");
             bandera = 1;

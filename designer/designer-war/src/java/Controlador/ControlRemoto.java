@@ -1027,7 +1027,7 @@ public class ControlRemoto implements Serializable {
 
     public void llenarBannerDefault() {
         banner.clear();
-        //banner.add(new BannerInicioRed("Imagenes/sinPublicidad.JPG", ""));
+        //banner.add(new BannerInicioRed("Imagenes/Iconos/sinPublicidad.JPG", ""));
         banner.add(new BannerInicioRed("http://www.nomina.com.co/images/publicidadInn/pInn01.png", "www.nomina.com.co"));
         banner.add(new BannerInicioRed("http://www.nomina.com.co/images/publicidadInn/pInn02.png", "www.nomina.com.co"));
         banner.add(new BannerInicioRed("https://www.nomina.com.co/images/publicidadInn/pInn03.png", "www.nomina.com.co"));
@@ -1458,10 +1458,10 @@ public class ControlRemoto implements Serializable {
     public String getFotoEmpleado() {
         persona = administrarCarpetaPersonal.consultarFotoPersona(identificacion);
         if (persona.getPathfoto() == null || persona.getPathfoto().equalsIgnoreCase("N")) {
-            fotoEmpleado = "default.jpg";
+            fotoEmpleado = "default.png";
             return fotoEmpleado;
         } else {
-            fotoEmpleado = identificacion.toString() + ".jpg";
+            fotoEmpleado = identificacion.toString() + ".png";
             return fotoEmpleado;
         }
     }

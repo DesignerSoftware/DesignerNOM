@@ -17,12 +17,12 @@
                     <p:growl id="growl" showDetail="true"/>
                     <f:loadBundle basename="Recursos.tipofuncion" var="msg" />
 
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="position: absolute; width: 874px; height: 510px; text-align: left">  
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
                         <p:commandButton style="position: absolute; left: 15px; top: 470px;" icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}" actionListener="#{controlTipoBloque.cancelarModificacion()}" process="@this" />
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: #14388B"><strong>#{msg['funcion']}</strong></legend>
 
-                            <p:dataTable id="datosTiposFunciones" var="tf" rowKey="#{tf.secuencia}" rowIndexVar="indice" style=" border: 1px;width: 830px"                         
+                            <p:dataTable id="datosTiposFunciones" var="tf" rowKey="#{tf.secuencia}" rowIndexVar="indice" style=" border: 1px;width: 830px;"                         
                                          value="#{controlTipoFuncion.listaTiposFunciones}" scrollable="true" scrollWidth="830" scrollHeight="#{controlTipoFuncion.altoTabla}"
                                          filteredValue="#{controlTipoFuncion.filtradosListaTiposFunciones}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell"
@@ -93,47 +93,47 @@
                             </p:dataTable>
                         </fieldset>
 
-                        <p:toolbar style=" position: absolute; top: 37px; left: 12px; height: 24px">  
+                        <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " actionListener="#{controlTipoFuncion.guardarCambiosTiposFunciones()}" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlTipoFuncion.guardarCambiosTiposFunciones()}" process="@this" />
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTipoFuncion.editarCelda()}" process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlTipoFuncion.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " disabled="true" actionListener="#{controlAdminreportes.listaValoresBoton()}" process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " disabled="true" actionListener="#{controlAdminreportes.listaValoresBoton()}" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTipoFuncion.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlTipoFuncion.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false" actionListener="#{controlTipoFuncion.exportXLS()}" />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlTipoFuncion.exportXLS()}" />
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTipoFuncion.limpiarNuevoTiposFunciones()}" ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png) " actionListener="#{controlTipoFuncion.limpiarNuevoTiposFunciones()}" ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosTiposFuncionesExportar" fileName="TiposFuncionesXML" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTipoFuncion.exportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlTipoFuncion.exportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " oncomplete="NuevoTipoFuncion.show()" update=":formularioDialogos:nuevoTipoFuncion" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="NuevoTipoFuncion.show()" update=":formularioDialogos:nuevoTipoFuncion" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTipoFuncion.borrarTipoFuncion()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlTipoFuncion.borrarTipoFuncion()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTipoFuncion.duplicarTF()}"  process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlTipoFuncion.duplicarTF()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlTipoFuncion.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlTipoFuncion.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
                             </p:toolbarGroup>
                         </p:toolbar>
@@ -150,27 +150,27 @@
 
                     <!-- DIALOGOS EDITAR -->
                     <p:dialog id="editarFechasIniciales" header="#{msg['editarFechasIniciales']}" widgetVar="editarFechasIniciales" resizable="false" draggable="false" modal="true" height="93" width="240" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlTipoFuncion.editarTiposFunciones.fechainicial}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                        <p:inputTextarea value="#{controlTipoFuncion.editarTiposFunciones.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarFechasFinales" header="#{msg['editarFechasFinales']}" widgetVar="editarFechasFinales" resizable="false" draggable="false" modal="true" height="93" width="240" >  
-                        <p:inputTextarea value="#{controlTipoFuncion.editarTiposFunciones.fechafinal}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                        <p:inputTextarea value="#{controlTipoFuncion.editarTiposFunciones.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarObjetos" header="#{msg['editarObjetos']}" widgetVar="editarObjetos" resizable="false" draggable="false" modal="true" height="93" width="240" >  
-                        <p:inputTextarea value="#{controlTipoFuncion.editarTiposFunciones.nombreobjeto}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                        <p:inputTextarea value="#{controlTipoFuncion.editarTiposFunciones.nombreobjeto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400px;"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlTipoFuncion.guardarCambiosTiposFunciones()}" action="operando" style="position: absolute; top: 60px; left: 215px" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlTipoFuncion.cancelarModificacion()}" style="position: absolute; top: 60px; left: 255px" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlTipoFuncion.guardarCambiosTiposFunciones()}" action="operando" style="position: absolute; top: 60px; left: 215px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlTipoFuncion.cancelarModificacion()}" style="position: absolute; top: 60px; left: 255px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
                     
 
@@ -178,11 +178,11 @@
 
                     <p:dialog id="NuevoTipoFuncion" header="#{msg['nuevoregistro']}" widgetVar="NuevoTipoFuncion" closable="false" resizable="false"  draggable="false" modal="true" height="250" width="350" style=" padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevoTipoFuncion" style="border: none;">
 
-                            <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 85px" /></strong>
+                            <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 85px;" /></strong>
                             <div style=" position: absolute; top: 80px; left: 150px;">
                                 <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoFuncion.nuevoTipoFuncion.fechainicial}"
                                     <p:ajax event="dateSelect" update="@this"/>
@@ -190,7 +190,7 @@
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 125px" /></strong>
+                            <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 125px;" /></strong>
                             <div style=" position: absolute; top: 120px; left: 150px;">
                                 <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoFuncion.nuevoTipoFuncion.fechafinal}">
                                     <p:ajax event="dateSelect" update="@this"/>
@@ -198,7 +198,7 @@
                                 </p:calendar>
                             </div>                            
 
-                            <strong><h:outputText value="#{msg['objetoN']}" style=" position: absolute; top: 165px" /></strong>
+                            <strong><h:outputText value="#{msg['objetoN']}" style=" position: absolute; top: 165px;" /></strong>
                             <p:inputText id="nuevoObjeto" value="#{controlTipoFuncion.nuevoTipoFuncion.nombreobjeto}" style=" width: 122px; position: absolute; left: 150px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
@@ -213,11 +213,11 @@
 
                     <p:dialog id="DuplicarTipoFuncion" header="#{msg['duplicarregistro']}" widgetVar="DuplicarTipoFuncion" closable="false" resizable="false"  draggable="false" modal="true" height="250" width="350" style=" padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarTipoFuncion" style="border: none;">
 
-                            <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 85px" /></strong>
+                            <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 85px;" /></strong>
                            
                             <div style=" position: absolute; top: 80px; left: 150px;">
                                 <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoFuncion.duplicarTipoFuncion.fechainicial}">
@@ -226,7 +226,7 @@
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 125px" /></strong>
+                            <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 125px;" /></strong>
                             <div style=" position: absolute; top: 120px; left: 150px;">
                                 <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoFuncion.duplicarTipoFuncion.fechafinal}">
                                     <p:ajax event="dateSelect" update="@this"/>
@@ -234,7 +234,7 @@
                                 </p:calendar>
                             </div>
                           
-                            <strong><h:outputText value="#{msg['objetoN']}" style=" position: absolute; top: 165px" /></strong>
+                            <strong><h:outputText value="#{msg['objetoN']}" style=" position: absolute; top: 165px;" /></strong>
                             <p:inputText id="duplicarObjeto" value="#{controlTipoFuncion.duplicarTipoFuncion.nombreobjeto}" style=" width: 122px; position: absolute; left: 150px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
@@ -245,63 +245,63 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="validacionNuevoTipoFuncion" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoFuncion"  resizable="false" draggable="false" modal="true" height="95" width="400px" closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                    <p:dialog id="validacionNuevoTipoFuncion" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoFuncion"  resizable="false" draggable="false" modal="true" height="95" width="400px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevo']} #{controlTipoFuncion.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevoTipoFuncion.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevoTipoFuncion.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                    <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="95" width="400px;"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorFechas.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="errorFechas.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <!-- DIALOGOS RASTROS -->
 
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoFuncion.secRegistro, 'TiposFunciones', 'tiposfunciones')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoFuncion.secRegistro, 'TiposFunciones', 'tiposfunciones')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('TiposFunciones', 'tiposfunciones')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('TiposFunciones', 'tiposfunciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoFuncion.secRegistro, 'TiposFunciones', 'tiposfunciones')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoFuncion.secRegistro, 'TiposFunciones', 'tiposfunciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
                 </h:form>

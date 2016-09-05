@@ -372,9 +372,9 @@ public class ControlFestivos implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 156;
+            tamano = 160;
             fecha = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:fecha");
-            fecha.setFilterStyle("width: 60px");
+            fecha.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
             System.out.println("Activar");
             bandera = 1;

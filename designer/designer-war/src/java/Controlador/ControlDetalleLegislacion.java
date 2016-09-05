@@ -1043,25 +1043,25 @@ public class ControlDetalleLegislacion implements Serializable {
     public void filtradoFormula() {
         if (bandera == 0) {
             formulaFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaContrato:formulaFechaInicial");
-            formulaFechaInicial.setFilterStyle("width: 60px");
+            formulaFechaInicial.setFilterStyle("width: 85%");
             formulaFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaContrato:formulaFechaFinal");
-            formulaFechaFinal.setFilterStyle("width: 60px");
+            formulaFechaFinal.setFilterStyle("width: 85%");
             formulaNombreLargo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaContrato:formulaNombreLargo");
-            formulaNombreLargo.setFilterStyle("width: 100px");
+            formulaNombreLargo.setFilterStyle("width: 85%");
             formulaNombreCorto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaContrato:formulaNombreCorto");
-            formulaNombreCorto.setFilterStyle("width: 60px");
+            formulaNombreCorto.setFilterStyle("width: 85%");
             formulaEstado = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaContrato:formulaEstado");
-            formulaEstado.setFilterStyle("width: 40px");
+            formulaEstado.setFilterStyle("width: 85%");
             formulaPeriodicidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaContrato:formulaPeriodicidad");
-            formulaPeriodicidad.setFilterStyle("width: 80px");
+            formulaPeriodicidad.setFilterStyle("width: 85%");
             formulaNit = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaContrato:formulaNit");
-            formulaNit.setFilterStyle("width: 60px");
+            formulaNit.setFilterStyle("width: 85%");
             formulaTercero = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaContrato:formulaTercero");
-            formulaTercero.setFilterStyle("width: 80px");
+            formulaTercero.setFilterStyle("width: 85%");
             formulaObservacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaContrato:formulaObservacion");
-            formulaObservacion.setFilterStyle("width: 80px");
+            formulaObservacion.setFilterStyle("width: 85%");
             formulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaContrato:formulaConcepto");
-            formulaConcepto.setFilterStyle("width: 80px");
+            formulaConcepto.setFilterStyle("width: 85%");
 
             RequestContext.getCurrentInstance().update("form:datosFormulaContrato");
             bandera = 1;

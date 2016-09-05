@@ -104,7 +104,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
         permitirIndex = true;
         aceptar = true;
         tipoLista = 0;
-        altoTabla = "35";
+        altoTabla = "50";
         activarLov = true;
         cualCelda = -1;
         cualCeldaCapitulo = -1;
@@ -243,7 +243,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             listaFiltrarDiagnosticosCapitulos = null;
             listaFiltrarDiagnosticosSecciones = null;
             tipoLista = 0;
-            altoTabla = "35";
+            altoTabla = "50";
         }
 
         listaDiagnosticosCapitulosBorrar.clear();
@@ -308,7 +308,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             listaFiltrarDiagnosticosCategorias = null;
             listaFiltrarDiagnosticosCapitulos = null;
             tipoLista = 0;
-            altoTabla = "35";
+            altoTabla = "50";
         }
 
         listaDiagnosticosCategoriasBorrar.clear();;
@@ -341,7 +341,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "60";
+            altoTabla = "30";
             codigo = (Column) c.getViewRoot().findComponent("form:datosCategorias:codigo");
             codigo.setFilterStyle("width: 85%");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosCategorias:descripcion");
@@ -359,7 +359,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosSecciones");
             bandera = 1;
         } else if (bandera == 1) {
-            altoTabla = "35";
+            altoTabla = "50";
             codigo = (Column) c.getViewRoot().findComponent("form:datosCategorias:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosCategorias:descripcion");

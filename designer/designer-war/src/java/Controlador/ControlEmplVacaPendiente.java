@@ -628,12 +628,12 @@ public class ControlEmplVacaPendiente implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         if (banderaPendientes == 0) {
             vacacionesDP = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesDP");
-            vacacionesDP.setFilterStyle("width: 80%");
+            vacacionesDP.setFilterStyle("width: 85%");
             vacacionesFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesFechaFinal");
-            vacacionesFechaFinal.setFilterStyle("width: 80%");
+            vacacionesFechaFinal.setFilterStyle("width: 85%");
             vacacionesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesFechaInicial");
-            vacacionesFechaInicial.setFilterStyle("width: 80%");
-            altoTabla1 = "251";
+            vacacionesFechaInicial.setFilterStyle("width: 85%");
+            altoTabla1 = "255";
             RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
             banderaPendientes = 1;
         } else if (banderaPendientes == 1) {
@@ -655,12 +655,12 @@ public class ControlEmplVacaPendiente implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         if (banderaDisfrutadas == 0) {
             vacacionesDPD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesDPD");
-            vacacionesDPD.setFilterStyle("width: 80%");
+            vacacionesDPD.setFilterStyle("width: 85%");
             vacacionesFechaInicialD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesFechaInicialD");
-            vacacionesFechaInicialD.setFilterStyle("width: 80%");
+            vacacionesFechaInicialD.setFilterStyle("width: 85%");
             vacacionesFechaFinalD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesFechaFinalD");
-            vacacionesFechaFinalD.setFilterStyle("width: 80%");
-            altoTabla2 = "251";
+            vacacionesFechaFinalD.setFilterStyle("width: 85%");
+            altoTabla2 = "255";
             RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
             banderaDisfrutadas = 1;
         } else if (banderaDisfrutadas == 1) {

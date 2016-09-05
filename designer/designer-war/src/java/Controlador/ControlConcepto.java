@@ -1157,7 +1157,7 @@ public class ControlConcepto implements Serializable {
         conceptoSeleccionado = null;
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "183";
+            altoTabla = "185";
             columnaIndependienteConcepto = (Column) c.getViewRoot().findComponent("form:datosConceptos:columnaIndependienteConcepto");
             columnaIndependienteConcepto.setFilterStyle("width: 90%;");
             columnaCodigo = (Column) c.getViewRoot().findComponent("form:datosConceptos:columnaCodigo");

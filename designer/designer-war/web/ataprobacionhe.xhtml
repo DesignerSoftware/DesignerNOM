@@ -15,63 +15,63 @@
                     <f:loadBundle basename="Recursos.ataprobacionhe" var="msg" />
                     <p:growl id="growl" showDetail="true"/>
 
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="position: absolute; width: 874px; height: 510px; text-align: left">
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
 
-                        <p:toolbar style=" position: absolute; top: 37px; left: 12px; height: 24px">  
+                        <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " actionListener="#{controlATAprobacionHE.guardadoGeneral()}" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlATAprobacionHE.guardadoGeneral()}" process="@this" />
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATAprobacionHE.editarCelda()}" process="@this"
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlATAprobacionHE.editarCelda()}" process="@this"
                                                  onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATAprobacionHE.listaValoresBoton()}" process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlATAprobacionHE.listaValoresBoton()}" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATAprobacionHE.activarCtrlF11()}" process="@this"
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlATAprobacionHE.activarCtrlF11()}" process="@this"
                                                  onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false" actionListener="#{controlATAprobacionHE.exportXLS()}" />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlATAprobacionHE.exportXLS()}" />
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) "  ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlATAprobacionHE.obtenerTablaXML()}" fileName="#{controlATAprobacionHE.obtenerNombreArchivoXML()}" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATAprobacionHE.exportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlATAprobacionHE.exportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATAprobacionHE.dispararDialogoNuevoRegistro()}" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " actionListener="#{controlATAprobacionHE.dispararDialogoNuevoRegistro()}" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATAprobacionHE.borrarRegistro()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlATAprobacionHE.borrarRegistro()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATAprobacionHE.duplicarRegistro()}"  process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlATAprobacionHE.duplicarRegistro()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATAprobacionHE.validarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlATAprobacionHE.validarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATAprobacionHE.cancelarModificacion()}" process="@this"
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlATAprobacionHE.cancelarModificacion()}" process="@this"
                                                  onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlATAprobacionHE.salir()}" action="#{controlATAprobacionHE.redirigir()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlATAprobacionHE.salir()}" action="#{controlATAprobacionHE.redirigir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -79,7 +79,7 @@
 
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 85px;width: 835px; border-radius: 10px; text-align: left">
 
-                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/logoArrobaDesigner.jpg); width: 50px; height: 50px; top: 25px; left: 5px; background-repeat: no-repeat; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;" />
+                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/logoArrobaDesigner.png); width: 50px; height: 50px; top: 25px; left: 5px; background-repeat: no-repeat; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;" />
 
                             <strong><h:outputText style="position: absolute;top: 20px;left: 80px;text-transform: uppercase" value="#{msg['usuarioConectado']}:" /></strong>
                             <strong><h:outputText style="position: absolute;top: 20px;left: 250px;text-transform: uppercase; color: #00F" value="#{controlATAprobacionHE.actualUsuario.alias}" /></strong>
@@ -191,7 +191,7 @@
 
                             </div>
 
-                            <div id="superiorDerecha" style="height: 75px; width: 488px; overflow-x: hidden; position: absolute; top: -10px" >
+                            <div id="superiorDerecha" style="height: 75px; width: 488px; overflow-x: hidden; position: absolute; top: -10px;" >
 
                                 <p:dataTable id="tablaSuperiorDerecha" var="infoCab" style=" width: 1450px; position: absolute; top: 24px;" value="#{controlATAprobacionHE.listaEersCabeceras}"
                                              widgetVar="tablaSuperiorDerecha" styleClass="hide-row-names" rowKey="#{infoCab.secuencia}" 
@@ -205,23 +205,23 @@
                                     <p:ajax event="filter" update=":form:tablaInferiorDerecha, :form:tablaInferiorIzquierda"/> -->
 
 
-                                    <p:column headerText="#{msg['numDocumento']}" style="height: 16px" sortBy="#{infoCab.empleado.persona.strNumeroDocumento}" filterBy="#{infoCab.empleado.persona.strNumeroDocumento}" 
+                                    <p:column headerText="#{msg['numDocumento']}" style="height: 16px;" sortBy="#{infoCab.empleado.persona.strNumeroDocumento}" filterBy="#{infoCab.empleado.persona.strNumeroDocumento}" 
                                               filterMatchMode="contains" id="cabeceraNumDocumento" width="80" filterStyle="display: none; visibility: hidden;" />
-                                    <p:column headerText="#{msg['nombreEmpleado']}" style="height: 16px" sortBy="#{infoCab.empleado.persona.nombreCompleto}" filterBy="#{infoCab.empleado.persona.nombreCompleto}" 
+                                    <p:column headerText="#{msg['nombreEmpleado']}" style="height: 16px;" sortBy="#{infoCab.empleado.persona.nombreCompleto}" filterBy="#{infoCab.empleado.persona.nombreCompleto}" 
                                               filterMatchMode="contains" id="cabeceraNombreEmpleado" width="30" filterStyle="display: none; visibility: hidden;" />
-                                    <p:column headerText="#{msg['horas']}" style="height: 16px" sortBy="#{infoCab.horas}" filterBy="#{infoCab.horas}" 
+                                    <p:column headerText="#{msg['horas']}" style="height: 16px;" sortBy="#{infoCab.horas}" filterBy="#{infoCab.horas}" 
                                               filterMatchMode="contains" id="cabeceraHoras" width="20" filterStyle="display: none; visibility: hidden;" />
-                                    <p:column headerText="#{msg['minutos']}" style="height: 16px" sortBy="#{infoCab.minutos}" filterBy="#{infoCab.horas}" 
+                                    <p:column headerText="#{msg['minutos']}" style="height: 16px;" sortBy="#{infoCab.minutos}" filterBy="#{infoCab.horas}" 
                                               filterMatchMode="contains" id="cabeceraMinutos" width="20" filterStyle="display: none; visibility: hidden;" />
-                                    <p:column headerText="#{msg['novedad']}" style="height: 16px" sortBy="#{infoCab.tipoeer}" filterBy="#{infoCab.tipoeer}" 
+                                    <p:column headerText="#{msg['novedad']}" style="height: 16px;" sortBy="#{infoCab.tipoeer}" filterBy="#{infoCab.tipoeer}" 
                                               filterMatchMode="contains" id="cabeceraNovedad" width="20" filterStyle="display: none; visibility: hidden;" />
-                                    <p:column headerText="#{msg['estado']}" style="height: 16px" sortBy="#{infoCab.estado}" filterBy="#{infoCab.estado}" 
+                                    <p:column headerText="#{msg['estado']}" style="height: 16px;" sortBy="#{infoCab.estado}" filterBy="#{infoCab.estado}" 
                                               filterMatchMode="contains" id="cabeceraEstado" width="20" filterStyle="display: none; visibility: hidden;" />
-                                    <p:column headerText="#{msg['paso']}" style="height: 16px" sortBy="#{infoCab.eerestado.descripcion}" filterBy="#{infoCab.eerestado.descripcion}" 
+                                    <p:column headerText="#{msg['paso']}" style="height: 16px;" sortBy="#{infoCab.eerestado.descripcion}" filterBy="#{infoCab.eerestado.descripcion}" 
                                               filterMatchMode="contains" id="cabeceraPaso" width="20" filterStyle="display: none; visibility: hidden;" />
-                                    <p:column headerText="#{msg['fechaPago']}" style="height: 16px" sortBy="#{infoCab.fechapago}" filterBy="#{infoCab.fechapago}" 
+                                    <p:column headerText="#{msg['fechaPago']}" style="height: 16px;" sortBy="#{infoCab.fechapago}" filterBy="#{infoCab.fechapago}" 
                                               filterMatchMode="contains" id="cabeceraFechaPago" width="20" filterStyle="display: none; visibility: hidden;" />
-                                    <p:column headerText="#{msg['observaciones']}" style="height: 16px" sortBy="#{infoCab.comentario}" filterBy="#{infoCab.comentario}" 
+                                    <p:column headerText="#{msg['observaciones']}" style="height: 16px;" sortBy="#{infoCab.comentario}" filterBy="#{infoCab.comentario}" 
                                               filterMatchMode="contains" id="cabeceraObservaciones" width="20" filterStyle="display: none; visibility: hidden;" />
 
                                 </p:dataTable>
@@ -237,7 +237,7 @@
                                              rows="#{controlATAprobacionHE.rowsCabecera}"
                                              >
 
-                                    <p:column   style="height: 16px" sortBy="#{infoCab.empleado.persona.strNumeroDocumento}" filterBy="#{infoCabempleado.empleado.persona.strNumeroDocumento}" 
+                                    <p:column   style="height: 16px;" sortBy="#{infoCab.empleado.persona.strNumeroDocumento}" filterBy="#{infoCabempleado.empleado.persona.strNumeroDocumento}" 
                                                 filterMatchMode="contains" id="cabeceraNumDocumento" width="91" filterStyle="display: none; visibility: hidden;" >                                  
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.empleado.persona.strNumeroDocumento}" /></f:facet>  
@@ -249,7 +249,7 @@
                                         </p:cellEditor>
                                     </p:column>  
 
-                                    <p:column  style="height: 16px" sortBy="#{infoCab.empleado.persona.nombreCompleto}" filterBy="#{infoCab.empleado.persona.nombreCompleto}" 
+                                    <p:column  style="height: 16px;" sortBy="#{infoCab.empleado.persona.nombreCompleto}" filterBy="#{infoCab.empleado.persona.nombreCompleto}" 
                                                filterMatchMode="contains" id="cabeceraNombreEmpleado" width="29" filterStyle="display: none; visibility: hidden;" >                                  
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.empleado.persona.nombreCompleto}" /></f:facet>  
@@ -261,7 +261,7 @@
                                         </p:cellEditor>
                                     </p:column>  
 
-                                    <p:column style="height: 16px" sortBy="#{infoCab.horas}" filterBy="#{infoCab.horas}" 
+                                    <p:column style="height: 16px;" sortBy="#{infoCab.horas}" filterBy="#{infoCab.horas}" 
                                               filterMatchMode="contains" id="cabeceraHoras" width="23" filterStyle="display: none; visibility: hidden;" >                                  
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.horas}" /></f:facet>  
@@ -273,7 +273,7 @@
                                         </p:cellEditor>
                                     </p:column>  
 
-                                    <p:column style="height: 16px" sortBy="#{infoCab.minutos}" filterBy="#{infoCab.minutos}" 
+                                    <p:column style="height: 16px;" sortBy="#{infoCab.minutos}" filterBy="#{infoCab.minutos}" 
                                               filterMatchMode="contains" id="cabeceraMinutos" width="23" filterStyle="display: none; visibility: hidden;" >                                  
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.minutos}" /></f:facet>  
@@ -285,7 +285,7 @@
                                         </p:cellEditor>
                                     </p:column>  
 
-                                    <p:column style="height: 16px" sortBy="#{infoCab.tipoeer}" filterBy="#{infoCab.tipoeer}" 
+                                    <p:column style="height: 16px;" sortBy="#{infoCab.tipoeer}" filterBy="#{infoCab.tipoeer}" 
                                               filterMatchMode="contains" id="cabeceraNovedad" width="23" filterStyle="display: none; visibility: hidden;" >                                  
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.tipoeer}" /></f:facet>  
@@ -297,7 +297,7 @@
                                         </p:cellEditor>
                                     </p:column>  
 
-                                    <p:column style="height: 16px" sortBy="#{infoCab.estado}" filterBy="#{infoCab.estado}" 
+                                    <p:column style="height: 16px;" sortBy="#{infoCab.estado}" filterBy="#{infoCab.estado}" 
                                               filterMatchMode="contains" id="cabeceraEstado" width="23" filterStyle="display: none; visibility: hidden;" >                                  
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.estado}" /></f:facet>  
@@ -309,7 +309,7 @@
                                         </p:cellEditor>
                                     </p:column>  
 
-                                    <p:column style="height: 16px" sortBy="#{infoCab.eerestado.descripcion}" filterBy="#{infoCab.eerestado.descripcion}" 
+                                    <p:column style="height: 16px;" sortBy="#{infoCab.eerestado.descripcion}" filterBy="#{infoCab.eerestado.descripcion}" 
                                               filterMatchMode="contains" id="cabeceraPaso" width="23" filterStyle="display: none; visibility: hidden;" >                                  
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.eerestado.descripcion}" /></f:facet>  
@@ -338,7 +338,7 @@
                                         </p:cellEditor>
                                     </p:column>
 
-                                    <p:column style="height: 16px" sortBy="#{infoCab.comentario}" filterBy="#{infoCab.comentario}" 
+                                    <p:column style="height: 16px;" sortBy="#{infoCab.comentario}" filterBy="#{infoCab.comentario}" 
                                               filterMatchMode="contains" id="cabeceraObservaciones" width="23" filterStyle="display: none; visibility: hidden;" >                                  
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.comentario}" /></f:facet>  
@@ -470,19 +470,19 @@
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATAprobacionHE.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATAprobacionHE.cancelarModificacion()}"  style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATAprobacionHE.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATAprobacionHE.cancelarModificacion()}"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlATAprobacionHE.guardarSalir()}" action="#{controlATAprobacionHE.redirigir()}" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlATAprobacionHE.cancelarSalir()}" action="#{controlATAprobacionHE.redirigir()}" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlATAprobacionHE.guardarSalir()}" action="#{controlATAprobacionHE.redirigir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlATAprobacionHE.cancelarSalir()}" action="#{controlATAprobacionHE.redirigir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
 
@@ -491,50 +491,50 @@
 
 
 
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATAprobacionHE.backUpSecRegistro, 'EersCabeceras', 'rastroATAprocacionHE')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATAprobacionHE.backUpSecRegistro, 'EersCabeceras', 'rastroATAprocacionHE')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('EersCabeceras', 'rastroATAprocacionHE')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('EersCabeceras', 'rastroATAprocacionHE')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATAprobacionHE.backUpSecRegistro, 'EersCabeceras', 'rastroATAprocacionHE')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATAprobacionHE.backUpSecRegistro, 'EersCabeceras', 'rastroATAprocacionHE')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
@@ -549,7 +549,7 @@
 
                     <p:dialog header="#{msg['estructuraM']}" widgetVar="EstructuraDialogo" draggable="false" resizable="false" closable="false" id="EstructuraDialogo"  
                               showEffect="fade" hideEffect="fade" width="460" modal="true" >
-                        <p:dataTable id="lovEstructura" liveScroll="true" scrollRows="25" style="width: 430px" var="estructuraA" value="#{controlATAprobacionHE.lovEstructuras}" rowKey="#{estructuraA.secuencia}"
+                        <p:dataTable id="lovEstructura" liveScroll="true" scrollRows="25" style="width: 430px;" var="estructuraA" value="#{controlATAprobacionHE.lovEstructuras}" rowKey="#{estructuraA.secuencia}"
                                      selection="#{controlATAprobacionHE.estructuraSeleccionada}" selectionMode="single" widgetVar="lovEstructura" scrollable="true" scrollWidth="445" scrollHeight="250"
                                      filteredValue="#{controlATAprobacionHE.filtrarLovEstructuras}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlATAprobacionHE.activarAceptar()}" update=":formEstructura:aceptarEA"/>
@@ -575,9 +575,9 @@
 
                         <h:outputText id="infoRegistroEstructura" value="#{controlATAprobacionHE.infoRegistroEstructura}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
-                        <p:commandButton id="aceptarEA" style="position: relative; left: 265px" value="#{msg['aceptar']}" disabled="#{controlATAprobacionHE.aceptar}" actionListener="#{controlATAprobacionHE.actualizarEstructura()}" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton id="aceptarEA" style="position: relative; left: 265px;" value="#{msg['aceptar']}" disabled="#{controlATAprobacionHE.aceptar}" actionListener="#{controlATAprobacionHE.actualizarEstructura()}" process="@this" icon="ui-icon-check"/>
                         
-                        <p:commandButton id="atrasEA" style="position: relative; left: 265px" value="#{msg['atras']}" actionListener="#{controlATAprobacionHE.cancelarCambioEstructura()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                        <p:commandButton id="atrasEA" style="position: relative; left: 265px;" value="#{msg['atras']}" actionListener="#{controlATAprobacionHE.cancelarCambioEstructura()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog> 
 
                 </h:form>
@@ -586,7 +586,7 @@
 
                     <p:dialog header="#{msg['empleadoM']}" widgetVar="EmpleadoDialogo" draggable="false" resizable="false" closable="false" id="EmpleadoDialogo"  
                               showEffect="fade" hideEffect="fade" width="460" modal="true" >
-                        <p:dataTable id="lovEmpleado" liveScroll="true" scrollRows="25" style=" width: 430px" var="empleados" value="#{controlATAprobacionHE.lovEmpleados}" rowKey="#{empleados.secuencia}"
+                        <p:dataTable id="lovEmpleado" liveScroll="true" scrollRows="25" style=" width: 430px;" var="empleados" value="#{controlATAprobacionHE.lovEmpleados}" rowKey="#{empleados.secuencia}"
                                      selection="#{controlATAprobacionHE.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleado" scrollable="true" scrollWidth="445" scrollHeight="250"
                                      filteredValue="#{controlATAprobacionHE.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlATAprobacionHE.activarAceptar()}" update=":formEmpleado:aceptarE"/>
@@ -612,94 +612,94 @@
 
                         <h:outputText id="infoRegistroEmpleado" value="#{controlATAprobacionHE.infoRegistroEmpleado}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
-                        <p:commandButton id="aceptarE" style="position: relative; left: 265px" value="#{msg['aceptar']}" disabled="#{controlATAprobacionHE.aceptar}" actionListener="#{controlATAprobacionHE.actualizarEmpleado()}" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton id="aceptarE" style="position: relative; left: 265px;" value="#{msg['aceptar']}" disabled="#{controlATAprobacionHE.aceptar}" actionListener="#{controlATAprobacionHE.actualizarEmpleado()}" process="@this" icon="ui-icon-check"/>
                         
-                        <p:commandButton id="atrasE" style="position: relative; left: 265px" value="#{msg['atras']}" actionListener="#{controlATAprobacionHE.cancelarCambioEmpleado()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                        <p:commandButton id="atrasE" style="position: relative; left: 265px;" value="#{msg['atras']}" actionListener="#{controlATAprobacionHE.cancelarCambioEmpleado()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog> 
 
                 </h:form>
 
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="editarCabeceraAprobado" header="#{msg['editarCabeceraAprobado']}" widgetVar="editarCabeceraAprobado" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.aprobado}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarCabeceraAprobado" header="#{msg['editarCabeceraAprobado']}" widgetVar="editarCabeceraAprobado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.aprobado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraSiguiente" header="#{msg['editarCabeceraSiguiente']}" widgetVar="editarCabeceraSiguiente" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.estructuraaprueba.nombre}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarCabeceraSiguiente" header="#{msg['editarCabeceraSiguiente']}" widgetVar="editarCabeceraSiguiente" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.estructuraaprueba.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraNumDocumento" header="#{msg['editarCabeceraNumDocumento']}" widgetVar="editarCabeceraNumDocumento" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.empleado.persona.strNumeroDocumento}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarCabeceraNumDocumento" header="#{msg['editarCabeceraNumDocumento']}" widgetVar="editarCabeceraNumDocumento" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.empleado.persona.strNumeroDocumento}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEmplNombre" header="#{msg['editarEmplNombre']}" widgetVar="editarEmplNombre" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.empleado.persona.nombreCompleto}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarEmplNombre" header="#{msg['editarEmplNombre']}" widgetVar="editarEmplNombre" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraHoras" header="#{msg['editarCabeceraHoras']}" widgetVar="editarCabeceraHoras" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.horas}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarCabeceraHoras" header="#{msg['editarCabeceraHoras']}" widgetVar="editarCabeceraHoras" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.horas}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraMinuto" header="#{msg['editarCabeceraMinuto']}" widgetVar="editarCabeceraMinuto" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.minutos}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarCabeceraMinuto" header="#{msg['editarCabeceraMinuto']}" widgetVar="editarCabeceraMinuto" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.minutos}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraNovedad" header="#{msg['editarCabeceraNovedad']}" widgetVar="editarCabeceraNovedad" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.tipoeer}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarCabeceraNovedad" header="#{msg['editarCabeceraNovedad']}" widgetVar="editarCabeceraNovedad" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.tipoeer}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraEstado" header="#{msg['editarCabeceraEstado']}" widgetVar="editarCabeceraEstado" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.estado}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarCabeceraEstado" header="#{msg['editarCabeceraEstado']}" widgetVar="editarCabeceraEstado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.estado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraPaso" header="#{msg['editarCabeceraPaso']}" widgetVar="editarCabeceraPaso" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.eerestado.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarCabeceraPaso" header="#{msg['editarCabeceraPaso']}" widgetVar="editarCabeceraPaso" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.eerestado.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraFechaPago" header="#{msg['editarCabeceraFechaPago']}" widgetVar="editarCabeceraFechaPago" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.fechapago}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                    <p:dialog id="editarCabeceraFechaPago" header="#{msg['editarCabeceraFechaPago']}" widgetVar="editarCabeceraFechaPago" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.fechapago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraObservacion" header="#{msg['editarCabeceraObservacion']}" widgetVar="editarCabeceraObservacion" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.comentario}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarCabeceraObservacion" header="#{msg['editarCabeceraObservacion']}" widgetVar="editarCabeceraObservacion" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarCabecera.comentario}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
 
                     <!-- FLUJOS  -->
 
-                    <p:dialog id="editarFlujoProceso" header="#{msg['editarFlujoProceso']}" widgetVar="editarFlujoProceso" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarFlujo.eerestado.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarFlujoProceso" header="#{msg['editarFlujoProceso']}" widgetVar="editarFlujoProceso" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarFlujo.eerestado.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFlujoFecha" header="#{msg['editarFlujoFecha']}" widgetVar="editarFlujoFecha" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarFlujo.fecha}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                    <p:dialog id="editarFlujoFecha" header="#{msg['editarFlujoFecha']}" widgetVar="editarFlujoFecha" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarFlujo.fecha}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
                     <!-- DETALLES  -->
 
-                    <p:dialog id="editarDetalleConcepto" header="#{msg['editarDetalleConcepto']}" widgetVar="editarDetalleConcepto" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarFlujo.eerestado.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarDetalleConcepto" header="#{msg['editarDetalleConcepto']}" widgetVar="editarDetalleConcepto" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarFlujo.eerestado.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDetalleFecha" header="#{msg['editarDetalleFecha']}" widgetVar="editarDetalleFecha" resizable="false" draggable="false" modal="true" height="55" width="240" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarFlujo.fecha}" style="overflow: auto; width: 200px; height: 40px" readonly="true">                        
+                    <p:dialog id="editarDetalleFecha" header="#{msg['editarDetalleFecha']}" widgetVar="editarDetalleFecha" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarFlujo.fecha}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarDetalleObservacion" header="#{msg['editarDetalleObservacion']}" widgetVar="editarDetalleObservacion" resizable="false" draggable="false" modal="true" height="55" width="240" >  
-                        <p:inputTextarea value="#{controlATAprobacionHE.editarFlujo.eerestado.descripcion}" style="overflow: auto; width: 200px; height: 40px" readonly="true"/>
+                    <p:dialog id="editarDetalleObservacion" header="#{msg['editarDetalleObservacion']}" widgetVar="editarDetalleObservacion" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlATAprobacionHE.editarFlujo.eerestado.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
 
 
-                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350px" style="font-size: 12px" closable="false">  
-                        <h:graphicImage value="Imagenes/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350px;" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
                     </p:dialog>
 

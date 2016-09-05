@@ -158,11 +158,11 @@ public class ControlEmplIbcs implements Serializable {
         if (bandera == 0) {
             FacesContext c = FacesContext.getCurrentInstance();
             fechaInicial = (Column) c.getViewRoot().findComponent("form:datosIbcs:fechaInicial");
-            fechaInicial.setFilterStyle("width: 50px");
+            fechaInicial.setFilterStyle("width: 85%");
             fechaFinal = (Column) c.getViewRoot().findComponent("form:datosIbcs:fechaFinal");
-            fechaFinal.setFilterStyle("width: 50px");
+            fechaFinal.setFilterStyle("width: 85%");
             valor = (Column) c.getViewRoot().findComponent("form:datosIbcs:valor");
-            valor.setFilterStyle("width: 40px");
+            valor.setFilterStyle("width: 85%");
             altoTabla = "268";
             RequestContext.getCurrentInstance().update("form:datosIbcs");
             bandera = 1;

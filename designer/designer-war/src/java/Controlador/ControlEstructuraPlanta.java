@@ -1329,7 +1329,7 @@ public class ControlEstructuraPlanta implements Serializable {
      */
     public void activarCtrlF11() {
         if (bandera == 0) {
-            altoTablaOrganigrama = "41";
+            altoTablaOrganigrama = "45";
             organigramaFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOrganigramas:organigramaFecha");
             organigramaFecha.setFilterStyle("width: 85%");
             organigramaCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOrganigramas:organigramaCodigo");
@@ -1346,7 +1346,7 @@ public class ControlEstructuraPlanta implements Serializable {
             restaurarTabla();
         }
         if (banderaEstructura == 0) {
-            altoTablaEstructura = "186";
+            altoTablaEstructura = "190";
             estructuraEstructura = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEstructura:estructuraEstructura");
             estructuraEstructura.setFilterStyle("width: 85%");
             estructuraCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEstructura:estructuraCodigo");

@@ -1035,7 +1035,7 @@ public class ControlTipoContrato implements Serializable {
     public void activarCtrlF11() {
         if (diaLaborableSeleccionado != null) {
             if (banderaDiasLab == 0) {
-                altoTablaDiasLab = "51";
+                altoTablaDiasLab = "55";
                 diasLabDia = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDiasLaborables:diasLabDia");
                 diasLabDia.setFilterStyle("width: 85%");
                 diasLabTipoDia = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDiasLaborables:diasLabTipoDia");

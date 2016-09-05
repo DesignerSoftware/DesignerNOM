@@ -11,11 +11,11 @@
         <h:form id="Contenedor">
 
             <h:commandLink style="position: absolute; left: 700px;">  
-                <p:graphicImage value="Imagenes/excel.png"  width="50" height="50"/>  
+                <p:graphicImage value="Imagenes/Iconos/excel.png"  width="50" height="50"/>  
                 <p:dataExporter type="xls" target="data1" fileName="Modulos" />  
             </h:commandLink> 
 
-            <p:commandButton id="AcercaDe" value=" " actionListener="#{controlCarpetaDesigner.aja()}" style="position: absolute; width: 150px; height: 140px; background-image: url(Imagenes/b_designer.gif); background-repeat: no-repeat; background-size: 100% 100%; "/>
+            <p:commandButton id="AcercaDe" value=" " actionListener="#{controlCarpetaDesigner.aja()}" style="position: absolute; width: 150px; height: 140px; background-image: url(Imagenes/Iconos/b_designer.gif); background-repeat: no-repeat; background-size: 100% 100%; "/>
 
             <fieldset id="contModulos"  style="position:absolute; width:440px; border-radius: 10px; left: 180px; top: 50px;">
                 <legend style="color: blue; font-size: 12px;"><strong>Módulos</strong></legend>
@@ -55,7 +55,7 @@
 
                     <p:column  width="16">
                         <p:commandButton id="desplegar"  value=""  actionListener="#{controlCarpetaDesigner.infoTablas(tablas)}" update="Tablas"
-                                         style=" width: 16px; height:16px ;background-image: url(Imagenes/revertir.gif); background-repeat: no-repeat; background-size: 100% 100%;" />
+                                         style=" width: 16px; height:16px ;background-image: url(Imagenes/Iconos/revertir.gif); background-repeat: no-repeat; background-size: 100% 100%;" />
                         <p:tooltip for="desplegar" value="Despliega este registro en una pantalla."/>
 
                     </p:column>

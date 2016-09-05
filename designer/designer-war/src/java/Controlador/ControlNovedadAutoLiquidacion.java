@@ -558,7 +558,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {
-            altotabla = 236;
+            altotabla = 240;
             empresa = (Column) c.getViewRoot().findComponent("form:novedadesAuto:empresa");
             empresa.setFilterStyle("width: 85%");
             sucursal = (Column) c.getViewRoot().findComponent("form:novedadesAuto:sucursal");

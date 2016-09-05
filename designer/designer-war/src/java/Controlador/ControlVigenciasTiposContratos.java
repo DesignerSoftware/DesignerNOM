@@ -799,7 +799,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
             vtcInicioFlexibilizacion.setFilterStyle("width: 85%");
             vtcObservacion = (Column) c.getViewRoot().findComponent("form:datosVTCEmpleado:vtcObservacion");
             vtcObservacion.setFilterStyle("width: 85%");
-            altoTabla = "256";
+            altoTabla = "260";
             RequestContext.getCurrentInstance().update("form:datosVTCEmpleado");
             bandera = 1;
 

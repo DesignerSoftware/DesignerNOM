@@ -1327,7 +1327,7 @@ public class ControlEmplMvr implements Serializable {
                 mvrFechaFinal.setFilterStyle("width: 85%");
                 mvrFechaInicial = (Column) c.getViewRoot().findComponent("form:datosMvrEmpleado:mvrFechaInicial");
                 mvrFechaInicial.setFilterStyle("width: 85%");
-                altoTabla1 = "91";
+                altoTabla1 = "95";
                 RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
                 banderaMvrs = 1;
             } else if (banderaMvrs == 1) {
@@ -1396,7 +1396,7 @@ public class ControlEmplMvr implements Serializable {
                 ocFechaFinal.setFilterStyle("width: 85%");
                 ocFechaInicial = (Column) c.getViewRoot().findComponent("form:datosOCEmpleado:ocFechaInicial");
                 ocFechaInicial.setFilterStyle("width: 85%");
-                altoTabla2 = "91";
+                altoTabla2 = "95";
                 RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
                 banderaOC = 1;
             } else if (banderaOC == 1) {

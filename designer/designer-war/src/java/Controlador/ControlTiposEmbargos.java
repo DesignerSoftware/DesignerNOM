@@ -186,11 +186,11 @@ public class ControlTiposEmbargos implements Serializable {
         if (bandera == 0) {
 
             codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposEmbargos:codigo");
-            codigo.setFilterStyle("width: 180px");
+            codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposEmbargos:descripcion");
-            descripcion.setFilterStyle("width: 440px");
+            descripcion.setFilterStyle("width: 85%;");
             manejaSaldoPromedio = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposEmbargos:manejaSaldoPromedio");
-            manejaSaldoPromedio.setFilterStyle("width: 10px");
+            manejaSaldoPromedio.setFilterStyle("width: 85%;");
             RequestContext.getCurrentInstance().update("form:datosTiposEmbargos");
             System.out.println("Activar");
             bandera = 1;

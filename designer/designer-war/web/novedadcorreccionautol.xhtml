@@ -21,58 +21,58 @@
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.guardarCambios()}" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.guardarCambios()}" process="@this" />
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.editarCelda()}" process="@this" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.editarCelda()}" process="@this" />
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " disabled="#{controlNovedadesCorreccionAutoLiquidaciones.activarlov}" process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; " disabled="#{controlNovedadesCorreccionAutoLiquidaciones.activarlov}" process="@this"/>
                                 <p:tooltip for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " ajax="false" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.exportXLS()}" />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " ajax="false" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.exportXLS()}" />
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlNovedadesVacaciones.limpiarNuevaNovedad()}" ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none; " actionListener="#{controlNovedadesVacaciones.limpiarNuevaNovedad()}" ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlNovedadesCorreccionAutoLiquidaciones.exportXMLTabla()}" fileName="#{controlNovedadesCorreccionAutoLiquidaciones.exportXMLNombreArchivo()}" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.validarExportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.validarExportPDF()}" ajax="false"/>
 
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.dispararDialogoNuevoRegistro()}"  process="@this" />   
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.dispararDialogoNuevoRegistro()}"  process="@this" />   
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.borrarNovedades()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.borrarNovedades()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; "  process="@this" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarNuevaNovedadAuto()}"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none; "  process="@this" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarNuevaNovedadAuto()}"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.cancelarModificacion()}" process="@this"
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.cancelarModificacion()}" process="@this"
                                                  oncomplete="window.location.reload()"  /> 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " action="atrasnovedadautocorreccion" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " action="atrasnovedadautocorreccion" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -488,58 +488,58 @@
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" action="atrasnovedadauto" onclick="confirmarGuardar.hide();" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.guardarSalir()}" 
-                                         style="position: absolute; top: 50px; left: 157px" process="@this" icon="ui-icon-check" />
+                                         style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="#{msg['no']}" action="atrasnovedadauto" onclick="confirmarGuardar.hide();" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.cancelarSalir()}" 
-                                         style="position: absolute; top: 50px; left: 218px" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 285px" process="@this"
+                                         style="position: absolute; top: 50px; left: 218px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 285px;" process="@this"
                                          icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.getSecuencia(), 'NovedadAutoliq', 'NovedadAutoliqRastro')}" 
-                                         style="position: absolute; top: 63px; left: 160px" icon="ui-icon-check" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 240px" process="@this" icon="ui-icon-close"  />
+                                         style="position: absolute; top: 63px; left: 160px;" icon="ui-icon-check" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"  />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('NovedadesAutoLiquidaciones', 'novedadesAutoLiqRastro')}"
-                                         style="position: absolute; top: 60px; left: 160px" action="rastro" icon="ui-icon-check"  process="@this"  />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 250px" process="@this" />
+                                         style="position: absolute; top: 60px; left: 160px;" action="rastro" icon="ui-icon-check"  process="@this"  />
+                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 250px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.getSecuencia(), 'NovedadAutoliq', 'NovedadAutoliqRastro')}" 
-                                         style="position: absolute; top: 63px; left: 160px" icon="ui-icon-check" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px" process="@this" />
+                                         style="position: absolute; top: 63px; left: 160px;" icon="ui-icon-check" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; width: 185px; font-weight:bold;" />
                     </p:dialog>     
@@ -548,7 +548,7 @@
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validarnuevo']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="validarNuevo.hide();"  
-                                         style="position: absolute; top: 50px; left: 157px" process="@this" icon="ui-icon-check" />
+                                         style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
                     
                 </h:form>
@@ -557,11 +557,11 @@
 
                     <p:dialog id="nuevaNovedadAuto" header="#{msg['nuevoregistro']}" widgetVar="nuevaNovedadAuto" closable="false" resizable="false"  draggable="false" modal="true" height="500" width="800" style="padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevaNovedad" style="border: none;">
 
-                            <strong><h:outputText value="Empresa" style="position: absolute; top: 80px; left: 50px" /></strong>
+                            <strong><h:outputText value="Empresa" style="position: absolute; top: 80px; left: 50px;" /></strong>
                             <p:inputText id="nuevaEmpresa" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.empresa.nombre}"
                                          style="width: 122px; position: absolute; left: 220px; top: 75px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesCorreccionAutoLiquidaciones.asignarIndex(novedades,0,1)}"/>
@@ -573,7 +573,7 @@
                             <p:watermark for="nuevaEmpresa" value="Empresa" />
 
 
-                            <strong><h:outputText value="Sucursal" style="position: absolute; top: 110px; left: 50px" /></strong>
+                            <strong><h:outputText value="Sucursal" style="position: absolute; top: 110px; left: 50px;" /></strong>
                             <p:inputText id="nuevaSucursal" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.sucursalpila.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 105px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesCorreccionAutoLiquidaciones.asignarIndex(novedades,1,1)}"/>
@@ -585,19 +585,19 @@
                             <p:watermark for="nuevaSucursal" value="Sucursal" />
 
 
-                            <strong><h:outputText value="* Año" style="position: absolute; top: 140px; left: 50px" /></strong>
+                            <strong><h:outputText value="* Año" style="position: absolute; top: 140px; left: 50px;" /></strong>
                             <p:inputText id="nuevoAnio" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.anio}" readonly="true" maxlength="4" style="width: 122px; position: absolute; left: 220px; top: 135px;">
                                 <p:ajax event="change" update="nuevoAnio"/>
                             </p:inputText>
                             <p:watermark for="nuevoAnio" value="Año" />
 
-                            <strong><h:outputText value="* Mes" style="position: absolute; top: 170px; left: 50px" /></strong>
+                            <strong><h:outputText value="* Mes" style="position: absolute; top: 170px; left: 50px;" /></strong>
                             <p:inputText id="nuevoMes" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.mes}" readonly="true" maxlength="2" style="width: 122px; position: absolute; left: 220px; top: 165px;">
                                 <p:ajax event="change" update="nuevoMes"/>
                             </p:inputText>
                             <p:watermark for="nuevoMes" value="Mes" />
 
-                            <strong><h:outputText value="* Tipo Entidad" style="position: absolute; top: 200px; left: 50px" /></strong>
+                            <strong><h:outputText value="* Tipo Entidad" style="position: absolute; top: 200px; left: 50px;" /></strong>
                             <p:inputText id="nuevoTipoEntidad" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.tipoentidad.nombre}"
                                          style="width: 122px; position: absolute; left: 220px; top: 195px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesCorreccionAutoLiquidaciones.asignarIndex(novedades,4,1)}" process="@this"/>
@@ -609,19 +609,19 @@
                             <p:watermark for="nuevoTipoEntidad" value="Tipo Entidad" />
 
 
-                            <strong><h:outputText value="Formulario Único" style="position: absolute; top: 230px; left: 50px" /></strong>
+                            <strong><h:outputText value="Formulario Único" style="position: absolute; top: 230px; left: 50px;" /></strong>
                             <p:inputText id="nuevoFormUnico" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.formulariounico}"  style="width: 122px; position: absolute; left: 220px; top: 225px;">
                                 <p:ajax event="change" update="nuevoFormUnico"/>
                             </p:inputText>
                             <p:watermark for="nuevoFormUnico" value="Formulario único" />
 
-                            <strong><h:outputText value="Número de Radicado" style="position: absolute; top: 260px; left: 50px" /></strong>
+                            <strong><h:outputText value="Número de Radicado" style="position: absolute; top: 260px; left: 50px;" /></strong>
                             <p:inputText id="nuevonumRadicado" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.numeroradicacion}" maxlength="50" style="width: 122px; position: absolute; left: 220px; top: 255px;">
                                 <p:ajax event="change" update="nuevonumRadicado"/>
                             </p:inputText>
                             <p:watermark for="nuevonumRadicado" value="Número Radicado" />
 
-                            <strong><h:outputText value="Corrección" style="position: absolute; top: 290px; left: 50px" /></strong>
+                            <strong><h:outputText value="Corrección" style="position: absolute; top: 290px; left: 50px;" /></strong>
                             <p:selectOneMenu value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.correccion}" id="nuevacorreccion"  style="position: absolute; left: 220px; top: 285px; font-weight: bold;text-transform: uppercase;" >  
                                 <f:selectItem itemLabel="NO" itemValue="N" />  
                                 <f:selectItem itemLabel="SI" itemValue="S" /> 
@@ -629,19 +629,19 @@
                                 <p:ajax listener="#{controlNovedadesCorreccionAutoLiquidaciones.seleccionarCorreccion(controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.correccion, 1)}" update="@this" />
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="Año y Mes" style="position: absolute; top: 320px; left: 50px" /></strong>
+                            <strong><h:outputText value="Año y Mes" style="position: absolute; top: 320px; left: 50px;" /></strong>
                             <p:inputText id="nuevoaniomes" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.aniomes}" maxlength="6" style="width: 122px; position: absolute; left: 220px; top: 315px;">
                                 <p:ajax event="change" update="nuevoaniomes"/>
                             </p:inputText>
                             <p:watermark for="nuevoaniomes" value="Año y Mes" />
 
-                            <strong><h:outputText value="Planilla a Corregir" style="position: absolute; top: 350px; left: 50px" /></strong>
+                            <strong><h:outputText value="Planilla a Corregir" style="position: absolute; top: 350px; left: 50px;" /></strong>
                             <p:inputText id="nuevoplanilla" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.planillacorregir}" maxlength="50" style="width: 122px; position: absolute; left: 220px; top: 345px;">
                                 <p:ajax event="change" update="nuevoplanilla"/>
                             </p:inputText>
                             <p:watermark for="nuevoplanilla" value="Planilla a Corregir" />
 
-                            <strong><h:outputText value="Días Mora" style="position: absolute; top: 380px; left: 50px" /></strong>
+                            <strong><h:outputText value="Días Mora" style="position: absolute; top: 380px; left: 50px;" /></strong>
                             <p:inputText id="nuevodiasmora" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.diasmora}" maxlength="5" style="width: 122px; position: absolute; left: 220px; top: 375px;">
                                 <p:ajax event="change" update="nuevodiasmora"/>
                             </p:inputText>
@@ -649,19 +649,19 @@
 
                             <!--columna 2-->
 
-                            <strong><h:outputText value="Valor Intereses Mora" style="position: absolute; top: 80px; left: 420px" /></strong>
+                            <strong><h:outputText value="Valor Intereses Mora" style="position: absolute; top: 80px; left: 420px;" /></strong>
                             <p:inputText id="nuevointmora" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.valorinteresesmora}" style="width: 122px; position: absolute; left: 590px; top: 75px;">
                                 <p:ajax event="change" update="nuevointmora"/>
                             </p:inputText>
                             <p:watermark for="nuevointmora" value="Valor Intereses Mora" />
 
-                            <strong><h:outputText value="Radicación Descuento" style="position: absolute; top: 110px; left: 420px" /></strong>
+                            <strong><h:outputText value="Radicación Descuento" style="position: absolute; top: 110px; left: 420px;" /></strong>
                             <p:inputText id="nuevoradicaciondcto" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.radicaciondescuento}" style="width: 122px; position: absolute; left: 590px; top: 105px;">
                                 <p:ajax event="change" update="nuevoradicaciondcto"/>
                             </p:inputText>
                             <p:watermark for="nuevoradicaciondcto" value="Radicación Descuento" />
 
-                            <strong><h:outputText value="NIT Tercero" style="position: absolute; top: 140px; left: 420px" /></strong>
+                            <strong><h:outputText value="NIT Tercero" style="position: absolute; top: 140px; left: 420px;" /></strong>
                             <p:inputText id="nuevoTercero" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.tercero.nit}"
                                          style="width: 122px; position: absolute; left: 590px; top: 135px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesCorreccionAutoLiquidaciones.asignarIndex(novedades,13,1)}"/>
@@ -672,49 +672,49 @@
                                              id="btnNuevoTercero" value="" process="@this" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.asignarIndex(novedades,13,1)}"/>   
                             <p:watermark for="nuevoTercero" value="NIT Tercero" />
 
-                            <strong><h:outputText value="Nombre Tercero" style="position: absolute; top: 170px; left: 420px" /></strong>
+                            <strong><h:outputText value="Nombre Tercero" style="position: absolute; top: 170px; left: 420px;" /></strong>
                             <p:inputText id="nuevonombretercero" readonly="true" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.tercero.nombre}" style="width: 122px; position: absolute; left: 590px; top: 165px;">
                                 <p:ajax event="change" update="nuevonombretercero"/>
                             </p:inputText>
                             <p:watermark for="nuevonombretercero" value="Nombre Tercero" />
 
-                            <strong><h:outputText value="Saldo a Favor" style="position: absolute; top: 200px; left: 420px" /></strong>
+                            <strong><h:outputText value="Saldo a Favor" style="position: absolute; top: 200px; left: 420px;" /></strong>
                             <p:inputText id="nuevosaldofavor" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.saldoafavor}" style="width: 122px; position: absolute; left: 590px; top: 195px;">
                                 <p:ajax event="change" update="nuevosaldofavor"/>
                             </p:inputText>
                             <p:watermark for="nuevosaldofavor" value="Saldo a Favor" />
 
-                            <strong><h:outputText value="Valor Mora UPC" style="position: absolute; top: 230px; left: 420px" /></strong>
+                            <strong><h:outputText value="Valor Mora UPC" style="position: absolute; top: 230px; left: 420px;" /></strong>
                             <p:inputText id="vlrmoraupc" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.valormoraupc}" style="width: 122px; position: absolute; left: 590px; top: 225px;">
                                 <p:ajax event="change" update="vlrmoraupc"/>
                             </p:inputText>
                             <p:watermark for="vlrmoraupc" value="Valor Mora UPC" />
 
-                            <strong><h:outputText value="Saldo a favor UPC" style="position: absolute; top: 260px; left: 420px" /></strong>
+                            <strong><h:outputText value="Saldo a favor UPC" style="position: absolute; top: 260px; left: 420px;" /></strong>
                             <p:inputText id="nuevosaldofavorupc" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.saldoafavorupc}" style="width: 122px; position: absolute; left: 590px; top: 255px;">
                                 <p:ajax event="change" update="nuevosaldofavorupc"/>
                             </p:inputText>
                             <p:watermark for="nuevosaldofavorupc" value="Saldo a favor UPC" />
 
-                            <strong><h:outputText value="Valor Mora Solidaridad" style="position: absolute; top: 290px; left: 420px" /></strong>
+                            <strong><h:outputText value="Valor Mora Solidaridad" style="position: absolute; top: 290px; left: 420px;" /></strong>
                             <p:inputText id="nuevovlrmorasol" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.valormorasolidaridad}" style="width: 122px; position: absolute; left: 590px; top: 285px;">
                                 <p:ajax event="change" update="nuevovlrmorasol"/>
                             </p:inputText>
                             <p:watermark for="nuevovlrmorasol" value="Valor Mora Solidaridad" />
 
-                            <strong><h:outputText value="Valor Subsistencia" style="position: absolute; top: 320px; left: 420px" /></strong>
+                            <strong><h:outputText value="Valor Subsistencia" style="position: absolute; top: 320px; left: 420px;" /></strong>
                             <p:inputText id="nuevovlrsubs" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.valormorasubsistencia}" style="width: 122px; position: absolute; left: 590px; top: 315px;">
                                 <p:ajax event="change" update="nuevovlrsubs"/>
                             </p:inputText>
                             <p:watermark for="nuevovlrsubs" value="Valor Subsistencia" />
 
-                            <strong><h:outputText value="Valor Otros" style="position: absolute; top: 350px; left: 420px" /></strong>
+                            <strong><h:outputText value="Valor Otros" style="position: absolute; top: 350px; left: 420px;" /></strong>
                             <p:inputText id="nuevovlrotros" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.valorotros}" style="width: 122px; position: absolute; left: 590px; top: 345px;">
                                 <p:ajax event="change" update="nuevovlrotros"/>
                             </p:inputText>
                             <p:watermark for="nuevovlrotros" value="Valor otros" />
 
-                            <strong><h:outputText value="* Destino" style="position: absolute; top: 380px; left: 420px" /></strong>
+                            <strong><h:outputText value="* Destino" style="position: absolute; top: 380px; left: 420px;" /></strong>
                             <p:inputText id="nuevodestino" value="#{controlNovedadesCorreccionAutoLiquidaciones.nuevanovedad.destino}" style="width: 122px; position: absolute; left: 590px; top: 375px;">
                                 <p:ajax event="change" update="nuevodestino"/>
                             </p:inputText>
@@ -732,11 +732,11 @@
 
                     <p:dialog id="duplicarNovedadAuto" header="#{msg['duplicarregistro']}" widgetVar="duplicarNovedadAuto" closable="false" resizable="false"  draggable="false" modal="true" height="500" width="800" style="padding: 0px">
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarNovedades" style="border: none;">
 
-                            <strong><h:outputText value="Empresa" style="position: absolute; top: 80px; left: 50px" /></strong>
+                            <strong><h:outputText value="Empresa" style="position: absolute; top: 80px; left: 50px;" /></strong>
                             <p:inputText id="duplicarEmpresa" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.empresa.nombre}"
                                          style="width: 122px; position: absolute; left: 220px; top: 75px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesCorreccionAutoLiquidaciones.asignarIndex(novedades,0,2)}"/>
@@ -748,7 +748,7 @@
                             <p:watermark for="duplicarEmpresa" value="Empresa" />
 
 
-                            <strong><h:outputText value="Sucursal" style="position: absolute; top: 110px; left: 50px" /></strong>
+                            <strong><h:outputText value="Sucursal" style="position: absolute; top: 110px; left: 50px;" /></strong>
                             <p:inputText id="duplicarSucursal" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.sucursalpila.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 105px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesCorreccionAutoLiquidaciones.asignarIndex(novedades,1,2)}"/>
@@ -760,19 +760,19 @@
                             <p:watermark for="duplicarSucursal" value="Sucursal" />
 
 
-                            <strong><h:outputText value="* Año" style="position: absolute; top: 140px; left: 50px" /></strong>
+                            <strong><h:outputText value="* Año" style="position: absolute; top: 140px; left: 50px;" /></strong>
                             <p:inputText id="duplicarAnio" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.anio}" maxlength="4" style="width: 122px; position: absolute; left: 220px; top: 135px;">
                                 <p:ajax event="change" update="duplicarAnio"/>
                             </p:inputText>
                             <p:watermark for="duplicarAnio" value="Año" />
 
-                            <strong><h:outputText value="* Mes" style="position: absolute; top: 170px; left: 50px" /></strong>
+                            <strong><h:outputText value="* Mes" style="position: absolute; top: 170px; left: 50px;" /></strong>
                             <p:inputText id="duplicarMes" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.mes}" maxlength="2" style="width: 122px; position: absolute; left: 220px; top: 165px;">
                                 <p:ajax event="change" update="duplicarMes"/>
                             </p:inputText>
                             <p:watermark for="duplicarMes" value="Mes" />
 
-                            <strong><h:outputText value="* Tipo Entidad" style="position: absolute; top: 200px; left: 50px" /></strong>
+                            <strong><h:outputText value="* Tipo Entidad" style="position: absolute; top: 200px; left: 50px;" /></strong>
                             <p:inputText id="duplicarTipoEntidad" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.tipoentidad.nombre}"
                                          style="width: 122px; position: absolute; left: 220px; top: 195px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesCorreccionAutoLiquidaciones.asignarIndex(novedades,4,2)}"/>
@@ -784,19 +784,19 @@
                             <p:watermark for="duplicarTipoEntidad" value="Tipo Entidad" />
 
 
-                            <strong><h:outputText value="Formulario Único" style="position: absolute; top: 230px; left: 50px" /></strong>
+                            <strong><h:outputText value="Formulario Único" style="position: absolute; top: 230px; left: 50px;" /></strong>
                             <p:inputText id="duplicarFormUnico" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.formulariounico}"  style="width: 122px; position: absolute; left: 220px; top: 225px;">
                                 <p:ajax event="change" update="duplicarFormUnico"/>
                             </p:inputText>
                             <p:watermark for="duplicarFormUnico" value="Formulario único" />
 
-                            <strong><h:outputText value="Número de Radicado" style="position: absolute; top: 260px; left: 50px" /></strong>
+                            <strong><h:outputText value="Número de Radicado" style="position: absolute; top: 260px; left: 50px;" /></strong>
                             <p:inputText id="duplicarnumRadicado" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.numeroradicacion}" maxlength="50" style="width: 122px; position: absolute; left: 220px; top: 255px;">
                                 <p:ajax event="change" update="duplicarnumRadicado"/>
                             </p:inputText>
                             <p:watermark for="duplicarnumRadicado" value="Número Radicado" />
 
-                            <strong><h:outputText value="Corrección" style="position: absolute; top: 290px; left: 50px" /></strong>
+                            <strong><h:outputText value="Corrección" style="position: absolute; top: 290px; left: 50px;" /></strong>
                             <p:selectOneMenu value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.correccion}" id="duplicarcorreccion"  style="position: absolute; left: 220px; top: 285px; font-weight: bold;text-transform: uppercase;" >  
                                 <f:selectItem itemLabel="NO" itemValue="N" />  
                                 <f:selectItem itemLabel="SI" itemValue="S" /> 
@@ -804,19 +804,19 @@
                                 <p:ajax listener="#{controlNovedadesCorreccionAutoLiquidaciones.seleccionarCorreccion(controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.correccion, 2)}" update="@this" />
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="Año y Mes" style="position: absolute; top: 320px; left: 50px" /></strong>
+                            <strong><h:outputText value="Año y Mes" style="position: absolute; top: 320px; left: 50px;" /></strong>
                             <p:inputText id="duplicaraniomes" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.aniomes}" maxlength="6" style="width: 122px; position: absolute; left: 220px; top: 315px;">
                                 <p:ajax event="change" update="duplicaraniomes"/>
                             </p:inputText>
                             <p:watermark for="duplicaraniomes" value="Año y Mes" />
 
-                            <strong><h:outputText value="Planilla a Corregir" style="position: absolute; top: 350px; left: 50px" /></strong>
+                            <strong><h:outputText value="Planilla a Corregir" style="position: absolute; top: 350px; left: 50px;" /></strong>
                             <p:inputText id="duplicarplanilla" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.planillacorregir}" maxlength="50" style="width: 122px; position: absolute; left: 220px; top: 345px;">
                                 <p:ajax event="change" update="duplicarplanilla"/>
                             </p:inputText>
                             <p:watermark for="duplicarplanilla" value="Planilla a Corregir" />
 
-                            <strong><h:outputText value="Días Mora" style="position: absolute; top: 380px; left: 50px" /></strong>
+                            <strong><h:outputText value="Días Mora" style="position: absolute; top: 380px; left: 50px;" /></strong>
                             <p:inputText id="duplicardiasmora" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.diasmora}" maxlength="5" style="width: 122px; position: absolute; left: 220px; top: 375px;">
                                 <p:ajax event="change" update="duplicardiasmora"/>
                             </p:inputText>
@@ -824,19 +824,19 @@
 
                             <!--columna 2-->
 
-                            <strong><h:outputText value="Valor Intereses Mora" style="position: absolute; top: 80px; left: 420px" /></strong>
+                            <strong><h:outputText value="Valor Intereses Mora" style="position: absolute; top: 80px; left: 420px;" /></strong>
                             <p:inputText id="duplicarintmora" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.valorinteresesmora}" style="width: 122px; position: absolute; left: 590px; top: 75px;">
                                 <p:ajax event="change" update="duplicarintmora"/>
                             </p:inputText>
                             <p:watermark for="duplicarintmora" value="Valor Intereses Mora" />
 
-                            <strong><h:outputText value="Radicación Descuento" style="position: absolute; top: 110px; left: 420px" /></strong>
+                            <strong><h:outputText value="Radicación Descuento" style="position: absolute; top: 110px; left: 420px;" /></strong>
                             <p:inputText id="duplicarradicaciondcto" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.radicaciondescuento}" style="width: 122px; position: absolute; left: 590px; top: 105px;">
                                 <p:ajax event="change" update="duplicarradicaciondcto"/>
                             </p:inputText>
                             <p:watermark for="duplicarradicaciondcto" value="Radicación Descuento" />
 
-                            <strong><h:outputText value="NIT Tercero" style="position: absolute; top: 140px; left: 420px" /></strong>
+                            <strong><h:outputText value="NIT Tercero" style="position: absolute; top: 140px; left: 420px;" /></strong>
                             <p:inputText id="duplicarTercero" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.tercero.nit}"
                                          style="width: 122px; position: absolute; left: 590px; top: 135px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesCorreccionAutoLiquidaciones.asignarIndex(novedades,13,2)}"/>
@@ -847,49 +847,49 @@
                                              id="btnDuplicarTercero" value="" process="@this" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.asignarIndex(novedades,2,1)}"/>   
                             <p:watermark for="duplicarTercero" value="NIT Tercero" />
 
-                            <strong><h:outputText value="Nombre Tercero" style="position: absolute; top: 170px; left: 420px" /></strong>
+                            <strong><h:outputText value="Nombre Tercero" style="position: absolute; top: 170px; left: 420px;" /></strong>
                             <p:inputText id="duplicarnombretercero" readonly="true" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.tercero.nombre}" style="width: 122px; position: absolute; left: 590px; top: 165px;">
                                 <p:ajax event="change" update="duplicarnombretercero"/>
                             </p:inputText>
                             <p:watermark for="duplicarnombretercero" value="Nombre Tercero" />
 
-                            <strong><h:outputText value="Saldo a Favor" style="position: absolute; top: 200px; left: 420px" /></strong>
+                            <strong><h:outputText value="Saldo a Favor" style="position: absolute; top: 200px; left: 420px;" /></strong>
                             <p:inputText id="duplicarsaldofavor" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.saldoafavor}" style="width: 122px; position: absolute; left: 590px; top: 195px;">
                                 <p:ajax event="change" update="duplicarsaldofavor"/>
                             </p:inputText>
                             <p:watermark for="duplicarsaldofavor" value="Saldo a Favor" />
 
-                            <strong><h:outputText value="Valor Mora UPC" style="position: absolute; top: 230px; left: 420px" /></strong>
+                            <strong><h:outputText value="Valor Mora UPC" style="position: absolute; top: 230px; left: 420px;" /></strong>
                             <p:inputText id="duplicarvlrmoraupc" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.valormoraupc}" style="width: 122px; position: absolute; left: 590px; top: 225px;">
                                 <p:ajax event="change" update="duplicarvlrmoraupc"/>
                             </p:inputText>
                             <p:watermark for="duplicarvlrmoraupc" value="Valor Mora UPC" />
 
-                            <strong><h:outputText value="Saldo a favor UPC" style="position: absolute; top: 260px; left: 420px" /></strong>
+                            <strong><h:outputText value="Saldo a favor UPC" style="position: absolute; top: 260px; left: 420px;" /></strong>
                             <p:inputText id="duplicarsaldofavorupc" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.saldoafavorupc}" style="width: 122px; position: absolute; left: 590px; top: 255px;">
                                 <p:ajax event="change" update="duplicarsaldofavorupc"/>
                             </p:inputText>
                             <p:watermark for="duplicarsaldofavorupc" value="Saldo a favor UPC" />
 
-                            <strong><h:outputText value="Valor Mora Solidaridad" style="position: absolute; top: 290px; left: 420px" /></strong>
+                            <strong><h:outputText value="Valor Mora Solidaridad" style="position: absolute; top: 290px; left: 420px;" /></strong>
                             <p:inputText id="duplicarvlrmorasol" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.valormorasolidaridad}" style="width: 122px; position: absolute; left: 590px; top: 285px;">
                                 <p:ajax event="change" update="duplicarvlrmorasol"/>
                             </p:inputText>
                             <p:watermark for="duplicarvlrmorasol" value="Valor Mora Solidaridad" />
 
-                            <strong><h:outputText value="Valor Subsistencia" style="position: absolute; top: 320px; left: 420px" /></strong>
+                            <strong><h:outputText value="Valor Subsistencia" style="position: absolute; top: 320px; left: 420px;" /></strong>
                             <p:inputText id="duplicarvlrsubs" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.valormorasubsistencia}" style="width: 122px; position: absolute; left: 590px; top: 315px;">
                                 <p:ajax event="change" update="duplicarvlrsubs"/>
                             </p:inputText>
                             <p:watermark for="duplicarvlrsubs" value="Valor Subsistencia" />
 
-                            <strong><h:outputText value="Valor Otros" style="position: absolute; top: 350px; left: 420px" /></strong>
+                            <strong><h:outputText value="Valor Otros" style="position: absolute; top: 350px; left: 420px;" /></strong>
                             <p:inputText id="duplicarvlrotros" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.valorotros}" style="width: 122px; position: absolute; left: 590px; top: 345px;">
                                 <p:ajax event="change" update="duplicarvlrotros"/>
                             </p:inputText>
                             <p:watermark for="duplicarvlrotros" value="Valor Otros" />
 
-                            <strong><h:outputText value="* Destino" style="position: absolute; top: 380px; left: 420px" /></strong>
+                            <strong><h:outputText value="* Destino" style="position: absolute; top: 380px; left: 420px;" /></strong>
                             <p:inputText id="duplicardestino" value="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarnovedad.destino}" style="width: 122px; position: absolute; left: 590px; top: 375px;">
                                 <p:ajax event="change" update="duplicardestino"/>
                             </p:inputText>
@@ -902,119 +902,119 @@
                     </p:dialog>
 
                     <p:dialog id="editarEmpresa" header="Empresa" widgetVar="editarEmpresa" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarSucursal" header="Sucursal" widgetVar="editarSucursal" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.sucursalpila.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.sucursalpila.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarAnio" header="Año" widgetVar="editarAnio" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.anio}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.anio}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarMes" header="Mes" widgetVar="editarMes" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.mes}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.mes}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarTipoEntidad" header="Tipo Entidad" widgetVar="editarTipoEntidad" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.tipoentidad.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.tipoentidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarFormularioUnico" header="Formulario único" widgetVar="editarFormularioUnico" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.formulariounico}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.formulariounico}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarNumRadicado" header="Número de Radicado" widgetVar="editarNumRadicado" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.numeroradicacion}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.numeroradicacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarCorrecciones" header="Corrección" widgetVar="editarCorrecciones" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.correccion}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.correccion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarAnioMes" header="Año y Mes" widgetVar="editarAnioMes" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.aniomes}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.aniomes}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarPlanilla" header="Planilla a Corregir" widgetVar="editarPlanilla" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.planillacorregir}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.planillacorregir}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarDiasM" header="Días Mora" widgetVar="editarDiasM" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.diasmora}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.diasmora}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarIntMora" header="Intereses de Mora" widgetVar="editarIntMora" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.valorinteresesmora}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.valorinteresesmora}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarRadicaciondescuento" header="Radicación Descuento" widgetVar="editarRadicaciondescuento" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.radicaciondescuento}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.radicaciondescuento}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarNitTercero" header="NIT Tercero" widgetVar="editarNitTercero" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.tercero.nit}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.tercero.nit}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarNombreTercero" header="Nombre Tercero" widgetVar="editarNombreTercero" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.tercero.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.tercero.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarSaldoFavor" header="Saldo a Favor" widgetVar="editarSaldoFavor" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.saldoafavor}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.saldoafavor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarValorMoraUpc" header="Valor mora UPC" widgetVar="editarValorMoraUpc" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.valormoraupc}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.valormoraupc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarSaldoFavorUpc" header="Saldo a favor UPC" widgetVar="editarSaldoFavorUpc" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.saldoafavorupc}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.saldoafavorupc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarValorMoraSolidaridad" header="Valor mora UPC" widgetVar="editarValorMoraSolidaridad" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.valormorasolidaridad}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.valormorasolidaridad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarValorMoraSubsistencia" header="Valor mora Subsistencia" widgetVar="editarValorMoraSubsistencia" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.valormorasubsistencia}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.valormorasubsistencia}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarValorOtros" header="Valor Otros" widgetVar="editarValorOtros" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.valorotros}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.valorotros}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarDestino" header="Sucursal" widgetVar="editarDestino" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.destino}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
+                        <p:inputTextarea value="#{controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.destino}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
 
                     <p:dialog header="Empresas" widgetVar="empresasDialogo" draggable="false" resizable="false" closable="false" id="empresasDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
-                        <p:dataTable id="lovEmpresas" style="width: 400px" var="empresa" value="#{controlNovedadesCorreccionAutoLiquidaciones.listaEmpresas}" rowKey="#{empresa.secuencia}"
+                        <p:dataTable id="lovEmpresas" style="width: 400px;" var="empresa" value="#{controlNovedadesCorreccionAutoLiquidaciones.listaEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlNovedadesCorreccionAutoLiquidaciones.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="415" scrollHeight="250"
                                      filteredValue="#{controlNovedadesCorreccionAutoLiquidaciones.filtrarlistaEmpresas}" emptyMessage="#{msg['lovvacio']}">   
                             <p:ajax event="filter" listener="#{controlNovedadesCorreccionAutoLiquidaciones.eventoFiltrarEmpresas()}"/>
@@ -1041,13 +1041,13 @@
                         </p:dataTable>
 
                         <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistros']} #{controlNovedadesCorreccionAutoLiquidaciones.infoRegistroEmpresas}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-                        <p:commandButton id="aceptarD" icon="ui-icon-check" style="position: relative; left: 135px" value="#{msg['aceptar']}" disabled="#{controlNovedadesCorreccionAutoLiquidaciones.aceptar}"  actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.actualizarEmpresa()}"  process="@this"/>
-                        <p:commandButton id="atrasD" style="position: relative; left: 135px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.cancelarCambioEmpresa()}"   process="@this"/>
+                        <p:commandButton id="aceptarD" icon="ui-icon-check" style="position: relative; left: 135px;" value="#{msg['aceptar']}" disabled="#{controlNovedadesCorreccionAutoLiquidaciones.aceptar}"  actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.actualizarEmpresa()}"  process="@this"/>
+                        <p:commandButton id="atrasD" style="position: relative; left: 135px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.cancelarCambioEmpresa()}"   process="@this"/>
                     </p:dialog> 
 
                     <p:dialog header="Terceros" widgetVar="tercerosDialogo" draggable="false" resizable="false" closable="false" id="tercerosDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
-                        <p:dataTable id="lovTerceros" style="width: 400px" var="terceros" value="#{controlNovedadesCorreccionAutoLiquidaciones.listaTerceros}" rowKey="#{terceros.secuencia}"
+                        <p:dataTable id="lovTerceros" style="width: 400px;" var="terceros" value="#{controlNovedadesCorreccionAutoLiquidaciones.listaTerceros}" rowKey="#{terceros.secuencia}"
                                      selection="#{controlNovedadesCorreccionAutoLiquidaciones.terceroSeleccionado}" selectionMode="single" widgetVar="lovTerceros" scrollable="true" scrollWidth="415" scrollHeight="250"
                                      filteredValue="#{controlNovedadesCorreccionAutoLiquidaciones.filtrarlistaTerceros}" emptyMessage="#{msg['lovvacio']}">   
                             <p:ajax event="filter" listener="#{controlNovedadesCorreccionAutoLiquidaciones.eventoFiltrarTerceros()}"/>
@@ -1074,14 +1074,14 @@
                         </p:dataTable>
 
                         <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistros']} #{controlNovedadesCorreccionAutoLiquidaciones.infoRegistroTerceros}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-                        <p:commandButton id="aceptarT" icon="ui-icon-check" style="position: relative; left: 135px" value="#{msg['aceptar']}" disabled="#{controlNovedadesCorreccionAutoLiquidaciones.aceptar}"  actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.actualizarTercero()}"  process="@this"/>
-                        <p:commandButton id="atrasT" style="position: relative; left: 135px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.cancelarCambioTercero()}"   process="@this"/>
+                        <p:commandButton id="aceptarT" icon="ui-icon-check" style="position: relative; left: 135px;" value="#{msg['aceptar']}" disabled="#{controlNovedadesCorreccionAutoLiquidaciones.aceptar}"  actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.actualizarTercero()}"  process="@this"/>
+                        <p:commandButton id="atrasT" style="position: relative; left: 135px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.cancelarCambioTercero()}"   process="@this"/>
                     </p:dialog> 
 
 
                     <p:dialog header="Sucursales" widgetVar="sucursalesDialogo" draggable="false" resizable="false" closable="false" id="sucursalesDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
-                        <p:dataTable id="lovSucursales" style="width: 400px" var="sucursal" value="#{controlNovedadesCorreccionAutoLiquidaciones.listaSucursales}" rowKey="#{sucursal.secuencia}"
+                        <p:dataTable id="lovSucursales" style="width: 400px;" var="sucursal" value="#{controlNovedadesCorreccionAutoLiquidaciones.listaSucursales}" rowKey="#{sucursal.secuencia}"
                                      selection="#{controlNovedadesCorreccionAutoLiquidaciones.sucursalSeleccionada}" selectionMode="single" widgetVar="lovSucursales" scrollable="true" scrollWidth="415" scrollHeight="250"
                                      filteredValue="#{controlNovedadesCorreccionAutoLiquidaciones.filtrarlistaSucursales}" emptyMessage="#{msg['lovvacio']}">   
                             <p:ajax event="filter" listener="#{controlNovedadesCorreccionAutoLiquidaciones.eventoFiltrarSucursales()}"/>
@@ -1108,13 +1108,13 @@
                         </p:dataTable>
 
                         <h:outputText id="infoRegistroSucursal" value="#{msg['infoRegistros']} #{controlNovedadesCorreccionAutoLiquidaciones.infoRegistroSucursales}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-                        <p:commandButton id="aceptarS" icon="ui-icon-check" style="position: relative; left: 135px" value="#{msg['aceptar']}" disabled="#{controlNovedadesCorreccionAutoLiquidaciones.aceptar}"  actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.actualizarSucursal()}"  process="@this"/>
-                        <p:commandButton id="atrasS" style="position: relative; left: 135px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.cancelarCambioSucursal()}"   process="@this"/>
+                        <p:commandButton id="aceptarS" icon="ui-icon-check" style="position: relative; left: 135px;" value="#{msg['aceptar']}" disabled="#{controlNovedadesCorreccionAutoLiquidaciones.aceptar}"  actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.actualizarSucursal()}"  process="@this"/>
+                        <p:commandButton id="atrasS" style="position: relative; left: 135px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.cancelarCambioSucursal()}"   process="@this"/>
                     </p:dialog> 
 
                     <p:dialog header="Tipos Entidades" widgetVar="tiposEntidadesDialogo" draggable="false" resizable="false" closable="false" id="tiposEntidadesDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
-                        <p:dataTable id="lovTiposEntidades" style="width: 400px" var="tipoentidad" value="#{controlNovedadesCorreccionAutoLiquidaciones.listaTiposEntidades}" rowKey="#{tipoentidad.secuencia}"
+                        <p:dataTable id="lovTiposEntidades" style="width: 400px;" var="tipoentidad" value="#{controlNovedadesCorreccionAutoLiquidaciones.listaTiposEntidades}" rowKey="#{tipoentidad.secuencia}"
                                      selection="#{controlNovedadesCorreccionAutoLiquidaciones.tipoEntidadSeleccionada}" selectionMode="single" widgetVar="lovTiposEntidades" scrollable="true" scrollWidth="415" scrollHeight="250"
                                      filteredValue="#{controlNovedadesCorreccionAutoLiquidaciones.filtrarlistaTiposEntidades}" emptyMessage="#{msg['lovvacio']}">   
                             <p:ajax event="filter" listener="#{controlNovedadesCorreccionAutoLiquidaciones.eventoFiltrarTiposEntidades()}"/>
@@ -1134,8 +1134,8 @@
 
                         </p:dataTable>
                         <h:outputText id="infoRegistroTipoEntidad" value="#{msg['infoRegistros']} #{controlNovedadesCorreccionAutoLiquidaciones.infoRegistroTipoEntidad}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-                        <p:commandButton id="aceptarTE" icon="ui-icon-check" style="position: relative; left: 135px" value="#{msg['aceptar']}" disabled="#{controlNovedadesCorreccionAutoLiquidaciones.aceptar}"  actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.actualizarTipoEntidad()}"  process="@this"/>
-                        <p:commandButton id="atrasTE" style="position: relative; left: 135px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.cancelarCambioTipoEntidad()}"   process="@this"/>
+                        <p:commandButton id="aceptarTE" icon="ui-icon-check" style="position: relative; left: 135px;" value="#{msg['aceptar']}" disabled="#{controlNovedadesCorreccionAutoLiquidaciones.aceptar}"  actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.actualizarTipoEntidad()}"  process="@this"/>
+                        <p:commandButton id="atrasTE" style="position: relative; left: 135px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.cancelarCambioTipoEntidad()}"   process="@this"/>
                     </p:dialog>                    
                 </h:form>
 

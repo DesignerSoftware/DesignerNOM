@@ -618,7 +618,7 @@ public class ControlEstructura implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "43";
+            altoTabla = "45";
             organigramaFecha = (Column) c.getViewRoot().findComponent("form:datosOrganigramas:organigramaFecha");
             organigramaFecha.setFilterStyle("width: 85%;");
             organigramaCodigo = (Column) c.getViewRoot().findComponent("form:datosOrganigramas:organigramaCodigo");

@@ -301,21 +301,21 @@ public class ControlIndices implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 246;
+            tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosIndices:codigo");
-            codigo.setFilterStyle("width: 30px");
+            codigo.setFilterStyle("width: 85%");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosIndices:descripcion");
-            descripcion.setFilterStyle("width: 100px");
+            descripcion.setFilterStyle("width: 85%");
             tipoindice = (Column) c.getViewRoot().findComponent("form:datosIndices:tipoindice");
-            tipoindice.setFilterStyle("width: 40px");
+            tipoindice.setFilterStyle("width: 85%");
             porcentajeestan = (Column) c.getViewRoot().findComponent("form:datosIndices:porcentajeestan");
-            porcentajeestan.setFilterStyle("width: 15px");
+            porcentajeestan.setFilterStyle("width: 85%");
             objetivo = (Column) c.getViewRoot().findComponent("form:datosIndices:objetivo");
-            objetivo.setFilterStyle("width: 240px");
+            objetivo.setFilterStyle("width: 85%");
             dividendo = (Column) c.getViewRoot().findComponent("form:datosIndices:dividendo");
-            dividendo.setFilterStyle("width: 240px");
+            dividendo.setFilterStyle("width: 85%");
             divisor = (Column) c.getViewRoot().findComponent("form:datosIndices:divisor");
-            divisor.setFilterStyle("width: 240px");
+            divisor.setFilterStyle("width: 85%");
             RequestContext.getCurrentInstance().update("form:datosIndices");
             System.out.println("Activar");
             bandera = 1;

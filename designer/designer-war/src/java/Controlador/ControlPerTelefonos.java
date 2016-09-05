@@ -489,7 +489,7 @@ public class ControlPerTelefonos implements Serializable {
             tNumero.setFilterStyle("width: 85%");
             tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
             tCiudad.setFilterStyle("width: 85%");
-            altoTabla = "246";
+            altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
             bandera = 1;
 

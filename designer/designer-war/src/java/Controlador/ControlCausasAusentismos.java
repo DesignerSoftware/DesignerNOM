@@ -147,20 +147,20 @@ public class ControlCausasAusentismos implements Serializable {
         if (bandera == 0) {
             System.out.println("Activar");
             Codigo = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:codigo");
-            Codigo.setFilterStyle("width:85%");
+            Codigo.setFilterStyle("width: 85%");
             Descripcion = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:descripcion");
-            Descripcion.setFilterStyle("width:85%");
+            Descripcion.setFilterStyle("width: 85%");
             Clase = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:clase");
             Clase.setFilterStyle("");
             OrigenIncapacidad = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:origenIncapacidad");
-            OrigenIncapacidad.setFilterStyle("width:85%");
+            OrigenIncapacidad.setFilterStyle("width: 85%");
             PorcentajeLiquidacion = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:porcentajeLiquidacion");
-            PorcentajeLiquidacion.setFilterStyle("width:85%");
+            PorcentajeLiquidacion.setFilterStyle("width: 85%");
             RestaDiasIncapacidad = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:restaDiasIncapacidad");
-            RestaDiasIncapacidad.setFilterStyle("width:85%");
+            RestaDiasIncapacidad.setFilterStyle("width: 85%");
             FormaLiquidacion = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:formaLiquidacion");
-            FormaLiquidacion.setFilterStyle("width:85%");
-            altoTabla = "246";
+            FormaLiquidacion.setFilterStyle("width: 85%");
+            altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosCausasAusentismos");
             bandera = 1;
             tipoLista = 1;

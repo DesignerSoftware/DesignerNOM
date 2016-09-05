@@ -18,7 +18,7 @@
 
                         <br/>
                         <br/>
-                        <p:dataTable id="aficiones"  var="afi" style="font-size: 11px;width: 320px" value="#{ctrlVigenciasCargos.listAficiones}"
+                        <p:dataTable id="aficiones"  var="afi" style="font-size: 11px;width: 320px;" value="#{ctrlVigenciasCargos.listAficiones}"
                                      scrollable="true" scrollHeight="227" emptyMessage="No se encontraron registros para la seleción" widgetVar="tabl"
                                      rowKey="#{afi.codigo}" rowIndexVar="pos"
                                      editable="true" editMode="cell" scrollWidth="335" >
@@ -56,12 +56,12 @@
                             <p:inputText id="desc" value="#{ctrlVigenciasCargos.afi.descripcion}" style="font-size: 12px; position: absolute; top: 314px; left: 113px; width: 209px; border-radius: 0px;">
                             </p:inputText>
                             <p:watermark for="desc" value="Descripción" />
-                            <p:commandButton id="ok" value="" style="background-image: url(Imagenes/bien.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 20px; height: 20px; position: absolute; left:335px ; top: 316px" actionListener="#{ctrlVigenciasCargos.squirtle()}" />  
-                            <p:tooltip style="font-size: 12px" for="ok" value="Agregar Afición" />
-                            <p:commandButton id="notOk" value="" style="background-image: url(Imagenes/mal.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 20px; height: 20px; position: absolute; left:357px ; top: 316px "  actionListener="#{ctrlVigenciasCargos.desabilitarAgregar()}" process="@this"> 
+                            <p:commandButton id="ok" value="" style="background-image: url(Imagenes/Iconos/bien.png); background-size: 100% 100%; background-repeat: no-repeat; width: 20px; height: 20px; position: absolute; left:335px ; top: 316px;" actionListener="#{ctrlVigenciasCargos.squirtle()}" />  
+                            <p:tooltip style="font-size: 12px;" for="ok" value="Agregar Afición" />
+                            <p:commandButton id="notOk" value="" style="background-image: url(Imagenes/Iconos/mal.png); background-size: 100% 100%; background-repeat: no-repeat; width: 20px; height: 20px; position: absolute; left:357px ; top: 316px "  actionListener="#{ctrlVigenciasCargos.desabilitarAgregar()}" process="@this"> 
                                 <p:resetInput target=":form:cod, :form:desc"/>
                             </p:commandButton>
-                            <p:tooltip style="font-size: 12px" for="notOk" value="Cancelar adición" />
+                            <p:tooltip style="font-size: 12px;" for="notOk" value="Cancelar adición" />
 
                         </p:panel>
                 <!--        <p:commandButton id="comprobar" value="Ver Proceso" style="position: absolute; top: 355px; left: 85px; font-size: 12px;"  actionListener="#{ctrlVigenciasCargos.verProceso()}" process="@this"/> -->
@@ -71,47 +71,47 @@
                         <p:toolbar style="font-size: 12px; position: absolute; top: 30px; left: 10px;">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/guardar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; " actionListener="#{ctrlVigenciasCargos.modificarAficiones()}" process="@this" />
-                                <p:tooltip style="font-size: 12px" for="guardarRapido" value="Guardar" />
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{ctrlVigenciasCargos.editarCelda()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px" for="editar" value="Editar" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{ctrlVigenciasCargos.modificarAficiones()}" process="@this" />
+                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="Guardar" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{ctrlVigenciasCargos.editarCelda()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="editar" value="Editar" />
 
                                 <p:separator />
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false">
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false">
                                     <p:dataExporter type="xls" target="aficiones" fileName="AficionesXLS" encoding="UTF-8"/> 
                                 </p:commandButton>
-                                <p:tooltip style="font-size: 12px" for="exportarXLS" value="Exportar a XLS" />
+                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="Exportar a XLS" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " ajax="false" >
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png) " ajax="false" >
                                     <p:dataExporter type="xml" target="aficiones" fileName="AficionesXML" encoding="UTF-8"/> 
                                 </p:commandButton>
-                                <p:tooltip style="font-size: 12px" for="exportarXML" value="Exportar a XML" />
+                                <p:tooltip style="font-size: 12px;" for="exportarXML" value="Exportar a XML" />
 
                                 <p:separator /> 
 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{ctrlVigenciasCargos.habilitarAgregar()}" process="@this"> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " actionListener="#{ctrlVigenciasCargos.habilitarAgregar()}" process="@this"> 
                                     <p:resetInput target=":form:cod, :form:desc"/>
                                 </p:commandButton>
-                                <p:tooltip style="font-size: 12px" for="insertar" value="Insertar Nueva Afición" />
+                                <p:tooltip style="font-size: 12px;" for="insertar" value="Insertar Nueva Afición" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{ctrlVigenciasCargos.borrarAficion}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="eliminar" value="Eliminar Afición" />
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{ctrlVigenciasCargos.borrarAficion}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="eliminar" value="Eliminar Afición" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{ctrlVigenciasCargos.duplicarAficion()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px" for="duplicar" value="Duplicar Afición" />
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{ctrlVigenciasCargos.duplicarAficion()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="duplicar" value="Duplicar Afición" />
 
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
                     </fieldset>
 
-                    <p:dialog id="alerta" header="ATENCIÓN...!" widgetVar="alerta"  resizable="false" draggable="false" modal="true" height="95" width="400px" style="font-size: 12px" closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                    <p:dialog id="alerta" header="ATENCIÓN...!" widgetVar="alerta"  resizable="false" draggable="false" modal="true" height="95" width="400px;" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="Si" onclick="alerta.hide();" actionListener="#{ctrlVigenciasCargos.modificarAficiones()}" style="position: absolute; top: 60px; left: 215px" process="@this" />
-                        <p:commandButton value="No" onclick="alerta.hide();" style="position: absolute; top: 60px; left: 255px" process="@this" />
-                        <p:commandButton value="Cancelar" onclick="alerta.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
+                        <p:commandButton value="Si" onclick="alerta.hide();" actionListener="#{ctrlVigenciasCargos.modificarAficiones()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
+                        <p:commandButton value="No" onclick="alerta.hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
+                        <p:commandButton value="Cancelar" onclick="alerta.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="editarCodigo" header="Editar Código" widgetVar="editarCodigo" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px; padding: 0px">  
@@ -119,8 +119,8 @@
                             <p:ajax event="change" listener="#{ctrlVigenciasCargos.cambioEditable()}"/>
                             <p:ajax event="keyup" listener="#{ctrlVigenciasCargos.activarAceptar('0')}"/>
                         </p:inputTextarea>
-                        <p:commandButton id="aceptarCod" value="Aceptar" onclick="editarCodigo.hide();" style="position: absolute; top: 60px; left: 80px; font-size: 11px" process="@this" actionListener="#{ctrlVigenciasCargos.aplicarCambioCelda()}" disabled="#{ctrlVigenciasCargos.aceptarEditar}"  />
-                        <p:commandButton value="Cancelar" onclick="editarCodigo.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this" actionListener="#{ctrlVigenciasCargos.reiniciarEditar()}" />
+                        <p:commandButton id="aceptarCod" value="Aceptar" onclick="editarCodigo.hide();" style="position: absolute; top: 60px; left: 80px; font-size: 11px;" process="@this" actionListener="#{ctrlVigenciasCargos.aplicarCambioCelda()}" disabled="#{ctrlVigenciasCargos.aceptarEditar}"  />
+                        <p:commandButton value="Cancelar" onclick="editarCodigo.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this" actionListener="#{ctrlVigenciasCargos.reiniciarEditar()}" />
                     </p:dialog>
 
                     <p:dialog id="editarDescripcion" header="Editar Descripción" widgetVar="editarDescripcion" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
@@ -128,8 +128,8 @@
                             <p:ajax event="change" listener="#{ctrlVigenciasCargos.cambioEditable()}"/>
                             <p:ajax event="keyup" listener="#{ctrlVigenciasCargos.activarAceptar('1')}"/>
                         </p:inputTextarea>
-                        <p:commandButton id="aceptarDesc" value="Aceptar" onclick="editarDescripcion.hide();" style="position: absolute; top: 60px; left: 80px; font-size: 11px" process="@this" actionListener="#{ctrlVigenciasCargos.aplicarCambioCelda()}" disabled="#{ctrlVigenciasCargos.aceptarEditar}" />
-                        <p:commandButton value="Cancelar" onclick="editarDescripcion.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px" process="@this" actionListener="#{ctrlVigenciasCargos.reiniciarEditar()}"/>
+                        <p:commandButton id="aceptarDesc" value="Aceptar" onclick="editarDescripcion.hide();" style="position: absolute; top: 60px; left: 80px; font-size: 11px;" process="@this" actionListener="#{ctrlVigenciasCargos.aplicarCambioCelda()}" disabled="#{ctrlVigenciasCargos.aceptarEditar}" />
+                        <p:commandButton value="Cancelar" onclick="editarDescripcion.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this" actionListener="#{ctrlVigenciasCargos.reiniciarEditar()}"/>
                     </p:dialog>
 
                     <p:commandButton style="position: absolute; left: 596px; top: 400px; font-size: 10px; font-family: Arial, Helvetica, sans-serif;" id="CANCELAR" value="Atras" action="vigenciaaficion" />
