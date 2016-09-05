@@ -16,15 +16,15 @@
                     <f:loadBundle basename="Recursos.emplvigenciatipotrabajador" var="msg" />
                     <p:growl id="growl" showDetail="true"/>
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
-                        <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+                        <p:toolbar styleClass="cssToolbar">
+                            <p:toolbarGroup align="left">
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none;" actionListener="#{controlVigenciaTipoTrabajador.guardarGeneral()}" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none;" actionListener="#{controlVigenciaTipoTrabajador.guardarGeneral()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none;" actionListener="#{controlVigenciaTipoTrabajador.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" disabled="#{controlVigenciaTipoTrabajador.activarLOV}" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlVigenciaTipoTrabajador.listaValoresBoton()}" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
@@ -82,7 +82,7 @@
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px" />
                         </fieldset>
 
-                        <fieldset style="position: absolute;top: 110px;left: 10px;height: 180px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 110px; left: 10px; height: 176px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style=" color: blue"><strong>#{msg['tipo']}</strong></legend>
                             <!-- TABLA EMPLVIGENCIATIPOTRABAJADOR -->
 
@@ -155,22 +155,18 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
-                                    <!-- <f:facet name="footer">
-                                         <p:commandButton style="width: 170px;" action="clasepension" process="@this" actionListener="#{controlClasesPensiones.recibirAtras('atrasEmplVigenciaTipoTrabajadorClasePension')}" id="fooTipoCotizante" value=""/>
-                                     </f:facet>-->
                                 </p:column> 
                             </p:dataTable>  
-                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlVigenciaTipoTrabajador.infoRegistro}" style="position: relative; left: 15px; top: 3px; font-weight: bold"/>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlVigenciaTipoTrabajador.infoRegistro}" style="position: relative; left: 15px; top: 0px; font-weight: bold"/>
                         </fieldset>
 
                         <p:remoteCommand name="posicionTabla" actionListener="#{controlVigenciaTipoTrabajador.posicionTabla()}"/>
 
-                        <p:panel id="panelPensionadosMensaje" header="#{msg['informacionP']}" style="position: absolute; left: 12px; top: 310px;  width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: visible">
+                        <p:panel id="panelPensionadosMensaje" header="#{msg['informacionP']}" style="position: absolute; left: 12px; top: 308px;  width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: visible">
                             <h:outputText value="#{msg['panelPensionadosMensaje']}" />
                         </p:panel>
 
-                        <p:panel id="panelPensionadosInput" header="#{msg['informacionP']}" style="position: absolute; left: 12px; top: 310px;  width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden;" >
+                        <p:panel id="panelPensionadosInput" header="#{msg['informacionP']}" style="position: absolute; left: 12px; top: 308px;  width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden;" >
 
                             <h:outputText value="#{msg['fechainicioP']}:" style="position: absolute; left: 5px; top: 28px; font-size: 11px;"/>
                             <div id="posicionFechaInicialDialogo" style="position: absolute; left: 5px; top: 43px; height: 10px">
@@ -246,12 +242,11 @@
                             <p:commandButton value="#{msg['limpiar']}" id="LimpiarPensionados" style="position: absolute; left: 290px; top: 160px; height: 30px; width: 120px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" actionListener="#{controlVigenciaTipoTrabajador.limpiarPension()}" process="@this" icon="ui-icon-trash"/>
                         </p:panel>
 
-                        <p:panel id="panelRetiradosMensaje" header="#{msg['informacionR']}" style="position: absolute; left: 440px; top: 310px;  width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible; border: none;">
+                        <p:panel id="panelRetiradosMensaje" header="#{msg['informacionR']}" style="position: absolute; left: 440px; top: 308px;  width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible;">
                             <h:outputText value="#{msg['panelRetiradosMensaje']}" />
                         </p:panel>
 
-
-                        <p:panel id="panelRetiradosInput" header="#{msg['informacionR']}" style="position: absolute; left: 440px; top: 310px;  width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden">
+                        <p:panel id="panelRetiradosInput" header="#{msg['informacionR']}" style="position: absolute; left: 440px; top: 308px;  width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden">
                             <h:outputText value="#{msg['fecharetiroR']}:" style="position: absolute; left: 10px; top: 45px"/>
                             <div id="posicionFechaRetiroDialogo" style=" position: absolute; left: 85px; top: 40px">
                                 <p:calendar pattern="dd/MM/yyyy" id="fechaRetiro" value="#{controlVigenciaTipoTrabajador.retiroVigencia.fecharetiro}" >
@@ -274,13 +269,12 @@
                             <p:inputTextarea id="observacion" value="#{controlVigenciaTipoTrabajador.retiroVigencia.descripcion}" style="position: absolute; left: 10px; top: 100px; width: 385px; height: 50px;" autoResize="false" maxlength="500">
                                 <p:ajax event="click" listener="#{controlVigenciaTipoTrabajador.validarRegistroSeleccionadoRetirados()}" process="@this" immediate="true"/>
                                 <p:ajax event="change" update="observacion" listener="#{controlVigenciaTipoTrabajador.banderaCambiosRetirados()}" process="@this" immediate="true"/>
-
                             </p:inputTextarea>
 
                             <p:commandButton value="#{msg['limpiar']}" id="LimpiarRetirado" style="position: absolute; left: 20px; top: 160px; height: 30px; width: 120px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" actionListener="#{controlVigenciaTipoTrabajador.limpiarRetiro()}" update="panelRetiradosInput" process="@this" icon="ui-icon-trash"/>
                         </p:panel>
 
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 664px; top: 503px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="confirmarGuardar.show();" process="@this" disabled="#{controlVigenciaTipoTrabajador.cambiosPagina}"/>
+                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 503px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="confirmarGuardar.show();" process="@this" disabled="#{controlVigenciaTipoTrabajador.cambiosPagina}"/>
                         <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 503px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlVigenciaTipoTrabajador.salir()}" action="nomina" process="@this" />
 
                     </p:panel>

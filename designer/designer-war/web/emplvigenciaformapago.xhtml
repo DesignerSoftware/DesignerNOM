@@ -79,22 +79,22 @@
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px" />
                         </fieldset>
 
-                        <fieldset style="position: absolute;top: 110px;left: 10px;height: 365px;width: 830px; border-radius: 10px; text-align: left">
-                            <legend style="font-size: 14px; color: blue"><strong>#{msg['formaPagoEmpleado']}</strong></legend>
+                        <fieldset style="position: absolute; top: 110px; left: 10px; height: 365px; width: 830px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 14px; color: blue;"><strong>#{msg['formaPagoEmpleado']}</strong></legend>
 
-                            <p:dataTable id="datosVigenciasFormasPagos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
-                                         value="#{controlVigenciasFormasPagos.listVigenciasFormasPagosPorEmpleado}" scrollable="true" scrollHeight="#{controlVigenciasFormasPagos.altoTabla}" 
+                            <p:dataTable id="datosVigenciasFormasPagos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px; border: 1px;"                           
+                                         value="#{controlVigenciasFormasPagos.listVigenciasFormasPagosPorEmpleado}" scrollable="true" scrollWidth="835" scrollHeight="#{controlVigenciasFormasPagos.altoTabla}" 
                                          filteredValue="#{controlVigenciasFormasPagos.filtrarVigenciasFormasPagosPorEmpleado}" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell" rows="20" selection="#{controlVigenciasFormasPagos.vigenciaSeleccionada}" selectionMode="single"  
-                                         > 
+                                         editable="true" editMode="cell" rows="20" selection="#{controlVigenciasFormasPagos.vigenciaSeleccionada}" selectionMode="single"> 
+                                
                                 <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlVigenciasFormasPagos.recordarSeleccion()}"/>
 
-                                <p:column id="fechaVigencia" headerText="#{msg['inicial']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains"  width="80"  filterStyle="display: none; visibility: hidden;" >
+                                <p:column id="fechaVigencia" headerText="#{msg['inicial']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains"  width="62" filterStyle="display: none; visibility: hidden;" >
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <h:outputText value="#{info.fechavigencia}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            <h:outputText value="#{info.fechavigencia}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
@@ -104,10 +104,9 @@
                                             </p:calendar>
                                         </f:facet>
                                     </p:cellEditor>
-
                                 </p:column>  
 
-                                <p:column headerText="#{msg['cuenta']}" sortBy="#{info.cuenta}" filterBy="#{info.cuenta}" filterMatchMode="contains" id="cuenta" width="65" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['cuenta']}" sortBy="#{info.cuenta}" filterBy="#{info.cuenta}" filterMatchMode="contains" id="cuenta" width="70" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.cuenta}" /></f:facet>  
                                         <f:facet name="input">
@@ -117,11 +116,13 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
-
                                 </p:column>  
 
-                                <p:column id="fechaCuenta" headerText="#{msg['fechaCuenta']}" sortBy="#{info.fechacuenta}" filterBy="#{info.fechacuenta}" filterMatchMode="contains"  width="80"  filterStyle="display: none; visibility: hidden;" >
+                                <p:column id="fechaCuenta" headerText="#{msg['fechaCuenta']}" sortBy="#{info.fechacuenta}" filterBy="#{info.fechacuenta}" filterMatchMode="contains" width="62" filterStyle="display: none; visibility: hidden;" >
+                                    <f:facet name="header">
+                                        <h:outputText id="headfc" value="F #{msg['cuenta']}"/>
+                                        <p:tooltip for="headfc" value="#{msg['fechaCuenta']}"/>
+                                    </f:facet>
                                     <p:cellEditor>
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechacuenta}" >
@@ -137,7 +138,8 @@
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column headerText="#{msg['sucursal']}" sortBy="#{info.sucursal.nombre}" filterBy="#{info.sucursal.nombre}" filterMatchMode="contains" id="sucursal" width="120" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['sucursal']}" sortBy="#{info.sucursal.nombre}" filterBy="#{info.sucursal.nombre}" filterMatchMode="contains"
+                                          id="sucursal" width="120" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.sucursal.nombre}" /></f:facet>  
                                         <f:facet name="input">
@@ -153,11 +155,11 @@
                                     </f:facet>
                                 </p:column> 
 
-                                <p:column headerText="#{msg['formaPago']}" sortBy="#{info.formapago.nombre}" filterBy="#{info.formapago.nombre}" filterMatchMode="contains" id="formaPago" width="200" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['formaPago']}" sortBy="#{info.formapago.nombre}" filterBy="#{info.formapago.nombre}" filterMatchMode="contains" id="formaPago" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.formapago.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.formapago.nombre}" id="editarFormaPago" style="  border-radius: 0px;; height: 12px; width: 210px; text-transform: uppercase"  > 
+                                            <p:inputText value="#{info.formapago.nombre}" id="editarFormaPago" style="  border-radius: 0px; height: 12px; width: 96%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 4)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarIndex(info, 0,4)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'FORMAPAGO', info.formapago.nombre)}"  update="formaPago" process="@this"/>
@@ -165,41 +167,37 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 220px;" action="periodicidad" actionListener="#{controlPeriodicidades.recibirPaginaEntrante('atrasperiodicidad')}" id="fooFormaPago"/>
+                                        <p:commandButton value="" style="width: 120%;" action="periodicidad" actionListener="#{controlPeriodicidades.recibirPaginaEntrante('atrasperiodicidad')}" id="fooFormaPago"/>
                                     </f:facet>
                                 </p:column> 
 
-                                <p:column headerText="#{msg['tc']}" sortBy="#{info.tipocuenta}" filterBy="#{info.tipocuenta}" filterMatchMode="contains" id="tc" width="25" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['tc']}" sortBy="#{info.tipocuenta}" filterBy="#{info.tipocuenta}" filterMatchMode="contains" id="tc" width="15" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headtc" value="#{msg['tc']}"/>
                                         <p:tooltip for="headtc" value="#{msg['tcH']}"/>
                                     </f:facet>
-
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.tipocuenta}" style=" text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.tipocuenta}" style="text-transform: uppercase;" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.tipocuenta}" maxlength="1" id="editarTC" style="  border-radius: 0px; height: 12px; width: 210px; text-transform: uppercase"  > 
+                                            <p:inputText value="#{info.tipocuenta}" maxlength="1" id="editarTC" style="border-radius: 0px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 5)}" process="@this"/> 
-                                                <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.tipocuenta)}"  update="tc" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.tipocuenta)}" update="tc" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
                                 </p:column> 
 
                                 <p:column headerText="#{msg['metodoPago']}" sortBy="#{info.metodopago.descripcion}" filterBy="#{info.metodopago.descripcion}" filterMatchMode="contains" id="metodoPago" width="100" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.metodopago.descripcion}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.metodopago.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.metodopago.descripcion}" id="editarMetodoPago" style="  height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase"  > 
+                                            <p:inputText value="#{info.metodopago.descripcion}" id="editarMetodoPago" style="height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 6)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarIndex(info, 0,6)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'METODOPAGO', info.metodopago.descripcion)}"/>
-
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
                                     <f:facet name="footer">
                                         <p:commandButton value="" style="width: 120px;" action="metodospagos" id="fooMetodoPago" />
                                     </f:facet>
@@ -210,7 +208,7 @@
                         </fieldset>
 
                         <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistro}" style="position: absolute; left: 20px; top: 470px; font-weight: bold"/>
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 664px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " disabled="#{controlVigenciasFormasPagos.guardado}" onclick="confirmarGuardar.show();"  update="datosVigenciasFormasPagos" process="@this"/>
+                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " disabled="#{controlVigenciasFormasPagos.guardado}" onclick="confirmarGuardar.show();"  update="datosVigenciasFormasPagos" process="@this"/>
                         <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlVigenciasFormasPagos.salir()}" action="nomina"/>
 
                         <p:dialog header="#{msg['sucursalM']}" widgetVar="sucursalesDialogo" draggable="false" resizable="false" closable="false" id="sucursalesDialogo"  
@@ -342,7 +340,7 @@
                             <h:outputText value="#{msg['validacioModificarMetodoPago']} #{controlVigenciasFormasPagos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
                             <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="validacioModificarMetodoPago.hide();" style="position: absolute; top: 60px; left: 280px" process="@this" />
                         </p:dialog>
--->
+                        -->
                         <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="#{msg['confirmarGuardar']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
@@ -474,7 +472,7 @@
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableSucursalNueva(0)}" />
                             </p:inputText>
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 200px; background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" 
-                                         value="" id="btnnuevoNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarSucursalesNuevoRegistro(0)}"/>   
+                                             value="" id="btnnuevoNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarSucursalesNuevoRegistro(0)}"/>   
                             <p:watermark for="nuevoNombreSucursal" value="#{msg['sucursal']}" />
 
                             <strong><h:outputText value="*#{msg['formaPagoN']}" style=" position: absolute; top: 245px" /></strong>
@@ -484,7 +482,7 @@
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariablePeriodicidadNueva(0)}" />
                             </p:inputText>
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 240px; background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" 
-                                         value="" id="btnnuevaFormaPago" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarPeriodicidadNuevoRegistro(0)}"/>   
+                                             value="" id="btnnuevaFormaPago" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarPeriodicidadNuevoRegistro(0)}"/>   
                             <p:watermark for="nuevaFormaPago" value="#{msg['formaPago']}" />
 
                             <strong><h:outputText value="#{msg['tipoCuentaN']}"  style=" position: absolute; top: 285px ; " /></strong>
@@ -500,7 +498,7 @@
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableMetodosPagosNueva(0)}" />
                             </p:inputText>
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top:320px; background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" 
-                                         value="" id="btnnuevaMetodoPago" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarMetodosPagosNuevoRegistro(0)}"/>   
+                                             value="" id="btnnuevaMetodoPago" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarMetodosPagosNuevoRegistro(0)}"/>   
                             <p:watermark for="nuevaMetodoPago" value="#{msg['metodoPago']}" />
 
 
@@ -544,7 +542,7 @@
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableSucursalNueva(1)}" />
                             </p:inputText>
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 200px; background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" 
-                                         value="" id="btnduplicarNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarSucursalesNuevoRegistro(1)}"/>   
+                                             value="" id="btnduplicarNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarSucursalesNuevoRegistro(1)}"/>   
                             <p:watermark for="duplicarNombreSucursal" value="#{msg['sucursal']}" />
 
                             <strong><h:outputText value="*#{msg['formaPagoN']}" style=" position: absolute; top: 245px" /></strong>
@@ -554,7 +552,7 @@
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariablePeriodicidadNueva(1)}" />
                             </p:inputText>
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 240px; background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" 
-                                         value="" id="btnduplicarFormaPago" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarPeriodicidadNuevoRegistro(1)}"/>   
+                                             value="" id="btnduplicarFormaPago" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarPeriodicidadNuevoRegistro(1)}"/>   
                             <p:watermark for="duplicarFormaPago" value="#{msg['formaPago']}" />
 
                             <strong><h:outputText value="#{msg['tipoCuentaN']}"  style=" position: absolute; top: 285px;text-transform: uppercase" /></strong>
@@ -570,7 +568,7 @@
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableMetodosPagosNueva(1)}" />
                             </p:inputText>
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 320px; background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" 
-                                         value="" id="btnduplicarMetodoPago" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarMetodosPagosNuevoRegistro(1)}"/>   
+                                             value="" id="btnduplicarMetodoPago" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarMetodosPagosNuevoRegistro(1)}"/>   
                             <p:watermark for="duplicarMetodoPago" value="#{msg['metodoPago']}" />
 
 

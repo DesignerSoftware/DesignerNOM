@@ -413,7 +413,7 @@
 
                         <p:commandButton style="width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; 
                                          background-repeat: no-repeat; border: none; position: absolute; left: 680px; top: 399px;" 
-                                         id="buscarConcepto" value="" actionListener="#{controlConcepto.lovConcepto(0)}" process="@this" />
+                                         id="buscarConcepto" value="" actionListener="#{controlConcepto.lovConcepto(0)}" process="@this"/>
                         <p:commandButton style="width: 90px; height: 30px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; 
                                          background-repeat: no-repeat; border: none; position: absolute; left: 775px; top: 399px;" 
                                          disabled="#{controlConcepto.mostrarTodos}" id="mostrarTodos" actionListener="#{controlConcepto.mostrarTodosConceptos()}" value="" process="@this"/>
@@ -421,8 +421,8 @@
                         <fieldset style="position: absolute; left: 5px; top: 432px; width: 835px; height: 60px; border-radius: 10px; padding-bottom: 0px; padding-top: 0px;">
                             <legend style="color: blue"><strong>#{msg['cconcepto']}</strong></legend>
 
-                            <h:outputText value="#{msg['cnnc']}"  style="color: #14388B; font-weight: bold; position: absolute; left: 30px; margin-top: 0px;"/>
-                            <h:outputText value="#{msg['cncc']}"  style="color: #14388B; font-weight: bold; position: absolute; left: 410px; margin-top: 0px;"/>
+                            <h:outputText value="#{msg['cnnc']}" style="color: #14388B; font-weight: bold; position: absolute; left: 30px; margin-top: 0px;"/>
+                            <h:outputText value="#{msg['cncc']}" style="color: #14388B; font-weight: bold; position: absolute; left: 410px; margin-top: 0px;"/>
 
                             <p:panel style=" padding: 1px; position: absolute; padding: 1px; margin-top: 10px; height: 15px; border: none; background-color: transparent;">
 
@@ -464,7 +464,7 @@
                 
                 <h:form id="formularioDialogos" >
                     <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350px" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                     </p:dialog>
 

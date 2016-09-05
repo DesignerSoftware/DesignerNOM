@@ -88,7 +88,7 @@
                             <legend style=" font-weight: bold; color: #00F;">#{msg['titulo']}</legend>
 
                             <p:dataTable id="datosComprobantes" widgetVar="datosComprobantes" styleClass="datosComprobantes" var="comprobante" value="#{controlEmplComprobantes.listaComprobantes}"
-                                         rowKey="#{comprobante.secuencia}" rowIndexVar="indiceComprobante" style="text-align: center; height: 9px; font-size: 10px; border: 1px;"                           
+                                         rowKey="#{comprobante.secuencia}" rowIndexVar="indiceComprobante" style="padding-left: 0px !important; padding-right: 0px !important; text-align: center; height: 9px; font-size: 10px; border: 1px;"                           
                                          scrollable="true" scrollHeight="#{controlEmplComprobantes.altoScrollComprobante}" filteredValue="#{controlEmplComprobantes.filtradolistaComprobantes}" 
                                          emptyMessage="#{msg['vacio']}" editable="true" editMode="cell" 
                                          selectionMode="single" selection="#{controlEmplComprobantes.comprobanteSeleccionado}">
@@ -113,7 +113,8 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['fecha']}" sortBy="#{comprobante.fecha}" filterBy="#{comprobante.fecha}" filterMatchMode="contains" width="60" id="fechaC" filterStyle="display: none; visibility: hidden;" >  
+                                <p:column headerText="#{msg['fecha']}" sortBy="#{comprobante.fecha}" filterBy="#{comprobante.fecha}" filterMatchMode="contains"
+                                          width="62" id="fechaC" filterStyle="display: none; visibility: hidden;" style="text-align: center;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{comprobante.fecha}" >
@@ -182,7 +183,8 @@
 
                                 <p:ajax event="filter" listener="#{controlEmplComprobantes.eventoFiltrarCortesProcesos()}"/>
 
-                                <p:column headerText="#{msg['fechacorte']}" sortBy="#{corteProceso.corte}" width="60" filterBy="#{corteProceso.corte}" filterMatchMode="contains" id="fechaCorteCP" filterStyle="display: none; visibility: hidden;">  
+                                <p:column headerText="#{msg['fechacorte']}" sortBy="#{corteProceso.corte}" width="70" filterBy="#{corteProceso.corte}"
+                                          filterMatchMode="contains" id="fechaCorteCP" filterStyle="display: none; visibility: hidden;" style="text-align: center;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{corteProceso.corte}">
@@ -191,7 +193,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:calendar pattern="dd/MM/yyyy" id="editarFechaCorte" value="#{corteProceso.corte}">
-                                                <p:ajax event="dateSelect" listener="#{controlEmplComprobantes.modificarCortesProcesos(corteProceso, 'N', corteProceso.corte)}"  update="@this"/>
+                                                <p:ajax event="dateSelect" listener="#{controlEmplComprobantes.modificarCortesProcesos(corteProceso, 'N', corteProceso.corte)}" update="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplComprobantes.modificarCortesProcesos(corteProceso, 'N', corteProceso.corte)}" />
                                                 <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceCortesProcesos(corteProceso, 0)}"/>
                                             </p:calendar>
@@ -202,13 +204,14 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['proceso']}" sortBy="#{corteProceso.proceso.descripcion}" filterBy="#{corteProceso.proceso.descripcion}" filterMatchMode="contains"  width="120" id="procesoCP" filterStyle="display: none; visibility: hidden;">  
+                                <p:column headerText="#{msg['proceso']}" sortBy="#{corteProceso.proceso.descripcion}" filterBy="#{corteProceso.proceso.descripcion}" 
+                                          filterMatchMode="contains" id="procesoCP" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{corteProceso.proceso.descripcion}"/>
                                         </f:facet>   
                                         <f:facet name="input">
-                                            <p:inputText value="#{corteProceso.proceso.descripcion}" id="editarProceso" style="width: 98.5%; border-radius: 0px; text-transform: uppercase;"> 
+                                            <p:inputText value="#{corteProceso.proceso.descripcion}" id="editarProceso" style="border-radius: 0px; text-transform: uppercase; width: 92%;"> 
                                                 <p:ajax event="change" listener="#{controlEmplComprobantes.modificarCortesProcesos(corteProceso, 'PROCESO', corteProceso.proceso.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceCortesProcesos(corteProceso, 1)}"/>
                                                 <p:ajax event="dblclick" listener="#{controlEmplComprobantes.llamarLOVProcesos(corteProceso)}"/>
@@ -238,7 +241,7 @@
                                         <!--<p:ajax event="rowSelect" listener="#/{controlEmplComprobantes.seleccionTablaEmpleadoIz()}"/>-->
                                         <p:ajax event="filter" listener="#{controlEmplComprobantes.eventoFiltrarSNEmpleado()}"/>
 
-                                        <p:column width="20" style="text-align: center; padding: 0px !important;" > 
+                                        <p:column width="20" style="text-align: center; padding: 0px !important;"> 
                                             <p:commandButton value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 19px; height: 19px" actionListener="#{controlEmplComprobantes.parcialSolucionNodo(indiceEM, 0)}"/>
                                             <f:facet name="footer">
                                                 <h:outputText value="" style="width: 0px;"/>
@@ -649,11 +652,13 @@
                     </p:panel>
 
                     <style>
-                        
                         .ui-datatable tbody td, .ui-datatable tfoot td{
-                            padding: 0px 10px !important;
+                            padding: 0px 0px !important;
                         }
                    
+/*                        .datosComprobantes tbody td, .datosComprobantes tfoot td{
+                            padding: 0px 0px !important;
+                        }*/
                     </style>
 
                 </h:form>
@@ -1139,8 +1144,7 @@
                         <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" style="position: absolute; top: 150px; left: 220px;" onclick="parcialesConcepto.hide(); confirmacionFormatoExtendido.show();" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmacionFormatoExtendido" header="#{msg['atencion']}" widgetVar="confirmacionFormatoExtendido" resizable="false" draggable="false" modal="true" height="100" width="41
-                              0" closable="false">  
+                    <p:dialog id="confirmacionFormatoExtendido" header="#{msg['atencion']}" widgetVar="confirmacionFormatoExtendido" resizable="false" draggable="false" modal="true" height="100" width="410" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="#{msg['formatoextendido']}" style="position: absolute; left: 80px; top: 10px; width: 300px; font-weight:bold;" />
                         <h:outputText value="#{msg['aclaracion']}" style="position: absolute; left: 80px; top: 25px; width: 300px; font-weight:bold; text-align: justify" />

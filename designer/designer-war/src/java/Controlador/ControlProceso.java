@@ -231,6 +231,7 @@ public class ControlProceso implements Serializable {
     }
 
     public String valorPaginaAnterior() {
+       System.out.println("Entro en valorPaginaAnterior(), retorno : " + paginaAnterior);
         return paginaAnterior;
     }
 
@@ -1802,7 +1803,9 @@ public class ControlProceso implements Serializable {
      * Metodo que cierra la sesion y limpia los datos en la pagina
      */
     public void salir() {
+       System.out.println("Entro en Salud");
         if (bandera == 1) {
+           System.out.println("Entro en bandera == 1");
             altoTablaProcesos = "110";
             procesoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosProceso:procesoCodigo");
             procesoCodigo.setFilterStyle("display: none; visibility: hidden;");
@@ -1830,6 +1833,7 @@ public class ControlProceso implements Serializable {
             tipoLista = 0;
         }
         if (banderaFormulasProcesos == 1) {
+           System.out.println("Entro en banderaFormulasProcesos == 1");
             altoTablaFormulasProcesos = "115";
             formulaProcesoPeriodicidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaProcesoPeriodicidad");
             formulaProcesoPeriodicidad.setFilterStyle("display: none; visibility: hidden;");
@@ -1841,6 +1845,7 @@ public class ControlProceso implements Serializable {
             tipoListaFormulasProcesos = 0;
         }
         if (banderaOperandosLogs == 1) {
+           System.out.println("Entro en banderaOperandosLogs == 1");
             altoTablaOperandosLogs = "115";
             operandoOperando = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperando:operandoOperando");
             operandoOperando.setFilterStyle("display: none; visibility: hidden;");
@@ -1851,7 +1856,7 @@ public class ControlProceso implements Serializable {
             filtrarListaOperandosLogs = null;
             tipoListaOperandoLog = 0;
         }
-
+        System.out.println("1");
         listProcesosBorrar.clear();
         listProcesosCrear.clear();
         listProcesosModificar.clear();
@@ -1861,13 +1866,10 @@ public class ControlProceso implements Serializable {
         listOperandosLogsBorrar.clear();
         listOperandosLogsCrear.clear();
         listOperandosLogsModificar.clear();
-        index = -1;
-        indexAux = -1;
-        indexFormulasProcesos = -1;
-        indexOperandosLogs = -1;
         secRegistro = null;
         secRegistroFormulaProceso = null;
         secRegistroOperandoLog = null;
+        System.out.println("2");
         k = 0;
         listaProcesos = null;
         listaFormulasProcesos = null;
@@ -1879,6 +1881,7 @@ public class ControlProceso implements Serializable {
         lovFormulas = null;
         lovTiposPagos = null;
         lovOperandos = null;
+        System.out.println("3");
         RequestContext context = RequestContext.getCurrentInstance();
         procesoBaseClonado = new Procesos();
         procesoNuevoClonado = new Procesos();
@@ -1888,6 +1891,7 @@ public class ControlProceso implements Serializable {
         context.update("form:DescripcionNuevoClonado");
         lovProcesos = null;
         context.update("form:ACEPTAR");
+        System.out.println("4");
     }
 
     public void listaValoresBoton() {

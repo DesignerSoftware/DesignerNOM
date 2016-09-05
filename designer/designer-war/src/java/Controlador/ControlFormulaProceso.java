@@ -45,10 +45,9 @@ public class ControlFormulaProceso implements Serializable {
     //Activo/Desactivo Crtl + F11
     private int bandera;
     //Columnas Tabla VC
-    private Column formulaProceso, formulaPeriodicidad;
+    private Column formulaProceso;//, formulaPeriodicidad;
     //Otros
     private boolean aceptar;
-    private int index;
     //modificar
     private List<FormulasProcesos> listFormulasProcesosModificar;
     private boolean guardado;
@@ -64,10 +63,7 @@ public class ControlFormulaProceso implements Serializable {
     private int cualCelda, tipoLista;
     //duplicar
     private FormulasProcesos duplicarFormulaProceso;
-    private BigInteger secRegistro;
-    private BigInteger backUpSecRegistro;
     private String msnConfirmarRastro, msnConfirmarRastroHistorico;
-    private BigInteger backUp;
     private String nombreTablaRastro;
     private String nombreXML, nombreTabla;
     private String proceso;
@@ -83,6 +79,8 @@ public class ControlFormulaProceso implements Serializable {
     private String altoTabla;
     private String infoRegistro;
     private String infoRegistroProceso;
+    //
+    private boolean activarLOV;
 
     public ControlFormulaProceso() {
         altoTabla = "310";
@@ -90,7 +88,6 @@ public class ControlFormulaProceso implements Serializable {
         tipoActualizacion = -1;
         lovProcesos = null;
         procesoSeleccionado = new Procesos();
-        backUpSecRegistro = null;
         listFormulasProcesos = null;
         //Otros
         aceptar = true;
@@ -111,8 +108,9 @@ public class ControlFormulaProceso implements Serializable {
         nuevoFormulaProceso = new FormulasProcesos();
         nuevoFormulaProceso.setProceso(new Procesos());
         duplicarFormulaProceso = new FormulasProcesos();
-        secRegistro = null;
         formulaActual = new Formulas();
+        //
+        activarLOV = true;
     }
 
     @PostConstruct
@@ -130,59 +128,38 @@ public class ControlFormulaProceso implements Serializable {
 
     public void recibirFormula(BigInteger secuencia) {
         formulaActual = administrarFormulaProceso.formulaActual(secuencia);
-        listFormulasProcesos = getListFormulasProcesos();
-        if (listFormulasProcesos != null) {
-            infoRegistro = "Cantidad de registros : " + listFormulasProcesos.size();
-        } else {
-            infoRegistro = "Cantidad de registros : 0";
-        }
+        getListFormulasProcesos();
+        contarRegistros();
+        anularBotonLOV();
     }
 
-    public void modificarFormulaProceso(int indice) {
-        if (tipoLista == 0) {
-            if (!listFormulasProcesosCrear.contains(listFormulasProcesos.get(indice))) {
-                if (listFormulasProcesosModificar.isEmpty()) {
-                    listFormulasProcesosModificar.add(listFormulasProcesos.get(indice));
-                } else if (!listFormulasProcesosModificar.contains(listFormulasProcesos.get(indice))) {
-                    listFormulasProcesosModificar.add(listFormulasProcesos.get(indice));
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
+    public void modificarFormulaProceso(int celda) {
+        if (celda == 1){
+            anularBotonLOV();
+        } 
+        if (!listFormulasProcesosCrear.contains(formulaTablaSeleccionada)) {
+            if (listFormulasProcesosModificar.isEmpty()) {
+                listFormulasProcesosModificar.add(formulaTablaSeleccionada);
+            } else if (!listFormulasProcesosModificar.contains(formulaTablaSeleccionada)) {
+                listFormulasProcesosModificar.add(formulaTablaSeleccionada);
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
-        if (tipoLista == 1) {
-            if (!listFormulasProcesosCrear.contains(filtrarListFormulasProcesos.get(indice))) {
-                if (listFormulasProcesosModificar.isEmpty()) {
-                    listFormulasProcesosModificar.add(filtrarListFormulasProcesos.get(indice));
-                } else if (!listFormulasProcesosModificar.contains(filtrarListFormulasProcesos.get(indice))) {
-                    listFormulasProcesosModificar.add(filtrarListFormulasProcesos.get(indice));
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
-            }
-        }
-        index = -1;
-        secRegistro = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.update("form:datosFormulaProceso");
 
     }
 
-    public void modificarFormulaProceso(int indice, String confirmarCambio, String valorConfirmar) {
-        index = indice;
+    public void modificarFormulaProceso(FormulasProcesos formulaProceso, String confirmarCambio, String valorConfirmar) {
+        formulaTablaSeleccionada = formulaProceso;
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("PROCESO")) {
-            if (tipoLista == 0) {
-                listFormulasProcesos.get(indice).getProceso().setDescripcion(proceso);
-            } else {
-                filtrarListFormulasProcesos.get(indice).getProceso().setDescripcion(proceso);
-            }
+            formulaTablaSeleccionada.getProceso().setDescripcion(proceso);
             for (int i = 0; i < lovProcesos.size(); i++) {
                 if (lovProcesos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                     indiceUnicoElemento = i;
@@ -190,63 +167,41 @@ public class ControlFormulaProceso implements Serializable {
                 }
             }
             if (coincidencias == 1) {
-                if (tipoLista == 0) {
-                    listFormulasProcesos.get(indice).setProceso(lovProcesos.get(indiceUnicoElemento));
-                } else {
-                    filtrarListFormulasProcesos.get(indice).setProceso(lovProcesos.get(indiceUnicoElemento));
-                }
+                formulaTablaSeleccionada.setProceso(lovProcesos.get(indiceUnicoElemento));
                 lovProcesos.clear();
                 getLovProcesos();
             } else {
                 permitirIndex = false;
+                contarRegistrosLov(0);
                 context.update("form:ProcesosDialogo");
                 context.execute("ProcesosDialogo.show()");
                 tipoActualizacion = 0;
             }
         }
         if (coincidencias == 1) {
-            if (tipoLista == 0) {
-                if (!listFormulasProcesosCrear.contains(listFormulasProcesos.get(indice))) {
-                    if (listFormulasProcesosModificar.isEmpty()) {
-                        listFormulasProcesosModificar.add(listFormulasProcesos.get(indice));
-                    } else if (!listFormulasProcesosModificar.contains(listFormulasProcesos.get(indice))) {
-                        listFormulasProcesosModificar.add(listFormulasProcesos.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
+            if (!listFormulasProcesosCrear.contains(formulaTablaSeleccionada)) {
+                if (listFormulasProcesosModificar.isEmpty()) {
+                    listFormulasProcesosModificar.add(formulaTablaSeleccionada);
+                } else if (!listFormulasProcesosModificar.contains(formulaTablaSeleccionada)) {
+                    listFormulasProcesosModificar.add(formulaTablaSeleccionada);
                 }
-            }
-            if (tipoLista == 1) {
-                if (!listFormulasProcesosCrear.contains(filtrarListFormulasProcesos.get(indice))) {
-                    if (listFormulasProcesosModificar.isEmpty()) {
-                        listFormulasProcesosModificar.add(filtrarListFormulasProcesos.get(indice));
-                    } else if (!listFormulasProcesosModificar.contains(filtrarListFormulasProcesos.get(indice))) {
-                        listFormulasProcesosModificar.add(filtrarListFormulasProcesos.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         }
         context.update("form:datosFormulaProceso");
     }
 
-    public void cambiarIndice(int indice, int celda) {
+    public void cambiarIndice(FormulasProcesos formulaProceso, int celda) {
+        formulaTablaSeleccionada = formulaProceso;
         if (permitirIndex == true) {
-            index = indice;
             cualCelda = celda;
-            if (tipoLista == 0) {
-                secRegistro = listFormulasProcesos.get(index).getSecuencia();
-                proceso = listFormulasProcesos.get(index).getProceso().getDescripcion();
+            if(celda == 0){
+                activarBotonLOV();
             }
-            if (tipoLista == 1) {
-                secRegistro = filtrarListFormulasProcesos.get(index).getSecuencia();
-                proceso = filtrarListFormulasProcesos.get(index).getProceso().getDescripcion();
-            }
+            proceso = formulaTablaSeleccionada.getProceso().getDescripcion();
         }
     }
 
@@ -277,18 +232,11 @@ public class ControlFormulaProceso implements Serializable {
                 }
                 listFormulasProcesos = null;
                 getListFormulasProcesos();
-                if (listFormulasProcesos != null) {
-                    infoRegistro = "Cantidad de registros : " + listFormulasProcesos.size();
-                } else {
-                    infoRegistro = "Cantidad de registros : 0";
-                }
-                context.update("form:informacionRegistro");
+                contarRegistros();
                 context.update("form:datosFormulaProceso");
                 guardado = true;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 k = 0;
-                index = -1;
-                secRegistro = null;
                 FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 context.update("form:growl");
@@ -310,27 +258,14 @@ public class ControlFormulaProceso implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             context.update("form:datosFormulaProceso");
         }
+        formulaTablaSeleccionada = null;
     }
 
     public void cancelarModificacionFormulaProceso() {
-        if (bandera == 1) {
-            altoTabla = "310";
-            formulaProceso = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaProceso");
-            formulaProceso.setFilterStyle("display: none; visibility: hidden;");
-
-            formulaPeriodicidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaPeriodicidad");
-            formulaPeriodicidad.setFilterStyle("display: none; visibility: hidden;");
-
-            RequestContext.getCurrentInstance().update("form:datosFormulaProceso");
-            bandera = 0;
-            filtrarListFormulasProcesos = null;
-            tipoLista = 0;
-        }
+        restaurarTabla();
         listFormulasProcesosBorrar.clear();
         listFormulasProcesosCrear.clear();
         listFormulasProcesosModificar.clear();
-        index = -1;
-        secRegistro = null;
         k = 0;
         listFormulasProcesos = null;
         guardado = true;
@@ -338,31 +273,21 @@ public class ControlFormulaProceso implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         getListFormulasProcesos();
-        if (listFormulasProcesos != null) {
-            infoRegistro = "Cantidad de registros : " + listFormulasProcesos.size();
-        } else {
-            infoRegistro = "Cantidad de registros : 0";
-        }
-        context.update("form:informacionRegistro");
+        contarRegistros();
         context.update("form:datosFormulaProceso");
     }
 
     public void editarCelda() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                editarFormulaProceso = listFormulasProcesos.get(index);
-            }
-            if (tipoLista == 1) {
-                editarFormulaProceso = filtrarListFormulasProcesos.get(index);
-            }
-            RequestContext context = RequestContext.getCurrentInstance();
+        if (formulaTablaSeleccionada != null) {
+            editarFormulaProceso = formulaTablaSeleccionada;
             if (cualCelda == 0) {
+                RequestContext context = RequestContext.getCurrentInstance();
                 context.update("formularioDialogos:editarFormulaProcesoD");
                 context.execute("editarFormulaProcesoD.show()");
                 cualCelda = -1;
             }
-            index = -1;
-            secRegistro = null;
+        } else {
+            RequestContext.getCurrentInstance().execute("seleccionarRegistro.show()");
         }
     }
 
@@ -372,42 +297,43 @@ public class ControlFormulaProceso implements Serializable {
         context.execute("NuevoRegistroProceso.show()");
     }
 
+    public void restaurarTabla() {
+        if (bandera == 1) {
+            altoTabla = "310";
+            formulaProceso = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaProceso");
+            formulaProceso.setFilterStyle("display: none; visibility: hidden;");
+
+//            formulaPeriodicidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaPeriodicidad");
+//            formulaPeriodicidad.setFilterStyle("display: none; visibility: hidden;");
+
+            RequestContext.getCurrentInstance().update("form:datosFormulaProceso");
+            bandera = 0;
+            filtrarListFormulasProcesos = null;
+            tipoLista = 0;
+        }
+    }
+
     //CREAR 
     public void agregarNuevoFormulaProceso() {
         if (nuevoFormulaProceso.getProceso().getSecuencia() != null) {
-            if (bandera == 1) {
-                altoTabla = "310";
-                formulaProceso = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaProceso");
-                formulaProceso.setFilterStyle("display: none; visibility: hidden;");
-
-                formulaPeriodicidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaPeriodicidad");
-                formulaPeriodicidad.setFilterStyle("display: none; visibility: hidden;");
-
-                RequestContext.getCurrentInstance().update("form:datosFormulaProceso");
-                bandera = 0;
-                filtrarListFormulasProcesos = null;
-                tipoLista = 0;
-            }
-
+            restaurarTabla();
             k++;
             l = BigInteger.valueOf(k);
             nuevoFormulaProceso.setSecuencia(l);
             nuevoFormulaProceso.setFormula(formulaActual);
             listFormulasProcesosCrear.add(nuevoFormulaProceso);
             listFormulasProcesos.add(nuevoFormulaProceso);
+            formulaTablaSeleccionada = listFormulasProcesos.get(listFormulasProcesos.indexOf(nuevoFormulaProceso));
             nuevoFormulaProceso = new FormulasProcesos();
             nuevoFormulaProceso.setProceso(new Procesos());
             RequestContext context = RequestContext.getCurrentInstance();
-            infoRegistro = "Cantidad de registros : " + listFormulasProcesos.size();
-            context.update("form:informacionRegistro");
+            contarRegistros();
             context.update("form:datosFormulaProceso");
             context.execute("NuevoRegistroProceso.hide()");
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            index = -1;
-            secRegistro = null;
         } else {
             RequestContext.getCurrentInstance().execute("errorRegistroFP.show()");
         }
@@ -419,39 +345,30 @@ public class ControlFormulaProceso implements Serializable {
     public void limpiarNuevaFormulaProceso() {
         nuevoFormulaProceso = new FormulasProcesos();
         nuevoFormulaProceso.setProceso(new Procesos());
-        index = -1;
-        secRegistro = null;
     }
 
 //DUPLICAR VC
     /**
      */
     public void verificarRegistroDuplicar() {
-        if (index >= 0) {
+        if (formulaTablaSeleccionada != null) {
             duplicarFormulaProcesoM();
+        } else {
+            RequestContext.getCurrentInstance().execute("seleccionarRegistro.show()");
         }
     }
 
     public void duplicarFormulaProcesoM() {
-        if (index >= 0) {
+        if (formulaTablaSeleccionada != null) {
             duplicarFormulaProceso = new FormulasProcesos();
             k++;
             l = BigInteger.valueOf(k);
-            if (tipoLista == 0) {
-                duplicarFormulaProceso.setFormula(listFormulasProcesos.get(index).getFormula());
-                duplicarFormulaProceso.setProceso(listFormulasProcesos.get(index).getProceso());
-                duplicarFormulaProceso.setPeriodicidadindependiente(listFormulasProcesos.get(index).getPeriodicidadindependiente());
-            }
-            if (tipoLista == 1) {
-                duplicarFormulaProceso.setFormula(filtrarListFormulasProcesos.get(index).getFormula());
-                duplicarFormulaProceso.setProceso(filtrarListFormulasProcesos.get(index).getProceso());
-                duplicarFormulaProceso.setPeriodicidadindependiente(filtrarListFormulasProcesos.get(index).getPeriodicidadindependiente());
-            }
+            duplicarFormulaProceso.setFormula(formulaTablaSeleccionada.getFormula());
+            duplicarFormulaProceso.setProceso(formulaTablaSeleccionada.getProceso());
+            duplicarFormulaProceso.setPeriodicidadindependiente(formulaTablaSeleccionada.getPeriodicidadindependiente());
             RequestContext context = RequestContext.getCurrentInstance();
             context.update("formularioDialogos:DuplicarRegistroFormulaProceso");
             context.execute("DuplicarRegistroFormulaProceso.show()");
-            index = -1;
-            secRegistro = null;
         }
     }
 
@@ -465,30 +382,16 @@ public class ControlFormulaProceso implements Serializable {
             duplicarFormulaProceso.setSecuencia(l);
             listFormulasProcesos.add(duplicarFormulaProceso);
             listFormulasProcesosCrear.add(duplicarFormulaProceso);
+            formulaTablaSeleccionada = listFormulasProcesos.get(listFormulasProcesos.indexOf(duplicarFormulaProceso));
             RequestContext context = RequestContext.getCurrentInstance();
-            infoRegistro = "Cantidad de registros : " + listFormulasProcesos.size();
-            context.update("form:informacionRegistro");
+            contarRegistros();
             context.update("form:datosFormulaProceso");
             context.execute("DuplicarRegistroFormulaProceso.hide()");
-            index = -1;
-            secRegistro = null;
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            if (bandera == 1) {
-                altoTabla = "310";
-                formulaProceso = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaProceso");
-                formulaProceso.setFilterStyle("display: none; visibility: hidden;");
-
-                formulaPeriodicidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaPeriodicidad");
-                formulaPeriodicidad.setFilterStyle("display: none; visibility: hidden;");
-
-                RequestContext.getCurrentInstance().update("form:datosFormulaProceso");
-                bandera = 0;
-                filtrarListFormulasProcesos = null;
-                tipoLista = 0;
-            }
+            restaurarTabla();
             duplicarFormulaProceso = new FormulasProcesos();
         } else {
             RequestContext.getCurrentInstance().execute("errorRegistroFP.show()");
@@ -514,49 +417,33 @@ public class ControlFormulaProceso implements Serializable {
     /**
      */
     public void verificarRegistroBorrar() {
-        if (index >= 0) {
+        if (formulaTablaSeleccionada != null) {
             borrarFormulaProceso();
+        } else {
+            RequestContext.getCurrentInstance().execute("seleccionarRegistro.show()");
         }
     }
 
     public void borrarFormulaProceso() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                if (!listFormulasProcesosModificar.isEmpty() && listFormulasProcesosModificar.contains(listFormulasProcesos.get(index))) {
-                    int modIndex = listFormulasProcesosModificar.indexOf(listFormulasProcesos.get(index));
-                    listFormulasProcesosModificar.remove(modIndex);
-                    listFormulasProcesosBorrar.add(listFormulasProcesos.get(index));
-                } else if (!listFormulasProcesosCrear.isEmpty() && listFormulasProcesosCrear.contains(listFormulasProcesos.get(index))) {
-                    int crearIndex = listFormulasProcesosCrear.indexOf(listFormulasProcesos.get(index));
-                    listFormulasProcesosCrear.remove(crearIndex);
-                } else {
-                    listFormulasProcesosBorrar.add(listFormulasProcesos.get(index));
-                }
-                listFormulasProcesos.remove(index);
+        if (formulaTablaSeleccionada != null) {
+            if (!listFormulasProcesosModificar.isEmpty() && listFormulasProcesosModificar.contains(formulaTablaSeleccionada)) {
+                listFormulasProcesosModificar.remove(formulaTablaSeleccionada);
+                listFormulasProcesosBorrar.add(formulaTablaSeleccionada);
+            } else if (!listFormulasProcesosCrear.isEmpty() && listFormulasProcesosCrear.contains(formulaTablaSeleccionada)) {
+                listFormulasProcesosCrear.remove(formulaTablaSeleccionada);
+            } else {
+                listFormulasProcesosBorrar.add(formulaTablaSeleccionada);
             }
+            listFormulasProcesos.remove(formulaTablaSeleccionada);
             if (tipoLista == 1) {
-                if (!listFormulasProcesosModificar.isEmpty() && listFormulasProcesosModificar.contains(filtrarListFormulasProcesos.get(index))) {
-                    int modIndex = listFormulasProcesosModificar.indexOf(filtrarListFormulasProcesos.get(index));
-                    listFormulasProcesosModificar.remove(modIndex);
-                    listFormulasProcesosBorrar.add(filtrarListFormulasProcesos.get(index));
-                } else if (!listFormulasProcesosCrear.isEmpty() && listFormulasProcesosCrear.contains(filtrarListFormulasProcesos.get(index))) {
-                    int crearIndex = listFormulasProcesosCrear.indexOf(filtrarListFormulasProcesos.get(index));
-                    listFormulasProcesosCrear.remove(crearIndex);
-                } else {
-                    listFormulasProcesosBorrar.add(filtrarListFormulasProcesos.get(index));
-                }
-                int VCIndex = listFormulasProcesos.indexOf(filtrarListFormulasProcesos.get(index));
-                listFormulasProcesos.remove(VCIndex);
-                filtrarListFormulasProcesos.remove(index);
+                filtrarListFormulasProcesos.remove(formulaTablaSeleccionada);
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
             getListFormulasProcesos();
-            infoRegistro = "Cantidad de registros : " + listFormulasProcesos.size();
-            context.update("form:informacionRegistro");
+            formulaTablaSeleccionada = null;
+            contarRegistros();
             context.update("form:datosFormulaProceso");
-            index = -1;
-            secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
@@ -574,25 +461,15 @@ public class ControlFormulaProceso implements Serializable {
         if (bandera == 0) {
             altoTabla = "288";
             formulaProceso = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaProceso");
-            formulaProceso.setFilterStyle("width: 125px");
+            formulaProceso.setFilterStyle("width: 85%");
 
-            formulaPeriodicidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaPeriodicidad");
-            formulaPeriodicidad.setFilterStyle("width: 10px");
+//            formulaPeriodicidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaPeriodicidad");
+//            formulaPeriodicidad.setFilterStyle("width: 85%");
 
             RequestContext.getCurrentInstance().update("form:datosFormulaProceso");
             bandera = 1;
-        } else if (bandera == 1) {
-            altoTabla = "310";
-            formulaProceso = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaProceso");
-            formulaProceso.setFilterStyle("display: none; visibility: hidden;");
-
-            formulaPeriodicidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaPeriodicidad");
-            formulaPeriodicidad.setFilterStyle("display: none; visibility: hidden;");
-
-            RequestContext.getCurrentInstance().update("form:datosFormulaProceso");
-            bandera = 0;
-            filtrarListFormulasProcesos = null;
-            tipoLista = 0;
+        } else {
+            restaurarTabla();
         }
     }
 
@@ -601,24 +478,11 @@ public class ControlFormulaProceso implements Serializable {
      * Metodo que cierra la sesion y limpia los datos en la pagina
      */
     public void salir() {
-        if (bandera == 1) {
-            altoTabla = "310";
-            formulaProceso = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaProceso");
-            formulaProceso.setFilterStyle("display: none; visibility: hidden;");
-
-            formulaPeriodicidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaPeriodicidad");
-            formulaPeriodicidad.setFilterStyle("display: none; visibility: hidden;");
-
-            RequestContext.getCurrentInstance().update("form:datosFormulaProceso");
-            bandera = 0;
-            filtrarListFormulasProcesos = null;
-            tipoLista = 0;
-        }
+        restaurarTabla();
         listFormulasProcesosBorrar.clear();
         listFormulasProcesosCrear.clear();
         listFormulasProcesosModificar.clear();
-        index = -1;
-        secRegistro = null;
+        formulaTablaSeleccionada = null;
         k = 0;
         listFormulasProcesos = null;
         guardado = true;
@@ -629,8 +493,9 @@ public class ControlFormulaProceso implements Serializable {
 
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (index >= 0) {
+        if (formulaTablaSeleccionada != null) {
             if (cualCelda == 0) {
+                contarRegistrosLov(0);
                 context.update("form:ProcesosDialogo");
                 context.execute("ProcesosDialogo.show()");
                 tipoActualizacion = 0;
@@ -638,21 +503,17 @@ public class ControlFormulaProceso implements Serializable {
         }
     }
 
-    public void asignarIndex(Integer indice, int dlg, int LND) {
+    public void asignarIndex(FormulasProcesos formulaProceso, int dlg, int LND) {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            index = indice;
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-        } else if (LND == 2) {
-            tipoActualizacion = 2;
-        }
+        formulaTablaSeleccionada = formulaProceso;
+        tipoActualizacion = LND;
+
         if (dlg == 0) {
+            activarBotonLOV();
+            contarRegistrosLov(0);
             context.update("form:ProcesosDialogo");
             context.execute("ProcesosDialogo.show()");
         }
-
     }
 
     public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
@@ -692,6 +553,7 @@ public class ControlFormulaProceso implements Serializable {
                 lovProcesos.clear();
                 getLovProcesos();
             } else {
+                contarRegistrosLov(0);
                 context.update("form:ProcesosDialogo");
                 context.execute("ProcesosDialogo.show()");
                 tipoActualizacion = tipoNuevo;
@@ -707,23 +569,12 @@ public class ControlFormulaProceso implements Serializable {
     public void actualizarProceso() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-            if (tipoLista == 0) {
-                listFormulasProcesos.get(index).setProceso(procesoSeleccionado);
-                if (!listFormulasProcesosCrear.contains(listFormulasProcesos.get(index))) {
-                    if (listFormulasProcesosModificar.isEmpty()) {
-                        listFormulasProcesosModificar.add(listFormulasProcesos.get(index));
-                    } else if (!listFormulasProcesosModificar.contains(listFormulasProcesos.get(index))) {
-                        listFormulasProcesosModificar.add(listFormulasProcesos.get(index));
-                    }
-                }
-            } else {
-                filtrarListFormulasProcesos.get(index).setProceso(procesoSeleccionado);
-                if (!listFormulasProcesosCrear.contains(filtrarListFormulasProcesos.get(index))) {
-                    if (listFormulasProcesosModificar.isEmpty()) {
-                        listFormulasProcesosModificar.add(filtrarListFormulasProcesos.get(index));
-                    } else if (!listFormulasProcesosModificar.contains(filtrarListFormulasProcesos.get(index))) {
-                        listFormulasProcesosModificar.add(filtrarListFormulasProcesos.get(index));
-                    }
+            formulaTablaSeleccionada.setProceso(procesoSeleccionado);
+            if (!listFormulasProcesosCrear.contains(formulaTablaSeleccionada)) {
+                if (listFormulasProcesosModificar.isEmpty()) {
+                    listFormulasProcesosModificar.add(formulaTablaSeleccionada);
+                } else if (!listFormulasProcesosModificar.contains(formulaTablaSeleccionada)) {
+                    listFormulasProcesosModificar.add(formulaTablaSeleccionada);
                 }
             }
             if (guardado == true) {
@@ -742,13 +593,10 @@ public class ControlFormulaProceso implements Serializable {
         filtrarLovProcesos = null;
         procesoSeleccionado = new Procesos();
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
-        /*
         context.update("form:ProcesosDialogo");
         context.update("form:lovProceso");
-        context.update("form:aceptarF");*/
+        context.update("form:aceptarF");
         context.reset("form:lovProceso:globalFilter");
         context.execute("lovProceso.clearFilters()");
         context.execute("ProcesosDialogo.hide()");
@@ -758,11 +606,12 @@ public class ControlFormulaProceso implements Serializable {
         filtrarLovProcesos = null;
         procesoSeleccionado = new Procesos();
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
+        context.update("form:ProcesosDialogo");
+        context.update("form:lovProceso");
+        context.update("form:aceptarF");
         context.reset("form:lovProceso:globalFilter");
         context.execute("lovProceso.clearFilters()");
         context.execute("ProcesosDialogo.hide()");
@@ -797,8 +646,6 @@ public class ControlFormulaProceso implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "FormulaProceso_PDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     /**
@@ -816,8 +663,6 @@ public class ControlFormulaProceso implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "FormulaProceso_XLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     //EVENTO FILTRAR
@@ -825,65 +670,80 @@ public class ControlFormulaProceso implements Serializable {
      * Evento que cambia la lista reala a la filtrada
      */
     public void eventoFiltrar() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                tipoLista = 1;
-            }
-            RequestContext context = RequestContext.getCurrentInstance();
-            infoRegistro = "Cantidad de registros : " + filtrarListFormulasProcesos.size();
-            context.update("form:informacionRegistro");
+        if (tipoLista == 0) {
+            tipoLista = 1;
         }
+        formulaTablaSeleccionada = null;
+        contarRegistros();
+        anularBotonLOV();
     }
+
     //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
-
-    public void verificarRastro() {
-        verificarRastroFormulaProceso();
-        index = -1;
-    }
-
     public void verificarRastroFormulaProceso() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (listFormulasProcesos != null) {
-            if (secRegistro != null) {
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "FORMULASPROCESOS");
-                backUpSecRegistro = secRegistro;
-                backUp = secRegistro;
-                secRegistro = null;
-                if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
-                } else if (resultado == 2) {
-                    nombreTablaRastro = "FormulasProcesos";
-                    msnConfirmarRastro = "La tabla FORMULASPROCESOS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
-                } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
-                } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
-                } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
-                }
-            } else {
-                context.execute("seleccionarRegistro.show()");
-            }
-        } else {
-            if (administrarRastros.verificarHistoricosTabla("FORMULASPROCESOS")) {
+        if (formulaTablaSeleccionada != null) {
+            int resultado = administrarRastros.obtenerTabla(formulaTablaSeleccionada.getSecuencia(), "FORMULASPROCESOS");
+            if (resultado == 1) {
+                context.execute("errorObjetosDB.show()");
+            } else if (resultado == 2) {
                 nombreTablaRastro = "FormulasProcesos";
-                msnConfirmarRastroHistorico = "La tabla FORMULASPROCESOS tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
-            } else {
-                context.execute("errorRastroHistorico.show()");
+                msnConfirmarRastro = "La tabla FORMULASPROCESOS tiene rastros para el registro seleccionado, ¿desea continuar?";
+                context.update("form:msnConfirmarRastro");
+                context.execute("confirmarRastro.show()");
+            } else if (resultado == 3) {
+                context.execute("errorRegistroRastro.show()");
+            } else if (resultado == 4) {
+                context.execute("errorTablaConRastro.show()");
+            } else if (resultado == 5) {
+                context.execute("errorTablaSinRastro.show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("FORMULASPROCESOS")) {
+            nombreTablaRastro = "FormulasProcesos";
+            msnConfirmarRastroHistorico = "La tabla FORMULASPROCESOS tiene rastros historicos, ¿Desea continuar?";
+            context.update("form:confirmarRastroHistorico");
+            context.execute("confirmarRastroHistorico.show()");
+        } else {
+            context.execute("errorRastroHistorico.show()");
         }
-        index = -1;
+    }
+    
+    public void activarBotonLOV() {
+        activarLOV = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+    
+    public void anularBotonLOV() {
+        activarLOV = true;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+    
+    public void contarRegistros() {
+        if (tipoLista == 1) {
+            infoRegistro = String.valueOf(filtrarListFormulasProcesos.size());
+        } else if (listFormulasProcesos != null) {
+            infoRegistro = String.valueOf(listFormulasProcesos.size());
+        } else {
+            infoRegistro = String.valueOf(0);
+        }
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+    }
+    
+    public void contarRegistrosLov(int tipoLov) {
+        if (tipoLov == 1) {
+            infoRegistroProceso = String.valueOf(filtrarLovProcesos.size());
+        } else if (lovProcesos != null) {
+            infoRegistroProceso = String.valueOf(lovProcesos.size());
+        } else {
+            infoRegistroProceso = String.valueOf(0);
+        }
+        RequestContext.getCurrentInstance().update("form:infoRegistroProceso");
     }
 
     //GETTERS AND SETTERS
     public List<FormulasProcesos> getListFormulasProcesos() {
         try {
             if (listFormulasProcesos == null) {
-                if (formulaActual.getSecuencia() != null) {
+                if (formulaActual != null) {
                     listFormulasProcesos = administrarFormulaProceso.listFormulasProcesosParaFormula(formulaActual.getSecuencia());
                 }
                 return listFormulasProcesos;
@@ -935,22 +795,6 @@ public class ControlFormulaProceso implements Serializable {
         this.duplicarFormulaProceso = setDuplicarFormulasProcesos;
     }
 
-    public BigInteger getSecRegistro() {
-        return secRegistro;
-    }
-
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
-    }
-
-    public BigInteger getBackUpSecRegistro() {
-        return backUpSecRegistro;
-    }
-
-    public void setBackUpSecRegistro(BigInteger BackUpSecRegistro) {
-        this.backUpSecRegistro = BackUpSecRegistro;
-    }
-
     public List<FormulasProcesos> getListFormulasProcesosModificar() {
         return listFormulasProcesosModificar;
     }
@@ -991,14 +835,6 @@ public class ControlFormulaProceso implements Serializable {
         this.msnConfirmarRastroHistorico = msnConfirmarRastroHistorico;
     }
 
-    public BigInteger getBackUp() {
-        return backUp;
-    }
-
-    public void setBackUp(BigInteger backUp) {
-        this.backUp = backUp;
-    }
-
     public String getNombreTablaRastro() {
         return nombreTablaRastro;
     }
@@ -1024,7 +860,7 @@ public class ControlFormulaProceso implements Serializable {
     }
 
     public List<Procesos> getLovProcesos() {
-        if (formulaActual.getSecuencia() != null) {
+        if (formulaActual != null) {
             lovProcesos = administrarFormulaProceso.listProcesos(formulaActual.getSecuencia());
         }
         return lovProcesos;
@@ -1091,12 +927,6 @@ public class ControlFormulaProceso implements Serializable {
     }
 
     public String getInfoRegistroProceso() {
-        getLovProcesos();
-        if (lovProcesos != null) {
-            infoRegistroProceso = "Cantidad de registros : " + lovProcesos.size();
-        } else {
-            infoRegistroProceso = "Cantidad de registros : 0";
-        }
         return infoRegistroProceso;
     }
 
@@ -1105,13 +935,6 @@ public class ControlFormulaProceso implements Serializable {
     }
 
     public FormulasProcesos getFormulaTablaSeleccionada() {
-        getListFormulasProcesos();
-        if (listFormulasProcesos != null) {
-            int tam = listFormulasProcesos.size();
-            if (tam > 0) {
-                formulaTablaSeleccionada = listFormulasProcesos.get(0);
-            }
-        }
         return formulaTablaSeleccionada;
     }
 
@@ -1125,6 +948,14 @@ public class ControlFormulaProceso implements Serializable {
 
     public void setDuplicarFormulaProceso(FormulasProcesos duplicarFormulaProceso) {
         this.duplicarFormulaProceso = duplicarFormulaProceso;
+    }
+
+    public boolean isActivarLOV() {
+        return activarLOV;
+    }
+
+    public void setActivarLOV(boolean activarLOV) {
+        this.activarLOV = activarLOV;
     }
 
 }

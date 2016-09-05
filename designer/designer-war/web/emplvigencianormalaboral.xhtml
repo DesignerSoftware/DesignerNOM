@@ -101,7 +101,7 @@
 
                                 <p:column headerText="#{msg['fecha']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains" 
                                           id="fecha" width="80"
-                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                          filterStyle="display: none; visibility: hidden;"  style="text-align: center;">                                  
                                     <p:cellEditor> 
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechavigencia}" style="width: 80px; text-transform: uppercase">
@@ -112,18 +112,18 @@
                                             <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
                                                 <p:ajax event="select" listener="#{controlBetaEmplVigenciaNormaLaboral.cambiarIndice(info, 0)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlBetaEmplVigenciaNormaLaboral.mostrarInfo(info,0)}" process="@this"/> 
-                                                <p:ajax event="dateSelect" listener="#{controlBetaEmplVigenciaNormaLaboral.mostrarInfo(info,0)}" process="@this" update="editFecha"/>
+                                                <p:ajax event="dateSelect" listener="#{controlBetaEmplVigenciaNormaLaboral.mostrarInfo(info,0)}" process="@this" update=":formularioDialogos:editarFecha"/>
                                             </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                 </p:column>
 
-                                <p:column headerText="#{msg['nombreNormaLaboral']}" sortBy="#{info.normalaboral.nombre}" filterBy="#{info.normalaboral.nombre}" filterMatchMode="contains" id="parentesco" width="700" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['nombreNormaLaboral']}" sortBy="#{info.normalaboral.nombre}" filterBy="#{info.normalaboral.nombre}" filterMatchMode="contains" id="parentesco" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.normalaboral.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText maxlength="40" value="#{info.normalaboral.nombre}" id="editarparentesco" style=" border-radius: 0px; width: 99%; height: 12px; text-transform: uppercase"  > 
+                                            <p:inputText maxlength="40" value="#{info.normalaboral.nombre}" id="editarparentesco" style=" border-radius: 0px; width: 97%; height: 12px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlBetaEmplVigenciaNormaLaboral.cambiarIndice(info, 1)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlBetaEmplVigenciaNormaLaboral.asignarIndex(info, 0,1)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlBetaEmplVigenciaNormaLaboral.modificandoEmplVigenciaNormaLaboral(info, 'NORMASLABORALES',info.normalaboral.nombre)}"/>
@@ -132,7 +132,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 720px;" id="fooNormaLaboral" actionListener="#{controlNormasLaborales.recibirPaginaEntrante('emplvigencianormalaboral')}" action="normaLaboral" value=""/>
+                                        <p:commandButton style="width: 120%;" id="fooNormaLaboral" actionListener="#{controlNormasLaborales.recibirPaginaEntrante('emplvigencianormalaboral')}" action="normaLaboral" value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -270,8 +270,6 @@
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
-
-
 
                     <p:dialog id="editarFecha" header="#{msg['editarFecha']}" widgetVar="editarFecha" resizable="false" draggable="false" modal="true" height="80" width="400" style="position: absolute; top: 10px;  padding: 0px">  
                         <p:inputTextarea value="#{controlBetaEmplVigenciaNormaLaboral.editarEmplVigenciaNormaLaboral.fechavigencia}" style="overflow: auto; width: 360px; height: 60px" readonly="true">  

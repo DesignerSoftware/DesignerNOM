@@ -87,18 +87,20 @@
 
                         <p:remoteCommand name="posicionNit" actionListener="#{controlEmplVigenciaAfiliacion3.posicionNit()}"/>
 
-                        <fieldset style="position: absolute;top: 110px;left: 10px;height: 365px;width: 830px; border-radius: 10px; text-align: left">
-                            <legend style=" font-size: 14px; color: blue"><strong>#{msg['afiliaciones']}</strong></legend>
+                        <fieldset style="position: absolute; top: 110px; left: 10px; height: 365px; width: 830px; border-radius: 10px; text-align: left">
+                            <legend style=" font-size: 14px; color: blue;"><strong>#{msg['afiliaciones']}</strong></legend>
+                            
                             <p:dataTable id="datosVAVigencia" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceVA" value="#{controlEmplVigenciaAfiliacion3.listVigenciasAfiliaciones}" 
                                          filteredValue="#{controlEmplVigenciaAfiliacion3.filtrarVigenciasAfiliaciones}" editable="true" editMode="cell" liveScroll="true" scrollRows="10"
-                                         scrollable="true" scrollWidth="830" scrollHeight="#{controlEmplVigenciaAfiliacion3.altoTabla}" emptyMessage="#{msg['vacio']}" style=" border: 1px;width: 830px"
+                                         scrollable="true" scrollWidth="830" scrollHeight="#{controlEmplVigenciaAfiliacion3.altoTabla}" emptyMessage="#{msg['vacio']}" 
+                                         style=" width: 1150px; position: inherit;"
                                          selection="#{controlEmplVigenciaAfiliacion3.vigenciaSeleccionada}" selectionMode="single">
 
                                 <p:ajax event="filter" listener="#{controlEmplVigenciaAfiliacion3.eventoFiltrar()}" process="@this"/>
                                 <f:event type="preRenderView" listener="#{controlEmplVigenciaAfiliacion3.recordarSeleccion()}"/>
 
-                                <p:column headerText="#{msg['inicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" id="vAFechaInicial" width="68"
-                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                <p:column headerText="#{msg['inicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" id="vAFechaInicial" width="60"
+                                          filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechainicial}" style="width: 100px; ">
@@ -118,11 +120,11 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['final']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains" id="vAFechaFinal" width="68"
-                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                <p:column headerText="#{msg['final']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains" id="vAFechaFinal" width="60"
+                                          filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{info.fechafinal}" style="width: 100px; ">
+                                            <h:outputText value="#{info.fechafinal}">
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </h:outputText>
                                         </f:facet>  
@@ -139,12 +141,12 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['tipoentidad']}" sortBy="#{info.tipoentidad.nombre}" filterBy="#{info.tipoentidad.nombre}" filterMatchMode="contains" width="150"
-                                          id="vATipoEntidad" filterStyle="display: none; visibility: hidden;"  style="width: 70px; ">                                  
+                                <p:column headerText="#{msg['tipoentidad']}" sortBy="#{info.tipoentidad.nombre}" filterBy="#{info.tipoentidad.nombre}" filterMatchMode="contains"
+                                          id="vATipoEntidad" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipoentidad.nombre}" style="width: 100px; "/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.tipoentidad.nombre}" id="editarTipoEntidadVA" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
+                                            <p:inputText value="#{info.tipoentidad.nombre}" id="editarTipoEntidadVA" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px;"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,2)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaAfiliacion3.asignarIndex(info,0,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaAfiliacion3.modificarVA(info, 'TIPOENTIDAD', info.tipoentidad.nombre)}" process="@this" update="editarTipoEntidadVA"/>
@@ -152,15 +154,15 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px;" id="fooTipoEntidadVA" actionListener="#{controlTiposEntidades.recibirPagina('atrastipoentidademplvigenciaafiliacion3')}" action="tipoentidademplvigenciaafiliacion3"  value=""/>
+                                        <p:commandButton style="width: 120%;" id="fooTipoEntidadVA" actionListener="#{controlTiposEntidades.recibirPagina('atrastipoentidademplvigenciaafiliacion3')}" action="tipoentidademplvigenciaafiliacion3"  value=""/>
                                     </f:facet>
 
                                 </p:column>
 
-                                <p:column headerText="#{msg['tercero']}" sortBy="#{info.tercerosucursal.tercero.nombre}" filterBy="#{info.tercerosucursal.tercero.nombre}" width="200"
-                                          filterMatchMode="contains" id="vATercero" filterStyle="display: none; visibility: hidden;"  style="width: 110px; " >                                  
+                                <p:column headerText="#{msg['tercero']}" sortBy="#{info.tercerosucursal.tercero.nombre}" filterBy="#{info.tercerosucursal.tercero.nombre}" width="150"
+                                          filterMatchMode="contains" id="vATercero" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.tercerosucursal.tercero.nombre}" style="width: 100px; "/></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.tercerosucursal.tercero.nombre}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText maxlength="30" value="#{info.tercerosucursal.tercero.nombre}" id="editarTerceroVA" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,3)}" process="@this"/> 
@@ -174,8 +176,8 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['terceronit']}" sortBy="#{info.tercerosucursal.tercero.nit}" filterBy="#{info.tercerosucursal.tercero.nit}" width="100"
-                                          filterMatchMode="contains" id="vANITTercero" filterStyle="display: none; visibility: hidden;"  style="width: 110px; " >                                  
+                                <p:column headerText="#{msg['terceronit']}" sortBy="#{info.tercerosucursal.tercero.nit}" filterBy="#{info.tercerosucursal.tercero.nit}" width="70"
+                                          filterMatchMode="contains" id="vANITTercero" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tercerosucursal.tercero.nit}" style="width: 100px; "/></f:facet>  
                                         <f:facet name="input">
@@ -190,7 +192,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" width="133"
+                                <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" width="70"
                                           filterMatchMode="contains" id="vACodigo" filterStyle="display: none; visibility: hidden;"  style="width: 110px; " >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" style="width: 100px; "/></f:facet>  
@@ -242,8 +244,6 @@
                             </p:dataTable>
                         </fieldset>
 
-
-
                         <!-- DIALOGO L.O.V ESTATICO TIPO ENTIDAD -->
                         <p:dialog header="#{msg['tipoTE']}" widgetVar="TipoEntidadDialogo" draggable="false" resizable="false" closable="false" id="TipoEntidadDialogo"  
                                   showEffect="fade" hideEffect="fade" width="420" height="380" modal="true" style="">
@@ -272,12 +272,9 @@
                             </p:dataTable>
 
                             <h:outputText id="infoRegistroTipoEntidad" value="#{msg['infoRegistro']} #{controlEmplVigenciaAfiliacion3.infoRegistroTipoEntidad}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-
                             <p:commandButton id="aceptarTE" style="position: relative; left: 208px; top: 7px;" value="#{msg['aceptar']}" disabled="#{controlEmplVigenciaAfiliacion3.aceptar}" actionListener="#{controlEmplVigenciaAfiliacion3.actualizarTipoEntidad()}" update=":form:TipoEntidadDialogo" icon="ui-icon-check" process="@this"/>
                             <p:commandButton id="atrasTE" style="position: relative; left: 208px; top: 7px;" value="#{msg['atras']}" actionListener="#{controlEmplVigenciaAfiliacion3.cancelarCambioTipoEntidad()}" update=":form:TipoEntidadDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
-
                         </p:dialog>
-
 
                         <!-- DIALOGO L.O.V ESTATICO TERCEROS -->
                         <p:dialog header="#{msg['terceroT']}" widgetVar="TerceroDialogo" draggable="false" resizable="false" closable="false" id="TerceroDialogo"  
@@ -313,11 +310,8 @@
                             </p:dataTable>
 
                             <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistro']} #{controlEmplVigenciaAfiliacion3.infoRegistroTercero}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-
                             <p:commandButton id="aceptarT" style="position: relative; left: 510px;" value="#{msg['aceptar']}" actionListener="#{controlEmplVigenciaAfiliacion3.actualizarTerceros()}" disabled="#{controlEmplVigenciaAfiliacion3.aceptar}" update=":form:TerceroDialogo" icon="ui-icon-check" process="@this"/>
-
                             <p:commandButton id="atrasT" style="position: relative; left: 525px;" value="#{msg['atras']}" actionListener="#{controlEmplVigenciaAfiliacion3.cancelarCambioTerceros()}" update=":form:TerceroDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
-
                         </p:dialog>
 
                         <!-- DIALOGO L.O.V ESTATICO ESTADO AFILIACION -->
@@ -348,16 +342,12 @@
                             </p:dataTable>
 
                             <h:outputText id="infoRegistroEstado" value="#{msg['infoRegistro']} #{controlEmplVigenciaAfiliacion3.infoRegistroEstado}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-
                             <p:commandButton id="aceptarEA" style="position: relative; left: 182px;" value="#{msg['aceptar']}" actionListener="#{controlEmplVigenciaAfiliacion3.actualizarEstadoAfiliacion()}" disabled="#{controlEmplVigenciaAfiliacion3.aceptar}" update=":form:EstadoAfiliacionDialogo" process="@this" icon="ui-icon-check"/>
                             <p:commandButton id="atrasEA" style="position: relative; left: 184px" value="#{msg['atras']}" actionListener="#{controlEmplVigenciaAfiliacion3.cancelarCambioEstadoAfiliacion()}" update=":form:EstadoAfiliacionDialogo" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
-
-                        <!--     <p:commandButton id="aceptarEA" style="position: absolute; left: 210px; top: 350px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " disabled="#{controlEmplVigenciaAfiliacion3.aceptar}" actionListener="#{controlEmplVigenciaAfiliacion3.actualizarEstadoAfiliacion()}" process="@this"/>
-                            <p:commandButton id="atrasEA" style=" position: absolute; left: 300px; top: 350px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlEmplVigenciaAfiliacion3.cancelarCambioEstadoAfiliacion()}" process="@this"/>
-                            -->
                         </p:dialog>
+                        
                         <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplVigenciaAfiliacion3.infoRegistro}" style="position: absolute; left: 20px; top: 465px; font-weight: bold"/>
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 664px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="confirmarGuardar.show();" update=":form:datosVAVigencia" process="@this" disabled="#{controlEmplVigenciaAfiliacion3.guardado}"/>
+                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="confirmarGuardar.show();" update=":form:datosVAVigencia" process="@this" disabled="#{controlEmplVigenciaAfiliacion3.guardado}"/>
                         <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlEmplVigenciaAfiliacion3.salir()}" action="nomina" process="@this" />
                     </p:panel>
 

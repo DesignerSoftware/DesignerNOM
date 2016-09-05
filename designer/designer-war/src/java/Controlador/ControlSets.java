@@ -103,7 +103,7 @@ public class ControlSets implements Serializable {
         nuevoSet = new Sets();
         duplicarSet = new Sets();
         setSeleccionado = null;
-        altoTabla = "292";
+        altoTabla = "287";
         tipoActualizacion = 0;
         mensajeValidacion = " ";
     }
@@ -545,7 +545,7 @@ public class ControlSets implements Serializable {
 
     private void cerrarFiltrado() {
         FacesContext c = FacesContext.getCurrentInstance();
-        altoTabla = "292";
+        altoTabla = "287";
         //CERRAR FILTRADO
         setsFechaInicial = (Column) c.getViewRoot().findComponent("form:datosSetsEmpleado:setsFechaInicial");
         setsFechaInicial.setFilterStyle("display: none; visibility: hidden;");
@@ -697,7 +697,7 @@ public class ControlSets implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {
-            altoTabla = "268";
+            altoTabla = "263";
             setsFechaInicial = (Column) c.getViewRoot().findComponent("form:datosSetsEmpleado:setsFechaInicial");
             setsFechaInicial.setFilterStyle("width: 60px");
             setsFechaFinal = (Column) c.getViewRoot().findComponent("form:datosSetsEmpleado:setsFechaFinal");

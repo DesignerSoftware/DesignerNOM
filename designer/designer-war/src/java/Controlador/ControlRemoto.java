@@ -568,7 +568,6 @@ public class ControlRemoto implements Serializable {
 
     public void paso2() {
         RequestContext context = RequestContext.getCurrentInstance();
-
         context.update("formulariodialogos:activoeliminarpaso2");
         context.execute("activoeliminarpaso2.show()");
     }
@@ -588,7 +587,6 @@ public class ControlRemoto implements Serializable {
         } catch (Exception e) {
             System.out.println("Error en borrar al empleado");
         }
-
     }
 
     public void busquedaRapida() {

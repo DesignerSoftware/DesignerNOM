@@ -82,7 +82,7 @@
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px" />
                         </fieldset>
 
-                        <fieldset style="position: absolute;top: 105px;left: 10px;height: 340px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 105px; left: 10px; height: 343px; width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>#{msg['contratos']}</strong></legend>
                             <!-- TABLA EMPLVIGENCIACARGO -->
 
@@ -228,32 +228,31 @@
                                     </p:cellEditor>
                                 </p:column> 
 
-                                <p:column headerText="P" width="25" style="height: 16px; padding: 0px;" exportable="false">  
+                                <p:column headerText="P" width="25" style="padding: 0px !important; width: 20px; alignment-adjust: central;" exportable="false">  
                                     <f:facet name="header">
                                         <h:outputText id="headP" value="#{msg['p']}"/>
                                         <p:tooltip for="headP" value="#{msg['pvH']}"/>
                                     </f:facet>
-                                    <p:commandButton style="background-image: url(Imagenes/Iconos/revertir.gif); width:23px; height: 21px; background-repeat: no-repeat; border: none; background-size: 100% 100%;"/>
+                                    <p:commandButton value="" style="background-image: url(Imagenes/Iconos/revertir.gif); width: 21px; height: 21px; background-repeat: no-repeat; border: none; background-size: 100% 100%;"/>
                                 </p:column>
 
-                                <p:column headerText="S" width="25" style="height: 16px;padding: 0px;" exportable="false">  
+                                <p:column headerText="S" width="25" style="padding: 0px !important; width: 20px; alignment-adjust: central;" exportable="false">  
                                     <f:facet name="header">
                                         <h:outputText id="headS" value="#{msg['s']}"/>
                                         <p:tooltip for="headS" value="#{msg['scH']}"/>
                                     </f:facet>
-                                    <p:commandButton  style="width: 23px; height: 21px;padding: 0px; padding: 0px; padding-bottom: 0px; padding-top: 0px" id="selectButton" />
+                                    <p:commandButton value="" style="width: 21px; height: 21px;" id="selectButton" />
                                 </p:column>     
                             </p:dataTable> 
                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlVigenciasTiposContratos.infoRegistro}" style="position: relative; left: 15px; top: 3px; font-weight: bold"/>
                         </fieldset>
 
-                        <p:commandButton style="background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; position: absolute; width: 160px; height: 28px; left: 690px; top: 465px; color: white; border: none;" icon="ui-icon-calendar" id="DETALLES" value="Cambio Fecha" process="@this" action="cambiofechaingreso" actionListener="#{controlCambioFechaIngreso.recibirEmpleado(controlVigenciasTiposContratos.empleado.secuencia,controlVigenciasTiposContratos.vigenciaSeleccionada)}" />
+                        <p:commandButton style="background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; position: absolute; width: 160px; height: 28px; left: 690px; top: 467px; color: white; border: none;" icon="ui-icon-calendar" id="DETALLES" value="Cambio Fecha" process="@this" action="cambiofechaingreso" actionListener="#{controlCambioFechaIngreso.recibirEmpleado(controlVigenciasTiposContratos.empleado.secuencia,controlVigenciasTiposContratos.vigenciaSeleccionada)}" />
 
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 664px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 502px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
                                          value=" " onclick="confirmarGuardar.show();" update=":form:datosVTCEmpleado" process="@this" disabled="#{controlVigenciasTiposContratos.guardado}"/>
 
-
-                        <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                        <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 502px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
                                          value=" " actionListener="#{controlVigenciasTiposContratos.salir()}" action="nomina" process="@this" />
 
                         <p:tooltip  for="DETALLES" value="Cambio Fecha Contratación" />

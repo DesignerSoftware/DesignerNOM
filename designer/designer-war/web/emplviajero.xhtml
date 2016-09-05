@@ -96,7 +96,7 @@
                                 <f:event type="preRenderView" listener="#{controlVigenciasViajeros.recordarSeleccion()}"/>
 
                                 <p:column headerText="#{msg['fecha']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains" 
-                                          id="fecha" width="80" filterStyle="display: none; visibility: hidden;">                                  
+                                          id="fecha" width="62" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor> 
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechavigencia}" style="width: 80px; text-transform: uppercase">
@@ -107,7 +107,7 @@
                                             <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
                                                 <p:ajax event="select" listener="#{controlVigenciasViajeros.cambiarIndice(info, 0)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlVigenciasViajeros.mostrarInfo(info,0)}" process="@this"/> 
-                                                <p:ajax event="dateSelect" listener="#{controlVigenciasViajeros.mostrarInfo(info,0)}" process="@this" update="editFecha"/>
+                                                <p:ajax event="dateSelect" listener="#{controlVigenciasViajeros.mostrarInfo(info,0)}" process="@this" update=":formularioDialogos:editarFecha"/>
                                             </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -117,11 +117,11 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['tipoViajero']}" sortBy="#{info.tipoViajero.nombre}" filterBy="#{info.tipoViajero.nombre}" filterMatchMode="contains" id="parentesco" width="700" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['tipoViajero']}" sortBy="#{info.tipoViajero.nombre}" filterBy="#{info.tipoViajero.nombre}" filterMatchMode="contains" id="parentesco" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipoViajero.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.tipoViajero.nombre}" id="editarparentesco" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px"  > 
+                                            <p:inputText value="#{info.tipoViajero.nombre}" id="editarparentesco" style="  border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px"  > 
                                                 <p:ajax event="select" listener="#{controlVigenciasViajeros.cambiarIndice(info, 1)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasViajeros.asignarIndex(info, 0,1)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasViajeros.modificandoVigenciasViajeros(info, 'VIGENCIASVIAJEROS',info.tipoViajero.nombre)}"/>
@@ -130,7 +130,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer" >
-                                        <p:commandButton value="" style="width: 780px;" action="tipoviajero" onclick="#{controlTiposViajeros.inicializarLista()}" id="fooViajero" />
+                                        <p:commandButton value="" style="width: 120%;" action="tipoviajero" onclick="#{controlTiposViajeros.inicializarLista()}" id="fooViajero" />
                                     </f:facet>
                                 </p:column>
 

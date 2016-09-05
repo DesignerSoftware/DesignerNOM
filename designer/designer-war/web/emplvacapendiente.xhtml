@@ -13,12 +13,12 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form">
-                    <f:loadBundle basename="Recursos.emplvacapendiente" var="msg" />
+                    <f:loadBundle basename="Recursos.emplvacapendiente" var="msg"/>
                     <p:growl id="growl" showDetail="true"/>
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
 
-                        <h:outputText id="DPro" style="position: absolute; top: 52px;left: 540px; text-align: left; font-weight: bold; width: 150px;" value="D Provisionados: #{controlEmplVacaPendiente.diasProvisionados}"/>
-                        <h:outputText id="DFC" style="position: absolute; top: 52px;left: 700px; text-align: right; font-weight: bold; width: 110px;" value="FC: #{controlEmplVacaPendiente.fechaContratacionText}"/>
+                        <h:outputText id="DPro" style="position: absolute; top: 52px; left: 540px; text-align: left; font-weight: bold; width: 150px;" value="D Provisionados: #{controlEmplVacaPendiente.diasProvisionados}"/>
+                        <h:outputText id="DFC" style="position: absolute; top: 52px; left: 700px; text-align: right; font-weight: bold; width: 110px;" value="FC: #{controlEmplVacaPendiente.fechaContratacionText}"/>
                         <p:tooltip for="DPro" value="#{msg['DPro']}" />
                         <p:tooltip for="DFC" value="#{msg['DFC']}" style="position: fixed; margin: 0px;"/>
                         <!--<h:outputText value="" style="position: absolute; top: 50px;left: 740px;width: 50px;text-align: center"/>-->
@@ -103,15 +103,15 @@
                                 <f:event type="preRenderView" listener="#{controlEmplVacaPendiente.recordarSeleccionP()}"/>
                                 <p:ajax event="filter" listener="#{controlEmplVacaPendiente.eventoFiltrarP()}"/>
                                 
-                                <p:column style="padding: 0" width="22">
-                                    <p:commandButton style="width: 17px;height: 17px;left: 1px" value=" " >
+                                <p:column style="padding: 0px !important; width: 20px; alignment-adjust: central;" width="22">
+                                    <p:commandButton style="width: 17px; height: 17px; left: 1px;" value=" " >
                                     </p:commandButton>
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['inicial']}" width="85" sortBy="#{info.inicialcausacion}" filterBy="#{info.inicialcausacion}" filterMatchMode="contains"  id="vacacionesFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
+                                <p:column  headerText="#{msg['inicial']}" width="85" sortBy="#{info.inicialcausacion}" filterBy="#{info.inicialcausacion}" filterMatchMode="contains" id="vacacionesFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.inicialcausacion}">
@@ -177,7 +177,8 @@
                         <fieldset style="position: absolute;top: 110px;left: 440px;height: 360px;width: 400px; border-radius: 10px; text-align: left">
                             <legend style=" color: blue"><strong>#{msg['disfrutadas']}</strong></legend>
                             <!-- TABLA EMPLVACACIONESEMPLEADO -->
-                            <p:dataTable id="datosVacacionesDEmpleado" widgetVar="datosVacacionesDEmpleado" var="info2" rowKey="#{info2.inicialcausacion}"  rowIndexVar="indice2" style="border: 1px; text-align: center; width: 390px"                           
+                            
+                            <p:dataTable id="datosVacacionesDEmpleado" widgetVar="datosVacacionesDEmpleado" var="info2" rowKey="#{info2.inicialcausacion}" rowIndexVar="indice2" style="border: 1px; text-align: center; width: 390px;"                           
                                          value="#{controlEmplVacaPendiente.listVacaDisfrutadas}" filteredValue="#{controlEmplVacaPendiente.filtrarListVacaDisfrutadas}"
                                          scrollable="true"  scrollWidth="390" emptyMessage="#{msg['vacio']}" scrollHeight="#{controlEmplVacaPendiente.altoTabla2}"
                                          editable="true" editMode="cell" selection="#{controlEmplVacaPendiente.vacaDisfrutadaSeleccionada}" selectionMode="single">
@@ -185,8 +186,8 @@
                                 <p:ajax event="filter" listener="#{controlEmplVacaPendiente.eventoFiltrarD()}"/>
                                 <f:event type="preRenderView" listener="#{controlEmplVacaPendiente.recordarSeleccionD()}"/>
                                 
-                                <p:column width="22" style="padding: 0px">
-                                    <p:commandButton style="width: 17px;height: 17px;left: 1px" value=" " />
+                                <p:column width="22" style="padding: 0px !important; width: 20px; alignment-adjust: central;">
+                                    <p:commandButton style="width: 17px; height: 17px; left: 1px;" value=" " />
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
                                     </f:facet>

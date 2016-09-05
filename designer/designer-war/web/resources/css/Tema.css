@@ -428,6 +428,7 @@ button .ui-widget-header{
     padding-right: 0px;
     border: none;
 }
+
 .cssToolbar{
     background: transparent;
     /*border-color: #61A0CA;*/
@@ -438,7 +439,29 @@ button .ui-widget-header{
     height: 25px;
     width: 96%;
 }
-.cssToobarButton{
+
+.cssToolbar .ui-button {
     width: 25px; 
-    height: 25px; 
+    height: 25px;
+    border: none;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.cssBotonAceptar {
+    width: 90px;
+    height: 30px;
+    background-image: url(../../Imagenes/Iconos/aceptar.png) !important;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+    border: none !important;
+}
+
+.cssBotonCancelar {
+    width: 90px;
+    height: 30px;
+    background-image: url(../../Imagenes/Iconos/cancelar.png) !important;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+    border: none !important;
 }

@@ -115,7 +115,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
         nuevaVigencia = new VigenciasReformasLaborales();
         nuevaVigencia.setReformalaboral(new ReformasLaborales());
         permitirIndex = true;
-        altoTabla = "270";
+        altoTabla = "290";
         mensajeValidacion = "";
         vigenciaSeleccionada = null;
 
@@ -407,7 +407,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
             vrlFecha.setFilterStyle("display: none; visibility: hidden;");
             vrlNombre = (Column) c.getViewRoot().findComponent("form:datosVRLEmpleado:vrlNombre");
             vrlNombre.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla = "270";
+            altoTabla = "290";
             RequestContext.getCurrentInstance().update("form:datosVRLEmpleado");
             bandera = 0;
             filtrarVRL = null;
@@ -487,7 +487,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
                         vrlFecha.setFilterStyle("display: none; visibility: hidden;");
                         vrlNombre = (Column) c.getViewRoot().findComponent("form:datosVRLEmpleado:vrlNombre");
                         vrlNombre.setFilterStyle("display: none; visibility: hidden;");
-                        altoTabla = "270";
+                        altoTabla = "290";
                         RequestContext.getCurrentInstance().update("form:datosVRLEmpleado");
                         bandera = 0;
                         filtrarVRL = null;
@@ -597,7 +597,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
                         vrlFecha.setFilterStyle("display: none; visibility: hidden;");
                         vrlNombre = (Column) c.getViewRoot().findComponent("form:datosVRLEmpleado:vrlNombre");
                         vrlNombre.setFilterStyle("display: none; visibility: hidden;");
-                        altoTabla = "270";
+                        altoTabla = "290";
                         RequestContext.getCurrentInstance().update("form:datosVRLEmpleado");
                         bandera = 0;
                         filtrarVRL = null;
@@ -674,7 +674,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
             vrlFecha.setFilterStyle("width: 85%");
             vrlNombre = (Column) c.getViewRoot().findComponent("form:datosVRLEmpleado:vrlNombre");
             vrlNombre.setFilterStyle("width: 85%");
-            altoTabla = "246";
+            altoTabla = "266";
             RequestContext.getCurrentInstance().update("form:datosVRLEmpleado");
             bandera = 1;
         } else if (bandera == 1) {
@@ -682,7 +682,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
             vrlFecha.setFilterStyle("display: none; visibility: hidden;");
             vrlNombre = (Column) c.getViewRoot().findComponent("form:datosVRLEmpleado:vrlNombre");
             vrlNombre.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla = "270";
+            altoTabla = "290";
             RequestContext.getCurrentInstance().update("form:datosVRLEmpleado");
             bandera = 0;
             filtrarVRL = null;
@@ -702,7 +702,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
             vrlFecha.setFilterStyle("display: none; visibility: hidden;");
             vrlNombre = (Column) c.getViewRoot().findComponent("form:datosVRLEmpleado:vrlNombre");
             vrlNombre.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla = "270";
+            altoTabla = "290";
             context.update("form:datosVRLEmpleado");
             bandera = 0;
             filtrarVRL = null;

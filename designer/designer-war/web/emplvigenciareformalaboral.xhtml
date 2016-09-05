@@ -81,16 +81,16 @@
                             <h:outputText id="nombreEmpleado" value="#{controlVigenciasReformasLaborales.empleado.persona.nombreCompleto}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px" />
+                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
                             <h:outputText id="docEmpleado" value="#{controlVigenciasReformasLaborales.empleado.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px" />
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
                         </fieldset>
                         
-                        <fieldset style="position: absolute;top: 110px;left: 10px;height: 350px;width: 820px; border-radius: 10px; text-align: left">
-                            <legend style=" color: blue;text-align:left"><strong>#{msg['reformas']}</strong></legend>
+                        <fieldset style="position: absolute; top: 110px; left: 10px; height: 370px; width: 820px; border-radius: 10px; text-align: left;">
+                            <legend style=" color: blue; text-align: left;"><strong>#{msg['reformas']}</strong></legend>
                             <!-- TABLA EMPLVIGENCIAREFORMALABORAL -->
 
-                            <p:dataTable id="datosVRLEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style=" border: 1px; text-align: left"                           
+                            <p:dataTable id="datosVRLEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style=" border: 1px; text-align: left;"                           
                                          value="#{controlVigenciasReformasLaborales.vigenciasReformasLaboralesEmpleado}" scrollable="true" scrollHeight="#{controlVigenciasReformasLaborales.altoTabla}" 
                                          filteredValue="#{controlVigenciasReformasLaborales.filtrarVRL}" emptyMessage="#{msg['vacio']}" 
                                          editable="true" editMode="cell" selection="#{controlVigenciasReformasLaborales.vigenciaSeleccionada}" selectionMode="single">
@@ -98,7 +98,8 @@
                                 <p:ajax event="filter" listener="#{controlVigenciasReformasLaborales.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlVigenciasReformasLaborales.recordarSeleccion()}"/>
 
-                                <p:column style="text-align: center" headerText="#{msg['fecha']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains" id="vrlFecha" filterStyle="display: none; visibility: hidden;"  >  
+                                <p:column style="text-align: center;" headerText="#{msg['fecha']}" sortBy="#{info.fechavigencia}" width="70"
+                                          filterBy="#{info.fechavigencia}" filterMatchMode="contains" id="vrlFecha" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechavigencia}" >
@@ -113,17 +114,16 @@
                                             </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
-
                                     <f:facet name="footer">
                                         <h:outputText value="" />
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['nombre']}" sortBy="#{info.reformalaboral.nombre}" filterBy="#{info.reformalaboral.nombre}" width="600" filterMatchMode="contains" id="vrlNombre" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column  headerText="#{msg['nombre']}" sortBy="#{info.reformalaboral.nombre}" filterBy="#{info.reformalaboral.nombre}" filterMatchMode="contains" id="vrlNombre" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.reformalaboral.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.reformalaboral.nombre}" id="editarUbicacion" style=" border-radius: 0px; width: 99%;text-transform: uppercase; height: 12px;"> 
+                                            <p:inputText value="#{info.reformalaboral.nombre}" id="editarUbicacion" style=" border-radius: 0px; width: 96%;text-transform: uppercase; height: 12px;"> 
                                                 <p:ajax event="change" listener="#{controlVigenciasReformasLaborales.modificarVRL(info, 'REFORMALABORAL', info.reformalaboral.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlVigenciasReformasLaborales.cambiarIndice(info, 1)}" />
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasReformasLaborales.asignarIndexT(info)}"/>
@@ -132,7 +132,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 620px;" id="fooReformaLaboral" action="reformasLaborales" actionListener="#{controlReformaLaboral.inicializarPagina()}" value=""/>
+                                        <p:commandButton style="width: 120%;" id="fooReformaLaboral" action="reformasLaborales" actionListener="#{controlReformaLaboral.inicializarPagina()}" value=""/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
@@ -140,9 +140,9 @@
                         <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlVigenciasReformasLaborales.infoRegistro}" style="position: relative; left: 10px; top: 7px; font-weight: bold"/>
                         </fieldset> 
                         
-                        <p:commandButton style="position: absolute; left: 680px; top: 490px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/aceptar.png); 
+                        <p:commandButton style="position: absolute; left: 680px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" onclick="confirmarGuardar.show();" process="@this" disabled="#{controlVigenciasReformasLaborales.guardado}"/>
-                        <p:commandButton style="position: absolute; left: 770px; top: 490px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/cancelar.png); 
+                        <p:commandButton style="position: absolute; left: 770px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlVigenciasReformasLaborales.salir()}" action="nomina" process="@this" />
 
                         <!-- DIALOGO L.O.V ESTATICO REFORMAS LABORALES -->

@@ -2920,6 +2920,7 @@ public class ControlHistoriaFormula implements Serializable {
         if (listEstructurasFormulas == null) {
             listEstructurasFormulas = administrarHistoriaFormula.listEstructurasFormulasParaHistoriaFormula(listHistoriasFormulas.get(indexAuxHistoriasFormulas).getSecuencia());
         }
+        if (listEstructurasFormulas != null) {
         if (!listEstructurasFormulas.isEmpty()) {
             for (int i = 0; i < listEstructurasFormulas.size(); i++) {
                 if (listEstructurasFormulas.get(i).getDescripcion() != null) {
@@ -2927,8 +2928,8 @@ public class ControlHistoriaFormula implements Serializable {
                     listEstructurasFormulas.get(i).setDescripcion(aux);
                 }
             }
+            }
         }
-
         return listEstructurasFormulas;
     }
 

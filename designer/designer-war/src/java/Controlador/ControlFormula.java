@@ -46,7 +46,7 @@ public class ControlFormula implements Serializable {
     //Activo/Desactivo Crtl + F11
     private int bandera;
     //Columnas Tabla VC
-    private Column columnaNombreLargo, columnaNombreCorto, columnaEstado, columnaNota, columnaTipo, columnaPeriodicidad;
+    private Column columnaNombreLargo, columnaNombreCorto, columnaEstado, columnaNota, columnaTipo; //, columnaPeriodicidad;
     //Otros
     private boolean aceptar;
     private String altoTabla;
@@ -546,8 +546,8 @@ public class ControlFormula implements Serializable {
             columnaNota.setFilterStyle("width: 94%;");
             columnaTipo = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaTipo");
             columnaTipo.setFilterStyle("width: 94%;");
-            columnaPeriodicidad = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaPeriodicidad");
-            columnaPeriodicidad.setFilterStyle("width: 94%;");
+//            columnaPeriodicidad = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaPeriodicidad");
+//            columnaPeriodicidad.setFilterStyle("width: 94%;");
             context.update("form:datosFormulas");
             bandera = 1;
 
@@ -809,8 +809,8 @@ public class ControlFormula implements Serializable {
         columnaNota.setFilterStyle("display: none; visibility: hidden;");
         columnaTipo = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaTipo");
         columnaTipo.setFilterStyle("display: none; visibility: hidden;");
-        columnaPeriodicidad = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaPeriodicidad");
-        columnaPeriodicidad.setFilterStyle("display: none; visibility: hidden;");
+//        columnaPeriodicidad = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaPeriodicidad");
+//        columnaPeriodicidad.setFilterStyle("display: none; visibility: hidden;");
         bandera = 0;
         filtradoListaFormulas = null;
     }

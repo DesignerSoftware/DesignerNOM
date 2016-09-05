@@ -113,7 +113,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
         nuevaVigencia.setTipocontrato(new TiposContratos());
         nuevaVigencia.setCiudad(new Ciudades());
         vigenciaSeleccionada = null;
-        altoTabla = "260";
+        altoTabla = "280";
         activarLOV = true;
     }
 
@@ -799,7 +799,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
             vtcInicioFlexibilizacion.setFilterStyle("width: 85%");
             vtcObservacion = (Column) c.getViewRoot().findComponent("form:datosVTCEmpleado:vtcObservacion");
             vtcObservacion.setFilterStyle("width: 85%");
-            altoTabla = "236";
+            altoTabla = "256";
             RequestContext.getCurrentInstance().update("form:datosVTCEmpleado");
             bandera = 1;
 
@@ -1073,7 +1073,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
         vtcInicioFlexibilizacion.setFilterStyle("display: none; visibility: hidden;");
         vtcObservacion = (Column) c.getViewRoot().findComponent("form:datosVTCEmpleado:vtcObservacion");
         vtcObservacion.setFilterStyle("display: none; visibility: hidden;");
-        altoTabla = "260";
+        altoTabla = "280";
         bandera = 0;
         filtrarVTC = null;
         tipoLista = 0;

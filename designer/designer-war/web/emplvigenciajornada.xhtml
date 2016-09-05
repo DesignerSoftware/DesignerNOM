@@ -133,7 +133,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoVJ.jornadatrabajo.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText maxlength="30" value="#{infoVJ.jornadatrabajo.descripcion}"  id="editarNombreJornada" style=" border-radius: 0px; width: 98.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText maxlength="30" value="#{infoVJ.jornadatrabajo.descripcion}"  id="editarNombreJornada" style=" border-radius: 0px; width: 96%; text-transform: uppercase; height: 12px;"> 
                                                 <p:ajax event="change" listener="#{controlVigenciaJornada.modificarVJ(infoVJ, 'NOMBREJORNADA', infoVJ.jornadatrabajo.descripcion)}" update="editarNombreJornada"/>
                                                 <p:ajax event="dblclick" listener="#{controlVigenciaJornada.asignarIndex(0,0,0)}"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaJornada.cambiarIndice(infoVJ,1)}" process="@this"/>
@@ -149,7 +149,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoVJ.tipodescanso.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoVJ.tipodescanso.descripcion}"  id="editarTipoDescanso" style=" border-radius: 0px; width: 98.5%; text-transform: uppercase; height: 12px"> 
+                                            <p:inputText value="#{infoVJ.tipodescanso.descripcion}"  id="editarTipoDescanso" style=" border-radius: 0px; width: 96%; text-transform: uppercase; height: 12px;"> 
                                                 <p:ajax event="change" listener="#{controlVigenciaJornada.modificarVJ(infoVJ, 'TIPODESCANSO', infoVJ.tipodescanso.descripcion)}"/>
                                                 <p:ajax event="dblclick" listener="#{controlVigenciaJornada.asignarIndex(1,0,0)}"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaJornada.cambiarIndice(infoVJ,2)}" process="@this"/>
@@ -164,7 +164,7 @@
                             <h:outputText id="informacionRegistroVJ" value="#{msg['infoRegistro']} #{controlVigenciaJornada.infoRegistroVJ}" style="position: relative; left: 15px; top: 0px; font-weight: bold"/>
                         </fieldset>
 
-                        <fieldset style="position: absolute;top: 300px;left: 10px;height: 178px;width: 400px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 300px; left: 10px; height: 178px; width: 400px; border-radius: 10px; text-align: left">
                             <legend style=" color: blue"><strong>#{msg['dtt']}</strong></legend>
                             <p:dataTable id="datosVigenciaCT" widgetVar="datosVigenciaCT" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceVCT" value="#{controlVigenciaJornada.listVigenciasCompensacionesTiempo}"
                                          editable="true" editMode="cell"  filteredValue="#{controlVigenciaJornada.filtrarVigenciasCompensacionesTiempo}"
@@ -175,10 +175,10 @@
                                 <f:event type="preRenderView" listener="#{controlVigenciaJornada.recordarSeleccionVT()}"/>
 
                                 <p:column headerText="#{msg['fechainicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" id="vCTFechaInicial"
-                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                          filterStyle="display: none; visibility: hidden;" width="62">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{info.fechainicial}" style="width: 100px; ">
+                                            <h:outputText value="#{info.fechainicial}">
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </h:outputText>
                                         </f:facet>  
@@ -195,7 +195,8 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['fechafinal']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains" id="vCTFechaFinal" filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                <p:column headerText="#{msg['fechafinal']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains"
+                                          id="vCTFechaFinal" filterStyle="display: none; visibility: hidden;" width="62">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechafinal}" style="width: 100px; ">
@@ -215,11 +216,12 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['comentario']}" sortBy="#{info.comentario}" filterBy="#{info.comentario}" filterMatchMode="contains" id="vCTComentario" filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                <p:column headerText="#{msg['comentario']}" sortBy="#{info.comentario}" filterBy="#{info.comentario}" filterMatchMode="contains" 
+                                          id="vCTComentario" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.comentario}" style="width: 100px;  text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.comentario}" id="editarComentarioVCT" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
+                                            <p:inputText value="#{info.comentario}" id="editarComentarioVCT" style=" border-radius: 0px; width: 96%; text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlVigenciaJornada.cambiarIndiceVCT(info,2)}" update=":form:datosVigenciaCD" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaJornada.modificarVCT(info)}" process="@this" update="editarComentarioVCT"/>
                                             </p:inputText>
@@ -233,21 +235,22 @@
                             <h:outputText id="informacionRegistroVT" value="#{msg['infoRegistro']} #{controlVigenciaJornada.infoRegistroVT}" style="position: relative; left: 15px; top: 0px; font-weight: bold"/>
                         </fieldset>
 
-                        <fieldset style="position: absolute;top: 300px;left: 440px;height: 178px;width: 400px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 300px; left: 440px; height: 178px; width: 400px; border-radius: 10px; text-align: left;">
                             <legend style=" color: blue"><strong>#{msg['dtd']}</strong></legend>
+                            
                             <p:dataTable id="datosVigenciaCD" widgetVar="datosVigenciaCD" var="info2" rowKey="#{info2.secuencia}" rowIndexVar="indiceVCD" value="#{controlVigenciaJornada.listVigenciasCompensacionesDinero}"
-                                         editable="true" editMode="cell"  filteredValue="#{controlVigenciaJornada.filtrarVigenciasCompensacionesDinero}"
-                                         scrollable="true" scrollHeight="#{controlVigenciaJornada.altoTabla1}"  emptyMessage="#{msg['vacio']}" style=" border: 1px;"
-                                         selection="#{controlVigenciaJornada.vigenciaDineroSeleccionada}" selectionMode="single" liveScroll="true" scrollRows="6">
+                                         editable="true" editMode="cell" filteredValue="#{controlVigenciaJornada.filtrarVigenciasCompensacionesDinero}"
+                                         scrollable="true" scrollHeight="#{controlVigenciaJornada.altoTabla1}" emptyMessage="#{msg['vacio']}"
+                                         selection="#{controlVigenciaJornada.vigenciaDineroSeleccionada}" selectionMode="single" liveScroll="true" scrollRows="10">
 
                                 <p:ajax event="filter" listener="#{controlVigenciaJornada.eventoFiltrarD()}" update=":form:informacionRegistroVD"/>
                                 <f:event type="preRenderView" listener="#{controlVigenciaJornada.recordarSeleccionVD()}"/>
 
                                 <p:column headerText="#{msg['fechainicial']}" sortBy="#{info2.fechainicial}" filterBy="#{info2.fechainicial}" filterMatchMode="contains" id="vCDFechaInicial"
-                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                          filterStyle="display: none; visibility: hidden;" width="62">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{info2.fechainicial}" style="width: 100px; ">
+                                            <h:outputText value="#{info2.fechainicial}">
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </h:outputText>
                                         </f:facet>  
@@ -264,10 +267,11 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['fechafinal']}" sortBy="#{info2.fechafinal}" filterBy="#{info2.fechafinal}" filterMatchMode="contains" id="vCDFechaFinal" filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                <p:column headerText="#{msg['fechafinal']}" sortBy="#{info2.fechafinal}" filterBy="#{info2.fechafinal}" filterMatchMode="contains"
+                                          id="vCDFechaFinal" filterStyle="display: none; visibility: hidden;" width="62">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{info2.fechafinal}" style="width: 100px; ">
+                                            <h:outputText value="#{info2.fechafinal}">
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </h:outputText>
                                         </f:facet>  
@@ -284,13 +288,14 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['comentario']}" sortBy="#{info2.comentario}" filterBy="#{info2.comentario}" filterMatchMode="contains" id="vCDComentario" filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                <p:column headerText="#{msg['comentario']}" sortBy="#{info2.comentario}" filterBy="#{info2.comentario}" filterMatchMode="contains" 
+                                          id="vCDComentario" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{info2.comentario}" style="width: 100px;  text-transform: uppercase"/>
+                                            <h:outputText value="#{info2.comentario}" style="text-transform: uppercase"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info2.comentario}" id="editarComentarioVCD" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
+                                            <p:inputText value="#{info2.comentario}" id="editarComentarioVCD" style=" border-radius: 0px; width: 96%; text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlVigenciaJornada.cambiarIndiceVCD(info2,2)}" update=":form:datosVigenciaCT" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaJornada.modificarVCD(info2)}" process="@this" update="editarComentarioVCD"/>
                                             </p:inputText>

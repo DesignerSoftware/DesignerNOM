@@ -73,29 +73,27 @@
 
                         <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
 
-                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px" />
+                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
                             <h:outputText id="nombreEmpleado" value="#{controlVigenciasUbicaciones.empleado.persona.nombreCompleto}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px;"/>
 
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px" />
+                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;"/>
                             <h:outputText id="docEmpleado" value="#{controlVigenciasUbicaciones.empleado.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px" />
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
                         </fieldset>
 
-                        <fieldset style="position: absolute;top: 110px;left: 10px;height: 365px;width: 830px; border-radius: 10px; text-align: left">
-                            <legend style="font-size: 14px; color: blue"><strong>#{msg['origenes']}</strong></legend>
+                        <fieldset style="position: absolute; top: 110px; left: 10px; height: 365px; width: 830px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 14px; color: blue;"><strong>#{msg['origenes']}</strong></legend>
                             <!-- TABLA EMPLVIGENCIACARGO -->
 
-                            <p:dataTable id="datosVUEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style=" border: 1px;"                           
-                                         value="#{controlVigenciasUbicaciones.vigenciasUbicaciones}" scrollable="true" scrollHeight="#{controlVigenciasUbicaciones.altoTabla}"
-                                         filteredValue="#{controlVigenciasUbicaciones.filtrarVU}" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell"
-                                         selection="#{controlVigenciasUbicaciones.vigenciaSeleccionada}" selectionMode="single">
+                            <p:dataTable id="datosVUEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" value="#{controlVigenciasUbicaciones.vigenciasUbicaciones}" 
+                                         scrollable="true" scrollHeight="#{controlVigenciasUbicaciones.altoTabla}" filteredValue="#{controlVigenciasUbicaciones.filtrarVU}" 
+                                         emptyMessage="#{msg['vacio']}" editable="true" editMode="cell" selection="#{controlVigenciasUbicaciones.vigenciaSeleccionada}" selectionMode="single">
 
                                 <p:ajax event="filter" listener="#{controlVigenciasUbicaciones.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlVigenciasUbicaciones.recordarSeleccion()}"/>
 
-                                <p:column headerText="#{msg['fecha']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" width="20" id="vuFecha" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
+                                <p:column headerText="#{msg['fecha']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" width="62" id="vuFecha" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechavigencia}" >
@@ -110,13 +108,13 @@
                                             </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
-
                                     <f:facet name="footer">
                                         <h:outputText value="" />
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['descripcion']}" sortBy="#{info.ubicacion.descripcion}" filterBy="#{info.ubicacion.descripcion}" filterMatchMode="contains" id="vuDescripcion" width="140" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['descripcion']}" sortBy="#{info.ubicacion.descripcion}" filterBy="#{info.ubicacion.descripcion}"
+                                          filterMatchMode="contains" id="vuDescripcion" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.ubicacion.descripcion}" /></f:facet>  
                                         <f:facet name="input">
@@ -129,20 +127,19 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 160px;" id="fooUbicacion" action="ubicaciongeografica" actionListener="#{controlUbicacionesGeograficas.recibirPagina('atrasubicaciongeografica')}" value=" "/>
+                                        <p:commandButton style="width: 120%;" id="fooUbicacion" action="ubicaciongeografica" actionListener="#{controlUbicacionesGeograficas.recibirPagina('atrasubicaciongeografica')}" value=" "/>
                                     </f:facet>
                                 </p:column>  
 
-                                <p:column headerText="#{msg['ciudad']}" sortBy="#{info.ubicacion.ciudad.nombre}" filterBy="#{info.ubicacion.ciudad.nombre}" filterMatchMode="contains"  id="vuCiudad" width="143" filterStyle="display: none; visibility: hidden;" >      
+                                <p:column headerText="#{msg['ciudad']}" sortBy="#{info.ubicacion.ciudad.nombre}" filterBy="#{info.ubicacion.ciudad.nombre}" filterMatchMode="contains" id="vuCiudad" width="200" filterStyle="display: none; visibility: hidden;" >      
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.ubicacion.ciudad.nombre}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText id="editarCiudad" value="#{info.ubicacion.ciudad.nombre}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" onselect="cambioIndice([{name: 'INDEX', value: '#{indice}'}]);" readonly="true"/>
                                         </f:facet>  
                                     </p:cellEditor>
-
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 290px;" id="fooCiudad" action="ciudades" actionListener="#{controlCiudades.recibirPaginaEntrante('atrasubicaciongeografica')}" value=" " />
+                                        <p:commandButton style="width: 220px;" id="fooCiudad" action="ciudades" actionListener="#{controlCiudades.recibirPaginaEntrante('atrasubicaciongeografica')}" value=" " />
                                     </f:facet>
                                 </p:column>
                             </p:dataTable> 
@@ -191,14 +188,12 @@
                                              update=":form:UbicacionesGeograficasDialogo" style="position: relative; left: 270px; width: 90px; top: 10px;" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>    
                         </p:dialog>
 
-
                         <p:dialog id="validacionNuevaVigencia" header="#{msg['precaucion']}" widgetVar="validacioNuevaVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400px"  closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="#{msg['validacioNuevaVigencia']} #{controlVigenciasUbicaciones.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                             <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="validacioNuevaVigencia.hide();" style="position: absolute; top: 55px; left: 290px" process="@this" />
                         </p:dialog>
                         <p:hotkey bind="ctrl+f11" actionListener="#{controlVigenciasUbicaciones.activarCtrlF11()}"/> 
-
 
                         <p:dialog id="fechas" header="#{msg['precaucion']}" widgetVar="fechas"  resizable="false" draggable="false" modal="true" height="110" width="440px" style="" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 20px;"  />
@@ -225,8 +220,9 @@
                             <h:outputText value="#{msg['validacionNuevo']}#{controlVigenciasUbicaciones.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
                             <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="validacionNuevo.hide();" style="position: absolute; top: 60px; left: 300px" process="@this" />
                         </p:dialog>
-                        <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']}  #{controlVigenciasUbicaciones.infoRegistro}" style="position: absolute; left: 20px; top: 470px; font-weight: bold"/>
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 664px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="confirmarGuardar.show();" update=":form:datosVUEmpleado" process="@this" disabled="#{controlVigenciasUbicaciones.guardado}"/>
+                        
+                        <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']}  #{controlVigenciasUbicaciones.infoRegistro}" style="position: absolute; left: 20px; top: 470px; font-weight: bold;"/>
+                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="confirmarGuardar.show();" update=":form:datosVUEmpleado" process="@this" disabled="#{controlVigenciasUbicaciones.guardado}"/>
                         <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlVigenciasUbicaciones.salir()}" action="nomina" process="@this" />
 
                     </p:panel>

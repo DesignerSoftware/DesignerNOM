@@ -10,16 +10,77 @@
     </h:head>
     <h:body>
         <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form"> 
+            <ui:define name="body">
+                <h:form id="form">
 
-                    <f:loadBundle basename="Recursos.formulacontrato" var="msg" />
+                    <f:loadBundle basename="Recursos.formulacontrato" var="msg"/>
                     <p:growl id="growl" showDetail="true" />
 
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="position: absolute; width: 874px; height: 510px; text-align: left;" >  
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
 
+                        <p:toolbar styleClass="cssToolbar">
+                            <p:toolbarGroup align="left">
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"  process="@this" actionListener="#{controlFormulaContrato.guardadoGeneral()}"/>
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
-                        <fieldset style="position: absolute; top: 80px; width: 815px; height: 375px; border-radius: 10px; text-align: left">
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlFormulaContrato.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this" actionListener="#{controlFormulaContrato.listaValoresBoton()}"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlFormulaContrato.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                                 actionListener="#{controlFormulaContrato.verificarExportXLS()}" ajax="false"  />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"  ajax="false">
+                                    <p:dataExporter type="xml" target="#{controlFormulaContrato.exportXML()}" fileName="#{controlFormulaContrato.nombreXML}" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
+                                                 actionListener="#{controlFormulaContrato.validarExportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
+                                                 actionListener="#{controlFormulaContrato.ingresoNuevoRegistro()}"  process="@this"/> 
+                                <p:tooltip for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                                 actionListener="#{controlFormulaContrato.validarBorradoRegistro()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                                 actionListener="#{controlFormulaContrato.validarDuplicadoRegistro()}" process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
+                                                 actionListener="#{controlFormulaContrato.verificarRastroTabla()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                                 actionListener="#{controlFormulaContrato.cancelarModificacion()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                                 actionListener="#{controlFormulaContrato.salir()}" action="retornoFormula" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+
+                        <fieldset style="position: absolute; top: 80px; width: 815px; height: 375px; border-radius: 10px; text-align: left;">
                             <legend style="color: blue"><strong>#{msg['infoFormula']}</strong></legend>
 
                             <p:dataTable id="datosFormulaContrato" var="infoFC" rowKey="#{infoFC.secuencia}" rowIndexVar="indiceFC" style="border: 1px;width: 800px"   
@@ -124,230 +185,174 @@
                                         <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" value=" "/>
                                     </f:facet>
                                 </p:column>
-
                             </p:dataTable>
                         </fieldset>
 
-                        <p:commandButton style="position: absolute; left: 683px; top: 480px; " id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="confirmarGuardar.show();" disabled="#{controlFormulaContrato.guardado}" update=":form:datosFormulaContrato" process="@this" />
-                        <p:commandButton style="position: absolute; left: 775px; top: 480px; " id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlFormulaContrato.salir()}" action="retornoFormula" process="@this" />
+                       <p:commandButton style="position: absolute; left: 683px; top: 480px;" id="ACEPTAR" styleClass="cssBotonAceptar" value=""
+                                        onclick="confirmarGuardar.show();" disabled="#{controlFormulaContrato.guardado}" update=":form:datosFormulaContrato" process="@this"/>
+                       <p:commandButton style="position: absolute; left: 775px; top: 480px;" id="ATRAS" styleClass="cssBotonCancelar" value=""
+                                        actionListener="#{controlFormulaContrato.salir()}" action="retornoFormula" process="@this" />
                         <h:outputText id="informacionRegistro" value="#{controlFormulaContrato.infoRegistro}" style="position: absolute; left: 65px; top: 485px; font-weight: bold"/>
 
-                        <p:commandButton id="detalleFormula" disabled="#{controlFormulaContrato.activoDetalle}" value="" style="background-image: url(Imagenes/revisar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 28px; height: 28px; position: absolute; top: 480px; left: 20px; " process="@this"/>  
+                        <p:commandButton id="detalleFormula" disabled="#{controlFormulaContrato.activoDetalle}" value="" style="background-image: url(Imagenes/Iconos/revisar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 28px; height: 28px; position: absolute; top: 480px; left: 20px; " process="@this"/>  
                         <p:tooltip for="detalleFormula" value="#{msg['detalles']}"/>
+
+
+                        <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                            <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:outputText value="#{msg['confirmarRastro']}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center;" />
+                            <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFormulaContrato.backUp, controlFormulaContrato.nombreTablaRastro , 'contratoFormulaRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this"/>
+                            <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlFormulaContrato.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        </p:dialog>
+
+                        <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                            <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:outputText value="#{msg['confirmarRastroHistorico']}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                            <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlFormulaContrato.nombreTablaRastro , 'contratoFormulaRastro')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                            <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlFormulaContrato.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        </p:dialog>
+
+                        <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        </p:dialog>
+
+                        <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        </p:dialog>
+
+                        <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
+                            <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                            <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFormulaContrato.backUp, controlFormulaContrato.nombreTablaRastro , 'contratoFormulaRastro')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
+                            <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
+                        </p:dialog>
+
+                        <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+                        </p:dialog>
+
+                        <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
+                        </p:dialog>
+
+                        <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        </p:dialog>
+
+                        <p:dialog id="errorRegNuevo" header="#{msg['atencion']}" widgetVar="errorRegNuevo"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:outputText value="#{msg['infoFormula']}" style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight:bold;" />
+                        </p:dialog>
+
+                        <p:dialog id="errorFechasFC" header="#{msg['atencion']}" widgetVar="errorFechasFC"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:outputText value="#{msg['errorFechasFC']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                        </p:dialog>
+
+                        <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                            <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                            <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlFormulaContrato.guardadoGeneral()}" action="retornoFormula" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlFormulaContrato.salir()}" action="retornoFormula" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        </p:dialog>
+
+                        <p:hotkey bind="ctrl+f11" actionListener="#{controlFormulaContrato.activarCtrlF11()}"/>
+
+                        <p:dialog header="#{msg['contratoM']}" widgetVar="ContratoDialogo" draggable="false" resizable="false" closable="false" id="ContratoDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                            <p:dataTable id="lovContrato" liveScroll="true" scrollRows="40" style="width: 400px" scrollWidth="415" var="contrato" value="#{controlFormulaContrato.listContratos}" rowKey="#{contrato.secuencia}"
+                                         selection="#{controlFormulaContrato.contratoSeleccionado}" selectionMode="single" widgetVar="lovContrato" scrollable="true" scrollHeight="250" 
+                                         filteredValue="#{controlFormulaContrato.filtrarListContratos}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
+                                <p:ajax event="rowSelect" listener="#{controlFormulaContrato.activarAceptar()}" update=":form:aceptarC"/>
+                                <p:ajax event="rowDblselect" listener="#{controlFormulaContrato.actualizarContrato()}" process="@this" />
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                    <p:inputText id="globalFilter" onkeyup="lovContrato.filter();" style="width:140px; position: relative; left: 30px;" />  
+                                </f:facet>
+                                <p:column filterBy="#{contrato.descripcion}" filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['descripcion']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{contrato.descripcion}" />
+                                </p:column>
+                            </p:dataTable>
+
+                            <h:outputText id="infoRegistroContrato" value="#{controlFormulaContrato.infoRegistroContrato}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+
+                            <p:commandButton id="aceptarC" icon="ui-icon-check" style="position: relative; left: 230px" value="#{msg['aceptar']}" disabled="#{controlFormulaContrato.aceptar}"  actionListener="#{controlFormulaContrato.actualizarContrato()}" process="@this"/>
+
+                            <p:commandButton id="atrasC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px" value="#{msg['atras']}"  actionListener="#{controlFormulaContrato.cancelarCambioContrato()}" process="@this"/>
+                        </p:dialog>
+
+
+                        <p:dialog header="#{msg['periodicidadM']}" widgetVar="PeriodicidadDialogo" draggable="false" resizable="false" closable="false" 
+                                  id="PeriodicidadDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                            <p:dataTable id="lovPeriodicidad" liveScroll="true" scrollRows="40" style="width: 400px" var="periodicidad" value="#{controlFormulaContrato.listPeriodicidades}" rowKey="#{periodicidad.secuencia}"
+                                         selection="#{controlFormulaContrato.periodicidadSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovPeriodicidad" scrollable="true" scrollHeight="250"
+                                         filteredValue="#{controlFormulaContrato.filtrarListPeriodicidades}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
+                                <p:ajax event="rowSelect" listener="#{controlFormulaContrato.activarAceptar()}" update=":form:aceptarP"/>
+                                <p:ajax event="rowDblselect" listener="#{controlFormulaContrato.actualizarPeriodicidad()}" process="@this" />
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                    <p:inputText id="globalFilter" onkeyup="lovPeriodicidad.filter();" style="width:140px; position: relative; left: 45px;" />  
+                                </f:facet>
+                                <p:column filterBy="#{periodicidad.nombre}"  filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['nombre']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{periodicidad.nombre}" />
+                                </p:column>
+                            </p:dataTable>
+
+                            <h:outputText id="infoRegistroPeriodicidad" value="#{controlFormulaContrato.infoRegistroPeriodicidad}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+
+                            <p:commandButton id="aceptarP" icon="ui-icon-check" style="position: relative; left: 230px" value="#{msg['aceptar']}" disabled="#{controlFormulaContrato.aceptar}"  actionListener="#{controlFormulaContrato.actualizarPeriodicidad()}"  process="@this"/>
+
+                            <p:commandButton id="atrasP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px" value="#{msg['atras']}" actionListener="#{controlFormulaContrato.cancelarCambioPeriodicidad()}"  process="@this"/>
+                        </p:dialog>
+
+
+                        <p:dialog header="#{msg['terceroM']}" widgetVar="TerceroDialogo" draggable="false" resizable="false" closable="false" 
+                                  id="TerceroDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                            <p:dataTable id="lovTercero" style="width: 400px" liveScroll="true" scrollRows="40" var="tercero" value="#{controlFormulaContrato.listTerceros}" rowKey="#{tercero.secuencia}"
+                                         selection="#{controlFormulaContrato.terceroSeleccionada}" scrollWidth="415" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollHeight="250" 
+                                         filteredValue="#{controlFormulaContrato.filtrarListTerceros}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
+                                <p:ajax event="rowSelect" listener="#{controlFormulaContrato.activarAceptar()}" update=":form:aceptarT"/>
+                                <p:ajax event="rowDblselect" listener="#{controlFormulaContrato.actualizarTercero()}" process="@this" />
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                                    <p:inputText id="globalFilter" onkeyup="lovTercero.filter();" style="width:140px; position: relative; left: -5px;" />  
+                                </f:facet>
+                                <p:column filterBy="#{tercero.nombre}" width="90"  filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['nombre']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{tercero.nombre}" />
+                                </p:column>
+                                <p:column filterBy="#{tercero.nit}" width="70" filterStyle="width: 50px"  filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['nit']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{tercero.nit}" />
+                                </p:column>
+                            </p:dataTable>
+
+                            <h:outputText id="infoRegistroTercero" value="#{controlFormulaContrato.infoRegistroTercero}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+
+                            <p:commandButton id="aceptarT" icon="ui-icon-check" style="position: relative; left: 230px" value="#{msg['aceptar']}" disabled="#{controlFormulaContrato.aceptar}"  actionListener="#{controlFormulaContrato.actualizarTercero()}"  process="@this"/>
+
+                            <p:commandButton id="atrasT" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px" value="#{msg['atras']}"  actionListener="#{controlFormulaContrato.cancelarCambioTercero()}"  process="@this"/>
+
+                        </p:dialog>
                     </p:panel>
-
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFormulaContrato.backUp, controlFormulaContrato.nombreTablaRastro , 'contratoFormulaRastro')}" style="position: absolute; top: 63px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlFormulaContrato.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlFormulaContrato.nombreTablaRastro , 'contratoFormulaRastro')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlFormulaContrato.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px"  closable="false">  
-                        <h:graphicImage value="Imagenes/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFormulaContrato.backUp, controlFormulaContrato.nombreTablaRastro , 'contratoFormulaRastro')}" style="position: absolute; top: 60px; left: 230px" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px" closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRegNuevo" header="#{msg['atencion']}" widgetVar="errorRegNuevo"  resizable="false" draggable="false" modal="true" height="60" width="285px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['infoFormula']}" style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorFechasFC" header="#{msg['atencion']}" widgetVar="errorFechasFC"  resizable="false" draggable="false" modal="true" height="60" width="275px"  closable="true">  
-                        <h:graphicImage value="Imagenes/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorFechasFC']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-                    
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/alerta.jpg" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlFormulaContrato.guardadoGeneral()}" action="retornoFormula" style="position: absolute; top: 50px; left: 207px" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlFormulaContrato.salir()}" action="retornoFormula" style="position: absolute; top: 50px; left: 258px" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                    </p:dialog>
-
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlFormulaContrato.activarCtrlF11()}"/>
-
-                    <p:dialog header="#{msg['contratoM']}" widgetVar="ContratoDialogo" draggable="false" resizable="false" closable="false" id="ContratoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                        <p:dataTable id="lovContrato" liveScroll="true" scrollRows="40" style="width: 400px" scrollWidth="415" var="contrato" value="#{controlFormulaContrato.listContratos}" rowKey="#{contrato.secuencia}"
-                                     selection="#{controlFormulaContrato.contratoSeleccionado}" selectionMode="single" widgetVar="lovContrato" scrollable="true" scrollHeight="250" 
-                                     filteredValue="#{controlFormulaContrato.filtrarListContratos}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
-                            <p:ajax event="rowSelect" listener="#{controlFormulaContrato.activarAceptar()}" update=":form:aceptarC"/>
-                            <p:ajax event="rowDblselect" listener="#{controlFormulaContrato.actualizarContrato()}" process="@this" />
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovContrato.filter();" style="width:140px; position: relative; left: 30px;" />  
-                            </f:facet>
-                            <p:column filterBy="#{contrato.descripcion}" filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['descripcion']}" />
-                                </f:facet>
-                                <h:outputText value="#{contrato.descripcion}" />
-                            </p:column>
-                        </p:dataTable>
-                        
-                        <h:outputText id="infoRegistroContrato" value="#{controlFormulaContrato.infoRegistroContrato}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
-                        <p:commandButton id="aceptarC" icon="ui-icon-check" style="position: relative; left: 230px" value="#{msg['aceptar']}" disabled="#{controlFormulaContrato.aceptar}"  actionListener="#{controlFormulaContrato.actualizarContrato()}" process="@this"/>
-                        
-                        <p:commandButton id="atrasC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px" value="#{msg['atras']}"  actionListener="#{controlFormulaContrato.cancelarCambioContrato()}" process="@this"/>
-                    </p:dialog>
-
-
-                    <p:dialog header="#{msg['periodicidadM']}" widgetVar="PeriodicidadDialogo" draggable="false" resizable="false" closable="false" 
-                              id="PeriodicidadDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                        <p:dataTable id="lovPeriodicidad" liveScroll="true" scrollRows="40" style="width: 400px" var="periodicidad" value="#{controlFormulaContrato.listPeriodicidades}" rowKey="#{periodicidad.secuencia}"
-                                     selection="#{controlFormulaContrato.periodicidadSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovPeriodicidad" scrollable="true" scrollHeight="250"
-                                     filteredValue="#{controlFormulaContrato.filtrarListPeriodicidades}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
-                            <p:ajax event="rowSelect" listener="#{controlFormulaContrato.activarAceptar()}" update=":form:aceptarP"/>
-                            <p:ajax event="rowDblselect" listener="#{controlFormulaContrato.actualizarPeriodicidad()}" process="@this" />
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovPeriodicidad.filter();" style="width:140px; position: relative; left: 45px;" />  
-                            </f:facet>
-                            <p:column filterBy="#{periodicidad.nombre}"  filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['nombre']}" />
-                                </f:facet>
-                                <h:outputText value="#{periodicidad.nombre}" />
-                            </p:column>
-                        </p:dataTable>
-                        
-                        <h:outputText id="infoRegistroPeriodicidad" value="#{controlFormulaContrato.infoRegistroPeriodicidad}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
-                        <p:commandButton id="aceptarP" icon="ui-icon-check" style="position: relative; left: 230px" value="#{msg['aceptar']}" disabled="#{controlFormulaContrato.aceptar}"  actionListener="#{controlFormulaContrato.actualizarPeriodicidad()}"  process="@this"/>
-                        
-                        <p:commandButton id="atrasP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px" value="#{msg['atras']}" actionListener="#{controlFormulaContrato.cancelarCambioPeriodicidad()}"  process="@this"/>
-                    </p:dialog>
-
-
-                    <p:dialog header="#{msg['terceroM']}" widgetVar="TerceroDialogo" draggable="false" resizable="false" closable="false" 
-                              id="TerceroDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                        <p:dataTable id="lovTercero" style="width: 400px" liveScroll="true" scrollRows="40" var="tercero" value="#{controlFormulaContrato.listTerceros}" rowKey="#{tercero.secuencia}"
-                                     selection="#{controlFormulaContrato.terceroSeleccionada}" scrollWidth="415" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollHeight="250" 
-                                     filteredValue="#{controlFormulaContrato.filtrarListTerceros}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
-                            <p:ajax event="rowSelect" listener="#{controlFormulaContrato.activarAceptar()}" update=":form:aceptarT"/>
-                            <p:ajax event="rowDblselect" listener="#{controlFormulaContrato.actualizarTercero()}" process="@this" />
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovTercero.filter();" style="width:140px; position: relative; left: -5px;" />  
-                            </f:facet>
-                            <p:column filterBy="#{tercero.nombre}" width="90"  filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['nombre']}" />
-                                </f:facet>
-                                <h:outputText value="#{tercero.nombre}" />
-                            </p:column>
-                            <p:column filterBy="#{tercero.nit}" width="70" filterStyle="width: 50px"  filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['nit']}" />
-                                </f:facet>
-                                <h:outputText value="#{tercero.nit}" />
-                            </p:column>
-                        </p:dataTable>
-                        
-                        <h:outputText id="infoRegistroTercero" value="#{controlFormulaContrato.infoRegistroTercero}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
-                        <p:commandButton id="aceptarT" icon="ui-icon-check" style="position: relative; left: 230px" value="#{msg['aceptar']}" disabled="#{controlFormulaContrato.aceptar}"  actionListener="#{controlFormulaContrato.actualizarTercero()}"  process="@this"/>
-                        
-                        <p:commandButton id="atrasT" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px" value="#{msg['atras']}"  actionListener="#{controlFormulaContrato.cancelarCambioTercero()}"  process="@this"/>
-                        
-                    </p:dialog>
-
-                </h:form>
-
-
-                <h:form style="position: relative">
-                    <p:toolbar style="position: absolute; top: 35px; left: 10px;">
-                        <p:toolbarGroup align="left"> 
-                            <p:commandButton id="guardarRapido" value="" style="background-size: 100% 100%;background-image: url(Imagenes/guardar.jpg) ;background-repeat: no-repeat; width: 25px; height: 25px;"  process="@this" actionListener="#{controlFormulaContrato.guardadoGeneral()}"/>
-                            <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
-
-                            <p:commandButton id="editar" value="" style="background-image: url(Imagenes/editar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaContrato.editarCelda()}" process="@this"/>
-                            <p:tooltip  for="editar" value="#{msg['editar']}" />
-
-                            <p:separator style="position: relative; top: -9px"/>
-
-                            <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " process="@this" actionListener="#{controlFormulaContrato.listaValoresBoton()}"/>
-                            <p:tooltip  for="listaValores" value="#{msg['lista']}" />
-
-                            <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/embudo.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaContrato.activarCtrlF11()}" process="@this"/>
-                            <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
-
-                            <p:separator style="position: relative; top: -9px"/>
-
-                            <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaContrato.verificarExportXLS()}" ajax="false"  />
-                            <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
-
-                            <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/XML.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  ajax="false">
-                                <p:dataExporter type="xml"  target="#{controlFormulaContrato.exportXML()}" fileName="#{controlFormulaContrato.nombreXML}" encoding="UTF-8"/> 
-                            </p:commandButton> 
-                            <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
-
-                            <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/pdf.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaContrato.validarExportPDF()}" ajax="false"/>
-                            <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
-
-                            <p:separator style="position: relative; top: -9px"/>
-                            <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/nuevoRegistro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaContrato.ingresoNuevoRegistro()}"  process="@this"/> 
-                            <p:tooltip for="insertar" value="#{msg['nuevo']}" />
-
-                            <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/delete.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaContrato.validarBorradoRegistro()}" process="@this"/>  
-                            <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
-
-                            <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/duplicar.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px "  actionListener="#{controlFormulaContrato.validarDuplicadoRegistro()}" process="@this"/>  
-                            <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
-
-                            <p:separator style="position: relative; top: -9px"/>
-                            <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/rastro.jpg); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaContrato.verificarRastroTabla()}" process="@this"/>  
-                            <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-
-                            <p:separator style="position: relative; top: -9px"/>
-
-                            <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaContrato.cancelarModificacion()}" process="@this"/>  
-                            <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-
-                            <p:commandButton id="salir" value="" style="background-image: url(Imagenes/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px " actionListener="#{controlFormulaContrato.salir()}" action="retornoFormula" process="@this"/>  
-                            <p:tooltip  for="salir" value="#{msg['salir']}"/>
-
-                        </p:toolbarGroup>  
-                    </p:toolbar> 
                 </h:form>
 
                 <h:form id="formularioDialogos">

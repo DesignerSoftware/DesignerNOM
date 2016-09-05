@@ -600,14 +600,14 @@
 
                     <p:dialog id="editarFechaInicialV" header="#{msg['editarFechaInicialV']}" widgetVar="editarFechaInicialV" resizable="false" draggable="false" modal="true" height="30" width="240" style="font-size: 12px; padding: 0px">  
                         <p:calendar pattern="dd/MM/yyyy"  style="font-size: 10px; left: 4px; top: 4px; position: absolute" value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechainicial}" id="editFechaInicialCelda"  styleClass="ui-datepicker, myClass"  
-                                     navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy" >
+                                     navigator="true" showButtonPanel="true" locale="es">
                         </p:calendar>
                         <p:commandButton id="cancelarFechaInicialV" value="#{msg['atras']}" onclick="editarFechaInicialV.hide();" style="position: absolute; top: 5px; left: 148px; font-size: 11px" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="editarFechaFinalV" header="#{msg['editarFechaFinalV']}" widgetVar="editarFechaFinalV" resizable="false" draggable="false" modal="true" height="30" width="240" style="font-size: 12px; padding: 0px">  
                         <p:calendar pattern="dd/MM/yyyy"  style="font-size: 10px; left: 4px; top: 4px; position: absolute" value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechafinal}" id="editFechaFinalCelda"  styleClass="ui-datepicker, myClass"  
-                                     navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
+                                     navigator="true" showButtonPanel="true" locale="es">
                         </p:calendar>
                         <p:commandButton id="cancelarFechaFinalV" value="#{msg['atras']}" onclick="editarFechaFinalV.hide();" style="position: absolute; top: 5px; left: 148px; font-size: 11px" process="@this" />
                     </p:dialog>

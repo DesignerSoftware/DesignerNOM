@@ -87,7 +87,7 @@
                             <legend style=" color: blue;text-align: left"><strong>#{msg['legislacion']}</strong></legend>
                             <!-- TABLA EMPLVIGENCIACONTRATOS -->
 
-                            <p:dataTable id="datosVCEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style=" border: 1px;width: 830px"                           
+                            <p:dataTable id="datosVCEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style=" border: 1px; width: 830px"                           
                                          value="#{controlVigenciasContratos.vigenciasContratos}" scrollable="true" scrollHeight="#{controlVigenciasContratos.altoTabla}" scrollWidth="830"
                                          filteredValue="#{controlVigenciasContratos.filtrarVC}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell"
@@ -97,7 +97,7 @@
                                 <f:event type="preRenderView" listener="#{controlVigenciasContratos.recordarSeleccion()}"/>
 
 
-                                <p:column  headerText="#{msg['inicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains"  width="65" id="vcFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
+                                <p:column  headerText="#{msg['inicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" width="62" id="vcFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechainicial}" >
@@ -118,7 +118,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['final']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains"  width="65" id="vcFechaFinal" filterStyle="display: none; visibility: hidden;"  >  
+                                <p:column  headerText="#{msg['final']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains" width="62" id="vcFechaFinal" filterStyle="display: none; visibility: hidden;"  >  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechafinal}" >
@@ -139,29 +139,29 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['legislacionlaboral']}" sortBy="#{info.contrato.descripcion}" filterBy="#{info.contrato.descripcion}" 
-                                           filterMatchMode="contains" id="vcContrato" width="280" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['legislacionlaboral']}" sortBy="#{info.contrato.descripcion}" filterBy="#{info.contrato.descripcion}" 
+                                           filterMatchMode="contains" id="vcContrato" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.contrato.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.contrato.descripcion}" maxlength="50" id="editarContrato" style=" border-radius: 0px; width: 97%;text-transform: uppercase; height: 12px;"   > 
+                                            <p:inputText value="#{info.contrato.descripcion}" maxlength="50" id="editarContrato" style=" border-radius: 0px; width: 96%;text-transform: uppercase; height: 12px;"   > 
                                                 <p:ajax event="change" listener="#{controlVigenciasContratos.modificarVC(info, 'LEGISLACIONLABORAL', info.contrato.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlVigenciasContratos.cambiarIndice(info, 2)}" />
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasContratos.asignarIndex(info,0, 0)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 300px;" id="fooContratos" action="legislacion" actionListener="#{controlLegislacion.recibirPaginaEntrante('empllegislacionlaboral')}" value=""/>
+                                        <p:commandButton style="width: 120%" id="fooContratos" action="legislacion" actionListener="#{controlLegislacion.recibirPaginaEntrante('empllegislacionlaboral')}" value=""/>
                                     </f:facet>
                                 </p:column>
+                                
                                 <p:column  headerText="#{msg['tipocontrato']}" sortBy="#{info.tipocontrato.nombre}" filterBy="#{info.tipocontrato.nombre}" filterMatchMode="contains" 
                                            id="vcTipoContrato" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipocontrato.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.tipocontrato.nombre}" id="editarTipoContrato" style=" border-radius: 0px; width: 97%;text-transform: uppercase; height: 12px;"  > 
+                                            <p:inputText value="#{info.tipocontrato.nombre}" id="editarTipoContrato" style=" border-radius: 0px; width: 96%; text-transform: uppercase; height: 12px;"  > 
                                                 <p:ajax event="change" listener="#{controlVigenciasContratos.modificarVC(info, 'TIPOCONTRATO', info.tipocontrato.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlVigenciasContratos.cambiarIndice(info, 3)}" />
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasContratos.asignarIndex(info,1,0)}" update=":form:TiposContratoDialogo" process="@this"/>
@@ -170,7 +170,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 115%;" id="fooTiposContratos" action="tipocontrato" actionListener="#{controlTipoContrato.recibirPaginaEntrante('empllegislacionlaboral')}" value=""/>
+                                        <p:commandButton style="width: 120%;" id="fooTiposContratos" action="tipocontrato" actionListener="#{controlTipoContrato.recibirPaginaEntrante('empllegislacionlaboral')}" value=""/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>  

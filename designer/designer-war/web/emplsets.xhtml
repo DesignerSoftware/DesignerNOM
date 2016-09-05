@@ -83,7 +83,7 @@
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px" />
                         </fieldset>
 
-                        <fieldset style="position: absolute;top: 110px;left: 10px;height: 365px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 110px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style=" color: blue"><strong>#{msg['informacionset']}</strong></legend>
                             <!-- TABLA EMPLVIGENCIAREFORMALABORAL -->
 
@@ -97,7 +97,8 @@
                                 <p:ajax event="filter" listener="#{controlSets.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlSets.recordarSeleccion()}"/>
 
-                                <p:column headerText="#{msg['inicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains"  width="72" id="setsFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
+                                <p:column headerText="#{msg['inicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" style="text-align: center;"
+                                          filterMatchMode="contains" width="62" id="setsFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechainicial}" >
@@ -118,7 +119,8 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['final']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains"  width="72" id="setsFechaFinal" filterStyle="display: none; visibility: hidden;"  >  
+                                <p:column headerText="#{msg['final']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" style="text-align: center;"
+                                          filterMatchMode="contains" width="62" id="setsFechaFinal" filterStyle="display: none; visibility: hidden;"  >  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechafinal}" >
@@ -211,10 +213,10 @@
                             </p:dataTable>  
                         </fieldset>  
 
-                        <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlSets.infoRegistro}" style="position: absolute; left: 20px; top: 465px; font-weight: bold"/>
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 664px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="confirmarGuardar.show();" update=":form:datosSetsEmpleado" process="@this" disabled="#{controlSets.guardado}"/>
-                        <p:commandButton style="position: absolute; left: 10px; top: 493px; height: 30px; width: 145px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" id="DECLARANTE" value="#{msg['declarante']}" action="declarante" actionListener="#{controlDeclarantes.recibirPersona(controlSets.per)}" process="@this" />
-                        <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlSets.salir()}" action="nomina" process="@this" />
+                        <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlSets.infoRegistro}" style="position: absolute; left: 20px; top: 455px; font-weight: bold"/>
+                        <p:commandButton style="position: absolute; left: 10px; top: 478px; height: 30px; width: 145px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" id="DECLARANTE" value="#{msg['declarante']}" action="declarante" actionListener="#{controlDeclarantes.recibirPersona(controlSets.per)}" process="@this" />
+                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 502px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="confirmarGuardar.show();" update=":form:datosSetsEmpleado" process="@this" disabled="#{controlSets.guardado}"/>
+                        <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 502px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlSets.salir()}" action="nomina" process="@this" />
 
                         <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="400px"  closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />

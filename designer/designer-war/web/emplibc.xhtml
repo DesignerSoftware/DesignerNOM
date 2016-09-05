@@ -94,7 +94,7 @@
                                          editable="true" editMode="cell" selectionMode="single" selection="#{controlEmplIbcs.ibcSeleccionado}">
 
                                 <p:ajax event="filter" listener="#{controlEmplIbcs.eventoFiltrar()}"/>
-                                <p:ajax event="rowSelect" update=":form:datosIbcs" />  
+                                <!--<p:ajax event="rowSelect" update=":form:datosIbcs" />-->  
                                 <f:event type="preRenderView" listener="#{controlEmplIbcs.recordarSeleccion()}"/>
 
 
