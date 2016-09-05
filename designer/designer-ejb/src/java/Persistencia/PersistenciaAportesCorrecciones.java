@@ -23,12 +23,12 @@ import javax.persistence.Query;
 public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorreccionesInterface {
 
     @Override
-    public void crear(EntityManager em, AportesCorrecciones aportesEntidades) {
+    public void crear(EntityManager em, AportesCorrecciones aportesCorrecciones) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.persist(aportesEntidades);
+            em.persist(aportesCorrecciones);
             tx.commit();
         } catch (Exception e) {
             System.out.println("Error PersistenciaAportesCorrecciones.crear : " + e.toString());
@@ -39,12 +39,12 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
     }
 
     @Override
-    public void editar(EntityManager em, AportesCorrecciones aportesEntidades) {
+    public void editar(EntityManager em, AportesCorrecciones aportesCorrecciones) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.merge(aportesEntidades);
+            em.merge(aportesCorrecciones);
             tx.commit();
         } catch (Exception e) {
             System.out.println("Error PersistenciaAportesCorrecciones.editar : " + e.toString());
@@ -55,12 +55,12 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
     }
 
     @Override
-    public void borrar(EntityManager em, AportesCorrecciones aportesEntidades) {
+    public void borrar(EntityManager em, AportesCorrecciones aportesCorrecciones) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.remove(em.merge(aportesEntidades));
+            em.remove(em.merge(aportesCorrecciones));
             tx.commit();
         } catch (Exception e) {
             System.out.println("Error PersistenciaAportesCorrecciones.borrar : " + e.toString());

@@ -163,7 +163,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         activarEnviar = true;
         activarDeshacer = true;
         msnFechasActualizar = "";
-        tipoPlano = 1;
+//        tipoPlano = 1;
         altoTablaGenerada = "75";
         altoTablaIntercon = "75";
         tipoListaGenerada = 0;

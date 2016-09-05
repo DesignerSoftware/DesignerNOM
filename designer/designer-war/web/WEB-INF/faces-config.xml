@@ -5660,4 +5660,23 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/parametroscorreccionautol.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>novedadautocorreccion</from-outcome>
+            <to-view-id>/novedadcorreccionautol.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/novedadcorreccionautol.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasnovedadautocorreccion</from-outcome>
+            <to-view-id>/parametroscorreccionautol.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
+

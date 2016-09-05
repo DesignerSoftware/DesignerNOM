@@ -89,7 +89,7 @@
                         </p:commandButton>
                         <strong><h:outputText value="#{msg['textInfo']}" style="position: absolute; top: 80px; left: 80px; width: 350px;"/></strong>
 
-                        <fieldset style="position: absolute; left: 445px; top: 70px;width: 400px; height: 100px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 445px; top: 70px;width: 400px; height: 105px; border-radius: 10px; ">
                             <legend style="color: blue;text-align:left"><strong>#{msg['parametroautoliq']}</strong></legend>
 
                             <p:dataTable id="datosParametroAuto" var="infoPA" rowKey="#{infoPA.secuencia}" rowIndexVar="indice" style="border: 0px; width: 385px"  scrollWidth="400"                      
@@ -115,9 +115,9 @@
                                     </f:facet>
                                 </p:column>  
 
-                                <p:column style="padding: 0px" headerText="#{msg['mes']}" sortBy="#{infoPA.mes}" filterBy="#{infoPA.mes}" width="100"
+                                <p:column style="padding: 0px" headerText="#{msg['mes']}" sortBy="#{infoPA.mes}" filterBy="#{infoPA.mes}" width="80"
                                           filterMatchMode="contains" id="parametroMes" filterStyle="display: none; visibility: hidden;"  >                                  
-                                    <p:selectOneMenu value="#{infoPA.mes}" id="editarMes"  style="width: 100px;font-weight: bold;text-transform: uppercase;"  >  
+                                    <p:selectOneMenu value="#{infoPA.mes}" id="editarMes"  style="font-weight: bold;text-transform: uppercase;"  >  
                                         <f:selectItem itemLabel="#{msg['enero']}" itemValue="1" />  
                                         <f:selectItem itemLabel="#{msg['febrero']}" itemValue="2" />  
                                         <f:selectItem itemLabel="#{msg['marzo']}" itemValue="3" />  
@@ -174,12 +174,12 @@
                         </fieldset>  
 
 
-                        <fieldset  style="position: absolute; left: 5px; top: 190px; width: 835px; height: 233px; border-radius: 10px; ">
+                        <fieldset  style="position: absolute; left: 5px; top: 200px; width: 835px; height: 228px; border-radius: 10px; ">
                             <legend style="color: blue;text-align:left"><strong>#{msg['aportesEntidades']}</strong></legend>
 
                             <p:dataTable id="tablaAportesEntidades" var="infoAE"  rowKey="#{infoAE.secuencia}" style="border: 1px; width: 4650px; position: inherit;" value="#{controlParametroAutoliq.listaAportesEntidades}"
                                          widgetVar="tablaAportesEntidades" filteredValue="#{controlParametroAutoliq.filtrarListaAportesEntidades}"  rowIndexVar="indiceAE"
-                                         selection="#{controlParametroAutoliq.aporteTablaSeleccionado}" scrollWidth="825" selectionMode="single" scrollable="true" scrollRows="40" emptyMessage="No se encontraron resultados para la bÃºsqueda" 
+                                         selection="#{controlParametroAutoliq.aporteTablaSeleccionado}" scrollWidth="825" selectionMode="single" scrollable="true" scrollRows="40" emptyMessage="No se encontraron resultados para la búsqueda" 
                                          editable="true" editMode="cell" liveScroll="true" scrollHeight="160">
                                 <p:ajax event="filter" listener="#{controlParametroAutoliq.eventoFiltrarAportes()}"/>
 
@@ -187,7 +187,7 @@
                                            filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header"> 
                                         <h:outputText id="hcodempl" value="#{msg['codEmpl']}" />
-                                        <p:tooltip  for="hcodempl" value="CÃ³digo del Empleado" />
+                                        <p:tooltip  for="hcodempl" value="Código del Empleado" />
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output" >
@@ -206,7 +206,7 @@
                                 <p:column  id="aporteAno"  sortBy="#{infoAE.ano}" filterBy="#{infoAE.ano}"   filterMatchMode="contains" width="20"   filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header"> 
                                         <h:outputText id="anio" value="#{msg['ano']}" /> 
-                                        <p:tooltip  for="anio" value="AÃ±o" />
+                                        <p:tooltip  for="anio" value="Año" />
                                     </f:facet>
                                     <p:cellEditor> 
                                         <f:facet name="output"><h:outputText value="#{infoAE.ano}" /></f:facet>  
@@ -455,7 +455,7 @@
                                           filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
                                     <f:facet name="header"> 
                                         <h:outputText id="sbasico" value="#{msg['salarioBasico']}" /> 
-                                        <p:tooltip  for="sbasico" value="Salario BÃ¡sico" />
+                                        <p:tooltip  for="sbasico" value="Salario Básico" />
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.salariobasico}" >
@@ -478,7 +478,7 @@
                                           filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
                                     <f:facet name="header">
                                         <h:outputText id="ibc" value="#{msg['headerIbc']}" /> 
-                                        <p:tooltip  for="ibc" value="IBC Ingreso Base CotizaciÃ³n" />
+                                        <p:tooltip  for="ibc" value="IBC Ingreso Base Cotización" />
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.ibc}" >
@@ -520,7 +520,7 @@
                                           filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
                                     <f:facet name="header"> 
                                         <h:outputText id="diascot" value="#{msg['diasCotizados']}" /> 
-                                        <p:tooltip  for="diascot" value="DÃ­as cotizados" />
+                                        <p:tooltip  for="diascot" value="Días cotizados" />
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.diascotizados}" /></f:facet>  
@@ -806,7 +806,7 @@
                                           filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
                                     <f:facet name="header">
                                         <h:outputText id="aafp" value="#{msg['tarifaAAFP']}"/>
-                                        <p:tooltip  for="aafp" value="Tarifa Administradora de Fondos de PensiÃ³n" />
+                                        <p:tooltip  for="aafp" value="Tarifa Administradora de Fondos de Pensión" />
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.tarifaafp}" >
@@ -850,7 +850,7 @@
                                           filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
                                     <f:facet name="header">
                                         <h:outputText id="ctt" value="#{msg['codigoCTT']}"/>
-                                        <p:tooltip  for="ctt" value="CÃ³digo del centro de Costo" />
+                                        <p:tooltip  for="ctt" value="Código del centro de Costo" />
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.codigoctt}" /></f:facet>  
@@ -910,7 +910,7 @@
                                           filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
                                     <f:facet name="header">
                                         <h:outputText id="retcontavalor" value="#{msg['retcontaValor']}"/>
-                                        <p:tooltip  for="retcontavalor" value="RetenciÃ³n contingente por aportes voluntarios/afc" />
+                                        <p:tooltip  for="retcontavalor" value="Retención contingente por aportes voluntarios/afc" />
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.retcontavpvalor}" /></f:facet>  
@@ -930,7 +930,7 @@
                                           filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
                                     <f:facet name="header">
                                         <h:outputText id="codeps" value="#{msg['codigoNEPS']}"/>
-                                        <p:tooltip  for="codeps" value="CÃ³digo de la EPS a la cual se traslada al empleado" />
+                                        <p:tooltip  for="codeps" value="Código de la EPS a la cual se traslada al empleado" />
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.codigoneps}" /></f:facet>  
@@ -950,7 +950,7 @@
                                           filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
                                     <f:facet name="header">
                                         <h:outputText id="codafp" value="#{msg['codigoNAFP']}"/>
-                                        <p:tooltip  for="codafp" value="CÃ³digo AFP a la cual se traslada el empleado" />
+                                        <p:tooltip  for="codafp" value="Código AFP a la cual se traslada el empleado" />
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.codigonafp}" /></f:facet>  
@@ -992,7 +992,7 @@
                                           filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
                                     <f:facet name="header">
                                         <h:outputText id="egauto" value="#{msg['egAutorizacion']}"/>
-                                        <p:tooltip  for="egauto" value="NÃºmero de la autorizaciÃ³n de la incapacidad por Enfermedad General" />
+                                        <p:tooltip  for="egauto" value="Número de la autorización de la incapacidad por Enfermedad General" />
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.egautorizacion}" /></f:facet>  
@@ -1034,7 +1034,7 @@
                                           filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
                                     <f:facet name="header">
                                         <h:outputText id="maternidadauto" value="#{msg['maternidadAuto']}"/>
-                                        <p:tooltip  for="maternidadauto" value="NÃºmero de la autorizaciÃ³n por maternidad" />
+                                        <p:tooltip  for="maternidadauto" value="Número de la autorización por maternidad" />
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.maternidadautorizacion}" /></f:facet>  
@@ -1165,7 +1165,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar id="editarFechaIngresoAporte" value="#{infoAE.fechaingreso}" height="12" width="99">
+                                            <p:calendar pattern="dd/MM/yyyy" id="editarFechaIngresoAporte" value="#{infoAE.fechaingreso}" >
                                                 <p:ajax event="dateSelect" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="editarFechaIngresoAporte"/>
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 52)}" />
@@ -1276,7 +1276,7 @@
                                           filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
                                     <f:facet name="header">
                                         <h:outputText id="tesap" value="#{msg['tarifaESAP']}" /> 
-                                        <p:tooltip  for="tesap" value="Tarifa Escuela Superior de AdministraciÃ³n PÃºblica" />
+                                        <p:tooltip  for="tesap" value="Tarifa Escuela Superior de Administración Pública" />
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.tarifaesap}" >
@@ -1298,7 +1298,7 @@
                                           filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"   >                                  
                                     <f:facet name="header">
                                         <h:outputText id="tarifamen" value="#{msg['tarifaMEN']}" /> 
-                                        <p:tooltip  for="tarifamen" value="Tarifa Ministerio de EducaciÃ³n Nacional" />
+                                        <p:tooltip  for="tarifamen" value="Tarifa Ministerio de Educación Nacional" />
                                     </f:facet>
                                     <p:cellEditor> 
                                         <f:facet name="output"><h:outputText value="#{infoAE.tarifamen}" >
@@ -1324,10 +1324,8 @@
 
 
                         <p:commandButton id="novedadauto"  style="position: absolute; left: 15px; top: 450px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" action="novedadauto" actionListener="#{controlNovedadAutoLiquidacion.recibirPag('novedadautoliq')}" 
-                                         oncomplete="#{controlNovedadAutoLiquidacion.recibirParametros(controlParametroAutoliq.parametroTablaSeleccionado.ano,controlParametroAutoliq.parametroTablaSeleccionado.mes,controlParametroAutoliq.parametroTablaSeleccionado.empresa.secuencia)}"
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" action="novedadauto" actionListener="#{controlNovedadAutoLiquidacion.recibirPag('novedadautoliq',controlParametroAutoliq.parametroTablaSeleccionado.ano,controlParametroAutoliq.parametroTablaSeleccionado.mes,controlParametroAutoliq.parametroTablaSeleccionado.empresa.secuencia)}" 
                                          value="#{msg['novAuto']}" process="@this" icon="ui-icon-extlink" />
-                        <!--onclick="#/{controlNovedadAutoLiquidacion.recibirParametros(infoPA.ano, infoPA.mes, infoPA.empresa.secuencia)}"-->
                         <p:tooltip value="#{msg['btn2']}" for="novedadauto"/>
 
 <!--                        <p:commandButton id="incaPag"  style="position: absolute; left: 110px; top: 460px;"   value="#{msg['incaPag']}" action="odiscabeceras" actionListener="#{controlOdiCabecera.recibirPag('odicabecera')}" oncomplete="#{controlOdiCabecera.recibirParametros(controlParametroAutoliq.parametroTablaSeleccionado.ano,controlParametroAutoliq.parametroTablaSeleccionado.mes,controlParametroAutoliq.parametroTablaSeleccionado.empresa.secuencia)}" process="@this"/>
@@ -1856,7 +1854,7 @@
                         <p:scrollPanel id="nuevoApEntidad"  style="height: 373px; width: 773px; top: 30px; position: absolute; border:none;" mode="native">
 
 
-                            <strong><h:outputText value="AÃ±o" style=" position: absolute; top: 25px; left: 40px;"/></strong>
+                            <strong><h:outputText value="Año" style=" position: absolute; top: 25px; left: 40px;"/></strong>
                             <p:inputText id="nuevoanioaporte" value="#{controlParametroAutoliq.nuevoAporteEntidad.ano}" readonly="true"
                                          style=" width: 122px; position: absolute; left: 200px; top: 20px; text-transform: uppercase" onclick="select();" >
                             </p:inputText>
@@ -1866,7 +1864,7 @@
                                          style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase" onclick="select();" >
                             </p:inputText>
 
-                            <strong><h:outputText value="CÃ³digo Empleado" style=" position: absolute; top: 85px; left: 40px;"/></strong>
+                            <strong><h:outputText value="Código Empleado" style=" position: absolute; top: 85px; left: 40px;"/></strong>
                             <p:inputText id="nuevoCodempl" widgetVar="nuevoCodempl" value="#{controlParametroAutoliq.nuevoAporteEntidad.empleado.codigoempleado}"
                                          style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.persona.nombreCompleto)}"/>
@@ -1947,7 +1945,7 @@
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevosubsp"/>    
                             </p:inputText>
 
-                            <strong><h:outputText value="Salario BÃ¡sico" style=" position: absolute; top: 415px; left: 40px;"/></strong>
+                            <strong><h:outputText value="Salario Básico" style=" position: absolute; top: 415px; left: 40px;"/></strong>
                             <p:inputText id="nuevosalbasico" value="#{controlParametroAutoliq.nuevoAporteEntidad.salariobasico}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 410px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevosalbasico"/>    
@@ -1965,7 +1963,7 @@
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevoibcref"/>    
                             </p:inputText>
 
-                            <strong><h:outputText value="DÃ­as Cotizados" style=" position: absolute; top: 505px; left: 40px;"/></strong>
+                            <strong><h:outputText value="Días Cotizados" style=" position: absolute; top: 505px; left: 40px;"/></strong>
                             <p:inputText id="nuevodiascot" value="#{controlParametroAutoliq.nuevoAporteEntidad.diascotizados}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 500px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevodiascot"/>    
@@ -2078,7 +2076,7 @@
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevotarifactt"/>    
                             </p:inputText>
 
-                            <strong><h:outputText value="CÃ³digo CTT" style=" position: absolute; top: 55px; left: 450px"/></strong>
+                            <strong><h:outputText value="Código CTT" style=" position: absolute; top: 55px; left: 450px"/></strong>
                             <p:inputText id="nuevocodigoctt" value="#{controlParametroAutoliq.nuevoAporteEntidad.codigoctt}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 50px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevocodigoctt"/>    
@@ -2102,13 +2100,13 @@
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovaloretconta"/>    
                             </p:inputText>
 
-                            <strong><h:outputText value="CÃ³digo NEPS" style=" position: absolute; top: 175px; left: 450px"/></strong>
+                            <strong><h:outputText value="Código NEPS" style=" position: absolute; top: 175px; left: 450px"/></strong>
                             <p:inputText id="nuevovalorneps" value="#{controlParametroAutoliq.nuevoAporteEntidad.codigoneps}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 170px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalorneps"/>    
                             </p:inputText>
 
-                            <strong><h:outputText value="CÃ³digo NAFP" style=" position: absolute; top: 205px; left: 450px"/></strong>
+                            <strong><h:outputText value="Código NAFP" style=" position: absolute; top: 205px; left: 450px"/></strong>
                             <p:inputText id="nuevovalornafp" value="#{controlParametroAutoliq.nuevoAporteEntidad.codigonafp}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalornafp"/>    
@@ -2157,7 +2155,7 @@
                             </p:inputText>
 
 
-                            <strong><h:outputText value="PensiÃ³n Compartida" style=" position: absolute; top: 445px; left: 450px"/></strong>
+                            <strong><h:outputText value="Pensión Compartida" style=" position: absolute; top: 445px; left: 450px"/></strong>
                             <p:inputText id="nuevopensioncompartida" value="#{controlParametroAutoliq.nuevoAporteEntidad.pensioncompartida}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 440px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevopensioncompartida"/>    
@@ -2172,7 +2170,7 @@
 
                             <strong><h:outputText value="Fecha Ingreso" style="position: absolute; top: 505px; left: 450px;" /></strong>
                             <div id="nuevaFechaIngreso" style="position: absolute; top: 500px; left: 600px">
-                                <p:calendar id="nuevaFechaI" value="#{controlParametroAutoliq.nuevoAporteEntidad.fechaingreso}"  >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaI" value="#{controlParametroAutoliq.nuevoAporteEntidad.fechaingreso}"  >
                                     <p:ajax event="dateSelect" update="nuevaFechaI" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaI" process="@this"/>
                                 </p:calendar>
@@ -2235,7 +2233,7 @@
                         <p:scrollPanel id="duplicarApEntidad"  style="height: 373px; width: 773px; top: 30px; position: absolute; border:none;" mode="native">
 
 
-                            <strong><h:outputText value="AÃ±o" style=" position: absolute; top: 25px; left: 40px;"/></strong>
+                            <strong><h:outputText value="Año" style=" position: absolute; top: 25px; left: 40px;"/></strong>
                             <p:inputText id="duplicaranioaporte" value="#{controlParametroAutoliq.duplicarAporteEntidad.ano}" readonly="true"
                                          style=" width: 122px; position: absolute; left: 200px; top: 20px; text-transform: uppercase" onclick="select();" >
                             </p:inputText>
@@ -2245,7 +2243,7 @@
                                          style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase" onclick="select();" >
                             </p:inputText>
 
-                            <strong><h:outputText value="CÃ³digo Empleado" style=" position: absolute; top: 85px; left: 40px;"/></strong>
+                            <strong><h:outputText value="Código Empleado" style=" position: absolute; top: 85px; left: 40px;"/></strong>
                             <p:inputText id="duplicarCodempl" widgetVar="duplicarCodempl" value="#{controlParametroAutoliq.duplicarAporteEntidad.empleado.codigoempleado}"
                                          style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.persona.nombreCompleto)}"/>
@@ -2321,7 +2319,7 @@
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarsubsp"/>    
                             </p:inputText>
 
-                            <strong><h:outputText value="Salario BÃ¡sico" style=" position: absolute; top: 415px; left: 40px;"/></strong>
+                            <strong><h:outputText value="Salario Básico" style=" position: absolute; top: 415px; left: 40px;"/></strong>
                             <p:inputText id="duplicarsalbasico" value="#{controlParametroAutoliq.duplicarAporteEntidad.salariobasico}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 410px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarsalbasico"/>    
@@ -2339,7 +2337,7 @@
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicaribcref"/>    
                             </p:inputText>
 
-                            <strong><h:outputText value="DÃ­as Cotizados" style=" position: absolute; top: 505px; left: 40px;"/></strong>
+                            <strong><h:outputText value="Días Cotizados" style=" position: absolute; top: 505px; left: 40px;"/></strong>
                             <p:inputText id="duplicardiascot" value="#{controlParametroAutoliq.duplicarAporteEntidad.diascotizados}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 500px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicardiascot"/>    
@@ -2452,7 +2450,7 @@
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicartarifactt"/>    
                             </p:inputText>
 
-                            <strong><h:outputText value="CÃ³digo CTT" style=" position: absolute; top: 55px; left: 450px"/></strong>
+                            <strong><h:outputText value="Código CTT" style=" position: absolute; top: 55px; left: 450px"/></strong>
                             <p:inputText id="duplicarcodigoctt" value="#{controlParametroAutoliq.duplicarAporteEntidad.codigoctt}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 50px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarcodigoctt"/>    
@@ -2476,13 +2474,13 @@
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvaloretconta"/>    
                             </p:inputText>
 
-                            <strong><h:outputText value="CÃ³digo NEPS" style=" position: absolute; top: 175px; left: 450px"/></strong>
+                            <strong><h:outputText value="Código NEPS" style=" position: absolute; top: 175px; left: 450px"/></strong>
                             <p:inputText id="duplicarvalorneps" value="#{controlParametroAutoliq.duplicarAporteEntidad.codigoneps}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 170px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalorneps"/>    
                             </p:inputText>
 
-                            <strong><h:outputText value="CÃ³digo NAFP" style=" position: absolute; top: 205px; left: 450px"/></strong>
+                            <strong><h:outputText value="Código NAFP" style=" position: absolute; top: 205px; left: 450px"/></strong>
                             <p:inputText id="duplicarvalornafp" value="#{controlParametroAutoliq.duplicarAporteEntidad.codigonafp}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalornafp"/>    
@@ -2531,7 +2529,7 @@
                             </p:inputText>
 
 
-                            <strong><h:outputText value="PensiÃ³n Compartida" style=" position: absolute; top: 445px; left: 450px"/></strong>
+                            <strong><h:outputText value="Pensión Compartida" style=" position: absolute; top: 445px; left: 450px"/></strong>
                             <p:inputText id="duplicarpensioncompartida" value="#{controlParametroAutoliq.duplicarAporteEntidad.pensioncompartida}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 440px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarpensioncompartida"/>    
@@ -2546,7 +2544,7 @@
 
                             <strong><h:outputText value="Fecha Ingreso" style="position: absolute; top: 505px; left: 450px;" /></strong>
                             <div id="duplicarFechaIngreso" style="position: absolute; top: 500px; left: 600px">
-                                <p:calendar id="duplicarFechaI" value="#{controlParametroAutoliq.duplicarAporteEntidad.fechaingreso}"  >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaI" value="#{controlParametroAutoliq.duplicarAporteEntidad.fechaingreso}"  >
                                     <p:ajax event="dateSelect" update="duplicarFechaI" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaI" process="@this"/>
                                 </p:calendar>
@@ -2603,7 +2601,7 @@
 
                     <p:dialog id="seleccionarTablaNewReg" header="Nuevo Registro" widgetVar="seleccionarTablaNewReg"  resizable="false" draggable="false" modal="true" height="180" width="365"  closable="false">  
                         <h:outputText value="Seleccione la tabla en la cual quiere insertar el nuevo Registro" style="color: blue; position: absolute; left: 15px; top: 10px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="ParÃ¡metros" style="position: absolute; left: 90px; top: 55px; font-weight:bold; width: 180px; text-align: center" process="@this"  actionListener="#{controlParametroAutoliq.mostrarDialogoNuevoParametro()}" onclick="seleccionarTablaNewReg.hide()" />
+                        <p:commandButton value="Parámetros" style="position: absolute; left: 90px; top: 55px; font-weight:bold; width: 180px; text-align: center" process="@this"  actionListener="#{controlParametroAutoliq.mostrarDialogoNuevoParametro()}" onclick="seleccionarTablaNewReg.hide()" />
                         <p:commandButton value="Aportes Entidades" style="position: absolute; left: 90px; top: 85px; font-weight:bold; width: 180px; text-align: center" process="@this" actionListener="#{controlParametroAutoliq.mostrarDialogoNuevoAporte()}" onclick="seleccionarTablaNewReg.hide()" />
                         <p:commandButton value="#{msg['salir']}" icon="ui-icon-closethick" style="position: absolute; top: 150px; left: 250px" onclick="seleccionarTablaNewReg.hide()"  />
                     </p:dialog>

@@ -143,6 +143,15 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
                 } else if (listaAC.get(i).getEmpleado().getSecuencia() == null) {
                     listaAC.get(i).setEmpleado(null);
                 }
+                
+                 if (listaAC.get(i).getTerceroRegistro() != null) {
+                    if (listaAC.get(i).getTerceroRegistro().getSecuencia() == null) {
+                        listaAC.get(i).setTercero(null);
+                    } else {
+                        listaAC.get(i).setTercero(listaAC.get(i).getTerceroRegistro().getSecuencia());
+
+                    }
+                }
                 persistenciaAportesCorrecciones.crear(em, listaAC.get(i));
             }
         } catch (Exception e) {
@@ -159,6 +168,10 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
                     listAC.get(i).setTipoentidad(new TiposEntidades());
                 } else if (listAC.get(i).getEmpleado().getSecuencia() == null) {
                     listAC.get(i).setEmpleado(null);
+                }else if (listAC.get(i).getTerceroRegistro().getSecuencia() == null) {
+                    listAC.get(i).setTercero(null);
+                } else if (listAC.get(i).getTerceroRegistro().getSecuencia() != null) {
+                    listAC.get(i).setTercero(listAC.get(i).getTerceroRegistro().getSecuencia());
                 }
                 persistenciaAportesCorrecciones.editar(em, listAC.get(i));
             }
@@ -176,6 +189,10 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
                     listAC.get(i).setTipoentidad(new TiposEntidades());
                 } else if (listAC.get(i).getEmpleado().getSecuencia() == null) {
                     listAC.get(i).setEmpleado(null);
+                }else if (listAC.get(i).getTerceroRegistro().getSecuencia() == null) {
+                    listAC.get(i).setTercero(null);
+                } else if (listAC.get(i).getTerceroRegistro().getSecuencia() != null) {
+                    listAC.get(i).setTercero(listAC.get(i).getTerceroRegistro().getSecuencia());
                 }
                 persistenciaAportesCorrecciones.borrar(em, listAC.get(i));
             }
@@ -188,6 +205,21 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
     public List<AportesCorrecciones> consultarAportesCorrecciones() {
         try {
             List<AportesCorrecciones> lista = persistenciaAportesCorrecciones.consultarAportesEntidades(em);
+             if (lista != null) {
+                for (int i = 0; i < lista.size(); i++) {
+                    if (lista.get(i).getTercero() != null) {
+                        Terceros tercero = persistenciaTerceros.buscarTercerosSecuencia(em, lista.get(i).getTercero());
+                        if (tercero != null) {
+                            lista.get(i).setTerceroRegistro(tercero);
+                        } else {
+                            lista.get(i).setTerceroRegistro(new Terceros());
+                        }
+                    } else {
+                        lista.get(i).setTerceroRegistro(new Terceros());
+                    }
+                }
+            }
+            
             return lista;
         } catch (Exception e) {
             System.out.println("Error consultarAportesCorrecciones Admi : " + e.toString());

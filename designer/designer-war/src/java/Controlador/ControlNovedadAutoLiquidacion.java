@@ -136,21 +136,21 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             System.out.println("Causa: " + e.getCause());
         }
     }
+//
+//    public void recibirParametros(Short anio, Short mes, BigInteger secuenciaEmpresa) {
+//        anioParametro = BigInteger.valueOf(anio);
+//        mesParametro = BigInteger.valueOf(mes);
+//        secuenciaParametro = secuenciaEmpresa;
+//        System.out.println("valor del año: " + anioParametro);
+//        System.out.println("valor del mes : " + mesParametro);
+//        System.out.println("secuencia de la empresa :" + secuenciaEmpresa);
+//        listaNovedades = null;
+//        getListaNovedades();
+//        contarRegistros();
+//
+//    }
 
-    public void recibirParametros(Short anio, Short mes, BigInteger secuenciaEmpresa) {
-        anioParametro = BigInteger.valueOf(anio);
-        mesParametro = BigInteger.valueOf(mes);
-        secuenciaParametro = secuenciaEmpresa;
-        System.out.println("valor del año: " + anioParametro);
-        System.out.println("valor del mes : " + mesParametro);
-        System.out.println("secuencia de la empresa :" + secuenciaEmpresa);
-        listaNovedades = null;
-        getListaNovedades();
-        contarRegistros();
-
-    }
-
-    public void recibirPag(String pag) {
+    public void recibirPag(String pag, Short anio, Short mes, BigInteger secuenciaEmpresa) {
         paginaAnterior = pag;
         listaEmpresas = null;
         getListaEmpresas();
@@ -163,6 +163,16 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             novedadSeleccionada = listaNovedades.get(0);
             }
         }
+        
+        anioParametro = BigInteger.valueOf(anio);
+        mesParametro = BigInteger.valueOf(mes);
+        secuenciaParametro = secuenciaEmpresa;
+        System.out.println("valor del año: " + anioParametro);
+        System.out.println("valor del mes : " + mesParametro);
+        System.out.println("secuencia de la empresa :" + secuenciaEmpresa);
+        listaNovedades = null;
+        getListaNovedades();
+        contarRegistros();
     }
 
     public String volverPagAnterior() {
@@ -471,26 +481,20 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             if (guardado == false) {
                 if (!listaNovedadesBorrar.isEmpty()) {
                     for (int i = 0; i < listaNovedadesBorrar.size(); i++) {
-                        System.out.println("entra a borrar");
                         administrarNovedadAutoLiquidaciones.borrarNovedades(listaNovedadesBorrar.get(i));
-                        System.out.println("sale de borrar");
                     }
                     listaNovedadesBorrar.clear();
                 }
                 if (!listaNovedadesCrear.isEmpty()) {
-                    System.out.println("entra a crear");
                     for (int i = 0; i < listaNovedadesCrear.size(); i++) {
                         administrarNovedadAutoLiquidaciones.crearNovedades(listaNovedadesCrear.get(i));
                     }
                     listaNovedadesCrear.clear();
-                    System.out.println("sale de crear");
                 }
                 if (!listaNovedadesModificar.isEmpty()) {
-                    System.out.println("entra a modificar");
                     for (int i = 0; i < listaNovedadesModificar.size(); i++) {
                         administrarNovedadAutoLiquidaciones.editarNovedades(listaNovedadesModificar.get(i));
                     }
-                    System.out.println("sale de modificar");
                     listaNovedadesModificar.clear();
                 }
 
@@ -537,6 +541,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
                 filtrarlistaNovedades.remove(novedadSeleccionada);
             }
             context.update("form:novedadesAuto");
+            modificarInfoRegistroNovedad(listaNovedades.size());
             novedadSeleccionada = null;
 
             if (guardado == true) {
@@ -1714,6 +1719,13 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTipoEntidad");
     }
 
+    public void dispararDialogoNuevoRegistro(){
+        nuevanovedad.setAnio(anioParametro);
+        nuevanovedad.setMes(mesParametro);
+        RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedadAuto");
+        RequestContext.getCurrentInstance().execute("nuevaNovedadAuto.show()");
+    }
+    
     ////////////////SETS Y GETS//////////////////
     public List<NovedadesAutoLiquidaciones> getListaNovedades() {
 

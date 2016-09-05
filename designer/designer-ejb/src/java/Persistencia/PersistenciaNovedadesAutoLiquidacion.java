@@ -14,7 +14,6 @@ import InterfacePersistencia.PersistenciaNovedadesAutoLiquidacionInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
@@ -24,7 +23,6 @@ import javax.persistence.Query;
  * @author user
  */
 @Stateless
-@LocalBean
 public class PersistenciaNovedadesAutoLiquidacion implements PersistenciaNovedadesAutoLiquidacionInterface {
 
     @Override

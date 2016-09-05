@@ -221,6 +221,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         contarRegistrosAporte();
         contarRegistrosParametros();
         if (listaParametrosCorrecciones != null) {
+            if(!listaParametrosCorrecciones.isEmpty())
             parametroCorreccionSeleccionado = listaParametrosCorrecciones.get(0);
         }
         if (listaAportesCorrecciones != null) {
@@ -276,6 +277,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
     }
 
     public void modificarAporteEntidad(AportesCorrecciones aporte) {
+        System.out.println("entró a modificar aporte entidad   ");
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoListaAporte == 0) {
             if (listAportesCorreccionesModificar.isEmpty()) {
@@ -298,7 +300,6 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                 guardado = false;
                 context.update("form:ACEPTAR");
             }
-//            cambiosAporte = true;
         }
         context.update("form:tablaAportesCorrecciones");
     }
@@ -702,7 +703,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         }
     }
 
-    /*
+    
      public void cargarDatosNuevos() {
      try {
      listaAportesCorrecciones = null;
@@ -721,7 +722,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
      System.out.println("Error cargarDatosNuevos Controlador : " + e.toString());
      }
      }     
-     */
+     
     public void cambiarIndiceAporteEntidad(AportesCorrecciones aporte, int celda) {
         if (permitirIndexAporte == true) {
             aporteTablaSeleccionado = aporte;
@@ -877,11 +878,14 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             context.update("form:datosParametroAuto");
             k = 0;
 //            activoBtnsPaginas = true;
-            context.update("form:novedadauto");
-            context.update("form:incaPag");
-            context.update("form:eliminarToda");
-            context.update("form:procesoLiq");
-            context.update("form:acumDif");
+
+//            context.update("form:novedadauto");
+//            context.update("form:incaPag");
+//            context.update("form:eliminarToda");
+//            context.update("form:procesoLiq");
+//            context.update("form:acumDif");
+
+
 //            parametroCorreccionSeleccionado = null;
 //            cambiosParametro = false;
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Parámetros de Corrección con éxito");
@@ -900,16 +904,20 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
     public void guardarCambiosAportes() {
         RequestContext context = RequestContext.getCurrentInstance();
         try {
+            System.out.println("entró a guardar");
             if (!listAportesCorreccionesBorrar.isEmpty()) {
+                System.out.println("entró a lista correcciones borrar, tamaño lista borrar : " + listAportesCorreccionesBorrar.size());
                 administrarParametroCorreccionAutoL.borrarAportesCorrecciones(listAportesCorreccionesBorrar);
                 listAportesCorreccionesBorrar.clear();
             }
             if (!listAportesCorreccionesCrear.isEmpty()) {
+                System.out.println("entró a lista correcciones crear , tamaño lista crear : " + listAportesCorreccionesCrear.size());
                 administrarParametroCorreccionAutoL.crearAportesCorrecciones(listAportesCorreccionesCrear);
                 listAportesCorreccionesCrear.clear();
             }
 
             if (!listAportesCorreccionesModificar.isEmpty()) {
+                System.out.println("entró a lista correcciones modificar, tamaño lista modificar : " + listAportesCorreccionesModificar.size());
                 administrarParametroCorreccionAutoL.editarAportesCorrecciones(listAportesCorreccionesModificar);
                 listAportesCorreccionesModificar.clear();
             }
@@ -920,14 +928,14 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             modificarInfoRegistroAporte(listaAportesCorrecciones.size());
             k = 0;
 //            cambiosAporte = true;
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Aporte Entidad con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Aporte Entidad Corrección con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             context.update("form:growl");
             guardado = true;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosAportes  Controlador : " + e.toString());
-            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Aporte Entidad, Por favor intente nuevamente.");
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Aporte Entidad Corrección, Por favor intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             context.update("form:growl");
         }
@@ -2400,10 +2408,12 @@ public void mostrarDialogoNuevoAporte() {
         tipoActualizacion = LND;
         System.out.println("tipo actualizacion aignar index : " + tipoActualizacion);
         if (dialogo == 1) {
+            modificarInfoRegistroTercero(lovTerceros.size());
             context.update("formularioLovTipoTrabajador:TipoTrabajadorDialogo");
             context.execute("TipoTrabajadorDialogo.show()");
         }
         if (dialogo == 2) {
+            modificarInfoRegistroEmpresa(lovEmpresas.size());
             context.update("formularioLovEmpresa:EmpresaDialogo");
             context.execute("EmpresaDialogo.show()");
             modificarInfoRegistroEmpresa(lovEmpresas.size());
@@ -2426,7 +2436,7 @@ public void mostrarDialogoNuevoAporte() {
             context.execute("TerceroDialogo.show()");
         }
         if (dialogo == 3) {
-            modificarInfoRegistroAportesCorrecciones(lovAportesCorrecciones.size());
+            modificarInfoRegistroTiposEntidades(lovTiposEntidades.size());
             context.update("formularioLovTipoEntidad:TipoEntidadDialogo");
             context.execute("TipoEntidadDialogo.show()");
         }
@@ -2493,14 +2503,7 @@ public void mostrarDialogoNuevoAporte() {
         filtrarLovTiposTrabajadores = null;
         tipoTrabajadorSeleccionado = new TiposTrabajadores();
         aceptar = true;
-        parametroCorreccionSeleccionado = null;
         RequestContext context = RequestContext.getCurrentInstance();
-//        activoBtnsPaginas = true;
-//        context.update("form:novedadauto");
-//        context.update("form:incaPag");
-//        context.update("form:eliminarToda");
-//        context.update("form:procesoLiq");
-//        context.update("form:acumDif");
         tipoActualizacion = -1;
         permitirIndex = true;
         context.reset("formularioLovTipoTrabajador:lovTipoTrabajador:globalFilter");
@@ -2650,11 +2653,14 @@ public void mostrarDialogoNuevoAporte() {
         filtrarLovTerceros = null;
         terceroSeleccionado = new Terceros();
         aceptar = true;
-//        aporteTablaSeleccionado = null;
-//        parametroTablaSeleccionado = null;
-        tipoActualizacion = -1;/*
-         */
-
+        tipoActualizacion = -1;
+         
+        context.reset("formularioLovTercero:lovTercero:globalFilter");
+        context.execute("lovTercero.clearFilters()");
+        context.execute("TerceroDialogo.hide()");
+        context.update("formularioLovTercero:TerceroDialogo");
+        context.update("formularioLovTercero:lovTercero");
+        context.update("formularioLovTercero:aceptarT");
     }
 
     public void cancelarCambioTercero() {
@@ -2792,7 +2798,7 @@ public void mostrarDialogoNuevoAporte() {
             filtrarListaAportesCorrecciones = null;
             tipoListaAporte = 0;
         }
-//        parametroTablaSeleccionado = null;
+        cargarDatosNuevos();
     }
 
     public void listaValoresBoton() {
@@ -3079,6 +3085,7 @@ public void mostrarDialogoNuevoAporte() {
 
     public void contarRegistrosAporte() {
         if (listaAportesCorrecciones != null) {
+            if(!listaAportesCorrecciones.isEmpty())
             modificarInfoRegistroAporte(listaAportesCorrecciones.size());
         } else {
             modificarInfoRegistroAporte(0);
@@ -3087,6 +3094,7 @@ public void mostrarDialogoNuevoAporte() {
 
     public void contarRegistrosParametros() {
         if (listaParametrosCorrecciones != null) {
+            if(!listaParametrosCorrecciones.isEmpty())
             modificarInfoRegistroParametro(listaParametrosCorrecciones.size());
         } else {
             modificarInfoRegistroParametro(0);
@@ -3156,7 +3164,6 @@ public void mostrarDialogoNuevoAporte() {
                 if (parametroCorreccionSeleccionado != null) {
                 listaAportesCorrecciones = administrarParametroCorreccionAutoL.consultarAportesCorrecciones();
                 if (listaAportesCorrecciones != null) {
-//                    aporteTablaSeleccionado = listaAportesCorrecciones.get(0);
                     for (int i = 0; i < listaAportesCorrecciones.size(); i++) {
                         if (listaAportesCorrecciones.get(i).getTerceroRegistro() == null) {
                             listaAportesCorrecciones.get(i).setTerceroRegistro(null);
