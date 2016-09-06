@@ -553,7 +553,7 @@
                     </p:dialog>
                     
                     
-                    <p:dialog id="errorSeleccionEmpleado" header="#{msg['atencion']}" widgetVar="errorSeleccionEmpleado"  resizable="false" draggable="false" modal="true" height="70" width="300px;" closable="true">  
+                    <p:dialog id="errorSeleccionEmpleado" header="#{msg['atencion']}" widgetVar="errorSeleccionEmpleado"  resizable="false" draggable="false" modal="true" height="70" width="300" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorSeleccionEmpleado']}" style="position: absolute; left: 80px; top: 15px; width: 185px; font-weight: bold;" />
                     </p:dialog>
@@ -647,12 +647,12 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 264px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="lovVacia" header="#{msg['atencion']}" widgetVar="lovVacia"  resizable="false" draggable="false" modal="true" height="100" width="400px;"  closable="true">  
+                    <p:dialog id="lovVacia" header="#{msg['atencion']}" widgetVar="lovVacia"  resizable="false" draggable="false" modal="true" height="100" width="400"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="110" height="80" style="position: absolute; left: 5px; top: 20px;"  />
                         <h:outputText value="#{msg['lovvacia']}" style="position: absolute; left: 110px; top: 20px; width: 270px; font-weight:bold; text-align: center" />
                     </p:dialog>
                     
-                    <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350px;" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
                     </p:dialog>

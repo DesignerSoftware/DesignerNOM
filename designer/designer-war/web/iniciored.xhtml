@@ -109,7 +109,7 @@
                 <p:imageSwitch id="bannerConsultas" effect="fade" widgetVar="informacion" style="box-shadow: 5px 5px 12px #000000" slideshowSpeed="5000">  
                     <ui:repeat value="#{controlInicioRed.banner}" var="banner">  
                         <a href="#{banner.urlImagen}" target="_blank">
-                            <p:graphicImage value="Imagenes/Iconos/#{banner.imagen}" style="width: 460px; height: 158px"/>
+                            <p:graphicImage value="Imagenes/#{banner.imagen}" style="width: 460px; height: 158px"/>
                         </a>
                     </ui:repeat>  
                 </p:imageSwitch>
@@ -206,22 +206,22 @@
                 <h:outputText value="Las contrase&ntilde;as no coniciden, por favor verificar e intentar de nuevo." style="width: 200px; font-weight:bold; text-align: center" />
             </p:dialog>
 
-            <p:dialog id="errorCambioClaveCamposVacios" header="ATENCI&Oacute;N" widgetVar="errorCambioClaveCamposVacios" resizable="false" draggable="false" modal="true" height="60" width="300px;" style="font-size: 12px;" closable="true">  
+            <p:dialog id="errorCambioClaveCamposVacios" header="ATENCI&Oacute;N" widgetVar="errorCambioClaveCamposVacios" resizable="false" draggable="false" modal="true" height="60" width="300" style="font-size: 12px;" closable="true">  
                 <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" />
                 <h:outputText value="Existen campos vacios, por favor ingrese una valor." style="width: 200px; font-weight:bold; text-align: center;" />
             </p:dialog>
 
-            <p:dialog id="errorCambioClaveReusar" header="ATENCI&Oacute;N" widgetVar="errorCambioClaveReusar"  resizable="false" draggable="false" modal="true" height="60" width="300px;" style="font-size: 12px;" closable="true">  
+            <p:dialog id="errorCambioClaveReusar" header="ATENCI&Oacute;N" widgetVar="errorCambioClaveReusar"  resizable="false" draggable="false" modal="true" height="60" width="300" style="font-size: 12px;" closable="true">  
                 <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" />
                 <h:outputText value="Ya ha utilizado esta contrase&ntilde;a, por favor utilize una diferente." style="width: 200px; font-weight:bold; text-align: center" />
             </p:dialog>
 
-            <p:dialog id="exitoCambioClave" header="ATENCI&Oacute;N" widgetVar="exitoCambioClave"  resizable="false" draggable="false" modal="true" height="60" width="300px;" style="font-size: 12px;" closable="true">  
+            <p:dialog id="exitoCambioClave" header="ATENCI&Oacute;N" widgetVar="exitoCambioClave"  resizable="false" draggable="false" modal="true" height="60" width="300" style="font-size: 12px;" closable="true">  
                 <h:graphicImage value="Imagenes/Iconos/correcto.png" width="50" height="50" />
                 <h:outputText value="La contraseña se ha cambiado exitosamente." style="width: 200px; font-weight:bold; text-align: center" />
             </p:dialog>
 
-            <p:dialog id="estadoSesion" header="Informaci&oacute;n" widgetVar="estadoSesion"  resizable="false" draggable="false" modal="true" height="65" width="350px;" style="font-size: 12px;" closable="false">  
+            <p:dialog id="estadoSesion" header="Informaci&oacute;n" widgetVar="estadoSesion"  resizable="false" draggable="false" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
                 <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="vertical-align: middle;" />
                 <h:outputText value="#{controlInicioRed.msgSesion}" style="font-size: 12px; width: 240px; text-align: justify; font-weight:bold;" />
             </p:dialog>

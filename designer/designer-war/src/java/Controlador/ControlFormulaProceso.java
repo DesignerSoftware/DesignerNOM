@@ -83,7 +83,7 @@ public class ControlFormulaProceso implements Serializable {
     private boolean activarLOV;
 
     public ControlFormulaProceso() {
-        altoTabla = "310";
+        altoTabla = "280";
         permitirIndex = true;
         tipoActualizacion = -1;
         lovProcesos = null;
@@ -299,7 +299,7 @@ public class ControlFormulaProceso implements Serializable {
 
     public void restaurarTabla() {
         if (bandera == 1) {
-            altoTabla = "310";
+            altoTabla = "280";
             formulaProceso = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaProceso");
             formulaProceso.setFilterStyle("display: none; visibility: hidden;");
 
@@ -459,7 +459,7 @@ public class ControlFormulaProceso implements Serializable {
      */
     public void activarCtrlF11() {
         if (bandera == 0) {
-            altoTabla = "290";
+            altoTabla = "259";
             formulaProceso = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaProceso");
             formulaProceso.setFilterStyle("width: 85%");
 

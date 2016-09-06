@@ -474,13 +474,13 @@
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplAcumulados.activarCtrlF11()}"  /> 
 
-                    <p:dialog id="botones" header="#{msg['atencion']}" widgetVar="botones"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="" closable="false">  
+                    <p:dialog id="botones" header="#{msg['atencion']}" widgetVar="botones"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['botones']}" style="position: absolute; left: 100px; top: 15px; width: 250px; font-weight:bold" />
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="botones.hide();" style="position: absolute; top: 60px; left: 210px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="repeticiones" header="#{msg['atencion']}" widgetVar="repeticiones"  resizable="false" draggable="false" modal="true" height="95" width="350px;" style="" closable="false">  
+                    <p:dialog id="repeticiones" header="#{msg['atencion']}" widgetVar="repeticiones"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['repeticiones']}" style="position: absolute; left: 100px; top: 15px; width: 250px; font-weight:bold" />
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="repeticiones.hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
