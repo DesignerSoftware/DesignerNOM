@@ -644,134 +644,134 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSinSalida.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableSapBO.backUpSecRegistro, 'InterconSapBO', 'interfaseBOV8Rastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('InterconSapBO', 'interfaseBOV8Rastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableSapBO.backUpSecRegistro, 'InterconSapBO', 'interfaseBOV8Rastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechasParametro" header="#{msg['atencion']}" widgetVar="errorFechasParametro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="errorFechasParametro" header="#{msg['atencion']}" widgetVar="errorFechasParametro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechasParametro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorNewRegNull" header="#{msg['atencion']}" widgetVar="errorNewRegNull"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="errorNewRegNull" header="#{msg['atencion']}" widgetVar="errorNewRegNull"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorNewRegNull']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechasNull" header="#{msg['atencion']}" widgetVar="errorFechasNull"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="errorFechasNull" header="#{msg['atencion']}" widgetVar="errorFechasNull"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechasNull']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechasParametros" header="#{msg['atencion']}" widgetVar="errorFechasParametros"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="errorFechasParametros" header="#{msg['atencion']}" widgetVar="errorFechasParametros"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechasParametros']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="procesoSinDatos" header="#{msg['atencion']}" widgetVar="procesoSinDatos"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="procesoSinDatos" header="#{msg['atencion']}" widgetVar="procesoSinDatos"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['procesoSinDatos']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="anteriorContabilizacion" header="#{msg['atencion']}" widgetVar="anteriorContabilizacion"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="anteriorContabilizacion" header="#{msg['atencion']}" widgetVar="anteriorContabilizacion"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:outputText value="#{msg['anteriorContabilizacion']} #{controlInterfaseContableSapBO.msnFechasActualizar}" style="position: absolute; left: 20px; top: 10px; width: 235px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="nuncaContabilizo" header="#{msg['atencion']}" widgetVar="nuncaContabilizo"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="nuncaContabilizo" header="#{msg['atencion']}" widgetVar="nuncaContabilizo"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['nuncaContabilizo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="anularComprobantesCerrados" header="#{msg['atencion']}" widgetVar="anularComprobantesCerrados"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                    <p:dialog id="anularComprobantesCerrados" header="#{msg['atencion']}" widgetVar="anularComprobantesCerrados"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['anularComprobantesCerrados']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="anularComprobantesCerrados.hide();" actionListener="#{controlInterfaseContableSapBO.anularComprobantesCerrados()}" style="position: absolute; top: 63px; left: 180px;"  process="@this" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="anularComprobantesCerrados.hide();" style="position: absolute; top: 63px; left: 255px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="paso1Recon" header="#{msg['atencion']}" widgetVar="paso1Recon"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                    <p:dialog id="paso1Recon" header="#{msg['atencion']}" widgetVar="paso1Recon"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['paso1Recon']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="paso1Recon.hide();paso2Recon.show();"  style="position: absolute; top: 63px; left: 180px;"  process="@this" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="paso1Recon.hide();" style="position: absolute; top: 63px; left: 255px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="paso2Recon" header="#{msg['atencion']}" widgetVar="paso2Recon"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                    <p:dialog id="paso2Recon" header="#{msg['atencion']}" widgetVar="paso2Recon"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['paso2Recon']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="paso2Recon.hide();" actionListener="#{controlInterfaseContableSapBO.ejecutarPaso3Recon()}" style="position: absolute; top: 63px; left: 180px;"  process="@this" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="paso2Recon.hide();" style="position: absolute; top: 63px; left: 255px;" process="@this" />
                     </p:dialog>
                     
-                    <p:dialog id="paso3Recon" header="#{msg['atencion']}" widgetVar="paso3Recon"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                    <p:dialog id="paso3Recon" header="#{msg['atencion']}" widgetVar="paso3Recon"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['paso3Recon1']}  #{controlInterfaseContableSapBO.fechaIniRecon} - #{controlInterfaseContableSapBO.fechaFinRecon}. #{msg['paso3Recon2']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="paso3Recon.hide();" actionListener="#{controlInterfaseContableSapBO.finalizarProcesoRecontabilizacion()}" style="position: absolute; top: 63px; left: 180px;"  process="@this" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="paso3Recon.hide();" style="position: absolute; top: 63px; left: 255px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="paso1CerrarPeriodo" header="#{msg['atencion']}" widgetVar="paso1CerrarPeriodo"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                    <p:dialog id="paso1CerrarPeriodo" header="#{msg['atencion']}" widgetVar="paso1CerrarPeriodo"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['paso1CerrarPeriodo']} #{controlInterfaseContableSapBO.msnPaso1()}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="paso1CerrarPeriodo.hide();paso2CerrarPeriodo.show()" style="position: absolute; top: 63px; left: 180px;"  process="@this" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="paso1CerrarPeriodo.hide();" style="position: absolute; top: 63px; left: 255px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="paso2CerrarPeriodo" header="#{msg['atencion']}" widgetVar="paso2CerrarPeriodo"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                    <p:dialog id="paso2CerrarPeriodo" header="#{msg['atencion']}" widgetVar="paso2CerrarPeriodo"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['paso2CerrarPeriodo']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="paso2CerrarPeriodo.hide();" actionListener="#{controlInterfaseContableSapBO.finCerrarPeriodoContable()}" style="position: absolute; top: 63px; left: 180px;"  process="@this" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="paso2CerrarPeriodo.hide();" style="position: absolute; top: 63px; left: 255px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRecon" header="#{msg['atencion']}" widgetVar="errorRecon"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="errorRecon" header="#{msg['atencion']}" widgetVar="errorRecon"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRecon']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
                     
-                    <p:dialog id="procesoDeshacer" header="#{msg['atencion']}" widgetVar="procesoDeshacer"  resizable="false" draggable="false" modal="true" height="100" width="350px;"  closable="false">  
+                    <p:dialog id="procesoDeshacer" header="#{msg['atencion']}" widgetVar="procesoDeshacer"  resizable="false" draggable="false" modal="true" height="100" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['procesoDeshacer']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; " />
                         <p:commandButton value="#{msg['aceptar']}" onclick="procesoDeshacer.hide();
@@ -964,7 +964,7 @@
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350px;" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
                     </p:dialog>

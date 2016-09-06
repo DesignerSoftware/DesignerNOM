@@ -1622,82 +1622,82 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroAporte"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                    <p:dialog id="confirmarRastroAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroAporte"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroAporte']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroAporte.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistroAporte, 'AportesEntidades', 'parametroAutoliqRastro')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroAporte.hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistoricoAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoAporte"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                    <p:dialog id="confirmarRastroHistoricoAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoAporte"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistoricoAporte']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroHistoricoAporte.hide();" actionListener="#{controlRastro.historicosTabla('AportesEntidades', 'parametroAutoliqRastro')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroHistoricoAporte.hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275px;" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285px;"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDBAporte" header="#{msg['error']}" widgetVar="errorObjetosDBAporte"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="errorObjetosDBAporte" header="#{msg['error']}" widgetVar="errorObjetosDBAporte"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDBAporte']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegNullParametro" header="#{msg['error']}" widgetVar="errorRegNullParametro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="errorRegNullParametro" header="#{msg['error']}" widgetVar="errorRegNullParametro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegNullParametro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorBorrarParametro" header="#{msg['error']}" widgetVar="errorBorrarParametro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="errorBorrarParametro" header="#{msg['error']}" widgetVar="errorBorrarParametro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorBorrarParametro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarBorrarTodoAuto" header="#{msg['informacion']}" widgetVar="confirmarBorrarTodoAuto"  resizable="false" draggable="false" modal="true" height="85" width="290px;"  closable="false">  
+                    <p:dialog id="confirmarBorrarTodoAuto" header="#{msg['informacion']}" widgetVar="confirmarBorrarTodoAuto"  resizable="false" draggable="false" modal="true" height="85" width="290"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarBorrarTodoAuto']}" style="position: absolute; left: 60px; top: 15px; width: 200px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="confirmarBorrarTodoAuto.hide();
@@ -1728,7 +1728,7 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="acumularDiferenciaOK.hide();" style="position: absolute; top: 50px; left: 307px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="errorAcumularDiferencia" header="#{msg['atencion']}" widgetVar="errorAcumularDiferencia"  resizable="false" draggable="false" modal="true" height="85" width="355px;"  closable="true">  
+                    <p:dialog id="errorAcumularDiferencia" header="#{msg['atencion']}" widgetVar="errorAcumularDiferencia"  resizable="false" draggable="false" modal="true" height="85" width="355"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 20px;"  />
                         <h:outputText value="#{msg['errorAcumularDiferencia']}" style="position: absolute; left: 70px; top: 10px; width: 270px; font-weight:bold;text-align: center" />
                     </p:dialog>
@@ -2854,7 +2854,7 @@
                         <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.tarifamen}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350px;" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
                     </p:dialog>

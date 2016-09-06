@@ -24,7 +24,7 @@
                         <p:commandButton style="position: absolute; left: 775px; top: 480px; " icon="ui-icon-closethick" id="ATRAS" value="#{msg['cancelar']}" action="nomina" actionListener="#{controlNReporteBienestar.salir()}" process="@this" />
                         <p:commandButton style="position: absolute; left: 10px; top: 480px; " id="ENVIOCORREO" value="#{msg['envio']}" process="@this" oncomplete="EnvioCorreoDialogo.show()" actionListener="#{controlNReporteBienestar.defaultPropiedadesParametrosReporte()}"/>
 
-                        <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400px;" style="font-size: 12px;" closable="false">  
+                        <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                             <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" action="atrasReporteBienestar" actionListener="#{controlNReporteBienestar.guardarYSalir()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
@@ -311,7 +311,7 @@
 
                     </p:dialog>
 
-                    <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="false" modal="true" height="80" width="275px;"  closable="true">  
+                    <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="false" modal="true" height="80" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>

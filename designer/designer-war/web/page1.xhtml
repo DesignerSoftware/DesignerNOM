@@ -106,7 +106,7 @@
 
                     </fieldset>
 
-                    <p:dialog id="alerta" header="ATENCIÓN...!" widgetVar="alerta"  resizable="false" draggable="false" modal="true" height="95" width="400px;" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="alerta" header="ATENCIÓN...!" widgetVar="alerta"  resizable="false" draggable="false" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                         <p:commandButton value="Si" onclick="alerta.hide();" actionListener="#{ctrlVigenciasCargos.modificarAficiones()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />

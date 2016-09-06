@@ -805,25 +805,25 @@
                     </p:dialog>
 
                     <!-- DIALOGOS VALIDACION-->
-                    <p:dialog id="validacioNuevoComprobante" header="#{msg['atencion']}" widgetVar="validacioNuevoComprobante" resizable="false" draggable="false" modal="true" height="95" width="400px;" closable="false">  
+                    <p:dialog id="validacioNuevoComprobante" header="#{msg['atencion']}" widgetVar="validacioNuevoComprobante" resizable="false" draggable="false" modal="true" height="95" width="400" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['validacioNuevoComprobante']} #{controlEmplComprobantes.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="validacioNuevoComprobante.hide();" style="position: absolute; top: 50px; left: 280px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacioNuevoCorteProceso" header="#{msg['atencion']}" widgetVar="validacioNuevoCorteProceso" resizable="false" draggable="false" modal="true" height="95" width="400px;" closable="false">  
+                    <p:dialog id="validacioNuevoCorteProceso" header="#{msg['atencion']}" widgetVar="validacioNuevoCorteProceso" resizable="false" draggable="false" modal="true" height="95" width="400" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['validacioNuevoCorteProceso']} #{controlEmplComprobantes.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="validacioNuevoCorteProceso.hide();" style="position: absolute; top: 50px; left: 280px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="errorBorrarComprobante" header="#{msg['error']}" widgetVar="errorBorrarComprobante" resizable="false" draggable="false" modal="true" height="95" width="400px;" closable="false">  
+                    <p:dialog id="errorBorrarComprobante" header="#{msg['error']}" widgetVar="errorBorrarComprobante" resizable="false" draggable="false" modal="true" height="95" width="400" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['errorBorrarComprobante']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="errorBorrarComprobante.hide();" style="position: absolute; top: 50px; left: 280px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="errorBorrarCortesProcesos" header="#{msg['error']}" widgetVar="errorBorrarCortesProcesos" resizable="false" draggable="false" modal="true" height="95" width="400px;" closable="false">  
+                    <p:dialog id="errorBorrarCortesProcesos" header="#{msg['error']}" widgetVar="errorBorrarCortesProcesos" resizable="false" draggable="false" modal="true" height="95" width="400" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['errorBorrarCortesProcesos']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="errorBorrarCortesProcesos.hide();" style="position: absolute; top: 50px; left: 280px;" process="@this"/>
@@ -858,7 +858,7 @@
 
                     <!-- DIALOGOS RASTRO-->
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350px;"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['tiene']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 60px; left: 210px;" action="rastro" process="@this"

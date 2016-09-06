@@ -167,19 +167,19 @@
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplIbcs.activarCtrlF11()}"  /> 
 
-                    <p:dialog id="botones" header="#{msg['precaucion']}" widgetVar="botones"  resizable="false" draggable="false" modal="true" height="95" width="320px;"  closable="false">  
+                    <p:dialog id="botones" header="#{msg['precaucion']}" widgetVar="botones"  resizable="false" draggable="false" modal="true" height="95" width="320"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 30px;"  />
                         <h:outputText value="#{msg['botones']}" style="position: absolute; left: 100px; top: 30px; width: 250px; font-weight:bold" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="botones.hide();" style="position: absolute; top: 60px; left: 200px;" icon="ui-icon-check" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="repeticiones" header="#{msg['precaucion']}" widgetVar="repeticiones"  resizable="false" draggable="false" modal="true" height="95" width="370px;"  closable="false">  
+                    <p:dialog id="repeticiones" header="#{msg['precaucion']}" widgetVar="repeticiones"  resizable="false" draggable="false" modal="true" height="95" width="370"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 25px;"  />
                         <h:outputText value="#{msg['repeticiones']}" style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight:bold" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="repeticiones.hide();" style="position: absolute; top: 65px; left: 250px;" icon="ui-icon-check" process="@this" />
                     </p:dialog>
                     
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275px;"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
