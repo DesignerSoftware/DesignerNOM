@@ -51,11 +51,11 @@ public class Empleados implements Serializable {
      private BigInteger totalultimosobregiro;
      @Size(max = 1)
      @Column(name = "EXCLUIRLIQUIDACION")
-     private String excluirliquidacion;
+     private String excluirliquidacion;*/
      @Column(name = "CODIGOALTERNATIVODEUDOR")
      private Integer codigoalternativodeudor;
      @Column(name = "CODIGOALTERNATIVOACREEDOR")
-     private Long codigoalternativoacreedor;*/
+     private Long codigoalternativoacreedor;
     @Column(name = "FECHACREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechacreacion;
@@ -199,6 +199,7 @@ public class Empleados implements Serializable {
      this.excluirliquidacion = excluirliquidacion;
      }
 
+     */
      public Integer getCodigoalternativodeudor() {
      return codigoalternativodeudor;
      }
@@ -214,7 +215,6 @@ public class Empleados implements Serializable {
      public void setCodigoalternativoacreedor(Long codigoalternativoacreedor) {
      this.codigoalternativoacreedor = codigoalternativoacreedor;
      }
-     */
 
     public Date getFechacreacion() {
         return fechacreacion;

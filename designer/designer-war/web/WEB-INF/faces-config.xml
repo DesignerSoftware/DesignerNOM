@@ -5678,5 +5678,114 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>interfasecontableproceso</from-outcome>
+            <to-view-id>/proceso.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/proceso.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasinterfasecontableproceso</from-outcome>
+            <to-view-id>/interfasecontabletotal.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+      <navigation-rule>
+        <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>interfasecontabletercero</from-outcome>
+            <to-view-id>/tercero.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/tercero.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasinterfasecontabletercero</from-outcome>
+            <to-view-id>/interfasecontabletotal.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+      <navigation-rule>
+        <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>interfasecontableconcepto</from-outcome>
+            <to-view-id>/concepto.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/concepto.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasinterfasecontableconcepto</from-outcome>
+            <to-view-id>/interfasecontabletotal.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>interfasecontablecentrocosto</from-outcome>
+            <to-view-id>/centrocosto.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/centrocosto.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasinterfasecontablecentrocosto</from-outcome>
+            <to-view-id>/interfasecontabletotal.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+   
+   <navigation-rule>
+        <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>interfasecontablecuenta</from-outcome>
+            <to-view-id>/cuenta.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/cuenta.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasinterfasecontablecuenta</from-outcome>
+            <to-view-id>/interfasecontabletotal.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+     
+       <navigation-rule>
+        <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>interfasecontableempleado</from-outcome>
+            <to-view-id>/empleado.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/empleado.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasinterfasecontableempleado</from-outcome>
+            <to-view-id>/interfasecontabletotal.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
 </faces-config>
 
