@@ -563,7 +563,7 @@
                                     <h:outputText value="#{msg['textointegracionconcontabilidad']}" style="width: 280px; height: 12px; position: absolute; left: 110px; top: 330px;  text-align: justify" />
                                 </fieldset>
 
-                                <p:dialog id="confirmarprocesointerfacecontable" widgetVar="confirmarprocesointerfacecontable" header="#{msg['atencion']}" resizable="false" draggable="false" modal="true" height="100" width="420px;"  closable="false">  
+                                <p:dialog id="confirmarprocesointerfacecontable" widgetVar="confirmarprocesointerfacecontable" header="#{msg['atencion']}" resizable="false" draggable="false" modal="true" height="100" width="420"  closable="false">  
                                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 10px; top: 15px;"  />
                                     <h:outputText value="#{msg['confirmarProcesoInterfaceContable']}" style="position: absolute; left: 100px; top: 15px; width: 320px; font-weight:bold;" />
                                     <p:commandButton value="#{msg['si']}" onclick="confirmarprocesointerfacecontable.hide();" action="interfasecontabletotal" actionListener="#{controlInterfaseContableTotal.recibirPagina('nomina')}" style="position: absolute; top: 60px; left: 285px " process="@this" icon="ui-icon-check" />

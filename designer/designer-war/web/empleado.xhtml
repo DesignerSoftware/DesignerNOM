@@ -90,7 +90,7 @@
                             </p:toolbarGroup>    
                         </p:toolbar>
 
-                        <fieldset style="position: absolute; left: 10px; top: 105px;width: 830px; height: 375px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 10px; top: 80px;width: 830px; height: 375px; border-radius: 10px; ">
                             <legend style="color: blue;text-align:left"><strong>Empleados</strong></legend>
                             <p:dataTable id="datosEmpleados"  widgetVar="datosEmpleados" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 820px;"                           
                                          value="#{controlEmpleado.listaEmpleados}" scrollable="true" scrollHeight="#{controlEmpleado.altoTabla}" scrollWidth="820"
@@ -101,7 +101,8 @@
                                 <p:ajax event="filter" listener="#{controlEmpleado.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlEmpleado.recordarSeleccion()}"/>
 
-                                <p:column headerText="#{msg['codempl']}"  sortBy="#{info.codigoempleado}" filterBy="#{info.codigoempleado}" filterMatchMode="contains" width="72" id="codigoEmpl" filterStyle="display: none; visibility: hidden;" style="width: 110px;" >  
+                                <p:column headerText="#{msg['codempl']}"  sortBy="#{info.codigoempleado}" filterBy="#{info.codigoempleado}" filterMatchMode="contains" 
+                                          id="codigoEmpl" filterStyle="display: none; visibility: hidden;"  >  
                                     <p:cellEditor >  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.codigoempleado}"  />
@@ -117,7 +118,8 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['nomempl']}" sortBy="#{info.persona.nombreCompleto}" filterBy="#{info.persona.nombreCompleto}" filterMatchMode="contains"  width="72" id="nombreEmpl" filterStyle="display: none; visibility: hidden;" style="width: 110px;" >  
+                                <p:column headerText="#{msg['nomempl']}" sortBy="#{info.persona.nombreCompleto}" filterBy="#{info.persona.nombreCompleto}" width="300"
+                                          filterMatchMode="contains"  id="nombreEmpl" filterStyle="display: none; visibility: hidden;"  >  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.persona.nombreCompleto}" />
@@ -133,9 +135,9 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['coddeudor']}" sortBy="#{info.codigoalternativodeudor}" filterBy="#{info.codigoalternativodeudor}"
-                                          filterMatchMode="contains" id="codDeudor" filterStyle="display: none; visibility: hidden;" >                                  
+                                          filterMatchMode="contains" id="codDeudor" filterStyle="display: none; visibility: hidden;"  style="text-align: center">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.codigoalternativodeudor}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigoalternativodeudor}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{info.codigoalternativodeudor}" id="editarcodigodeudor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
                                                          onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
@@ -149,7 +151,7 @@
                                     </f:facet>
                                 </p:column>  
 
-                                <p:column headerText="#{msg['codacree']}" filterBy="#{info.codigoalternativoacreedor}" sortBy="#{info.codigoalternativoacreedor}" width="76"
+                                <p:column headerText="#{msg['codacree']}" filterBy="#{info.codigoalternativoacreedor}" sortBy="#{info.codigoalternativoacreedor}" 
                                           filterMatchMode="contains" id="codAcreedor" filterStyle="display: none; visibility: hidden;"  style="text-align: center;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigoalternativoacreedor}" style="width: 100px;"/></f:facet>  
@@ -165,10 +167,14 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['fechacreacion']}" sortBy="#{info.fechacreacion}" filterBy="#{info.fechacreacion}" width="76"
+                                <p:column headerText="#{msg['fechacreacion']}" sortBy="#{info.fechacreacion}" filterBy="#{info.fechacreacion}" 
                                           filterMatchMode="contains" id="fechaCreacion" filterStyle="display: none; visibility: hidden;"  style="text-align: center;" > 
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.fechacreacion}" style="width: 100px;"/></f:facet>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.fechacreacion}" style="width: 100px;">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />    
+                                            </h:outputText>    
+                                        </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  readonly="true" onselect="posicionOtro([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);" /> 
                                         </f:facet>  
@@ -184,11 +190,11 @@
                         <p:remoteCommand name="posicionOtro" actionListener="#{controlEmpleado.posicionOtro()}"/>
                         
                     </p:panel>
-                </h:form>
-                <p:commandButton id="btnBuscarEmpleados" style="position: absolute; left: 630px; top: 20px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/buscardbL.png); 
+                <p:commandButton id="btnBuscarEmpleados" style="position: absolute; left: 22px; top: 485px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/buscardbL.png); 
                                  background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlEmpleado.dispararLovEmpleados()}" process="@this"/>
-                <p:commandButton id="btnMostrarTodos" style="position: absolute; left: 630px; top: 60px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/todosdbL.png); 
+                <p:commandButton id="btnMostrarTodos" style="position: absolute; left: 215px; top: 485px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/todosdbL.png); 
                                  background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" "  actionListener="#{controlEmpleado.mostrarTodos()}" process="@this"/>
+                </h:form>
 
 
                 <h:form id="formularioDialogos">
@@ -199,7 +205,7 @@
                                      selection="#{controlEmpleado.empleadoLovSeleccionado}" selectionMode="single" widgetVar="LOVEmpleados" scrollable="true" scrollWidth="415" scrollHeight="250"
                                      filteredValue="#{controlEmpleado.filtrarlovEmpleados}" emptyMessage="#{msg['lovvacio']}">   
                             <p:ajax event="filter" listener="#{controlEmpleado.eventoFiltrarLovEmpleados()}"/>
-                            <p:ajax event="rowSelect" listener="#{controlEmpleado.activarAceptar()}" update=":form:aceptarD"/>
+                            <p:ajax event="rowSelect" listener="#{controlEmpleado.activarAceptar()}" update=":formularioDialogos:aceptarD"/>
                             <p:ajax event="rowDblselect" listener="#{controlEmpleado.actualizarEmpleados()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
@@ -309,8 +315,9 @@
                     </p:dialog>
 
                     <p:dialog id="editarFechaE" header="#{msg['editarFechaE']}" widgetVar="editarFechaE" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmpleado.editarEmpleado.fechacreacion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
-                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        <p:inputTextarea value="#{controlEmpleado.editarEmpleado.fechacreacion}"  style="overflow: auto; width: 360px; height: 60px" readonly="true" > 
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>    
+                        </p:inputTextarea>    
                     </p:dialog>
                 </h:form>
 
