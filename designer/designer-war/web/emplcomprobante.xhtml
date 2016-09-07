@@ -248,15 +248,15 @@
                                             </f:facet>
                                         </p:column>
 
-                                        <p:column id="codigoSNE2" headerText="#{msg['codigo']}" width="40" sortBy="#{solucionNodoEmpleado.concepto.codigo}" filterBy="#{solucionNodoEmpleado.concepto.codigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
-                                            <h:outputText value="#{solucionNodoEmpleado.concepto.codigo}" />  
+                                        <p:column id="codigoSNE2" headerText="#{msg['codigo']}" width="40" sortBy="#{solucionNodoEmpleado.codigoconcepto}" filterBy="#{solucionNodoEmpleado.codigoconcepto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
+                                            <h:outputText value="#{solucionNodoEmpleado.codigoconcepto}" />  
                                             <f:facet name="footer">
                                                 <h:outputText value=""/>
                                             </f:facet>
                                         </p:column>  
 
-                                        <p:column id="descripcionSNE2" headerText="#{msg['descripcion']}" sortBy="#{solucionNodoEmpleado.concepto.descripcion}" filterBy="#{solucionNodoEmpleado.concepto.descripcion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
-                                            <h:outputText value="#{solucionNodoEmpleado.concepto.descripcion}" /> 
+                                        <p:column id="descripcionSNE2" headerText="#{msg['descripcion']}" sortBy="#{solucionNodoEmpleado.nombreconcepto}" filterBy="#{solucionNodoEmpleado.nombreconcepto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
+                                            <h:outputText value="#{solucionNodoEmpleado.nombreconcepto}" /> 
                                             <f:facet name="footer">
                                                 <h:outputText value=""/>
                                             </f:facet>
@@ -304,16 +304,16 @@
                                             </f:facet>
                                         </p:column>
 
-                                        <p:column id="terceroSNE" headerText="#{msg['nombretercero']}" sortBy="#{solucionNodoEmpleado.nit.nombre}" width="146" filterBy="#{solucionNodoEmpleado.nit.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                        <p:column id="terceroSNE" headerText="#{msg['nombretercero']}" sortBy="#{solucionNodoEmpleado.nombretercero}" width="146" filterBy="#{solucionNodoEmpleado.nombretercero}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                                             <p:cellEditor>  
                                                 <f:facet name="output">
-                                                    <h:outputText value="#{solucionNodoEmpleado.nit.nombre}" >
+                                                    <h:outputText value="#{solucionNodoEmpleado.nombretercero}" >
                                                         <f:convertDateTime pattern="dd/MM/yyyy" />
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <p:inputText value="#{solucionNodoEmpleado.nit.nombre}" style="width: 96%; text-transform: uppercase;height: 12px;">
-                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('TERCERO', solucionNodoEmpleado, solucionNodoEmpleado.nit.nombre)}"/>
+                                                    <p:inputText value="#{solucionNodoEmpleado.nombretercero}" style="width: 96%; text-transform: uppercase;height: 12px;">
+                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('TERCERO', solucionNodoEmpleado, solucionNodoEmpleado.nombretercero)}"/>
                                                         <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleado(solucionNodoEmpleado, 7)}"/>
                                                         <p:ajax event="dblclick" listener="#{controlEmplComprobantes.llamarLOVTerceros()}"/>
                                                     </p:inputText>
@@ -324,15 +324,15 @@
                                             </f:facet>
                                         </p:column>
 
-                                        <p:column id="debitoSNE" headerText="#{msg['debito']}" sortBy="#{solucionNodoEmpleado.cuentad.codigo}" style="width: 40px;" filterBy="#{solucionNodoEmpleado.cuentad.codigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
+                                        <p:column id="debitoSNE" headerText="#{msg['debito']}" sortBy="#{solucionNodoEmpleado.codigocuentad}" style="width: 40px;" filterBy="#{solucionNodoEmpleado.codigocuentad}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
                                             <p:cellEditor>  
                                                 <f:facet name="output">
-                                                    <h:outputText value="#{solucionNodoEmpleado.cuentad.codigo}" >
+                                                    <h:outputText value="#{solucionNodoEmpleado.codigocuentad}" >
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <p:inputText value="#{solucionNodoEmpleado.cuentad.codigo}" style="width: 96%; text-transform: uppercase;height: 12px;">
-                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('DEBITO', solucionNodoEmpleado, solucionNodoEmpleado.cuentad.codigo)}"/>
+                                                    <p:inputText value="#{solucionNodoEmpleado.codigocuentad}" style="width: 96%; text-transform: uppercase;height: 12px;">
+                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('DEBITO', solucionNodoEmpleado, solucionNodoEmpleado.codigocuentad)}"/>
                                                         <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleado(solucionNodoEmpleado, 8)}"/>
                                                         <p:ajax event="dblclick" listener="#{controlEmplComprobantes.llamarLOVCuentaDebito()}"/>
                                                     </p:inputText>
@@ -343,15 +343,15 @@
                                             </f:facet>
                                         </p:column>
 
-                                        <p:column id="centroCostoDSNE" headerText="#{msg['ccd']}" sortBy="#{solucionNodoEmpleado.centrocostod.nombre}" style="width: 90px;" filterBy="#{solucionNodoEmpleado.centrocostod.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                        <p:column id="centroCostoDSNE" headerText="#{msg['ccd']}" sortBy="#{solucionNodoEmpleado.nombrecentrocostod}" style="width: 90px;" filterBy="#{solucionNodoEmpleado.nombrecentrocostod}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                                             <p:cellEditor>  
                                                 <f:facet name="output">
-                                                    <h:outputText value="#{solucionNodoEmpleado.centrocostod.nombre}" >
+                                                    <h:outputText value="#{solucionNodoEmpleado.nombrecentrocostod}" >
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <p:inputText value="#{solucionNodoEmpleado.centrocostod.nombre}" style="width: 96%; text-transform: uppercase;height: 12px;">
-                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CENTROCOSTODEBITO', solucionNodoEmpleado, solucionNodoEmpleado.centrocostod.nombre)}"/>
+                                                    <p:inputText value="#{solucionNodoEmpleado.nombrecentrocostod}" style="width: 96%; text-transform: uppercase;height: 12px;">
+                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CENTROCOSTODEBITO', solucionNodoEmpleado, solucionNodoEmpleado.nombrecentrocostod)}"/>
                                                         <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleado(solucionNodoEmpleado, 9)}"/>
                                                         <p:ajax event="dblclick" listener="#{controlEmplComprobantes.llamarLOVCentroCostoDebito()}"/>
                                                     </p:inputText>
@@ -365,15 +365,15 @@
                                             </f:facet>
                                         </p:column>
 
-                                        <p:column id="creditoSNE" headerText="#{msg['credito']}" sortBy="#{solucionNodoEmpleado.cuentac.codigo}" style="width: 40px;" filterBy="#{solucionNodoEmpleado.cuentac.codigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                        <p:column id="creditoSNE" headerText="#{msg['credito']}" sortBy="#{solucionNodoEmpleado.codigocuentac}" style="width: 40px;" filterBy="#{solucionNodoEmpleado.codigocuentac}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                                             <p:cellEditor>  
                                                 <f:facet name="output">
-                                                    <h:outputText value="#{solucionNodoEmpleado.cuentac.codigo}" >
+                                                    <h:outputText value="#{solucionNodoEmpleado.codigocuentac}" >
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <p:inputText value="#{solucionNodoEmpleado.cuentac.codigo}" style="width: 96%; text-transform: uppercase;height: 12px;">
-                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CREDITO', solucionNodoEmpleado, solucionNodoEmpleado.cuentac.codigo)}"/>
+                                                    <p:inputText value="#{solucionNodoEmpleado.codigocuentac}" style="width: 96%; text-transform: uppercase;height: 12px;">
+                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CREDITO', solucionNodoEmpleado, solucionNodoEmpleado.codigocuentac)}"/>
                                                         <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleado(solucionNodoEmpleado, 10)}"/>
                                                         <p:ajax event="dblclick" listener="#{controlEmplComprobantes.llamarLOVCuentaCredito()}"/>
                                                     </p:inputText>
@@ -384,15 +384,15 @@
                                             </f:facet>
                                         </p:column>
 
-                                        <p:column id="centroCostoCSNE" headerText="#{msg['ccc']}" sortBy="#{solucionNodoEmpleado.centrocostoc.nombre}" style="width: 90px;" filterBy="#{solucionNodoEmpleado.centrocostoc.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
+                                        <p:column id="centroCostoCSNE" headerText="#{msg['ccc']}" sortBy="#{solucionNodoEmpleado.nombrecentrocostoc}" style="width: 90px;" filterBy="#{solucionNodoEmpleado.nombrecentrocostoc}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
                                             <p:cellEditor>  
                                                 <f:facet name="output">
-                                                    <h:outputText value="#{solucionNodoEmpleado.centrocostoc.nombre}" >
+                                                    <h:outputText value="#{solucionNodoEmpleado.nombrecentrocostoc}" >
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <p:inputText value="#{solucionNodoEmpleado.centrocostoc.nombre}" style="width: 96%; text-transform: uppercase;height: 12px;">
-                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CENTROCOSTOCREDITO', solucionNodoEmpleado, solucionNodoEmpleado.centrocostoc.nombre)}"/>
+                                                    <p:inputText value="#{solucionNodoEmpleado.nombrecentrocostoc}" style="width: 96%; text-transform: uppercase;height: 12px;">
+                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CENTROCOSTOCREDITO', solucionNodoEmpleado, solucionNodoEmpleado.nombrecentrocostoc)}"/>
                                                         <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleado(solucionNodoEmpleado, 11)}"/>
                                                         <p:ajax event="dblclick" listener="#{controlEmplComprobantes.llamarLOVCentroCostoCredito()}"/>
                                                     </p:inputText>
@@ -459,15 +459,15 @@
                                             </f:facet>
                                         </p:column>
 
-                                        <p:column id="codigoSNEM" headerText="#{msg['codigo']}" sortBy="#{solucionNodoEmpleador.concepto.codigo}" width="40" filterBy="#{solucionNodoEmpleador.concepto.codigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
-                                            <h:outputText value="#{solucionNodoEmpleador.concepto.codigo}"/>  
+                                        <p:column id="codigoSNEM" headerText="#{msg['codigo']}" sortBy="#{solucionNodoEmpleador.codigoconcepto}" width="40" filterBy="#{solucionNodoEmpleador.codigoconcepto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
+                                            <h:outputText value="#{solucionNodoEmpleador.codigoconcepto}"/>  
                                             <f:facet name="footer">
                                                 <h:outputText value=""/>
                                             </f:facet>
                                         </p:column>  
 
-                                        <p:column id="descripcionSNEM" headerText="#{msg['descripcion']}" sortBy="#{solucionNodoEmpleador.concepto.descripcion}" filterBy="#{solucionNodoEmpleador.concepto.descripcion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
-                                            <h:outputText value="#{solucionNodoEmpleador.concepto.descripcion}"/>  
+                                        <p:column id="descripcionSNEM" headerText="#{msg['descripcion']}" sortBy="#{solucionNodoEmpleador.nombreconcepto}" filterBy="#{solucionNodoEmpleador.nombreconcepto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
+                                            <h:outputText value="#{solucionNodoEmpleador.nombreconcepto}"/>  
                                             <f:facet name="footer">
                                                 <h:outputText value=""/>
                                             </f:facet>
@@ -512,14 +512,14 @@
                                             </f:facet>
                                         </p:column>
 
-                                        <p:column id="terceroSNEM" headerText="#{msg['nombretercero']}" sortBy="#{solucionNodoEmpleador.nit.nombre}" width="146" filterBy="#{solucionNodoEmpleador.nit.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                        <p:column id="terceroSNEM" headerText="#{msg['nombretercero']}" sortBy="#{solucionNodoEmpleador.nombretercero}" width="146" filterBy="#{solucionNodoEmpleador.nombretercero}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                                             <p:cellEditor>  
                                                 <f:facet name="output">
-                                                    <h:outputText value="#{solucionNodoEmpleador.nit.nombre}"/>
+                                                    <h:outputText value="#{solucionNodoEmpleador.nombretercero}"/>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <p:inputText value="#{solucionNodoEmpleador.nit.nombre}" style="width: 96%; text-transform: uppercase; height: 12px;">
-                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('TERCERO',solucionNodoEmpleador, solucionNodoEmpleador.nit.nombre)}"/>
+                                                    <p:inputText value="#{solucionNodoEmpleador.nombretercero}" style="width: 96%; text-transform: uppercase; height: 12px;">
+                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('TERCERO',solucionNodoEmpleador, solucionNodoEmpleador.nombretercero)}"/>
                                                         <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleador(solucionNodoEmpleador, 7)}"/>
                                                         <p:ajax event="dblclick" listener="#{controlEmplComprobantes.llamarLOVTerceros()}"/>
                                                     </p:inputText>
@@ -530,15 +530,15 @@
                                             </f:facet>
                                         </p:column>
 
-                                        <p:column id="debitoSNEM" headerText="#{msg['debito']}" sortBy="#{solucionNodoEmpleador.cuentad.codigo}" width="40" filterBy="#{solucionNodoEmpleador.cuentad.codigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
+                                        <p:column id="debitoSNEM" headerText="#{msg['debito']}" sortBy="#{solucionNodoEmpleador.codigocuentad}" width="40" filterBy="#{solucionNodoEmpleador.codigocuentad}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
                                             <p:cellEditor>  
                                                 <f:facet name="output">
-                                                    <h:outputText value="#{solucionNodoEmpleador.cuentad.codigo}" >
+                                                    <h:outputText value="#{solucionNodoEmpleador.codigocuentad}" >
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <p:inputText value="#{solucionNodoEmpleador.cuentad.codigo}" style="width: 96%; text-transform: uppercase;height: 12px;">
-                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('DEBITO',solucionNodoEmpleador, solucionNodoEmpleador.cuentad.codigo)}"/>
+                                                    <p:inputText value="#{solucionNodoEmpleador.codigocuentad}" style="width: 96%; text-transform: uppercase;height: 12px;">
+                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('DEBITO',solucionNodoEmpleador, solucionNodoEmpleador.codigocuentad)}"/>
                                                         <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleador(solucionNodoEmpleador, 8)}"/>
                                                         <p:ajax event="dblclick" listener="#{controlEmplComprobantes.llamarLOVCuentaDebito()}"/>
                                                     </p:inputText>
@@ -549,15 +549,15 @@
                                             </f:facet>
                                         </p:column>
 
-                                        <p:column id="centroCostoDSNEM" headerText="#{msg['ccd']}" sortBy="#{solucionNodoEmpleador.centrocostod.nombre}" width="90" filterBy="#{solucionNodoEmpleador.centrocostod.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                        <p:column id="centroCostoDSNEM" headerText="#{msg['ccd']}" sortBy="#{solucionNodoEmpleador.nombrecentrocostod}" width="90" filterBy="#{solucionNodoEmpleador.nombrecentrocostod}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                                             <p:cellEditor>  
                                                 <f:facet name="output">
-                                                    <h:outputText value="#{solucionNodoEmpleador.centrocostod.nombre}" >
+                                                    <h:outputText value="#{solucionNodoEmpleador.nombrecentrocostod}" >
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <p:inputText value="#{solucionNodoEmpleador.centrocostod.nombre}" style="width: 96%; text-transform: uppercase;height: 12px;">
-                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CENTROCOSTODEBITO',solucionNodoEmpleador, solucionNodoEmpleador.centrocostod.nombre)}"/>
+                                                    <p:inputText value="#{solucionNodoEmpleador.nombrecentrocostod}" style="width: 96%; text-transform: uppercase;height: 12px;">
+                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CENTROCOSTODEBITO',solucionNodoEmpleador, solucionNodoEmpleador.nombrecentrocostod)}"/>
                                                         <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleador(solucionNodoEmpleador, 9)}"/>
                                                         <p:ajax event="dblclick" listener="#{controlEmplComprobantes.llamarLOVCentroCostoDebito()}"/>
                                                     </p:inputText>
@@ -568,15 +568,15 @@
                                             </f:facet>
                                         </p:column>
 
-                                        <p:column id="creditoSNEM" headerText="#{msg['credito']}" sortBy="#{solucionNodoEmpleador.cuentac.codigo}" width="40" filterBy="#{solucionNodoEmpleador.cuentac.codigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                        <p:column id="creditoSNEM" headerText="#{msg['credito']}" sortBy="#{solucionNodoEmpleador.codigocuentac}" width="40" filterBy="#{solucionNodoEmpleador.codigocuentac}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                                             <p:cellEditor>  
                                                 <f:facet name="output">
-                                                    <h:outputText value="#{solucionNodoEmpleador.cuentac.codigo}" >
+                                                    <h:outputText value="#{solucionNodoEmpleador.codigocuentac}" >
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <p:inputText value="#{solucionNodoEmpleador.cuentac.codigo}" style="width: 96%; text-transform: uppercase;height: 12px;">
-                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CREDITO',solucionNodoEmpleador, solucionNodoEmpleador.cuentac.codigo)}"/>
+                                                    <p:inputText value="#{solucionNodoEmpleador.codigocuentac}" style="width: 96%; text-transform: uppercase;height: 12px;">
+                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CREDITO',solucionNodoEmpleador, solucionNodoEmpleador.codigocuentac)}"/>
                                                         <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleador(solucionNodoEmpleador, 10)}"/>
                                                         <p:ajax event="dblclick" listener="#{controlEmplComprobantes.llamarLOVCuentaCredito()}"/>
                                                     </p:inputText>
@@ -587,15 +587,15 @@
                                             </f:facet>
                                         </p:column>
 
-                                        <p:column id="centroCostoCSNEM" headerText="#{msg['ccc']}" sortBy="#{solucionNodoEmpleador.centrocostoc.nombre}" width="90" filterBy="#{solucionNodoEmpleador.centrocostoc.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
+                                        <p:column id="centroCostoCSNEM" headerText="#{msg['ccc']}" sortBy="#{solucionNodoEmpleador.nombrecentrocostoc}" width="90" filterBy="#{solucionNodoEmpleador.nombrecentrocostoc}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
                                             <p:cellEditor>  
                                                 <f:facet name="output">
-                                                    <h:outputText value="#{solucionNodoEmpleador.centrocostoc.nombre}" >
+                                                    <h:outputText value="#{solucionNodoEmpleador.nombrecentrocostoc}" >
                                                     </h:outputText>
                                                 </f:facet>  
                                                 <f:facet name="input">
-                                                    <p:inputText value="#{solucionNodoEmpleador.centrocostoc.nombre}" style="width: 96%; text-transform: uppercase; height: 12px;">
-                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CENTROCOSTOCREDITO',solucionNodoEmpleador, solucionNodoEmpleador.centrocostoc.nombre)}"/>
+                                                    <p:inputText value="#{solucionNodoEmpleador.nombrecentrocostoc}" style="width: 96%; text-transform: uppercase; height: 12px;">
+                                                        <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CENTROCOSTOCREDITO',solucionNodoEmpleador, solucionNodoEmpleador.nombrecentrocostoc)}"/>
                                                         <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleador(solucionNodoEmpleador, 11)}"/>
                                                         <p:ajax event="dblclick" listener="#{controlEmplComprobantes.llamarLOVCentroCostoCredito()}"/>
                                                     </p:inputText>
@@ -1225,12 +1225,12 @@
 
                         <p:column headerText="#{msg['codigo']}">
                             <f:facet name="header"><h:outputText value="#{msg['codigo']}"/> </f:facet> 
-                            <h:outputText value="#{solucionNodoEmpleadoE.concepto.codigo}" />  
+                            <h:outputText value="#{solucionNodoEmpleadoE.codigoconcepto}" />  
                         </p:column>  
 
                         <p:column headerText="#{msg['descripcion']}">
                             <f:facet name="header"><h:outputText value="#{msg['descripcion']}"/> </f:facet> 
-                            <h:outputText value="#{solucionNodoEmpleadoE.concepto.descripcion}" />  
+                            <h:outputText value="#{solucionNodoEmpleadoE.nombreconcepto}" />  
                         </p:column>  
 
                         <p:column headerText="#{msg['desde']}">
@@ -1264,27 +1264,27 @@
 
                         <p:column headerText="#{msg['terceroX']}"> 
                             <f:facet name="header"><h:outputText value="#{msg['nombretercero']}"/> </f:facet> 
-                            <h:outputText value="#{solucionNodoEmpleadoE.nit.nombre}"/>
+                            <h:outputText value="#{solucionNodoEmpleadoE.nombretercero}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['debito']}">
                             <f:facet name="header"><h:outputText value="#{msg['debito']}"/> </f:facet> 
-                            <h:outputText value="#{solucionNodoEmpleadoE.cuentad.codigo}"/>
+                            <h:outputText value="#{solucionNodoEmpleadoE.codigocuentad}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['ccd']}">
                             <f:facet name="header"><h:outputText value="#{msg['ccd']}"/> </f:facet> 
-                            <h:outputText value="#{solucionNodoEmpleadoE.centrocostod.nombre}"/>
+                            <h:outputText value="#{solucionNodoEmpleadoE.nombrecentrocostod}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['credito']}">
                             <f:facet name="header"><h:outputText value="#{msg['credito']}"/> </f:facet> 
-                            <h:outputText value="#{solucionNodoEmpleadoE.cuentac.codigo}" />
+                            <h:outputText value="#{solucionNodoEmpleadoE.codigocuentac}" />
                         </p:column>
 
                         <p:column headerText="#{msg['ccc']}">
                             <f:facet name="header"><h:outputText value="#{msg['ccc']}"/> </f:facet> 
-                            <h:outputText value="#{solucionNodoEmpleadoE.centrocostoc.nombre}" />
+                            <h:outputText value="#{solucionNodoEmpleadoE.nombrecentrocostoc}" />
                         </p:column>
 
                         <p:column headerText="#{msg['saldo']}"> 
@@ -1305,12 +1305,12 @@
 
                         <p:column headerText="#{msg['codigo']}">
                             <f:facet name="header"><h:outputText value="#{msg['codigo']}"/> </f:facet> 
-                            <h:outputText value="#{solucionNodoEmpleadorE.concepto.codigo}" />  
+                            <h:outputText value="#{solucionNodoEmpleadorE.codigoconcepto}" />  
                         </p:column>  
 
                         <p:column headerText="#{msg['descripcion']}">
                             <f:facet name="header"><h:outputText value="#{msg['descripcion']}"/> </f:facet> 
-                            <h:outputText value="#{solucionNodoEmpleadorE.concepto.descripcion}" />  
+                            <h:outputText value="#{solucionNodoEmpleadorE.nombreconcepto}" />  
                         </p:column>  
 
                         <p:column headerText="#{msg['desde']}">
@@ -1344,27 +1344,27 @@
 
                         <p:column headerText="#{msg['terceroX']}">
                             <f:facet name="header"><h:outputText value="#{msg['nombretercero']}"/> </f:facet> 
-                            <h:outputText value="#{solucionNodoEmpleadorE.nit.nombre}"/>
+                            <h:outputText value="#{solucionNodoEmpleadorE.nombretercero}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['debito']}">
                             <f:facet name="header"><h:outputText value="#{msg['debito']}"/> </f:facet> 
-                            <h:outputText value="#{solucionNodoEmpleadorE.cuentad.codigo}"/>
+                            <h:outputText value="#{solucionNodoEmpleadorE.codigocuentad}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['ccd']}"> 
                             <f:facet name="header"><h:outputText value="#{msg['ccd']}"/> </f:facet> 
-                            <h:outputText value="#{solucionNodoEmpleadorE.centrocostod.nombre}"/>
+                            <h:outputText value="#{solucionNodoEmpleadorE.nombrecentrocostod}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['credito']}">
                             <f:facet name="header"><h:outputText value="#{msg['credito']}"/> </f:facet> 
-                            <h:outputText value="#{solucionNodoEmpleadorE.cuentac.codigo}" />
+                            <h:outputText value="#{solucionNodoEmpleadorE.codigocuentac}" />
                         </p:column>
 
                         <p:column headerText="#{msg['ccc']}">
                             <f:facet name="header"><h:outputText value="#{msg['ccc']}"/> </f:facet> 
-                            <h:outputText value="#{solucionNodoEmpleadorE.centrocostoc.nombre}" />
+                            <h:outputText value="#{solucionNodoEmpleadorE.nombrecentrocostoc}" />
                         </p:column>
 
                         <p:column headerText="#{msg['saldo']}"> 

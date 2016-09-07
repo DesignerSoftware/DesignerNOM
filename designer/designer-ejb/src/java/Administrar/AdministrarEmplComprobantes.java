@@ -223,8 +223,8 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
     public void modificarSolucionesNodosEmpleado(List<SolucionesNodos> listaSolucionesNodosEmpleado) {
         for (int i = 0; i < listaSolucionesNodosEmpleado.size(); i++) {
             System.out.println("Modificando Soluciones Nodo Empleado...");
-            if (listaSolucionesNodosEmpleado.get(i).getNit().getSecuencia() == null) {
-                listaSolucionesNodosEmpleado.get(i).setNit(null);
+            if (listaSolucionesNodosEmpleado.get(i).getNittercero() == null) {
+                listaSolucionesNodosEmpleado.get(i).setNittercero(null);
                 persistenciaSolucionesNodos.editar(em, listaSolucionesNodosEmpleado.get(i));
             } else {
                 persistenciaSolucionesNodos.editar(em, listaSolucionesNodosEmpleado.get(i));

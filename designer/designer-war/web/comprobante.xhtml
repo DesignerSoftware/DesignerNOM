@@ -72,7 +72,7 @@
                             </p:toolbarGroup>
                         </p:toolbar> 
 
-                                <p:commandButton style="width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: absolute; left: 760px; top: 500px;" id="ATRAS" value=" " actionListener="#{controlComprobantes.salir()}" action="nomina" process="@this" />
+                        <p:commandButton style="width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: absolute; left: 760px; top: 500px;" id="ATRAS" value=" " actionListener="#{controlComprobantes.salir()}" action="nomina" process="@this" />
                         <fieldset style="position: relative; left: -5px; top: 40px; width: 835px; height: 78px; border-radius: 10px; ">
                             <!--<legend style="color: blue;text-align: left"><strong>/#/{msg['empleado']}</strong></legend>-->
                             <p:panel id="panelInf" style="border: none; height: 76px; margin-top: 0px">
@@ -115,508 +115,590 @@
                         <fieldset style="position: absolute;left: 10px; top: 168px; width: 835px; height: 148px; border-radius: 10px; ">
                             <legend style="font-weight: bold; color: #00F;">#{msg['empleado']}</legend>
 
-                            <p:dataTable id="datosSolucionesNodosEmpleado" widgetVar="datosSolucionesNodosEmpleado" var="solucionNodoEmpleado" rowKey="#{solucionNodoEmpleado.secuencia}" style="width: 830px;" 
+                            <p:dataTable id="datosSolucionesNodosEmpleado" widgetVar="datosSolucionesNodosEmpleado" styleClass="tabla" var="solucionNodoEmpleado" rowKey="#{solucionNodoEmpleado.secuencia}" style="width: 830px;" 
                                          value="#{controlComprobantes.listaSolucionesNodosEmpleado}" scrollable="true" rowIndexVar="indice" scrollHeight="#{controlComprobantes.altoScrollSolucionesNodosEmpleado}" 
-                                         scrollWidth="830" editable="true" editMode="cell" liveScroll="true" scrollRows="15" filteredValue="#{controlComprobantes.filtradolistaSolucionesNodosEmpleado}" 
+                                         scrollWidth="830" editable="false" filteredValue="#{controlComprobantes.filtradolistaSolucionesNodosEmpleado}" 
                                          selectionMode="single" selection="#{controlComprobantes.solucionNodoSeleccionada}" emptyMessage="#{msg['vacio']}">
                                 <p:ajax event="filter" listener="#{controlComprobantes.eventoFiltrarComprobanteEmpleado()}"/>
-                                
-                                <p:column width="20" style="padding: 0px"> 
-                                    <p:commandButton value="" style="width: 20px; height: 20px;" actionListener="#{controlComprobantes.parcialSolucionNodo(solucionNodoEmpleado,0)}"/>
+
+                                <p:column width="5" style="padding: 0px"> 
+                                    <p:commandButton id="detallesconcepto" value="" style="width: 20px; height: 20px;" actionListener="#{controlComprobantes.parcialSolucionNodo(solucionNodoEmpleado,0)}"/>
+                                    <p:tooltip  for="detallesconcepto" value="#{msg['detallesconcepto']}" />
                                 </p:column>
 
-                                <p:column id="codigoSNE" headerText="#{msg['codigo']}" sortBy="#{solucionNodoEmpleado.concepto.codigo}" width="50" filterBy="#{solucionNodoEmpleado.concepto.codigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleado.concepto.codigo}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleado.concepto.codigo}" style="width: 98%; text-transform: uppercase" readonly="true" 
-                                                           onselect="posicionOtro([{name: 'celda', value: '1'}, {name: 'registro', value: '#{indice}'}]);"  >
-                                            <!--<p:ajax event="select" listener="#/{controlComprobantes.cambiarIndice(solucionNodoEmpleado,1)}" />-->
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="codigoSNE" sortBy="#{solucionNodoEmpleado.codigoconcepto}" width="50" filterBy="#{solucionNodoEmpleado.codigoconcepto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tcodigoSNE" value="#{msg['codigo']}" />
+                                        <p:tooltip for="tcodigoSNE" value="#{msg['codconcepto']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleado.codigoconcepto}" />
+                                    <!--                                    <p:cellEditor> 
+                                                                            <p:inputText value="#{solucionNodoEmpleado.codigoconcepto}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                           onselect="posicionOtro([{name: 'celda', value: '1'}, {name: 'registro', value: '#{indice}'}]);"  >
+                                                                            </p:inputText>
+                                                                            <f:facet name="output"> 
+                                                                            </f:facet>  
+                                                                            <f:facet name="input">
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
-                                <p:column id="descipcionSNE" headerText="#{msg['descripcion']}" sortBy="#{solucionNodoEmpleado.concepto.descripcion}" width="200" filterBy="#{solucionNodoEmpleado.concepto.descripcion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleado.concepto.descripcion}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleado.concepto.descripcion}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtro([{name: 'celda', value: '2'}, {name: 'registro', value: '#{indice}'}]);" >
-                                            <!--<p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,2)}" />-->
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="descipcionSNE"  sortBy="#{solucionNodoEmpleado.nombreconcepto}" width="200" filterBy="#{solucionNodoEmpleado.nombreconcepto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tdescripcionSNE" value="#{msg['descripcion']}" />
+                                        <p:tooltip for="tdescripcionSNE" value="#{msg['desconcepto']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleado.nombreconcepto}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleado.nombreconcepto}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtro([{name: 'celda', value: '2'}, {name: 'registro', value: '#{indice}'}]);" >
+                                                                                <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,2)}" />
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
-                                <p:column id="unidadSNE" headerText="#{msg['u']}" sortBy="#{solucionNodoEmpleado.unidades}" width="40" filterBy="#{solucionNodoEmpleado.unidades}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleado.unidades}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleado.unidades}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtro([{name: 'celda', value: '3'}, {name: 'registro', value: '#{indice}'}]);" >
-                                            <!--<p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,3)}" />-->
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="unidadSNE"  sortBy="#{solucionNodoEmpleado.unidades}" width="40" filterBy="#{solucionNodoEmpleado.unidades}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tunidadSNE" value="#{msg['u']}" />
+                                        <p:tooltip for="tunidadSNE" value="#{msg['uconcepto']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleado.unidades}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleado.unidades}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtro([{name: 'celda', value: '3'}, {name: 'registro', value: '#{indice}'}]);" >
+                                                                                <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,3)}" />
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
                                 <p:column id="pagoSNE"  sortBy="#{solucionNodoEmpleado.pago}" width="116.5" filterBy="#{solucionNodoEmpleado.pago}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="text-align: right;" >                                    
-                                    <f:facet name="header"><h:outputText value="#{msg['pago']}" /></f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleado.pago}" style="text-align: right">
-                                                <f:convertNumber currencyCode="COP"/>
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleado.pago}" style="width: 98%; text-transform: uppercase; text-align: right" readonly="true"
-                                                         onselect="posicionOtro([{name: 'celda', value: '4'}, {name: 'registro', value: '#{indice}'}]);" >
-                                                <!--<p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,4)}" />-->
-                                                <f:convertNumber currencyCode="COP"/>
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                    <f:facet name="header" >
+                                        <h:outputText id="tpagoSNE" value="#{msg['pago']}" />
+                                        <p:tooltip for="tpagoSNE" value="#{msg['pagocomp']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleado.pago}" style="text-align: right">
+                                        <f:convertNumber currencyCode="COP"/>
+                                    </h:outputText>
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleado.pago}" style="width: 98%; text-transform: uppercase; text-align: right" readonly="true"
+                                                                                             onselect="posicionOtro([{name: 'celda', value: '4'}, {name: 'registro', value: '#{indice}'}]);" >
+                                                                                    <f:convertNumber currencyCode="COP"/>
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
-                                <p:column id="descuentoSNE" headerText="#{msg['descuento']}" sortBy="#{solucionNodoEmpleado.descuento}" width="116.5"  filterBy="#{solucionNodoEmpleado.descuento}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="text-align: right;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleado.descuento}">
-                                                <f:convertNumber currencyCode="COP"/>
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleado.descuento}" style="width: 98%; text-transform: uppercase" readonly="true" 
-                                                         onselect="posicionOtro([{name: 'celda', value: '5'}, {name: 'registro', value: '#{indice}'}]);" >
-                                                <!--<p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,5)}" />-->
-                                                <f:convertNumber currencyCode="COP"/>
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="descuentoSNE" sortBy="#{solucionNodoEmpleado.descuento}" width="116.5"  filterBy="#{solucionNodoEmpleado.descuento}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="text-align: right;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tdescuentoSNE" value="#{msg['descuento']}" />
+                                        <p:tooltip for="tdescuentoSNE" value="#{msg['desccomp']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleado.descuento}">
+                                        <f:convertNumber currencyCode="COP"/>
+                                    </h:outputText>
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleado.descuento}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                             onselect="posicionOtro([{name: 'celda', value: '5'}, {name: 'registro', value: '#{indice}'}]);" >
+                                                                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,5)}" />
+                                                                                    <f:convertNumber currencyCode="COP"/>
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
-                                <p:column id="terceroSNE" headerText="#{msg['tercero']}" sortBy="#{solucionNodoEmpleado.nit.nombre}" width="200" filterBy="#{solucionNodoEmpleado.nit.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleado.nit.nombre}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleado.nit.nombre}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                        onselect="posicionOtro([{name: 'celda', value: '6'}, {name: 'registro', value: '#{indice}'}]);" >
-                                            <!--<p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,6)}" />-->
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
-                                </p:column>
-
-                                <p:column id="fechaHastaSNE" headerText="#{msg['hasta']}" sortBy="#{solucionNodoEmpleado.fechahasta}" width="60" filterBy="#{solucionNodoEmpleado.fechahasta}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleado.fechahasta}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText> 
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleado.fechahasta}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtro([{name: 'celda', value: '7'}, {name: 'registro', value: '#{indice}'}]);" >
-                                                <!--<p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,7)}" />-->
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="terceroSNE" headerText="#{msg['tercero']}" sortBy="#{solucionNodoEmpleado.nombretercero}" width="200" filterBy="#{solucionNodoEmpleado.nombretercero}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tterceroSNE" value="#{msg['tercero']}" />
+                                        <p:tooltip for="tterceroSNE" value="#{msg['tercerocomp']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleado.nombretercero}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleado.nombretercero}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                            onselect="posicionOtro([{name: 'celda', value: '6'}, {name: 'registro', value: '#{indice}'}]);" >
+                                                                                <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,6)}" />
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
-                                <p:column id="debitoSNE" headerText="#{msg['debito']}" sortBy="#{solucionNodoEmpleado.cuentad.codigo}" width="60" filterBy="#{solucionNodoEmpleado.cuentad.codigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleado.cuentad.codigo}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleado.cuentad.codigo}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtro([{name: 'celda', value: '8'}, {name: 'registro', value: '#{indice}'}]);" >
-<!--                                            <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,8)}" />-->
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="fechaHastaSNE"  sortBy="#{solucionNodoEmpleado.fechahasta}" width="60" filterBy="#{solucionNodoEmpleado.fechahasta}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tfechaHastaSNE" value="#{msg['hasta']}" />
+                                        <p:tooltip for="tfechaHastaSNE" value="#{msg['fecHasta']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleado.fechahasta}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText> 
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleado.fechahasta}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtro([{name: 'celda', value: '7'}, {name: 'registro', value: '#{indice}'}]);" >
+                                                                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,7)}" />
+                                                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
-                                <p:column id="centroCostoDSNE" headerText="#{msg['ccd']}" sortBy="#{solucionNodoEmpleado.centrocostod.nombre}" width="100" filterBy="#{solucionNodoEmpleado.centrocostod.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleado.centrocostod.nombre}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleado.centrocostod.nombre}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                        onselect="posicionOtro([{name: 'celda', value: '9'}, {name: 'registro', value: '#{indice}'}]);" >
-                                            <!--<p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,9)}" />-->
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
-                                </p:column>
-                                <p:column id="creditoSNE" headerText="#{msg['credito']}" sortBy="#{solucionNodoEmpleado.cuentac.codigo}" width="60" filterBy="#{solucionNodoEmpleado.cuentac.codigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleado.cuentac.codigo}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleado.cuentac.codigo}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtro([{name: 'celda', value: '10'}, {name: 'registro', value: '#{indice}'}]);" >
-                                            <!--<p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,10)}" />-->
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="debitoSNE"  sortBy="#{solucionNodoEmpleado.codigocuentad}" width="60" filterBy="#{solucionNodoEmpleado.codigocuentad}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
+                                    <f:facet name="header" >
+                                        <h:outputText id="tdebitoSNE" value="#{msg['debito']}" />
+                                        <p:tooltip for="tdebitoSNE" value="#{msg['debitocomp']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleado.codigocuentad}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleado.codigocuentad}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtro([{name: 'celda', value: '8'}, {name: 'registro', value: '#{indice}'}]);" >
+                                                                                <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,8)}" />
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
-                                <p:column id="centroCostoCSNE" headerText="#{msg['ccc']}" sortBy="#{solucionNodoEmpleado.centrocostoc.nombre}" width="100" filterBy="#{solucionNodoEmpleado.centrocostoc.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleado.centrocostoc.nombre}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleado.centrocostoc.nombre}" style="width: 98%; text-transform: uppercase" readonly="true" 
-                                                        onselect="posicionOtro([{name: 'celda', value: '11'}, {name: 'registro', value: '#{indice}'}]);" >
-                                            <!--<p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,11)}" />-->
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="centroCostoDSNE" sortBy="#{solucionNodoEmpleado.nombrecentrocostod}" width="100" filterBy="#{solucionNodoEmpleado.nombrecentrocostod}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tcentroCostoSNE" value="#{msg['ccd']}" />
+                                        <p:tooltip for="tcentroCostoSNE" value="#{msg['desconcepto']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleado.nombrecentrocostod}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleado.nombrecentrocostod}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                            onselect="posicionOtro([{name: 'celda', value: '9'}, {name: 'registro', value: '#{indice}'}]);" >
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
+                                </p:column>
+                                <p:column id="creditoSNE" sortBy="#{solucionNodoEmpleado.codigocuentac}" width="60" filterBy="#{solucionNodoEmpleado.codigocuentac}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tcreditoSNE" value="#{msg['credito']}" />
+                                        <p:tooltip for="tcreditoSNE" value="#{msg['creditocomp']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleado.codigocuentac}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleado.codigocuentac}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtro([{name: 'celda', value: '10'}, {name: 'registro', value: '#{indice}'}]);" >
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
+                                </p:column>
+
+                                <p:column id="centroCostoCSNE" headerText="#{msg['ccc']}" sortBy="#{solucionNodoEmpleado.nombrecentrocostoc}" width="100" filterBy="#{solucionNodoEmpleado.nombrecentrocostoc}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
+                                    <f:facet name="header" >
+                                        <h:outputText id="tcentroCostoCSNE" value="#{msg['ccc']}" />
+                                        <p:tooltip for="tcentroCostoCSNE" value="#{msg['creditocomp']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleado.nombrecentrocostoc}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleado.nombrecentrocostoc}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                            onselect="posicionOtro([{name: 'celda', value: '11'}, {name: 'registro', value: '#{indice}'}]);" >
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
                                 <p:column id="saldoSNE" headerText="#{msg['saldo']}" sortBy="#{solucionNodoEmpleado.saldo}" width="100" filterBy="#{solucionNodoEmpleado.saldo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleado.saldo}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleado.saldo}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtro([{name: 'celda', value: '12'}, {name: 'registro', value: '#{indice}'}]);" >
-                                            <!--<p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,12)}" />-->
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <h:outputText value="#{solucionNodoEmpleado.saldo}" />
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleado.saldo}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtro([{name: 'celda', value: '12'}, {name: 'registro', value: '#{indice}'}]);" >
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
-                                <p:column id="fechaDesdeSNE" headerText="#{msg['desde']}" sortBy="#{solucionNodoEmpleado.fechadesde}" width="60"  filterBy="#{solucionNodoEmpleado.fechadesde}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                    
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleado.fechadesde}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleado.fechadesde}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtro([{name: 'celda', value: '13'}, {name: 'registro', value: '#{indice}'}]);" >
-                                                <!--<p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,13)}" />-->
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="fechaDesdeSNE" sortBy="#{solucionNodoEmpleado.fechadesde}" width="60"  filterBy="#{solucionNodoEmpleado.fechadesde}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                    
+                                    <f:facet name="header" >
+                                        <h:outputText id="tfechaDesdeSNE" value="#{msg['desde']}" />
+                                        <p:tooltip for="tfechaDesdeSNE" value="#{msg['fecDesde']}" />
+                                    </f:facet>   
+                                    <h:outputText value="#{solucionNodoEmpleado.fechadesde}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleado.fechadesde}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtro([{name: 'celda', value: '13'}, {name: 'registro', value: '#{indice}'}]);" >
+                                                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column> 
 
-                                <p:column id="fechaPagoSNE" headerText="#{msg['pago']}" sortBy="#{solucionNodoEmpleado.fechapago}" width="60" filterBy="#{solucionNodoEmpleado.fechapago}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleado.fechapago}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText> 
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleado.fechapago}" style="width: 98%; text-transform: uppercase" readonly="true" 
-                                                        onselect="posicionOtro([{name: 'celda', value: '14'}, {name: 'registro', value: '#{indice}'}]);" >
-                                                <!--<p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,14)}" />-->
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="fechaPagoSNE" sortBy="#{solucionNodoEmpleado.fechapago}" width="60" filterBy="#{solucionNodoEmpleado.fechapago}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tfechaPagoSNE" value="#{msg['pago']}" />
+                                        <p:tooltip for="tfechaPagoSNE" value="#{msg['fecpago']}" />
+                                    </f:facet>    
+                                    <h:outputText value="#{solucionNodoEmpleado.fechapago}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText> 
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleado.fechapago}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                            onselect="posicionOtro([{name: 'celda', value: '14'}, {name: 'registro', value: '#{indice}'}]);" >
+                                                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
-                                <p:column id="FechaModificacioSNE" headerText="#{msg['fecha']}" sortBy="#{solucionNodoEmpleado.ultimamodificacion}" width="90" filterBy="#{solucionNodoEmpleado.ultimamodificacion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleado.ultimamodificacion}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy - hh:mm" />
-                                            </h:outputText> 
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleado.ultimamodificacion}" style="width: 98%; text-transform: uppercase" readonly="true" 
-                                                         onselect="posicionOtro([{name: 'celda', value: '15'}, {name: 'registro', value: '#{indice}'}]);" >
-                                                <!--<p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,15)}" />-->
-                                                <f:convertDateTime pattern="dd/MM/yyyy - hh:mm" />
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="FechaModificacioSNE" sortBy="#{solucionNodoEmpleado.ultimamodificacion}" width="90" filterBy="#{solucionNodoEmpleado.ultimamodificacion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tFechaModificacioSNE" value="#{msg['fecha']}" />
+                                        <p:tooltip for="tFechaModificacioSNE" value="#{msg['fecgen']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleado.ultimamodificacion}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy - hh:mm" />
+                                    </h:outputText> 
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleado.ultimamodificacion}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                             onselect="posicionOtro([{name: 'celda', value: '15'}, {name: 'registro', value: '#{indice}'}]);" >
+                                                                                    <f:convertDateTime pattern="dd/MM/yyyy - hh:mm" />
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
-                                <p:columnGroup type="footer">  
-                                    <p:row>
-                                        <p:column footerText="" style="border: none; background-color: white; width: 2px;"/>
-                                        <p:column footerText="" style="border: none; background-color: white"/>
-                                        <p:column footerText="" style="border: none; background-color: white"/>
-                                        <p:column footerText="#{msg['totales']}" style="text-align:left; position: relative;  border: none; color: #14388B; background-color: white; left: -15px;"/> 
-                                        <p:column footerText="#{controlComprobantes.pago}" style="text-align: right; position: relative;  border: none; background-color: white; left: -15px; font-weight: bold; color: #14388B; "/>
-                                        <p:column footerText="#{controlComprobantes.descuento}" style="text-align: right; position: relative;  border: none; background-color: white; left: -15px; font-weight: bold; color: #14388B;"/> 
-                                        <p:column footerText="&nbsp;&nbsp; Neto:  #{controlComprobantes.netoTotal}"  style=" text-align: left; position: relative;  border: none; border: none; color: #14388B; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                    </p:row>  
-                                </p:columnGroup>
+
                             </p:dataTable>
-                            <h:outputText id="infoRegistroComprobanteEmpleado" value="#{msg['infoRegistros']} #{controlComprobantes.infoRegistroComprobanteEmpleado}" style="position: relative; left: 10px; top: -10px; font-weight: bold"/>
+                            <h:outputText value="#{msg['totales']}"  style="text-align:left; position: relative;  border: none; color: #14388B; background-color: white; left: 314px; top: 5px; font-weight: bold;"/>
+                            <h:outputText id="pagocomprobante" value="#{controlComprobantes.pago}" style="text-align: right; position: relative;  border: none; background-color: white; left: 390px; top: 5px; font-weight: bold; color: #14388B; " />
+                            <h:outputText id="descuentocomprobante" value="#{controlComprobantes.descuento}" style="text-align: right; position: relative;  border: none; background-color: white; left: 464px; top: 5px; font-weight: bold; color: #14388B; " />
+                            <h:outputText id="netocomprobante" value="Neto: &nbsp;&nbsp; #{controlComprobantes.netoTotal}" style="text-align: left; position: relative;  border: none; background-color: white; left: 484px; top: 5px; font-weight: bold; color: #14388B; " />
+                            <h:outputText id="infoRegistroComprobanteEmpleado" value="#{msg['infoRegistros']} #{controlComprobantes.infoRegistroComprobanteEmpleado}" style="position: absolute; left: 10px; top: 135px; font-weight: bold"/>
                             <p:remoteCommand name="posicionOtro" actionListener="#{controlComprobantes.posicionOtro()}"/>
                         </fieldset>
 
                         <fieldset style="position: absolute; left: 10px; top: 335px; width: 835px; height: 148px; border-radius: 10px; ">
                             <legend style="font-weight: bold; color: #00F;">#{msg['empleador']}</legend>
 
-                            <p:dataTable id="datosSolucionesNodosEmpleador" var="solucionNodoEmpleador" style="width: 830px;" value="#{controlComprobantes.listaSolucionesNodosEmpleador}"
-                                         rowKey="#{solucionNodoEmpleador.secuencia}" scrollable="true" rowIndexVar="indiceER"
-                                         editable="true" editMode="cell"  scrollHeight="#{controlComprobantes.altoScrollSolucionesNodosEmpleador}" filteredValue="#{controlComprobantes.filtradolistaSolucionesNodosEmpleador}" emptyMessage="#{msg['vacio']}">
-                                
+                            <p:dataTable id="datosSolucionesNodosEmpleador" widgetVar="datosSolucionesNodosEmpleador" var="solucionNodoEmpleador" rowKey="#{solucionNodoEmpleador.secuencia}" styleClass="tabla" style="width: 830px;" 
+                                         value="#{controlComprobantes.listaSolucionesNodosEmpleador}"  scrollable="true" rowIndexVar="indiceER"   editable="true" editMode="cell"  scrollHeight="#{controlComprobantes.altoScrollSolucionesNodosEmpleador}" 
+                                         selectionMode="single" selection="#{controlComprobantes.solucionNodoEmpleadorSeleccionada}" liveScroll="true" scrollRows="15" filteredValue="#{controlComprobantes.filtradolistaSolucionesNodosEmpleador}" emptyMessage="#{msg['vacio']}">
+
                                 <p:ajax event="filter" listener="#{controlComprobantes.eventoFiltrarComprobanteEmpleador()}"/>
-                                
+
                                 <p:column style="padding: 0px !important; width: 20px; alignment-adjust: central; text-align: center"> 
                                     <p:commandButton value="" style="width: 18px; height: 18px;" actionListener="#{controlComprobantes.parcialSolucionNodoEmpleador(indiceER, 0)}"/>
                                 </p:column>
 
-                                <p:column id="codigoSNER" headerText="#{msg['codigo']}" sortBy="#{solucionNodoEmpleador.concepto.codigo}" width="50" filterBy="#{solucionNodoEmpleador.concepto.codigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleador.concepto.codigo}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleador.concepto.codigo}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtroEmpleador([{name: 'celda', value: '1'}, {name: 'registro', value: '#{indiceER}'}]);"/>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="codigoSNER" headerText="#{msg['codigo']}" sortBy="#{solucionNodoEmpleador.codigoconcepto}" width="50" filterBy="#{solucionNodoEmpleador.codigoconcepto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tcodigoSNER" value="#{msg['codigo']}" />
+                                        <p:tooltip for="tcodigoSNER" value="#{msg['codconcepto']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleador.codigoconcepto}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleador.codigoconcepto}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtroEmpleador([{name: 'celda', value: '1'}, {name: 'registro', value: '#{indiceER}'}]);"/>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
-                                <p:column id="descipcionSNER" headerText="#{msg['descripcion']}" sortBy="#{solucionNodoEmpleador.concepto.descripcion}" width="200" filterBy="#{solucionNodoEmpleador.concepto.descripcion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleador.concepto.descripcion}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleador.concepto.descripcion}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtroEmpleador([{name: 'celda', value: '2'}, {name: 'registro', value: '#{indiceER}'}]);" />
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="descipcionSNER" sortBy="#{solucionNodoEmpleador.nombreconcepto}" width="200" filterBy="#{solucionNodoEmpleador.nombreconcepto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tdescripcionSNER" value="#{msg['descripcion']}" />
+                                        <p:tooltip for="tdescripcionSNER" value="#{msg['detallesconcepto']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleador.nombreconcepto}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleador.nombreconcepto}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtroEmpleador([{name: 'celda', value: '2'}, {name: 'registro', value: '#{indiceER}'}]);" />
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
-                                <p:column id="unidadSNER" headerText="#{msg['u']}" sortBy="#{solucionNodoEmpleador.unidades}" width="40" filterBy="#{solucionNodoEmpleador.unidades}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleador.unidades}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleador.unidades}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtroEmpleador([{name: 'celda', value: '3'}, {name: 'registro', value: '#{indiceER}'}]);" />
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="unidadSNER" sortBy="#{solucionNodoEmpleador.unidades}" width="40" filterBy="#{solucionNodoEmpleador.unidades}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tunidadSNER" value="#{msg['u']}" />
+                                        <p:tooltip for="tunidadSNER" value="#{msg['uconcepto']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleador.unidades}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleador.unidades}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtroEmpleador([{name: 'celda', value: '3'}, {name: 'registro', value: '#{indiceER}'}]);" />
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
-                                <p:column id="pasivoSNER" headerText="#{msg['pasivo']}" sortBy="#{solucionNodoEmpleador.pasivo}" width="116.5" filterBy="#{solucionNodoEmpleador.pasivo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="text-align: right;" >                                    
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleador.pasivo}" >
-                                                <f:convertNumber currencyCode="COP"/>
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleador.pasivo}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtroEmpleador([{name: 'celda', value: '4'}, {name: 'registro', value: '#{indiceER}'}]);" >
-                                                <f:convertNumber currencyCode="COP"/>
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="pasivoSNER" sortBy="#{solucionNodoEmpleador.pasivo}" width="116.5" filterBy="#{solucionNodoEmpleador.pasivo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="text-align: right;" >                                    
+                                    <f:facet name="header" >
+                                        <h:outputText id="tpasivoSNER" value="#{msg['pasivo']}" />
+                                        <p:tooltip for="tpasivoSNER" value="#{msg['pasivocom']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleador.pasivo}" >
+                                        <f:convertNumber currencyCode="COP"/>
+                                    </h:outputText>
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleador.pasivo}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtroEmpleador([{name: 'celda', value: '4'}, {name: 'registro', value: '#{indiceER}'}]);" >
+                                                                                    <f:convertNumber currencyCode="COP"/>
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
-                                <p:column id="gastoSNER" headerText="#{msg['gasto']}" sortBy="#{solucionNodoEmpleador.gasto}" width="116.5"  filterBy="#{solucionNodoEmpleador.gasto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="text-align: right;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleador.gasto}" >
-                                                <f:convertNumber currencyCode="COP"/>
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleador.gasto}" style="width: 98%; text-transform: uppercase;" readonly="true" 
-                                                        onselect="posicionOtroEmpleador([{name: 'celda', value: '5'}, {name: 'registro', value: '#{indiceER}'}]);" >
-                                                <f:convertNumber currencyCode="COP"/>
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="gastoSNER" sortBy="#{solucionNodoEmpleador.gasto}" width="116.5"  filterBy="#{solucionNodoEmpleador.gasto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="text-align: right;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tgastoSNER" value="#{msg['gasto']}" />
+                                        <p:tooltip for="tgastoSNER" value="#{msg['gastocomp']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleador.gasto}" >
+                                        <f:convertNumber currencyCode="COP"/>
+                                    </h:outputText>
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleador.gasto}" style="width: 98%; text-transform: uppercase;" readonly="true" 
+                                                                                            onselect="posicionOtroEmpleador([{name: 'celda', value: '5'}, {name: 'registro', value: '#{indiceER}'}]);" >
+                                                                                    <f:convertNumber currencyCode="COP"/>
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
-                                <p:column id="terceroSNER" headerText="#{msg['tercero']}" sortBy="#{solucionNodoEmpleador.nit.nombre}" width="200" filterBy="#{solucionNodoEmpleador.nit.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleador.nit.nombre}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleador.nit.nombre}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtroEmpleador([{name: 'celda', value: '6'}, {name: 'registro', value: '#{indiceER}'}]);" />
-                                        </f:facet>
-                                    </p:cellEditor>
-                                </p:column>
-
-                                <p:column id="fechaHastaSNER" headerText="#{msg['hasta']}" sortBy="#{solucionNodoEmpleador.fechahasta}" width="60" filterBy="#{solucionNodoEmpleador.fechahasta}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleador.fechahasta}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText> 
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleador.fechahasta}" style="width: 98%; text-transform: uppercase" readonly="true" 
-                                                         onselect="posicionOtroEmpleador([{name: 'celda', value: '7'}, {name: 'registro', value: '#{indiceER}'}]);" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="terceroSNER"  sortBy="#{solucionNodoEmpleador.nombretercero}" width="200" filterBy="#{solucionNodoEmpleador.nombretercero}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tterceroSNER" value="#{msg['tercero']}" />
+                                        <p:tooltip for="tterceroSNER" value="#{msg['tercerocomp']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleador.nombretercero}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleador.nombretercero}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtroEmpleador([{name: 'celda', value: '6'}, {name: 'registro', value: '#{indiceER}'}]);" />
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
-                                <p:column id="debitoSNER" headerText="#{msg['debito']}" sortBy="#{solucionNodoEmpleador.cuentad.codigo}" width="60" filterBy="#{solucionNodoEmpleador.cuentad.codigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleador.cuentad.codigo}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleador.cuentad.codigo}" style="width: 98%; text-transform: uppercase" readonly="true" 
-                                                        onselect="posicionOtroEmpleador([{name: 'celda', value: '8'}, {name: 'registro', value: '#{indiceER}'}]);" />
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="fechaHastaSNER"  sortBy="#{solucionNodoEmpleador.fechahasta}" width="60" filterBy="#{solucionNodoEmpleador.fechahasta}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tfechaHastaSNER" value="#{msg['hasta']}" />
+                                        <p:tooltip for="tfechaHastaSNER" value="#{msg['fecHasta']}" />
+                                    </f:facet>    
+                                    <h:outputText value="#{solucionNodoEmpleador.fechahasta}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText> 
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleador.fechahasta}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                             onselect="posicionOtroEmpleador([{name: 'celda', value: '7'}, {name: 'registro', value: '#{indiceER}'}]);" >
+                                                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
-                                <p:column id="centroCostoDSNER" headerText="#{msg['ccd']}" sortBy="#{solucionNodoEmpleador.centrocostod.nombre}" width="100" filterBy="#{solucionNodoEmpleador.centrocostod.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleador.centrocostod.nombre}" />
-                                        </f:facet>
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleador.centrocostod.nombre}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtroEmpleador([{name: 'celda', value: '9'}, {name: 'registro', value: '#{indiceER}'}]);"/>
-                                        </f:facet>
-                                    </p:cellEditor>
-                                </p:column>
-                                <p:column id="creditoSNER" headerText="#{msg['credito']}" sortBy="#{solucionNodoEmpleador.cuentac.codigo}" width="60" filterBy="#{solucionNodoEmpleador.cuentac.codigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleador.cuentac.codigo}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleador.cuentac.codigo}" style="width: 98%; text-transform: uppercase" readonly="true" 
-                                                         onselect="posicionOtroEmpleador([{name: 'celda', value: '10'}, {name: 'registro', value: '#{indiceER}'}]);" />
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="debitoSNER" sortBy="#{solucionNodoEmpleador.codigocuentad}" width="60" filterBy="#{solucionNodoEmpleador.codigocuentad}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
+                                    <f:facet name="header" >
+                                        <h:outputText id="tdebitoSNER" value="#{msg['debito']}" />
+                                        <p:tooltip for="tdebitoSNER" value="#{msg['debitocomp']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleador.codigocuentad}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleador.codigocuentad}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                            onselect="posicionOtroEmpleador([{name: 'celda', value: '8'}, {name: 'registro', value: '#{indiceER}'}]);" />
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
-                                <p:column id="centroCostoCSNER" headerText="#{msg['ccc']}" sortBy="#{solucionNodoEmpleador.centrocostoc.nombre}" width="100" filterBy="#{solucionNodoEmpleador.centrocostoc.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleador.centrocostoc.nombre}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleador.centrocostoc.nombre}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtroEmpleador([{name: 'celda', value: '11'}, {name: 'registro', value: '#{indiceER}'}]);"/>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="centroCostoDSNER" sortBy="#{solucionNodoEmpleador.nombrecentrocostod}" width="100" filterBy="#{solucionNodoEmpleador.nombrecentrocostod}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tcentroCostoDSNER" value="#{msg['ccd']}" />
+                                        <p:tooltip for="tcentroCostoDSNER" value="#{msg['ccdebito']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleador.nombrecentrocostod}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleador.nombrecentrocostod}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtroEmpleador([{name: 'celda', value: '9'}, {name: 'registro', value: '#{indiceER}'}]);"/>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
+                                </p:column>
+                                <p:column id="creditoSNER" sortBy="#{solucionNodoEmpleador.codigocuentac}" width="60" filterBy="#{solucionNodoEmpleador.codigocuentac}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tcreditoSNER" value="#{msg['credito']}" />
+                                        <p:tooltip for="tcreditoSNER" value="#{msg['creditocomp']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleador.codigocuentac}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleador.codigocuentac}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                             onselect="posicionOtroEmpleador([{name: 'celda', value: '10'}, {name: 'registro', value: '#{indiceER}'}]);" />
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
-                                <p:column id="saldoSNER" headerText="#{msg['saldo']}" sortBy="#{solucionNodoEmpleador.saldo}" width="100" filterBy="#{solucionNodoEmpleador.saldo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleador.saldo}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleador.saldo}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtroEmpleador([{name: 'celda', value: '12'}, {name: 'registro', value: '#{indiceER}'}]);" />
-                                        </f:facet>
-                                    </p:cellEditor>
+                                <p:column id="centroCostoCSNER" headerText="#{msg['ccc']}" sortBy="#{solucionNodoEmpleador.nombrecentrocostoc}" width="100" filterBy="#{solucionNodoEmpleador.nombrecentrocostoc}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
+                                    <f:facet name="header" >
+                                        <h:outputText id="tcentroCostoCSNER" value="#{msg['ccc']}" />
+                                        <p:tooltip for="tcentroCostoCSNER" value="#{msg['cccredito']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleador.nombrecentrocostoc}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleador.nombrecentrocostoc}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtroEmpleador([{name: 'celda', value: '11'}, {name: 'registro', value: '#{indiceER}'}]);"/>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
+                                </p:column>
+
+                                <p:column id="saldoSNER" sortBy="#{solucionNodoEmpleador.saldo}" width="100" filterBy="#{solucionNodoEmpleador.saldo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="header" >
+                                        <h:outputText id="tsaldoSNER" value="#{msg['saldo']}" />
+                                        <p:tooltip for="tsaldoSNER" value="#{msg['saldoconcepto']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleador.saldo}" />
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleador.saldo}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtroEmpleador([{name: 'celda', value: '12'}, {name: 'registro', value: '#{indiceER}'}]);" />
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
                                 <p:column id="fechaDesdeSNER" headerText="#{msg['desde']}" sortBy="#{solucionNodoEmpleador.fechadesde}" width="60"  filterBy="#{solucionNodoEmpleador.fechadesde}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                    
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleador.fechadesde}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleador.fechadesde}" style="width: 98%; text-transform: uppercase" readonly="true" 
-                                                         onselect="posicionOtroEmpleador([{name: 'celda', value: '13'}, {name: 'registro', value: '#{indiceER}'}]);" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                    <f:facet name="header" >
+                                        <h:outputText id="tfechaDesdeSNER" value="#{msg['desde']}" />
+                                        <p:tooltip for="tfechaDesdeSNER" value="#{msg['fecDesde']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleador.fechadesde}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleador.fechadesde}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                             onselect="posicionOtroEmpleador([{name: 'celda', value: '13'}, {name: 'registro', value: '#{indiceER}'}]);" >
+                                                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column> 
 
                                 <p:column id="fechaPagoSNER" headerText="#{msg['pago']}" sortBy="#{solucionNodoEmpleador.fechapago}" width="60" filterBy="#{solucionNodoEmpleador.fechapago}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleador.fechapago}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText> 
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleador.fechapago}" style="width: 98%; text-transform: uppercase" readonly="true"
-                                                         onselect="posicionOtroEmpleador([{name: 'celda', value: '14'}, {name: 'registro', value: '#{indiceER}'}]);" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                    <f:facet name="header" >
+                                        <h:outputText id="tfechaPagoSNER" value="#{msg['pago']}" />
+                                        <p:tooltip for="tfechaPagoSNER" value="#{msg['fecpago']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleador.fechapago}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText> 
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleador.fechapago}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                             onselect="posicionOtroEmpleador([{name: 'celda', value: '14'}, {name: 'registro', value: '#{indiceER}'}]);" >
+                                                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
                                 <p:column id="FechaModificacioSNER" headerText="#{msg['fecha']}" sortBy="#{solucionNodoEmpleador.ultimamodificacion}" width="90" filterBy="#{solucionNodoEmpleador.ultimamodificacion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{solucionNodoEmpleador.ultimamodificacion}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy - hh:mm" />
-                                            </h:outputText> 
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{solucionNodoEmpleador.ultimamodificacion}" style="width: 98%; text-transform: uppercase" readonly="true" 
-                                                         onselect="posicionOtroEmpleador([{name: 'celda', value: '15'}, {name: 'registro', value: '#{indiceER}'}]);" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy - hh:mm" />
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                    <f:facet name="header" >
+                                        <h:outputText id="tFechaModificacionSNER" value="#{msg['fecha']}" />
+                                        <p:tooltip for="tFechaModificacionSNER" value="#{msg['fecgen']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{solucionNodoEmpleador.ultimamodificacion}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy - hh:mm" />
+                                    </h:outputText> 
+                                    <!--<p:cellEditor>-->  
+                                    <!--<f:facet name="output">-->
+                                    <!--</f:facet>-->  
+                                    <!--                                        <f:facet name="input">
+                                                                                <p:inputText value="#{solucionNodoEmpleador.ultimamodificacion}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                             onselect="posicionOtroEmpleador([{name: 'celda', value: '15'}, {name: 'registro', value: '#{indiceER}'}]);" >
+                                                                                    <f:convertDateTime pattern="dd/MM/yyyy - hh:mm" />
+                                                                                </p:inputText>
+                                                                            </f:facet>
+                                                                        </p:cellEditor>-->
                                 </p:column>
 
-                                <p:columnGroup type="footer" >  
-                                    <p:row > 
-                                        <p:column footerText="" style="border: none; background-color: white; margin-left: -10px; margin-right: -10px; margin-top: 0px; margin-bottom: 0px; left: -15px;"/>
-                                        <p:column footerText="" style="border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="#{msg['totales']}" style="text-align:right; position: relative; z-index: 1; padding-left: 0px; border: none; color: #14388B; background-color: white; left: -15px;"/>
-                                        <p:column footerText="#{controlComprobantes.pasivo}" style="text-align: right; position: relative; padding-left: 0px; border: none; background-color: white; left: -15px; font-weight: normal; font-weight: bold; color: #14388B;"/>
-                                        <p:column footerText="#{controlComprobantes.gasto}" style="text-align: right; position: relative; padding-left: 0px; border: none; background-color: white; left: -15px; font-weight: normal; font-weight: bold; color: #14388B;"/> 
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                        <p:column footerText="" style="position: relative; border: none; background-color: white; left: -15px;"/>
-                                    </p:row>  
-                                </p:columnGroup>
                             </p:dataTable>
-                             <h:outputText id="infoRegistroComprobanteEmpleador" value="#{msg['infoRegistros']} #{controlComprobantes.infoRegistroComprobanteEmpleador}" style="position: relative; left: 10px; top: -10px; font-weight: bold"/>
+                            <h:outputText value="#{msg['totales']}" style="text-align: right; position: relative; border: none; background-color: white; left: 314px; top : 5px ;  font-weight: normal; font-weight: bold; color: #14388B;"   />
+                            <h:outputText id="pasivocomprobantes" value="#{controlComprobantes.pasivo}" style="text-align: right; position: relative; border: none; background-color: white; left: 390px; top : 5px ;  font-weight: normal; font-weight: bold; color: #14388B;"   />
+                            <h:outputText id="gastocomprobantes" value="#{controlComprobantes.gasto}" style="text-align: right; position: relative; border: none; background-color: white; left: 464px; top : 5px ;  font-weight: normal; font-weight: bold; color: #14388B;"   />
+                            <h:outputText id="infoRegistroComprobanteEmpleador" value="#{msg['infoRegistros']} #{controlComprobantes.infoRegistroComprobanteEmpleador}" style="position: absolute; left: 10px; top: 135px; font-weight: bold"/>
                             <p:remoteCommand name="posicionOtroEmpleador" actionListener="#{controlComprobantes.posicionOtroEmpleador()}"/>
                         </fieldset>
-                        <h:outputText style="position: absolute; background-color: white; left: 817px; top: 310px; width: 35px; height: 19px;"    />   
-                        <h:outputText style="position: absolute; background-color: white; left: 817px; top: 475px; width: 35px; height: 19px;"    />   
                     </p:panel>
                 </h:form>
+
+                <style> 
+                    .tabla .ui-datatable-scrollable-footer{
+                        display: none;
+                    }
+
+
+                </style>     
+
                 <h:form id="formularioDialogos">
                     <p:dialog id="buscarEmpleadoDialogo" header="#{msg['empleados']}" widgetVar="buscarEmpleadoDialogo"  resizable="false" draggable="false" modal="true" width="732"  closable="false">  
                         <p:dataTable  id="lovEmpleados" style="width: 700px;" var="parametro" value="#{controlComprobantes.listaParametrosLOV}"
@@ -703,13 +785,13 @@
                     </p:dialog>
 
                     <!--formularios editar nodo empleado     -->
-                    
+
                     <p:dialog id="editarCodEmpleado" header="#{msg['codigoConcepto']}" widgetVar="editarCodEmpleado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.concepto.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.codigoconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDescConcepto" header="#{msg['descConcepto']}" widgetVar="editarDescConcepto" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.nombreconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarUnd" header="#{msg['und']}" widgetVar="editarUnd" resizable="false" draggable="false" modal="true" height="80" width="400" >  
@@ -729,31 +811,31 @@
                     </p:dialog>
 
                     <p:dialog id="editarTercero" header="#{msg['tercero']}" widgetVar="editarTercero" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.nit.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.nombretercero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarFechaHasta" header="#{msg['fechahasta']}" widgetVar="editarFechaHasta" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.fechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarDebito" header="#{msg['debito']}" widgetVar="editarDebito" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.cuentad.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.codigocuentad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarCCDebito" header="#{msg['dcosto']}" widgetVar="editarCCDebito" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.centrocostod.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.nombrecentrocostod}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    
-                     <p:dialog id="editarCredito" header="#{msg['credito']}" widgetVar="editarCredito" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.cuentac.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+
+                    <p:dialog id="editarCredito" header="#{msg['credito']}" widgetVar="editarCredito" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.codigocuentac}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCCCredito" header="#{msg['ccosto']}" widgetVar="editarCCCredito" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.centrocostoc.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.nombrecentrocostoc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarSaldo" header="#{msg['saldo']}" widgetVar="editarSaldo" resizable="false" draggable="false" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.saldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
@@ -763,27 +845,27 @@
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarFechaPago" header="#{msg['fechapago']}" widgetVar="editarFechaPago" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.fechapago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarFechaModificacion" header="#{msg['fechamodificacion']}" widgetVar="editarFechaModificacion" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.ultimamodificacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
-                    
+
                     <!--formularios editar nodo empleador     -->
-                    
+
                     <p:dialog id="editarCodEmpleador" header="#{msg['codigoConcepto']}" widgetVar="editarCodEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.concepto.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.codigoconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDescConceptoEmpleador" header="#{msg['descConcepto']}" widgetVar="editarDescConceptoEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombreconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarUndEmpleador" header="#{msg['und']}" widgetVar="editarUndEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
@@ -803,31 +885,31 @@
                     </p:dialog>
 
                     <p:dialog id="editarTerceroEmpleador" header="#{msg['tercero']}" widgetVar="editarTerceroEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nit.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombretercero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarFechaHastaEmpleador" header="#{msg['fechahasta']}" widgetVar="editarFechaHastaEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.fechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarDebitoEmpleador" header="#{msg['debito']}" widgetVar="editarDebitoEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.cuentad.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.codigocuentad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarCCDebitoEmpleador" header="#{msg['dcosto']}" widgetVar="editarCCDebitoEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.centrocostod.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombrecentrocostod}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    
-                     <p:dialog id="editarCreditoEmpleador" header="#{msg['credito']}" widgetVar="editarCreditoEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.cuentac.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+
+                    <p:dialog id="editarCreditoEmpleador" header="#{msg['credito']}" widgetVar="editarCreditoEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.codigocuentac}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCCCreditoEmpleador" header="#{msg['ccosto']}" widgetVar="editarCCCreditoEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.centrocostoc.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombrecentrocostoc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarSaldoEmpleador" header="#{msg['saldo']}" widgetVar="editarSaldoEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.saldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
@@ -837,36 +919,36 @@
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarFechaPagoEmpleador" header="#{msg['fechapago']}" widgetVar="editarFechaPagoEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.fechapago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarFechaModificacionEmpleador" header="#{msg['fechamodificacion']}" widgetVar="editarFechaModificacionEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.ultimamodificacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
-                    
+
                     <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
                     </p:dialog>
-                    
+
                 </h:form>
                 <h:form id="formExportar">
                     <p:dataTable id="datosSolucionesNodosEmpleadoExportar" var="solucionNodoEmpleadoE" style="display: none; visibility: hidden" value="#{controlComprobantes.listaSolucionesNodosEmpleado}">
 
                         <p:column headerText="#{msg['codigo']}">
                             <f:facet name="header"><h:outputText value="#{msg['codigo']}" /></f:facet>
-                            <h:outputText value="#{solucionNodoEmpleadoE.concepto.codigo}"/>
+                            <h:outputText value="#{solucionNodoEmpleadoE.codigoconcepto}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['descripcion']}"> 
                             <f:facet name="header"><h:outputText value="#{msg['descripcion']}"/></f:facet>
-                            <h:outputText value="#{solucionNodoEmpleadoE.concepto.descripcion}" />
+                            <h:outputText value="#{solucionNodoEmpleadoE.nombreconcepto}" />
                         </p:column>
 
                         <p:column headerText="#{msg['u']}">
@@ -890,7 +972,7 @@
 
                         <p:column headerText="#{msg['terceroE']}">
                             <f:facet name="header"><h:outputText value="#{msg['tercero']}" /></f:facet>
-                            <h:outputText value="#{solucionNodoEmpleadoE.nit.nombre}" />
+                            <h:outputText value="#{solucionNodoEmpleadoE.nombretercero}" />
                         </p:column>
 
                         <p:column headerText="#{msg['hasta']}">
@@ -902,22 +984,22 @@
 
                         <p:column headerText="#{msg['debito']}">
                             <f:facet name="header"><h:outputText value="#{msg['debito']}" /></f:facet>
-                            <h:outputText value="#{solucionNodoEmpleadoE.cuentad.codigo}" />
+                            <h:outputText value="#{solucionNodoEmpleadoE.codigocuentad}" />
                         </p:column>
 
                         <p:column headerText="#{msg['ccd']}">
                             <f:facet name="header"><h:outputText value="#{msg['ccd']}" /></f:facet>
-                            <h:outputText value="#{solucionNodoEmpleadoE.centrocostod.nombre}" />
+                            <h:outputText value="#{solucionNodoEmpleadoE.nombrecentrocostod}" />
                         </p:column>
 
                         <p:column headerText="#{msg['credito']}">
                             <f:facet name="header"><h:outputText value="#{msg['credito']}" /></f:facet>
-                            <h:outputText value="#{solucionNodoEmpleadoE.cuentac.codigo}" />
+                            <h:outputText value="#{solucionNodoEmpleadoE.codigocuentac}" />
                         </p:column>
 
                         <p:column headerText="#{msg['ccc']}">
                             <f:facet name="header"><h:outputText value="#{msg['ccc']}" /></f:facet>
-                            <h:outputText value="#{solucionNodoEmpleadoE.centrocostoc.nombre}" />
+                            <h:outputText value="#{solucionNodoEmpleadoE.nombrecentrocostoc}" />
                         </p:column>
 
                         <p:column headerText="#{msg['saldo']}">
@@ -953,12 +1035,12 @@
 
                         <p:column headerText="#{msg['codigo']}">
                             <f:facet name="header"><h:outputText value="#{msg['codigo']}" /></f:facet>
-                            <h:outputText value="#{solucionNodoEmpleadoER.concepto.codigo}"/>
+                            <h:outputText value="#{solucionNodoEmpleadoER.codigoconcepto}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['descripcion']}"> 
                             <f:facet name="header"><h:outputText value="#{msg['descripcion']}" /></f:facet>
-                            <h:outputText value="#{solucionNodoEmpleadoER.concepto.descripcion}" />
+                            <h:outputText value="#{solucionNodoEmpleadoER.nombreconcepto}" />
                         </p:column>
 
                         <p:column headerText="#{msg['u']}">
@@ -982,7 +1064,7 @@
 
                         <p:column headerText="#{msg['terceroE']}">
                             <f:facet name="header"><h:outputText value="#{msg['tercero']}" /></f:facet>
-                            <h:outputText value="#{solucionNodoEmpleadoER.nit.nombre}" />
+                            <h:outputText value="#{solucionNodoEmpleadoER.nombretercero}" />
                         </p:column>
 
                         <p:column headerText="#{msg['hasta']}">
@@ -994,22 +1076,22 @@
 
                         <p:column headerText="#{msg['debito']}">
                             <f:facet name="header"><h:outputText value="#{msg['debito']}" /></f:facet>
-                            <h:outputText value="#{solucionNodoEmpleadoER.cuentad.codigo}" />
+                            <h:outputText value="#{solucionNodoEmpleadoER.codigocuentad}" />
                         </p:column>
 
                         <p:column headerText="#{msg['ccd']}">
                             <f:facet name="header"><h:outputText value="#{msg['ccd']}"/></f:facet>
-                            <h:outputText value="#{solucionNodoEmpleadoER.centrocostod.nombre}" />
+                            <h:outputText value="#{solucionNodoEmpleadoER.nombrecentrocostod}" />
                         </p:column>
 
                         <p:column headerText="Credito">
                             <f:facet name="header"><h:outputText value="Credito" /></f:facet>
-                            <h:outputText value="#{solucionNodoEmpleadoER.cuentac.codigo}" />
+                            <h:outputText value="#{solucionNodoEmpleadoER.codigocuentac}" />
                         </p:column>
 
                         <p:column headerText="#{msg['ccc']}">
                             <f:facet name="header"><h:outputText value="#{msg['ccc']}" /></f:facet>
-                            <h:outputText value="#{solucionNodoEmpleadoER.centrocostoc.nombre}" />
+                            <h:outputText value="#{solucionNodoEmpleadoER.nombrecentrocostoc}" />
                         </p:column>
 
                         <p:column headerText="#{msg['saldo']}">

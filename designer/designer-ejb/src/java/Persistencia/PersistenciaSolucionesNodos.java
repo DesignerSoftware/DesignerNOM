@@ -88,10 +88,27 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
     public List<SolucionesNodos> solucionNodoCorteProcesoEmpleado(EntityManager em, BigInteger secuenciaCorteProceso, BigInteger secuenciaEmpleado) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT sn FROM SolucionesNodos sn WHERE sn.estado = 'CERRADO' AND sn.tipo IN ('PAGO','DESCUENTO') AND sn.corteproceso.secuencia = :secuenciaCorteProceso AND sn.empleado.secuencia = :secuenciaEmpleado ORDER BY sn.concepto.codigo ASC");
-            query.setParameter("secuenciaCorteProceso", secuenciaCorteProceso);
-            query.setParameter("secuenciaEmpleado", secuenciaEmpleado);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql = "SELECT sn.*,c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD, cu1.CODIGO CODIGOCUENTAC, \n"
+                    + "p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO, cc.NOMBRE CENTROCOSTOD, cc1.NOMBRE CENTROCOSTOC , cpr.CORTE FECHACORTE\n"
+                    + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1, CORTESPROCESOS cpr\n"
+                    + "WHERE sn.ESTADO = 'CERRADO' \n"
+                    + "AND sn.TIPO IN  ('PAGO','DESCUENTO')\n"
+                    + "AND sn.VALOR <> 0 \n"
+                    + "AND sn.EMPLEADO =E.SECUENCIA\n"
+                    + "AND sn.NIT = t.SECUENCIA\n"
+                    + "AND sn.CONCEPTO = c.SECUENCIA\n"
+                    + "AND sn.CUENTAD=cu.SECUENCIA\n"
+                    + "AND sn.CUENTAC=cu1.SECUENCIA\n"
+                    + "AND e.persona=p.secuencia\n"
+                    + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
+                    + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
+                    + "AND sn.CORTEPROCESO = cpr.SECUENCIA\n"
+                    + "AND SN.CORTEPROCESO = ? \n"
+                    + "AND sn.EMPLEADO = ? \n"
+                    + "ORDER BY sn.CONCEPTO ASC";
+            Query query = em.createNativeQuery(sql, SolucionesNodos.class);
+            query.setParameter(1, secuenciaCorteProceso);
+            query.setParameter(2, secuenciaEmpleado);
             List<SolucionesNodos> listSolucionesNodos = query.getResultList();
             return listSolucionesNodos;
         } catch (Exception e) {
@@ -104,10 +121,27 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
     public List<SolucionesNodos> solucionNodoCorteProcesoEmpleador(EntityManager em, BigInteger secuenciaCorteProceso, BigInteger secuenciaEmpleado) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT sn FROM SolucionesNodos sn WHERE sn.estado = 'CERRADO' AND sn.tipo IN  ('PASIVO','GASTO','NETO') AND sn.corteproceso.secuencia = :secuenciaCorteProceso AND sn.empleado.secuencia = :secuenciaEmpleado ORDER BY sn.concepto.codigo ASC");
-            query.setParameter("secuenciaCorteProceso", secuenciaCorteProceso);
-            query.setParameter("secuenciaEmpleado", secuenciaEmpleado);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql = "SELECT sn.*,c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD, cu1.CODIGO CODIGOCUENTAC, \n"
+                    + "p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO, cc.NOMBRE CENTROCOSTOD, cc1.NOMBRE CENTROCOSTOC , cpr.CORTE FECHACORTE\n"
+                    + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1, CORTESPROCESOS cpr\n"
+                    + "WHERE sn.ESTADO = 'CERRADO' \n"
+                    + "AND sn.TIPO IN  ('PASIVO','GASTO','NETO')\n"
+                    + "AND sn.VALOR <> 0 \n"
+                    + "AND sn.EMPLEADO =E.SECUENCIA\n"
+                    + "AND sn.NIT = t.SECUENCIA\n"
+                    + "AND sn.CONCEPTO = c.SECUENCIA\n"
+                    + "AND sn.CUENTAD=cu.SECUENCIA\n"
+                    + "AND sn.CUENTAC=cu1.SECUENCIA\n"
+                    + "AND e.persona=p.secuencia\n"
+                    + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
+                    + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
+                    + "AND sn.CORTEPROCESO = cpr.SECUENCIA\n"
+                    + "AND SN.CORTEPROCESO = ? \n"
+                    + "AND sn.EMPLEADO = ? \n"
+                    + "ORDER BY sn.CONCEPTO ASC";
+            Query query = em.createNativeQuery(sql, SolucionesNodos.class);
+            query.setParameter(1, secuenciaCorteProceso);
+            query.setParameter(2, secuenciaEmpleado);
             List<SolucionesNodos> listSolucionesNodos = query.getResultList();
             return listSolucionesNodos;
         } catch (Exception e) {
@@ -197,14 +231,24 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
     public List<SolucionesNodos> solucionNodoEmpleado(EntityManager em, BigInteger secuenciaEmpleado) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT sn "
-                    + "FROM SolucionesNodos sn "
-                    + "WHERE sn.estado = 'LIQUIDADO' "
-                    + "AND sn.tipo IN ('PAGO','DESCUENTO') "
-                    + "AND sn.empleado.secuencia = :secuenciaEmpleado "
-                    + "ORDER BY sn.concepto.codigo ASC");
-            query.setParameter("secuenciaEmpleado", secuenciaEmpleado);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql = "SELECT sn.*,c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD, cu1.CODIGO CODIGOCUENTAC, \n"
+                    + "p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO, cc.NOMBRE CENTROCOSTOD, cc1.NOMBRE CENTROCOSTOC \n"
+                    + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
+                    + "WHERE sn.ESTADO = 'LIQUIDADO' \n"
+                    + "AND sn.TIPO IN  ('PAGO','DESCUENTO')\n"
+                    + "AND sn.VALOR <> 0 \n"
+                    + "AND sn.EMPLEADO =E.SECUENCIA\n"
+                    + "AND sn.NIT = t.SECUENCIA\n"
+                    + "AND sn.CONCEPTO = c.SECUENCIA\n"
+                    + "AND sn.CUENTAD=cu.SECUENCIA\n"
+                    + "AND sn.CUENTAC=cu1.SECUENCIA\n"
+                    + "AND e.persona=p.secuencia\n"
+                    + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
+                    + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
+                    + "AND sn.EMPLEADO = ? \n"
+                    + "ORDER BY sn.CONCEPTO ASC";
+            Query query = em.createNativeQuery(sql, SolucionesNodos.class);
+            query.setParameter(1, secuenciaEmpleado);
             List<SolucionesNodos> listSolucionesNodos = query.getResultList();
             return listSolucionesNodos;
         } catch (Exception e) {
@@ -217,14 +261,24 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
     public List<SolucionesNodos> solucionNodoEmpleador(EntityManager em, BigInteger secuenciaEmpleado) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT sn "
-                    + "FROM SolucionesNodos sn "
-                    + "WHERE sn.estado = 'LIQUIDADO' "
-                    + "AND sn.tipo IN  ('PASIVO','GASTO','NETO') "
-                    + "AND sn.valor <> 0 AND sn.empleado.secuencia = :secuenciaEmpleado "
-                    + "ORDER BY sn.concepto.codigo ASC");
-            query.setParameter("secuenciaEmpleado", secuenciaEmpleado);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql = "SELECT sn.*,c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD, cu1.CODIGO CODIGOCUENTAC, \n"
+                    + "p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO, cc.NOMBRE CENTROCOSTOD, cc1.NOMBRE CENTROCOSTOC \n"
+                    + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
+                    + "WHERE sn.ESTADO = 'LIQUIDADO' \n"
+                    + "AND sn.TIPO IN  ('PASIVO','GASTO','NETO')\n"
+                    + "AND sn.VALOR <> 0 \n"
+                    + "AND sn.EMPLEADO =E.SECUENCIA\n"
+                    + "AND sn.NIT = t.SECUENCIA\n"
+                    + "AND sn.CONCEPTO = c.SECUENCIA\n"
+                    + "AND sn.CUENTAD=cu.SECUENCIA\n"
+                    + "AND sn.CUENTAC=cu1.SECUENCIA\n"
+                    + "AND e.persona=p.secuencia\n"
+                    + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
+                    + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
+                    + "AND sn.EMPLEADO = ?\n"
+                    + "ORDER BY sn.CONCEPTO ASC";
+            Query query = em.createNativeQuery(sql, SolucionesNodos.class);
+            query.setParameter(1, secuenciaEmpleado);
             List<SolucionesNodos> listSolucionesNodos = query.getResultList();
             return listSolucionesNodos;
         } catch (Exception e) {

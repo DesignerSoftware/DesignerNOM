@@ -444,19 +444,19 @@ public class ControlEmplComprobantes implements Serializable {
             tablaExportar = ":formExportar:solucionesNodoEmpleadoExportar";
             secRegistro = empleadoTablaSeleccionado.getSecuencia();
             if (cualCelda == 7) {
-                tercero = empleadoTablaSeleccionado.getNit().getNombre();
+                tercero = empleadoTablaSeleccionado.getNombretercero();
             }
             if (cualCelda == 8) {
-                codigoDebito = empleadoTablaSeleccionado.getCuentad().getCodigo();
+                codigoDebito = empleadoTablaSeleccionado.getCodigocuentad();
             }
             if (cualCelda == 9) {
-                centroCostoDebito = empleadoTablaSeleccionado.getCentrocostod().getNombre();
+                centroCostoDebito = empleadoTablaSeleccionado.getNombrecentrocostod();
             }
             if (cualCelda == 10) {
-                codigoCredito = empleadoTablaSeleccionado.getCuentac().getCodigo();
+                codigoCredito = empleadoTablaSeleccionado.getCodigocuentac();
             }
             if (cualCelda == 11) {
-                centroCostoCredito = empleadoTablaSeleccionado.getCentrocostoc().getNombre();
+                centroCostoCredito = empleadoTablaSeleccionado.getNombrecentrocostoc();
             }
         }
         nombreArchivoExportar = "SolucionesNodosEmpleadoXML";
@@ -471,19 +471,19 @@ public class ControlEmplComprobantes implements Serializable {
             tablaExportar = ":formExportar:solucionesNodoEmpleadorExportar";
             secRegistro = empleadorTablaSeleccionado.getSecuencia();
             if (cualCelda == 7) {
-                tercero = empleadorTablaSeleccionado.getNit().getNombre();
+                tercero = empleadorTablaSeleccionado.getNombretercero();
             }
             if (cualCelda == 8) {
-                codigoDebito = empleadorTablaSeleccionado.getCuentad().getCodigo();
+                codigoDebito = empleadorTablaSeleccionado.getCodigocuentad();
             }
             if (cualCelda == 9) {
-                centroCostoDebito = empleadorTablaSeleccionado.getCentrocostod().getNombre();
+                centroCostoDebito = empleadorTablaSeleccionado.getNombrecentrocostod();
             }
             if (cualCelda == 10) {
-                codigoCredito = empleadorTablaSeleccionado.getCuentac().getCodigo();
+                codigoCredito = empleadorTablaSeleccionado.getCodigocuentac();
             }
             if (cualCelda == 11) {
-                centroCostoCredito = empleadorTablaSeleccionado.getCentrocostoc().getNombre();
+                centroCostoCredito = empleadorTablaSeleccionado.getNombrecentrocostoc();
             }
         }
         nombreArchivoExportar = "SolucionesNodosEmpleadorXML";
@@ -642,10 +642,10 @@ public class ControlEmplComprobantes implements Serializable {
         if (tipoDato.equals("TERCERO")) {
             if (tipoTabla == 2) {
                 empleadoTablaSeleccionado = sn;
-                empleadoTablaSeleccionado.getNit().setNombre(tercero);
+                empleadoTablaSeleccionado.setNombretercero(tercero);
             } else if (tipoTabla == 3) {
                 empleadorTablaSeleccionado = sn;
-                empleadorTablaSeleccionado.getNit().setNombre(tercero);
+                empleadorTablaSeleccionado.setNombretercero(tercero);
             }
 
             for (int i = 0; i < lovTerceros.size(); i++) {
@@ -657,9 +657,9 @@ public class ControlEmplComprobantes implements Serializable {
 
             if (coincidencias == 1) {
                 if (tipoTabla == 2) {
-                    empleadoTablaSeleccionado.setNit(lovTerceros.get(indiceUnicoElemento));
+                    empleadoTablaSeleccionado.setNittercero(lovTerceros.get(indiceUnicoElemento).getSecuencia());
                 } else if (tipoTabla == 3) {
-                    empleadorTablaSeleccionado.setNit(lovTerceros.get(indiceUnicoElemento));
+                    empleadorTablaSeleccionado.setNittercero(lovTerceros.get(indiceUnicoElemento).getSecuencia());
                 }
             } else {
                 permitirIndex = false;
@@ -671,10 +671,10 @@ public class ControlEmplComprobantes implements Serializable {
         if (tipoDato.equals("CREDITO")) {
             if (tipoTabla == 2) {
                 empleadoTablaSeleccionado = sn;
-                empleadoTablaSeleccionado.getCuentac().setCodigo(codigoCredito);
+                empleadoTablaSeleccionado.setCodigocuentac(codigoCredito);
             } else if (tipoTabla == 3) {
                 empleadorTablaSeleccionado = sn;
-                empleadorTablaSeleccionado.getCuentac().setCodigo(codigoCredito);
+                empleadorTablaSeleccionado.setCodigocuentac(codigoCredito);
             }
 
             for (int i = 0; i < lovCuentas.size(); i++) {
@@ -685,9 +685,9 @@ public class ControlEmplComprobantes implements Serializable {
             }
             if (coincidencias == 1) {
                 if (tipoTabla == 2) {
-                    empleadoTablaSeleccionado.setCuentac(lovCuentas.get(indiceUnicoElemento));
+                    empleadoTablaSeleccionado.setCuentac(lovCuentas.get(indiceUnicoElemento).getSecuencia());
                 } else if (tipoTabla == 3) {
-                    empleadorTablaSeleccionado.setCuentac(lovCuentas.get(indiceUnicoElemento));
+                    empleadorTablaSeleccionado.setCuentac(lovCuentas.get(indiceUnicoElemento).getSecuencia());
                 }
             } else {
                 permitirIndex = false;
@@ -699,10 +699,10 @@ public class ControlEmplComprobantes implements Serializable {
         if (tipoDato.equals("DEBITO")) {
             if (tipoTabla == 2) {
                 empleadoTablaSeleccionado = sn;
-                empleadoTablaSeleccionado.getCuentad().setCodigo(codigoDebito);
+                empleadoTablaSeleccionado.setCodigocuentad(codigoDebito);
             } else if (tipoTabla == 3) {
                 empleadorTablaSeleccionado = sn;
-                empleadorTablaSeleccionado.getCuentad().setCodigo(codigoDebito);
+                empleadorTablaSeleccionado.setCodigocuentad(codigoDebito);
             }
 
             for (int i = 0; i < lovCuentas.size(); i++) {
@@ -713,9 +713,9 @@ public class ControlEmplComprobantes implements Serializable {
             }
             if (coincidencias == 1) {
                 if (tipoTabla == 2) {
-                    empleadoTablaSeleccionado.setCuentad(lovCuentas.get(indiceUnicoElemento));
+                    empleadoTablaSeleccionado.setCuentad(lovCuentas.get(indiceUnicoElemento).getSecuencia());
                 } else if (tipoTabla == 3) {
-                    empleadorTablaSeleccionado.setCuentad(lovCuentas.get(indiceUnicoElemento));
+                    empleadorTablaSeleccionado.setCuentad(lovCuentas.get(indiceUnicoElemento).getSecuencia());
                 }
             } else {
                 permitirIndex = false;
@@ -727,10 +727,10 @@ public class ControlEmplComprobantes implements Serializable {
         if (tipoDato.equals("CENTROCOSTODEBITO")) {
             if (tipoTabla == 2) {
                 empleadoTablaSeleccionado = sn;
-                empleadoTablaSeleccionado.getCentrocostod().setNombre(centroCostoDebito);
+                empleadoTablaSeleccionado.setNombrecentrocostod(centroCostoDebito);
             } else if (tipoTabla == 3) {
                 empleadorTablaSeleccionado = sn;
-                empleadorTablaSeleccionado.getCentrocostod().setNombre(centroCostoDebito);
+                empleadorTablaSeleccionado.setNombrecentrocostod(centroCostoDebito);
             }
 
             for (int i = 0; i < lovCentrosCostos.size(); i++) {
@@ -741,9 +741,9 @@ public class ControlEmplComprobantes implements Serializable {
             }
             if (coincidencias == 1) {
                 if (tipoTabla == 2) {
-                    empleadoTablaSeleccionado.setCentrocostod(lovCentrosCostos.get(indiceUnicoElemento));
+                    empleadoTablaSeleccionado.setCentrocostod(lovCentrosCostos.get(indiceUnicoElemento).getSecuencia());
                 } else if (tipoTabla == 3) {
-                    empleadorTablaSeleccionado.setCentrocostod(lovCentrosCostos.get(indiceUnicoElemento));
+                    empleadorTablaSeleccionado.setCentrocostod(lovCentrosCostos.get(indiceUnicoElemento).getSecuencia());
                 }
             } else {
                 permitirIndex = false;
@@ -755,10 +755,10 @@ public class ControlEmplComprobantes implements Serializable {
         if (tipoDato.equals("CENTROCOSTOCREDITO")) {
             if (tipoTabla == 2) {
                 empleadoTablaSeleccionado = sn;
-                empleadoTablaSeleccionado.getCentrocostoc().setNombre(centroCostoCredito);
+                empleadoTablaSeleccionado.setNombrecentrocostoc(centroCostoCredito);
             } else if (tipoTabla == 3) {
                 empleadorTablaSeleccionado = sn;
-                empleadorTablaSeleccionado.getCentrocostoc().setNombre(centroCostoCredito);
+                empleadorTablaSeleccionado.setNombrecentrocostoc(centroCostoCredito);
             }
 
             for (int i = 0; i < lovCentrosCostos.size(); i++) {
@@ -769,9 +769,9 @@ public class ControlEmplComprobantes implements Serializable {
             }
             if (coincidencias == 1) {
                 if (tipoTabla == 2) {
-                    empleadoTablaSeleccionado.setCentrocostoc(lovCentrosCostos.get(indiceUnicoElemento));
+                    empleadoTablaSeleccionado.setCentrocostoc(lovCentrosCostos.get(indiceUnicoElemento).getSecuencia());
                 } else if (tipoTabla == 3) {
-                    empleadorTablaSeleccionado.setCentrocostoc(lovCentrosCostos.get(indiceUnicoElemento));
+                    empleadorTablaSeleccionado.setCentrocostoc(lovCentrosCostos.get(indiceUnicoElemento).getSecuencia());
                 }
             } else {
                 permitirIndex = false;
@@ -930,7 +930,7 @@ public class ControlEmplComprobantes implements Serializable {
     public void actualizarTercero() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoTabla == 2) {
-            empleadoTablaSeleccionado.setNit(TerceroSelecionado);
+            empleadoTablaSeleccionado.setNittercero(TerceroSelecionado.getSecuencia());
             if (listaSolucionesNodosEmpleadoModificar.isEmpty()) {
                 listaSolucionesNodosEmpleadoModificar.add(empleadoTablaSeleccionado);
             } else if (!listaSolucionesNodosEmpleadoModificar.contains(empleadoTablaSeleccionado)) {
@@ -945,7 +945,7 @@ public class ControlEmplComprobantes implements Serializable {
             modificacionesSolucionesNodosEmpleado = true;
             permitirIndex = true;
         } else if (tipoTabla == 3) {
-            empleadorTablaSeleccionado.setNit(TerceroSelecionado);
+            empleadorTablaSeleccionado.setNittercero(TerceroSelecionado.getSecuencia());
             if (listaSolucionesNodosEmpleadorModificar.isEmpty()) {
                 listaSolucionesNodosEmpleadorModificar.add(empleadorTablaSeleccionado);
             } else if (!listaSolucionesNodosEmpleadorModificar.contains(empleadorTablaSeleccionado)) {
@@ -994,7 +994,7 @@ public class ControlEmplComprobantes implements Serializable {
     public void actualizarCuentaDebito() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoTabla == 2) {
-            empleadoTablaSeleccionado.setCuentad(cuentaSeleccionada);
+            empleadoTablaSeleccionado.setCuentad(cuentaSeleccionada.getSecuencia());
             if (listaSolucionesNodosEmpleadoModificar.isEmpty()) {
                 listaSolucionesNodosEmpleadoModificar.add(empleadoTablaSeleccionado);
             } else if (!listaSolucionesNodosEmpleadoModificar.contains(empleadoTablaSeleccionado)) {
@@ -1009,7 +1009,7 @@ public class ControlEmplComprobantes implements Serializable {
             modificacionesSolucionesNodosEmpleado = true;
             permitirIndex = true;
         } else if (tipoTabla == 3) {
-            empleadorTablaSeleccionado.setCuentad(cuentaSeleccionada);
+            empleadorTablaSeleccionado.setCuentad(cuentaSeleccionada.getSecuencia());
             if (listaSolucionesNodosEmpleadorModificar.isEmpty()) {
                 listaSolucionesNodosEmpleadorModificar.add(empleadorTablaSeleccionado);
             } else if (!listaSolucionesNodosEmpleadorModificar.contains(empleadorTablaSeleccionado)) {
@@ -1058,7 +1058,7 @@ public class ControlEmplComprobantes implements Serializable {
     public void actualizarCuentaCredito() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoTabla == 2) {
-            empleadoTablaSeleccionado.setCuentac(cuentaSeleccionada);
+            empleadoTablaSeleccionado.setCuentac(cuentaSeleccionada.getSecuencia());
             if (listaSolucionesNodosEmpleadoModificar.isEmpty()) {
                 listaSolucionesNodosEmpleadoModificar.add(empleadoTablaSeleccionado);
             } else if (!listaSolucionesNodosEmpleadoModificar.contains(empleadoTablaSeleccionado)) {
@@ -1073,7 +1073,7 @@ public class ControlEmplComprobantes implements Serializable {
             modificacionesSolucionesNodosEmpleado = true;
             permitirIndex = true;
         } else if (tipoTabla == 3) {
-            empleadorTablaSeleccionado.setCuentac(cuentaSeleccionada);
+            empleadorTablaSeleccionado.setCuentac(cuentaSeleccionada.getSecuencia());
             if (listaSolucionesNodosEmpleadorModificar.isEmpty()) {
                 listaSolucionesNodosEmpleadorModificar.add(empleadorTablaSeleccionado);
             } else if (!listaSolucionesNodosEmpleadorModificar.contains(empleadorTablaSeleccionado)) {
@@ -1122,7 +1122,7 @@ public class ControlEmplComprobantes implements Serializable {
     public void actualizarCentroCostoCredito() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoTabla == 2) {
-            empleadoTablaSeleccionado.setCentrocostoc(centroCostoSeleccionado);
+            empleadoTablaSeleccionado.setCentrocostoc(centroCostoSeleccionado.getSecuencia());
             if (listaSolucionesNodosEmpleadoModificar.isEmpty()) {
                 listaSolucionesNodosEmpleadoModificar.add(empleadoTablaSeleccionado);
             } else if (!listaSolucionesNodosEmpleadoModificar.contains(empleadoTablaSeleccionado)) {
@@ -1137,7 +1137,7 @@ public class ControlEmplComprobantes implements Serializable {
             modificacionesSolucionesNodosEmpleado = true;
             permitirIndex = true;
         } else if (tipoTabla == 3) {
-            empleadorTablaSeleccionado.setCentrocostoc(centroCostoSeleccionado);
+            empleadorTablaSeleccionado.setCentrocostoc(centroCostoSeleccionado.getSecuencia());
             if (listaSolucionesNodosEmpleadorModificar.isEmpty()) {
                 listaSolucionesNodosEmpleadorModificar.add(empleadorTablaSeleccionado);
             } else if (!listaSolucionesNodosEmpleadorModificar.contains(empleadorTablaSeleccionado)) {
@@ -1186,7 +1186,7 @@ public class ControlEmplComprobantes implements Serializable {
     public void actualizarCentroCostoDebito() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoTabla == 2) {
-            empleadoTablaSeleccionado.setCentrocostod(centroCostoSeleccionado);
+            empleadoTablaSeleccionado.setCentrocostod(centroCostoSeleccionado.getSecuencia());
             if (listaSolucionesNodosEmpleadoModificar.isEmpty()) {
                 listaSolucionesNodosEmpleadoModificar.add(empleadoTablaSeleccionado);
             } else if (!listaSolucionesNodosEmpleadoModificar.contains(empleadoTablaSeleccionado)) {
@@ -1201,7 +1201,7 @@ public class ControlEmplComprobantes implements Serializable {
             modificacionesSolucionesNodosEmpleado = true;
             permitirIndex = true;
         } else if (tipoTabla == 3) {
-            empleadorTablaSeleccionado.setCentrocostod(centroCostoSeleccionado);
+            empleadorTablaSeleccionado.setCentrocostod(centroCostoSeleccionado.getSecuencia());
             if (listaSolucionesNodosEmpleadorModificar.isEmpty()) {
                 listaSolucionesNodosEmpleadorModificar.add(empleadorTablaSeleccionado);
             } else if (!listaSolucionesNodosEmpleadorModificar.contains(empleadorTablaSeleccionado)) {
@@ -2410,19 +2410,19 @@ public class ControlEmplComprobantes implements Serializable {
             String fechaDesde = null, fechaHasta = null;
             if (tablaActual == 0) {
                 if (listaSolucionesNodosEmpleado != null && !listaSolucionesNodosEmpleado.isEmpty()) {
-                    secFormula = listaSolucionesNodosEmpleado.get(index).getFormula().getSecuencia();
+                    secFormula = listaSolucionesNodosEmpleado.get(index).getFormula();
                     fechaDesde = formatoFecha.format(listaSolucionesNodosEmpleado.get(index).getFechadesde());
                     fechaHasta = formatoFecha.format(listaSolucionesNodosEmpleado.get(index).getFechahasta());
-                    secEmpleado = listaSolucionesNodosEmpleado.get(index).getEmpleado().getSecuencia();
-                    secProceso = listaSolucionesNodosEmpleado.get(index).getProceso().getSecuencia();
+                    secEmpleado = listaSolucionesNodosEmpleado.get(index).getEmpleado();
+                    secProceso = listaSolucionesNodosEmpleado.get(index).getProceso();
                 }
             } else if (tablaActual == 1) {
                 if (listaSolucionesNodosEmpleador != null && !listaSolucionesNodosEmpleador.isEmpty()) {
-                    secFormula = listaSolucionesNodosEmpleador.get(index).getFormula().getSecuencia();
+                    secFormula = listaSolucionesNodosEmpleador.get(index).getFormula();
                     fechaDesde = formatoFecha.format(listaSolucionesNodosEmpleador.get(index).getFechadesde());
                     fechaHasta = formatoFecha.format(listaSolucionesNodosEmpleador.get(index).getFechahasta());
-                    secEmpleado = listaSolucionesNodosEmpleador.get(index).getEmpleado().getSecuencia();
-                    secProceso = listaSolucionesNodosEmpleador.get(index).getProceso().getSecuencia();
+                    secEmpleado = listaSolucionesNodosEmpleador.get(index).getEmpleado();
+                    secProceso = listaSolucionesNodosEmpleador.get(index).getProceso();
                 }
             }
             if (secFormula != null && fechaDesde != null) {

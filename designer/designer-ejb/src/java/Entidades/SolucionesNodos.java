@@ -61,60 +61,44 @@ public class SolucionesNodos implements Serializable {
     private BigInteger valorincremento;
     @Column(name = "PARAMETROTESORERIA")
     private BigInteger parametrotesoreria;
-    @JoinColumn(name = "TIPOTRABAJADOR", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = false)
-    private TiposTrabajadores tipotrabajador;
-    @JoinColumn(name = "TIPOCONTRATO", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private TiposContratos tipocontrato;
-    @JoinColumn(name = "NIT", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private Terceros nit;
-    @JoinColumn(name = "REFORMALABORAL", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private ReformasLaborales reformalaboral;
-    @JoinColumn(name = "PROCESO", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private Procesos proceso;
-    @JoinColumn(name = "PARAMETROPRESUPUESTO", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private Parametrospresupuestos parametropresupuesto;
-    @JoinColumn(name = "CARGO", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private Cargos cargo;
-    @JoinColumn(name = "CENTROCOSTOD", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = false)
-    private CentrosCostos centrocostod;
-    @JoinColumn(name = "CENTROCOSTOC", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = false)
-    private CentrosCostos centrocostoc;
-    @JoinColumn(name = "CONCEPTO", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = false)
-    private Conceptos concepto;
-    @JoinColumn(name = "CORTEPROCESO", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private CortesProcesos corteproceso;
-    @JoinColumn(name = "CUENTAD", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = false)
-    private Cuentas cuentad;
-    @JoinColumn(name = "CUENTAC", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = false)
-    private Cuentas cuentac;
-    @JoinColumn(name = "EMPLEADO", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = false)
-    private Empleados empleado;
-    @JoinColumn(name = "ESTRUCTURA", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private Estructuras estructura;
-    @JoinColumn(name = "LOCALIZACION", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private Estructuras localizacion;
-    @JoinColumn(name = "FORMULA", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private Formulas formula;
-    @JoinColumn(name = "NODO", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private Nodos nodo;
+    //
+    @Column(name = "TIPOTRABAJADOR")
+    private BigInteger tipotrabajador;
+    @Column(name = "TIPOCONTRATO")
+    private BigInteger tipocontrato;
+    @Column(name = "NIT")
+    private BigInteger nittercero;
+    @Column(name = "REFORMALABORAL")
+    private BigInteger reformalaboral;
+    @Column(name = "PROCESO")
+    private BigInteger proceso;
+    @Column(name = "PARAMETROPRESUPUESTO")
+    private BigInteger parametropresupuesto;
+    @Column(name = "CARGO")
+    private BigInteger cargo;
+    @Column(name = "CENTROCOSTOD")
+    private BigInteger centrocostod;
+    @Column(name = "CENTROCOSTOC")
+    private BigInteger centrocostoc;
+    @Column(name = "CONCEPTO")
+    private BigInteger concepto;
+    @Column(name = "CORTEPROCESO")
+    private BigInteger corteproceso;
+    @Column(name = "CUENTAD")
+    private BigInteger cuentad;
+    @Column(name = "CUENTAC")
+    private BigInteger cuentac;
+    @Column(name = "EMPLEADO")
+    private BigInteger empleado;
+    @Column(name = "ESTRUCTURA")
+    private BigInteger estructura;
+    @Column(name = "LOCALIZACION")
+    private BigInteger localizacion;
+    @Column(name = "FORMULA")
+    private BigInteger formula;
+    @Column(name = "NODO")
+    //
+    private BigInteger nodo;
     @Transient
     private BigDecimal pago;
     @Transient
@@ -123,6 +107,45 @@ public class SolucionesNodos implements Serializable {
     private BigDecimal pasivo;
     @Transient
     private BigDecimal gasto;
+    @Column(name= "NOMBRETIPOTRABAJADOR")
+    private String nombretipotrabajador;
+    @Column(name= "NOMBRETIPOCONTRATO")
+    private String nombretipocontrato;
+    @Column(name="NOMBRETERCERO")
+    private String nombretercero;
+    @Column(name= "NOMBREREFORMALABORAL")
+    private String nombrereformalaboral;
+    @Column(name= "NOMBREPROCESO")
+    private String nombreproceso;
+    @Column(name= "NOMBREPARAMETROPRE")
+    private String nombreparametropre;
+    @Column(name= "NOMBRECARGO")
+    private String nombrecargo;
+    @Column(name= "NOMBRECENTROCOSTOD")
+    private String nombrecentrocostod;
+    @Column(name= "NOMBRECENTROCOSTOC")
+    private String nombrecentrocostoc;
+    @Column(name= "NOMBRECONCEPTO")
+    private String nombreconcepto;
+    @Column(name= "CODIGOCONCEPTO")
+    private BigInteger codigoconcepto;
+    @Column(name= "NOMBRECORTEPROCESO")
+    private String nombrecorteproceso;
+    @Column(name= "CODIGOCUENTAD")
+    private String codigocuentad;
+    @Column(name= "CODIGOCUENTAC")
+    private String codigocuentac;
+    @Column(name= "NOMBREEMPLEADO")
+    private String nombreempleado;
+    @Column(name= "NOMBREESTRUCTURA")
+    private String nombreestructura;
+    @Column(name= "NOMBRELOCALIZACION")
+    private String nombrelocalizacion;
+    @Column(name= "NOMBREFORMULA")
+    private String nombreformula;
+    @Column(name= "NOMBRENODO")
+    private String nombrenodo;
+    
 
     public SolucionesNodos() {
     }
@@ -250,153 +273,6 @@ public class SolucionesNodos implements Serializable {
         this.parametrotesoreria = parametrotesoreria;
     }
 
-    public TiposTrabajadores getTipotrabajador() {
-        return tipotrabajador;
-    }
-
-    public void setTipotrabajador(TiposTrabajadores tipotrabajador) {
-        this.tipotrabajador = tipotrabajador;
-    }
-
-    public TiposContratos getTipocontrato() {
-        return tipocontrato;
-    }
-
-    public void setTipocontrato(TiposContratos tipocontrato) {
-        this.tipocontrato = tipocontrato;
-    }
-
-    public Terceros getNit() {
-        if(nit == null){
-            nit = new Terceros();
-        }
-        return nit;
-    }
-
-    public void setNit(Terceros nit) {
-        this.nit = nit;
-    }
-
-    public ReformasLaborales getReformalaboral() {
-        return reformalaboral;
-    }
-
-    public void setReformalaboral(ReformasLaborales reformalaboral) {
-        this.reformalaboral = reformalaboral;
-    }
-
-    public Procesos getProceso() {
-        return proceso;
-    }
-
-    public void setProceso(Procesos proceso) {
-        this.proceso = proceso;
-    }
-
-    public Parametrospresupuestos getParametropresupuesto() {
-        return parametropresupuesto;
-    }
-
-    public void setParametropresupuesto(Parametrospresupuestos parametropresupuesto) {
-        this.parametropresupuesto = parametropresupuesto;
-    }
-
-    public Cargos getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(Cargos cargo) {
-        this.cargo = cargo;
-    }
-
-    public CentrosCostos getCentrocostod() {
-        return centrocostod;
-    }
-
-    public void setCentrocostod(CentrosCostos centrocostod) {
-        this.centrocostod = centrocostod;
-    }
-
-    public CentrosCostos getCentrocostoc() {
-        return centrocostoc;
-    }
-
-    public void setCentrocostoc(CentrosCostos centrocostoc) {
-        this.centrocostoc = centrocostoc;
-    }
-
-    public Conceptos getConcepto() {
-        return concepto;
-    }
-
-    public void setConcepto(Conceptos concepto) {
-        this.concepto = concepto;
-    }
-
-    public CortesProcesos getCorteproceso() {
-        return corteproceso;
-    }
-
-    public void setCorteproceso(CortesProcesos corteproceso) {
-        this.corteproceso = corteproceso;
-    }
-
-    public Cuentas getCuentad() {
-        return cuentad;
-    }
-
-    public void setCuentad(Cuentas cuentad) {
-        this.cuentad = cuentad;
-    }
-
-    public Cuentas getCuentac() {
-        return cuentac;
-    }
-
-    public void setCuentac(Cuentas cuentac) {
-        this.cuentac = cuentac;
-    }
-
-    public Empleados getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(Empleados empleado) {
-        this.empleado = empleado;
-    }
-
-    public Estructuras getEstructura() {
-        return estructura;
-    }
-
-    public void setEstructura(Estructuras estructura) {
-        this.estructura = estructura;
-    }
-
-    public Estructuras getLocalizacion() {
-        return localizacion;
-    }
-
-    public void setLocalizacion(Estructuras localizacion) {
-        this.localizacion = localizacion;
-    }
-
-    public Formulas getFormula() {
-        return formula;
-    }
-
-    public void setFormula(Formulas formula) {
-        this.formula = formula;
-    }
-
-    public Nodos getNodo() {
-        return nodo;
-    }
-
-    public void setNodo(Nodos nodo) {
-        this.nodo = nodo;
-    }
-
     public BigDecimal getPago() {
         if (tipo.equals("PAGO")) {
             pago = valor;
@@ -439,6 +315,302 @@ public class SolucionesNodos implements Serializable {
 
     public void setGasto(BigDecimal gasto) {
         this.gasto = gasto;
+    }
+
+    public BigInteger getTipotrabajador() {
+        return tipotrabajador;
+    }
+
+    public void setTipotrabajador(BigInteger tipotrabajador) {
+        this.tipotrabajador = tipotrabajador;
+    }
+
+    public BigInteger getTipocontrato() {
+        return tipocontrato;
+    }
+
+    public void setTipocontrato(BigInteger tipocontrato) {
+        this.tipocontrato = tipocontrato;
+    }
+
+    public BigInteger getNittercero() {
+        return nittercero;
+    }
+
+    public void setNittercero(BigInteger nittercero) {
+        this.nittercero = nittercero;
+    }
+
+    public BigInteger getReformalaboral() {
+        return reformalaboral;
+    }
+
+    public void setReformalaboral(BigInteger reformalaboral) {
+        this.reformalaboral = reformalaboral;
+    }
+
+    public BigInteger getProceso() {
+        return proceso;
+    }
+
+    public void setProceso(BigInteger proceso) {
+        this.proceso = proceso;
+    }
+
+    public BigInteger getParametropresupuesto() {
+        return parametropresupuesto;
+    }
+
+    public void setParametropresupuesto(BigInteger parametropresupuesto) {
+        this.parametropresupuesto = parametropresupuesto;
+    }
+
+    public BigInteger getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(BigInteger cargo) {
+        this.cargo = cargo;
+    }
+
+    public BigInteger getCentrocostod() {
+        return centrocostod;
+    }
+
+    public void setCentrocostod(BigInteger centrocostod) {
+        this.centrocostod = centrocostod;
+    }
+
+    public BigInteger getCentrocostoc() {
+        return centrocostoc;
+    }
+
+    public void setCentrocostoc(BigInteger centrocostoc) {
+        this.centrocostoc = centrocostoc;
+    }
+
+    public BigInteger getConcepto() {
+        return concepto;
+    }
+
+    public void setConcepto(BigInteger concepto) {
+        this.concepto = concepto;
+    }
+
+    public BigInteger getCorteproceso() {
+        return corteproceso;
+    }
+
+    public void setCorteproceso(BigInteger corteproceso) {
+        this.corteproceso = corteproceso;
+    }
+
+    public BigInteger getCuentad() {
+        return cuentad;
+    }
+
+    public void setCuentad(BigInteger cuentad) {
+        this.cuentad = cuentad;
+    }
+
+    public BigInteger getCuentac() {
+        return cuentac;
+    }
+
+    public void setCuentac(BigInteger cuentac) {
+        this.cuentac = cuentac;
+    }
+
+    public BigInteger getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(BigInteger empleado) {
+        this.empleado = empleado;
+    }
+
+    public BigInteger getEstructura() {
+        return estructura;
+    }
+
+    public void setEstructura(BigInteger estructura) {
+        this.estructura = estructura;
+    }
+
+    public BigInteger getLocalizacion() {
+        return localizacion;
+    }
+
+    public void setLocalizacion(BigInteger localizacion) {
+        this.localizacion = localizacion;
+    }
+
+    public BigInteger getFormula() {
+        return formula;
+    }
+
+    public void setFormula(BigInteger formula) {
+        this.formula = formula;
+    }
+
+    public BigInteger getNodo() {
+        return nodo;
+    }
+
+    public void setNodo(BigInteger nodo) {
+        this.nodo = nodo;
+    }
+
+    public String getNombretipotrabajador() {
+        return nombretipotrabajador;
+    }
+
+    public void setNombretipotrabajador(String nombretipotrabajador) {
+        this.nombretipotrabajador = nombretipotrabajador;
+    }
+
+    public String getNombretipocontrato() {
+        return nombretipocontrato;
+    }
+
+    public void setNombretipocontrato(String nombretipocontrato) {
+        this.nombretipocontrato = nombretipocontrato;
+    }
+
+    public String getNombretercero() {
+        return nombretercero;
+    }
+
+    public void setNombretercero(String nombretercero) {
+        this.nombretercero = nombretercero;
+    }
+
+    public String getNombrereformalaboral() {
+        return nombrereformalaboral;
+    }
+
+    public void setNombrereformalaboral(String nombrereformalaboral) {
+        this.nombrereformalaboral = nombrereformalaboral;
+    }
+
+    public String getNombreproceso() {
+        return nombreproceso;
+    }
+
+    public void setNombreproceso(String nombreproceso) {
+        this.nombreproceso = nombreproceso;
+    }
+
+    public String getNombreparametropre() {
+        return nombreparametropre;
+    }
+
+    public void setNombreparametropre(String nombreparametropre) {
+        this.nombreparametropre = nombreparametropre;
+    }
+
+    public String getNombrecargo() {
+        return nombrecargo;
+    }
+
+    public void setNombrecargo(String nombrecargo) {
+        this.nombrecargo = nombrecargo;
+    }
+
+    public String getNombrecentrocostod() {
+        return nombrecentrocostod;
+    }
+
+    public void setNombrecentrocostod(String nombrecentrocostod) {
+        this.nombrecentrocostod = nombrecentrocostod;
+    }
+
+    public String getNombrecentrocostoc() {
+        return nombrecentrocostoc;
+    }
+
+    public void setNombrecentrocostoc(String nombrecentrocostoc) {
+        this.nombrecentrocostoc = nombrecentrocostoc;
+    }
+
+    public String getNombreconcepto() {
+        return nombreconcepto;
+    }
+
+    public void setNombreconcepto(String nombreconcepto) {
+        this.nombreconcepto = nombreconcepto;
+    }
+
+    public String getNombrecorteproceso() {
+        return nombrecorteproceso;
+    }
+
+    public void setNombrecorteproceso(String nombrecorteproceso) {
+        this.nombrecorteproceso = nombrecorteproceso;
+    }
+
+    public String getCodigocuentad() {
+        return codigocuentad;
+    }
+
+    public void setCodigocuentad(String codigocuentad) {
+        this.codigocuentad = codigocuentad;
+    }
+
+    public String getCodigocuentac() {
+        return codigocuentac;
+    }
+
+    public void setCodigocuentac(String codigocuentac) {
+        this.codigocuentac = codigocuentac;
+    }
+
+    public String getNombreempleado() {
+        return nombreempleado;
+    }
+
+    public void setNombreempleado(String nombreempleado) {
+        this.nombreempleado = nombreempleado;
+    }
+
+    public String getNombreestructura() {
+        return nombreestructura;
+    }
+
+    public void setNombreestructura(String nombreestructura) {
+        this.nombreestructura = nombreestructura;
+    }
+
+    public String getNombrelocalizacion() {
+        return nombrelocalizacion;
+    }
+
+    public void setNombrelocalizacion(String nombrelocalizacion) {
+        this.nombrelocalizacion = nombrelocalizacion;
+    }
+
+    public String getNombreformula() {
+        return nombreformula;
+    }
+
+    public void setNombreformula(String nombreformula) {
+        this.nombreformula = nombreformula;
+    }
+
+    public String getNombrenodo() {
+        return nombrenodo;
+    }
+
+    public void setNombrenodo(String nombrenodo) {
+        this.nombrenodo = nombrenodo;
+    }
+
+    public BigInteger getCodigoconcepto() {
+        return codigoconcepto;
+    }
+
+    public void setCodigoconcepto(BigInteger codigoconcepto) {
+        this.codigoconcepto = codigoconcepto;
     }
 
     @Override
