@@ -1292,11 +1292,11 @@
                                 </f:facet>
                                 <h:outputText value="#{formulaC.orden}" />
                             </p:column>
-                            <p:column filterBy="#{formulaC.concepto.descripcion}" filterMatchMode="contains" sortBy="#{formulaC.concepto.descripcion}" filterStyle="width: 85%;">
+                            <p:column filterBy="#{formulaC.nombreConcepto}" filterMatchMode="contains" sortBy="#{formulaC.nombreConcepto}" filterStyle="width: 85%;">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['descripcionOL']}" />
                                 </f:facet>
-                                <h:outputText value="#{formulaC.concepto.descripcion}" />
+                                <h:outputText value="#{formulaC.nombreConcepto}" />
                             </p:column>
                         </p:dataTable>
 

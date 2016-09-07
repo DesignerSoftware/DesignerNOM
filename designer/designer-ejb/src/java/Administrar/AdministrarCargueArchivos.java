@@ -294,9 +294,9 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
         String tipo = "MANUAL";
         boolean verificar = persistenciaFormulasConceptos.verificarExistenciaConceptoFormulasConcepto(em,secConcepto);
         if (verificar == true) {
-            List<FormulasConceptos> formulasConcepto = persistenciaFormulasConceptos.formulasConcepto(em,secConcepto);
+            List<FormulasConceptos> formulasConcepto = persistenciaFormulasConceptos.formulasConceptosXSecConcepto(em,secConcepto);
             for (int i = 0; i < formulasConcepto.size(); i++) {
-                verificar = persistenciaFormulasNovedades.verificarExistenciaFormulasNovedades(em,formulasConcepto.get(i).getFormula().getSecuencia());
+                verificar = persistenciaFormulasNovedades.verificarExistenciaFormulasNovedades(em,formulasConcepto.get(i).getFormula());
                 if (verificar == true) {
                     tipo = "SEMI-AUTOMATICO";
                 } else {

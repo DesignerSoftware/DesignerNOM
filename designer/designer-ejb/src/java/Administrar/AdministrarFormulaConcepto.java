@@ -120,7 +120,7 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
     @Override
     public List<FormulasConceptos> cargarFormulasConcepto(BigInteger secConcepto) {
         try {
-            List<FormulasConceptos> lista = persistenciaFormulasConceptos.formulasConcepto(em, secConcepto);
+            List<FormulasConceptos> lista = persistenciaFormulasConceptos.formulasConceptosXSecConcepto(em, secConcepto);
             if (lista.isEmpty() || lista == null) {
                 System.out.println("Error cargarFormulasConcepto: formulasConcepto trae lista vacia o nula Admi");
                 return null;

@@ -1667,7 +1667,7 @@ public class ControlNovedadesConceptos implements Serializable {
 
         if (formulasConceptoSel != null) {
             if (!formulasConceptoSel.isEmpty()) {
-                autoFormula = formulasConceptoSel.get(0).getFormula().getSecuencia();
+                autoFormula = formulasConceptoSel.get(0).getFormula();
             } else {
                 autoFormula = new BigInteger("4621544");
             }

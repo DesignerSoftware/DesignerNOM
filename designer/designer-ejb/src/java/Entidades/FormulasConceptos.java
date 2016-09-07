@@ -17,183 +17,237 @@ import javax.validation.constraints.Size;
 @Table(name = "FORMULASCONCEPTOS")
 public class FormulasConceptos implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "SECUENCIA")
-    private BigInteger secuencia;
-    @Column(name = "FECHAINICIAL")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechainicial;
-    @Column(name = "FECHAFINAL")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechafinal;
-    @Basic(optional = false)
-    @Column(name = "ORDEN")
-    private BigInteger orden;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 1)
-    @Column(name = "TIPO")
-    private String tipo;
-    @JoinColumn(name = "FORMULA", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = true)
-    private Formulas formula;
-    @JoinColumn(name = "CONCEPTO", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = false)
-    private Conceptos concepto;
-    @Transient
-    private String strFechaInicial;
-    @Transient
-    private String strFechaFinal;
-    @Transient
-    private String strOrden;
+   private static final long serialVersionUID = 1L;
+   @Id
+   @Basic(optional = false)
+   @NotNull
+   @Column(name = "SECUENCIA")
+   private BigInteger secuencia;
+   @Column(name = "FECHAINICIAL")
+   @Temporal(TemporalType.TIMESTAMP)
+   private Date fechainicial;
+   @Column(name = "FECHAFINAL")
+   @Temporal(TemporalType.TIMESTAMP)
+   private Date fechafinal;
+   @Basic(optional = false)
+   @Column(name = "ORDEN")
+   private BigInteger orden;
+   @Basic(optional = false)
+   @NotNull
+   @Size(min = 1, max = 1)
+   @Column(name = "TIPO")
+   private String tipo;
+   @Column(name = "FORMULA")
+   private BigInteger formula;
+   @Column(name = "CONCEPTO")
+   private BigInteger concepto;
 
-    public FormulasConceptos() {
-    }
+//   @Transient
+   @Column(name = "NITEMPRESA")
+   private long nitEmpresa;
+//   @Transient
+   @Column(name = "NOMBREEMPRESA")
+   private String nombreEmpresa;
+//   @Transient
+   @Column(name = "NOMBREFORMULA")
+   private String nombreFormula;
+//   @Transient
+   @Column(name = "NOMBRECONCEPTO")
+   private String nombreConcepto;
+//   @Transient
+   @Column(name = "CODIGOCONCEPTO")
+   private BigInteger codigoConcepto;
+   @Transient
+   private String strFechaInicial;
+   @Transient
+   private String strFechaFinal;
+   @Transient
+   private String strOrden;
 
-    public FormulasConceptos(BigInteger secuencia) {
-        this.secuencia = secuencia;
-    }
+   public FormulasConceptos() {
+   }
 
-    public FormulasConceptos(BigInteger secuencia, Date fechainicial, Date fechafinal, BigInteger orden, String tipo) {
-        this.secuencia = secuencia;
-        this.fechainicial = fechainicial;
-        this.fechafinal = fechafinal;
-        this.orden = orden;
-        this.tipo = tipo;
-    }
+   public FormulasConceptos(BigInteger secuencia) {
+      this.secuencia = secuencia;
+   }
 
-    public BigInteger getSecuencia() {
-        return secuencia;
-    }
+   public FormulasConceptos(BigInteger secuencia, Date fechainicial, Date fechafinal, BigInteger orden, String tipo) {
+      this.secuencia = secuencia;
+      this.fechainicial = fechainicial;
+      this.fechafinal = fechafinal;
+      this.orden = orden;
+      this.tipo = tipo;
+   }
 
-    public void setSecuencia(BigInteger secuencia) {
-        this.secuencia = secuencia;
-    }
+   public BigInteger getSecuencia() {
+      return secuencia;
+   }
 
-    public Date getFechainicial() {
-        return fechainicial;
-    }
+   public void setSecuencia(BigInteger secuencia) {
+      this.secuencia = secuencia;
+   }
 
-    public void setFechainicial(Date fechainicial) {
-        this.fechainicial = fechainicial;
-    }
+   public Date getFechainicial() {
+      return fechainicial;
+   }
 
-    public Date getFechafinal() {
-        return fechafinal;
-    }
+   public void setFechainicial(Date fechainicial) {
+      this.fechainicial = fechainicial;
+   }
 
-    public void setFechafinal(Date fechafinal) {
-        this.fechafinal = fechafinal;
-    }
+   public Date getFechafinal() {
+      return fechafinal;
+   }
 
-    public BigInteger getOrden() {
-        return orden;
-    }
+   public void setFechafinal(Date fechafinal) {
+      this.fechafinal = fechafinal;
+   }
 
-    public void setOrden(BigInteger orden) {
-        this.orden = orden;
-    }
+   public BigInteger getOrden() {
+      return orden;
+   }
 
-    public String getStrOrden() {
-        getOrden();
-        if (orden != null) {
-            strOrden = orden.toString();
-        } else {
-            strOrden = " ";
-        }
-        return strOrden;
-    }
+   public void setOrden(BigInteger orden) {
+      this.orden = orden;
+   }
 
-    public void setStrOrden(String strOrden) {
-        if (!strOrden.isEmpty()) {
-            orden = new BigInteger(strOrden);
-        } else {
-            orden = null;
-        }
-        this.strOrden = strOrden;
-    }
+   public String getStrOrden() {
+      getOrden();
+      if (orden != null) {
+         strOrden = orden.toString();
+      } else {
+         strOrden = " ";
+      }
+      return strOrden;
+   }
 
-    public String getTipo() {
-        return tipo;
-    }
+   public void setStrOrden(String strOrden) {
+      if (!strOrden.isEmpty()) {
+         orden = new BigInteger(strOrden);
+      } else {
+         orden = null;
+      }
+      this.strOrden = strOrden;
+   }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+   public String getTipo() {
+      return tipo;
+   }
 
-    public Formulas getFormula() {
-        return formula;
-    }
+   public void setTipo(String tipo) {
+      this.tipo = tipo;
+   }
 
-    public void setFormula(Formulas formula) {
-        this.formula = formula;
-    }
+   public String getStrFechaInicial() {
+      if (fechainicial != null) {
+         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+         strFechaInicial = formatoFecha.format(fechainicial);
+      } else {
+         strFechaInicial = " ";
+      }
+      return strFechaInicial;
+   }
 
-    public Conceptos getConcepto() {
-        return concepto;
-    }
+   public void setStrFechaInicial(String strFechaInicial) throws ParseException {
+      SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+      fechainicial = formatoFecha.parse(strFechaInicial);
+      this.strFechaInicial = strFechaInicial;
+   }
 
-    public void setConcepto(Conceptos concepto) {
-        this.concepto = concepto;
-    }
+   public String getStrFechaFinal() {
+      if (fechafinal != null) {
+         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+         strFechaFinal = formatoFecha.format(fechafinal);
+      } else {
+         strFechaFinal = " ";
+      }
+      return strFechaFinal;
+   }
 
-    public String getStrFechaInicial() {
-        if (fechainicial != null) {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-            strFechaInicial = formatoFecha.format(fechainicial);
-        } else {
-            strFechaInicial = " ";
-        }
-        return strFechaInicial;
-    }
+   public void setStrFechaFinal(String strFechaFinal) throws ParseException {
+      SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+      fechafinal = formatoFecha.parse(strFechaFinal);
+      this.strFechaFinal = strFechaFinal;
+   }
 
-    public void setStrFechaInicial(String strFechaInicial) throws ParseException {
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        fechainicial = formatoFecha.parse(strFechaInicial);
-        this.strFechaInicial = strFechaInicial;
-    }
+   public BigInteger getFormula() {
+      return formula;
+   }
 
-    public String getStrFechaFinal() {
-        if (fechafinal != null) {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-            strFechaFinal = formatoFecha.format(fechafinal);
-        } else {
-            strFechaFinal = " ";
-        }
-        return strFechaFinal;
-    }
+   public void setFormula(BigInteger formula) {
+      this.formula = formula;
+   }
 
-    public void setStrFechaFinal(String strFechaFinal) throws ParseException {
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        fechafinal = formatoFecha.parse(strFechaFinal);
-        this.strFechaFinal = strFechaFinal;
-    }
+   public BigInteger getConcepto() {
+      return concepto;
+   }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (secuencia != null ? secuencia.hashCode() : 0);
-        return hash;
-    }
+   public void setConcepto(BigInteger concepto) {
+      this.concepto = concepto;
+   }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof FormulasConceptos)) {
-            return false;
-        }
-        FormulasConceptos other = (FormulasConceptos) object;
-        if ((this.secuencia == null && other.secuencia != null) || (this.secuencia != null && !this.secuencia.equals(other.secuencia))) {
-            return false;
-        }
-        return true;
-    }
+   public String getNombreEmpresa() {
+      return nombreEmpresa;
+   }
 
-    @Override
-    public String toString() {
-        return "Entidades.Formulasconceptos[ secuencia=" + secuencia + " ]";
-    }
+   public void setNombreEmpresa(String nombreEmpresa) {
+      this.nombreEmpresa = nombreEmpresa;
+   }
+
+   public String getNombreFormula() {
+      return nombreFormula;
+   }
+
+   public void setNombreFormula(String nombreFormula) {
+      this.nombreFormula = nombreFormula;
+   }
+
+   public String getNombreConcepto() {
+      return nombreConcepto;
+   }
+
+   public void setNombreConcepto(String nombreConcepto) {
+      this.nombreConcepto = nombreConcepto;
+   }
+
+   public BigInteger getCodigoConcepto() {
+      return codigoConcepto;
+   }
+
+   public void setCodigoConcepto(BigInteger codigoConcepto) {
+      this.codigoConcepto = codigoConcepto;
+   }
+
+   public long getNitEmpresa() {
+      return nitEmpresa;
+   }
+
+   public void setNitEmpresa(long nitEmpresa) {
+      this.nitEmpresa = nitEmpresa;
+   }
+
+   @Override
+   public int hashCode() {
+      int hash = 0;
+      hash += (secuencia != null ? secuencia.hashCode() : 0);
+      return hash;
+   }
+
+   @Override
+   public boolean equals(Object object) {
+      // TODO: Warning - this method won't work in the case the id fields are not set
+      if (!(object instanceof FormulasConceptos)) {
+         return false;
+      }
+      FormulasConceptos other = (FormulasConceptos) object;
+      if ((this.secuencia == null && other.secuencia != null) || (this.secuencia != null && !this.secuencia.equals(other.secuencia))) {
+         return false;
+      }
+      return true;
+   }
+
+   @Override
+   public String toString() {
+      return "Entidades.Formulasconceptos[ secuencia=" + secuencia + " ]";
+   }
 }

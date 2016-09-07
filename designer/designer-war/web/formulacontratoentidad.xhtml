@@ -14,25 +14,89 @@
                     <p:growl id="growl" showDetail="true"/> 
                     <f:loadBundle basename="Recursos.formulacontratoentidad" var="msg" />
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
-                        <h:outputText style="position: absolute; top: 50px; height: 12px;position: absolute;color: #BF1A1A; font-weight: bold;text-align: right;width: 240px;left: 600px;" id="nombreEmpleado" value="#{controlFormulasContratosEntidades.formulaContratoSeleccionada.formula.nombrelargo}"/>
+                        <h:outputText style="position: absolute; top: 50px; height: 12px; position: absolute; color: #BF1A1A; font-weight: bold; text-align: right; width: 240px; left: 600px;" id="nombreEmpleado" value="#{controlFormulasContratosEntidades.formulaContratoSeleccionada.formula.nombrelargo}"/>
 
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); "
+                                                 actionListener="#{controlFormulasContratosEntidades.guardarFormulasContratosEntidades()}" process="@this" />
+                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) "
+                                                 actionListener="#{controlFormulasContratosEntidades.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="" for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) "
+                                                 actionListener="#{controlFormulasContratosEntidades.listaValoresBoton()}"   process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) "
+                                                 actionListener="#{controlFormulasContratosEntidades.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) "
+                                                 actionListener="#{controlFormulasContratosEntidades.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) "
+                                                 actionListener="#{controlFormulasContratosEntidades.limpiarNuevoFormulasContratosEntidades()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosFormulasContratosEntidadesExportar" fileName="FORMULASASEGURADAS" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) "
+                                                 actionListener="#{controlFormulasContratosEntidades.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>  
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "
+                                                 actionListener="#{controlFormulasContratosEntidades.cargarNuevoFormulasContratosEntidades()}" process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) "
+                                                 actionListener="#{controlFormulasContratosEntidades.borrandoFormulasContratosEntidades()}" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) "
+                                                 actionListener="#{controlFormulasContratosEntidades.duplicandoFormulasContratosEntidades()}" process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
+                                <p:separator style="position: relative; top: -9px"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) "
+                                                 actionListener="#{controlFormulasContratosEntidades.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) "
+                                                 actionListener="#{controlFormulasContratosEntidades.cancelarModificacion()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="Refrescar"/>
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) "
+                                                 actionListener="#{controlFormulasContratosEntidades.salir()}" action="#{controlFormulasContratosEntidades.redirigirPagina()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="Salir"/>
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>#{msg['titulo1']}</strong></legend>
 
                             <p:dataTable id="datosFormulasContratosEntidades" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
-                                         value="#{controlFormulasContratosEntidades.listFormulasContratosEntidades}"  scrollHeight="#{controlFormulasContratosEntidades.tamano}"  scrollWidth="830"
+                                         value="#{controlFormulasContratosEntidades.listFormulasContratosEntidades}"  scrollHeight="#{controlFormulasContratosEntidades.tamano}" scrollWidth="830"
                                          filteredValue="#{controlFormulasContratosEntidades.filtrarFormulasContratosEntidades}" emptyMessage="#{msg['lovvacio']}"
                                          selection="#{controlFormulasContratosEntidades.formulaContratoSeleccionada}" selectionMode="single"
-                                         editable="true" editMode="cell" scrollable="true" liveScroll="true" scrollRows="50" 
-                                         >
+                                         editable="true" editMode="cell" scrollable="true" liveScroll="true" scrollRows="50">
+                               
                                 <p:ajax event="filter" listener="#{controlFormulasContratosEntidades.eventoFiltrar()}"/>
-
 
                                 <p:column headerText="#{msg['tipoEntidad']}" sortBy="#{info.tipoentidad.nombre}" filterBy="#{info.tipoentidad.nombre}" filterMatchMode="contains" id="personafir" width="300" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.tipoentidad.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.tipoentidad.nombre}" id="editarPersonaFirma" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText value="#{info.tipoentidad.nombre}" id="editarPersonaFirma" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlFormulasContratosEntidades.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlFormulasContratosEntidades.asignarIndex(indice, 0,0)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlFormulasContratosEntidades.modificarFormulasContratosEntidades(indice, 'FORMULA', info.tipoentidad.nombre)}" update="personafir"/>
@@ -40,7 +104,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 728px; margin: -14px; height: 50px; border: none; color: blue"  id="fooProceso"  action="tipoentidadformulacontratoentidad" actionListener="#{controlTiposEntidades.recibirPagina('atrastipoentidadformulacontratoentidad')}" value="#{msg['tipoEntidad']}"/>
+                                        <p:commandButton style="width: 728px; margin: -14px; height: 50px; border: none; color: blue" id="fooProceso" action="tipoentidadformulacontratoentidad" actionListener="#{controlTiposEntidades.recibirPagina('atrastipoentidadformulacontratoentidad')}" value="#{msg['tipoEntidad']}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -48,61 +112,9 @@
 
                         </fieldset>
 
-                        <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
-
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlFormulasContratosEntidades.guardarFormulasContratosEntidades()}" process="@this" />
-                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}" />
-
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlFormulasContratosEntidades.editarCelda()}"  process="@this"/>
-                                <p:tooltip style="" for="editar" value="#{msg['editar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/> 
-
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlFormulasContratosEntidades.listaValoresBoton()}"   process="@this"/>
-                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlFormulasContratosEntidades.activarCtrlF11()}"  process="@this"/>
-                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/> 
-
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " actionListener="#{controlFormulasContratosEntidades.exportXLS()}"  ajax="false"/>
-                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}" />
-
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlFormulasContratosEntidades.limpiarNuevoFormulasContratosEntidades()}"  ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosFormulasContratosEntidadesExportar" fileName="FORMULASASEGURADAS" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}" />
-
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlFormulasContratosEntidades.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>  
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "  actionListener="#{controlFormulasContratosEntidades.cargarNuevoFormulasContratosEntidades()}" process="@this"/> 
-                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}" />
-
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) "  actionListener="#{controlFormulasContratosEntidades.borrandoFormulasContratosEntidades()}" process="@this"/>  
-                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}" />
-
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlFormulasContratosEntidades.duplicandoFormulasContratosEntidades()}" process="@this"/>  
-                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
-                                <p:separator style="position: relative; top: -9px"/>  
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlFormulasContratosEntidades.verificarRastro()}" process="@this"/>  
-                                <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
-                                <p:separator style="position: relative; top: -9px"/> 
-
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlFormulasContratosEntidades.cancelarModificacion()}" process="@this"/>  
-                                <p:tooltip  for="refrescar" value="Refrescar"/>
-
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlFormulasContratosEntidades.salir()}" process="@this"/>  
-                                <p:tooltip  for="salir" value="Salir"/>
-                            </p:toolbarGroup>  
-                        </p:toolbar>
-
                         <h:outputText id="informacionRegistro" value="#{controlFormulasContratosEntidades.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
                         <p:commandButton style=" position: absolute; left: 688px; top: 470px; " icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}"  actionListener="#{controlFormulasContratosEntidades.revisarDialogoGuardar()}" disabled="#{controlFormulasContratosEntidades.guardado}"    process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 785px; top: 470px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}"    />
+                        <p:commandButton style=" position: absolute; left: 785px; top: 470px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}" actionListener="#{controlFormulasContratosEntidades.salir()}" action="#{controlFormulasContratosEntidades.redirigirPagina()}"   />
 
 
 

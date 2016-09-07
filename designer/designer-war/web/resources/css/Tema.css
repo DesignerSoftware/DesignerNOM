@@ -455,6 +455,9 @@ button .ui-widget-header{
     background-size: 100% 100% !important;
     background-repeat: no-repeat !important;
     border: none !important;
+    position: absolute;
+    left: 685px;
+    top: 501px;
 }
 
 .cssBotonCancelar {
@@ -464,6 +467,9 @@ button .ui-widget-header{
     background-size: 100% 100% !important;
     background-repeat: no-repeat !important;
     border: none !important;
+    position: absolute;
+    left: 775px;
+    top: 501px;
 }
 
 .cssBotonLovDialogos {

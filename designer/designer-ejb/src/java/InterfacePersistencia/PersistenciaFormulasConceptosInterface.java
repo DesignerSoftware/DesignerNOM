@@ -43,10 +43,11 @@ public interface PersistenciaFormulasConceptosInterface {
     public boolean verificarExistenciaConceptoFormulasConcepto(EntityManager em,BigInteger secConcepto);
     /**
      * Método encargado de buscar todas las FormulasConceptos de un concepto especifico.
+    * @param em
      * @param secConcepto Secuencia del concepto asociado a las FormulasConceptos.
      * @return Retorna una lista de todas las FormulasConceptos de un concepto.
      */
-    public List<FormulasConceptos> formulasConcepto(EntityManager em,BigInteger secConcepto); 
+    public List<FormulasConceptos> formulasConceptosXSecConcepto(EntityManager em,BigInteger secConcepto); 
     /**
      * Método encargado de verificar que una FormulaConcepto esté asociada con un concepto al momento de hace el cargue de archivos.
      * @param secConcepto Secuencia del concepto 

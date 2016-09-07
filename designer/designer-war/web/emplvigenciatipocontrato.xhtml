@@ -118,7 +118,7 @@
                                 <p:column headerText="#{msg['motivo']}" sortBy="#{info.motivocontrato.nombre}" filterBy="#{info.motivocontrato.nombre}" filterMatchMode="contains" id="vtcContrato" width="150" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header"><h:outputText value="#{msg['motivo']}"/> </f:facet> 
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.motivocontrato.nombre}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.motivocontrato.nombre}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{info.motivocontrato.nombre}" id="editarContrato" style=" border-radius: 0px; width: 93.5%; height: 12px; text-transform: uppercase;"> 
                                                 <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'MOTIVOC', info.motivocontrato.nombre)}"/>
@@ -127,7 +127,6 @@
                                             </p:inputText> 
                                         </f:facet>  
                                     </p:cellEditor>
-
                                     <f:facet name="footer">
                                         <p:commandButton style="width: 170px;" id="fooContrato" action="motivocontrato" actionListener="#{controlMotivosContratos.recibirPaginaEntrante('atrasmotivocontrato')}" value=" "/>
                                     </f:facet>
@@ -146,8 +145,6 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
-
                                     <f:facet name="footer">
                                         <p:commandButton style="width: 170px;" id="fooMotivos" action="tipocontrato" actionListener="#{controlTipoContrato.recibirPaginaEntrante('emplvigenciatipocontrato')}" value=" "/>
                                     </f:facet>
@@ -155,7 +152,6 @@
 
                                 <p:column headerText="#{msg['ciudad']}" sortBy="#{info.ciudad.nombre}" filterBy="#{info.ciudad.nombre}" filterMatchMode="contains" id="vtcCiudad" width="100" filterStyle="display: none; visibility: hidden;" >                                                              
                                     <f:facet name="header"> <h:outputText value="#{msg['ciudad']}" /></f:facet>
-
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText id="outCiudad" value="#{info.ciudad.nombre}"/></f:facet>  
                                         <f:facet name="input">
@@ -166,7 +162,6 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
                                     <f:facet name="footer">
                                         <p:commandButton style="width: 170px;" id="fooCargos" action="ciudad" actionListener="#{controlCiudades.recibirPaginaEntrante('emplvigenciatipocontrato')}" value=" "/>
                                     </f:facet>
@@ -177,7 +172,6 @@
                                         <h:outputText id="headFisp" value="#{msg['fispH']}"/>
                                         <p:tooltip for="headFisp" value="#{msg['fisp']}"/>
                                     </f:facet>
-
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.iniciosustitucion}" >
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -198,7 +192,6 @@
                                         <h:outputText id="headFif" value="#{msg['fifH']}"/>
                                         <p:tooltip for="headFif" value="#{msg['fif']}"/>
                                     </f:facet>
-
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.inicioflexibiliza}" >
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -216,9 +209,8 @@
 
                                 <p:column headerText="#{msg['observaciones']}" sortBy="#{info.observaciones}" filterBy="#{info.observaciones}" filterMatchMode="contains" id="vtcObservacion" width="150" filterStyle="display: none; visibility: hidden;" >                                                              
                                     <f:facet name="header"> <h:outputText value="#{msg['observaciones']}" /></f:facet>
-
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.observaciones}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.observaciones}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{info.observaciones}" id="editarObservacion" style=" border-radius: 0px; width: 93.5%; height: 12px; text-transform: uppercase" >
                                                 <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'N', info.inicioflexibiliza)}"/>
@@ -233,7 +225,7 @@
                                         <h:outputText id="headP" value="#{msg['p']}"/>
                                         <p:tooltip for="headP" value="#{msg['pvH']}"/>
                                     </f:facet>
-                                    <p:commandButton value="" style="background-image: url(Imagenes/Iconos/revertir.gif); width: 21px; height: 21px; background-repeat: no-repeat; border: none; background-size: 100% 100%;"/>
+                                    <p:commandButton value="" style="background-image: url(Imagenes/Iconos/lupa.png); width: 21px; height: 21px; background-repeat: no-repeat; border: none; background-size: 100% 100%;"/>
                                 </p:column>
 
                                 <p:column headerText="S" width="25" style="padding: 0px !important; width: 20px; alignment-adjust: central;" exportable="false">  

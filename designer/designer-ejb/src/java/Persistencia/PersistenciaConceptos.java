@@ -24,6 +24,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
+    * @param em
      */
     /*
      * @PersistenceContext(unitName = "DesignerRHN-ejbPU") private EntityManager em;

@@ -5759,7 +5759,6 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
-    
     <navigation-rule>
         <from-view-id>/cuenta.xhtml</from-view-id>
         <navigation-case>
@@ -5777,12 +5776,79 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
-    
     <navigation-rule>
         <from-view-id>/empleado.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>atrasinterfasecontableempleado</from-outcome>
             <to-view-id>/interfasecontabletotal.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/formulacontrato.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>formulacontratoentidad</from-outcome>
+            <to-view-id>/formulacontratoentidad.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/formulacontratoentidad.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasformulacontrato</from-outcome>
+            <to-view-id>/formulacontrato.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/formulacontrato.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>legislacion</from-outcome>
+            <to-view-id>/legislacion.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/legislacion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasformulacontrato</from-outcome>
+            <to-view-id>/formulacontrato.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/formulacontrato.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>periodicidad</from-outcome>
+            <to-view-id>/periodicidad.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/periodicidad.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasformulacontrato</from-outcome>
+            <to-view-id>/formulacontrato.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/formulacontrato.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tercero</from-outcome>
+            <to-view-id>/tercero.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tercero.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasformulacontrato</from-outcome>
+            <to-view-id>/formulacontrato.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>

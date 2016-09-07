@@ -86,7 +86,7 @@
 
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
 
-                     <h:outputText value="Formula: " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
+                     <h:outputText value="#{msg['formula']}" style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
                      <h:outputText id="nombreFormula" value="#{controlFormulaContrato.formulaActual.nombrelargo}" 
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px;"/>
                   </fieldset>
@@ -100,6 +100,15 @@
                                   editable="true" editMode="cell" liveScroll="true" scrollRows="25" selection="#{controlFormulaContrato.formulaTablaSeleccionada}" selectionMode="single">
 
                         <p:ajax event="filter" listener="#{controlFormulaContrato.eventoFiltrar()}"/>
+
+                        <p:column width="25" style="padding: 0px !important; width: 20px; alignment-adjust: central;" exportable="false">  
+                           <f:facet name="header">
+                              <h:outputText id="headP" value="Af"/>
+                              <p:tooltip for="headP" value="#{msg['detalleAf']}"/>
+                           </f:facet>
+                           <p:commandButton value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); width: 21px; height: 21px; background-repeat: no-repeat; border: none; background-size: 100% 100%;"
+                                            actionListener="#{controlFormulasContratosEntidades.recibirSecuenciaFormulaContratoYPaginaAnterior(infoFC.secuencia, 'atrasformulacontrato')}"/>
+                        </p:column>
 
                         <p:column headerText="#{msg['fechaInicial']}" sortBy="#{infoFC.strFechaIni}" filterBy="#{infoFC.strFechaIni}" filterMatchMode="contains" 
                                   id="formulaFechaInicial" width="70" filterStyle="display: none; visibility: hidden;" style="text-align: center;">                                  
@@ -156,7 +165,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" value=""/>
+                              <p:commandButton style="width: 120%;" actionListener="#{controlLegislacion.recibirPaginaEntrante('atrasformulacontrato')}" action="legislacion" value=""/>
                            </f:facet>
                         </p:column>
 
@@ -173,7 +182,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" value=""/>
+                              <p:commandButton style="width: 120%;" actionListener="#{controlPeriodicidades.recibirPaginaEntrante('atrasformulacontrato')}" action="periodicidad" value=""/>
                            </f:facet>
                         </p:column>
 
@@ -190,7 +199,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" value=""/>
+                              <p:commandButton style="width: 120%;" actionListener="#{controlTercero.recibirPaginaEntrante('atrasformulacontrato')}" action="tercero" value=""/>
                            </f:facet>
                         </p:column>
                      </p:dataTable>
@@ -202,8 +211,8 @@
                   <p:commandButton style="position: absolute; left: 775px; top: 500px;" id="ATRAS" styleClass="cssBotonCancelar" value=""
                                    actionListener="#{controlFormulaContrato.salir()}" action="retornoFormula" process="@this" />
 
-                  <p:commandButton id="detalleFormula" disabled="#{controlFormulaContrato.activoDetalle}" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 28px; height: 28px; position: absolute; top: 480px; left: 20px; " process="@this"/>  
-                  <p:tooltip for="detalleFormula" value="#{msg['detalles']}"/>
+                  <!--                  <p:commandButton id="detalleFormula" disabled="#/{controlFormulaContrato.activoDetalle}" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 28px; height: 28px; position: absolute; top: 480px; left: 20px; " process="@this"/>  
+                                    <p:tooltip for="detalleFormula" value="#/{msg['detalles']}"/>-->
 
                   <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
@@ -283,23 +292,23 @@
                      <p:dataTable id="lovContrato" liveScroll="true" scrollRows="40" style="width: 400px;" scrollWidth="415" var="contrato" value="#{controlFormulaContrato.lovContratos}" rowKey="#{contrato.secuencia}"
                                   selection="#{controlFormulaContrato.contratoLovSeleccionado}" selectionMode="single" widgetVar="lovContrato" scrollable="true" scrollHeight="250" 
                                   filteredValue="#{controlFormulaContrato.filtrarLovContratos}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
-                        
+
                         <p:ajax event="rowSelect" listener="#{controlFormulaContrato.activarAceptar()}" update=":form:aceptarC"/>
                         <p:ajax event="rowDblselect" listener="#{controlFormulaContrato.actualizarContrato()}" process="@this"/>
                         <p:ajax event="filter" listener="#{controlFormulaContrato.contarRegistrosLovContratos(1)}"/>
-                        
+
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                            <p:inputText id="globalFilter" onkeyup="lovContrato.filter();" style="width: 140px; position: relative; left: 30px;" />  
                         </f:facet>
-                        
+
                         <p:column filterBy="#{contrato.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85%;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['codigo']}" />
                            </f:facet>
                            <h:outputText value="#{contrato.codigo}" />
                         </p:column>
-                        
+
                         <p:column filterBy="#{contrato.descripcion}" filterMatchMode="contains" filterStyle="width: 85%;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['descripcion']}" />
@@ -327,14 +336,14 @@
                            <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                            <p:inputText id="globalFilter" onkeyup="lovPeriodicidad.filter();" style="width: 140px; position: relative; left: 45px;"/>  
                         </f:facet>
-                       
+
                         <p:column filterBy="#{periodicidad.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85%;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['codigo']}" />
                            </f:facet>
                            <h:outputText value="#{periodicidad.codigo}" />
                         </p:column>
-                        
+
                         <p:column filterBy="#{periodicidad.nombre}" filterMatchMode="contains" filterStyle="width: 85%;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombre']}" />
@@ -363,7 +372,7 @@
                            <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
                            <p:inputText id="globalFilter" onkeyup="lovTercero.filter();" style="width: 140px; position: relative; left: -5px;" />  
                         </f:facet>
-                        
+
                         <p:column filterBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 85%;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombre']}" />

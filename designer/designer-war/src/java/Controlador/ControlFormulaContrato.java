@@ -1391,7 +1391,9 @@ public class ControlFormulaContrato implements Serializable {
    }
 
    public List<Contratos> getLovContratos() {
-      lovContratos = administrarFormulaContrato.listContratos();
+      if (lovContratos == null) {
+         lovContratos = administrarFormulaContrato.listContratos();
+      }
       return lovContratos;
    }
 
@@ -1416,7 +1418,9 @@ public class ControlFormulaContrato implements Serializable {
    }
 
    public List<Terceros> getLovTerceros() {
-      lovTerceros = administrarFormulaContrato.listTerceros();
+      if (lovTerceros == null) {
+         lovTerceros = administrarFormulaContrato.listTerceros();
+      }
       return lovTerceros;
    }
 
@@ -1441,7 +1445,9 @@ public class ControlFormulaContrato implements Serializable {
    }
 
    public List<Periodicidades> getLovPeriodicidades() {
-      lovPeriodicidades = administrarFormulaContrato.listPeriodicidades();
+      if (lovPeriodicidades == null) {
+         lovPeriodicidades = administrarFormulaContrato.listPeriodicidades();
+      }
       return lovPeriodicidades;
    }
 

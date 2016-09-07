@@ -68,7 +68,6 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
             tx.begin();
             em.remove(em.merge(formulas));
             tx.commit();
-
         } catch (Exception e) {
             try {
                 if (tx.isActive()) {
@@ -84,6 +83,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
     public Formulas buscarFormula(EntityManager em, BigInteger secuencia) {
         try {
             em.clear();
+            System.out.println("Entro en buscarFormula()");
             return em.find(Formulas.class, secuencia);
         } catch (Exception e) {
             return null;

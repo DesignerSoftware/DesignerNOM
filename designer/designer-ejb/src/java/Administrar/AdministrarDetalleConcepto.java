@@ -498,7 +498,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
     @Override
     public List<FormulasConceptos> consultarListaFormulasConceptosConcepto(BigInteger secConcepto) {
         try {
-            List<FormulasConceptos> lista = persistenciaFormulasConceptos.formulasConcepto(em, secConcepto);
+            List<FormulasConceptos> lista = persistenciaFormulasConceptos.formulasConceptosXSecConcepto(em, secConcepto);
             return lista;
         } catch (Exception e) {
             System.out.println("Error listFormulasConceptosConcepto Admi : " + e.toString());
