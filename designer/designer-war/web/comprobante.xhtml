@@ -179,12 +179,12 @@
                                                                         </p:cellEditor>-->
                                 </p:column>
 
-                                <p:column id="pagoSNE"  sortBy="#{solucionNodoEmpleado.pago}" width="116.5" filterBy="#{solucionNodoEmpleado.pago}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="text-align: right;" >                                    
+                                <p:column id="pagoSNE" sortBy="#{solucionNodoEmpleado.pago}" width="116.5" filterBy="#{solucionNodoEmpleado.pago}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="text-align: right;" >                                    
                                     <f:facet name="header" >
                                         <h:outputText id="tpagoSNE" value="#{msg['pago']}" />
                                         <p:tooltip for="tpagoSNE" value="#{msg['pagocomp']}" />
                                     </f:facet>
-                                    <h:outputText value="#{solucionNodoEmpleado.pago}" style="text-align: right">
+                                    <h:outputText value="#{solucionNodoEmpleado.pago}" style="text-align: right;">
                                         <f:convertNumber currencyCode="COP"/>
                                     </h:outputText>
                                     <!--<p:cellEditor>-->  

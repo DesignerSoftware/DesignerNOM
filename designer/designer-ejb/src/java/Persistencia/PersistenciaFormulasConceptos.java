@@ -25,6 +25,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
+    * @param em
     */
    /*
      * @PersistenceContext(unitName = "DesignerRHN-ejbPU") private EntityManager em;
@@ -46,15 +47,16 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
    }
 
    @Override
-   public void editar(EntityManager em, FormulasConceptos conceptos) {
+   public void editar(EntityManager em, FormulasConceptos fConceptos) {
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
+         System.out.println("Entrando a persistir FormulasConceptos, FormulaConcepto : " + fConceptos);
          tx.begin();
-         em.merge(conceptos);
+         em.merge(fConceptos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaFormulasConceptos.crear: " + e);
+         System.out.println("Error PersistenciaFormulasConceptos.editar : " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -89,7 +91,9 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
 //         cq.select(cq.from(FormulasConceptos.class));
 //         return em.createQuery(cq).getResultList();
          em.clear();
-         String sqlQuery = "SELECT FC.*, C.CODIGO CODIGOCONCEPTO, \n"
+         String sqlQuery = "SELECT FC.CONCEPTO CONCEPTO, FC.FORMULA FORMULA, FC.TIPO TIPO, FC.ORDEN ORDEN, "
+                 + "FC.FECHAFINAL FECHAFINAL, FC.FECHAINICIAL FECHAINICIAL, FC.SECUENCIA SECUENCIA, "
+                 + "C.CODIGO CODIGOCONCEPTO, \n"
                  + "C.DESCRIPCION NOMBRECONCEPTO, E.NOMBRE NOMBREEMPRESA,\n"
                  + "E.NIT NITEMPRESA, F.NOMBRELARGO NOMBREFORMULA \n"
                  + "FROM FormulasConceptos FC, CONCEPTOS C, EMPRESAS E, FORMULAS F \n"
@@ -125,11 +129,28 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
    @Override
    public List<FormulasConceptos> formulasConceptosXSecConcepto(EntityManager em, BigInteger secuencia) {
       try {
+//         em.clear();
+//         Query query = em.createQuery("SELECT fc FROM FormulasConceptos fc WHERE fc.concepto.secuencia = :secuencia");
+//         query.setParameter("secuencia", secuencia);
+//         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         System.err.println("Entro en formulasConceptosXSecConcepto() a consultar FormulasConceptos<>");
          em.clear();
-         Query query = em.createQuery("SELECT fc FROM FormulasConceptos fc WHERE fc.concepto.secuencia = :secuencia");
-         query.setParameter("secuencia", secuencia);
-         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-         return query.getResultList();
+         String sqlQuery = "SELECT FC.CONCEPTO CONCEPTO, FC.FORMULA FORMULA, FC.TIPO TIPO, FC.ORDEN ORDEN, "
+                 + "FC.FECHAFINAL FECHAFINAL, FC.FECHAINICIAL FECHAINICIAL, FC.SECUENCIA SECUENCIA,"
+                 + " C.CODIGO CODIGOCONCEPTO, \n"
+                 + "C.DESCRIPCION NOMBRECONCEPTO, E.NOMBRE NOMBREEMPRESA,\n"
+                 + "E.NIT NITEMPRESA, F.NOMBRELARGO NOMBREFORMULA \n"
+                 + "FROM FormulasConceptos FC, CONCEPTOS C, EMPRESAS E, FORMULAS F \n"
+                 + "WHERE FC.CONCEPTO = " + secuencia + " \n"
+                 + "AND FC.CONCEPTO = C.SECUENCIA \n"
+                 + "AND C.EMPRESA = E.SECUENCIA \n"
+                 + "AND FC.FORMULA = F.SECUENCIA";
+         System.out.println("sqlQuery : " + sqlQuery);
+         Query query = em.createNativeQuery(sqlQuery, FormulasConceptos.class);
+//         query.setParameter(1, secuencia);
+         List<FormulasConceptos> resultado = query.getResultList();
+         System.out.println("Ya consulto formulasConceptosXSecConcepto<> resultado : " + resultado);
+         return resultado;
       } catch (Exception e) {
          System.out.println("Error en formulasConcepto() : " + e);
          return null;
@@ -193,7 +214,9 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
 //            List<FormulasConceptos> resultado = query.getResultList();
          System.err.println("Entro en formulasConceptosParaFormulaSecuencia() a consultar FormulasConceptos<>");
          em.clear();
-         String sqlQuery = "SELECT FC.*, C.CODIGO CODIGOCONCEPTO, \n"
+         String sqlQuery = "SELECT FC.CONCEPTO CONCEPTO, FC.FORMULA FORMULA, FC.TIPO TIPO, FC.ORDEN ORDEN, "
+                 + "FC.FECHAFINAL FECHAFINAL, FC.FECHAINICIAL FECHAINICIAL, FC.SECUENCIA SECUENCIA, "
+                 + "C.CODIGO CODIGOCONCEPTO, \n"
                  + "C.DESCRIPCION NOMBRECONCEPTO, E.NOMBRE NOMBREEMPRESA,\n"
                  + "E.NIT NITEMPRESA, F.NOMBRELARGO NOMBREFORMULA \n"
                  + "FROM FormulasConceptos FC, CONCEPTOS C, EMPRESAS E, FORMULAS F \n"

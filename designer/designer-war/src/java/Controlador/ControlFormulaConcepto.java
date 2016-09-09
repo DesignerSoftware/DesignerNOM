@@ -291,10 +291,15 @@ public class ControlFormulaConcepto implements Serializable {
    ///////////////////////////////////////////////////////////////////////////
    public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
       if (Campo.equals("CODIGO")) {
-         if (tipoNuevo == 1) {
-            codigoConcepto = nuevaFormulaConcepto.getCodigoConcepto().toString();
-         } else if (tipoNuevo == 2) {
-            codigoConcepto = duplicarFormulaConcepto.getCodigoConcepto().toString();
+         try {
+            if (tipoNuevo == 1) {
+               codigoConcepto = nuevaFormulaConcepto.getCodigoConcepto().toString();
+            } else if (tipoNuevo == 2) {
+               codigoConcepto = duplicarFormulaConcepto.getCodigoConcepto().toString();
+            }
+         } catch (Exception e) {
+            System.out.println("Asignando codigoConcepto : null como ''''");
+            codigoConcepto = "";
          }
       } else if (Campo.equals("CONCEPTO")) {
          if (tipoNuevo == 1) {
@@ -611,42 +616,41 @@ public class ControlFormulaConcepto implements Serializable {
    /**
     */
    public void guardadoGeneral() {
+      System.out.println("Entro en guardadoGeneral()");
       if (cambiosFormulasConceptos == true) {
-         guardarCambiosFormula();
-      }
-   }
-
-   public void guardarCambiosFormula() {
-      System.out.println("Entro en guardarCambiosFormula()");
-      RequestContext context = RequestContext.getCurrentInstance();
-      try {
-         if (!listFormulasConceptosBorrar.isEmpty()) {
-            administrarFormulaConcepto.borrarFormulasConceptos(listFormulasConceptosBorrar);
-            listFormulasConceptosBorrar.clear();
+         RequestContext context = RequestContext.getCurrentInstance();
+         try {
+            System.out.println("listFormulasConceptosBorrar.size() : " + listFormulasConceptosBorrar.size());
+            System.out.println("listFormulasConceptosCrear.size() : " + listFormulasConceptosCrear.size());
+            System.out.println("listFormulasConceptosModificar.size() : " + listFormulasConceptosModificar.size());
+            if (!listFormulasConceptosBorrar.isEmpty()) {
+               administrarFormulaConcepto.borrarFormulasConceptos(listFormulasConceptosBorrar);
+               listFormulasConceptosBorrar.clear();
+            }
+            if (!listFormulasConceptosCrear.isEmpty()) {
+               administrarFormulaConcepto.crearFormulasConceptos(listFormulasConceptosCrear);
+               listFormulasConceptosCrear.clear();
+            }
+            if (!listFormulasConceptosModificar.isEmpty()) {
+               administrarFormulaConcepto.editarFormulasConceptos(listFormulasConceptosModificar);
+               listFormulasConceptosModificar.clear();
+            }
+            formulaConceptoSeleccionada = null;
+            contarRegistros();
+            context.update("form:datosFormulaConcepto");
+            FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            context.update("form:growl");
+            k = 0;
+            cambiosFormulasConceptos = false;
+            guardado = true;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         } catch (Exception e) {
+            System.out.println("Error guardarCambiosFormula  : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            context.update("form:growl");
          }
-         if (!listFormulasConceptosCrear.isEmpty()) {
-            administrarFormulaConcepto.crearFormulasConceptos(listFormulasConceptosCrear);
-            listFormulasConceptosCrear.clear();
-         }
-         if (!listFormulasConceptosModificar.isEmpty()) {
-            administrarFormulaConcepto.editarFormulasConceptos(listFormulasConceptosModificar);
-            listFormulasConceptosModificar.clear();
-         }
-         formulaConceptoSeleccionada = null;
-         contarRegistros();
-         context.update("form:datosFormulaConcepto");
-         FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
-         FacesContext.getCurrentInstance().addMessage(null, msg);
-         context.update("form:growl");
-         k = 0;
-         cambiosFormulasConceptos = false;
-         guardado = true;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      } catch (Exception e) {
-         System.out.println("Error guardarCambiosFormula  : " + e.toString());
-         FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
-         FacesContext.getCurrentInstance().addMessage(null, msg);
-         context.update("form:growl");
       }
    }
 

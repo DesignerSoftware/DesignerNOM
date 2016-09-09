@@ -28,6 +28,7 @@ import InterfacePersistencia.PersistenciaUsuariosInterface;
 import InterfacePersistencia.PersistenciaVWActualesTiposTrabajadoresInterface;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
@@ -211,6 +212,11 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
     @Override
     public List<VWActualesTiposTrabajadores> tiposTrabajadores() {
         return persistenciaVWActualesTiposTrabajadores.tipoTrabajadorEmpleado(em);
+    }
+    
+    @Override
+    public Date vigenciaTipoContratoSecEmpleado(BigInteger secuencia){
+       return persistenciaVWActualesTiposTrabajadores.consultarFechaVigencia(em, secuencia);
     }
 
     @Override

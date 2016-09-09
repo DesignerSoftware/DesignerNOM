@@ -954,9 +954,10 @@
                      <p:ajax event="rowSelect" listener="#{controlNovedadesEmpleados.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
                      <p:ajax event="rowDblselect" listener="#{controlNovedadesEmpleados.actualizarEmpleadosNovedad()}" process="@this" />
                      <p:ajax event="filter" listener="#{controlNovedadesEmpleados.eventoFiltrarEmpleadosLOV()}"/>
+                     
                      <f:facet name="header">  
-                        <h:outputText value="#{msg['nombre']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                        <p:inputText id="globalFilter" onkeyup="LOVEmpleados.filter();" style="width: 300px; position: relative; left: 60px;" />  
+                        <h:outputText value="#{msg['nombre']}:" style="position: absolute; left: 27px; top: 15px;"/>  
+                        <p:inputText id="globalFilter" onkeyup="LOVEmpleados.filter();" style="width: 300px; position: relative; left: -50px;" />  
                      </f:facet>
 
                      <p:column sortBy="#{emp.nombre}" filterBy="#{emp.nombre}" filterMatchMode="contains" filterStyle="width: 85%;" > 
@@ -986,7 +987,6 @@
                                    value="#{msg['aceptar']} " disabled="#{controlNovedadesEmpleados.aceptar}" actionListener="#{controlNovedadesEmpleados.actualizarEmpleadosNovedad()}" process="@this"/>
                   <p:commandButton id="atrasE" icon="ui-icon-close" style=" position: absolute; left: 525px; top: 305px; height: 28px; width: 97px;" 
                                    value="#{msg['cancelar']} " actionListener="#{controlNovedadesEmpleados.cancelarCambioEmpleados()}" process="@this"/>
-
                </p:dialog>
 
                <!-- DIALOGO SOLUCIONES FORMULAS-->

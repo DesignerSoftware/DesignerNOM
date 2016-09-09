@@ -7,6 +7,7 @@ import Entidades.Empleados;
 import Entidades.VWActualesTiposTrabajadores;
 import InterfacePersistencia.PersistenciaVWActualesTiposTrabajadoresInterface;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -148,6 +149,24 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
         } catch (Exception e) {
             System.out.println("Exepcion en PersistenciaVWActualesTiposTrabajadores.consultarTipoTrabajador");
             return "";
+        }
+    }
+
+    @Override
+    public Date consultarFechaVigencia(EntityManager em, BigInteger secEmpleado) {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT vw FROM VWActualesTiposTrabajadores vw WHERE vw.empleado.secuencia= :secuencia");
+            query.setParameter("secuencia", secEmpleado);
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            VWActualesTiposTrabajadores objfecha = (VWActualesTiposTrabajadores) query.getSingleResult();
+            System.out.println("PersistenciaVWActualesTiposTrabajadores.consultarFechaVigencia objfecha : " + objfecha);
+            Date fecha = objfecha.getFechaVigencia();
+            System.out.println("PersistenciaVWActualesTiposTrabajadores.consultarFechaVigencia fecha : " + fecha);
+            return fecha;
+        } catch (Exception e) {
+            System.out.println("ERROR: PersistenciaVWActualesTiposTrabajadores.consultarFechaVigencia : " + e.getCause());
+            return null;
         }
     }
 

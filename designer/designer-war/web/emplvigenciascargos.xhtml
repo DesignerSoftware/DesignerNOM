@@ -310,18 +310,21 @@
                         <p:ajax event="filter" listener="#{controlVigenciasCargos.eventoFiltrarMotios()}"/>
                         <p:ajax event="rowSelect" listener="#{controlVigenciasCargos.activarAceptar()}" update=":form:aceptarM"/>
                         <p:ajax event="rowDblselect" listener="#{controlVigenciasCargos.actualizarMotivo()}" 
-                                oncomplete="dlgMotivos.hide(), motivosCambCargo.clearFilters()" update=":form:dlgMotivos" process="@this" />
+                                oncomplete="dlgMotivos.hide(), motivosCambCargo.clearFilters()" update=":form:dlgMotivos" process="@this"/>
+                        
                         <f:facet name="header">  
-                           <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                           <p:inputText id="globalFilter" onkeyup="motivosCambCargo.filter();" value="#{filtrado}" style="width:150px; position: relative; left: 15px;" />  
+                           <h:outputText value="#{msg['buscarM']}" style="position: absolute; left: 27px; top: 14px"/>  
+                           <p:inputText id="globalFilter" onkeyup="motivosCambCargo.filter();" value="#{filtrado}" style="width: 150px; position: relative; left: 15px;"/>  
                            <p:watermark for="globalFilter" value="#{msg['ingreseEJ']}" />
                         </f:facet>
+                        
                         <p:column filterBy="#{mot.codigo}" filterValue="" width="60" filterMatchMode="contains" filterStyle="width: 80%">
                            <f:facet name="header">
                               <h:outputText style="text-align: center" value="#{msg['codigoM']}" />
                            </f:facet>
                            <h:outputText  value="#{mot.codigo}" />
                         </p:column>
+                        
                         <p:column filterBy="#{mot.nombre}" filterValue="" filterStyle="width: 80%" filterMatchMode="contains">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombreM']}" />

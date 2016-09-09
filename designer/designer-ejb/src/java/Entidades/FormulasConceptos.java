@@ -42,21 +42,17 @@ public class FormulasConceptos implements Serializable {
    @Column(name = "CONCEPTO")
    private BigInteger concepto;
 
-//   @Transient
    @Column(name = "NITEMPRESA")
    private long nitEmpresa;
-//   @Transient
    @Column(name = "NOMBREEMPRESA")
    private String nombreEmpresa;
-//   @Transient
    @Column(name = "NOMBREFORMULA")
    private String nombreFormula;
-//   @Transient
    @Column(name = "NOMBRECONCEPTO")
    private String nombreConcepto;
-//   @Transient
    @Column(name = "CODIGOCONCEPTO")
    private BigInteger codigoConcepto;
+
    @Transient
    private String strFechaInicial;
    @Transient
@@ -116,13 +112,13 @@ public class FormulasConceptos implements Serializable {
       if (orden != null) {
          strOrden = orden.toString();
       } else {
-         strOrden = " ";
+         strOrden = "";
       }
       return strOrden;
    }
 
    public void setStrOrden(String strOrden) {
-      if (!strOrden.isEmpty()) {
+      if (!strOrden.isEmpty() && !strOrden.equals("") && !strOrden.equals(" ") && strOrden != null) {
          orden = new BigInteger(strOrden);
       } else {
          orden = null;

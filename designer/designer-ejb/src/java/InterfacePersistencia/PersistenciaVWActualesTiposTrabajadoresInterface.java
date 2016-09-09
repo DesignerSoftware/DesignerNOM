@@ -6,6 +6,7 @@ package InterfacePersistencia;
 import Entidades.Empleados;
 import Entidades.VWActualesTiposTrabajadores;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 /**
@@ -53,4 +54,5 @@ public interface PersistenciaVWActualesTiposTrabajadoresInterface {
     public int obtenerTotalRegistrosTipoTrabajador(EntityManager em, String p_tipo);
 
     public String consultarTipoTrabajador(EntityManager em, BigInteger secEmpleado);
+    public Date consultarFechaVigencia(EntityManager em, BigInteger secEmpleado);
 }

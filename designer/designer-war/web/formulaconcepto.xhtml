@@ -227,7 +227,7 @@
                                    onclick="confirmarGuardar.show();" disabled="#{controlFormulaConcepto.guardado}"/>
                   <p:commandButton id="ATRAS" value="" styleClass="cssBotonCancelar" action="retornoFormula" process="@this"
                                    actionListener="#{controlFormulaConcepto.salir()}"/>
-                  <h:outputText id="informacionRegistro" value="#{controlFormulaConcepto.infoRegistro}" style="position: absolute; left: 15px; top: 485px; font-weight: bold"/>
+                  <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlFormulaConcepto.infoRegistro}" style="position: absolute; left: 15px; top: 485px; font-weight: bold"/>
                </p:panel>
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
@@ -323,10 +323,8 @@
                      </p:column>
                   </p:dataTable>
 
-                  <h:outputText id="infoRegistroOrden" value="#{controlFormulaConcepto.infoRegistroLovFCOrden}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-
+                  <h:outputText id="infoRegistroOrden" value="#{msg['infoRegistro']} #{controlFormulaConcepto.infoRegistroLovFCOrden}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
                   <p:commandButton id="aceptarO" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlFormulaConcepto.aceptar}"  actionListener="#{controlFormulaConcepto.actualizarOrden()}" process="@this"/>
-
                   <p:commandButton id="atrasO" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlFormulaConcepto.cancelarCambioOrden()}"  process="@this"/>
                </p:dialog>
 
@@ -369,7 +367,7 @@
                      </p:column>
                   </p:dataTable>
 
-                  <h:outputText id="infoRegistroConcepto" value="#{controlFormulaConcepto.infoRegistroLovConcepto}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+                  <h:outputText id="infoRegistroConcepto" value="#{msg['infoRegistro']} #{controlFormulaConcepto.infoRegistroLovConcepto}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
                   <p:commandButton id="aceptarC" icon="ui-icon-check" style="position: relative; left: 430px;" value="#{msg['aceptar']}" disabled="#{controlFormulaConcepto.aceptar}" actionListener="#{controlFormulaConcepto.actualizarConcepto()}" process="@this"/>
 
@@ -404,7 +402,7 @@
                      <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
                      <p:inputText id="nuevaCodigo" value="#{controlFormulaConcepto.nuevaFormulaConcepto.codigoConcepto}" style="width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase" onclick="select();" >
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,1)}"/>
-                        <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(1, 'CODIGO')}" />
+                        <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(1,'CODIGO')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('CODIGO', controlFormulaConcepto.nuevaFormulaConcepto.codigoConcepto, 1)}" />
                      </p:inputText>
                      <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 345px; top: 130px;  " id="btnNuevoCODIGO" icon="ui-icon-search" process="@this"

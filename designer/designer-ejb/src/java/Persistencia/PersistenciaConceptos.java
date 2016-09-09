@@ -6,6 +6,7 @@ package Persistencia;
 import Entidades.Conceptos;
 import InterfacePersistencia.PersistenciaConceptosInterface;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -84,9 +85,16 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
     @Override
     public List<Conceptos> buscarConceptos(EntityManager em) {
         em.clear();
+        try{
+        System.out.println("Entro en buscarConceptos()");
         javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         cq.select(cq.from(Conceptos.class));
         return em.createQuery(cq).getResultList();
+        }
+        catch(Exception e) {
+           System.out.println("Error en buscarConceptos() : " + e.getCause());
+           return new ArrayList<>();
+        }
     }
 
     @Override

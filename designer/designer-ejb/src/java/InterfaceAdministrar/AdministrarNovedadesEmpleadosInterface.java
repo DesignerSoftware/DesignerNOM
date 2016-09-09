@@ -14,6 +14,7 @@ import Entidades.Terceros;
 import Entidades.Usuarios;
 import Entidades.VWActualesTiposTrabajadores;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,6 +41,8 @@ public interface AdministrarNovedadesEmpleadosInterface {
     public PruebaEmpleados novedadEmpleado(BigInteger secuenciaEmpleado);
 
     public List<VWActualesTiposTrabajadores> tiposTrabajadores();
+    
+    public Date vigenciaTipoContratoSecEmpleado(BigInteger secuencia);
 
     public List<Novedades> novedadesEmpleado(BigInteger secuenciaEmpleado);
 

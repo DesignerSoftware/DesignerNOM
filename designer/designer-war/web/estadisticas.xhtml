@@ -3342,10 +3342,10 @@
                                         <h:outputText value="#{msg['estandarv']} >>>" style="margin-top: 2px; font-weight: bold; width: 390px; text-align: right; display: block;"/>
                                     </div>
 
-                                    <div style=" z-index: 2; margin-top: -11px;">
+                                    <div style=" z-index: 2; margin-top: -10px;">
                                         <p:dataTable id="tablaEstadisticasTotalesLB" widgetVar="tablaEstadisticasTotalesLB" var="infoTLB" value="#{controlParametrosConjuntos.totalesEstadisticasLB}"
                                                      rowIndexVar="indice2" scrollable="true" liveScroll="true" scrollRows="2"
-                                                     rowKey="#{infoTLB.dimension}" scrollHeight="30px;" styleClass="tablaTotales3" class="tablaTotales3"
+                                                     rowKey="#{infoTLB.dimension}" scrollHeight="37px;" styleClass="tablaTotales3" class="tablaTotales3"
                                                      style="border: 1px; font-size: 11px; padding: 0px; z-index: 2;" editable="true" editMode="cell">
 
                                             <p:column style="text-align: right; width: 220px; border-color: transparent;">
@@ -3681,10 +3681,10 @@
                                         </p:dataTable>
                                     </div>
 
-                                    <div style=" z-index: 1; margin-top: -15px; position: relative;">
+                                    <div style=" z-index: 1; margin-top: 0px; position: relative;">
                                         <p:dataTable id="tablaEstadisticasTotalesLB2" widgetVar="tablaEstadisticasTotalesLB2" var="infoTLB2" value="#{controlParametrosConjuntos.totalesEstadisticasLB}"
                                                      rowIndexVar="indice2" scrollable="true" liveScroll="true" scrollRows="0"
-                                                     rowKey="#{infoTLB2.dimension}" scrollHeight="30px;" styleClass="titulosColumnas" class="titulosColumnas"
+                                                     rowKey="#{infoTLB2.dimension}" styleClass="titulosColumnas" class="titulosColumnas"
                                                      style=" z-index: 0; border-color: transparent; font-size: 11px; padding: 0px;" editable="true" editMode="cell">
 
                                             <p:column style="text-align: right; width: 220px; border-color: transparent;">
@@ -4227,20 +4227,19 @@
                         <!--<p:commandButton actionListener="$('.ui-scrollpanel-container').animate({scrollLeft : ($('#:form:prueba').offset().left)- 830}, 1600);" value="ir"/>-->
 
                         <p:commandButton icon="ui-icon-extlink" style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
-                                         width: 130px; height: 30px; position: absolute; left: 10px; top: 483px; color: white;" value="#{msg['rGlobal']}" id="repGlobal" update="@this"/>
+                                         width: 130px; height: 29px; position: absolute; left: 10px; top: 483px; color: white;" value="#{msg['rGlobal']}" id="repGlobal" update="@this"/>
 
                         <p:tooltip for="repGlobal" value="#{msg['repGlobal']}"/>
                         <p:commandButton icon="ui-icon-extlink" style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
-                                         width: 130px; height: 30px; position: absolute; left: 140px; top: 483px; color: white;" value="#{msg['rResumido']}" id="repResumido" update="@this"/>
+                                         width: 130px; height: 29px; position: absolute; left: 140px; top: 483px; color: white;" value="#{msg['rResumido']}" id="repResumido" update="@this"/>
 
                         <p:tooltip for="repResumido" value="#{msg['repResumido']}"/>
                         <p:commandButton icon="ui-icon-extlink" style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
-                                         width: 130px; height: 30px; position: absolute; left: 270px; top: 483px; color: white;" value="#{msg['rDet']}" id="repDet" update="@this"/>
+                                         width: 130px; height: 29px; position: absolute; left: 270px; top: 483px; color: white;" value="#{msg['rDet']}" id="repDet" update="@this"/>
 
                         <p:tooltip for="repDet" value="#{msg['repDet']}"/>
 
-                        <p:commandButton style="background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; height: 30px; width: 90px;
-                                         left: 775px; top: 503px; position: absolute;" id="ATRAS" 
+                        <p:commandButton styleClass="cssBotonCancelar" id="ATRAS" 
                                          action="#{controlParametrosConjuntos.retornarPagina()}" value=""/>
                     </p:panel>
 
@@ -4429,6 +4428,14 @@
                         .tablaTotales2 thead, titulosColumnas thead{
                             display: none;
                         }
+                        
+                        .titulosColumnas .ui-datatable-scrollable-body {
+                           height: 0px !important;
+                        }
+                       
+                        .tablaTotales .ui-datatable-scrollable-body {
+                           height: 20px !important;
+                        }
 
                         .tablaTotales2 .ui-widget-header, .titulosColumnas .ui-widget-header, .tablaTotales3 .ui-widget-header {
                             background: transparent;
@@ -4446,9 +4453,10 @@
                             height: 20px;
                         }
                         
-                        .tablaTotales3 ui-widget-header ui-datatable-scrollable-footer {
+                        .tablaTotales3 .ui-datatable-scrollable-footer {
                             /*top: initial;*/
-                            height: 20px;
+                            /*height: 20px;*/
+                            display: none;
                         }
                         
                         .ui-datatable .ui-widget-content .ui-state-highlight{
