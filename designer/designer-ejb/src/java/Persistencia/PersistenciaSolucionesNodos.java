@@ -238,7 +238,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                     + "AND sn.TIPO IN  ('PAGO','DESCUENTO')\n"
                     + "AND sn.VALOR <> 0 \n"
                     + "AND sn.EMPLEADO =E.SECUENCIA\n"
-                    + "AND sn.NIT = t.SECUENCIA\n"
+                    + "AND sn.NIT = t.SECUENCIA(+) \n"
                     + "AND sn.CONCEPTO = c.SECUENCIA\n"
                     + "AND sn.CUENTAD=cu.SECUENCIA\n"
                     + "AND sn.CUENTAC=cu1.SECUENCIA\n"
@@ -246,7 +246,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                     + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
                     + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
                     + "AND sn.EMPLEADO = ? \n"
-                    + "ORDER BY sn.CONCEPTO ASC";
+                    + "ORDER BY c.CODIGO ASC";
             Query query = em.createNativeQuery(sql, SolucionesNodos.class);
             query.setParameter(1, secuenciaEmpleado);
             List<SolucionesNodos> listSolucionesNodos = query.getResultList();
@@ -268,7 +268,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                     + "AND sn.TIPO IN  ('PASIVO','GASTO','NETO')\n"
                     + "AND sn.VALOR <> 0 \n"
                     + "AND sn.EMPLEADO =E.SECUENCIA\n"
-                    + "AND sn.NIT = t.SECUENCIA\n"
+                    + "AND sn.NIT = t.SECUENCIA(+) \n"
                     + "AND sn.CONCEPTO = c.SECUENCIA\n"
                     + "AND sn.CUENTAD=cu.SECUENCIA\n"
                     + "AND sn.CUENTAC=cu1.SECUENCIA\n"
@@ -276,7 +276,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                     + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
                     + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
                     + "AND sn.EMPLEADO = ?\n"
-                    + "ORDER BY sn.CONCEPTO ASC";
+                    + "ORDER BY c.CODIGO ASC";
             Query query = em.createNativeQuery(sql, SolucionesNodos.class);
             query.setParameter(1, secuenciaEmpleado);
             List<SolucionesNodos> listSolucionesNodos = query.getResultList();

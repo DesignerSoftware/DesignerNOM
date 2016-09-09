@@ -6,7 +6,6 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
-    <a href="../../../../../../Desktop/vigdeporte.xhtml"></a>
     <h:head>
     </h:head>
     <h:body>
@@ -73,7 +72,7 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <fieldset style="position: absolute;top: 70px;left: 10px;height: 130px;width: 580px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute;top: 70px;left: 10px;height: 140px;width: 580px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: #14388B"><strong>#{msg['empleados']}</strong></legend>
 
                             <p:commandButton id="btnBuscarEmpleados" style="position: absolute; left: 630px; top: 20px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/buscardbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlAusentismos.asignarIndex(ausentismos, 0, 0)}" process="@this"/>
@@ -90,20 +89,26 @@
 
                                 <p:column headerText="#{msg['codigo']}" sortBy="#{empleados.codigoempleado}" filterBy="#{empleados.codigoempleado}" filterMatchMode="contains" id="AEmpleadosCodigo" width="3" filterStyle="display: none; visibility: hidden;" >                                  
                                     <h:outputText value="#{empleados.codigoempleado}" />
+                                    <f:facet name="footer">
+                                        <h:outputText value =" " />
+                                    </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['nombre']}" sortBy="#{empleados.persona.nombreCompleto}" filterBy="#{empleados.persona.nombreCompleto}" filterMatchMode="contains" id="AEmpleadosNombre" width="133" filterStyle="display: none; visibility: hidden;" >                                  
                                     <h:outputText value="#{empleados.persona.nombreCompleto}" />
+                                    <f:facet name="footer">
+                                        <h:outputText value =" " />
+                                    </f:facet>
                                 </p:column>
 
                             </p:dataTable>
                             <h:outputText id="infoRegistroEmpleados" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroEmpleado}" style="position: relative; left: 10px; top: 1px; font-weight: bold"/>
                         </fieldset>
 
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 664px; top: 475px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " disabled="#{controlAusentismos.guardado}" onclick="confirmarGuardar.show();" update="form:datosAusentismosEmpleado" process="@this"/>
-                        <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 475px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" "  action="novedad" actionListener="#{controlAusentismos.salir()}"/>
+                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 664px; top: 485px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " disabled="#{controlAusentismos.guardado}" onclick="confirmarGuardar.show();" update="form:datosAusentismosEmpleado" process="@this"/>
+                        <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 485px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" "  action="novedad" actionListener="#{controlAusentismos.salir()}"/>
 
-                        <fieldset style="position: absolute; left: 10px; top: 220px;  width: 100px; height: 235px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 10px; top: 230px;  width: 100px; height: 235px; border-radius: 10px; ">
                             <legend style="font-size: 14px; color: #14388B"><strong>#{msg['da']}</strong></legend>
                             <p:dataTable id="datosAusentismosEmpleado" var="ausentismos" value="#{controlAusentismos.listaAusentismos}"
                                          rowKey="#{ausentismos.secuencia}" rowIndexVar="indice" style="border: 1px;width: 840px;"                           
@@ -259,9 +264,9 @@
                                             </p:inputText>
                                         </f:facet>
                                     </p:cellEditor>
-                                    
-                                       <f:facet name="footer">
-                                           <p:commandButton style="width: 140px;" value=" " id="fooClaseAusentismo" actionListener="#{controlClasesAusentismos.recibirPagina('atausentismos')}" action="clasesausentismos"  process="@this"/>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 140px;" value=" " id="fooClaseAusentismo" actionListener="#{controlClasesAusentismos.recibirPagina('atausentismos')}" action="clasesausentismos"  process="@this"/>
                                     </f:facet>
                                 </p:column>
                                 <!--Causa Ausentismo-->
@@ -549,7 +554,7 @@
                         </fieldset>
 
                     </p:panel>
-<!--                    <p:remoteCommand name="periodoAusentismo" actionListener="#/{controlAusentismos.periodoAusentismo()}"/>-->
+                    <!--                    <p:remoteCommand name="periodoAusentismo" actionListener="#/{controlAusentismos.periodoAusentismo()}"/>-->
                 </h:form>
 
                 <h:form id="formularioDialogos">
@@ -1007,31 +1012,31 @@
 
                     <p:dialog id="editarFIausencias" header="#{msg['iausencia']}" widgetVar="editarFIausencias" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:calendar pattern="dd/MM/yyyy" value="#{controlAusentismos.editarAusentismos.fecha}" id="editarFechaInicialAusencia"  styleClass="ui-datepicker, myClass"  
-                                      navigator="true" showButtonPanel="true">
+                                    navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editFFausencias" header="#{msg['fausencia']}" widgetVar="editarFFausencias" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:calendar pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechafinaus}" id="editarFechaFinalAusencia"  styleClass="ui-datepicker, myClass"  
-                                      navigator="true" showButtonPanel="true">
+                                    navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editarFexpediciones" header="#{msg['expediciones']}" widgetVar="editarFexpediciones" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:calendar pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechaexpedicion}" id="editarFechaExpedicion"  styleClass="ui-datepicker, myClass"  
-                                      navigator="true" showButtonPanel="true">
+                                    navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editarFIpagos" header="#{msg['ipago']}" widgetVar="editarFIpagos" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:calendar pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechainipago}" id="editarFechaInicialPagos"  styleClass="ui-datepicker, myClass"  
-                                      navigator="true" showButtonPanel="true">
+                                    navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editarFFpagos" header="#{msg['fpago']}" widgetVar="editarFFpagos" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:calendar pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechafinpago}" id="editarFechaFinalPagos"  styleClass="ui-datepicker, myClass"  
-                                      navigator="true" showButtonPanel="true">
+                                    navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 

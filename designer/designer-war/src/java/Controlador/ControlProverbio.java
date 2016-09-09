@@ -163,6 +163,7 @@ public class ControlProverbio implements Serializable {
     }
 
     public void recibirPagina(String pagina) {
+       
         paginaAnterior = pagina;
         listaProverbios = null;
         listaMensajesUsuario = null;

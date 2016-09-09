@@ -1144,6 +1144,10 @@ public class ControlInterfaseContableTotal implements Serializable {
 
             listaGenerados = null;
             if (listaGenerados == null) {
+                System.out.println("fecha inicial contabilzacion : " + parametroContableActual.getFechainicialcontabilizacion() );
+                System.out.println("fecha final contabilzacion : " + parametroContableActual.getFechafinalcontabilizacion() );
+                System.out.println("empresa parametro : " +parametroContableActual.getEmpresaRegistro().getNombre());
+                        
                 listaGenerados = administrarInterfaseContableTotal.obtenerSolucionesNodosParametroContable(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion());
                 if (listaGenerados != null) {
                     if (listaGenerados.size() > 0) {
@@ -1171,9 +1175,10 @@ public class ControlInterfaseContableTotal implements Serializable {
                     } else {
                         activarDeshacer = true;
                     }
-                } else {
-                    activarDeshacer = true;
-                }
+                } 
+//                else {
+//                    activarDeshacer = true;
+//                }
                 getTotalCInter();
                 getTotalDInter();
                 modificarInfoRegistroContabilizados(listaInterconTotal.size());

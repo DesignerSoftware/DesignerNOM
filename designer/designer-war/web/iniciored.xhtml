@@ -122,7 +122,7 @@
             </fieldset>
             <fieldset id="recordatorio" style="font-size: 12px; border-radius: 10px; background-color: #2D7AD7; box-shadow: 5px 5px 12px #000000; 
                       position: absolute; top: 543px; width: 1082.68px; height: 120px; text-align: center;">
-                <p:commandButton value="" action="proverbio" actionListener="#{controlProverbio.recibirPagina('nomina')}" process="@this" 
+                <p:commandButton id="btnProverbio" value="" action="proverbio" actionListener="#{controlProverbio.recibirPagina('nomina')}" process="@this" disabled="#{controlInicioRed.modulosDesigner}" 
                                  style="background-image: url(Imagenes/Iconos/bombillo1.png); background-size: 100% 100%; background-repeat: no-repeat;
                                  width: 60px; height: 70px; position: relative; top: -20px; display: inline-flex; border: none;"/>
                 <p class="triangulo_top_left"></p>

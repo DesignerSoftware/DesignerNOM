@@ -124,12 +124,18 @@ public class ControlNovedadesVacaciones implements Serializable {
         nuevaNovedad.setTipo("VACACION");
         nuevaNovedad.setVacacion(new Vacaciones());
         nuevaNovedad.setVacadiasaplazados(Short.valueOf(cero));
+        nuevaNovedad.setDias(BigInteger.valueOf(0));
+        duplicarNovedad = new NovedadesSistema();
+        duplicarNovedad.setSubtipo("TIEMPO");
+        duplicarNovedad.setTipo("VACACION");
+        duplicarNovedad.setVacacion(new Vacaciones());
+        duplicarNovedad.setVacadiasaplazados(Short.valueOf(cero));
+        duplicarNovedad.setDias(BigInteger.valueOf(0));
         diasTotales = BigInteger.valueOf(0);
         diasAplazadosTotal = Short.parseShort(cero);
         altoTabla = "125";
         paginaAnterior = "";
         activarMTodos = true;
-        empleadoSeleccionado = null;
         novedadSeleccionada = null;
     }
 
@@ -150,9 +156,12 @@ public class ControlNovedadesVacaciones implements Serializable {
     public void recibirPag(String pag) {
         paginaAnterior = pag;
         contarRegistrosNovedades();
-//        if (!listaEmpleadosNovedad.isEmpty()) {
-//            empleadoSeleccionado = listaEmpleadosNovedad.get(0);
-//        }
+        System.out.println("dias nueva novedad " + nuevaNovedad.getDias());
+        if (listaEmpleadosNovedad != null) {
+            if (!listaEmpleadosNovedad.isEmpty()) {
+                empleadoSeleccionado = listaEmpleadosNovedad.get(0);
+            }
+        }
     }
 
     public String volverPagAnterior() {
@@ -205,7 +214,9 @@ public class ControlNovedadesVacaciones implements Serializable {
         nuevaNovedad = new NovedadesSistema();
         nuevaNovedad.setSubtipo("TIEMPO");
         nuevaNovedad.setTipo("VACACION");
+        nuevaNovedad.setVacacion(new Vacaciones());
         nuevaNovedad.setVacadiasaplazados(Short.valueOf(cero));
+
     }
 
     public void limpiarduplicarNovedades() {
@@ -213,13 +224,14 @@ public class ControlNovedadesVacaciones implements Serializable {
         duplicarNovedad = new NovedadesSistema();
         duplicarNovedad.setSubtipo("TIEMPO");
         duplicarNovedad.setTipo("VACACION");
+        duplicarNovedad.setVacacion(new Vacaciones());
         duplicarNovedad.setVacadiasaplazados(Short.valueOf(cero));
     }
 
     //CREAR NOVEDADES
     public void agregarNuevaNovedadVacaciones() {
         int pasa = 0;
-        Empleados emp = new Empleados();
+//        Empleados emp = new Empleados();
         mensajeValidacion = new String();
         RequestContext context = RequestContext.getCurrentInstance();
 
@@ -248,16 +260,13 @@ public class ControlNovedadesVacaciones implements Serializable {
             paraNuevaNovedad++;
             nuevaNovedadSec = BigInteger.valueOf(paraNuevaNovedad);
             nuevaNovedad.setSecuencia(nuevaNovedadSec);
-            nuevaNovedad.setEmpleado(emp); //Envia empleado
-            System.out.println("Empleado enviado: " + emp.getPersona().getNombreCompleto());
+            nuevaNovedad.setEmpleado(empleadoSeleccionado); //Envia empleado
+            System.out.println("Empleado enviado: " + empleadoSeleccionado.getPersona().getNombreCompleto());
             listaNovedadesCrear.add(nuevaNovedad);
             listaNovedades.add(nuevaNovedad);
+            System.out.println("periodo : " + nuevaNovedad.getVacacion().getPeriodo() );
             novedadSeleccionada = nuevaNovedad;
-            nuevaNovedad = new NovedadesSistema();
-            nuevaNovedad.setSubtipo("TIEMPO");
-            nuevaNovedad.setTipo("VACACION");
-            nuevaNovedad.setVacacion(new Vacaciones());
-            nuevaNovedad.setVacadiasaplazados(Short.valueOf(cero));
+            limpiarNuevaNovedad();
 
             if (guardado == true) {
                 guardado = false;
@@ -303,6 +312,7 @@ public class ControlNovedadesVacaciones implements Serializable {
     public void entrarNuevoRegistro() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (empleadoSeleccionado != null) {
+            System.out.println("empleado seleccionado al entrar a nueva novedad : " + empleadoSeleccionado.getSecuencia());
             fechaContratacionE = administrarNovedadesVacaciones.obtenerFechaContratacionEmpleado(empleadoSeleccionado.getSecuencia());
             context.update(":formularioDialogos:nuevaNovedad");
             context.execute("nuevanovedadVacaciones.show()");
@@ -444,21 +454,21 @@ public class ControlNovedadesVacaciones implements Serializable {
             novedadSeleccionada = novedadS;
             cualCelda = celda;
             novedadSeleccionada.getSecuencia();
-            if(cualCelda == 0){
+            if (cualCelda == 0) {
                 novedadSeleccionada.getFechainicialdisfrute();
-            } else if(cualCelda == 1){
+            } else if (cualCelda == 1) {
                 novedadSeleccionada.getVacacion().getPeriodo();
-            } else if(cualCelda == 2){
+            } else if (cualCelda == 2) {
                 novedadSeleccionada.getDias();
-            } else if( cualCelda == 3){
+            } else if (cualCelda == 3) {
                 novedadSeleccionada.getFechasiguientefinvaca();
-            } else if(cualCelda == 4){
+            } else if (cualCelda == 4) {
                 novedadSeleccionada.getSubtipo();
-            } else if(cualCelda == 5){
+            } else if (cualCelda == 5) {
                 novedadSeleccionada.getAdelantapagohasta();
-            } else if(cualCelda == 6){
+            } else if (cualCelda == 6) {
                 novedadSeleccionada.getFechapago();
-            } else if(cualCelda == 7){
+            } else if (cualCelda == 7) {
                 novedadSeleccionada.getVacadiasaplazados();
             }
         }
@@ -471,7 +481,7 @@ public class ControlNovedadesVacaciones implements Serializable {
         if (listaNovedadesCrear.isEmpty() && listaNovedadesBorrar.isEmpty() && listaNovedadesModificar.isEmpty()) {
             secuenciaEmpleado = empleadoSeleccionado.getSecuencia();
             //Se recargan las novedades para el empleado
-            listaNovedades = administrarNovedadesSistema.vacacionesEmpleado(empleadoSeleccionado.getSecuencia());
+            listaNovedades = administrarNovedadesSistema.vacacionesEmpleado(secuenciaEmpleado);
             if (listaNovedades == null) {
                 listaNovedades = new ArrayList<NovedadesSistema>();
             }
@@ -551,12 +561,12 @@ public class ControlNovedadesVacaciones implements Serializable {
             permitirIndex = true;
             context.update("form:datosNovedadesEmpleado");
         } else if (tipoActualizacion == 1) {
-            nuevaNovedad.getVacacion().setPeriodo(periodoSeleccionado.getPeriodo());
-            nuevaNovedad.getVacacion().setDiaspendientes(periodoSeleccionado.getDiaspendientes());
+            nuevaNovedad.setVacacion(periodoSeleccionado);
+//            nuevaNovedad.getVacacion().setDiaspendientes(periodoSeleccionado.getDiaspendientes());
             context.update("formularioDialogos:nuevaNovedad");
         } else if (tipoActualizacion == 2) {
-            duplicarNovedad.getVacacion().setPeriodo(periodoSeleccionado.getPeriodo());
-            duplicarNovedad.getVacacion().setDiaspendientes(periodoSeleccionado.getDiaspendientes());
+            duplicarNovedad.setVacacion(periodoSeleccionado);
+//            duplicarNovedad.getVacacion().setDiaspendientes(periodoSeleccionado.getDiaspendientes());
             context.update("formularioDialogos:duplicarNovedad");
         }
         filtradoslistaPeriodos = null;
@@ -588,7 +598,7 @@ public class ControlNovedadesVacaciones implements Serializable {
             }
             listaNovedades.remove(novedadSeleccionada);
 
-            if(tipoLista == 1){
+            if (tipoLista == 1) {
                 filtradosListaNovedades.remove(novedadSeleccionada);
             }
             context.update("form:datosNovedadesEmpleado");
@@ -640,18 +650,13 @@ public class ControlNovedadesVacaciones implements Serializable {
 
                     if (listaNovedadesCrear.get(i).getVacacion().getSecuencia() == null) {
                         listaNovedadesCrear.get(i).setVacacion(null);
-                    }
-                    if (listaNovedadesCrear.get(i).getFechasiguientefinvaca() == null) {
+                    } else if (listaNovedadesCrear.get(i).getFechasiguientefinvaca() == null) {
                         listaNovedadesCrear.get(i).setFechasiguientefinvaca(null);
-                    }
-
-                    if (listaNovedadesCrear.get(i).getFechapago() == null) {
+                    } else if (listaNovedadesCrear.get(i).getFechapago() == null) {
                         listaNovedadesCrear.get(i).setFechapago(null);
-                    }
-                    if (listaNovedadesCrear.get(i).getAdelantapagohasta() == null) {
+                    } else if (listaNovedadesCrear.get(i).getAdelantapagohasta() == null) {
                         listaNovedadesCrear.get(i).setAdelantapagohasta(null);
-                    }
-                    if (listaNovedadesCrear.get(i).getVacadiasaplazados() == null) {
+                    }else if (listaNovedadesCrear.get(i).getVacadiasaplazados() == null) {
                         listaNovedadesCrear.get(i).setVacadiasaplazados(null);
                     }
                     System.out.println(listaNovedadesCrear.get(i).getTipo());
@@ -712,20 +717,11 @@ public class ControlNovedadesVacaciones implements Serializable {
 
     public void lovPeriodo(BigInteger secuenciaEmpleado, int tipoAct) {
         RequestContext context = RequestContext.getCurrentInstance();
-
-        if (tipoAct == 0) {
-            tipoActualizacion = 0;
-        } else if (tipoAct == 1) {
-            tipoActualizacion = 1;
-            novedadSeleccionada = null;
-        } else if (tipoAct == 2) {
-            tipoActualizacion = 2;
-            novedadSeleccionada = null;
-        }
-        System.out.println(nuevaNovedad.getDias());
-        if (nuevaNovedad.getDias() == null) {
+        tipoActualizacion = tipoAct;
+        if (nuevaNovedad.getDias() == null || nuevaNovedad.getDias() == BigInteger.valueOf(0)) {
             System.out.println("Entró");
-            listaPeriodos = administrarNovedadesSistema.periodosEmpleado(empleadoSeleccionado.getSecuencia());
+        System.out.println("empleado seleccionado = " + secuenciaEmpleado);
+            listaPeriodos = administrarNovedadesSistema.periodosEmpleado(secuenciaEmpleado);
             if (listaPeriodos.isEmpty()) {
                 context.update("formularioDialogos:dias");
                 context.execute("dias.show()");
@@ -818,14 +814,12 @@ public class ControlNovedadesVacaciones implements Serializable {
             } else if (result == 5) {
                 context.execute("errorTablaSinRastro.show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("NOVEDADESSISTEMA")) {
+            context.execute("confirmarRastroHistorico.show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("NOVEDADESSISTEMA")) {
-                context.execute("confirmarRastroHistorico.show()");
-            } else {
-                context.execute("errorRastroHistorico.show()");
-            }
+            context.execute("errorRastroHistorico.show()");
         }
-       }
+    }
 
     //CANCELAR MODIFICACIONES
     public void cancelarModificacion() {
@@ -845,11 +839,8 @@ public class ControlNovedadesVacaciones implements Serializable {
         guardado = true;
         tipoLista = 0;
         permitirIndex = true;
-        nuevaNovedad = new NovedadesSistema();
-        nuevaNovedad.setSubtipo("TIEMPO");
-        nuevaNovedad.setTipo("VACACION");
-        nuevaNovedad.setVacacion(new Vacaciones());
-        nuevaNovedad.setVacadiasaplazados(Short.valueOf(cero));
+        limpiarNuevaNovedad();
+        limpiarduplicarNovedades();
         diasTotales = BigInteger.valueOf(0);
         diasAplazadosTotal = Short.parseShort(cero);
         altoTabla = "125";
@@ -901,11 +892,8 @@ public class ControlNovedadesVacaciones implements Serializable {
         tipoLista = 0;
         listaValEmpleados = null;
         permitirIndex = true;
-        nuevaNovedad = new NovedadesSistema();
-        nuevaNovedad.setSubtipo("TIEMPO");
-        nuevaNovedad.setTipo("VACACION");
-        nuevaNovedad.setVacacion(new Vacaciones());
-        nuevaNovedad.setVacadiasaplazados(Short.valueOf(cero));
+        limpiarNuevaNovedad();
+        limpiarduplicarNovedades();
         diasTotales = BigInteger.valueOf(0);
         diasAplazadosTotal = Short.parseShort(cero);
         altoTabla = "125";

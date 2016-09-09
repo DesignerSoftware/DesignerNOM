@@ -73,6 +73,8 @@ public class ControlInicioRed implements Serializable {
         actualizaciones.add("form:contrasenha");
         actualizaciones.add("form:baseDatos");
         actualizaciones.add("form:bannerConsultas");
+        actualizaciones.add("form:btnProverbio");
+        
         banner = new ArrayList<BannerInicioRed>();
         this.llenarBannerSinEntrar();
         //FECHA ACTUAL

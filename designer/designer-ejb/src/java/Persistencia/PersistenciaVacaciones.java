@@ -36,7 +36,13 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
         try {
             em.clear();
             List<Vacaciones> listaPeriodos;
-            String sqlQuery = "SELECT V.*  FROM VACACIONES V, NOVEDADES N WHERE V.NOVEDAD=N.SECUENCIA AND V.DIASPENDIENTES > 0 AND N.TIPO = 'VACACION PENDIENTE' AND n.empleado = ? AND V.INICIALCAUSACION>=NVL(EMPLEADOCURRENT_PKG.FechaTipoContrato(N.empleado, SYSDATE),EMPLEADOCURRENT_PKG.FechaTipoContrato(N.empleado, (SELECT FECHA FROM REPORTECURRENT)))";
+            String sqlQuery = "SELECT V.*  "
+                    + "FROM VACACIONES V, NOVEDADES N "
+                    + "WHERE V.NOVEDAD=N.SECUENCIA "
+                    + "AND V.DIASPENDIENTES > 0"
+                    + " AND N.TIPO = 'VACACION PENDIENTE' "
+                    + "AND n.empleado = ? "
+                    + "AND V.INICIALCAUSACION>=NVL(EMPLEADOCURRENT_PKG.FechaTipoContrato(N.empleado, SYSDATE),EMPLEADOCURRENT_PKG.FechaTipoContrato(N.empleado, (SELECT FECHA FROM REPORTECURRENT)))";
             Query query = em.createNativeQuery(sqlQuery, Vacaciones.class);
             query.setParameter(1, secuenciaEmpleado);
             listaPeriodos = query.getResultList();
