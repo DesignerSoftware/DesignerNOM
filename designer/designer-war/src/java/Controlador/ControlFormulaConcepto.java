@@ -562,7 +562,9 @@ public class ControlFormulaConcepto implements Serializable {
          orden = formulaConceptoSeleccionada.getStrOrden();
          empresa = formulaConceptoSeleccionada.getNombreEmpresa();
          nitEmpresa = "" + formulaConceptoSeleccionada.getNitEmpresa();
-         codigoConcepto = formulaConceptoSeleccionada.getCodigoConcepto().toString();
+         if (formulaConceptoSeleccionada.getCodigoConcepto() != null){
+            codigoConcepto = formulaConceptoSeleccionada.getCodigoConcepto().toString();
+         }
       }
    }
 

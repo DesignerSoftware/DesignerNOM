@@ -4,8 +4,10 @@
 package Persistencia;
 
 import Entidades.FormulasConceptos;
+import Entidades.FormulasConceptosAux;
 import InterfacePersistencia.PersistenciaFormulasConceptosInterface;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,6 +27,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
+    *
     * @param em
     */
    /*
@@ -91,18 +94,72 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
 //         cq.select(cq.from(FormulasConceptos.class));
 //         return em.createQuery(cq).getResultList();
          em.clear();
-         String sqlQuery = "SELECT FC.CONCEPTO CONCEPTO, FC.FORMULA FORMULA, FC.TIPO TIPO, FC.ORDEN ORDEN, "
-                 + "FC.FECHAFINAL FECHAFINAL, FC.FECHAINICIAL FECHAINICIAL, FC.SECUENCIA SECUENCIA, "
-                 + "C.CODIGO CODIGOCONCEPTO, \n"
-                 + "C.DESCRIPCION NOMBRECONCEPTO, E.NOMBRE NOMBREEMPRESA,\n"
-                 + "E.NIT NITEMPRESA, F.NOMBRELARGO NOMBREFORMULA \n"
-                 + "FROM FormulasConceptos FC, CONCEPTOS C, EMPRESAS E, FORMULAS F \n"
+         String sqlQuery = "SELECT FC.* FROM FormulasConceptos FC, CONCEPTOS C, EMPRESAS E, FORMULAS F \n"
                  + "WHERE FC.CONCEPTO = C.SECUENCIA \n"
                  + "AND C.EMPRESA = E.SECUENCIA \n"
                  + "AND FC.FORMULA = F.SECUENCIA";
          System.out.println("sqlQuery : " + sqlQuery);
          Query query = em.createNativeQuery(sqlQuery, FormulasConceptos.class);
          List<FormulasConceptos> resultado = query.getResultList();
+
+//         em.clear();
+//         String sqlQuery2 = "SELECT FC.SECUENCIA, C.CODIGO CODIGOCONCEPTO, C.DESCRIPCION NOMBRECONCEPTO, \n"
+//                 + "E.NOMBRE NOMBREEMPRESA, E.NIT NITEMPRESA, F.NOMBRELARGO NOMBREFORMULA \n"
+//                 + "FROM FormulasConceptos FC, CONCEPTOS C, EMPRESAS E, FORMULAS F \n"
+//                 + "WHERE FC.CONCEPTO = C.SECUENCIA \n"
+//                 + "AND C.EMPRESA = E.SECUENCIA \n"
+//                 + "AND FC.FORMULA = F.SECUENCIA";
+//         System.out.println("sqlQuery : " + sqlQuery2);
+//         Query query2 = em.createNativeQuery(sqlQuery2, FormulasConceptosAux.class);
+//         List<FormulasConceptosAux> resultado2 = query2.getResultList();
+//
+         System.out.println("resultado : " + resultado);
+//         System.out.println("resultado2 : " + resultado2);
+//
+//         if (resultado != null || resultado2 != null) {
+//            if (!resultado.isEmpty() || !resultado2.isEmpty()) {
+//               System.out.println("resultado.size() : " + resultado.size());
+//               System.out.println("resultado2.size() : " + resultado2.size());
+//               for (int i = 0; i < resultado.size(); i++) {
+//                  if (resultado.get(i).getSecuencia().equals(resultado2.get(i).getSecuencia())) {
+//                     resultado.get(i).setCodigoConcepto(resultado2.get(i).getCodigoConcepto());
+//                     resultado.get(i).setNitEmpresa(resultado2.get(i).getNitEmpresa());
+//                     resultado.get(i).setNombreConcepto(resultado2.get(i).getNombreConcepto());
+//                     resultado.get(i).setNombreEmpresa(resultado2.get(i).getNombreEmpresa());
+//                     resultado.get(i).setNombreFormula(resultado2.get(i).getNombreFormula());
+//                  }
+//               }
+//            }
+//         }
+
+         if (resultado != null) {
+//            if (!resultado.isEmpty() || !resultado2.isEmpty()) {
+            if (!resultado.isEmpty()) {
+               System.out.println("resultado.size() : " + resultado.size());
+               for (int i = 0; i < resultado.size(); i++) {
+                  em.clear();
+                  String sqlQuery2 = "SELECT FC.SECUENCIA, C.CODIGO CODIGOCONCEPTO, C.DESCRIPCION NOMBRECONCEPTO, \n"
+                          + "E.NOMBRE NOMBREEMPRESA, E.NIT NITEMPRESA, F.NOMBRELARGO NOMBREFORMULA \n"
+                          + "FROM FormulasConceptos FC, CONCEPTOS C, EMPRESAS E, FORMULAS F \n"
+                          + "WHERE FC.CONCEPTO = C.SECUENCIA \n"
+                          + "AND C.EMPRESA = E.SECUENCIA \n"
+                          + "AND FC.FORMULA = F.SECUENCIA  \n"
+                          + "AND FC.SECUENCIA = " + resultado.get(i).getSecuencia();
+//                  System.out.println("sqlQuery : " + sqlQuery2);
+                  Query query2 = em.createNativeQuery(sqlQuery2, FormulasConceptosAux.class);
+//                  FormulasConceptosAux resultado2 = query2.getResultList();
+                  FormulasConceptosAux resultado2 = (FormulasConceptosAux) query2.getSingleResult();
+//                  System.out.println("resultado2.size() : " + resultado2.size());
+//                  if (resultado.get(i).getSecuencia().equals(resultado2.get(i).getSecuencia())) {
+                  resultado.get(i).setCodigoConcepto(resultado2.getCodigoConcepto());
+                  resultado.get(i).setNitEmpresa(resultado2.getNitEmpresa());
+                  resultado.get(i).setNombreConcepto(resultado2.getNombreConcepto());
+                  resultado.get(i).setNombreEmpresa(resultado2.getNombreEmpresa());
+                  resultado.get(i).setNombreFormula(resultado2.getNombreFormula());
+//                  }
+               }
+            }
+         }
          return resultado;
       } catch (Exception e) {
          System.out.println("Error buscarFormulasConceptos Persistencia : " + e.toString());
@@ -133,23 +190,49 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
 //         Query query = em.createQuery("SELECT fc FROM FormulasConceptos fc WHERE fc.concepto.secuencia = :secuencia");
 //         query.setParameter("secuencia", secuencia);
 //         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-         System.err.println("Entro en formulasConceptosXSecConcepto() a consultar FormulasConceptos<>");
          em.clear();
-         String sqlQuery = "SELECT FC.CONCEPTO CONCEPTO, FC.FORMULA FORMULA, FC.TIPO TIPO, FC.ORDEN ORDEN, "
-                 + "FC.FECHAFINAL FECHAFINAL, FC.FECHAINICIAL FECHAINICIAL, FC.SECUENCIA SECUENCIA,"
-                 + " C.CODIGO CODIGOCONCEPTO, \n"
-                 + "C.DESCRIPCION NOMBRECONCEPTO, E.NOMBRE NOMBREEMPRESA,\n"
-                 + "E.NIT NITEMPRESA, F.NOMBRELARGO NOMBREFORMULA \n"
-                 + "FROM FormulasConceptos FC, CONCEPTOS C, EMPRESAS E, FORMULAS F \n"
-                 + "WHERE FC.CONCEPTO = " + secuencia + " \n"
-                 + "AND FC.CONCEPTO = C.SECUENCIA \n"
+         String sqlQuery = "SELECT FC.* FROM FormulasConceptos FC, CONCEPTOS C, EMPRESAS E, FORMULAS F \n"
+                 + "WHERE FC.CONCEPTO = C.SECUENCIA \n"
                  + "AND C.EMPRESA = E.SECUENCIA \n"
+                 + "AND FC.CONCEPTO = " + secuencia + "\n"
                  + "AND FC.FORMULA = F.SECUENCIA";
          System.out.println("sqlQuery : " + sqlQuery);
          Query query = em.createNativeQuery(sqlQuery, FormulasConceptos.class);
-//         query.setParameter(1, secuencia);
          List<FormulasConceptos> resultado = query.getResultList();
-         System.out.println("Ya consulto formulasConceptosXSecConcepto<> resultado : " + resultado);
+
+         System.out.println("resultado : " + resultado);
+//         System.out.println("resultado2 : " + resultado2);
+
+//         if (resultado != null || resultado2 != null) {
+         if (resultado != null) {
+//            if (!resultado.isEmpty() || !resultado2.isEmpty()) {
+            if (!resultado.isEmpty()) {
+               System.out.println("resultado.size() : " + resultado.size());
+               for (int i = 0; i < resultado.size(); i++) {
+                  em.clear();
+                  String sqlQuery2 = "SELECT FC.SECUENCIA, C.CODIGO CODIGOCONCEPTO, C.DESCRIPCION NOMBRECONCEPTO, \n"
+                          + "E.NOMBRE NOMBREEMPRESA, E.NIT NITEMPRESA, F.NOMBRELARGO NOMBREFORMULA \n"
+                          + "FROM FormulasConceptos FC, CONCEPTOS C, EMPRESAS E, FORMULAS F \n"
+                          + "WHERE FC.CONCEPTO = C.SECUENCIA \n"
+                          + "AND FC.CONCEPTO = " + secuencia + "\n"
+                          + "AND C.EMPRESA = E.SECUENCIA \n"
+                          + "AND FC.FORMULA = F.SECUENCIA  \n"
+                          + "AND FC.SECUENCIA = " + resultado.get(i).getSecuencia();
+//                  System.out.println("sqlQuery : " + sqlQuery2);
+                  Query query2 = em.createNativeQuery(sqlQuery2, FormulasConceptosAux.class);
+//                  FormulasConceptosAux resultado2 = query2.getResultList();
+                  FormulasConceptosAux resultado2 = (FormulasConceptosAux) query2.getSingleResult();
+//                  System.out.println("resultado2.size() : " + resultado2.size());
+//                  if (resultado.get(i).getSecuencia().equals(resultado2.get(i).getSecuencia())) {
+                  resultado.get(i).setCodigoConcepto(resultado2.getCodigoConcepto());
+                  resultado.get(i).setNitEmpresa(resultado2.getNitEmpresa());
+                  resultado.get(i).setNombreConcepto(resultado2.getNombreConcepto());
+                  resultado.get(i).setNombreEmpresa(resultado2.getNombreEmpresa());
+                  resultado.get(i).setNombreFormula(resultado2.getNombreFormula());
+//                  }
+               }
+            }
+         }
          return resultado;
       } catch (Exception e) {
          System.out.println("Error en formulasConcepto() : " + e);
@@ -206,29 +289,80 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
 
    @Override
    public List<FormulasConceptos> formulasConceptosParaFormulaSecuencia(EntityManager em, BigInteger secuencia) {
+      List<FormulasConceptos> resultado = new ArrayList<>();
       try {
 //            em.clear();
 //            Query query = em.createQuery("SELECT f FROM FormulasConceptos f WHERE f.formula.secuencia=:secuenciaF");
 //            query.setParameter("secuenciaF", secuencia);
 //            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
 //            List<FormulasConceptos> resultado = query.getResultList();
-         System.err.println("Entro en formulasConceptosParaFormulaSecuencia() a consultar FormulasConceptos<>");
          em.clear();
-         String sqlQuery = "SELECT FC.CONCEPTO CONCEPTO, FC.FORMULA FORMULA, FC.TIPO TIPO, FC.ORDEN ORDEN, "
-                 + "FC.FECHAFINAL FECHAFINAL, FC.FECHAINICIAL FECHAINICIAL, FC.SECUENCIA SECUENCIA, "
-                 + "C.CODIGO CODIGOCONCEPTO, \n"
-                 + "C.DESCRIPCION NOMBRECONCEPTO, E.NOMBRE NOMBREEMPRESA,\n"
-                 + "E.NIT NITEMPRESA, F.NOMBRELARGO NOMBREFORMULA \n"
-                 + "FROM FormulasConceptos FC, CONCEPTOS C, EMPRESAS E, FORMULAS F \n"
-                 + "WHERE FC.formula = " + secuencia + " \n"
-                 + "AND FC.CONCEPTO = C.SECUENCIA \n"
+         String sqlQuery = "SELECT FC.* FROM FormulasConceptos FC, CONCEPTOS C, EMPRESAS E, FORMULAS F \n"
+                 + "WHERE FC.CONCEPTO = C.SECUENCIA \n"
                  + "AND C.EMPRESA = E.SECUENCIA \n"
+                 + "AND FC.FORMULA = " + secuencia + " \n"
                  + "AND FC.FORMULA = F.SECUENCIA";
          System.out.println("sqlQuery : " + sqlQuery);
          Query query = em.createNativeQuery(sqlQuery, FormulasConceptos.class);
-//         query.setParameter(1, secuencia);
-         List<FormulasConceptos> resultado = query.getResultList();
-         System.out.println("Ya consulto FormulasConceptos<> resultado : " + resultado);
+         resultado = query.getResultList();
+//
+//         em.clear();
+//         String sqlQuery2 = "SELECT FC.SECUENCIA, C.CODIGO CODIGOCONCEPTO, C.DESCRIPCION NOMBRECONCEPTO, \n"
+//                 + "E.NOMBRE NOMBREEMPRESA, E.NIT NITEMPRESA, F.NOMBRELARGO NOMBREFORMULA \n"
+//                 + "FROM FormulasConceptos FC, CONCEPTOS C, EMPRESAS E, FORMULAS F \n"
+//                 + "WHERE FC.CONCEPTO = C.SECUENCIA \n"
+//                 + "AND C.EMPRESA = E.SECUENCIA \n"
+//                 + "AND FC.FORMULA = " + secuencia + " \n"
+//                 + "AND FC.FORMULA = F.SECUENCIA";
+//         System.out.println("sqlQuery : " + sqlQuery2);
+//         Query query2 = em.createNativeQuery(sqlQuery2, FormulasConceptosAux.class);
+//         List<FormulasConceptosAux> resultado2 = query2.getResultList();
+//
+         System.out.println("resultado : " + resultado);
+//         System.out.println("resultado2 : " + resultado2);
+//
+//         if (resultado != null || resultado2 != null) {
+//            if (!resultado.isEmpty() || !resultado2.isEmpty()) {
+//               System.out.println("resultado.size() : " + resultado.size());
+//               System.out.println("resultado2.size() : " + resultado2.size());
+//               for (int i = 0; i < resultado.size(); i++) {
+//                  resultado.get(i).setCodigoConcepto((BigInteger) resultado2.get(i).getCodigoConcepto());
+//                  resultado.get(i).setNitEmpresa((long) resultado2.get(i).getNitEmpresa());
+//                  resultado.get(i).setNombreConcepto((String) resultado2.get(i).getNombreConcepto());
+//                  resultado.get(i).setNombreEmpresa((String) resultado2.get(i).getNombreEmpresa());
+//                  resultado.get(i).setNombreFormula((String) resultado2.get(i).getNombreFormula());
+//               }
+//            }
+//         }
+         if (resultado != null) {
+//            if (!resultado.isEmpty() || !resultado2.isEmpty()) {
+            if (!resultado.isEmpty()) {
+               System.out.println("resultado.size() : " + resultado.size());
+               for (int i = 0; i < resultado.size(); i++) {
+                  em.clear();
+                  String sqlQuery2 = "SELECT FC.SECUENCIA, C.CODIGO CODIGOCONCEPTO, C.DESCRIPCION NOMBRECONCEPTO, \n"
+                          + "E.NOMBRE NOMBREEMPRESA, E.NIT NITEMPRESA, F.NOMBRELARGO NOMBREFORMULA \n"
+                          + "FROM FormulasConceptos FC, CONCEPTOS C, EMPRESAS E, FORMULAS F \n"
+                          + "WHERE FC.CONCEPTO = C.SECUENCIA \n"
+                          + "AND C.EMPRESA = E.SECUENCIA \n"
+                          + "AND FC.FORMULA = F.SECUENCIA  \n"
+                          + "AND FC.FORMULA = " + secuencia + " \n"
+                          + "AND FC.SECUENCIA = " + resultado.get(i).getSecuencia();
+//                  System.out.println("sqlQuery : " + sqlQuery2);
+                  Query query2 = em.createNativeQuery(sqlQuery2, FormulasConceptosAux.class);
+//                  FormulasConceptosAux resultado2 = query2.getResultList();
+                  FormulasConceptosAux resultado2 = (FormulasConceptosAux) query2.getSingleResult();
+//                  System.out.println("resultado2.size() : " + resultado2.size());
+//                  if (resultado.get(i).getSecuencia().equals(resultado2.get(i).getSecuencia())) {
+                  resultado.get(i).setCodigoConcepto(resultado2.getCodigoConcepto());
+                  resultado.get(i).setNitEmpresa(resultado2.getNitEmpresa());
+                  resultado.get(i).setNombreConcepto(resultado2.getNombreConcepto());
+                  resultado.get(i).setNombreEmpresa(resultado2.getNombreEmpresa());
+                  resultado.get(i).setNombreFormula(resultado2.getNombreFormula());
+//                  }
+               }
+            }
+         }
          return resultado;
       } catch (Exception e) {
          System.out.println("Error Persistencia formulasConceptosParaFormulaSecuencia : " + e.toString());

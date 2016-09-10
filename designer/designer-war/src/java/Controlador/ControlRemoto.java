@@ -659,7 +659,7 @@ public class ControlRemoto implements Serializable {
             tipo = "DISPONIBLE";
         }
 
-        context.reset("form:lvbusquedarapida:globalfilter");
+        context.reset("form:lvbusquedarapida:globalFilter");
         context.execute("lvbusquedarapida.clearFilters()");
         context.execute("lvbr.hide()");
         context.update("form:lvbusquedarapida");
@@ -697,7 +697,7 @@ public class ControlRemoto implements Serializable {
         filterBusquedaRapida = null;
         emplSeleccionado = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("form:lvbusquedarapida:globalfilter");
+        context.reset("form:lvbusquedarapida:globalFilter");
         context.execute("lvbusquedarapida.clearFilters()");
         context.execute("lvbr.hide()");
         context.update("form:lvbusquedarapida");
@@ -726,7 +726,7 @@ public class ControlRemoto implements Serializable {
         context.update("form:tabmenu");
         context.update("form:tabmenu:mostrartodos");
 
-        context.reset("form:lvbuscarempleado:globalfilter");
+        context.reset("form:lvbuscarempleado:globalFilter");
         context.execute("lvbuscarempleado.clearFilters()");
         context.execute("lvbe.hide()");
         context.update("form:lvbuscarempleado");
@@ -747,7 +747,7 @@ public class ControlRemoto implements Serializable {
         filterBuscarEmpleado = null;
         emplSeleccionadoBE = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("form:lvbuscarempleado:globalfilter");
+        context.reset("form:lvbuscarempleado:globalFilter");
         context.execute("lvbuscarempleado.clearFilters()");
         context.execute("lvbe.hide()");
         context.update("form:lvbuscarempleado");
@@ -1552,7 +1552,7 @@ public class ControlRemoto implements Serializable {
         filtradoListTablasLOV = null;
         seleccionTablaLOV = null;
         buscar = true;
-        context.reset("form:lovtablas:globalfilter");
+        context.reset("form:lovtablas:globalFilter");
         context.execute("lovtablas.clearFilters()");
         context.execute("buscartablasdialogo.hide()");
         //context.update("form:lovTablas");
@@ -1566,7 +1566,7 @@ public class ControlRemoto implements Serializable {
         seleccionTablaLOV = null;
         buscar = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("form:lovtablas:globalfilter");
+        context.reset("form:lovtablas:globalFilter");
         context.execute("lovtablas.clearFilters()");
         context.execute("buscartablasdialogo.hide()");
     }

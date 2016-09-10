@@ -42,15 +42,15 @@ public class FormulasConceptos implements Serializable {
    @Column(name = "CONCEPTO")
    private BigInteger concepto;
 
-   @Column(name = "NITEMPRESA")
+   @Transient
    private long nitEmpresa;
-   @Column(name = "NOMBREEMPRESA")
+   @Transient
    private String nombreEmpresa;
-   @Column(name = "NOMBREFORMULA")
+   @Transient
    private String nombreFormula;
-   @Column(name = "NOMBRECONCEPTO")
+   @Transient
    private String nombreConcepto;
-   @Column(name = "CODIGOCONCEPTO")
+   @Transient
    private BigInteger codigoConcepto;
 
    @Transient

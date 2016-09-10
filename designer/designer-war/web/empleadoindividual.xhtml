@@ -306,9 +306,8 @@
                                 <br/>
                                 <h:outputText value="#{msg['fechavencimiento']}" 
                                               style="position: absolute; left: 370px; top: 173px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
-                                <div id="posicionFechaVencimiento" 
-                                     style="display: inline; position: absolute; left: 510px; top: 168px; width: 95px; height: 12px;">
-                                    <p:calendar pattern="dd/MM/yyyy" id="fechaVencimientoCJ" value="#{controlEmpleadoIndividual.persona.fechavencimientocertificado}" > modificarCampo
+                                <div id="posicionFechaVencimiento" style="display: inline; position: absolute; left: 510px; top: 168px; width: 95px; height: 12px;">
+                                    <p:calendar pattern="dd/MM/yyyy" id="fechaVencimientoCJ" value="#{controlEmpleadoIndividual.persona.fechavencimientocertificado}" >
                                         <p:ajax event="dateSelect" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" process="@this" update="@this"/>
                                         <p:ajax event="click" process="@this" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                         <p:ajax event="change" process="@this" listener="#{controlEmpleadoIndividual.eventoDataSelectFechaVencimiento('P')}" update="@this"/>
@@ -484,8 +483,10 @@
                             <fieldset style="position: absolute; left: 630px; top: 2px; width: 197px; height: 205px; border-radius: 7px; padding: 0px; border: none;">
                                 <!-- <legend style="font-weight: bold; color: blue">#{msg['datos']}</legend> -->
 
-                                <p:commandButton id="btnPruebasAplicadas" value="" style="background-image: url(Imagenes/Iconos/g_evaldesempeno.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; border:none; " process="@this"/>
+                                <p:commandButton id="btnPruebasAplicadas" value="" style="background-image: url(Imagenes/Iconos/g_evaldesempeno.png); background-size: 100% 100%;
+                                                 background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; border:none; " process="@this"/>
                                 <h:commandLink value="#{msg['pruebasaplicadas']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B;" />
+                                
                                 <p:inputText id="pruebasAplicadas" value="#{controlEmpleadoIndividual.pruebasAplicadasP}" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none;"/>
 
                                 <p:commandButton id="btnEntrevistas" value="" style="background-image: url(Imagenes/Iconos/entrevistas.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; border:none;" 
@@ -528,12 +529,13 @@
                                 <p:inputText id="deporte" value="#{controlEmpleadoIndividual.deportesP}" readonly="true" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none;"/>
 
                                 <p:commandButton id="btnAficiones" value="" style="background-image: url(Imagenes/Iconos/aficion.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 0px; left: 211px; border:none;"
-                                                 action="infoAficionesPersona" actionListener="#{controlVigenciaAficion.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" process="@this"/>
+                                                 action="vigenciaaficion" actionListener="#{controlVigenciaAficion.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" process="@this"/>
                                 <h:commandLink value="#{msg['aficiones']}" style="position: absolute; left: 255px; top: 0px; font-weight: bold; color: #14388B;"
-                                               action="infoAficionesPersona" actionListener="#{controlVigenciaAficion.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                               action="vigenciaaficion" actionListener="#{controlVigenciaAficion.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                                 <p:inputText id="aficiones" value="#{controlEmpleadoIndividual.aficionesP}" readonly="true" style="position: absolute; left: 249px; top: 15px; width: 140px; box-shadow: none; border: none;"/>
 
-                                <p:commandButton id="btnFamiliares" value="" style="background-image: url(Imagenes/Iconos/familiar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; left: 211px; border:none;" 
+                                <p:commandButton id="btnFamiliares" value="" style="background-image: url(Imagenes/Iconos/familiar.png); background-size: 100% 100%;
+                                                 background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; left: 211px; border:none;" 
                                                  process="@this"/>
                                 <h:commandLink value="#{msg['familiares']}" style="position: absolute; left: 255px; font-weight: bold; color: #14388B; top: 41px;" />
                                 <p:inputText id="familiares" value="#{controlEmpleadoIndividual.familiaresP}" readonly="true" style="position: absolute; left: 249px; top: 56px; width: 140px; box-shadow: none; border: none;"/>
