@@ -149,7 +149,7 @@
 
                                 <p:ajax event="filter" listener="#{controlInterfaseContableTotal.eventoFiltrarGenerados()}"/>
 
-                                <p:column headerText="#{msg['proceso']}" sortBy="#{infoG.proceso.descripcion}" filterBy="#{infoG.proceso.descripcion}"   width="133"
+                                <p:column headerText="#{msg['proceso']}" sortBy="#{infoG.nombreproceso}" filterBy="#{infoG.nombreproceso}"   width="133"
                                           id="genProceso"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
                                     <p:cellEditor>  
                                         <f:facet name="output">
@@ -165,7 +165,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{infoG.empleado.persona.nombreCompleto}" filterBy="#{infoG.empleado.persona.nombreCompleto}" filterMatchMode="contains"
+                                <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{infoG.nombreempleado}" filterBy="#{infoG.nombreempleado}" filterMatchMode="contains"
                                           id="genEmpleado" width="150" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
@@ -181,7 +181,7 @@
                                     </f:facet>
                                 </p:column>  
 
-                                <p:column headerText="#{msg['cuentaCredito']}" sortBy="#{infoG.codigocuentac}" filterBy="#{infoG.cuentac.codigo}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['cuentaCredito']}" sortBy="#{infoG.codigocuentac}" filterBy="#{infoG.codigocuentac}" filterMatchMode="contains" 
                                           id="genCntCredito" width="133" filterStyle="display: none; visibility: hidden;" >      
                                     <p:cellEditor>  
                                         <f:facet name="output">
@@ -197,7 +197,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['cuentaDebito']}" sortBy="#{infoG.codigocuentad}" filterBy="#{infoG.cuentad.codigo}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['cuentaDebito']}" sortBy="#{infoG.codigocuentad}" filterBy="#{infoG.codigocuentad}" filterMatchMode="contains" 
                                           id="genCntDebito" width="133" filterStyle="display: none; visibility: hidden;" >      
                                     <p:cellEditor>  
                                         <f:facet name="output">

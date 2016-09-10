@@ -1160,7 +1160,8 @@ public class ControlInterfaseContableTotal implements Serializable {
                 }
                 getTotalCGenerado();
                 getTotalDGenerado();
-                modificarInfoRegistroGenerados(listaGenerados.size());
+               // modificarInfoRegistroGenerados(listaGenerados.size());
+               contarRegistrosGenerados();
             }
             /*
            
@@ -1176,12 +1177,13 @@ public class ControlInterfaseContableTotal implements Serializable {
                         activarDeshacer = true;
                     }
                 } 
-//                else {
-//                    activarDeshacer = true;
-//                }
+                else {
+                    activarDeshacer = true;
+                }
                 getTotalCInter();
                 getTotalDInter();
-                modificarInfoRegistroContabilizados(listaInterconTotal.size());
+                contarRegistrosContabilizados();
+//                modificarInfoRegistroContabilizados(listaInterconTotal.size());
             }
 
             context.update("form:PanelTotal");
