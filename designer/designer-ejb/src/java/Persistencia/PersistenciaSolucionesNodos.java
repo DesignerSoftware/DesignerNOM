@@ -329,16 +329,26 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
     public List<SolucionesNodos> buscarSolucionesNodosParaParametroContable(EntityManager em, Date fechaInicial, Date fechaFinal) {
         try {
             em.clear();
-            String sql = "select * from SolucionesNodos s WHERE EXISTS (SELECT 'X' FROM contabilizaciones C\n"
-                    + " where C.flag='GENERADO' and C.fechageneracion between ? and ? \n"
-                    + " and c.solucionnodo = s.secuencia)\n"
-                    + " AND  EXISTS (SELECT 'X' FROM  cortesprocesos cp , procesos p WHERE  cp.secuencia = s.corteproceso\n"
-                    + " AND p.secuencia = cp.proceso AND CONTABILIZACION = 'S')\n"
-                    + " and exists (select 'x' from empleados e where e.secuencia=s.empleado) and s.valor <> 0";
+            String sql = "SELECT sn.*,c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD, cu1.CODIGO CODIGOCUENTAC, \n"
+                    + "p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO, tt.nombre nombretipotrabajador\n"
+                    + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p, TIPOSTRABAJADORES TT --,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
+                    + "WHERE EXISTS (SELECT 'X' FROM contabilizaciones C \n"
+                    + "where C.flag='GENERADO' and C.fechageneracion between ? and ?\n"
+                    + "and c.solucionnodo = sn.secuencia)\n"
+                    + "AND  EXISTS (SELECT 'X' FROM  cortesprocesos cp , procesos p WHERE  cp.secuencia = sn.corteproceso\n"
+                    + "AND p.secuencia = cp.proceso AND CONTABILIZACION = 'S')\n"
+                    + "and exists (select 'x' from empleados e where e.secuencia=sn.empleado) and sn.valor <> 0   \n"
+                    + "AND sn.EMPLEADO =E.SECUENCIA\n"
+                    + "AND sn.NIT = t.SECUENCIA(+) \n"
+                    + "AND sn.CONCEPTO = c.SECUENCIA\n"
+                    + "AND sn.CUENTAD=cu.SECUENCIA\n"
+                    + "AND sn.CUENTAC=cu1.SECUENCIA\n"
+                    + "AND sn.tipotrabajador = tt.secuencia\n"
+                    + "AND e.persona=p.secuencia ";
             Query query = em.createNativeQuery(sql, SolucionesNodos.class);
             query.setParameter(1, fechaInicial);
             query.setParameter(2, fechaFinal);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+//            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<SolucionesNodos> soluciones = query.getResultList();
             return soluciones;
         } catch (Exception e) {
