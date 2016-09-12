@@ -94,7 +94,7 @@ public class ControlInicioRed implements Serializable {
          HttpSession ses = (HttpSession) contexto.getExternalContext().getSession(false);
          System.out.println("Ses= " + ses);
          System.out.println("estado sesion ingreso = " + estadoInicio);
-         if (estadoInicio == false) {
+         if (!estadoInicio) {
             if (!baseDatos.equals("") && !usuario.equals("") && !contraseña.equals("")) {
                if (administrarInicioRed.conexionInicial(baseDatos)) {
                   if (administrarInicioRed.validarUsuario(usuario)) {

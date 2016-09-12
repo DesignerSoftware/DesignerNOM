@@ -48,7 +48,8 @@
                <p:inputText id="baseDatos" value="#{controlInicioRed.baseDatos}" disabled="#{controlInicioRed.estadoInicio}"
                             style="font-weight: bold; text-transform: uppercase;"/>
                <h:outputLabel/>
-               <p:commandButton id="btnLogin" value="#{controlInicioRed.txtBoton}" actionListener="#{controlInicioRed.ingresar()}" onclick="validarMensaje()" oncomplete="estadoSesion.hide()" 
+               <p:commandButton id="btnLogin" value="#{controlInicioRed.txtBoton}" actionListener="#{controlInicioRed.ingresar()}"
+                                onclick="validarMensaje()" oncomplete="PF('estadoSesion').hide()"
                                 styleClass="cssBotonIngreso" process="@this"/> 
                <p:commandButton id="btnCambioClave" value="Cambio de Clave" disabled="#{controlInicioRed.cambioClave}" update=":formularioDialogos:cambiarClave" oncomplete="cambiarClave.show();" styleClass="cssBotonIngreso" />
                <p:commandButton id="btnCandadoLogin" value="" 
