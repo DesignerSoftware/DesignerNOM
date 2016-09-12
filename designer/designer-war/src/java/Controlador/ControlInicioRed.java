@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import utilidadesUI.PrimefacesContextUI;
-import utilidadesUI.PrimefacesContextUI;
 //import org.primefaces.model.DefaultStreamedContent;
 //import org.primefaces.model.StreamedContent;
 
@@ -211,13 +210,13 @@ public class ControlInicioRed implements Serializable {
       if (!estadoInicio) {
          msgSesion = "Iniciando sesión, por favor espere...";
          PrimefacesContextUI.actualizar("formularioDialogos:estadoSesion");
-         PrimefacesContextUI.ejecutar("PF('PF('estadoSesion')').show()");
+         PrimefacesContextUI.ejecutar("PF('estadoSesion').show()");
       } else {
          msgSesion = "Cerrando sesión, por favor espere...";
 //         PrimefacesContextUI.actualizar("formularioDialogos:estadoSesion");
          PrimefacesContextUI.actualizar("formularioDialogos:estadoSesion");
-//         PrimefacesContextUI.ejecutar("PF('PF('estadoSesion')').show()");
-         PrimefacesContextUI.ejecutar("PF('estadoSesion')').show()");
+//         PrimefacesContextUI.ejecutar("PF('estadoSesion').show()");
+         PrimefacesContextUI.ejecutar("PF('estadoSesion').show()");
       }
       System.out.println("ControlInicioRed.validaDialogoSesion");
       PrimefacesContextUI.actualizar("form:btnCandadoLogin");
