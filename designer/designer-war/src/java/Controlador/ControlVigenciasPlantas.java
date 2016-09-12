@@ -26,6 +26,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -97,7 +98,7 @@ public class ControlVigenciasPlantas implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarVigenciasPlantas.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlVigenciasPlantas eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -166,7 +167,7 @@ public class ControlVigenciasPlantas implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             fecha = (Column) c.getViewRoot().findComponent("form:datosVigenciaPlanta:fecha");
             fecha.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVigenciaPlanta");
+            PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
             bandera = 0;
             filtrarVigenciasPlantas = null;
             tipoLista = 0;
@@ -188,9 +189,9 @@ public class ControlVigenciasPlantas implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listVigenciasPlantas.size();
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosVigenciaPlanta");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void salir() {
@@ -201,7 +202,7 @@ public class ControlVigenciasPlantas implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             fecha = (Column) c.getViewRoot().findComponent("form:datosVigenciaPlanta:fecha");
             fecha.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVigenciaPlanta");
+            PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
             bandera = 0;
             filtrarVigenciasPlantas = null;
             tipoLista = 0;
@@ -223,9 +224,9 @@ public class ControlVigenciasPlantas implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listVigenciasPlantas.size();
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosVigenciaPlanta");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -236,7 +237,7 @@ public class ControlVigenciasPlantas implements Serializable {
             codigo.setFilterStyle("width: 85%;");
             fecha = (Column) c.getViewRoot().findComponent("form:datosVigenciaPlanta:fecha");
             fecha.setFilterStyle("width: 85%;");
-            RequestContext.getCurrentInstance().update("form:datosVigenciaPlanta");
+            PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -246,7 +247,7 @@ public class ControlVigenciasPlantas implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             fecha = (Column) c.getViewRoot().findComponent("form:datosVigenciaPlanta:fecha");
             fecha.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVigenciaPlanta");
+            PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
             bandera = 0;
             filtrarVigenciasPlantas = null;
             tipoLista = 0;
@@ -295,20 +296,20 @@ public class ControlVigenciasPlantas implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
                         }
-                        context.update("form:datosVigenciaPlanta");
+                        PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
 
                     } else {
                         if (guardado == true) {
                             guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
                         }
-                        context.update("form:datosVigenciaPlanta");
+                        PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
                     }
                 } else {
-                    context.update("form:validacionModificar");
-                    context.execute("validacionModificar.show()");
+                    PrimefacesContextUI.actualizar("form:validacionModificar");
+                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                 }
             } else {
                 secRegistro = filtrarVigenciasPlantas.get(indice).getSecuencia();
@@ -343,26 +344,26 @@ public class ControlVigenciasPlantas implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
                         }
-                        context.update("form:datosVigenciaPlanta");
+                        PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
 
                     } else {
                         if (guardado == true) {
                             guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
                         }
-                        context.update("form:datosVigenciaPlanta");
+                        PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
                     }
                 } else {
-                    context.update("form:validacionModificar");
-                    context.execute("validacionModificar.show()");
+                    PrimefacesContextUI.actualizar("form:validacionModificar");
+                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                 }
             }
 
             index = -1;
             secRegistro = null;
-            context.update("form:datosVigenciaPlanta");
+            PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
         }
         System.out.println("Indice: " + index + " Celda: " + cualCelda);
 
@@ -414,8 +415,8 @@ public class ControlVigenciasPlantas implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -448,8 +449,8 @@ public class ControlVigenciasPlantas implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -492,8 +493,8 @@ public class ControlVigenciasPlantas implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -528,16 +529,16 @@ public class ControlVigenciasPlantas implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
                 }
 
             }
-            context.update("form:datosVigenciaPlanta");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -577,14 +578,14 @@ public class ControlVigenciasPlantas implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosVigenciaPlanta");
+            PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -607,8 +608,8 @@ public class ControlVigenciasPlantas implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:validacionBorrar");
-                context.execute("validacionBorrar.show()");
+                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
                 contarPlantasVigenciaPlanta = new BigInteger("-1");
 
@@ -622,8 +623,8 @@ public class ControlVigenciasPlantas implements Serializable {
 
         if (!borrarVigenciasPlantas.isEmpty() || !crearVigenciasPlantas.isEmpty() || !modificarVigenciasPlantas.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:confirmarGuardar");
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
     }
@@ -638,8 +639,8 @@ public class ControlVigenciasPlantas implements Serializable {
 
                 //mostrarBorrados
                 registrosBorrados = borrarVigenciasPlantas.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarVigenciasPlantas.clear();
             }
             if (!crearVigenciasPlantas.isEmpty()) {
@@ -652,15 +653,15 @@ public class ControlVigenciasPlantas implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listVigenciasPlantas = null;
-            context.update("form:datosVigenciaPlanta");
+            PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
             k = 0;
             guardado = true;
         }
         index = -1;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -676,12 +677,12 @@ public class ControlVigenciasPlantas implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editCodigo");
-                context.execute("editCodigo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editDescripcion");
-                context.execute("editDescripcion.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
 
@@ -747,7 +748,7 @@ public class ControlVigenciasPlantas implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 fecha = (Column) c.getViewRoot().findComponent("form:datosVigenciaPlanta:fecha");
                 fecha.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosVigenciaPlanta");
+                PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
                 bandera = 0;
                 filtrarVigenciasPlantas = null;
                 tipoLista = 0;
@@ -762,23 +763,23 @@ public class ControlVigenciasPlantas implements Serializable {
 
             listVigenciasPlantas.add(nuevoVigenciaPlanta);
             nuevoVigenciaPlanta = new VigenciasPlantas();
-            context.update("form:datosVigenciaPlanta");
+            PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
 
             infoRegistro = "Cantidad de registros: " + listVigenciasPlantas.size();
 
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
 
-            context.execute("nuevoRegistroVigenciasPlantas.hide()");
+            PrimefacesContextUI.ejecutar("PF('nuevoRegistroVigenciasPlantas').hide()");
             index = -1;
             secRegistro = null;
 
         } else {
-            context.update("form:validacionNuevaCentroCosto");
-            context.execute("validacionNuevaCentroCosto.show()");
+            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -811,8 +812,8 @@ public class ControlVigenciasPlantas implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarTE");
-            context.execute("duplicarRegistroVigenciasPlantas.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroVigenciasPlantas').show()");
             index = -1;
             secRegistro = null;
         }
@@ -873,7 +874,7 @@ public class ControlVigenciasPlantas implements Serializable {
             }
             listVigenciasPlantas.add(duplicarVigenciaPlanta);
             crearVigenciasPlantas.add(duplicarVigenciaPlanta);
-            context.update("form:datosVigenciaPlanta");
+            PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
@@ -882,8 +883,8 @@ public class ControlVigenciasPlantas implements Serializable {
 
             infoRegistro = "Cantidad de registros: " + listVigenciasPlantas.size();
 
-            context.update("form:informacionRegistro");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
@@ -891,18 +892,18 @@ public class ControlVigenciasPlantas implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 fecha = (Column) c.getViewRoot().findComponent("form:datosVigenciaPlanta:fecha");
                 fecha.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosVigenciaPlanta");
+                PrimefacesContextUI.actualizar("form:datosVigenciaPlanta");
                 bandera = 0;
                 filtrarVigenciasPlantas = null;
                 tipoLista = 0;
             }
             duplicarVigenciaPlanta = new VigenciasPlantas();
-            RequestContext.getCurrentInstance().execute("duplicarRegistroVigenciasPlantas.hide()");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroVigenciasPlantas').hide()");
 
         } else {
             contador = 0;
-            context.update("form:validacionDuplicarVigencia");
-            context.execute("validacionDuplicarVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -939,24 +940,24 @@ public class ControlVigenciasPlantas implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "VIGENCIASPLANTAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASPLANTAS")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -974,7 +975,7 @@ public class ControlVigenciasPlantas implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listVigenciasPlantas.size();
         }
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
         return listVigenciasPlantas;
     }
 

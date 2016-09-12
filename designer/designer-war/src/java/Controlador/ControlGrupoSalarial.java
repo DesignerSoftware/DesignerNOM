@@ -27,6 +27,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -199,23 +200,23 @@ public class ControlGrupoSalarial implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //PrimefacesContextUI.actualizar("form:aceptar");
                     }
                 }
             }
             cambiosPagina = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         } else {
             if (tipoLista == 0) {
                 listGruposSalariales.get(index).setDescripcion(auxDescripcionGrupo);
             } else {
                 filtrarListGruposSalariales.get(index).setDescripcion(auxDescripcionGrupo);
             }
-            context.execute("errorRegDescripcion.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegDescripcion').show()");
         }
         index = -1;
         secRegistro = null;
-        context.update("form:datosGrupoSalarial");
+        PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
 
     }
 
@@ -259,7 +260,7 @@ public class ControlGrupoSalarial implements Serializable {
                 }
             }
             cambiosPagina = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         } else {
             if (tipoListaVigencia == 0) {
                 listVigenciasGruposSalariales.get(indice).setFechavigencia(fechaVigencia);
@@ -268,11 +269,11 @@ public class ControlGrupoSalarial implements Serializable {
                 filtrarListVigenciasGruposSalariales.get(indice).setFechavigencia(fechaVigencia);
                 filtrarListVigenciasGruposSalariales.get(indice).setValor(valorAux);
             }
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
         indexVGS = -1;
         secRegistroVigencia = null;
-        context.update("form:datosVigenciaGrupoSalarial");
+        PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
     }
 
     public void modificarFechas(int i, int c) {
@@ -295,8 +296,8 @@ public class ControlGrupoSalarial implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosVigenciaGrupoSalarial");
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -315,21 +316,21 @@ public class ControlGrupoSalarial implements Serializable {
             listVigenciasGruposSalariales = null;
             getListVigenciasGruposSalariales();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosVigenciaGrupoSalarial");
+            PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
             if (banderaVGS == 1) {
                 vgsValor = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciaGrupoSalarial:vgsValor");
                 vgsValor.setFilterStyle("display: none; visibility: hidden;");
                 vgsFechaVigencia = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciaGrupoSalarial:vgsFechaVigencia");
                 vgsFechaVigencia.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
                 banderaVGS = 0;
                 filtrarListVigenciasGruposSalariales = null;
                 tipoListaVigencia = 0;
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:confirmarGuardarSinSalida");
-            context.execute("confirmarGuardarSinSalida.show()");
+            PrimefacesContextUI.actualizar("form:confirmarGuardarSinSalida");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalida').show()");
         }
     }
 
@@ -357,7 +358,7 @@ public class ControlGrupoSalarial implements Serializable {
             gsSalario = (Column) c.getViewRoot().findComponent("form:datosGrupoSalarial:gsSalario");
             gsSalario.setFilterStyle("display: none; visibility: hidden;");
             ////
-            RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
+            PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
             bandera = 0;
             filtrarListGruposSalariales = null;
             tipoLista = 0;
@@ -370,7 +371,7 @@ public class ControlGrupoSalarial implements Serializable {
             guardarCambiosGrupoSalarial();
             guardarCambiosVigenciaGrupoSalarial();
             cambiosPagina = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
     }
 
@@ -395,20 +396,20 @@ public class ControlGrupoSalarial implements Serializable {
                     listGrupoSalarialModificar.clear();
                 }
                 listGruposSalariales = null;
-                context.update("form:datosGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
                 guardado = true;
                 k = 0;
                 index = -1;
                 secRegistro = null;
                 FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Grupo Salarial con Éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                context.update("form:growl");
+                PrimefacesContextUI.actualizar("form:growl");
             }
         } catch (Exception e) {
             System.out.println("Error guardarCambiosGrupoSalarial : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Grupo Salarial, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
@@ -433,31 +434,31 @@ public class ControlGrupoSalarial implements Serializable {
                     listVigenciaGrupoSalarialModificar.clear();
                 }
                 listVigenciasGruposSalariales = null;
-                context.update("form:datosVigenciaGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
                 guardadoVGS = true;
                 k = 0;
                 indexVGS = -1;
                 secRegistroVigencia = null;
                 FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Vigencia Grupo Salarial con Éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                context.update("form:growl");
+                PrimefacesContextUI.actualizar("form:growl");
             }
         } catch (Exception e) {
             System.out.println("Error guardarCambiosGrupoSalarial : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Vigencia Grupo Salarial, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
     public void cancelarModificacionGeneral() {
         RequestContext context = RequestContext.getCurrentInstance();
         cancelarModificacionGrupoSalarial();
-        context.update("form:datosGrupoSalarial");
+        PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
         cancelarModificacionVigenciaGrupoSalarial();
-        context.update("form:datosVigenciaGrupoSalarial");
+        PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
         cambiosPagina = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void cancelarModificacionGrupoSalarial() {
@@ -471,7 +472,7 @@ public class ControlGrupoSalarial implements Serializable {
             gsSalario = (Column) c.getViewRoot().findComponent("form:datosGrupoSalarial:gsSalario");
             gsSalario.setFilterStyle("display: none; visibility: hidden;");
             ////
-            RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
+            PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
             bandera = 0;
             filtrarListGruposSalariales = null;
             tipoLista = 0;
@@ -485,7 +486,7 @@ public class ControlGrupoSalarial implements Serializable {
         listGruposSalariales = null;
         guardado = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosGrupoSalarial");
+        PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
     }
 
     public void cancelarModificacionVigenciaGrupoSalarial() {
@@ -496,7 +497,7 @@ public class ControlGrupoSalarial implements Serializable {
             vgsValor.setFilterStyle("display: none; visibility: hidden;");
             vgsFechaVigencia = (Column) c.getViewRoot().findComponent("form:datosVigenciaGrupoSalarial:vgsFechaVigencia");
             vgsFechaVigencia.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoSalarial");
+            PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
             banderaVGS = 0;
             filtrarListVigenciasGruposSalariales = null;
             tipoListaVigencia = 0;
@@ -510,7 +511,7 @@ public class ControlGrupoSalarial implements Serializable {
         listVigenciasGruposSalariales = null;
         guardadoVGS = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosVigenciaGrupoSalarial");
+        PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
     }
 
     public void editarCelda() {
@@ -523,16 +524,16 @@ public class ControlGrupoSalarial implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarCodigoD");
-                context.execute("editarCodigoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoD");
+                PrimefacesContextUI.ejecutar("PF('editarCodigoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarDescripcionD");
-                context.execute("editarDescripcionD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionD");
+                PrimefacesContextUI.ejecutar("PF('editarDescripcionD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarSalarioD");
-                context.execute("editarSalarioD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarSalarioD");
+                PrimefacesContextUI.ejecutar("PF('editarSalarioD').show()");
                 cualCelda = -1;
             }
             index = -1;
@@ -547,12 +548,12 @@ public class ControlGrupoSalarial implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaVigencia == 0) {
-                context.update("formularioDialogos:editarFechaVigenciaD");
-                context.execute("editarFechaVigenciaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaVigenciaD");
+                PrimefacesContextUI.ejecutar("PF('editarFechaVigenciaD').show()");
                 cualCeldaVigencia = -1;
             } else if (cualCeldaVigencia == 1) {
-                context.update("formularioDialogos:editarValorD");
-                context.execute("editarValorD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarValorD");
+                PrimefacesContextUI.ejecutar("PF('editarValorD').show()");
                 cualCeldaVigencia = -1;
             }
             indexVGS = -1;
@@ -573,22 +574,22 @@ public class ControlGrupoSalarial implements Serializable {
                 tam2 = listVigenciasGruposSalariales.size();
             }
             if (tam == 0 || tam2 == 0) {
-                context.update("formularioDialogos:verificarNuevoRegistro");
-                context.execute("verificarNuevoRegistro.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:verificarNuevoRegistro");
+                PrimefacesContextUI.ejecutar("PF('verificarNuevoRegistro').show()");
             } else {
                 if (index >= 0) {
-                    context.update("formularioDialogos:NuevoRegistroGrupoSalarial");
-                    context.execute("NuevoRegistroGrupoSalarial.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroGrupoSalarial");
+                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroGrupoSalarial').show()");
                 }
                 if (indexVGS >= 0) {
-                    context.update("formularioDialogos:NuevoRegistroVigenciaGrupoSalarial");
-                    context.execute("NuevoRegistroVigenciaGrupoSalarial.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroVigenciaGrupoSalarial");
+                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigenciaGrupoSalarial').show()");
                 }
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:confirmarGuardarSinSalida");
-            context.execute("confirmarGuardarSinSalida.show()");
+            PrimefacesContextUI.actualizar("form:confirmarGuardarSinSalida");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalida').show()");
         }
     }
 
@@ -606,7 +607,7 @@ public class ControlGrupoSalarial implements Serializable {
                     gsDescripcion.setFilterStyle("display: none; visibility: hidden;");
                     gsSalario = (Column) c.getViewRoot().findComponent("form:datosGrupoSalarial:gsSalario");
                     gsSalario.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
+                    PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
                     bandera = 0;
                     filtrarListGruposSalariales = null;
                     tipoLista = 0;
@@ -618,20 +619,20 @@ public class ControlGrupoSalarial implements Serializable {
                 listGrupoSalarialCrear.add(nuevoGrupoSalarial);
                 listGruposSalariales.add(nuevoGrupoSalarial);
                 nuevoGrupoSalarial = new GruposSalariales();
-                context.update("form:datosGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
                 if (guardado == true) {
                     guardado = false;
                 }
                 index = -1;
                 secRegistro = null;
                 cambiosPagina = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                context.execute("NuevoRegistroGrupoSalarial.hide()");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroGrupoSalarial').hide()");
             } else {
-                context.execute("errorRegDescripcion.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRegDescripcion').show()");
             }
         } else {
-            context.execute("errorRegDescripcion.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegDescripcion').show()");
 
         }
     }
@@ -645,7 +646,7 @@ public class ControlGrupoSalarial implements Serializable {
                 vgsValor.setFilterStyle("display: none; visibility: hidden;");
                 vgsFechaVigencia = (Column) c.getViewRoot().findComponent("form:datosVigenciaGrupoSalarial:vgsFechaVigencia");
                 vgsFechaVigencia.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
                 banderaVGS = 0;
                 filtrarListVigenciasGruposSalariales = null;
                 tipoListaVigencia = 0;
@@ -666,18 +667,18 @@ public class ControlGrupoSalarial implements Serializable {
             listVigenciasGruposSalariales.add(nuevoVigenciaGrupoSalarial);
             nuevoVigenciaGrupoSalarial = new VigenciasGruposSalariales();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosVigenciaGrupoSalarial");
-            context.execute("NuevoRegistroVigenciaGrupoSalarial.hide();");
+            PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigenciaGrupoSalarial.hide();");
             if (guardadoVGS == true) {
                 guardadoVGS = false;
             }
             indexVGS = -1;
             secRegistroVigencia = null;
             cambiosPagina = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -719,8 +720,8 @@ public class ControlGrupoSalarial implements Serializable {
                 duplicarGrupoSalarial.setSalario(filtrarListGruposSalariales.get(index).getSalario());
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:DuplicarRegistroGrupoSalarial");
-            context.execute("DuplicarRegistroGrupoSalarial.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroGrupoSalarial");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroGrupoSalarial').show()");
             index = -1;
             secRegistro = null;
         }
@@ -742,8 +743,8 @@ public class ControlGrupoSalarial implements Serializable {
                 duplicarVigenciaGrupoSalarial.setValor(filtrarListVigenciasGruposSalariales.get(indexVGS).getValor());
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:DuplicarRegistroVigenciaGrupoSalarial");
-            context.execute("DuplicarRegistroVigenciaGrupoSalarial.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroVigenciaGrupoSalarial");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVigenciaGrupoSalarial').show()");
             indexVGS = -1;
             secRegistroVigencia = null;
         }
@@ -759,14 +760,14 @@ public class ControlGrupoSalarial implements Serializable {
                 duplicarGrupoSalarial.setSecuencia(l);
                 listGruposSalariales.add(duplicarGrupoSalarial);
                 listGrupoSalarialCrear.add(duplicarGrupoSalarial);
-                context.update("form:datosGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
                 index = -1;
                 secRegistro = null;
                 if (guardado == true) {
                     guardado = false;
                 }
                 cambiosPagina = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 if (bandera == 1) {
                     FacesContext c = FacesContext.getCurrentInstance();
                     altoTablaGrupo = "160";
@@ -776,18 +777,18 @@ public class ControlGrupoSalarial implements Serializable {
                     gsDescripcion.setFilterStyle("display: none; visibility: hidden;");
                     gsSalario = (Column) c.getViewRoot().findComponent("form:datosGrupoSalarial:gsSalario");
                     gsSalario.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
+                    PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
                     bandera = 0;
                     filtrarListGruposSalariales = null;
                     tipoLista = 0;
                 }
                 duplicarGrupoSalarial = new GruposSalariales();
-                context.execute("DuplicarRegistroGrupoSalarial.hide()");
+                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroGrupoSalarial').hide()");
             } else {
-                context.execute("errorRegDescripcion.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRegDescripcion').show()");
             }
         } else {
-            context.execute("errorRegDescripcion.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegDescripcion').show()");
 
         }
     }
@@ -808,15 +809,15 @@ public class ControlGrupoSalarial implements Serializable {
             listVigenciasGruposSalariales.add(duplicarVigenciaGrupoSalarial);
             listVigenciaGrupoSalarialCrear.add(duplicarVigenciaGrupoSalarial);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosVigenciaGrupoSalarial");
-            context.execute("DuplicarRegistroVigenciaGrupoSalarial.hide()");
+            PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVigenciaGrupoSalarial').hide()");
             indexVGS = -1;
             secRegistroVigencia = null;
             if (guardadoVGS == true) {
                 guardadoVGS = false;
             }
             cambiosPagina = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             if (banderaVGS == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 altoTablaVigencia = "120";
@@ -824,7 +825,7 @@ public class ControlGrupoSalarial implements Serializable {
                 vgsValor.setFilterStyle("display: none; visibility: hidden;");
                 vgsFechaVigencia = (Column) c.getViewRoot().findComponent("form:datosVigenciaGrupoSalarial:vgsFechaVigencia");
                 vgsFechaVigencia.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
                 bandera = 0;
                 filtrarListGruposSalariales = null;
                 tipoLista = 0;
@@ -832,7 +833,7 @@ public class ControlGrupoSalarial implements Serializable {
             duplicarVigenciaGrupoSalarial = new VigenciasGruposSalariales();
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -857,11 +858,11 @@ public class ControlGrupoSalarial implements Serializable {
                     borrarGrupoSalarial();
                 } else {
                     RequestContext context = RequestContext.getCurrentInstance();
-                    context.execute("errorBorrarRegistro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorBorrarRegistro').show()");
                 }
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorBorrarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorBorrarRegistro').show()");
             }
         }
         if (indexVGS >= 0) {
@@ -901,7 +902,7 @@ public class ControlGrupoSalarial implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosGrupoSalarial");
+            PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
             index = -1;
             secRegistro = null;
 
@@ -909,7 +910,7 @@ public class ControlGrupoSalarial implements Serializable {
                 guardado = false;
             }
             cambiosPagina = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
     }
 
@@ -945,7 +946,7 @@ public class ControlGrupoSalarial implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosVigenciaGrupoSalarial");
+            PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
             indexVGS = -1;
             secRegistroVigencia = null;
 
@@ -953,7 +954,7 @@ public class ControlGrupoSalarial implements Serializable {
                 guardadoVGS = false;
             }
             cambiosPagina = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
     }
 
@@ -968,7 +969,7 @@ public class ControlGrupoSalarial implements Serializable {
                 gsDescripcion.setFilterStyle("width: 85%");
                 gsSalario = (Column) c.getViewRoot().findComponent("form:datosGrupoSalarial:gsSalario");
                 gsSalario.setFilterStyle("width: 85%");
-                RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
                 bandera = 1;
             } else if (bandera == 1) {
                 altoTablaGrupo = "160";
@@ -978,7 +979,7 @@ public class ControlGrupoSalarial implements Serializable {
                 gsDescripcion.setFilterStyle("display: none; visibility: hidden;");
                 gsSalario = (Column) c.getViewRoot().findComponent("form:datosGrupoSalarial:gsSalario");
                 gsSalario.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
                 bandera = 0;
                 filtrarListGruposSalariales = null;
                 tipoLista = 0;
@@ -991,7 +992,7 @@ public class ControlGrupoSalarial implements Serializable {
                 vgsValor.setFilterStyle("width: 180px");
                 vgsFechaVigencia = (Column) c.getViewRoot().findComponent("form:datosVigenciaGrupoSalarial:vgsFechaVigencia");
                 vgsFechaVigencia.setFilterStyle("width: 85%;");
-                RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
                 banderaVGS = 1;
             } else if (banderaVGS == 1) {
                 altoTablaVigencia = "120";
@@ -999,7 +1000,7 @@ public class ControlGrupoSalarial implements Serializable {
                 vgsValor.setFilterStyle("display: none; visibility: hidden;");
                 vgsFechaVigencia = (Column) c.getViewRoot().findComponent("form:datosVigenciaGrupoSalarial:vgsFechaVigencia");
                 vgsFechaVigencia.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
                 banderaVGS = 0;
                 filtrarListVigenciasGruposSalariales = null;
                 tipoListaVigencia = 0;
@@ -1017,7 +1018,7 @@ public class ControlGrupoSalarial implements Serializable {
             gsDescripcion.setFilterStyle("display: none; visibility: hidden;");
             gsSalario = (Column) c.getViewRoot().findComponent("form:datosGrupoSalarial:gsSalario");
             gsSalario.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
+            PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
             bandera = 0;
             filtrarListGruposSalariales = null;
             tipoLista = 0;
@@ -1030,7 +1031,7 @@ public class ControlGrupoSalarial implements Serializable {
             vgsValor.setFilterStyle("display: none; visibility: hidden;");
             vgsFechaVigencia = (Column) c.getViewRoot().findComponent("form:datosVigenciaGrupoSalarial:vgsFechaVigencia");
             vgsFechaVigencia.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoSalarial");
+            PrimefacesContextUI.actualizar("form:datosVigenciaGrupoSalarial");
             banderaVGS = 0;
             filtrarListVigenciasGruposSalariales = null;
             tipoListaVigencia = 0;
@@ -1053,7 +1054,7 @@ public class ControlGrupoSalarial implements Serializable {
         guardado = true;
         guardadoVGS = true;
         cambiosPagina = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void activarAceptar() {
@@ -1156,30 +1157,30 @@ public class ControlGrupoSalarial implements Serializable {
                 backUp = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "GruposSalariales";
                     msnConfirmarRastro = "La tabla GRUPOSSALARIALES tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("GRUPOSSALARIALES")) {
                 nombreTablaRastro = "GruposSalariales";
                 msnConfirmarRastroHistorico = "La tabla GRUPOSSALARIALES tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;
@@ -1194,30 +1195,30 @@ public class ControlGrupoSalarial implements Serializable {
                 backUp = secRegistroVigencia;
                 secRegistroVigencia = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "VigenciasGruposSalariales";
                     msnConfirmarRastro = "La tabla VIGENCIASGRUPOSSALARIALES tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASGRUPOSSALARIALES")) {
                 nombreTablaRastro = "VigenciasGruposSalariales";
                 msnConfirmarRastroHistorico = "La tabla VIGENCIASGRUPOSSALARIALES tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         indexVGS = -1;

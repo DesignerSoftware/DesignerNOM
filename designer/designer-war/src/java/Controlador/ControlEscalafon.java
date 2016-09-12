@@ -23,6 +23,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -148,7 +149,7 @@ public class ControlEscalafon implements Serializable {
         if (validarCodigo == true) {
             if (tipoLista == 0) {
                 cambiosPagina = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 if (!listaEscalafonesCrear.contains(listaEscalafones.get(indice))) {
                     if (listaEscalafonesModificar.isEmpty()) {
                         listaEscalafonesModificar.add(listaEscalafones.get(indice));
@@ -163,7 +164,7 @@ public class ControlEscalafon implements Serializable {
                 secRegistro = null;
             } else {
                 cambiosPagina = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 if (!listaEscalafonesCrear.contains(filtrarListaEscalafones.get(indice))) {
                     if (listaEscalafonesModificar.isEmpty()) {
                         listaEscalafonesModificar.add(filtrarListaEscalafones.get(indice));
@@ -183,9 +184,9 @@ public class ControlEscalafon implements Serializable {
             } else {
                 filtrarListaEscalafones.get(indice).setCodigo(auxCodigo);
             }
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
-        context.update("form:datosEscalafon");
+        PrimefacesContextUI.actualizar("form:datosEscalafon");
     }
 
     public void modificarEscalafon(int indice, String confirmarCambio, String valorConfirmar) {
@@ -214,11 +215,11 @@ public class ControlEscalafon implements Serializable {
                 lovCategorias.clear();
                 getLovCategorias();
                 cambiosPagina = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             } else {
                 permitirIndex = false;
-                context.update("form:CategoriaDialogo");
-                context.execute("CategoriaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:CategoriaDialogo");
+                PrimefacesContextUI.ejecutar("PF('CategoriaDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -243,11 +244,11 @@ public class ControlEscalafon implements Serializable {
                 lovSubCategorias.clear();
                 getLovSubCategorias();
                 cambiosPagina = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             } else {
                 permitirIndex = false;
-                context.update("form:SubCategoriaDialogo");
-                context.execute("SubCategoriaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:SubCategoriaDialogo");
+                PrimefacesContextUI.ejecutar("PF('SubCategoriaDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -280,7 +281,7 @@ public class ControlEscalafon implements Serializable {
                 secRegistro = null;
             }
         }
-        context.update("form:datosEscalafon");
+        PrimefacesContextUI.actualizar("form:datosEscalafon");
     }
 
     public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
@@ -319,21 +320,21 @@ public class ControlEscalafon implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaEscalafon.setCategoria(lovCategorias.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaCategoria");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCategoria");
                 } else if (tipoNuevo == 2) {
                     duplicarEscalafon.setCategoria(lovCategorias.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarCategoria");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCategoria");
                 }
                 lovCategorias.clear();
                 getLovCategorias();
             } else {
-                context.update("form:CategoriaDialogo");
-                context.execute("CategoriaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:CategoriaDialogo");
+                PrimefacesContextUI.ejecutar("PF('CategoriaDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaCategoria");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCategoria");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarCategoria");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCategoria");
                 }
             }
         }
@@ -352,21 +353,21 @@ public class ControlEscalafon implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaEscalafon.setSubcategoria(lovSubCategorias.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaSubCategoria");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaSubCategoria");
                 } else if (tipoNuevo == 2) {
                     duplicarEscalafon.setSubcategoria(lovSubCategorias.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarSubCategoria");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarSubCategoria");
                 }
                 lovSubCategorias.clear();
                 getLovSubCategorias();
             } else {
-                context.update("form:SubCategoriaDialogo");
-                context.execute("SubCategoriaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:SubCategoriaDialogo");
+                PrimefacesContextUI.ejecutar("PF('SubCategoriaDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaSubCategoria");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaSubCategoria");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarSubCategoria");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarSubCategoria");
                 }
             }
         }
@@ -433,22 +434,22 @@ public class ControlEscalafon implements Serializable {
                 } else {
                     infoRegistro = "Cantidad de registros : 0";
                 }
-                context.update("form:informacionRegistro");
-                context.update("form:ACEPTAR");
-                context.update("form:datosEscalafon");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:datosEscalafon");
                 guardado = true;
                 k = 0;
                 index = -1;
                 secRegistro = null;
                 FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                context.update("form:growl");
+                PrimefacesContextUI.actualizar("form:growl");
             }
         } catch (Exception e) {
             System.out.println("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
@@ -462,7 +463,7 @@ public class ControlEscalafon implements Serializable {
             escalafonSubCategoria.setFilterStyle("display: none; visibility: hidden;");
             escalafonCategoria = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafon:escalafonCategoria");
             escalafonCategoria.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosEscalafon");
+            PrimefacesContextUI.actualizar("form:datosEscalafon");
             bandera = 0;
             filtrarListaEscalafones = null;
             tipoLista = 0;
@@ -481,11 +482,11 @@ public class ControlEscalafon implements Serializable {
             infoRegistro = "Cantidad de registros : 0";
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
         guardado = true;
         cambiosPagina = true;
-        context.update("form:ACEPTAR");
-        context.update("form:datosEscalafon");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosEscalafon");
     }
 
     public void editarCelda() {
@@ -498,16 +499,16 @@ public class ControlEscalafon implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarCodigoD");
-                context.execute("editarCodigoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoD");
+                PrimefacesContextUI.ejecutar("PF('editarCodigoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarCategoriaD");
-                context.execute("editarCategoriaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCategoriaD");
+                PrimefacesContextUI.ejecutar("PF('editarCategoriaD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarSubCategoriaD");
-                context.execute("editarSubCategoriaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarSubCategoriaD");
+                PrimefacesContextUI.ejecutar("PF('editarSubCategoriaD').show()");
                 cualCelda = -1;
             }
         }
@@ -540,7 +541,7 @@ public class ControlEscalafon implements Serializable {
                 escalafonSubCategoria.setFilterStyle("display: none; visibility: hidden;");
                 escalafonCategoria = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafon:escalafonCategoria");
                 escalafonCategoria.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosEscalafon");
+                PrimefacesContextUI.actualizar("form:datosEscalafon");
                 bandera = 0;
                 filtrarListaEscalafones = null;
                 tipoLista = 0;
@@ -556,20 +557,20 @@ public class ControlEscalafon implements Serializable {
             nuevaEscalafon.setCategoria(new Categorias());
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros : " + listaEscalafones.size();
-            context.update("form:informacionRegistro");
-            context.update("form:ACEPTAR");
-            context.update("form:datosEscalafon");
-            context.execute("NuevoRegistroEscalafon.hide()");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosEscalafon");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroEscalafon').hide()");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                PrimefacesContextUI.actualizar("form:aceptar");
             }
             index = -1;
             secRegistro = null;
 
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -596,8 +597,8 @@ public class ControlEscalafon implements Serializable {
                 duplicarEscalafon.setSubcategoria(filtrarListaEscalafones.get(index).getSubcategoria());
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarEsc");
-            context.execute("DuplicarRegistroEscalafon.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEsc");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroEscalafon').show()");
             index = -1;
             secRegistro = null;
         }
@@ -627,15 +628,15 @@ public class ControlEscalafon implements Serializable {
             listaEscalafonesCrear.add(duplicarEscalafon);
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros : " + listaEscalafones.size();
-            context.update("form:informacionRegistro");
-            context.update("form:ACEPTAR");
-            context.update("form:datosEscalafon");
-            context.execute("DuplicarRegistroEscalafon.hide()");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosEscalafon");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroEscalafon').hide()");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
             if (bandera == 1) {
                 //CERRAR FILTRADO
@@ -646,7 +647,7 @@ public class ControlEscalafon implements Serializable {
                 escalafonSubCategoria.setFilterStyle("display: none; visibility: hidden;");
                 escalafonCategoria = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafon:escalafonCategoria");
                 escalafonCategoria.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosEscalafon");
+                PrimefacesContextUI.actualizar("form:datosEscalafon");
                 bandera = 0;
                 filtrarListaEscalafones = null;
                 tipoLista = 0;
@@ -657,7 +658,7 @@ public class ControlEscalafon implements Serializable {
 
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -702,14 +703,14 @@ public class ControlEscalafon implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros : " + listaEscalafones.size();
-            context.update("form:informacionRegistro");
-            context.update("form:ACEPTAR");
-            context.update("form:datosEscalafon");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosEscalafon");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
     }
@@ -723,7 +724,7 @@ public class ControlEscalafon implements Serializable {
             escalafonSubCategoria.setFilterStyle("width: 85%;");
             escalafonCategoria = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafon:escalafonCategoria");
             escalafonCategoria.setFilterStyle("width: 85%;");
-            RequestContext.getCurrentInstance().update("form:datosEscalafon");
+            PrimefacesContextUI.actualizar("form:datosEscalafon");
             bandera = 1;
         } else if (bandera == 1) {
             //CERRAR FILTRADO
@@ -734,7 +735,7 @@ public class ControlEscalafon implements Serializable {
             escalafonSubCategoria.setFilterStyle("display: none; visibility: hidden;");
             escalafonCategoria = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafon:escalafonCategoria");
             escalafonCategoria.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosEscalafon");
+            PrimefacesContextUI.actualizar("form:datosEscalafon");
             bandera = 0;
             filtrarListaEscalafones = null;
             tipoLista = 0;
@@ -751,7 +752,7 @@ public class ControlEscalafon implements Serializable {
             escalafonSubCategoria.setFilterStyle("display: none; visibility: hidden;");
             escalafonCategoria = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafon:escalafonCategoria");
             escalafonCategoria.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosEscalafon");
+            PrimefacesContextUI.actualizar("form:datosEscalafon");
             bandera = 0;
             filtrarListaEscalafones = null;
             tipoLista = 0;
@@ -766,7 +767,7 @@ public class ControlEscalafon implements Serializable {
         guardado = true;
         cambiosPagina = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO)
 
@@ -781,12 +782,12 @@ public class ControlEscalafon implements Serializable {
             tipoActualizacion = 2;
         }
         if (tipo == 0) {
-            context.update("form:CategoriaDialogo");
-            context.execute("CategoriaDialogo.show()");
+            PrimefacesContextUI.actualizar("form:CategoriaDialogo");
+            PrimefacesContextUI.ejecutar("PF('CategoriaDialogo').show()");
         }
         if (tipo == 1) {
-            context.update("form:SubCategoriaDialogo");
-            context.execute("SubCategoriaDialogo.show()");
+            PrimefacesContextUI.actualizar("form:SubCategoriaDialogo");
+            PrimefacesContextUI.ejecutar("PF('SubCategoriaDialogo').show()");
         }
     }
 
@@ -813,21 +814,21 @@ public class ControlEscalafon implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosEscalafon");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosEscalafon");
             permitirIndex = true;
         } else if (tipoActualizacion == 1) {
             nuevaEscalafon.setCategoria(categoriaSelecionada);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:nuevaEsc");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaEsc");
         } else if (tipoActualizacion == 2) {
             duplicarEscalafon.setCategoria(categoriaSelecionada);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarEsc");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEsc");
         }
         filtrarLovCategorias = null;
         categoriaSelecionada = null;
@@ -837,12 +838,12 @@ public class ControlEscalafon implements Serializable {
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         /*
-         context.update("form:CategoriaDialogo");
-         context.update("form:lovCategoria");
-         context.update("form:aceptarCat");*/
+         PrimefacesContextUI.actualizar("form:CategoriaDialogo");
+         PrimefacesContextUI.actualizar("form:lovCategoria");
+         PrimefacesContextUI.actualizar("form:aceptarCat");*/
         context.reset("form:lovCategoria:globalFilter");
-        context.execute("lovCategoria.clearFilters()");
-        context.execute("CategoriaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovCategoria').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('CategoriaDialogo').hide()");
     }
 
     public void cancelarCambioCategoria() {
@@ -855,8 +856,8 @@ public class ControlEscalafon implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovCategoria:globalFilter");
-        context.execute("lovCategoria.clearFilters()");
-        context.execute("CategoriaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovCategoria').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('CategoriaDialogo').hide()");
     }
 
     public void actualizarSubCategoria() {
@@ -882,21 +883,21 @@ public class ControlEscalafon implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosEscalafon");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosEscalafon");
             permitirIndex = true;
         } else if (tipoActualizacion == 1) {
             nuevaEscalafon.setSubcategoria(subCategoriaSelecionada);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:nuevaEsc");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaEsc");
         } else if (tipoActualizacion == 2) {
             duplicarEscalafon.setSubcategoria(subCategoriaSelecionada);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarEsc");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEsc");
         }
         filtrarLovSubCategorias = null;
         subCategoriaSelecionada = null;
@@ -906,12 +907,12 @@ public class ControlEscalafon implements Serializable {
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         /*
-        context.update("form:SubCategoriaDialogo");
-        context.update("form:lovSubCategoria");
-        context.update("form:aceptarSCat");*/
+        PrimefacesContextUI.actualizar("form:SubCategoriaDialogo");
+        PrimefacesContextUI.actualizar("form:lovSubCategoria");
+        PrimefacesContextUI.actualizar("form:aceptarSCat");*/
         context.reset("form:lovSubCategoria:globalFilter");
-        context.execute("lovSubCategoria.clearFilters()");
-        context.execute("SubCategoriaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovSubCategoria').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('SubCategoriaDialogo').hide()");
     }
 
     public void cancelarCambioSubCategoria() {
@@ -924,21 +925,21 @@ public class ControlEscalafon implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovSubCategoria:globalFilter");
-        context.execute("lovSubCategoria.clearFilters()");
-        context.execute("SubCategoriaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovSubCategoria').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('SubCategoriaDialogo').hide()");
     }
 
     public void listaValoresBoton() {
         if (index >= 0) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 1) {
-                context.update("form:CategoriaDialogo");
-                context.execute("CategoriaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:CategoriaDialogo");
+                PrimefacesContextUI.ejecutar("PF('CategoriaDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 2) {
-                context.update("form:SubCategoriaDialogo");
-                context.execute("SubCategoriaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:SubCategoriaDialogo");
+                PrimefacesContextUI.ejecutar("PF('SubCategoriaDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -974,7 +975,7 @@ public class ControlEscalafon implements Serializable {
         }
         infoRegistro = "Cantidad de registros : " + filtrarListaEscalafones.size();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
     //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
 
@@ -986,24 +987,24 @@ public class ControlEscalafon implements Serializable {
                 backUpSecRegistro = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("ESCALAFONES")) {
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }

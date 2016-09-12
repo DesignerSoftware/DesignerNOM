@@ -28,6 +28,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -224,7 +225,7 @@ public class ControlPeriodosActivos implements Serializable {
                     System.err.println("mes: " + mes);
                     System.err.println("anito: " + anito);
                     if ((anito - anitoHoy) != 0 || (mes - mesHoy) != 0) {
-                        context.execute("modificacionFechas1.show()");
+                        PrimefacesContextUI.ejecutar("PF('modificacionFechas1').show()");
                     }
                     //listEmpresa.get(indice).getCentrocosto().setCodigo(empresaSeleccionada.);
                     if (modificarEmpresas.isEmpty()) {
@@ -234,12 +235,12 @@ public class ControlPeriodosActivos implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
-                    context.update("form:datosEmpresas");
+                    PrimefacesContextUI.actualizar("form:datosEmpresas");
                 } else {
-                    context.update("form:validacionModificar");
-                    context.execute("validacionModificar.show()");
+                    PrimefacesContextUI.actualizar("form:validacionModificar");
+                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                 }
             } else {
                 secRegistro = filtrarEmpresas.get(indice).getSecuencia();
@@ -273,19 +274,19 @@ public class ControlPeriodosActivos implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
-                    context.update("form:datosEmpresas");
+                    PrimefacesContextUI.actualizar("form:datosEmpresas");
 
                 } else {
-                    context.update("form:validacionModificar");
-                    context.execute("validacionModificar.show()");
+                    PrimefacesContextUI.actualizar("form:validacionModificar");
+                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                 }
             }
 
             index = -1;
             secRegistro = null;
-            context.update("form:datosEmpresas");
+            PrimefacesContextUI.actualizar("form:datosEmpresas");
         }
 
         System.out.println(
@@ -331,12 +332,12 @@ public class ControlPeriodosActivos implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listEmpresa.size();
             }
-            context.update("form:informacionRegistro");
-            context.update("form:datosEmpresas");
-            context.update("form:ACEPTAR");
-            context.update("form:BUSCARCENTROCOSTO");
-            context.update("form:MOSTRARTODOS");
-            context.update("formularioDialogos:aceptarE");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:datosEmpresas");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:BUSCARCENTROCOSTO");
+            PrimefacesContextUI.actualizar("form:MOSTRARTODOS");
+            PrimefacesContextUI.actualizar("formularioDialogos:aceptarE");
 
         } catch (Exception E) {
             System.out.println("ERROR CONTROLBETACENTROSCOSTOS.ModificarModificacion ERROR====================" + E.getMessage());
@@ -366,9 +367,9 @@ public class ControlPeriodosActivos implements Serializable {
             guardado = true;
             permitirIndex = true;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosEmpresas");
-            context.update("form:ACEPTAR");
-            context.update("formularioDialogos:aceptarE");
+            PrimefacesContextUI.actualizar("form:datosEmpresas");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("formularioDialogos:aceptarE");
 
         } catch (Exception E) {
             System.out.println("ERROR CONTROLBETACENTROSCOSTOS.ModificarModificacion ERROR====================" + E.getMessage());
@@ -390,8 +391,8 @@ public class ControlPeriodosActivos implements Serializable {
                 tipoActualizacion = 2;
             }
             if (dig == 2) {
-                context.update("form:tiposEmpresasDialogo");
-                context.execute("tiposEmpresasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:tiposEmpresasDialogo");
+                PrimefacesContextUI.ejecutar("PF('tiposEmpresasDialogo').show()");
                 dig = -1;
             }
 
@@ -409,14 +410,14 @@ public class ControlPeriodosActivos implements Serializable {
         try {
             if (guardado == false) {
                 banderaSeleccionEmpresasPorEmpresa = true;
-                context.execute("confirmarGuardar.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
 
             } else {
                 listEmpresaPorBoton = null;
                 getListEmpresasPorEmpresaBoton();
                 index = -1;
-                context.update("formularioDialogos:lovEmpresas");
-                context.execute("buscarEmpresasDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:lovEmpresas");
+                PrimefacesContextUI.ejecutar("PF('buscarEmpresasDialogo').show()");
 
             }
         } catch (Exception e) {
@@ -438,7 +439,7 @@ public class ControlPeriodosActivos implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listEmpresa = null;
-            context.update("form:datosTipoCentroCosto");
+            PrimefacesContextUI.actualizar("form:datosTipoCentroCosto");
             k = 0;
             guardado = true;
 
@@ -451,8 +452,8 @@ public class ControlPeriodosActivos implements Serializable {
                 listEmpresaPorBoton = null;
                 getListEmpresasPorEmpresaBoton();
                 index = -1;
-                context.update("formularioDialogos:lovEmpresas");
-                context.execute("buscarEmpresasDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:lovEmpresas");
+                PrimefacesContextUI.ejecutar("PF('buscarEmpresasDialogo').show()");
                 banderaSeleccionEmpresasPorEmpresa = false;
             }
         }
@@ -460,10 +461,10 @@ public class ControlPeriodosActivos implements Serializable {
         aceptar = true;
         FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        context.update("form:growl");
-        context.update("formularioDialogos:aceptarE");
+        PrimefacesContextUI.actualizar("form:growl");
+        PrimefacesContextUI.actualizar("formularioDialogos:aceptarE");
 
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
         banderaModificacionEmpresa = 0;
     }
 
@@ -471,7 +472,7 @@ public class ControlPeriodosActivos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (banderaModificacionEmpresa == 0) {
             empresaSeleccionada = backUpEmpresaActual;
-            context.update("formularioDialogos:lovEmpresas");
+            PrimefacesContextUI.actualizar("formularioDialogos:lovEmpresas");
             banderaModificacionEmpresa = 1;
         }
     }
@@ -494,7 +495,7 @@ public class ControlPeriodosActivos implements Serializable {
                 fechaFinal = (Column) c.getViewRoot().findComponent("form:datosEmpresas:fechaFinal");
                 fechaFinal.setFilterStyle("width: 85%;");
 
-                RequestContext.getCurrentInstance().update("form:datosEmpresas");
+                PrimefacesContextUI.actualizar("form:datosEmpresas");
                 bandera = 1;
             } else if (bandera == 1) {
                 System.out.println("Desactivar");
@@ -505,7 +506,7 @@ public class ControlPeriodosActivos implements Serializable {
                 fechaFinal.setFilterStyle("display: none; visibility: hidden;");
 
                 tamano = 260;
-                RequestContext.getCurrentInstance().update("form:datosEmpresas");
+                PrimefacesContextUI.actualizar("form:datosEmpresas");
                 bandera = 0;
                 filtrarEmpresas = null;
                 tipoLista = 0;
@@ -530,12 +531,12 @@ public class ControlPeriodosActivos implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 System.out.println("CONTROLBETACENTROSCOSTOS: Entro a editar... valor celda: " + cualCelda);
                 if (cualCelda == 0) {
-                    context.update("formularioDialogos:editarFechaInicial");
-                    context.execute("editarFechaInicial.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicial");
+                    PrimefacesContextUI.ejecutar("PF('editarFechaInicial').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
-                    context.update("formularioDialogos:editarFechaFinal");
-                    context.execute("editarFechaFinal.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinal");
+                    PrimefacesContextUI.ejecutar("PF('editarFechaFinal').show()");
                     cualCelda = -1;
                 }
             }
@@ -576,24 +577,24 @@ public class ControlPeriodosActivos implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "CENTROSCOSTOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("CENTROSCOSTOS")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -604,7 +605,7 @@ public class ControlPeriodosActivos implements Serializable {
         index = -1;
         secRegistro = null;
         cualCelda = -1;
-        RequestContext.getCurrentInstance().execute("EmpresasDialogo.show()");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
     }
 
     public void cambiarEmpresa() {
@@ -612,24 +613,24 @@ public class ControlPeriodosActivos implements Serializable {
         System.err.println("Cambiar empresa  GUARDADO = " + guardado);
         System.err.println("Cambiar empresa  GUARDADO = " + empresaSeleccionada.getNombre());
         if (guardado == true) {
-            context.update("form:nombreEmpresa");
-            context.update("form:nitEmpresa");
+            PrimefacesContextUI.actualizar("form:nombreEmpresa");
+            PrimefacesContextUI.actualizar("form:nitEmpresa");
             getListEmpresa();
             getListEmpresasPorEmpresaBoton();
             filtradoListaEmpresas = null;
             listEmpresa = null;
             aceptar = true;
             context.reset("formularioDialogos:lovEmpresas:globalFilter");
-            context.execute("lovEmpresas.clearFilters()");
-            context.execute("EmpresasDialogo.hide()");
-            //context.update(":lovEmpresas");
+            PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+            PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+            //PrimefacesContextUI.actualizar(":lovEmpresas");
             backUpEmpresaActual = empresaSeleccionada;
             banderaModificacionEmpresa = 0;
-            context.update("form:datosEmpresas");
+            PrimefacesContextUI.actualizar("form:datosEmpresas");
 
         } else {
             banderaModificacionEmpresa = 0;
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
     }
 
@@ -639,8 +640,8 @@ public class ControlPeriodosActivos implements Serializable {
         index = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
-        context.execute("lovEmpresas.clearFilters()");
-        context.execute("EmpresasDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
     }
 //-----------------------------------------------------------------------------**
 
@@ -684,7 +685,7 @@ public class ControlPeriodosActivos implements Serializable {
             } else {
                 infoRegistroEmpresas = "Cantidad de registros: " + listaEmpresas.size();
             }
-            context.update("form:infoRegistroEmpresas");
+            PrimefacesContextUI.actualizar("form:infoRegistroEmpresas");
             return listaEmpresas;
         } catch (Exception e) {
             System.out.println("ERRO LISTA EMPRESAS " + e);
@@ -768,7 +769,7 @@ public class ControlPeriodosActivos implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listEmpresa.size();
             }
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
 
         }
         return listEmpresa;

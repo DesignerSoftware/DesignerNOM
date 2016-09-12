@@ -205,7 +205,7 @@ public class ExportarPDF extends PDFExporter {
         pdfTable.addCell(new Paragraph(value, font));
     }
 
-    @Override
+//    @Override
     protected void addColumnValue(PdfPTable pdfTable, List<UIComponent> components, Font font) {
         StringBuilder builder = new StringBuilder();
         FacesContext context = FacesContext.getCurrentInstance();

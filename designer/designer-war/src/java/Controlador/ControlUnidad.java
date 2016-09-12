@@ -27,6 +27,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -165,7 +166,7 @@ public class ControlUnidad implements Serializable {
             unidadesTipos = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesTipos");
             unidadesTipos.setFilterStyle("width: 85%;");
             altoTabla = "250";
-            RequestContext.getCurrentInstance().update("form:datosUnidades");
+            PrimefacesContextUI.actualizar("form:datosUnidades");
             bandera = 1;
             tipoLista = 1;
             System.out.println("TipoLista= " + tipoLista);
@@ -177,7 +178,7 @@ public class ControlUnidad implements Serializable {
             unidadesNombres.setFilterStyle("display: none; visibility: hidden;");
             unidadesTipos = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesTipos");
             unidadesTipos.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosUnidades");
+            PrimefacesContextUI.actualizar("form:datosUnidades");
             altoTabla = "270";
             bandera = 0;
             filtradoListaUnidades = null;
@@ -230,18 +231,18 @@ public class ControlUnidad implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 deshabbilitarBotonLov();
-                context.update("formularioDialogos:editarCodigos");
-                context.execute("editarCodigos.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigos");
+                PrimefacesContextUI.ejecutar("PF('editarCodigos').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 deshabbilitarBotonLov();
-                context.update("formularioDialogos:editarNombres");
-                context.execute("editarNombres.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarNombres");
+                PrimefacesContextUI.ejecutar("PF('editarNombres').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 habilitarBotonLov();
-                context.update("formularioDialogos:editarTipos");
-                context.execute("editarTipos.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarTipos");
+                PrimefacesContextUI.ejecutar("PF('editarTipos').show()");
                 cualCelda = -1;
             }
         }
@@ -281,12 +282,12 @@ public class ControlUnidad implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            context.update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
                         }
                     } else {
                         listaUnidades.get(indice).setCodigo(codiguin);
-                        context.update("formularioDialogos:existe");
-                        context.execute("existe.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:existe");
+                        PrimefacesContextUI.ejecutar("PF('existe').show()");
                     }
                 }
                 index = -1;
@@ -311,18 +312,18 @@ public class ControlUnidad implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            context.update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
                         }
                     } else {
                         filtradoListaUnidades.get(indice).setCodigo(codiguin);
-                        context.update("formularioDialogos:existe");
-                        context.execute("existe.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:existe");
+                        PrimefacesContextUI.ejecutar("PF('existe').show()");
                     }
                 }
                 index = -1;
                 secRegistro = null;
             }
-            context.update("form:datosUnidades");
+            PrimefacesContextUI.actualizar("form:datosUnidades");
         } else if (confirmarCambio.equalsIgnoreCase("D")) {
             if (tipoLista == 0) {
                 if (!listaUnidadesCrear.contains(listaUnidades.get(indice))) {
@@ -332,8 +333,8 @@ public class ControlUnidad implements Serializable {
                     }
                     if (pasa != 0) {
                         listaUnidades.get(indice).setNombre(descrecuperado);
-                        context.update("formularioDialogos:validacionNombre");
-                        context.execute("validacionNombre.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionNombre");
+                        PrimefacesContextUI.ejecutar("PF('validacionNombre').show()");
                     }
                     if (pasa == 0) {
                         if (listaUnidadesModificar.isEmpty()) {
@@ -343,7 +344,7 @@ public class ControlUnidad implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            context.update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
                         }
                     }
                 }
@@ -358,8 +359,8 @@ public class ControlUnidad implements Serializable {
                     }
                     if (pasa != 0) {
                         filtradoListaUnidades.get(indice).setNombre(descrecuperado);
-                        context.update("formularioDialogos:validacionNombre");
-                        context.execute("validacionNombre.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionNombre");
+                        PrimefacesContextUI.ejecutar("PF('validacionNombre').show()");
                     }
                     if (pasa == 0) {
                         if (listaUnidadesModificar.isEmpty()) {
@@ -369,14 +370,14 @@ public class ControlUnidad implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            context.update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
                         }
                     }
                 }
                 index = -1;
                 secRegistro = null;
             }
-            context.update("form:datosUnidades");
+            PrimefacesContextUI.actualizar("form:datosUnidades");
         } else if (confirmarCambio.equalsIgnoreCase("N")) {
             if (tipoLista == 0) {
                 if (!listaUnidadesCrear.contains(listaUnidades.get(indice))) {
@@ -388,7 +389,7 @@ public class ControlUnidad implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 index = -1;
@@ -404,13 +405,13 @@ public class ControlUnidad implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 index = -1;
                 secRegistro = null;
             }
-            context.update("form:datosUnidades");
+            PrimefacesContextUI.actualizar("form:datosUnidades");
         } else if (confirmarCambio.equalsIgnoreCase(
                 "TIPOSUNIDADES")) {
             if (tipoLista == 0) {
@@ -435,8 +436,8 @@ public class ControlUnidad implements Serializable {
                 getLovTiposUnidades();
             } else {
                 permitirIndex = false;
-                context.update("formularioDialogos:tiposUnidadesDialogo");
-                context.execute("tiposUnidadesDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:tiposUnidadesDialogo");
+                PrimefacesContextUI.ejecutar("PF('tiposUnidadesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -451,7 +452,7 @@ public class ControlUnidad implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 index = -1;
@@ -466,7 +467,7 @@ public class ControlUnidad implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 index = -1;
@@ -474,7 +475,7 @@ public class ControlUnidad implements Serializable {
             }
         }
 
-        context.update("form:datosUnidades");
+        PrimefacesContextUI.actualizar("form:datosUnidades");
     }
 
     public void asignarIndex(Integer indice, int dlg, int LND) {
@@ -496,8 +497,8 @@ public class ControlUnidad implements Serializable {
         if (dlg == 0) {
             modificarInfoRegistroTUnidades(lovTiposUnidades.size());
             habilitarBotonLov();
-            context.update("formularioDialogos:tiposUnidadesDialogo");
-            context.execute("tiposUnidadesDialogo.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:tiposUnidadesDialogo");
+            PrimefacesContextUI.ejecutar("PF('tiposUnidadesDialogo').show()");
         }
     }
 
@@ -527,16 +528,16 @@ public class ControlUnidad implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             permitirIndex = true;
-            context.update("form:datosCiudades");
+            PrimefacesContextUI.actualizar("form:datosCiudades");
         } else if (tipoActualizacion == 1) {
             nuevaUnidad.setTipounidad(tiposUnidadSeleccionado);
-            context.update("formularioDialogos:nuevoTipoUnidad");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoUnidad");
         } else if (tipoActualizacion == 2) {
             duplicarUnidad.setTipounidad(tiposUnidadSeleccionado);
-            context.update("formularioDialogos:duplicarTipoUnidad");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoUnidad");
         }
         lovFiltradoTiposUnidades = null;
         tiposUnidadSeleccionado = null;
@@ -546,9 +547,9 @@ public class ControlUnidad implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVTiposUnidades:globalFilter");
-        context.execute("LOVTiposUnidades.clearFilters()");
-        context.execute("tiposUnidadesDialogo.hide()");
-        //context.update("formularioDialogos:LOVTiposUnidades");
+        PrimefacesContextUI.ejecutar("PF('LOVTiposUnidades').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('tiposUnidadesDialogo').hide()");
+        //PrimefacesContextUI.actualizar("formularioDialogos:LOVTiposUnidades");
     }
 
     public void cancelarCambioTiposUnidades() {
@@ -562,8 +563,8 @@ public class ControlUnidad implements Serializable {
         cualCelda = -1;
         permitirIndex = true;
         context.reset("formularioDialogos:LOVTiposUnidades:globalFilter");
-        context.execute("LOVTiposUnidades.clearFilters()");
-        context.execute("tiposUnidadesDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('LOVTiposUnidades').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('tiposUnidadesDialogo').hide()");
     }
 
     //LISTA DE VALORES DINAMICA
@@ -573,8 +574,8 @@ public class ControlUnidad implements Serializable {
             if (cualCelda == 2) {
                 habilitarBotonLov();
                 modificarInfoRegistroTUnidades(lovTiposUnidades.size());
-                context.update("formularioDialogos:tiposUnidadesDialogo");
-                context.execute("tiposUnidadesDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:tiposUnidadesDialogo");
+                PrimefacesContextUI.ejecutar("PF('tiposUnidadesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -625,24 +626,24 @@ public class ControlUnidad implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "UNIDADES");
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("UNIDADES")) {
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -661,7 +662,7 @@ public class ControlUnidad implements Serializable {
             unidadesNombres.setFilterStyle("display: none; visibility: hidden;");
             unidadesTipos = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesTipos");
             unidadesTipos.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosUnidades");
+            PrimefacesContextUI.actualizar("form:datosUnidades");
             altoTabla = "270";
             bandera = 0;
             filtradoListaUnidades = null;
@@ -682,9 +683,9 @@ public class ControlUnidad implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
-        context.update("form:datosUnidades");
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosUnidades");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
 
     public void salir() {
@@ -698,7 +699,7 @@ public class ControlUnidad implements Serializable {
             unidadesNombres.setFilterStyle("display: none; visibility: hidden;");
             unidadesTipos = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesTipos");
             unidadesTipos.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosUnidades");
+            PrimefacesContextUI.actualizar("form:datosUnidades");
             altoTabla = "270";
             bandera = 0;
             filtradoListaUnidades = null;
@@ -719,9 +720,9 @@ public class ControlUnidad implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
-        context.update("form:datosUnidades");
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosUnidades");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
 
     public void valoresBackupAutocompletar(int tipoNuevo) {
@@ -750,21 +751,21 @@ public class ControlUnidad implements Serializable {
         if (coincidencias == 1) {
             if (tipoNuevo == 1) {
                 nuevaUnidad.setTipounidad(lovTiposUnidades.get(indiceUnicoElemento));
-                context.update("formularioDialogos:nuevoTipoUnidad");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoUnidad");
             } else if (tipoNuevo == 2) {
                 duplicarUnidad.setTipounidad(lovTiposUnidades.get(indiceUnicoElemento));
-                context.update("formularioDialogos:duplicarTipoUnidad");
+                PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoUnidad");
             }
             lovTiposUnidades.clear();
             getLovTiposUnidades();
         } else {
-            context.update("form:tiposUnidadesDialogo");
-            context.execute("tiposUnidadesDialogo.show()");
+            PrimefacesContextUI.actualizar("form:tiposUnidadesDialogo");
+            PrimefacesContextUI.ejecutar("PF('tiposUnidadesDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
-                context.update("formularioDialogos:nuevoTipoUnidad");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoUnidad");
             } else if (tipoNuevo == 2) {
-                context.update("formularioDialogos:duplicarTipoUnidad");
+                PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoUnidad");
             }
         }
     }
@@ -776,8 +777,8 @@ public class ControlUnidad implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("formularioDialogos:tiposUnidadesDialogo");
-        context.execute("tiposUnidadesDialogo.show()");
+        PrimefacesContextUI.actualizar("formularioDialogos:tiposUnidadesDialogo");
+        PrimefacesContextUI.ejecutar("PF('tiposUnidadesDialogo').show()");
     }
 
     //BORRAR UNIDADES
@@ -817,14 +818,14 @@ public class ControlUnidad implements Serializable {
 
             modificarInfoRegistro(listaUnidades.size());
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosUnidades");
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:datosUnidades");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
     }
@@ -853,8 +854,8 @@ public class ControlUnidad implements Serializable {
                 System.out.println("No es nulo el código");
                 if (nuevaUnidad.getCodigo().equals(listaUnidades.get(i).getCodigo())) {
                     System.out.println("Entro al IF");
-                    context.update("formularioDialogos:existe");
-                    context.execute("existe.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:existe");
+                    PrimefacesContextUI.ejecutar("PF('existe').show()");
                     pasaA++;
                 }
             }
@@ -871,7 +872,7 @@ public class ControlUnidad implements Serializable {
                 unidadesNombres.setFilterStyle("display: none; visibility: hidden;");
                 unidadesTipos = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesTipos");
                 unidadesTipos.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosUnidades");
+                PrimefacesContextUI.actualizar("form:datosUnidades");
                 altoTabla = "270";
                 bandera = 0;
                 filtradoListaUnidades = null;
@@ -885,21 +886,21 @@ public class ControlUnidad implements Serializable {
             listaUnidadesCrear.add(nuevaUnidad);
             listaUnidades.add(nuevaUnidad);
             modificarInfoRegistro(listaUnidades.size());
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             nuevaUnidad = new Unidades();
             //  nuevaCiudad.setNombre(Departamento);
             nuevaUnidad.setTipounidad(new TiposUnidades());
-            context.update("form:datosUnidades");
+            PrimefacesContextUI.actualizar("form:datosUnidades");
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
-            context.execute("NuevoRegistroUnidad.hide()");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroUnidad').hide()");
             index = -1;
             secRegistro = null;
         } else if (pasa != 0) {
-            context.update("formularioDialogos:validacionNuevaUnidad");
-            context.execute("validacionNuevaUnidad.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaUnidad");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaUnidad').show()");
         }
 
     }
@@ -921,8 +922,8 @@ public class ControlUnidad implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarUnidad");
-            context.execute("DuplicarRegistroUnidad.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarUnidad");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroUnidad').show()");
             index = -1;
             secRegistro = null;
         }
@@ -953,8 +954,8 @@ public class ControlUnidad implements Serializable {
                 System.out.println("No es nulo el código");
                 if (duplicarUnidad.getCodigo().equals(listaUnidades.get(i).getCodigo())) {
                     System.out.println("Entro al IF");
-                    context.update("formularioDialogos:existe");
-                    context.execute("existe.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:existe");
+                    PrimefacesContextUI.ejecutar("PF('existe').show()");
                     pasaA++;
                 }
             }
@@ -965,7 +966,7 @@ public class ControlUnidad implements Serializable {
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -977,7 +978,7 @@ public class ControlUnidad implements Serializable {
                 unidadesNombres.setFilterStyle("display: none; visibility: hidden;");
                 unidadesTipos = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesTipos");
                 unidadesTipos.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosUnidades");
+                PrimefacesContextUI.actualizar("form:datosUnidades");
                 altoTabla = "270";
                 bandera = 0;
                 filtradoListaUnidades = null;
@@ -986,16 +987,16 @@ public class ControlUnidad implements Serializable {
             }
             listaUnidades.add(duplicarUnidad);
             listaUnidadesCrear.add(duplicarUnidad);
-            context.update("form:datosUnidades");
+            PrimefacesContextUI.actualizar("form:datosUnidades");
             duplicarUnidad = new Unidades();
             modificarInfoRegistro(listaUnidades.size());
-            context.update("form:informacionRegistro");
-            context.update("formularioDialogos:DuplicarRegistroUnidad");
-            context.execute("DuplicarRegistroUnidad.hide()");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroUnidad");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroUnidad').hide()");
 
         } else if (pasa != 0) {
-            context.update("formularioDialogos:validacionNuevaUnidad");
-            context.execute("validacionNuevaUnidad.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaUnidad");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaUnidad').show()");
         }
 
     }
@@ -1003,8 +1004,8 @@ public class ControlUnidad implements Serializable {
     public void activarBuscador() {
         buscador = false;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("formularioDialogos:busquedaNombre");
-        context.execute("busquedaNombre.show()");
+        PrimefacesContextUI.actualizar("formularioDialogos:busquedaNombre");
+        PrimefacesContextUI.ejecutar("PF('busquedaNombre').show()");
     }
 
     //GUARDAR
@@ -1030,14 +1031,14 @@ public class ControlUnidad implements Serializable {
                 listaUnidades = null;
                 getListaUnidades();
                 contarRegistros();
-                context.update("form:informacionRegistro");
-                context.update("form:datosUnidades");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:datosUnidades");
                 guardado = true;
                 permitirIndex = true;
                 FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                context.update("form:growl");
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:growl");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 k = 0;
                 index = -1;
                 secRegistro = null;
@@ -1045,18 +1046,18 @@ public class ControlUnidad implements Serializable {
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
     
     public void habilitarBotonLov(){
     activarLov = false;
-    RequestContext.getCurrentInstance().update("form:listaValores");
+    PrimefacesContextUI.actualizar("form:listaValores");
     }
     
     public void deshabbilitarBotonLov(){
     activarLov = true;    
-    RequestContext.getCurrentInstance().update("form:listaValores");
+    PrimefacesContextUI.actualizar("form:listaValores");
     }
     
 
@@ -1067,7 +1068,7 @@ public class ControlUnidad implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         modificarInfoRegistro(filtradoListaUnidades.size());
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
 
     public void modificarInfoRegistro(int valor) {
@@ -1088,7 +1089,7 @@ public class ControlUnidad implements Serializable {
     
     public void eventoFiltrarTUnidades(){
         modificarInfoRegistroTUnidades(lovFiltradoTiposUnidades.size());
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTiposUnidades");
+        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroTiposUnidades");
     }
 
     //Getter & Setters

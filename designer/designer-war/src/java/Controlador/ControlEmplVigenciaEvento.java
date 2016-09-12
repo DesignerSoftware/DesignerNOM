@@ -29,6 +29,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -150,7 +151,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
         } else {
@@ -163,7 +164,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
            
@@ -198,8 +199,8 @@ public class ControlEmplVigenciaEvento implements Serializable {
                 getListEventos();
             } else {
                 permitirIndex = false;
-                context.update("form:EventosDialogo");
-                context.execute("EventosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EventosDialogo");
+                PrimefacesContextUI.ejecutar("PF('EventosDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -214,7 +215,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
             } else {
@@ -227,12 +228,12 @@ public class ControlEmplVigenciaEvento implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
             }
         }
-        context.update("form:datosVigenciaEventos");
+        PrimefacesContextUI.actualizar("form:datosVigenciaEventos");
     }
 
     public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
@@ -264,21 +265,21 @@ public class ControlEmplVigenciaEvento implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigenciaEvento.setEvento(listEventos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaVigencias");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigencias");
                 } else if (tipoNuevo == 2) {
                     duplicarVigenciaEvento.setEvento(listEventos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarVigencias");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigencias");
                 }
                 listEventos.clear();
                 getListEventos();
             } else {
-                context.update("form:EventosDialogo");
-                context.execute("EventosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EventosDialogo");
+                PrimefacesContextUI.ejecutar("PF('EventosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaVigencias");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigencias");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarVigencias");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigencias");
                 }
             }
         }
@@ -404,8 +405,8 @@ public class ControlEmplVigenciaEvento implements Serializable {
 
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosVigenciaEventos");
-                context.execute("form:errorFechas.show()");
+                PrimefacesContextUI.actualizar("form:datosVigenciaEventos");
+                PrimefacesContextUI.ejecutar("PF('form:errorFechas').show()");
             }
         } else {
             if (tipoLista == 0) {
@@ -415,8 +416,8 @@ public class ControlEmplVigenciaEvento implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosVigenciaEventos");
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.actualizar("form:datosVigenciaEventos");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -440,21 +441,21 @@ public class ControlEmplVigenciaEvento implements Serializable {
                 getListVigenciasEventos();
                 contarRegistros();
                 deshabilitarBotonLov();
-                context.update("form:informacionRegistro");
-                context.update("form:datosVigenciaEventos");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:datosVigenciaEventos");
                 guardado = true;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 k = 0;
                 vigenciaTablaSeleccionada = null;
                 FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                context.update("form:growl");
+                PrimefacesContextUI.actualizar("form:growl");
             }
         } catch (Exception e) {
             System.out.println("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado, intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
@@ -477,7 +478,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
             veGrupal.setFilterStyle("display: none; visibility: hidden;");
             veCGrupal = (Column) c.getViewRoot().findComponent("form:datosVigenciaEventos:veCGrupal");
             veCGrupal.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVigenciaEventos");
+            PrimefacesContextUI.actualizar("form:datosVigenciaEventos");
             bandera = 0;
             filtrarListVigenciasEventos = null;
             tipoLista = 0;
@@ -490,13 +491,13 @@ public class ControlEmplVigenciaEvento implements Serializable {
         k = 0;
         listVigenciasEventos = null;
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
         RequestContext context = RequestContext.getCurrentInstance();
         getListVigenciasEventos();
         contarRegistros();
         deshabilitarBotonLov();
-        context.update("form:informacionRegistro");
-        context.update("form:datosVigenciaEventos");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosVigenciaEventos");
     }
 
     public void editarCelda() {
@@ -511,43 +512,43 @@ public class ControlEmplVigenciaEvento implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 deshabilitarBotonLov();
-                context.update("formularioDialogos:editarFechaInicialD");
-                context.execute("editarFechaInicialD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicialD");
+                PrimefacesContextUI.ejecutar("PF('editarFechaInicialD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 deshabilitarBotonLov();
-                context.update("formularioDialogos:editarFechaFinalD");
-                context.execute("editarFechaFinalD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinalD");
+                PrimefacesContextUI.ejecutar("PF('editarFechaFinalD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 habilitarBotonLov();
                 modificarInfoRegistroEventos(listEventos.size());
-                context.update("formularioDialogos:editarDescripcionD");
-                context.execute("editarDescripcionD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionD");
+                PrimefacesContextUI.ejecutar("PF('editarDescripcionD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 deshabilitarBotonLov();
-                context.update("formularioDialogos:editarIndividualD");
-                context.execute("editarIndividualD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarIndividualD");
+                PrimefacesContextUI.ejecutar("PF('editarIndividualD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 deshabilitarBotonLov();
-                context.update("formularioDialogos:editarCIndividualD");
-                context.execute("editarCIndividualD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCIndividualD");
+                PrimefacesContextUI.ejecutar("PF('editarCIndividualD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
                 deshabilitarBotonLov();
-                context.update("formularioDialogos:editarGrupalD");
-                context.execute("editarGrupalD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarGrupalD");
+                PrimefacesContextUI.ejecutar("PF('editarGrupalD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
                 deshabilitarBotonLov();
-                context.update("formularioDialogos:editarCGrupalD");
-                context.execute("editarCGrupalD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCGrupalD");
+                PrimefacesContextUI.ejecutar("PF('editarCGrupalD').show()");
                 cualCelda = -1;
             }
         } else {
-            RequestContext.getCurrentInstance().execute("form:seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('form:seleccionarRegistro').show()");
         }
     }
 
@@ -572,7 +573,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
                     veGrupal.setFilterStyle("display: none; visibility: hidden;");
                     veCGrupal = (Column) c.getViewRoot().findComponent("form:datosVigenciaEventos:veCGrupal");
                     veCGrupal.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosVigenciaEventos");
+                    PrimefacesContextUI.actualizar("form:datosVigenciaEventos");
                     bandera = 0;
                     filtrarListVigenciasEventos = null;
                     tipoLista = 0;
@@ -589,20 +590,20 @@ public class ControlEmplVigenciaEvento implements Serializable {
                 nuevaVigenciaEvento.setEvento(new Eventos());
                 RequestContext context = RequestContext.getCurrentInstance();
                 modificarInfoRegistro(listVigenciasEventos.size());
-                context.update("form:informacionRegistro");
-                context.update("form:datosVigenciaEventos");
-                context.execute("NuevoRegistroVigencias.hide()");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:datosVigenciaEventos");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigencias').hide()");
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorFechas.show()");
+                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -636,10 +637,10 @@ public class ControlEmplVigenciaEvento implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarVigencias");
-            context.execute("DuplicarRegistroVigencias.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigencias");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVigencias').show()");
         } else {
-            RequestContext.getCurrentInstance().execute("form:seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('form:seleccionarRegistro').show()");
         }
     }
 
@@ -654,14 +655,14 @@ public class ControlEmplVigenciaEvento implements Serializable {
                 listVigenciaEventoCrear.add(duplicarVigenciaEvento);
                 RequestContext context = RequestContext.getCurrentInstance();
                 modificarInfoRegistro(listVigenciasEventos.size());
-                context.update("form:informacionRegistro");
-                context.update("form:datosVigenciaEventos");
-                context.execute("DuplicarRegistroVigencias.hide()");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:datosVigenciaEventos");
+                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVigencias').hide()");
                 vigenciaTablaSeleccionada = duplicarVigenciaEvento;
 
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 if (bandera == 1) {
                     //CERRAR FILTRADO
@@ -681,7 +682,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
                     veGrupal.setFilterStyle("display: none; visibility: hidden;");
                     veCGrupal = (Column) c.getViewRoot().findComponent("form:datosVigenciaEventos:veCGrupal");
                     veCGrupal.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosVigenciaEventos");
+                    PrimefacesContextUI.actualizar("form:datosVigenciaEventos");
                     bandera = 0;
                     filtrarListVigenciasEventos = null;
                     tipoLista = 0;
@@ -689,11 +690,11 @@ public class ControlEmplVigenciaEvento implements Serializable {
                 duplicarVigenciaEvento = new VigenciasEventos();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorFechas.show()");
+                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -722,15 +723,15 @@ public class ControlEmplVigenciaEvento implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             modificarInfoRegistro(listVigenciasEventos.size());
-            context.update("form:informacionRegistro");
-            context.update("form:datosVigenciaEventos");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:datosVigenciaEventos");
             vigenciaTablaSeleccionada = null;
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         } else {
-            RequestContext.getCurrentInstance().execute("form:seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('form:seleccionarRegistro').show()");
         }
     }
 
@@ -752,7 +753,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
             veGrupal.setFilterStyle("width: 85%");
             veCGrupal = (Column) c.getViewRoot().findComponent("form:datosVigenciaEventos:veCGrupal");
             veCGrupal.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosVigenciaEventos");
+            PrimefacesContextUI.actualizar("form:datosVigenciaEventos");
             bandera = 1;
         } else if (bandera == 1) {
             altoTabla = "272";
@@ -770,7 +771,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
             veGrupal.setFilterStyle("display: none; visibility: hidden;");
             veCGrupal = (Column) c.getViewRoot().findComponent("form:datosVigenciaEventos:veCGrupal");
             veCGrupal.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVigenciaEventos");
+            PrimefacesContextUI.actualizar("form:datosVigenciaEventos");
             bandera = 0;
             filtrarListVigenciasEventos = null;
             tipoLista = 0;
@@ -795,7 +796,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
             veGrupal.setFilterStyle("display: none; visibility: hidden;");
             veCGrupal = (Column) c.getViewRoot().findComponent("form:datosVigenciaEventos:veCGrupal");
             veCGrupal.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVigenciaEventos");
+            PrimefacesContextUI.actualizar("form:datosVigenciaEventos");
             bandera = 0;
             filtrarListVigenciasEventos = null;
             tipoLista = 0;
@@ -810,7 +811,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
         getListVigenciasEventos();
         contarRegistros();
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void asignarIndex(VigenciasEventos vigenciaEvento, int LND) {
@@ -825,8 +826,8 @@ public class ControlEmplVigenciaEvento implements Serializable {
         }
         habilitarBotonLov();
         modificarInfoRegistroEventos(listEventos.size());
-        context.update("form:EventosDialogo");
-        context.execute("EventosDialogo.show()");
+        PrimefacesContextUI.actualizar("form:EventosDialogo");
+        PrimefacesContextUI.ejecutar("PF('EventosDialogo').show()");
     }
 
     public void actualizarEvento() {
@@ -853,17 +854,17 @@ public class ControlEmplVigenciaEvento implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             permitirIndex = true;
 
-            context.update("form:datosVigenciaEventos");
+            PrimefacesContextUI.actualizar("form:datosVigenciaEventos");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaEvento.setEvento(eventoSeleccionado);
-            context.update("formularioDialogos:nuevaVigencias");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigencias");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciaEvento.setEvento(eventoSeleccionado);
-            context.update("formularioDialogos:duplicarVigencias");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigencias");
         }
         filtrarListEventos = null;
         eventoSeleccionado = null;
@@ -872,11 +873,11 @@ public class ControlEmplVigenciaEvento implements Serializable {
         tipoActualizacion = -1;
 
         context.reset("form:lovEventos:globalFilter");
-        context.execute("lovEventos.clearFilters()");
-        context.execute("EventosDialogo.hide()");
-        context.update("form:EventosDialogo");
-        context.update("form:lovEventos");
-        context.update("form:aceptarE");
+        PrimefacesContextUI.ejecutar("PF('lovEventos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EventosDialogo').hide()");
+        PrimefacesContextUI.actualizar("form:EventosDialogo");
+        PrimefacesContextUI.actualizar("form:lovEventos");
+        PrimefacesContextUI.actualizar("form:aceptarE");
 
     }
 
@@ -889,11 +890,11 @@ public class ControlEmplVigenciaEvento implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         context.reset("form:lovEventos:globalFilter");
-        context.execute("lovEventos.clearFilters()");
-        context.execute("EventosDialogo.hide()");
-        context.update("form:EventosDialogo");
-        context.update("form:lovEventos");
-        context.update("form:aceptarE");
+        PrimefacesContextUI.ejecutar("PF('lovEventos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EventosDialogo').hide()");
+        PrimefacesContextUI.actualizar("form:EventosDialogo");
+        PrimefacesContextUI.actualizar("form:lovEventos");
+        PrimefacesContextUI.actualizar("form:aceptarE");
     }
 
     public void listaValoresBoton() {
@@ -902,8 +903,8 @@ public class ControlEmplVigenciaEvento implements Serializable {
             if (cualCelda == 2) {
                 habilitarBotonLov();
                 modificarInfoRegistroEventos(listEventos.size());
-                context.update("form:EventosDialogo");
-                context.execute("EventosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EventosDialogo");
+                PrimefacesContextUI.ejecutar("PF('EventosDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -941,21 +942,21 @@ public class ControlEmplVigenciaEvento implements Serializable {
             backUpSecRegistro = vigenciaTablaSeleccionada.getSecuencia();
             vigenciaTablaSeleccionada = null;
             if (resultado == 1) {
-                context.execute("errorObjetosDB.show()");
+                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                context.execute("confirmarRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                context.execute("errorRegistroRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                context.execute("errorTablaConRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                context.execute("errorTablaSinRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASEVENTOS")) {
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -967,7 +968,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         modificarInfoRegistro(filtrarListVigenciasEventos.size());
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
 
     public void modificarInfoRegistro(int valor) {
@@ -980,7 +981,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
 
     public void eventoFiltrarEventos() {  /// evento filtrar LOV deportes
         modificarInfoRegistroEventos(filtrarListEventos.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistroEvento");
+        PrimefacesContextUI.actualizar("form:infoRegistroEvento");
     }
 
     public void contarRegistros() {
@@ -1002,12 +1003,12 @@ public class ControlEmplVigenciaEvento implements Serializable {
 
     public void deshabilitarBotonLov() {
         activarLov = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     public void habilitarBotonLov() {
         activarLov = false;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
 //////////////////////////////SETS Y GETS////////////////////////////

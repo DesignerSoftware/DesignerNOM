@@ -27,6 +27,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -141,7 +142,7 @@ public class ControlIdiomaPersona implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
         } else {
@@ -154,7 +155,7 @@ public class ControlIdiomaPersona implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
             idiomaTablaSeleccionado = null;
@@ -190,8 +191,8 @@ public class ControlIdiomaPersona implements Serializable {
             } else {
                 permitirIndex = false;
                 //eliminarRegistrosIdiomaLov();
-                context.update("form:IdiomasDialogo");
-                context.execute("IdiomasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:IdiomasDialogo");
+                PrimefacesContextUI.ejecutar("PF('IdiomasDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -206,7 +207,7 @@ public class ControlIdiomaPersona implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 idiomaTablaSeleccionado = null;
@@ -221,14 +222,14 @@ public class ControlIdiomaPersona implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 idiomaTablaSeleccionado = null;
                 idiomaTablaSeleccionado = null;
             }
         }
-        context.update("form:datosIdiomas");
+        PrimefacesContextUI.actualizar("form:datosIdiomas");
     }
 
     public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
@@ -260,22 +261,22 @@ public class ControlIdiomaPersona implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaIdiomaPersona.setIdioma(listIdiomas.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaIdioma");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaIdioma");
                 } else if (tipoNuevo == 2) {
                     duplicarIdiomaPersona.setIdioma(listIdiomas.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarIdioma");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarIdioma");
                 }
                 listIdiomas.clear();
                 getListIdiomas();
             } else {
                 //  eliminarRegistrosIdiomaLov();
-                context.update("form:IdiomasDialogo");
-                context.execute("IdiomasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:IdiomasDialogo");
+                PrimefacesContextUI.ejecutar("PF('IdiomasDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaIdioma");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaIdioma");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarIdioma");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarIdioma");
                 }
             }
         }
@@ -322,23 +323,23 @@ public class ControlIdiomaPersona implements Serializable {
                 listIdiomasPersonas = null;
                 getListIdiomasPersonas();
                 contarRegistros();
-                //context.update("form:informacionRegistro");
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                //PrimefacesContextUI.actualizar("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 k = 0;
                 FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                context.update("form:growl");
+                PrimefacesContextUI.actualizar("form:growl");
                 idiomaTablaSeleccionado = null;
             }
             guardado = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            context.update("form:datosIdiomas");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosIdiomas");
             deshabilitarBotonLov();
         } catch (Exception e) {
             System.out.println("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
@@ -355,7 +356,7 @@ public class ControlIdiomaPersona implements Serializable {
             idLectura.setFilterStyle("display: none; visibility: hidden;");
             idEscritura = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idEscritura");
             idEscritura.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosIdiomas");
+            PrimefacesContextUI.actualizar("form:datosIdiomas");
             bandera = 0;
             filtrarListIdiomasPersonas = null;
             tipoLista = 0;
@@ -373,9 +374,9 @@ public class ControlIdiomaPersona implements Serializable {
         contarRegistros();
         deshabilitarBotonLov();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:informacionRegistro");
-        context.update("form:datosIdiomas");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosIdiomas");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -391,27 +392,27 @@ public class ControlIdiomaPersona implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 habilitarBotonLov();
-                context.update("formularioDialogos:editarIdiomaD");
-                context.execute("editarIdiomaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarIdiomaD");
+                PrimefacesContextUI.ejecutar("PF('editarIdiomaD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 deshabilitarBotonLov();
-                context.update("formularioDialogos:editarConversacionD");
-                context.execute("editarConversacionD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarConversacionD");
+                PrimefacesContextUI.ejecutar("PF('editarConversacionD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 deshabilitarBotonLov();
-                context.update("formularioDialogos:editarLecturaD");
-                context.execute("editarLecturaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarLecturaD");
+                PrimefacesContextUI.ejecutar("PF('editarLecturaD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 deshabilitarBotonLov();
-                context.update("formularioDialogos:editarEscrituraD");
-                context.execute("editarEscrituraD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEscrituraD");
+                PrimefacesContextUI.ejecutar("PF('editarEscrituraD').show()");
                 cualCelda = -1;
             }
         } else {
-            RequestContext.getCurrentInstance().execute("form:seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('form:seleccionarRegistro').show()");
         }
     }
 
@@ -429,7 +430,7 @@ public class ControlIdiomaPersona implements Serializable {
                 idLectura.setFilterStyle("display: none; visibility: hidden;");
                 idEscritura = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idEscritura");
                 idEscritura.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosIdiomas");
+                PrimefacesContextUI.actualizar("form:datosIdiomas");
                 bandera = 0;
                 filtrarListIdiomasPersonas = null;
                 tipoLista = 0;
@@ -451,22 +452,22 @@ public class ControlIdiomaPersona implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 getListIdiomasPersonas();
                 modificarInfoRegistro(listIdiomasPersonas.size());
-                context.update("form:informacionRegistro");
-                context.update("form:datosIdiomas");
-                context.execute("NuevoRegistroIdiomas.hide()");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:datosIdiomas");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroIdiomas').hide()");
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 nuevaIdiomaPersona = new IdiomasPersonas();
                 nuevaIdiomaPersona.setIdioma(new Idiomas());
             } else {
-                RequestContext.getCurrentInstance().update("form:existeIdioma");
-                RequestContext.getCurrentInstance().execute("existeIdioma.show()");
+                PrimefacesContextUI.actualizar("form:existeIdioma");
+                PrimefacesContextUI.ejecutar("PF('existeIdioma').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorRegNull.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegNull').show()");
         }
     }
 
@@ -496,11 +497,11 @@ public class ControlIdiomaPersona implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarIdiomas");
-            context.execute("DuplicarRegistroIdiomas.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarIdiomas");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroIdiomas').show()");
 
         } else {
-            RequestContext.getCurrentInstance().execute("form:seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('form:seleccionarRegistro').show()");
         }
     }
 
@@ -518,7 +519,7 @@ public class ControlIdiomaPersona implements Serializable {
             idLectura.setFilterStyle("display: none; visibility: hidden;");
             idEscritura = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idEscritura");
             idEscritura.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosIdiomas");
+            PrimefacesContextUI.actualizar("form:datosIdiomas");
             bandera = 0;
             filtrarListIdiomasPersonas = null;
             tipoLista = 0;
@@ -540,21 +541,21 @@ public class ControlIdiomaPersona implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 getListIdiomasPersonas();
                 modificarInfoRegistro(listIdiomasPersonas.size());
-                context.update("form:informacionRegistro");
-                context.update("form:datosIdiomas");
-                context.execute("DuplicarRegistroIdiomas.hide()");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:datosIdiomas");
+                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroIdiomas').hide()");
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 duplicarIdiomaPersona = new IdiomasPersonas();
             } else {
-                RequestContext.getCurrentInstance().update("form:existeIdioma");
-                RequestContext.getCurrentInstance().execute("existeIdioma.show()");
+                PrimefacesContextUI.actualizar("form:existeIdioma");
+                PrimefacesContextUI.ejecutar("PF('existeIdioma').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorRegNull.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegNull').show()");
         }
     }
 
@@ -583,17 +584,17 @@ public class ControlIdiomaPersona implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             getListIdiomasPersonas();
             modificarInfoRegistro(listIdiomasPersonas.size());
-            context.update("form:informacionRegistro");
-            context.update("form:datosIdiomas");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:datosIdiomas");
             idiomaTablaSeleccionado = null;
             idiomaTablaSeleccionado = null;
 
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         } else {
-            RequestContext.getCurrentInstance().execute("form:seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('form:seleccionarRegistro').show()");
         }
     }
 
@@ -609,7 +610,7 @@ public class ControlIdiomaPersona implements Serializable {
             idLectura.setFilterStyle("width: 85%");
             idEscritura = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idEscritura");
             idEscritura.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosIdiomas");
+            PrimefacesContextUI.actualizar("form:datosIdiomas");
             bandera = 1;
         } else if (bandera == 1) {
             altoTabla = "304";
@@ -621,7 +622,7 @@ public class ControlIdiomaPersona implements Serializable {
             idLectura.setFilterStyle("display: none; visibility: hidden;");
             idEscritura = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idEscritura");
             idEscritura.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosIdiomas");
+            PrimefacesContextUI.actualizar("form:datosIdiomas");
             bandera = 0;
             filtrarListIdiomasPersonas = null;
             tipoLista = 0;
@@ -640,7 +641,7 @@ public class ControlIdiomaPersona implements Serializable {
             idLectura.setFilterStyle("display: none; visibility: hidden;");
             idEscritura = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idEscritura");
             idEscritura.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosIdiomas");
+            PrimefacesContextUI.actualizar("form:datosIdiomas");
             bandera = 0;
             filtrarListIdiomasPersonas = null;
             tipoLista = 0;
@@ -654,7 +655,7 @@ public class ControlIdiomaPersona implements Serializable {
         k = 0;
         listIdiomasPersonas = null;
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -671,8 +672,8 @@ public class ControlIdiomaPersona implements Serializable {
         // eliminarRegistrosIdiomaLov();
         habilitarBotonLov();
         modificarInfoRegistroIdioma(listIdiomas.size());
-        context.update("form:IdiomasDialogo");
-        context.execute("IdiomasDialogo.show()");
+        PrimefacesContextUI.actualizar("form:IdiomasDialogo");
+        PrimefacesContextUI.ejecutar("PF('IdiomasDialogo').show()");
     }
 
     public void actualizarIdioma() {
@@ -699,16 +700,16 @@ public class ControlIdiomaPersona implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             permitirIndex = true;
-            context.update("form:datosIdiomas");
+            PrimefacesContextUI.actualizar("form:datosIdiomas");
         } else if (tipoActualizacion == 1) {
             nuevaIdiomaPersona.setIdioma(idiomaSeleccionado);
-            context.update("formularioDialogos:nuevaIdioma");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaIdioma");
         } else if (tipoActualizacion == 2) {
             duplicarIdiomaPersona.setIdioma(idiomaSeleccionado);
-            context.update("formularioDialogos:duplicarIdioma");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarIdioma");
         }
         filtrarListIdiomas = null;
         idiomaSeleccionado = null;
@@ -717,11 +718,11 @@ public class ControlIdiomaPersona implements Serializable {
         tipoActualizacion = -1;
 
         context.reset("form:lovIdiomas:globalFilter");
-        context.execute("lovIdiomas.clearFilters()");
-        context.execute("IdiomasDialogo.hide()");
-        context.update("form:IdiomasDialogo");
-        context.update("form:lovIdiomas");
-        context.update("form:aceptarI");
+        PrimefacesContextUI.ejecutar("PF('lovIdiomas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('IdiomasDialogo').hide()");
+        PrimefacesContextUI.actualizar("form:IdiomasDialogo");
+        PrimefacesContextUI.actualizar("form:lovIdiomas");
+        PrimefacesContextUI.actualizar("form:aceptarI");
     }
 
     public void cancelarCambioIdioma() {
@@ -733,11 +734,11 @@ public class ControlIdiomaPersona implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         context.reset("form:lovIdiomas:globalFilter");
-        context.execute("lovIdiomas.clearFilters()");
-        context.execute("IdiomasDialogo.hide()");
-        context.update("form:IdiomasDialogo");
-        context.update("form:lovIdiomas");
-        context.update("form:cancelarI");
+        PrimefacesContextUI.ejecutar("PF('lovIdiomas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('IdiomasDialogo').hide()");
+        PrimefacesContextUI.actualizar("form:IdiomasDialogo");
+        PrimefacesContextUI.actualizar("form:lovIdiomas");
+        PrimefacesContextUI.actualizar("form:cancelarI");
     }
 
 //    public void eliminarRegistrosIdiomaLov() {
@@ -778,8 +779,8 @@ public class ControlIdiomaPersona implements Serializable {
                 //  eliminarRegistrosIdiomaLov();
                 habilitarBotonLov();
                 modificarInfoRegistroIdioma(listIdiomasPersonas.size());
-                context.update("form:IdiomasDialogo");
-                context.execute("IdiomasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:IdiomasDialogo");
+                PrimefacesContextUI.ejecutar("PF('IdiomasDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -815,21 +816,21 @@ public class ControlIdiomaPersona implements Serializable {
             backUpSecRegistro = idiomaTablaSeleccionado.getSecuencia();
             idiomaTablaSeleccionado = null;
             if (resultado == 1) {
-                context.execute("errorObjetosDB.show()");
+                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                context.execute("confirmarRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                context.execute("errorRegistroRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                context.execute("errorTablaConRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                context.execute("errorTablaSinRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("IDIOMASPERSONAS")) {
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -842,12 +843,12 @@ public class ControlIdiomaPersona implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         modificarInfoRegistro(filtrarListIdiomasPersonas.size());
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
 
     public void eventoFiltrarIdiomas() {
         modificarInfoRegistroIdioma(filtrarListIdiomas.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistroIdioma");
+        PrimefacesContextUI.actualizar("form:infoRegistroIdioma");
     }
 
     public void modificarInfoRegistro(int valor) {
@@ -876,12 +877,12 @@ public class ControlIdiomaPersona implements Serializable {
 
     public void deshabilitarBotonLov() {
         activarLov = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     public void habilitarBotonLov() {
         activarLov = false;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     //////////////SETS Y GETS///////////////

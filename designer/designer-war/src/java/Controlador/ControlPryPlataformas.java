@@ -25,6 +25,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -169,7 +170,7 @@ public class ControlPryPlataformas implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             observacion = (Column) c.getViewRoot().findComponent("form:datosPrtPlataforma:observacion");
             observacion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosPrtPlataforma");
+            PrimefacesContextUI.actualizar("form:datosPrtPlataforma");
             bandera = 0;
             filtrarPryPlataformas = null;
             tipoLista = 0;
@@ -186,9 +187,9 @@ public class ControlPryPlataformas implements Serializable {
         getListPryPlataformas();
         RequestContext context = RequestContext.getCurrentInstance();
         contarRegistros();
-        context.update("form:infoRegistro");
-        context.update("form:datosPrtPlataforma");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:infoRegistro");
+        PrimefacesContextUI.actualizar("form:datosPrtPlataforma");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void salir() {
@@ -201,7 +202,7 @@ public class ControlPryPlataformas implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             observacion = (Column) c.getViewRoot().findComponent("form:datosPrtPlataforma:observacion");
             observacion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosPrtPlataforma");
+            PrimefacesContextUI.actualizar("form:datosPrtPlataforma");
             bandera = 0;
             filtrarPryPlataformas = null;
             tipoLista = 0;
@@ -218,9 +219,9 @@ public class ControlPryPlataformas implements Serializable {
         getListPryPlataformas();
         RequestContext context = RequestContext.getCurrentInstance();
         contarRegistros();
-        context.update("form:infoRegistro");
-        context.update("form:datosPrtPlataforma");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:infoRegistro");
+        PrimefacesContextUI.actualizar("form:datosPrtPlataforma");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -233,7 +234,7 @@ public class ControlPryPlataformas implements Serializable {
             descripcion.setFilterStyle("width: 85%");
             observacion = (Column) c.getViewRoot().findComponent("form:datosPrtPlataforma:observacion");
             observacion.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosPrtPlataforma");
+            PrimefacesContextUI.actualizar("form:datosPrtPlataforma");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -245,7 +246,7 @@ public class ControlPryPlataformas implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             observacion = (Column) c.getViewRoot().findComponent("form:datosPrtPlataforma:observacion");
             observacion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosPrtPlataforma");
+            PrimefacesContextUI.actualizar("form:datosPrtPlataforma");
             bandera = 0;
             filtrarPryPlataformas = null;
             tipoLista = 0;
@@ -338,15 +339,15 @@ public class ControlPryPlataformas implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         } else {
-            context.update("form:validacionModificar");
-            context.execute("validacionModificar.show()");
+            PrimefacesContextUI.actualizar("form:validacionModificar");
+            PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
         }
 
-        context.update("form:datosPrtPlataforma");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosPrtPlataforma");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void borrandoPryPlataformas() {
@@ -370,16 +371,16 @@ public class ControlPryPlataformas implements Serializable {
             }
             modificarInfoRegistro(listPryPlataformas.size());
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosPryCliente");
-            context.update("form:datosPrtPlataforma");
+            PrimefacesContextUI.actualizar("form:datosPryCliente");
+            PrimefacesContextUI.actualizar("form:datosPrtPlataforma");
             pryPlataformaSeleccionada = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         } else {
-            RequestContext.getCurrentInstance().execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
 
     }
@@ -401,8 +402,8 @@ public class ControlPryPlataformas implements Serializable {
             } else {
                 System.out.println("Borrado>0");
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:validacionBorrar");
-                context.execute("validacionBorrar.show()");
+                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 proyectos = new BigInteger("-1");
 
             }
@@ -415,8 +416,8 @@ public class ControlPryPlataformas implements Serializable {
 
         if (!borrarPryPlataformas.isEmpty() || !crearPryPlataformas.isEmpty() || !modificarPryPlataformas.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:confirmarGuardar");
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
     }
@@ -431,8 +432,8 @@ public class ControlPryPlataformas implements Serializable {
 
                 //mostrarBorrados
                 registrosBorrados = borrarPryPlataformas.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarPryPlataformas.clear();
             }
             if (!crearPryPlataformas.isEmpty()) {
@@ -445,16 +446,16 @@ public class ControlPryPlataformas implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listPryPlataformas = null;
-            context.update("form:datosPrtPlataforma");
+            PrimefacesContextUI.actualizar("form:datosPrtPlataforma");
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             contarRegistros();
-            context.update("form:growl");
-            context.update("form:datosPryCliente");
+            PrimefacesContextUI.actualizar("form:growl");
+            PrimefacesContextUI.actualizar("form:datosPryCliente");
             k = 0;
             guardado = true;
         }
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -470,20 +471,20 @@ public class ControlPryPlataformas implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editCodigo");
-                context.execute("editCodigo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editDescripcion");
-                context.execute("editDescripcion.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editObservacion");
-                context.execute("editObservacion.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editObservacion");
+                PrimefacesContextUI.ejecutar("PF('editObservacion').show()");
                 cualCelda = -1;
             }
         } else {
-            RequestContext.getCurrentInstance().execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -534,7 +535,7 @@ public class ControlPryPlataformas implements Serializable {
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 observacion = (Column) c.getViewRoot().findComponent("form:datosPrtPlataforma:observacion");
                 observacion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosPrtPlataforma");
+                PrimefacesContextUI.actualizar("form:datosPrtPlataforma");
                 bandera = 0;
                 filtrarPryPlataformas = null;
                 tipoLista = 0;
@@ -549,18 +550,18 @@ public class ControlPryPlataformas implements Serializable {
             pryPlataformaSeleccionada = nuevoPryPlataforma;
             nuevoPryPlataforma = new PryPlataformas();
             modificarInfoRegistro(listPryPlataformas.size());
-            context.update("form:datosPrtPlataforma");
-            context.update("form:infoRegistro");
+            PrimefacesContextUI.actualizar("form:datosPrtPlataforma");
+            PrimefacesContextUI.actualizar("form:infoRegistro");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
 
-            context.execute("nuevoRegistroPryPlataforma.hide()");
+            PrimefacesContextUI.ejecutar("PF('nuevoRegistroPryPlataforma').hide()");
 
         } else {
-            context.update("form:validacionNuevoPrPlat");
-            context.execute("validacionNuevoPrPlat.show()");
+            PrimefacesContextUI.actualizar("form:validacionNuevoPrPlat");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevoPrPlat').show()");
             contador = 0;
         }
     }
@@ -594,10 +595,10 @@ public class ControlPryPlataformas implements Serializable {
                 duplicarPryPlataforma.setObservacion(pryPlataformaSeleccionada.getObservacion());
             }
 
-            context.update("formularioDialogos:duplicarPPL");
-            context.execute("duplicarRegistroPryPlataforma.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarPPL");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroPryPlataforma').show()");
         } else {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -646,13 +647,13 @@ public class ControlPryPlataformas implements Serializable {
             listPryPlataformas.add(duplicarPryPlataforma);
             crearPryPlataformas.add(duplicarPryPlataforma);
             modificarInfoRegistro(listPryPlataformas.size());
-            context.update("form:datosPrtPlataforma");
+            PrimefacesContextUI.actualizar("form:datosPrtPlataforma");
             pryPlataformaSeleccionada = duplicarPryPlataforma;
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
-            context.update("form:infoRegistro");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:infoRegistro");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
@@ -662,18 +663,18 @@ public class ControlPryPlataformas implements Serializable {
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 observacion = (Column) c.getViewRoot().findComponent("form:datosPrtPlataforma:observacion");
                 observacion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosPrtPlataforma");
+                PrimefacesContextUI.actualizar("form:datosPrtPlataforma");
                 bandera = 0;
                 filtrarPryPlataformas = null;
                 tipoLista = 0;
             }
             duplicarPryPlataforma = new PryPlataformas();
-            RequestContext.getCurrentInstance().execute("duplicarRegistroPryPlataforma.hide()");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroPryPlataforma').hide()");
 
         } else {
             contador = 0;
-            context.update("form:validacionDuplicarPrPlat");
-            context.execute("validacionDuplicarPrPlat.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarPrPlat");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarPrPlat').show()");
         }
     }
 
@@ -705,21 +706,21 @@ public class ControlPryPlataformas implements Serializable {
             int resultado = administrarRastros.obtenerTabla(pryPlataformaSeleccionada.getSecuencia(), "PRY_PLATAFORMAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
-                context.execute("errorObjetosDB.show()");
+                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                context.execute("confirmarRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                context.execute("errorRegistroRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                context.execute("errorTablaConRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                context.execute("errorTablaSinRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("PRY_PLATAFORMAS")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
     }
@@ -732,7 +733,7 @@ public class ControlPryPlataformas implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             modificarInfoRegistro(filtrarPryPlataformas.size());
-            context.update("form:infoRegistro");
+            PrimefacesContextUI.actualizar("form:infoRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlPryPlataformas eventoFiltrar ERROR===" + e.getMessage());
         }

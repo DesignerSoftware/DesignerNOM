@@ -26,6 +26,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -115,7 +116,7 @@ public class ControlClavesSap implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarClavesSap.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlClavesSap eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -183,8 +184,8 @@ public class ControlClavesSap implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
 
             if (cualCelda == 1) {
-                context.update("form:clavesajustesDialogo");
-                context.execute("clavesajustesDialogo.show()");
+                PrimefacesContextUI.actualizar("form:clavesajustesDialogo");
+                PrimefacesContextUI.ejecutar("PF('clavesajustesDialogo').show()");
                 tipoActualizacion = 0;
             }
 
@@ -204,7 +205,7 @@ public class ControlClavesSap implements Serializable {
             clasificacion.setFilterStyle("display: none; visibility: hidden;");
             naturaleza = (Column) c.getViewRoot().findComponent("form:datosClavesSap:naturaleza");
             naturaleza.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosClavesSap");
+            PrimefacesContextUI.actualizar("form:datosClavesSap");
             bandera = 0;
             filtrarClavesSap = null;
             tipoLista = 0;
@@ -227,9 +228,9 @@ public class ControlClavesSap implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listClavesSap.size();
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosClavesSap");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosClavesSap");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void salir() {
@@ -244,7 +245,7 @@ public class ControlClavesSap implements Serializable {
             clasificacion.setFilterStyle("display: none; visibility: hidden;");
             naturaleza = (Column) c.getViewRoot().findComponent("form:datosClavesSap:naturaleza");
             naturaleza.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosClavesSap");
+            PrimefacesContextUI.actualizar("form:datosClavesSap");
             bandera = 0;
             filtrarClavesSap = null;
             tipoLista = 0;
@@ -266,9 +267,9 @@ public class ControlClavesSap implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listClavesSap.size();
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosClavesSap");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosClavesSap");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -283,7 +284,7 @@ public class ControlClavesSap implements Serializable {
             clasificacion.setFilterStyle("width: 85%;");
             naturaleza = (Column) c.getViewRoot().findComponent("form:datosClavesSap:naturaleza");
             naturaleza.setFilterStyle("width: 85%;");
-            RequestContext.getCurrentInstance().update("form:datosClavesSap");
+            PrimefacesContextUI.actualizar("form:datosClavesSap");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -297,7 +298,7 @@ public class ControlClavesSap implements Serializable {
             clasificacion.setFilterStyle("display: none; visibility: hidden;");
             naturaleza = (Column) c.getViewRoot().findComponent("form:datosClavesSap:naturaleza");
             naturaleza.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosClavesSap");
+            PrimefacesContextUI.actualizar("form:datosClavesSap");
             bandera = 0;
             filtrarClavesSap = null;
             tipoLista = 0;
@@ -340,8 +341,8 @@ public class ControlClavesSap implements Serializable {
      }
 
      } else {
-     context.update("form:validacionModificar");
-     context.execute("validacionModificar.show()");
+     PrimefacesContextUI.actualizar("form:validacionModificar");
+     PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
      cancelarModificacion();
      }
      index = -1;
@@ -370,8 +371,8 @@ public class ControlClavesSap implements Serializable {
      }
 
      } else {
-     context.update("form:validacionModificar");
-     context.execute("validacionModificar.show()");
+     PrimefacesContextUI.actualizar("form:validacionModificar");
+     PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
      cancelarModificacion();
      }
      index = -1;
@@ -379,7 +380,7 @@ public class ControlClavesSap implements Serializable {
      }
 
      }
-     context.update("form:datosClavesSap");
+     PrimefacesContextUI.actualizar("form:datosClavesSap");
      }
 
      }
@@ -454,7 +455,7 @@ public class ControlClavesSap implements Serializable {
                         System.out.println("2Naturaleza : " + filtrarClavesSap.get(indice).getNaturaleza());
                     }
                 }
-                context.update("form:datosClavesSap");
+                PrimefacesContextUI.actualizar("form:datosClavesSap");
             }
             if (tipoLista == 0) {
                 if (!crearClavesSap.contains(listClavesSap.get(indice))) {
@@ -465,12 +466,12 @@ public class ControlClavesSap implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 } else {
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
             } else {
@@ -482,16 +483,16 @@ public class ControlClavesSap implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 } else {
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
             }
-            context.update("form:datosClavesSap");
+            PrimefacesContextUI.actualizar("form:datosClavesSap");
         }
         System.out.println("Indice: " + index + " Celda: " + cualCelda);
 
@@ -548,8 +549,8 @@ public class ControlClavesSap implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -580,8 +581,8 @@ public class ControlClavesSap implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -619,8 +620,8 @@ public class ControlClavesSap implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
@@ -652,8 +653,8 @@ public class ControlClavesSap implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
@@ -661,7 +662,7 @@ public class ControlClavesSap implements Serializable {
                 }
 
             }
-            context.update("form:datosClavesSap");
+            PrimefacesContextUI.actualizar("form:datosClavesSap");
         } else if (confirmarCambio.equalsIgnoreCase("CLAVESAJUSTES")) {
 
             System.out.println("Entre a ControlClavesSap modificiarClavesSap");
@@ -709,20 +710,20 @@ public class ControlClavesSap implements Serializable {
                                 if (guardado == true) {
                                     guardado = false;
                                 }
-                                context.update("form:datosClavesSap");
+                                PrimefacesContextUI.actualizar("form:datosClavesSap");
                             } else {
                                 if (guardado == true) {
                                     guardado = false;
                                 }
-                                context.update("form:datosClavesSap");
+                                PrimefacesContextUI.actualizar("form:datosClavesSap");
                             }
                             index = -1;
                             secRegistro = null;
                         } else {
                             listClavesSap.get(index).getClaveAjuste().setClave(tipoIndice);
                             mensajeValidacion = "La clave ajuste no puede ser la misma que la clave";
-                            context.update("form:validacionModificar");
-                            context.execute("validacionModificar.show()");
+                            PrimefacesContextUI.actualizar("form:validacionModificar");
+                            PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                         }
                     } else {
@@ -750,8 +751,8 @@ public class ControlClavesSap implements Serializable {
                         } else {
                             filtrarClavesSap.get(index).getClaveAjuste().setClave(tipoIndice);
                             mensajeValidacion = "La clave ajuste no puede ser la misma que la clave";
-                            context.update("form:validacionModificar");
-                            context.execute("validacionModificar.show()");
+                            PrimefacesContextUI.actualizar("form:validacionModificar");
+                            PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                         }
                     }
@@ -761,8 +762,8 @@ public class ControlClavesSap implements Serializable {
 
                 } else {
                     permitirIndex = false;
-                    // context.update("form:clavesajustesDialogo");
-                    //context.execute("clavesajustesDialogo.show()");
+                    // PrimefacesContextUI.actualizar("form:clavesajustesDialogo");
+                    //PrimefacesContextUI.ejecutar("PF('clavesajustesDialogo').show()");
                     llamarDialogoClavesAjustes();
                     tipoActualizacion = 0;
                 }
@@ -772,11 +773,11 @@ public class ControlClavesSap implements Serializable {
                 listClavesSap.get(index).setClaveAjuste(new ClavesSap());
                 coincidencias = 1;
             }
-            context.update("form:datosClavesSap");
+            PrimefacesContextUI.actualizar("form:datosClavesSap");
 
         }
-        context.update("form:datosClavesSap");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosClavesSap");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void llamarDialogoClavesAjustes() {
@@ -791,9 +792,9 @@ public class ControlClavesSap implements Serializable {
          }
          }*/
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:clavesajustesDialogo");
-        context.update("form:lovClavesSap");
-        context.execute("clavesajustesDialogo.show()");
+        PrimefacesContextUI.actualizar("form:clavesajustesDialogo");
+        PrimefacesContextUI.actualizar("form:lovClavesSap");
+        PrimefacesContextUI.ejecutar("PF('clavesajustesDialogo').show()");
     }
 
     public void actualizarClaveAjuste() {
@@ -821,13 +822,13 @@ public class ControlClavesSap implements Serializable {
                         guardado = false;
                     }
                     permitirIndex = true;
-                    // context.update("form:datosClavesSap");
-                    context.update("form:ACEPTAR");
+                    // PrimefacesContextUI.actualizar("form:datosClavesSap");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 } else {
                     listClavesSap.get(index).getClaveAjuste().setClave(tipoIndice);
                     mensajeValidacion = "La clave ajuste no puede ser la misma que la clave";
-                    context.update("form:validacionModificar");
-                    context.execute("validacionModificar.show()");
+                    PrimefacesContextUI.actualizar("form:validacionModificar");
+                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                 }
             } else {
@@ -848,23 +849,23 @@ public class ControlClavesSap implements Serializable {
                         guardado = false;
                     }
                     permitirIndex = true;
-                    // context.update("form:datosClavesSap");
-                    context.update("form:ACEPTAR");
+                    // PrimefacesContextUI.actualizar("form:datosClavesSap");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 } else {
                     filtrarClavesSap.get(index).getClaveAjuste().setClave(tipoIndice);
                     mensajeValidacion = "La clave ajuste no puede ser la misma que la clave";
-                    context.update("form:validacionModificar");
-                    context.execute("validacionModificar.show()");
+                    PrimefacesContextUI.actualizar("form:validacionModificar");
+                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                 }
             }
 
         } else if (tipoActualizacion == 1) {
             nuevoClavesSap.setClaveAjuste(claveAjusteSeleccionada);
-            context.update("formularioDialogos:nuevooHvReferenciaLab");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevooHvReferenciaLab");
         } else if (tipoActualizacion == 2) {
             duplicarClavesSap.setClaveAjuste(claveAjusteSeleccionada);
-            context.update("formularioDialogos:duplicarRRL");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarRRL");
         }
         filtradoClavesSap = null;
         claveAjusteSeleccionada = null;
@@ -874,10 +875,10 @@ public class ControlClavesSap implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("form:lovClavesSap:globalFilter");
-        context.execute("lovClavesSap.clearFilters()");
-        context.execute("clavesajustesDialogo.hide()");
-        //context.update("form:lovClavesSap");
-        context.update("form:datosClavesSap");
+        PrimefacesContextUI.ejecutar("PF('lovClavesSap').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('clavesajustesDialogo').hide()");
+        //PrimefacesContextUI.actualizar("form:lovClavesSap");
+        PrimefacesContextUI.actualizar("form:datosClavesSap");
     }
 
     public void cancelarCambioClavesSap() {
@@ -897,8 +898,8 @@ public class ControlClavesSap implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovClavesSap:globalFilter");
-        context.execute("lovClavesSap.clearFilters()");
-        context.execute("clavesajustesDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovClavesSap').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('clavesajustesDialogo').hide()");
     }
 
     public void borrandoClavesSap() {
@@ -941,15 +942,15 @@ public class ControlClavesSap implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listClavesSap.size();
             }
-            context.update("form:informacionRegistro");
-            context.update("form:datosClavesSap");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:datosClavesSap");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -972,8 +973,8 @@ public class ControlClavesSap implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:validacionBorrar");
-                context.execute("validacionBorrar.show()");
+                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
 
             }
@@ -987,8 +988,8 @@ public class ControlClavesSap implements Serializable {
 
         if (!borrarClavesSap.isEmpty() || !crearClavesSap.isEmpty() || !modificarClavesSap.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:confirmarGuardar");
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
     }
@@ -1008,8 +1009,8 @@ public class ControlClavesSap implements Serializable {
                 administrarClavesSap.borrarClavesSap(borrarClavesSap);
                 //mostrarBorrados
                 registrosBorrados = borrarClavesSap.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarClavesSap.clear();
             }
             if (!crearClavesSap.isEmpty()) {
@@ -1034,16 +1035,16 @@ public class ControlClavesSap implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listClavesSap = null;
-            context.update("form:datosClavesSap");
+            PrimefacesContextUI.actualizar("form:datosClavesSap");
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
 
             k = 0;
         }
         index = -1;
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -1058,12 +1059,12 @@ public class ControlClavesSap implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editClaveD");
-                context.execute("editClaveD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editClaveD");
+                PrimefacesContextUI.ejecutar("PF('editClaveD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editClaveAjusteD");
-                context.execute("editClaveAjusteD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editClaveAjusteD");
+                PrimefacesContextUI.ejecutar("PF('editClaveAjusteD').show()");
                 cualCelda = -1;
 
             }
@@ -1113,19 +1114,19 @@ public class ControlClavesSap implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoClavesSap.setClaveAjuste(listaClavesSap.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevoNombreSucursal");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoNombreSucursal");
                 }
                 listaClavesSap.clear();
                 listaClavesSap = null;
                 getListaClavesSap();
             } else {
-                context.update("form:clavesajustesDialogo");
-                context.execute("clavesajustesDialogo.show()");
+                PrimefacesContextUI.actualizar("form:clavesajustesDialogo");
+                PrimefacesContextUI.ejecutar("PF('clavesajustesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevoNombreSucursal");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoNombreSucursal");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarNombreSucursal");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarNombreSucursal");
                 }
             }
         }
@@ -1151,19 +1152,19 @@ public class ControlClavesSap implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 2) {
                         duplicarClavesSap.setClaveAjuste(listaClavesSap.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:duplicarNombreSucursal");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarNombreSucursal");
 
                     }
                     listaClavesSap.clear();
                     listaClavesSap = null;
-                    context.update("formularioDialogos:duplicarNombreSucursal");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarNombreSucursal");
                     getListaClavesSap();
                 } else {
-                    context.update("form:clavesajustesDialogo");
-                    context.execute("clavesajustesDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:clavesajustesDialogo");
+                    PrimefacesContextUI.ejecutar("PF('clavesajustesDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 2) {
-                        context.update("formularioDialogos:duplicarNombreSucursal");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarNombreSucursal");
                     }
                 }
             } else {
@@ -1183,7 +1184,7 @@ public class ControlClavesSap implements Serializable {
                 }
             }
 
-            context.update("formularioDialogos:duplicarNombreSucursal");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarNombreSucursal");
 
         }
     }
@@ -1197,8 +1198,8 @@ public class ControlClavesSap implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:clavesajustesDialogo");
-        context.execute("clavesajustesDialogo.show()");
+        PrimefacesContextUI.actualizar("form:clavesajustesDialogo");
+        PrimefacesContextUI.ejecutar("PF('clavesajustesDialogo').show()");
     }
 
     public void agregarNuevoClavesSap() {
@@ -1257,7 +1258,7 @@ public class ControlClavesSap implements Serializable {
                 clasificacion.setFilterStyle("display: none; visibility: hidden;");
                 naturaleza = (Column) c.getViewRoot().findComponent("form:datosClavesSap:naturaleza");
                 naturaleza.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosClavesSap");
+                PrimefacesContextUI.actualizar("form:datosClavesSap");
                 bandera = 0;
                 filtrarClavesSap = null;
                 tipoLista = 0;
@@ -1274,21 +1275,21 @@ public class ControlClavesSap implements Serializable {
             System.out.println("tamaño en agregarnuevoclavesap : " + listClavesSap.size());
             nuevoClavesSap = new ClavesSap();
             nuevoClavesSap.setClaveAjuste(new ClavesSap());
-            context.update("form:datosClavesSap");
+            PrimefacesContextUI.actualizar("form:datosClavesSap");
             infoRegistro = "Cantidad de registros: " + listClavesSap.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
 
-            context.execute("nuevoRegistroClavesSap.hide()");
+            PrimefacesContextUI.ejecutar("PF('nuevoRegistroClavesSap').hide()");
             index = -1;
             secRegistro = null;
 
         } else {
-            context.update("form:validacionNuevaCentroCosto");
-            context.execute("validacionNuevaCentroCosto.show()");
+            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -1322,8 +1323,8 @@ public class ControlClavesSap implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarRRL");
-            context.execute("duplicarRegistroClavesSap.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarRRL");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroClavesSap').show()");
             secRegistro = null;
         }
     }
@@ -1376,16 +1377,16 @@ public class ControlClavesSap implements Serializable {
                 crearClavesSap.add(duplicarClavesSap);
             }
             listClavesSap.add(duplicarClavesSap);
-            context.update("form:datosClavesSap");
+            PrimefacesContextUI.actualizar("form:datosClavesSap");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             infoRegistro = "Cantidad de registros: " + listClavesSap.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
 
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -1398,18 +1399,18 @@ public class ControlClavesSap implements Serializable {
                 clasificacion.setFilterStyle("display: none; visibility: hidden;");
                 naturaleza = (Column) c.getViewRoot().findComponent("form:datosClavesSap:naturaleza");
                 naturaleza.setFilterStyle("display: none; visibility: hidden;");
-                context.update("form:datosClavesSap");
+                PrimefacesContextUI.actualizar("form:datosClavesSap");
                 bandera = 0;
                 filtrarClavesSap = null;
                 tipoLista = 0;
             }
-            context.execute("duplicarRegistroClavesSap.hide()");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroClavesSap').hide()");
             duplicarClavesSap = new ClavesSap();
 
         } else {
             contador = 0;
-            context.update("form:validacionDuplicarVigencia");
-            context.execute("validacionDuplicarVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -1447,24 +1448,24 @@ public class ControlClavesSap implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "CLAVES_SAP"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("CLAVES_SAP")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -1494,7 +1495,7 @@ public class ControlClavesSap implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listClavesSap.size();
         }
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
         return listClavesSap;
     }
 
@@ -1560,7 +1561,7 @@ public class ControlClavesSap implements Serializable {
         } else {
             infoRegistroParentesco = "Cantidad de registros: " + listaClavesSap.size();
         }
-        context.update("form:infoRegistroParentesco");
+        PrimefacesContextUI.actualizar("form:infoRegistroParentesco");
         return listaClavesSap;
     }
 

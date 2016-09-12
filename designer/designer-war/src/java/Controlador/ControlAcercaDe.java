@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -98,7 +99,7 @@ public class ControlAcercaDe implements Serializable {
     }
 
     public void lovEmpresas() {
-        RequestContext.getCurrentInstance().execute("EmpresasDialogo.show()");
+        RequestContext.getCurrentInstance().execute("EmpresasDialogo').show()");
     }
 
     public void activarAceptar() {
@@ -109,22 +110,22 @@ public class ControlAcercaDe implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         System.err.println("Cambiar empresa  GUARDADO = " + empresaSeleccionada.getNombre());
 
-        context.update("form:nombreEmpresa");
+        PrimefacesContextUI.actualizar("form:nombreEmpresa");
         filtradoListaEmpresas = null;
         aceptar = true;
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
-        context.execute("lovEmpresas.clearFilters()");
-        context.execute("EmpresasDialogo.hide()");
-        //context.update("formularioDialogos:lovEmpresas");
-        context.update("form:PanelTotal");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        //PrimefacesContextUI.actualizar("formularioDialogos:lovEmpresas");
+        PrimefacesContextUI.actualizar("form:PanelTotal");
     }
 
     public void cancelarCambioEmpresa() {
         filtradoListaEmpresas = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
-        context.execute("lovEmpresas.clearFilters()");
-        context.execute("EmpresasDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
     }
 
     public void limpiarNuevoEmpresas() {
@@ -157,7 +158,7 @@ public class ControlAcercaDe implements Serializable {
                 if (!listaEmpresas.isEmpty()) {
                     empresaSeleccionada = listaEmpresas.get(0);
                 }
-                context.update("form:PanelTotal");
+                PrimefacesContextUI.actualizar("form:PanelTotal");
             }
             return listaEmpresas;
         } catch (Exception e) {
@@ -191,7 +192,7 @@ public class ControlAcercaDe implements Serializable {
             getListaEmpresas();
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("EMPRESA SELECCIONADA  : " + empresaSeleccionada.getNombre());
-            context.update("form:PanelTotal");
+            PrimefacesContextUI.actualizar("form:PanelTotal");
         }
         return empresaSeleccionada;
     }

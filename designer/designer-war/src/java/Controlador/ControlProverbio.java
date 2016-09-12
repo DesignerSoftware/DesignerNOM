@@ -29,6 +29,7 @@ import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.component.spinner.Spinner;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -243,14 +244,14 @@ public class ControlProverbio implements Serializable {
         getListaMensajesUsuario();
         getListaProverbios();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosProverbios");
-        context.update("form:datosMensajesUsuarios");
+        PrimefacesContextUI.actualizar("form:datosProverbios");
+        PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
         guardado = true;
         permitirIndex = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        context.update("form:growl");
+        PrimefacesContextUI.actualizar("form:growl");
         mensajeUsuarioSeleccionado = null;
         proverbioSeleccionado = null;
     }
@@ -283,7 +284,7 @@ public class ControlProverbio implements Serializable {
             cualInsertar = "formularioDialogos:NuevoRegistroMensajeUsuario";
             nombreArchivo = "MensajeUsuarioXML";
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:exportarXML");
+            PrimefacesContextUI.actualizar("form:exportarXML");
             if (tipoListaNF == 0) {
                 mensajeUsuarioSeleccionado.getSecuencia();
             } else {
@@ -308,13 +309,13 @@ public class ControlProverbio implements Serializable {
             altoTabla = "95";
             pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
             pMensaje.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosProverbios");
+            PrimefacesContextUI.actualizar("form:datosProverbios");
             bandera = 1;
         } else if (bandera == 1 && CualTabla == 0) {
             altoTabla = "115";
             pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
             pMensaje.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosProverbios");
+            PrimefacesContextUI.actualizar("form:datosProverbios");
             bandera = 0;
             filtradosListaProverbios = null;
             tipoLista = 0;
@@ -328,7 +329,7 @@ public class ControlProverbio implements Serializable {
             mDia.setFilterStyle("width: 85%");
             mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
             mMensaje.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+            PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
             banderaNF = 1;
         } else if (banderaNF == 1 && CualTabla == 1) {
             altoTablaNF = "115";
@@ -340,7 +341,7 @@ public class ControlProverbio implements Serializable {
             mDia.setFilterStyle("display: none; visibility: hidden;");
             mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
             mMensaje.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+            PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
             banderaNF = 0;
             filtradosListaMensajesUsuario = null;
             tipoListaNF = 0;
@@ -384,16 +385,16 @@ public class ControlProverbio implements Serializable {
     public void tablaNuevoRegistro() {
         RequestContext context = RequestContext.getCurrentInstance();
         if ((listaProverbios.isEmpty() || listaMensajesUsuario.isEmpty())) {
-            context.update("formularioDialogos:elegirTabla");
-            context.execute("elegirTabla.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:elegirTabla");
+            PrimefacesContextUI.ejecutar("PF('elegirTabla').show()");
         } else if (CualTabla == 0) {
-            context.update("formularioDialogos:NuevoRegistroProverbio");
-            context.execute("NuevoRegistroProverbio.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroProverbio");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroProverbio').show()");
         } else if (CualTabla == 1) {
             Short year = new Short(String.valueOf(anioactual));
             nuevoRegistroMensajesUsuarios.setAno(year);
-            context.update("formularioDialogos:NuevoRegistroMensajeUsuario");
-            context.execute("NuevoRegistroMensajeUsuario.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroMensajeUsuario");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroMensajeUsuario').show()");
         }
     }
 
@@ -414,7 +415,7 @@ public class ControlProverbio implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
                     }
                 }
@@ -429,11 +430,11 @@ public class ControlProverbio implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
             }
-            context.update("form:datosProverbios");
+            PrimefacesContextUI.actualizar("form:datosProverbios");
         }
     }
 
@@ -454,7 +455,7 @@ public class ControlProverbio implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
 
@@ -468,11 +469,11 @@ public class ControlProverbio implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
             }
-            context.update("form:datosMensajesUsuarios");
+            PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
         }
     }
 
@@ -488,8 +489,8 @@ public class ControlProverbio implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarMensajes");
-                context.execute("editarMensajes.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarMensajes");
+                PrimefacesContextUI.ejecutar("PF('editarMensajes').show()");
                 cualCelda = -1;
             }
             proverbioSeleccionado = null;
@@ -502,20 +503,20 @@ public class ControlProverbio implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarAños");
-                context.execute("editarAños.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarAños");
+                PrimefacesContextUI.ejecutar("PF('editarAños').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarMeses");
-                context.execute("editarMeses.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarMeses");
+                PrimefacesContextUI.ejecutar("PF('editarMeses').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarDias");
-                context.execute("editarDias.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDias");
+                PrimefacesContextUI.ejecutar("PF('editarDias').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                context.update("formularioDialogos:editarMensajes2");
-                context.execute("editarMensajes2.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarMensajes2");
+                PrimefacesContextUI.ejecutar("PF('editarMensajes2').show()");
                 cualCelda = -1;
             }
             mensajeUsuarioSeleccionado = null;
@@ -525,14 +526,14 @@ public class ControlProverbio implements Serializable {
 
     public void dialogoProverbios() {
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosProverbios");
-        context.execute("NuevoRegistroProverbio.show()");
+        PrimefacesContextUI.actualizar("form:datosProverbios");
+        PrimefacesContextUI.ejecutar("PF('NuevoRegistroProverbio').show()");
     }
 
     public void dialogoMensajesUsuarios() {
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosMensajesUsuarios");
-        context.execute("NuevoRegistroMensajeUsuario.show()");
+        PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
+        PrimefacesContextUI.ejecutar("PF('NuevoRegistroMensajeUsuario').show()");
     }
 
     //CREAR NUEVO PROVERBIO
@@ -546,7 +547,7 @@ public class ControlProverbio implements Serializable {
                 altoTabla = "115";
                 pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
                 pMensaje.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosProverbios");
+                PrimefacesContextUI.actualizar("form:datosProverbios");
                 bandera = 0;
                 filtradosListaProverbios = null;
                 tipoLista = 0;
@@ -561,17 +562,17 @@ public class ControlProverbio implements Serializable {
             proverbioSeleccionado = nuevoProverbio;
             modificarInfoRegistroProverbios(listaProverbios.size());
             nuevoProverbio = new Recordatorios();
-            context.update("form:datosProverbios");
+            PrimefacesContextUI.actualizar("form:datosProverbios");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             cambiosPagina = false;
-            context.update("form:ACEPTAR");
-            context.execute("NuevoRegistroProverbio.hide()");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroProverbio').hide()");
         } else {
-            context.update("formularioDialogos:validacionNuevoProverbio");
-            context.execute("validacionNuevoProverbio.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoProverbio");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevoProverbio').show()");
         }
     }
 
@@ -590,7 +591,7 @@ public class ControlProverbio implements Serializable {
                 mDia.setFilterStyle("display: none; visibility: hidden;");
                 mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
                 mMensaje.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+                PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
                 banderaNF = 0;
                 filtradosListaMensajesUsuario = null;
                 tipoListaNF = 0;
@@ -604,19 +605,19 @@ public class ControlProverbio implements Serializable {
             listaMensajesUsuario.add(nuevoRegistroMensajesUsuarios);
             modificarInfoRegistroMsgUsuarios(listaMensajesUsuario.size());
             mensajeUsuarioSeleccionado = nuevoRegistroMensajesUsuarios;
-            context.update("form:datosMensajesUsuarios");
+            PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
 
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             nuevoRegistroMensajesUsuarios = new Recordatorios();
             cambiosPagina = false;
-            context.update("form:ACEPTAR");
-            context.execute("NuevoRegistroMensajeUsuario.hide()");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroMensajeUsuario').hide()");
         } else {
-            context.update("formularioDialogos:validacionNuevoMensajeUsuario");
-            context.execute("validacionNuevoMensajeUsuario.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoMensajeUsuario");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevoMensajeUsuario').show()");
         }
     }
 
@@ -638,8 +639,8 @@ public class ControlProverbio implements Serializable {
                 duplicarProverbio.setTipo(proverbioSeleccionado.getTipo());
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:DuplicarRegistroProverbio");
-            context.execute("DuplicarRegistroProverbio.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroProverbio");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroProverbio').show()");
         } else if (mensajeUsuarioSeleccionado != null && CualTabla == 1) {
             duplicarRegistroMensajesUsuarios = new Recordatorios();
             m++;
@@ -661,8 +662,8 @@ public class ControlProverbio implements Serializable {
                 duplicarRegistroMensajesUsuarios.setMensaje(mensajeUsuarioSeleccionado.getMensaje());
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:DuplicarRegistroMensajeUsuario");
-            context.execute("DuplicarRegistroMensajeUsuario.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroMensajeUsuario");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroMensajeUsuario').show()");
 
         }
     }
@@ -786,12 +787,12 @@ public class ControlProverbio implements Serializable {
 //        }
 //        if (guardado == true) {
 //            guardado = false;
-//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//            PrimefacesContextUI.actualizar("form:ACEPTAR");
 //        }
 //        RequestContext context = RequestContext.getCurrentInstance();
 //        cambiosPagina = false;
-//        context.update("form:ACEPTAR");
-//        RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+//        PrimefacesContextUI.actualizar("form:ACEPTAR");
+//        PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
 
     }
 
@@ -877,13 +878,13 @@ public class ControlProverbio implements Serializable {
         }
         if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
 
         }
         RequestContext context = RequestContext.getCurrentInstance();
         cambiosPagina = false;
-        context.update("form:ACEPTAR");
-        RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
 
     }
 
@@ -1045,12 +1046,12 @@ public class ControlProverbio implements Serializable {
         }
         if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
         RequestContext context = RequestContext.getCurrentInstance();
         cambiosPagina = false;
-        context.update("form:ACEPTAR");
-        RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
 
     }
 
@@ -1106,7 +1107,7 @@ public class ControlProverbio implements Serializable {
             } else {
                 nuevoRegistroMensajesUsuarios.setAno(null);
             }
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAno");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoAno");
         } else {
             if (estadoAno != null) {
                 if (estadoAno.equals("2005")) {
@@ -1159,8 +1160,8 @@ public class ControlProverbio implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             cambiosPagina = false;
-            context.update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAno");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarAno");
         }
 
     }
@@ -1199,7 +1200,7 @@ public class ControlProverbio implements Serializable {
             } else {
                 nuevoRegistroMensajesUsuarios.setMes(null);
             }
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoMes");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoMes");
         } else {
             if (estadoMes != null) {
                 if (estadoMes.equalsIgnoreCase("ENERO")) {
@@ -1234,8 +1235,8 @@ public class ControlProverbio implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             cambiosPagina = false;
-            context.update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMes");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarMes");
         }
 
     }
@@ -1312,7 +1313,7 @@ public class ControlProverbio implements Serializable {
             } else {
                 nuevoRegistroMensajesUsuarios.setDia(null);
             }
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoDia");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoDia");
         } else {
             if (estadoDia != null) {
                 if (estadoDia.equalsIgnoreCase("01")) {
@@ -1385,8 +1386,8 @@ public class ControlProverbio implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             cambiosPagina = false;
-            context.update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDia");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDia");
         }
 
     }
@@ -1412,14 +1413,14 @@ public class ControlProverbio implements Serializable {
                 }
                 modificarInfoRegistroProverbios(listaProverbios.size());
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosProverbios");
+                PrimefacesContextUI.actualizar("form:datosProverbios");
                 proverbioSeleccionado = null;
                 cambiosPagina = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
 
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             } else if (CualTabla == 1) {
                 if (!listaMensajesUsuariosModificar.isEmpty() && listaMensajesUsuariosModificar.contains(mensajeUsuarioSeleccionado)) {
@@ -1438,14 +1439,14 @@ public class ControlProverbio implements Serializable {
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
                 modificarInfoRegistroMsgUsuarios(listaMensajesUsuario.size());
-                context.update("form:datosMensajesUsuarios");
+                PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
                 cambiosPagina = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 mensajeUsuarioSeleccionado = null;
                 proverbioSeleccionado = null;
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
         }
@@ -1457,21 +1458,21 @@ public class ControlProverbio implements Serializable {
             if (proverbioSeleccionado != null) {
                 int resultado = administrarRastros.obtenerTabla(proverbioSeleccionado.getSecuencia(), "RECORDATORIOS");
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
                 if (administrarRastros.verificarHistoricosTabla("RECORDATORIOS")) {
-                    context.execute("confirmarRastroHistorico.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
                 } else {
-                    context.execute("errorRastroHistorico.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
                 }
             }
         } else {
@@ -1479,21 +1480,21 @@ public class ControlProverbio implements Serializable {
             if (mensajeUsuarioSeleccionado != null) {
                 int resultadoNF = administrarRastros.obtenerTabla(mensajeUsuarioSeleccionado.getSecuencia(), "RECORDATORIOS");
                 if (resultadoNF == 1) {
-                    context.execute("errorObjetosDBNF.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDBNF').show()");
                 } else if (resultadoNF == 2) {
-                    context.execute("confirmarRastroNF.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastroNF').show()");
                 } else if (resultadoNF == 3) {
-                    context.execute("errorRegistroRastroNF.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastroNF').show()");
                 } else if (resultadoNF == 4) {
-                    context.execute("errorTablaConRastroNF.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastroNF').show()");
                 } else if (resultadoNF == 5) {
-                    context.execute("errorTablaSinRastroNF.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastroNF').show()");
                 }
             } else {
                 if (administrarRastros.verificarHistoricosTabla("RECORDATORIOS")) {
-                    context.execute("confirmarRastroHistoricoNF.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastroHistoricoNF').show()");
                 } else {
-                    context.execute("errorRastroHistoricoNF.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRastroHistoricoNF').show()");
                 }
             }
         }
@@ -1523,25 +1524,25 @@ public class ControlProverbio implements Serializable {
         modificarInfoRegistroProverbios(listaProverbios.size());
         RequestContext context = RequestContext.getCurrentInstance();
         cambiosPagina = false;
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
         if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             altoTabla = "115";
             pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
             pMensaje.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosProverbios");
+            PrimefacesContextUI.actualizar("form:datosProverbios");
             bandera = 0;
             filtradosListaProverbios = null;
             tipoLista = 0;
         }
-        context.update("form:datosProverbios");
+        PrimefacesContextUI.actualizar("form:datosProverbios");
         duplicarProverbio = new Recordatorios();
-        context.update("formularioDialogos:DuplicarRegistroProverbio");
-        context.execute("DuplicarRegistroProverbio.hide()");
+        PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroProverbio");
+        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroProverbio').hide()");
     }
 
     public void confirmarDuplicarNF() {
@@ -1550,10 +1551,10 @@ public class ControlProverbio implements Serializable {
         modificarInfoRegistroMsgUsuarios(listaMensajesUsuario.size());
         mensajeUsuarioSeleccionado = duplicarRegistroMensajesUsuarios;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosMensajesUsuarios");
+        PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
         if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -1566,15 +1567,15 @@ public class ControlProverbio implements Serializable {
             mDia.setFilterStyle("display: none; visibility: hidden;");
             mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
             mMensaje.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+            PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
             banderaNF = 0;
             filtradosListaMensajesUsuario = null;
             tipoListaNF = 0;
         }
-        context.update("form:DuplicarRegistroMensajeUsuario");
+        PrimefacesContextUI.actualizar("form:DuplicarRegistroMensajeUsuario");
         duplicarRegistroMensajesUsuarios = new Recordatorios();
-        context.update("formularioDialogos:duplicarRegistroMensajeUsuario");
-        context.execute("DuplicarRegistroMensajeUsuario.hide()");
+        PrimefacesContextUI.actualizar("formularioDialogos:duplicarRegistroMensajeUsuario");
+        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroMensajeUsuario').hide()");
 
     }
 
@@ -1585,7 +1586,7 @@ public class ControlProverbio implements Serializable {
             altoTabla = "115";
             pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
             pMensaje.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosProverbios");
+            PrimefacesContextUI.actualizar("form:datosProverbios");
             bandera = 0;
             filtradosListaProverbios = null;
             tipoLista = 0;
@@ -1601,7 +1602,7 @@ public class ControlProverbio implements Serializable {
             mDia.setFilterStyle("display: none; visibility: hidden;");
             mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
             mMensaje.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+            PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
             banderaNF = 0;
             filtradosListaMensajesUsuario = null;
             tipoListaNF = 0;
@@ -1624,9 +1625,9 @@ public class ControlProverbio implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         cambiosPagina = true;
-        context.update("form:ACEPTAR");
-        context.update("form:datosProverbios");
-        context.update("form:datosMensajesUsuarios");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosProverbios");
+        PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
     }
 
     public void salir() {
@@ -1635,7 +1636,7 @@ public class ControlProverbio implements Serializable {
             altoTabla = "115";
             pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
             pMensaje.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosProverbios");
+            PrimefacesContextUI.actualizar("form:datosProverbios");
             bandera = 0;
             filtradosListaProverbios = null;
             tipoLista = 0;
@@ -1651,7 +1652,7 @@ public class ControlProverbio implements Serializable {
             mDia.setFilterStyle("display: none; visibility: hidden;");
             mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
             mMensaje.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+            PrimefacesContextUI.actualizar("form:datosMensajesUsuarios");
             banderaNF = 0;
             filtradosListaMensajesUsuario = null;
             tipoListaNF = 0;
@@ -1706,12 +1707,12 @@ public class ControlProverbio implements Serializable {
 
     public void modificarInfoRegistroProverbios(int valor) {
         infoRegistroProverbios = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:infoRegistroProverbio");
+        PrimefacesContextUI.actualizar("form:infoRegistroProverbio");
     }
 
     public void modificarInfoRegistroMsgUsuarios(int valor) {
         infoRegistroMsgUsuario = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:infoRegistroMsgUsuarios");
+        PrimefacesContextUI.actualizar("form:infoRegistroMsgUsuarios");
     }
 
     //Getter & Setters

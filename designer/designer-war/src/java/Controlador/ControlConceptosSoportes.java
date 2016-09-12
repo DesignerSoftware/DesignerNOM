@@ -27,6 +27,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -138,7 +139,7 @@ public class ControlConceptosSoportes implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarConceptosSoportes.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlConceptosSoportes eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -205,13 +206,13 @@ public class ControlConceptosSoportes implements Serializable {
                 tipoActualizacion = 2;
             }
             if (dig == 0) {
-                context.update("form:personasDialogo");
-                context.execute("personasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:personasDialogo");
+                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                 dig = -1;
             }
             if (dig == 1) {
-                context.update("form:personasDialogo");
-                context.execute("personasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:personasDialogo");
+                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                 dig = -1;
             }
             if (dig == 2) {
@@ -222,8 +223,8 @@ public class ControlConceptosSoportes implements Serializable {
                 }
                 listaOperandos = null;
                 getListaOperandos();
-                context.update("form:cargosDialogo");
-                context.execute("cargosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:cargosDialogo");
+                PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
                 dig = -1;
             }
         } catch (Exception e) {
@@ -240,18 +241,18 @@ public class ControlConceptosSoportes implements Serializable {
 
             if (cualCelda == 0) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:personasDialogo");
-                context.execute("personasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:personasDialogo");
+                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
             }
             if (cualCelda == 1) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:personasDialogo");
-                context.execute("personasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:personasDialogo");
+                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
             }
             if (cualCelda == 2) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:cargosDialogo");
-                context.execute("cargosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:cargosDialogo");
+                PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
             }
         }
     }
@@ -267,7 +268,7 @@ public class ControlConceptosSoportes implements Serializable {
             personafir.setFilterStyle("display: none; visibility: hidden;");
             cargo = (Column) c.getViewRoot().findComponent("form:datosConceptosSoportes:cargo");
             cargo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosConceptosSoportes");
+            PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
             bandera = 0;
             filtrarConceptosSoportes = null;
             tipoLista = 0;
@@ -289,13 +290,13 @@ public class ControlConceptosSoportes implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listConceptosSoportes.size();
         }
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
         mostrarTodos = true;
         buscarConceptoSoporte = false;
-        context.update("form:MOSTRARTODOS");
-        context.update("form:BUSCARCENTROCOSTO");
-        context.update("form:datosConceptosSoportes");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:MOSTRARTODOS");
+        PrimefacesContextUI.actualizar("form:BUSCARCENTROCOSTO");
+        PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void salir() {
@@ -308,7 +309,7 @@ public class ControlConceptosSoportes implements Serializable {
             personafir.setFilterStyle("display: none; visibility: hidden;");
             cargo = (Column) c.getViewRoot().findComponent("form:datosConceptosSoportes:cargo");
             cargo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosConceptosSoportes");
+            PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
             bandera = 0;
             filtrarConceptosSoportes = null;
             tipoLista = 0;
@@ -324,8 +325,8 @@ public class ControlConceptosSoportes implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosConceptosSoportes");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void cancelarModificacionCambio() {
@@ -338,7 +339,7 @@ public class ControlConceptosSoportes implements Serializable {
             personafir.setFilterStyle("display: none; visibility: hidden;");
             cargo = (Column) c.getViewRoot().findComponent("form:datosConceptosSoportes:cargo");
             cargo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosConceptosSoportes");
+            PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
             bandera = 0;
             filtrarConceptosSoportes = null;
             tipoLista = 0;
@@ -355,8 +356,8 @@ public class ControlConceptosSoportes implements Serializable {
         permitirIndex = true;
         seleccionConceptoSoporte();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosConceptosSoportes");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -369,7 +370,7 @@ public class ControlConceptosSoportes implements Serializable {
             personafir.setFilterStyle("width: 85%");
             cargo = (Column) c.getViewRoot().findComponent("form:datosConceptosSoportes:cargo");
             cargo.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosConceptosSoportes");
+            PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -383,7 +384,7 @@ public class ControlConceptosSoportes implements Serializable {
             cargo = (Column) c.getViewRoot().findComponent("form:datosConceptosSoportes:cargo");
             cargo.setFilterStyle("display: none; visibility: hidden;");
 
-            RequestContext.getCurrentInstance().update("form:datosConceptosSoportes");
+            PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
             bandera = 0;
             filtrarConceptosSoportes = null;
             tipoLista = 0;
@@ -423,8 +424,8 @@ public class ControlConceptosSoportes implements Serializable {
             }
             permitirIndex = true;
             System.out.println("ACTUALIZAR CONCEPTO SELECCIONADO : " + conceptoSeleccionado.getDescripcion());
-            context.update("form:datosConceptosSoportes");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         } else if (tipoActualizacion == 1) {
             System.out.println("ACTUALIZAR CONCEPTO NUEVO DEPARTAMENTO: " + conceptoSeleccionado.getDescripcion());
             nuevoConceptosSoportes.setConcepto(conceptoSeleccionado);
@@ -433,11 +434,11 @@ public class ControlConceptosSoportes implements Serializable {
             listaOperandos = null;
             getListaOperandos();
             banderaConceptoEscogido = false;
-            context.update("formularioDialogos:nuevoCargo");
-            context.update("formularioDialogos:btnnuevoCargo");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargo");
+            PrimefacesContextUI.actualizar("formularioDialogos:btnnuevoCargo");
             getListaOperandos();
-            context.update("formularioDialogos:nuevoPersona");
-            context.update("formularioDialogos:nuevoCodigo");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoPersona");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoCodigo");
         } else if (tipoActualizacion == 2) {
             System.out.println("ACTUALIZAR CONCEPTO DUPLICAR DEPARTAMENO: " + conceptoSeleccionado.getDescripcion());
             duplicarConceptosSoportes.setConcepto(conceptoSeleccionado);
@@ -446,11 +447,11 @@ public class ControlConceptosSoportes implements Serializable {
             getListaOperandos();
 
             banderaConceptoEscogido = false;
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargo");
-            RequestContext.getCurrentInstance().update("formularioDialogos:btnduplicarCargo");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargo");
+            PrimefacesContextUI.actualizar("formularioDialogos:btnduplicarCargo");
             getListaOperandos();
-            context.update("formularioDialogos:duplicarPersona");
-            context.update("formularioDialogos:duplicarCodigo");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarPersona");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCodigo");
         }
         filtradoConceptos = null;
         conceptoSeleccionado = null;
@@ -461,9 +462,9 @@ public class ControlConceptosSoportes implements Serializable {
         cualCelda = -1;
         cambioConceptosSoportes = true;
         context.reset("form:lovConceptos:globalFilter");
-        context.execute("lovConceptos.clearFilters()");
-        context.execute("personasDialogo.hide()");
-        //context.update("form:lovConceptos");
+        PrimefacesContextUI.ejecutar("PF('lovConceptos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('personasDialogo').hide()");
+        //PrimefacesContextUI.actualizar("form:lovConceptos");
     }
 
     public void actualizarOperandos() {
@@ -499,16 +500,16 @@ public class ControlConceptosSoportes implements Serializable {
             }
             permitirIndex = true;
             System.out.println("ACTUALIZAR OPERANDOS CARGO SELECCIONADO : " + operandoSeleccionado.getNombre());
-            context.update("form:datosConceptosSoportes");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         } else if (tipoActualizacion == 1) {
             System.out.println("ACTUALIZAR OPERANDOS NUEVO DEPARTAMENTO: " + operandoSeleccionado.getNombre());
             nuevoConceptosSoportes.setOperando(operandoSeleccionado);
-            context.update("formularioDialogos:nuevoCargo");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargo");
         } else if (tipoActualizacion == 2) {
             System.out.println("ACTUALIZAR OPERANDOS DUPLICAR DEPARTAMENO: " + operandoSeleccionado.getNombre());
             duplicarConceptosSoportes.setOperando(operandoSeleccionado);
-            context.update("formularioDialogos:duplicarCargo");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargo");
         }
         filtradoConceptos = null;
         conceptoSeleccionado = null;
@@ -519,10 +520,10 @@ public class ControlConceptosSoportes implements Serializable {
         cualCelda = -1;
         cambioConceptosSoportes = true;
         context.reset("form:lovOperandos:globalFilter");
-        context.execute("lovOperandos.clearFilters()");
-        context.execute("cargosDialogo.hide()");
-        //context.update("form:lovOperandos");
-        //context.update("form:datosHvEntrevista");
+        PrimefacesContextUI.ejecutar("PF('lovOperandos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('cargosDialogo').hide()");
+        //PrimefacesContextUI.actualizar("form:lovOperandos");
+        //PrimefacesContextUI.actualizar("form:datosHvEntrevista");
     }
 
     public void cancelarCambioConceptos() {
@@ -539,8 +540,8 @@ public class ControlConceptosSoportes implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovConceptos:globalFilter");
-        context.execute("lovConceptos.clearFilters()");
-        context.execute("personasDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovConceptos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('personasDialogo').hide()");
     }
 
     public void cancelarCambioOperandos() {
@@ -553,8 +554,8 @@ public class ControlConceptosSoportes implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovOperandos:globalFilter");
-        context.execute("lovOperandos.clearFilters()");
-        context.execute("cargosDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovOperandos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('cargosDialogo').hide()");
     }
 
     public void modificarConceptosSoportes(int indice, String confirmarCambio, String valorConfirmar) {
@@ -599,8 +600,8 @@ public class ControlConceptosSoportes implements Serializable {
 
                 } else {
                     permitirIndex = false;
-                    context.update("form:personasDialogo");
-                    context.execute("personasDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:personasDialogo");
+                    PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -615,8 +616,8 @@ public class ControlConceptosSoportes implements Serializable {
                 }
                 tipoActualizacion = 0;
                 System.out.println("CODIGO DIALOGO CONCEPTO : " + backupCodigo);
-                context.update("form:personasDialogo");
-                context.execute("personasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:personasDialogo");
+                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
             }
 
             if (coincidencias == 1) {
@@ -651,8 +652,8 @@ public class ControlConceptosSoportes implements Serializable {
                 }
             }
 
-            context.update("form:datosConceptosSoportes");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             cambioConceptosSoportes = true;
 
         } else if (confirmarCambio.equalsIgnoreCase("PERSONAS")) {
@@ -685,8 +686,8 @@ public class ControlConceptosSoportes implements Serializable {
 
                 } else {
                     permitirIndex = false;
-                    context.update("form:personasDialogo");
-                    context.execute("personasDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:personasDialogo");
+                    PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -701,8 +702,8 @@ public class ControlConceptosSoportes implements Serializable {
                 }
                 tipoActualizacion = 0;
                 System.out.println("BACKUPCONCEPTO CUANDO ES NULO : " + backupConcepto);
-                context.update("form:personasDialogo");
-                context.execute("personasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:personasDialogo");
+                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
             }
 
             if (coincidencias == 1) {
@@ -737,8 +738,8 @@ public class ControlConceptosSoportes implements Serializable {
                 }
             }
 
-            context.update("form:datosConceptosSoportes");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
 
         } else if (confirmarCambio.equalsIgnoreCase("CARGOS")) {
             System.out.println("MODIFICANDO CARGO: " + listConceptosSoportes.get(indice).getOperando().getNombre());
@@ -768,8 +769,8 @@ public class ControlConceptosSoportes implements Serializable {
 
                 } else {
                     permitirIndex = false;
-                    context.update("form:cargosDialogo");
-                    context.execute("cargosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:cargosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -782,8 +783,8 @@ public class ControlConceptosSoportes implements Serializable {
                 }
                 tipoActualizacion = 0;
                 System.out.println("PAIS ANTES DE MOSTRAR DIALOGO CARGOS : " + backupOperando);
-                context.update("form:personasDialogo");
-                context.execute("personasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:personasDialogo");
+                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
             }
 
             if (coincidencias == 1) {
@@ -818,8 +819,8 @@ public class ControlConceptosSoportes implements Serializable {
                 }
             }
 
-            context.update("form:datosConceptosSoportes");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             cambioConceptosSoportes = true;
         }
 
@@ -867,8 +868,8 @@ public class ControlConceptosSoportes implements Serializable {
 
                 } else {
                     permitirIndex = false;
-                    context.update("form:personasDialogo");
-                    context.execute("personasDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:personasDialogo");
+                    PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -883,8 +884,8 @@ public class ControlConceptosSoportes implements Serializable {
                 }
                 tipoActualizacion = 0;
                 System.out.println("CODIGO DIALOGO CONCEPTO : " + backupCodigo);
-                context.update("form:personasDialogo");
-                context.execute("personasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:personasDialogo");
+                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
             }
 
             if (coincidencias == 1) {
@@ -919,8 +920,8 @@ public class ControlConceptosSoportes implements Serializable {
                 }
             }
             cambioConceptosSoportes = true;
-            context.update("form:datosConceptosSoportes");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
 
         }
 
@@ -961,9 +962,9 @@ public class ControlConceptosSoportes implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosConceptosSoportes");
+            PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
             infoRegistro = "Cantidad de registros: " + listConceptosSoportes.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
 
             index = -1;
             secRegistro = null;
@@ -971,7 +972,7 @@ public class ControlConceptosSoportes implements Serializable {
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             cambioConceptosSoportes = true;
         }
 
@@ -1035,14 +1036,14 @@ public class ControlConceptosSoportes implements Serializable {
                     secConceptoSeleccionado = nuevoConceptosSoportes.getConcepto().getSecuencia();
                     listaOperandos = null;
                     banderaConceptoEscogido = false;
-                    context.update("formularioDialogos:nuevoCargo");
-                    context.update("formularioDialogos:btnnuevoCargo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:btnnuevoCargo");
                     getListaOperandos();
 
                     System.err.println("PERSONA GUARDADA :-----> " + nuevoConceptosSoportes.getConcepto().getDescripcion());
                 } else {
-                    context.update("form:personasDialogo");
-                    context.execute("personasDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:personasDialogo");
+                    PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -1050,8 +1051,8 @@ public class ControlConceptosSoportes implements Serializable {
                 System.out.println("valorConfirmar cuando es vacio: " + valorConfirmar);
                 nuevoConceptosSoportes.setConcepto(new Conceptos());
             }
-            context.update("formularioDialogos:nuevoPersona");
-            context.update("formularioDialogos:nuevoCodigo");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoPersona");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoCodigo");
         }
 
     }
@@ -1087,12 +1088,12 @@ public class ControlConceptosSoportes implements Serializable {
                     secConceptoSeleccionado = nuevoConceptosSoportes.getConcepto().getSecuencia();
                     listaOperandos = null;
                     banderaConceptoEscogido = false;
-                    context.update("formularioDialogos:nuevoCargo");
-                    context.update("formularioDialogos:btnnuevoCargo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:btnnuevoCargo");
                     getListaOperandos();
                 } else {
-                    context.update("form:personasDialogo");
-                    context.execute("personasDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:personasDialogo");
+                    PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -1102,8 +1103,8 @@ public class ControlConceptosSoportes implements Serializable {
                 nuevoConceptosSoportes.getConcepto().setDescripcion(" ");
                 System.out.println("NUEVA NORMA LABORAL" + nuevoConceptosSoportes.getConcepto().getDescripcion());
             }
-            context.update("formularioDialogos:nuevoPersona");
-            context.update("formularioDialogos:nuevoCodigo");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoPersona");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoCodigo");
 
         } else if (confirmarCambio.equalsIgnoreCase("CARGO")) {
             System.out.println(" nueva Operando    Entro al if 'Centro costo'");
@@ -1126,8 +1127,8 @@ public class ControlConceptosSoportes implements Serializable {
                     listaOperandos = null;
                     System.err.println("CARGO GUARDADA :-----> " + nuevoConceptosSoportes.getOperando().getNombre());
                 } else {
-                    context.update("form:cargosDialogo");
-                    context.execute("cargosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:cargosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -1137,7 +1138,7 @@ public class ControlConceptosSoportes implements Serializable {
                 nuevoConceptosSoportes.getOperando().setNombre(" ");
                 System.out.println("NUEVO CARGO " + nuevoConceptosSoportes.getOperando().getNombre());
             }
-            context.update("formularioDialogos:nuevoCargo");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargo");
         }
 
     }
@@ -1150,8 +1151,8 @@ public class ControlConceptosSoportes implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:personasDialogo");
-        context.execute("personasDialogo.show()");
+        PrimefacesContextUI.actualizar("form:personasDialogo");
+        PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
     }
 
     public void asignarVariableOperandos(int tipoNuevo) {
@@ -1162,8 +1163,8 @@ public class ControlConceptosSoportes implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:cargosDialogo");
-        context.execute("cargosDialogo.show()");
+        PrimefacesContextUI.actualizar("form:cargosDialogo");
+        PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
     }
 
     public void autocompletarDuplicadoCodigoBigInteger(String confirmarCambio, BigInteger valorConfirmar, int tipoNuevo) {
@@ -1193,11 +1194,11 @@ public class ControlConceptosSoportes implements Serializable {
                     secConceptoSeleccionado = duplicarConceptosSoportes.getConcepto().getSecuencia();
                     listaOperandos = null;
                     banderaConceptoEscogido = false;
-                    context.update("formularioDialogos:duplicarCargo");
-                    context.update("formularioDialogos:btnduplicarCargo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:btnduplicarCargo");
                 } else {
-                    context.update("form:personasDialogo");
-                    context.execute("personasDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:personasDialogo");
+                    PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -1220,8 +1221,8 @@ public class ControlConceptosSoportes implements Serializable {
                 }
 
             }
-            context.update("formularioDialogos:duplicarPersona");
-            context.update("formularioDialogos:duplicarCodigo");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarPersona");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCodigo");
         }
     }
 
@@ -1252,11 +1253,11 @@ public class ControlConceptosSoportes implements Serializable {
                     secConceptoSeleccionado = duplicarConceptosSoportes.getConcepto().getSecuencia();
                     listaOperandos = null;
                     banderaConceptoEscogido = false;
-                    context.update("formularioDialogos:duplicarCargo");
-                    context.update("formularioDialogos:btnduplicarCargo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:btnduplicarCargo");
                 } else {
-                    context.update("form:personasDialogo");
-                    context.execute("personasDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:personasDialogo");
+                    PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -1281,8 +1282,8 @@ public class ControlConceptosSoportes implements Serializable {
 
             }
 
-            context.update("formularioDialogos:duplicarCodigo");
-            context.update("formularioDialogos:duplicarPersona");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCodigo");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarPersona");
         } else if (confirmarCambio.equalsIgnoreCase("CARGO")) {
             System.out.println("DUPLICAR valorConfirmar : " + valorConfirmar);
             System.out.println("DUPLICAR CIUDAD bkp : " + nuevoYduplicarCompletarCargo);
@@ -1304,8 +1305,8 @@ public class ControlConceptosSoportes implements Serializable {
                     listaOperandos = null;
                     getListaOperandos();
                 } else {
-                    context.update("form:cargosDialogo");
-                    context.execute("cargosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:cargosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -1329,7 +1330,7 @@ public class ControlConceptosSoportes implements Serializable {
                 }
 
             }
-            context.update("formularioDialogos:duplicarCargo");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargo");
         }
     }
 
@@ -1363,8 +1364,8 @@ public class ControlConceptosSoportes implements Serializable {
      System.out.println("Borrado>0");
 
      RequestContext context = RequestContext.getCurrentInstance();
-     context.update("form:validacionBorrar");
-     context.execute("validacionBorrar.show()");
+     PrimefacesContextUI.actualizar("form:validacionBorrar");
+     PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
      index = -1;
      contarBienProgramacionesDepartamento = new BigInteger("-1");
      contarCapModulosDepartamento = new BigInteger("-1");
@@ -1381,8 +1382,8 @@ public class ControlConceptosSoportes implements Serializable {
 
         if (!borrarConceptosSoportes.isEmpty() || !crearConceptosSoportes.isEmpty() || !modificarConceptosSoportes.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:confirmarGuardar");
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
     }
@@ -1396,8 +1397,8 @@ public class ControlConceptosSoportes implements Serializable {
                 administrarConceptosSoportes.borrarConceptosSoportes(borrarConceptosSoportes);
                 //mostrarBorrados
                 registrosBorrados = borrarConceptosSoportes.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarConceptosSoportes.clear();
             }
             if (!modificarConceptosSoportes.isEmpty()) {
@@ -1414,10 +1415,10 @@ public class ControlConceptosSoportes implements Serializable {
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
         index = -1;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -1430,8 +1431,8 @@ public class ControlConceptosSoportes implements Serializable {
                 administrarConceptosSoportes.borrarConceptosSoportes(borrarConceptosSoportes);
                 //mostrarBorrados
                 registrosBorrados = borrarConceptosSoportes.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarConceptosSoportes.clear();
             }
             if (!modificarConceptosSoportes.isEmpty()) {
@@ -1447,11 +1448,11 @@ public class ControlConceptosSoportes implements Serializable {
             k = 0;
             guardado = true;
             //seleccionConceptoSoporte();
-            context.update("formularioDialogos:lovCentrosCostos");
-            context.execute("buscarCentrosCostosDialogo.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:lovCentrosCostos");
+            PrimefacesContextUI.ejecutar("PF('buscarCentrosCostosDialogo').show()");
         }
         index = -1;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -1467,16 +1468,16 @@ public class ControlConceptosSoportes implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editPais");
-                context.execute("editPais.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editPais");
+                PrimefacesContextUI.ejecutar("PF('editPais').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editConceptos");
-                context.execute("editConceptos.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editConceptos");
+                PrimefacesContextUI.ejecutar("PF('editConceptos').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editOperandos");
-                context.execute("editOperandos.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editOperandos");
+                PrimefacesContextUI.ejecutar("PF('editOperandos').show()");
                 cualCelda = -1;
             }
 
@@ -1555,16 +1556,16 @@ public class ControlConceptosSoportes implements Serializable {
             nuevoConceptosSoportes = new ConceptosSoportes();
             nuevoConceptosSoportes.setOperando(new Operandos());
             nuevoConceptosSoportes.setConcepto(new Conceptos());
-            context.update("form:datosConceptosSoportes");
+            PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
             infoRegistro = "Cantidad de registros: " + listConceptosSoportes.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
 
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
 
-            context.execute("nuevoRegistroConceptosSoportes.hide()");
+            PrimefacesContextUI.ejecutar("PF('nuevoRegistroConceptosSoportes').hide()");
             index = -1;
             secRegistro = null;
             cambioConceptosSoportes = true;
@@ -1573,8 +1574,8 @@ public class ControlConceptosSoportes implements Serializable {
             if (contarConceptosOperandos.intValue() > 0) {
                 mensajeValidacion = "El OPERANDO y el CONCEPTO elegidos ya fueron insertados";
             }
-            context.update("form:validacionNuevaCentroCosto");
-            context.execute("validacionNuevaCentroCosto.show()");
+            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -1585,9 +1586,9 @@ public class ControlConceptosSoportes implements Serializable {
         nuevoConceptosSoportes.setConcepto(new Conceptos());
         nuevoConceptosSoportes.setOperando(new Operandos());
         banderaConceptoEscogido = true;
-        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:btnnuevoCargo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoempresa");
+        PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargo");
+        PrimefacesContextUI.actualizar("formularioDialogos:btnnuevoCargo");
+        PrimefacesContextUI.actualizar("formularioDialogos:nuevaTipoempresa");
 
         secRegistro = null;
         index = -1;
@@ -1602,7 +1603,7 @@ public class ControlConceptosSoportes implements Serializable {
         duplicarConceptosSoportes.setConcepto(new Conceptos());
         duplicarConceptosSoportes.setOperando(new Operandos());
         RequestContext context = RequestContext.getCurrentInstance();
-        context.execute("nuevoRegistroConceptosSoportes.show()");
+        PrimefacesContextUI.ejecutar("PF('nuevoRegistroConceptosSoportes').show()");
 
     }
 
@@ -1630,8 +1631,8 @@ public class ControlConceptosSoportes implements Serializable {
             }
             banderaConceptoEscogido = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarTE");
-            context.execute("duplicarRegistroConceptosSoportes.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroConceptosSoportes').show()");
             secRegistro = null;
         }
     }
@@ -1681,7 +1682,7 @@ public class ControlConceptosSoportes implements Serializable {
             }
             listConceptosSoportes.add(duplicarConceptosSoportes);
             crearConceptosSoportes.add(duplicarConceptosSoportes);
-            context.update("form:datosConceptosSoportes");
+            PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
             index = -1;
             System.out.println("--------------DUPLICAR------------------------");
             System.out.println("PERSONA : " + duplicarConceptosSoportes.getConcepto().getDescripcion());
@@ -1692,9 +1693,9 @@ public class ControlConceptosSoportes implements Serializable {
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             infoRegistro = "Cantidad de registros: " + listConceptosSoportes.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
 
             if (bandera == 1) {
                 //CERRAR FILTRADO
@@ -1705,7 +1706,7 @@ public class ControlConceptosSoportes implements Serializable {
                 personafir.setFilterStyle("display: none; visibility: hidden;");
                 cargo = (Column) c.getViewRoot().findComponent("form:datosConceptosSoportes:cargo");
                 cargo.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosConceptosSoportes");
+                PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
                 bandera = 0;
                 filtrarConceptosSoportes = null;
                 tipoLista = 0;
@@ -1714,15 +1715,15 @@ public class ControlConceptosSoportes implements Serializable {
             duplicarConceptosSoportes.setOperando(new Operandos());
             duplicarConceptosSoportes.setConcepto(new Conceptos());
 
-            RequestContext.getCurrentInstance().execute("duplicarRegistroConceptosSoportes.hide()");
+            RequestContext.getCurrentInstance().execute("duplicarRegistroConceptosSoportes').hide()");
             index = -1;
         } else {
             contador = 0;
             if (contarConceptosOperandos.intValue() > 0) {
                 mensajeValidacion = "El OPERANDO y el CONCEPTO elegidos ya fueron insertados";
             }
-            context.update("form:validacionDuplicarVigencia");
-            context.execute("validacionDuplicarVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -1731,9 +1732,9 @@ public class ControlConceptosSoportes implements Serializable {
         duplicarConceptosSoportes.setConcepto(new Conceptos());
         duplicarConceptosSoportes.setOperando(new Operandos());
         banderaConceptoEscogido = true;
-        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:btnduplicarCargo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
+        PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargo");
+        PrimefacesContextUI.actualizar("formularioDialogos:btnduplicarCargo");
+        PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
     }
 
     public void exportPDF() throws IOException {
@@ -1765,24 +1766,24 @@ public class ControlConceptosSoportes implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "CONCEPTOSSOPORTES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("CONCEPTOSSOPORTES")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -1795,14 +1796,14 @@ public class ControlConceptosSoportes implements Serializable {
         try {
             if (guardado == false) {
                 // banderaSeleccionCentrosCostosPorEmpresa = true;
-                context.execute("confirmarGuardar.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
 
             } else {
                 listConceptosSoportesBoton = null;
                 getListConceptosSoportesBoton();
                 index = -1;
-                context.update("formularioDialogos:lovCentrosCostos");
-                context.execute("buscarCentrosCostosDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:lovCentrosCostos");
+                PrimefacesContextUI.ejecutar("PF('buscarCentrosCostosDialogo').show()");
 
             }
         } catch (Exception e) {
@@ -1827,22 +1828,22 @@ public class ControlConceptosSoportes implements Serializable {
                 conceptoSoporteSeleccionado = null;
                 filterConceptosSoportesBoton = null;
                 aceptar = true;
-                context.update("form:datosConceptosSoportes");
-                context.execute("buscarCentrosCostosDialogo.hide()");
+                PrimefacesContextUI.actualizar("form:datosConceptosSoportes");
+                PrimefacesContextUI.ejecutar("PF('buscarCentrosCostosDialogo').hide()");
                 context.reset("formularioDialogos:lovCentrosCostos:globalFilter");
                 mostrarTodos = false;
                 buscarConceptoSoporte = true;
-                context.update("form:MOSTRARTODOS");
-                context.update("form:BUSCARCENTROCOSTO");
+                PrimefacesContextUI.actualizar("form:MOSTRARTODOS");
+                PrimefacesContextUI.actualizar("form:BUSCARCENTROCOSTO");
                 if (listConceptosSoportes == null || listConceptosSoportes.isEmpty()) {
                     infoRegistro = "Cantidad de registros: 0 ";
                 } else {
                     infoRegistro = "Cantidad de registros: " + listConceptosSoportes.size();
                 }
-                context.update("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
             } else {
-                context.update("form:confirmarGuardarConceptos");
-                context.execute("confirmarGuardarConceptos.show()");
+                PrimefacesContextUI.actualizar("form:confirmarGuardarConceptos");
+                PrimefacesContextUI.ejecutar("PF('confirmarGuardarConceptos').show()");
             }
 
         } catch (Exception e) {
@@ -1858,7 +1859,7 @@ public class ControlConceptosSoportes implements Serializable {
             aceptar = true;
             index = -1;
             tipoActualizacion = -1;
-            context.update("formularioDialogos:aceptarNCC");
+            PrimefacesContextUI.actualizar("formularioDialogos:aceptarNCC");
 
         } catch (Exception e) {
             System.out.println("ERROR CONTROLBETACENTROSCOSTOS.cancelarSeleccionVigencia ERROR====" + e.getMessage());
@@ -1883,7 +1884,7 @@ public class ControlConceptosSoportes implements Serializable {
         } else {
             infoRecursoConceptoLista = "Cantidad de registros: " + listConceptosSoportesBoton.size();
         }
-        context.update("form:infoRecursoConceptoLista");
+        PrimefacesContextUI.actualizar("form:infoRecursoConceptoLista");
         return listConceptosSoportesBoton;
     }
 
@@ -1927,7 +1928,7 @@ public class ControlConceptosSoportes implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listConceptosSoportes.size();
         }
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
         System.out.println("CONTROLCONCEPTOSSOPORTES getListConceptosSoportes ANTES RETURN : TAMAÑO " + listConceptosSoportes.size());
         return listConceptosSoportes;
     }
@@ -2019,7 +2020,7 @@ public class ControlConceptosSoportes implements Serializable {
         } else {
             infoRegistroConceptos = "Cantidad de registros: " + listaConceptos.size();
         }
-        context.update("form:infoRegistroConceptos");
+        PrimefacesContextUI.actualizar("form:infoRegistroConceptos");
         return listaConceptos;
     }
 
@@ -2055,7 +2056,7 @@ public class ControlConceptosSoportes implements Serializable {
         } else {
             infoRegistroOperandos = "Cantidad de registros: " + listaOperandos.size();
         }
-        context.update("form:infoRegistroOperandos");
+        PrimefacesContextUI.actualizar("form:infoRegistroOperandos");
         return listaOperandos;
     }
 

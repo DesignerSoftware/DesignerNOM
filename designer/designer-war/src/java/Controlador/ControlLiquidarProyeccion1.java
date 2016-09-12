@@ -11,6 +11,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -57,16 +58,16 @@ public class ControlLiquidarProyeccion1 implements Serializable {
             texto = "Realice la liquidación de proyecciones Salariales a partir de los parámetros de liquidacion como fecha, centro de costo empleados, conceptos etc. Primero ingrese los parametros a liquidar, luego detalle de los conceptos, despúes genere la liquidaciñon y revice los detalles del calculo de proyecciones";
 
         }
-        context.update("form:b1");
-        context.update("form:b6");
-        context.update("form:textomostrado");
-        context.update("form:titulo");
-        context.update("form:t1");
-        context.update("form:t2");
-        context.update("form:t3");
-        context.update("form:t4");
-        context.update("form:t5");
-        context.update("form:t6");
+        PrimefacesContextUI.actualizar("form:b1");
+        PrimefacesContextUI.actualizar("form:b6");
+        PrimefacesContextUI.actualizar("form:textomostrado");
+        PrimefacesContextUI.actualizar("form:titulo");
+        PrimefacesContextUI.actualizar("form:t1");
+        PrimefacesContextUI.actualizar("form:t2");
+        PrimefacesContextUI.actualizar("form:t3");
+        PrimefacesContextUI.actualizar("form:t4");
+        PrimefacesContextUI.actualizar("form:t5");
+        PrimefacesContextUI.actualizar("form:t6");
     }
 
     public int getNumero() {

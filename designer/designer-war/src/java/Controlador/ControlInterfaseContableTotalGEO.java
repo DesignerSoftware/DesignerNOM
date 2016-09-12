@@ -40,6 +40,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 import org.primefaces.model.DefaultStreamedContent;
 
 /**
@@ -220,9 +221,9 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 listaInterconTotal = null;
                 activarEnviar = true;
                 activarDeshacer = true;
-                context.update("form:btnEnviar");
-                context.update("form:btnDeshacer");
-                context.update("form:PLANO");
+                PrimefacesContextUI.actualizar("form:btnEnviar");
+                PrimefacesContextUI.actualizar("form:btnDeshacer");
+                PrimefacesContextUI.actualizar("form:PLANO");
                 totalCGenerado = 0;
                 totalDGenerado = 0;
                 totalDInter = 0;
@@ -251,7 +252,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                     genValor.setFilterStyle("display: none; visibility: hidden;");
                     genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
                     genConcepto.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosGenerados");
+                    PrimefacesContextUI.actualizar("form:datosGenerados");
                     banderaGenerado = 0;
                     filtrarListaGenerados = null;
                     tipoListaGenerada = 0;
@@ -273,20 +274,20 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                     interConcepto.setFilterStyle("display: none; visibility: hidden;");
                     interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
                     interCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosIntercon");
+                    PrimefacesContextUI.actualizar("form:datosIntercon");
                     banderaIntercon = 0;
                     filtrarListaInterconTotal = null;
                     tipoListaIntercon = 0;
                 }
                 activarEnviar = true;
                 activarDeshacer = true;
-                context.update("form:PanelTotal");
-                context.update("form:panelParametro");
-                context.update("form:btnArriba");
-                context.update("form:btnAbajo");
+                PrimefacesContextUI.actualizar("form:PanelTotal");
+                PrimefacesContextUI.actualizar("form:panelParametro");
+                PrimefacesContextUI.actualizar("form:btnArriba");
+                PrimefacesContextUI.actualizar("form:btnAbajo");
             }
         } else {
-            context.execute("confirmarGuardarSinSalida.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalida').show()");
         }
     }
 
@@ -300,9 +301,9 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 listaInterconTotal = null;
                 activarEnviar = true;
                 activarDeshacer = true;
-                context.update("form:btnEnviar");
-                context.update("form:btnDeshacer");
-                context.update("form:PLANO");
+                PrimefacesContextUI.actualizar("form:btnEnviar");
+                PrimefacesContextUI.actualizar("form:btnDeshacer");
+                PrimefacesContextUI.actualizar("form:PLANO");
                 totalCGenerado = 0;
                 totalDGenerado = 0;
                 totalDInter = 0;
@@ -331,7 +332,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                     genValor.setFilterStyle("display: none; visibility: hidden;");
                     genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
                     genConcepto.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosGenerados");
+                    PrimefacesContextUI.actualizar("form:datosGenerados");
                     banderaGenerado = 0;
                     filtrarListaGenerados = null;
                     tipoListaGenerada = 0;
@@ -353,20 +354,20 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                     interConcepto.setFilterStyle("display: none; visibility: hidden;");
                     interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
                     interCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosIntercon");
+                    PrimefacesContextUI.actualizar("form:datosIntercon");
                     banderaIntercon = 0;
                     filtrarListaInterconTotal = null;
                     tipoListaIntercon = 0;
                 }
                 activarEnviar = true;
                 activarDeshacer = true;
-                context.update("form:PanelTotal");
-                context.update("form:panelParametro");
-                context.update("form:btnArriba");
-                context.update("form:btnAbajo");
+                PrimefacesContextUI.actualizar("form:PanelTotal");
+                PrimefacesContextUI.actualizar("form:panelParametro");
+                PrimefacesContextUI.actualizar("form:btnArriba");
+                PrimefacesContextUI.actualizar("form:btnAbajo");
             }
         } else {
-            context.execute("confirmarGuardarSinSalida.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalida').show()");
         }
     }
 
@@ -377,7 +378,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
         cambiosParametro = true;
         modificacionParametro = true;
         indexParametroContable = -1;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void modificarParametroContable(String confirmarCambio, String valorConfirmar) {
@@ -402,12 +403,12 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 }
                 cambiosParametro = true;
                 modificacionParametro = true;
-                context.update("form:ACEPTAR");
-                context.update("form:parametroEmpresa");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:parametroEmpresa");
             } else {
                 permitirIndexParametro = false;
-                context.update("form:EmpresaDialogo");
-                context.execute("EmpresaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EmpresaDialogo");
+                PrimefacesContextUI.ejecutar("PF('EmpresaDialogo').show()");
             }
         } else if (valorConfirmar.equals("PROCESO")) {
             if (!confirmarCambio.isEmpty()) {
@@ -427,12 +428,12 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                     }
                     cambiosParametro = true;
                     modificacionParametro = true;
-                    context.update("form:ACEPTAR");
-                    context.update("form:parametroProceso");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:parametroProceso");
                 } else {
                     permitirIndexParametro = false;
-                    context.update("form:ProcesoDialogo");
-                    context.execute("ProcesoDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:ProcesoDialogo");
+                    PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').show()");
                 }
             } else {
                 parametroContableActual.setProceso(new Procesos());
@@ -441,8 +442,8 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 }
                 cambiosParametro = true;
                 modificacionParametro = true;
-                context.update("form:ACEPTAR");
-                context.update("form:parametroProceso");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:parametroProceso");
             }
         }
     }
@@ -457,17 +458,17 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 parametroContableActual.setFechafinalcontabilizacion(auxParametroFechaFinal);
                 parametroContableActual.setFechainicialcontabilizacion(auxParametroFechaInicial);
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:panelParametro:parametroFechaFinal");
-                context.update("form:panelParametro:parametroFechaInicial");
-                context.execute("errorFechasParametro.show()");
+                PrimefacesContextUI.actualizar("form:panelParametro:parametroFechaFinal");
+                PrimefacesContextUI.actualizar("form:panelParametro:parametroFechaInicial");
+                PrimefacesContextUI.ejecutar("PF('errorFechasParametro').show()");
             }
         } else {
             parametroContableActual.setFechafinalcontabilizacion(auxParametroFechaFinal);
             parametroContableActual.setFechainicialcontabilizacion(auxParametroFechaInicial);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:panelParametro:parametroFechaFinal");
-            context.update("form:panelParametro:parametroFechaInicial");
-            context.execute("errorFechasNull.show()");
+            PrimefacesContextUI.actualizar("form:panelParametro:parametroFechaFinal");
+            PrimefacesContextUI.actualizar("form:panelParametro:parametroFechaInicial");
+            PrimefacesContextUI.ejecutar("PF('errorFechasNull').show()");
         }
     }
 
@@ -530,7 +531,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             interConcepto.setFilterStyle("display: none; visibility: hidden;");
             interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
             interCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosIntercon");
+            PrimefacesContextUI.actualizar("form:datosIntercon");
             banderaIntercon = 0;
             filtrarListaInterconTotal = null;
             tipoListaIntercon = 0;
@@ -570,7 +571,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             genValor.setFilterStyle("display: none; visibility: hidden;");
             genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
             genConcepto.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosGenerados");
+            PrimefacesContextUI.actualizar("form:datosGenerados");
             banderaGenerado = 0;
             filtrarListaGenerados = null;
             tipoListaGenerada = 0;
@@ -603,7 +604,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 genValor.setFilterStyle("display: none; visibility: hidden;");
                 genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
                 genConcepto.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosGenerados");
+                PrimefacesContextUI.actualizar("form:datosGenerados");
                 banderaGenerado = 0;
                 filtrarListaGenerados = null;
                 tipoListaGenerada = 0;
@@ -625,7 +626,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 interConcepto.setFilterStyle("display: none; visibility: hidden;");
                 interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
                 interCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosIntercon");
+                PrimefacesContextUI.actualizar("form:datosIntercon");
                 banderaIntercon = 0;
                 filtrarListaInterconTotal = null;
                 tipoListaIntercon = 0;
@@ -648,10 +649,10 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             int contador = administrarInterfaseContableTotalGEO.contarProcesosContabilizadosInterconTotal(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion());
             if (contador != -1) {
                 if (contador == 0) {
-                    context.execute("contadoCeroPerContable.show()");
+                    PrimefacesContextUI.ejecutar("PF('contadoCeroPerContable').show()");
                 } else {
-                    context.update("form:paso1CerrarPeriodo");
-                    context.execute("paso1CerrarPeriodo.show()");
+                    PrimefacesContextUI.actualizar("form:paso1CerrarPeriodo");
+                    PrimefacesContextUI.ejecutar("PF('paso1CerrarPeriodo').show()");
                 }
             }
         } catch (Exception e) {
@@ -696,14 +697,14 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 getTotalDInter();
             }
 
-            context.update("form:btnEnviar");
-            context.update("form:btnDeshacer");
-            context.update("form:PLANO");
+            PrimefacesContextUI.actualizar("form:btnEnviar");
+            PrimefacesContextUI.actualizar("form:btnDeshacer");
+            PrimefacesContextUI.actualizar("form:PLANO");
 
-            context.update("form:totalDGenerado");
-            context.update("form:totalCGenerado");
-            context.update("form:totalDInter");
-            context.update("form:totalCInter");
+            PrimefacesContextUI.actualizar("form:totalDGenerado");
+            PrimefacesContextUI.actualizar("form:totalCGenerado");
+            PrimefacesContextUI.actualizar("form:totalDInter");
+            PrimefacesContextUI.actualizar("form:totalCInter");
             if (banderaGenerado == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 altoTablaGenerada = "75";
@@ -721,7 +722,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 genValor.setFilterStyle("display: none; visibility: hidden;");
                 genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
                 genConcepto.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosGenerados");
+                PrimefacesContextUI.actualizar("form:datosGenerados");
                 banderaGenerado = 0;
                 filtrarListaGenerados = null;
                 tipoListaGenerada = 0;
@@ -743,13 +744,13 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 interConcepto.setFilterStyle("display: none; visibility: hidden;");
                 interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
                 interCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosIntercon");
+                PrimefacesContextUI.actualizar("form:datosIntercon");
                 banderaIntercon = 0;
                 filtrarListaInterconTotal = null;
                 tipoListaIntercon = 0;
             }
-            context.update("form:datosGenerados");
-            context.update("form:datosIntercon");
+            PrimefacesContextUI.actualizar("form:datosGenerados");
+            PrimefacesContextUI.actualizar("form:datosIntercon");
         } catch (Exception e) {
             System.out.println("Error finCerrarPeriodoContable Controlador : " + e.toString());
         }
@@ -767,8 +768,8 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             rutaArchivo = "";
             rutaArchivo = pathProceso + nombreArchivo + ".txt";
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:planoGeneradoOK");
-            context.execute("planoGeneradoOK.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:planoGeneradoOK");
+            PrimefacesContextUI.ejecutar("PF('planoGeneradoOK').show()");
         } catch (Exception e) {
             System.out.println("Error actionBtnGenerarPlano Control : " + e.toString());
         }
@@ -809,23 +810,23 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             InputStream input = new FileInputStream(file);
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             setDownload(new DefaultStreamedContent(input, externalContext.getMimeType(file.getName()), file.getName()));
-            RequestContext.getCurrentInstance().execute("planoGeneradoOK.hide()");
+            PrimefacesContextUI.ejecutar("PF('planoGeneradoOK').hide()");
         } catch (Exception e) {
             System.out.println("Error descarga : " + e.toString());
         }
     }
 
     public void cerrarPaginaDescarga() {
-        RequestContext.getCurrentInstance().execute("planoGeneradoOK.hide()");
+        PrimefacesContextUI.ejecutar("PF('planoGeneradoOK').hide()");
     }
 
     public void actionBtnRecontabilizar() {
         Integer contador = administrarInterfaseContableTotalGEO.obtenerContadorFlagGeneradoFechasTotal(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion());
         if (contador != null) {
             if (contador != 0) {
-                RequestContext.getCurrentInstance().execute("paso1Recon.show()");
+                PrimefacesContextUI.ejecutar("PF('paso1Recon').show()");
             } else {
-                RequestContext.getCurrentInstance().execute("errorRecon.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRecon').show()");
             }
         }
     }
@@ -838,8 +839,8 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             fechaFinRecon = fechaF;
             fechaIniRecon = fechaI;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:paso3Recon");
-            context.execute("paso3Recon.show()");
+            PrimefacesContextUI.actualizar("form:paso3Recon");
+            PrimefacesContextUI.ejecutar("PF('paso3Recon').show()");
         }
     }
 
@@ -891,14 +892,14 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 getTotalDInter();
             }
 
-            context.update("form:btnEnviar");
-            context.update("form:btnDeshacer");
-            context.update("form:PLANO");
+            PrimefacesContextUI.actualizar("form:btnEnviar");
+            PrimefacesContextUI.actualizar("form:btnDeshacer");
+            PrimefacesContextUI.actualizar("form:PLANO");
 
-            context.update("form:totalDGenerado");
-            context.update("form:totalCGenerado");
-            context.update("form:totalDInter");
-            context.update("form:totalCInter");
+            PrimefacesContextUI.actualizar("form:totalDGenerado");
+            PrimefacesContextUI.actualizar("form:totalCGenerado");
+            PrimefacesContextUI.actualizar("form:totalDInter");
+            PrimefacesContextUI.actualizar("form:totalCInter");
             if (banderaGenerado == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 altoTablaGenerada = "75";
@@ -916,7 +917,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 genValor.setFilterStyle("display: none; visibility: hidden;");
                 genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
                 genConcepto.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosGenerados");
+                PrimefacesContextUI.actualizar("form:datosGenerados");
                 banderaGenerado = 0;
                 filtrarListaGenerados = null;
                 tipoListaGenerada = 0;
@@ -938,13 +939,13 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 interConcepto.setFilterStyle("display: none; visibility: hidden;");
                 interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
                 interCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosIntercon");
+                PrimefacesContextUI.actualizar("form:datosIntercon");
                 banderaIntercon = 0;
                 filtrarListaInterconTotal = null;
                 tipoListaIntercon = 0;
             }
-            context.update("form:datosGenerados");
-            context.update("form:datosIntercon");
+            PrimefacesContextUI.actualizar("form:datosGenerados");
+            PrimefacesContextUI.actualizar("form:datosIntercon");
         } catch (Exception e) {
             System.out.println("Error actionBtnDeshacer Controlador : " + e.toString());
         }
@@ -957,7 +958,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
         if (fechaDesde != null && fechaHasta != null) {
             if ((fechaDesde.before(parametroContableActual.getFechainicialcontabilizacion()) && fechaHasta.after(parametroContableActual.getFechafinalcontabilizacion()))
                     || (fechaDesde.before(parametroContableActual.getFechainicialcontabilizacion()) && fechaHasta.after(parametroContableActual.getFechafinalcontabilizacion()))) {
-                context.execute("errorVWActualesFechas.show()");
+                PrimefacesContextUI.ejecutar("PF('errorVWActualesFechas').show()");
             } else {
                 if (parametroContableActual.getEmpresaRegistro().getSecuencia() != null
                         && parametroContableActual.getFechafinalcontabilizacion() != null
@@ -994,14 +995,14 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                         getTotalCInter();
                         getTotalDInter();
                     }
-                    context.update("form:totalDGenerado");
-                    context.update("form:totalCGenerado");
-                    context.update("form:totalDInter");
-                    context.update("form:totalCInter");
+                    PrimefacesContextUI.actualizar("form:totalDGenerado");
+                    PrimefacesContextUI.actualizar("form:totalCGenerado");
+                    PrimefacesContextUI.actualizar("form:totalDInter");
+                    PrimefacesContextUI.actualizar("form:totalCInter");
 
-                    context.update("form:btnEnviar");
-                    context.update("form:btnDeshacer");
-                    context.update("form:PLANO");
+                    PrimefacesContextUI.actualizar("form:btnEnviar");
+                    PrimefacesContextUI.actualizar("form:btnDeshacer");
+                    PrimefacesContextUI.actualizar("form:PLANO");
                     if (banderaGenerado == 1) {
                         FacesContext c = FacesContext.getCurrentInstance();
                         altoTablaGenerada = "75";
@@ -1019,7 +1020,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                         genValor.setFilterStyle("display: none; visibility: hidden;");
                         genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
                         genConcepto.setFilterStyle("display: none; visibility: hidden;");
-                        RequestContext.getCurrentInstance().update("form:datosGenerados");
+                        PrimefacesContextUI.actualizar("form:datosGenerados");
                         banderaGenerado = 0;
                         filtrarListaGenerados = null;
                         tipoListaGenerada = 0;
@@ -1041,13 +1042,13 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                         interConcepto.setFilterStyle("display: none; visibility: hidden;");
                         interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
                         interCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-                        RequestContext.getCurrentInstance().update("form:datosIntercon");
+                        PrimefacesContextUI.actualizar("form:datosIntercon");
                         banderaIntercon = 0;
                         filtrarListaInterconTotal = null;
                         tipoListaIntercon = 0;
                     }
-                    context.update("form:datosGenerados");
-                    context.update("form:datosIntercon");
+                    PrimefacesContextUI.actualizar("form:datosGenerados");
+                    PrimefacesContextUI.actualizar("form:datosIntercon");
                 }
             }
         }
@@ -1059,12 +1060,12 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             administrarInterfaseContableTotalGEO.actualizarFlagInterconTotal(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion(), parametroContableActual.getEmpresaCodigo());
             FacesMessage msg = new FacesMessage("Información", "Se realizo el proceso con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         } catch (Exception e) {
             System.out.println("Error anularComprobantesCerrados Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el proceso de anulacion");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
@@ -1077,11 +1078,11 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             if (fechaContabilizacion.compareTo(fechaInterconTotal) == 0) {
                 String fecha = df.format(fechaContabilizacion);
                 msnFechasActualizar = fecha;
-                context.update("form:anteriorContabilizacion");
-                context.execute("anteriorContabilizacion.show()");
+                PrimefacesContextUI.actualizar("form:anteriorContabilizacion");
+                PrimefacesContextUI.ejecutar("PF('anteriorContabilizacion').show()");
             } else {
-                context.update("form:nuncaContabilizo");
-                context.execute("nuncaContabilizo.show()");
+                PrimefacesContextUI.actualizar("form:nuncaContabilizo");
+                PrimefacesContextUI.ejecutar("PF('nuncaContabilizo').show()");
             }
         }
 
@@ -1138,7 +1139,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 getTotalDInter();
             }
 
-            context.update("form:PanelTotal");
+            PrimefacesContextUI.actualizar("form:PanelTotal");
             int tam1 = 0;
             int tam2 = 0;
             if (listaGenerados != null) {
@@ -1148,13 +1149,13 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 tam2 = listaInterconTotal.size();
             }
             if (tam1 == 0 && tam2 == 0) {
-                context.execute("procesoSinDatos.show()");
+                PrimefacesContextUI.ejecutar("PF('procesoSinDatos').show()");
             }
             //validarFechasProcesoActualizar();
 
             System.out.println("I finish");
         } else {
-            context.execute("errorFechasParametros.show()");
+            PrimefacesContextUI.ejecutar("PF('errorFechasParametros').show()");
         }
     }
 
@@ -1174,7 +1175,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 guardarCambiosParametro();
             }
             guardado = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
     }
 
@@ -1198,13 +1199,13 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             cambiosParametro = false;
             FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-            context.update("form:PanelTotal");
+            PrimefacesContextUI.actualizar("form:growl");
+            PrimefacesContextUI.actualizar("form:PanelTotal");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosParametro Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Un error ha ocurrido en el guardado, intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
@@ -1226,7 +1227,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             genValor.setFilterStyle("display: none; visibility: hidden;");
             genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
             genConcepto.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosGenerados");
+            PrimefacesContextUI.actualizar("form:datosGenerados");
             banderaGenerado = 0;
             filtrarListaGenerados = null;
             tipoListaGenerada = 0;
@@ -1248,7 +1249,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             interConcepto.setFilterStyle("display: none; visibility: hidden;");
             interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
             interCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosIntercon");
+            PrimefacesContextUI.actualizar("form:datosIntercon");
             banderaIntercon = 0;
             filtrarListaInterconTotal = null;
             tipoListaIntercon = 0;
@@ -1271,40 +1272,40 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
         listaInterconTotal = null;
         getParametroContableActual();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:btnEnviar");
-        context.update("form:btnDeshacer");
-        context.update("form:PLANO");
-        context.update("form:PanelTotal");
+        PrimefacesContextUI.actualizar("form:btnEnviar");
+        PrimefacesContextUI.actualizar("form:btnDeshacer");
+        PrimefacesContextUI.actualizar("form:PLANO");
+        PrimefacesContextUI.actualizar("form:PanelTotal");
         cambiosParametro = false;
         guardado = true;
         indexParametroContable = -1;
         indexGenerado = -1;
         indexIntercon = -1;
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void editarCelda() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (indexParametroContable >= 0) {
             if (indexParametroContable == 0) {
-                context.update("formularioDialogos:editarEmpresaParametro");
-                context.execute("editarEmpresaParametro.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEmpresaParametro");
+                PrimefacesContextUI.ejecutar("PF('editarEmpresaParametro').show()");
                 indexParametroContable = -1;
             } else if (indexParametroContable == 1) {
-                context.update("formularioDialogos:editarDocContableParametro");
-                context.execute("editarDocContableParametro.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDocContableParametro");
+                PrimefacesContextUI.ejecutar("PF('editarDocContableParametro').show()");
                 indexParametroContable = -1;
             } else if (indexParametroContable == 2) {
-                context.update("formularioDialogos:editarProcesoParametro");
-                context.execute("editarProcesoParametro.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarProcesoParametro");
+                PrimefacesContextUI.ejecutar("PF('editarProcesoParametro').show()");
                 indexParametroContable = -1;
             } else if (indexParametroContable == 3) {
-                context.update("formularioDialogos:editarFechaInicialParametro");
-                context.execute("editarFechaInicialParametro.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicialParametro");
+                PrimefacesContextUI.ejecutar("PF('editarFechaInicialParametro').show()");
                 indexParametroContable = -1;
             } else if (indexParametroContable == 4) {
-                context.update("formularioDialogos:editarFechaFinalParametro");
-                context.execute("editarFechaFinalParametro.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinalParametro");
+                PrimefacesContextUI.ejecutar("PF('editarFechaFinalParametro').show()");
                 indexParametroContable = -1;
             }
         }
@@ -1315,32 +1316,32 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 editarGenerado = filtrarListaGenerados.get(indexGenerado);
             }
             if (cualCeldaGenerado == 0) {
-                context.update("formularioDialogos:editarProcesoGenerado");
-                context.execute("editarProcesoGenerado.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarProcesoGenerado");
+                PrimefacesContextUI.ejecutar("PF('editarProcesoGenerado').show()");
                 cualCeldaGenerado = -1;
             } else if (cualCeldaGenerado == 1) {
-                context.update("formularioDialogos:editarEmpleadoGenerado");
-                context.execute("editarEmpleadoGenerado.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEmpleadoGenerado");
+                PrimefacesContextUI.ejecutar("PF('editarEmpleadoGenerado').show()");
                 cualCeldaGenerado = -1;
             } else if (cualCeldaGenerado == 2) {
-                context.update("formularioDialogos:editarCreditoGenerado");
-                context.execute("editarCreditoGenerado.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCreditoGenerado");
+                PrimefacesContextUI.ejecutar("PF('editarCreditoGenerado').show()");
                 cualCeldaGenerado = -1;
             } else if (cualCeldaGenerado == 3) {
-                context.update("formularioDialogos:editarDebitoGenerado");
-                context.execute("editarDebitoGenerado.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDebitoGenerado");
+                PrimefacesContextUI.ejecutar("PF('editarDebitoGenerado').show()");
                 cualCeldaGenerado = -1;
             } else if (cualCeldaGenerado == 4) {
-                context.update("formularioDialogos:editarTerceroGenerado");
-                context.execute("editarTerceroGenerado.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarTerceroGenerado");
+                PrimefacesContextUI.ejecutar("PF('editarTerceroGenerado').show()");
                 cualCeldaGenerado = -1;
             } else if (cualCeldaGenerado == 5) {
-                context.update("formularioDialogos:editarValorGenerado");
-                context.execute("editarValorGenerado.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarValorGenerado");
+                PrimefacesContextUI.ejecutar("PF('editarValorGenerado').show()");
                 cualCeldaGenerado = -1;
             } else if (cualCeldaGenerado == 6) {
-                context.update("formularioDialogos:editarConceptoGenerado");
-                context.execute("editarConceptoGenerado.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarConceptoGenerado");
+                PrimefacesContextUI.ejecutar("PF('editarConceptoGenerado').show()");
                 cualCeldaGenerado = -1;
             }
             indexGenerado = -1;
@@ -1352,32 +1353,32 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 editarIntercon = filtrarListaInterconTotal.get(indexIntercon);
             }
             if (cualCeldaIntercon == 0) {
-                context.update("formularioDialogos:editarEmpleadoIntercon");
-                context.execute("editarEmpleadoIntercon.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEmpleadoIntercon");
+                PrimefacesContextUI.ejecutar("PF('editarEmpleadoIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 1) {
-                context.update("formularioDialogos:editarTerceroIntercon");
-                context.execute("editarTerceroIntercon.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarTerceroIntercon");
+                PrimefacesContextUI.ejecutar("PF('editarTerceroIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 2) {
-                context.update("formularioDialogos:editarCuentaIntercon");
-                context.execute("editarCuentaIntercon.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCuentaIntercon");
+                PrimefacesContextUI.ejecutar("PF('editarCuentaIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 3) {
-                context.update("formularioDialogos:editarDebitoIntercon");
-                context.execute("editarDebitoIntercon.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDebitoIntercon");
+                PrimefacesContextUI.ejecutar("PF('editarDebitoIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 4) {
-                context.update("formularioDialogos:editarCreditoIntercon");
-                context.execute("editarCreditoIntercon.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCreditoIntercon");
+                PrimefacesContextUI.ejecutar("PF('editarCreditoIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 5) {
-                context.update("formularioDialogos:editarConceptoIntercon");
-                context.execute("editarConceptoIntercon.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarConceptoIntercon");
+                PrimefacesContextUI.ejecutar("PF('editarConceptoIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 6) {
-                context.update("formularioDialogos:editarCentroCostoIntercon");
-                context.execute("editarCentroCostoIntercon.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCentroCostoIntercon");
+                PrimefacesContextUI.ejecutar("PF('editarCentroCostoIntercon').show()");
                 cualCeldaIntercon = -1;
             }
             indexIntercon = -1;
@@ -1402,7 +1403,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             genValor.setFilterStyle("display: none; visibility: hidden;");
             genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
             genConcepto.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosGenerados");
+            PrimefacesContextUI.actualizar("form:datosGenerados");
             banderaGenerado = 0;
             filtrarListaGenerados = null;
             tipoListaGenerada = 0;
@@ -1424,7 +1425,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             interConcepto.setFilterStyle("display: none; visibility: hidden;");
             interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
             interCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosIntercon");
+            PrimefacesContextUI.actualizar("form:datosIntercon");
             banderaIntercon = 0;
             filtrarListaInterconTotal = null;
             tipoListaIntercon = 0;
@@ -1449,7 +1450,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
         totalDGenerado = 0;
         totalDInter = 0;
         totalCInter = 0;
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void asignarIndex(Integer indice, int numeroDialogo, int tipoNuevo) {
@@ -1457,11 +1458,11 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
         indexParametroContable = indice;
         RequestContext context = RequestContext.getCurrentInstance();
         if (numeroDialogo == 0) {
-            context.update("form:EmpresaDialogo");
-            context.execute("EmpresaDialogo.show()");
+            PrimefacesContextUI.actualizar("form:EmpresaDialogo");
+            PrimefacesContextUI.ejecutar("PF('EmpresaDialogo').show()");
         } else if (numeroDialogo == 1) {
-            context.update("form:ProcesoDialogo");
-            context.execute("ProcesoDialogo.show()");
+            PrimefacesContextUI.actualizar("form:ProcesoDialogo");
+            PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').show()");
         }
     }
 
@@ -1476,24 +1477,24 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             }
             modificacionParametro = true;
             cambiosParametro = true;
-            context.update("form:ACEPTAR");
-            context.update("form:parametroEmpresa");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:parametroEmpresa");
         }
         if (tipoActualizacion == 1) {
             nuevoParametroContable.setEmpresaRegistro(empresaSeleccionada);
             nuevoParametroContable.setEmpresaCodigo(empresaSeleccionada.getCodigo());
-            context.update("formularioDialogos:nuevaEmpresaParametro");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaEmpresaParametro");
         }
         empresaSeleccionada = new Empresas();
         filtrarLovEmpresas = null;
         aceptar = true;/*
-         context.update("form:EmpresaDialogo");
-         context.update("form:lovEmpresa");
-         context.update("form:aceptarE");*/
+         PrimefacesContextUI.actualizar("form:EmpresaDialogo");
+         PrimefacesContextUI.actualizar("form:lovEmpresa");
+         PrimefacesContextUI.actualizar("form:aceptarE");*/
 
         context.reset("form:lovEmpresa:globalFilter");
-        context.execute("lovEmpresa.clearFilters()");
-        context.execute("EmpresaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresa').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpresaDialogo').hide()");
     }
 
     public void cancelarEmpresa() {
@@ -1505,8 +1506,8 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEmpresa:globalFilter");
-        context.execute("lovEmpresa.clearFilters()");
-        context.execute("EmpresaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresa').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpresaDialogo').hide()");
     }
 
     public void actualizarProceso() {
@@ -1519,23 +1520,23 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             }
             modificacionParametro = true;
             cambiosParametro = true;
-            context.update("form:ACEPTAR");
-            context.update("form:parametroProceso");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:parametroProceso");
         }
         if (tipoActualizacion == 1) {
             nuevoParametroContable.setProceso(procesoSeleccionado);
-            context.update("formularioDialogos:nuevaProcesoParametro");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaProcesoParametro");
         }
         procesoSeleccionado = new Procesos();
         filtrarLovProcesos = null;
         aceptar = true;/*
-         context.update("form:ProcesoDialogo");
-         context.update("form:lovProceso");
-         context.update("form:aceptarP");*/
+         PrimefacesContextUI.actualizar("form:ProcesoDialogo");
+         PrimefacesContextUI.actualizar("form:lovProceso");
+         PrimefacesContextUI.actualizar("form:aceptarP");*/
 
         context.reset("form:lovProceso:globalFilter");
-        context.execute("lovProceso.clearFilters()");
-        context.execute("ProcesoDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovProceso').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').hide()");
     }
 
     public void cancelarProceso() {
@@ -1546,20 +1547,20 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
         permitirIndexParametro = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovProceso:globalFilter");
-        context.execute("lovProceso.clearFilters()");
-        context.execute("ProcesoDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovProceso').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').hide()");
     }
 
     public void listaValoresBoton() {
         if (indexParametroContable >= 0) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (indexParametroContable == 0) {
-                context.update("form:EmpresaDialogo");
-                context.execute("EmpresaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EmpresaDialogo");
+                PrimefacesContextUI.ejecutar("PF('EmpresaDialogo').show()");
             }
             if (indexParametroContable == 2) {
-                context.update("form:ProcesoDialogo");
-                context.execute("ProcesoDialogo.show()");
+                PrimefacesContextUI.actualizar("form:ProcesoDialogo");
+                PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').show()");
             }
         }
     }
@@ -1586,13 +1587,13 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 nuevoParametroContable.setEmpresaCodigo(lovEmpresas.get(indiceUnicoElemento).getCodigo());
                 lovEmpresas.clear();
                 getLovEmpresas();
-                context.update("formularioDialogos:nuevaEmpresaParametro");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevaEmpresaParametro");
             } else {
                 nuevoParametroContable.getEmpresaRegistro().setNombre(auxParametroEmpresa);
-                context.update("formularioDialogos:nuevaEmpresaParametro");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevaEmpresaParametro");
                 permitirIndexParametro = false;
-                context.update("form:EmpresaDialogo");
-                context.execute("EmpresaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EmpresaDialogo");
+                PrimefacesContextUI.ejecutar("PF('EmpresaDialogo').show()");
             }
         } else if (procesoCambio.equals("PROCESO")) {
             if (!confirmarCambio.isEmpty()) {
@@ -1607,19 +1608,19 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                     nuevoParametroContable.setProceso(lovProcesos.get(indiceUnicoElemento));
                     lovProcesos.clear();
                     getLovProcesos();
-                    context.update("formularioDialogos:nuevaProcesoParametro");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaProcesoParametro");
                 } else {
                     nuevoParametroContable.getProceso().setDescripcion(auxParametroProceso);
-                    context.update("formularioDialogos:nuevaProcesoParametro");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaProcesoParametro");
                     permitirIndexParametro = false;
-                    context.update("form:ProcesoDialogo");
-                    context.execute("ProcesoDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:ProcesoDialogo");
+                    PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').show()");
                 }
             } else {
                 nuevoParametroContable.setProceso(new Procesos());
                 lovProcesos.clear();
                 getLovProcesos();
-                context.update("formularioDialogos:nuevaProcesoParametro");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevaProcesoParametro");
             }
         }
     }
@@ -1650,10 +1651,10 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
         totalDInter = 0;
         totalCInter = 0;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:PanelTotal");
-        context.update("form:btnEnviar");
-        context.update("form:btnDeshacer");
-        context.update("form:PLANO");
+        PrimefacesContextUI.actualizar("form:PanelTotal");
+        PrimefacesContextUI.actualizar("form:btnEnviar");
+        PrimefacesContextUI.actualizar("form:btnDeshacer");
+        PrimefacesContextUI.actualizar("form:PLANO");
     }
 
     public void agregarNuevoParametro() {
@@ -1662,7 +1663,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
             if (nuevoParametroContable.getEmpresaRegistro().getSecuencia() != null && nuevoParametroContable.getFechafinalcontabilizacion() != null && nuevoParametroContable.getFechainicialcontabilizacion() != null) {
                 boolean validar = validarFechaParametro(1);
                 if (validar == true) {
-                    context.execute("NuevoRegistroPC.hide()");
+                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroPC').hide()");
                     int k = 1;
                     BigInteger var = new BigInteger(String.valueOf(k));
                     nuevoParametroContable.setSecuencia(var);
@@ -1685,9 +1686,9 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                     totalDGenerado = 0;
                     totalDInter = 0;
                     totalCInter = 0;
-                    context.update("form:btnEnviar");
-                    context.update("form:btnDeshacer");
-                    context.update("form:PLANO");
+                    PrimefacesContextUI.actualizar("form:btnEnviar");
+                    PrimefacesContextUI.actualizar("form:btnDeshacer");
+                    PrimefacesContextUI.actualizar("form:PLANO");
                     if (banderaGenerado == 1) {
                         FacesContext c = FacesContext.getCurrentInstance();
                         altoTablaGenerada = "75";
@@ -1705,7 +1706,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                         genValor.setFilterStyle("display: none; visibility: hidden;");
                         genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
                         genConcepto.setFilterStyle("display: none; visibility: hidden;");
-                        RequestContext.getCurrentInstance().update("form:datosGenerados");
+                        PrimefacesContextUI.actualizar("form:datosGenerados");
                         banderaGenerado = 0;
                         filtrarListaGenerados = null;
                         tipoListaGenerada = 0;
@@ -1727,26 +1728,26 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                         interConcepto.setFilterStyle("display: none; visibility: hidden;");
                         interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
                         interCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-                        RequestContext.getCurrentInstance().update("form:datosIntercon");
+                        PrimefacesContextUI.actualizar("form:datosIntercon");
                         banderaIntercon = 0;
                         filtrarListaInterconTotal = null;
                         tipoListaIntercon = 0;
                     }
-                    context.update("form:PanelTotal");
+                    PrimefacesContextUI.actualizar("form:PanelTotal");
                     FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
+                    PrimefacesContextUI.actualizar("form:growl");
                 } else {
-                    context.execute("errorFechasParametro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorFechasParametro').show()");
                 }
             } else {
-                context.execute("errorNewRegNull.show()");
+                PrimefacesContextUI.ejecutar("PF('errorNewRegNull').show()");
             }
         } catch (Exception e) {
             System.out.println("Error Controlador agregarNuevo : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
@@ -1900,7 +1901,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 genValor.setFilterStyle("width: 85%;");
                 genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
                 genConcepto.setFilterStyle("width: 85%;");
-                RequestContext.getCurrentInstance().update("form:datosGenerados");
+                PrimefacesContextUI.actualizar("form:datosGenerados");
                 banderaGenerado = 1;
             } else if (banderaGenerado == 1) {
                 altoTablaGenerada = "75";
@@ -1918,7 +1919,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 genValor.setFilterStyle("display: none; visibility: hidden;");
                 genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
                 genConcepto.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosGenerados");
+                PrimefacesContextUI.actualizar("form:datosGenerados");
                 banderaGenerado = 0;
                 filtrarListaGenerados = null;
                 tipoListaGenerada = 0;
@@ -1941,7 +1942,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 interConcepto.setFilterStyle("width: 85%;");
                 interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
                 interCentroCosto.setFilterStyle("width: 85%;");
-                RequestContext.getCurrentInstance().update("form:datosIntercon");
+                PrimefacesContextUI.actualizar("form:datosIntercon");
                 banderaIntercon = 1;
             } else if (banderaIntercon == 1) {
                 altoTablaIntercon = "75";
@@ -1959,7 +1960,7 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 interConcepto.setFilterStyle("display: none; visibility: hidden;");
                 interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
                 interCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosIntercon");
+                PrimefacesContextUI.actualizar("form:datosIntercon");
                 banderaIntercon = 0;
                 filtrarListaInterconTotal = null;
                 tipoListaIntercon = 0;
@@ -1982,24 +1983,24 @@ public class ControlInterfaseContableTotalGEO implements Serializable {
                 backUpSecRegistro = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("INTERCON_TOTAL")) {
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }

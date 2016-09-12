@@ -25,6 +25,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -233,8 +234,8 @@ public class ControlEmplVigenciaIndicador implements Serializable {
 
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosVigencia");
-                context.execute("form:errorFechas.show()");
+                PrimefacesContextUI.actualizar("form:datosVigencia");
+                PrimefacesContextUI.ejecutar("PF('form:errorFechas').show()");
             }
         } else {
             if (tipoLista == 0) {
@@ -245,8 +246,8 @@ public class ControlEmplVigenciaIndicador implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosVigencia");
-            context.execute("errorRegInfo.show()");
+            PrimefacesContextUI.actualizar("form:datosVigencia");
+            PrimefacesContextUI.ejecutar("PF('errorRegInfo').show()");
         }
     }
 
@@ -261,7 +262,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
         } else {
@@ -276,12 +277,12 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosVigencia");
+        PrimefacesContextUI.actualizar("form:datosVigencia");
 
     }
 
@@ -313,8 +314,8 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                     getListTiposIndicadores();
                 } else {
                     permitirIndexV = false;
-                    context.update("form:TiposDialogo");
-                    context.execute("TiposDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:TiposDialogo");
+                    PrimefacesContextUI.ejecutar("PF('TiposDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -349,8 +350,8 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 getListIndicadores();
             } else {
                 permitirIndexV = false;
-                context.update("form:IndicadorDialogo");
-                context.execute("IndicadorDialogo.show()");
+                PrimefacesContextUI.actualizar("form:IndicadorDialogo");
+                PrimefacesContextUI.ejecutar("PF('IndicadorDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -364,7 +365,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
             } else {
@@ -376,12 +377,12 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
             }
         }
-        context.update("form:datosVigencia");
+        PrimefacesContextUI.actualizar("form:datosVigencia");
     }
 
     public void valoresBackupAutocompletarVigencia(int tipoNuevo, String Campo) {
@@ -421,21 +422,21 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
                         nuevaVigencia.setTipoindicador(listTiposIndicadores.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:nuevaTipoIndicadorV");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaTipoIndicadorV");
                     } else if (tipoNuevo == 2) {
                         duplicarVigenciaIndicador.setTipoindicador(listTiposIndicadores.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:duplicarTipoV");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoV");
                     }
                     listTiposIndicadores = null;
                     getListTiposIndicadores();
                 } else {
-                    context.update("form:TiposDialogo");
-                    context.execute("TiposDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:TiposDialogo");
+                    PrimefacesContextUI.ejecutar("PF('TiposDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
-                        context.update("formularioDialogos:nuevaTipoIndicadorV");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaTipoIndicadorV");
                     } else if (tipoNuevo == 2) {
-                        context.update("formularioDialogos:duplicarTipoV");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoV");
                     }
                 }
             } else {
@@ -443,10 +444,10 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 getListTiposIndicadores();
                 if (tipoNuevo == 1) {
                     nuevaVigencia.setTipoindicador(new TiposIndicadores());
-                    context.update("formularioDialogos:nuevaTipoIndicadorV");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaTipoIndicadorV");
                 } else if (tipoNuevo == 2) {
                     duplicarVigenciaIndicador.setTipoindicador(new TiposIndicadores());
-                    context.update("formularioDialogos:duplicarTipoV");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoV");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("INDICADORES")) {
@@ -465,21 +466,21 @@ public class ControlEmplVigenciaIndicador implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigencia.setIndicador(listIndicadores.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaIndicadorV");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaIndicadorV");
                 } else if (tipoNuevo == 2) {
                     duplicarVigenciaIndicador.setIndicador(listIndicadores.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarIndicadorV");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarIndicadorV");
                 }
                 listIndicadores = null;
                 getListIndicadores();
             } else {
-                context.update("form:IndicadorDialogo");
-                context.execute("IndicadorDialogo.show()");
+                PrimefacesContextUI.actualizar("form:IndicadorDialogo");
+                PrimefacesContextUI.ejecutar("PF('IndicadorDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaIndicadorV");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaIndicadorV");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarIndicadorV");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarIndicadorV");
                 }
             }
         }
@@ -533,20 +534,20 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 listVigenciasIndicadores = null;
                 getListVigenciasIndicadores();
                 contarRegistros();
-                context.update("form:informacionRegistro");
-                context.update("form:datosVigencia");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:datosVigencia");
                 k = 0;
                 vigenciaTablaSeleccionada = null;
                 guardado = true;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                context.update("form:growl");
+                PrimefacesContextUI.actualizar("form:growl");
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
@@ -566,7 +567,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
             viFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVigencia:viFechaFinal");
             viFechaFinal.setFilterStyle("display: none; visibility: hidden;");
 
-            RequestContext.getCurrentInstance().update("form:datosVigencia");
+            PrimefacesContextUI.actualizar("form:datosVigencia");
             banderaV = 0;
             filtrarListVigenciasIndicadores = null;
             tipoLista = 0;
@@ -580,12 +581,12 @@ public class ControlEmplVigenciaIndicador implements Serializable {
         k = 0;
         listVigenciasIndicadores = null;
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
         RequestContext context = RequestContext.getCurrentInstance();
         getListVigenciasIndicadores();
         contarRegistros();
-        context.update("form:informacionRegistro");
-        context.update("form:datosVigencia");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosVigencia");
         nuevaVigencia = new VigenciasIndicadores();
         nuevaVigencia.setIndicador(new Indicadores());
         nuevaVigencia.setTipoindicador(new TiposIndicadores());
@@ -601,24 +602,24 @@ public class ControlEmplVigenciaIndicador implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarFechaInicialVD");
-                context.execute("editarFechaInicialVD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicialVD");
+                PrimefacesContextUI.ejecutar("PF('editarFechaInicialVD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarFechaFinalVD");
-                context.execute("editarFechaFinalVD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinalVD");
+                PrimefacesContextUI.ejecutar("PF('editarFechaFinalVD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarTipoVD");
-                context.execute("editarTipoVD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarTipoVD");
+                PrimefacesContextUI.ejecutar("PF('editarTipoVD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                context.update("formularioDialogos:editarIndicadorVD");
-                context.execute("editarIndicadorVD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarIndicadorVD");
+                PrimefacesContextUI.ejecutar("PF('editarIndicadorVD').show()");
                 cualCelda = -1;
             }
         } else {
-            RequestContext.getCurrentInstance().execute("form:seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('form:seleccionarRegistro').show()");
         }
     }
 
@@ -641,7 +642,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
 
                     viFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVigencia:viFechaFinal");
                     viFechaFinal.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosVigencia");
+                    PrimefacesContextUI.actualizar("form:datosVigencia");
                     banderaV = 0;
                     filtrarListVigenciasIndicadores = null;
                     tipoLista = 0;
@@ -662,18 +663,18 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 //
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 modificarInfoRegistro(listVigenciasIndicadores.size());
-                context.update("form:informacionRegistro");
-                context.update("form:datosVigencia");
-                context.execute("NuevoRegistroV.hide()");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:datosVigencia");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroV').hide()");
 
             } else {
-                context.execute("form:errorFechas.show()");
+                PrimefacesContextUI.ejecutar("PF('form:errorFechas').show()");
             }
         } else {
-            context.execute("errorRegInfo.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegInfo').show()");
         }
     }
 
@@ -714,10 +715,10 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 duplicarVigenciaIndicador.setTipoindicador(vigenciaTablaSeleccionada.getTipoindicador());
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarV");
-            context.execute("DuplicarRegistroV.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarV");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroV').show()");
         } else {
-            RequestContext.getCurrentInstance().execute("form:seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('form:seleccionarRegistro').show()");
         }
 
     }
@@ -735,7 +736,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 vigenciaTablaSeleccionada = duplicarVigenciaIndicador;
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 if (banderaV == 1) {
                     //CERRAR FILTRADO
@@ -752,7 +753,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
 
                     viFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVigencia:viFechaFinal");
                     viFechaFinal.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosVigencia");
+                    PrimefacesContextUI.actualizar("form:datosVigencia");
                     banderaV = 0;
                     filtrarListVigenciasIndicadores = null;
                     tipoLista = 0;
@@ -761,14 +762,14 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 limpiarduplicarV();
                 getListVigenciasIndicadores();
                 modificarInfoRegistro(listVigenciasIndicadores.size());
-                context.update("form:informacionRegistro");
-                context.update("form:datosVigencia");
-                context.execute("DuplicarRegistroV.hide()");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:datosVigencia");
+                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroV').hide()");
             } else {
-                context.execute("errorFechas.show()");
+                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         } else {
-            context.execute("errorRegInfo.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegInfo').show()");
         }
     }
 
@@ -808,16 +809,16 @@ public class ControlEmplVigenciaIndicador implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             modificarInfoRegistro(listVigenciasIndicadores.size());
-            context.update("form:informacionRegistro");
-            context.update("form:datosVigencia");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:datosVigencia");
             vigenciaTablaSeleccionada = null;
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
 
         } else {
-            RequestContext.getCurrentInstance().execute("form:seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('form:seleccionarRegistro').show()");
         }
 
     }
@@ -843,7 +844,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
             viIndicador.setFilterStyle("width: 85%");
 
             ///
-            RequestContext.getCurrentInstance().update("form:datosVigencia");
+            PrimefacesContextUI.actualizar("form:datosVigencia");
             tipoLista = 1;
             banderaV = 1;
         } else if (banderaV == 1) {
@@ -859,7 +860,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
 
             viFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVigencia:viFechaFinal");
             viFechaFinal.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVigencia");
+            PrimefacesContextUI.actualizar("form:datosVigencia");
             banderaV = 0;
             filtrarListVigenciasIndicadores = null;
             tipoLista = 0;
@@ -882,7 +883,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
 
             viFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVigencia:viFechaFinal");
             viFechaFinal.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVigencia");
+            PrimefacesContextUI.actualizar("form:datosVigencia");
             banderaV = 0;
             filtrarListVigenciasIndicadores = null;
             tipoLista = 0;
@@ -894,7 +895,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
         k = 0;
         listVigenciasIndicadores = null;
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
         tipoActualizacion = -1;
     }
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO) (list = ESTRUCTURAS - MOTIVOSLOCALIZACIONES - PROYECTOS)
@@ -913,13 +914,13 @@ public class ControlEmplVigenciaIndicador implements Serializable {
         if (dlg == 0) {
             modificarInfoRegistroTipo(listTiposIndicadores.size());
             habilitarBotonLov();
-            context.update("form:TiposDialogo");
-            context.execute("TiposDialogo.show()");
+            PrimefacesContextUI.actualizar("form:TiposDialogo");
+            PrimefacesContextUI.ejecutar("PF('TiposDialogo').show()");
         } else if (dlg == 1) {
             modificarInfoRegistro(listIndicadores.size());
             habilitarBotonLov();
-            context.update("form:IndicadorDialogo");
-            context.execute("IndicadorDialogo.show()");
+            PrimefacesContextUI.actualizar("form:IndicadorDialogo");
+            PrimefacesContextUI.ejecutar("PF('IndicadorDialogo').show()");
         }
 
     }
@@ -938,7 +939,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 permitirIndexV = true;
 
@@ -953,29 +954,29 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 permitirIndexV = true;
             }
-            context.update("form:datosVigencia");
+            PrimefacesContextUI.actualizar("form:datosVigencia");
         } else if (tipoActualizacion == 1) {
             nuevaVigencia.setTipoindicador(tipoIndicadorSeleccionado);
-            context.update("formularioDialogos:nuevaTipoIndicadorV");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaTipoIndicadorV");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciaIndicador.setTipoindicador(tipoIndicadorSeleccionado);
-            context.update("formularioDialogos:duplicarTipoV");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoV");
         }
         filtrarListTiposIndicadores = null;
         tipoIndicadorSeleccionado = null;
         aceptar = true;
         tipoActualizacion = -1;
         /*
-         context.update("form:TiposDialogo");
-         context.update("form:lovTipos");
-         context.update("form:aceptarT");*/
+         PrimefacesContextUI.actualizar("form:TiposDialogo");
+         PrimefacesContextUI.actualizar("form:lovTipos");
+         PrimefacesContextUI.actualizar("form:aceptarT");*/
         context.reset("form:lovTipos:globalFilter");
-        context.execute("lovTipos.clearFilters()");
-        context.execute("TiposDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovTipos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('TiposDialogo').hide()");
     }
 
     public void cancelarCambioTipoIndicador() {
@@ -986,8 +987,8 @@ public class ControlEmplVigenciaIndicador implements Serializable {
         permitirIndexV = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTipos:globalFilter");
-        context.execute("lovTipos.clearFilters()");
-        context.execute("TiposDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovTipos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('TiposDialogo').hide()");
     }
 
     public void actualizarIndicador() {
@@ -1014,28 +1015,28 @@ public class ControlEmplVigenciaIndicador implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             permitirIndexV = true;
-            context.update("form:datosVigencia");
+            PrimefacesContextUI.actualizar("form:datosVigencia");
         } else if (tipoActualizacion == 1) {
             nuevaVigencia.setIndicador(indicadorSeleccionado);
-            context.update("formularioDialogos:nuevaIndicadorV");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaIndicadorV");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciaIndicador.setIndicador(indicadorSeleccionado);
-            context.update("formularioDialogos:duplicarIndicadorV");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarIndicadorV");
         }
         filtrarListIndicadores = null;
         indicadorSeleccionado = null;
         aceptar = true;
         tipoActualizacion = -1;
         /*
-         context.update("form:IndicadorDialogo");
-         context.update("form:lovIndicador");
-         context.update("form:aceptarI");*/
+         PrimefacesContextUI.actualizar("form:IndicadorDialogo");
+         PrimefacesContextUI.actualizar("form:lovIndicador");
+         PrimefacesContextUI.actualizar("form:aceptarI");*/
         context.reset("form:lovIndicador:globalFilter");
-        context.execute("lovIndicador.clearFilters()");
-        context.execute("IndicadorDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovIndicador').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('IndicadorDialogo').hide()");
     }
 
     public void cancelarCambioIndicador() {
@@ -1046,8 +1047,8 @@ public class ControlEmplVigenciaIndicador implements Serializable {
         permitirIndexV = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovIndicador:globalFilter");
-        context.execute("lovIndicador.clearFilters()");
-        context.execute("IndicadorDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovIndicador').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('IndicadorDialogo').hide()");
     }
 
     public void listaValoresBoton() {
@@ -1056,16 +1057,16 @@ public class ControlEmplVigenciaIndicador implements Serializable {
             if (cualCelda == 2) {
                 modificarInfoRegistroTipo(listTiposIndicadores.size());
                 modificarInfoRegistroIndicador(listIndicadores.size());
-                context.update("form:TiposDialogo");
-                context.execute("TiposDialogo.show()");
+                PrimefacesContextUI.actualizar("form:TiposDialogo");
+                PrimefacesContextUI.ejecutar("PF('TiposDialogo').show()");
                 tipoActualizacion = 0;
                 habilitarBotonLov();
             }
             if (cualCelda == 3) {
                 modificarInfoRegistroTipo(listTiposIndicadores.size());
                 modificarInfoRegistroIndicador(listIndicadores.size());
-                context.update("form:IndicadorDialogo");
-                context.execute("IndicadorDialogo.show()");
+                PrimefacesContextUI.actualizar("form:IndicadorDialogo");
+                PrimefacesContextUI.ejecutar("PF('IndicadorDialogo').show()");
                 tipoActualizacion = 0;
                 habilitarBotonLov();
             }
@@ -1109,18 +1110,18 @@ public class ControlEmplVigenciaIndicador implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             modificarInfoRegistro(filtrarListVigenciasIndicadores.size());
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         }
     }
 
     public void eventoFiltrarIndicador() {
         modificarInfoRegistroIndicador(filtrarListIndicadores.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistroIndicador");
+        PrimefacesContextUI.actualizar("form:infoRegistroIndicador");
     }
 
     public void eventoFiltrarTipo() {
         modificarInfoRegistroTipo(filtrarListTiposIndicadores.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistroTipo");
+        PrimefacesContextUI.actualizar("form:infoRegistroTipo");
     }
 
     public void modificarInfoRegistro(int valor) {
@@ -1145,12 +1146,12 @@ public class ControlEmplVigenciaIndicador implements Serializable {
 
     public void habilitarBotonLov() {
         activarLov = false;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     public void deshabilitarBotonLov() {
         activarLov = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
@@ -1162,21 +1163,21 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 backUpSecRegistro = vigenciaTablaSeleccionada.getSecuencia();
                 vigenciaTablaSeleccionada = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
                 if (administrarRastros.verificarHistoricosTabla("VIGENCIASINDICADORES")) {
-                    context.execute("confirmarRastroHistorico.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
                 } else {
-                    context.execute("errorRastroHistorico.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
                 }
 
             }

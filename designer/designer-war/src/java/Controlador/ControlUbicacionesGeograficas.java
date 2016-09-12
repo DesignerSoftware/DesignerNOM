@@ -29,6 +29,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -154,7 +155,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarUbicacionesGeograficas.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR CONTROLUBICACIONESGEOGRAFICAS eventoFiltrar ERROR===" + e);
         }
@@ -272,11 +273,11 @@ public class ControlUbicacionesGeograficas implements Serializable {
                             guardado = false;
 
                         }
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -321,11 +322,11 @@ public class ControlUbicacionesGeograficas implements Serializable {
                             guardado = false;
 
                         }
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -385,8 +386,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -439,15 +440,15 @@ public class ControlUbicacionesGeograficas implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
                 }
 
             }
-            context.update("form:datosUbicacionesGeograficas");
+            PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
         } else if (confirmarCambio.equalsIgnoreCase("CIUDADES")) {
             System.err.println("ENTRE A MODIFICAR TIPO CENTRO COSTO, CONFIRMAR CAMBIO ES TIPOCENTROCOSTO");
             System.err.println("ciudadesAutocompletar " + ciudadesAutocompletar);
@@ -494,8 +495,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
                     getListaCiudades();
                 } else {
                     permitirIndex = false;
-                    context.update("form:tiposCentrosCostosDialogo");
-                    context.execute("tiposCentrosCostosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:tiposCentrosCostosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -568,8 +569,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
                     getListaCiudades();
                 } else {
                     permitirIndex = false;
-                    context.update("form:sucursalesPilaDialogo");
-                    context.execute("sucursalesPilaDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:sucursalesPilaDialogo");
+                    PrimefacesContextUI.ejecutar("PF('sucursalesPilaDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -597,8 +598,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
             }
 
         }
-        context.update("form:datosUbicacionesGeograficas");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -650,14 +651,14 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 cambiarEmpresa();
             }
             getListUbicacionesGeograficasPorEmpresa();
-            context.update("form:datosUbicacionesGeograficas");
+            PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
             if (listUbicacionesGeograficasPorEmpresa == null || listUbicacionesGeograficasPorEmpresa.isEmpty()) {
                 infoRegistro = "Cantidad de registros: 0 ";
             } else {
                 infoRegistro = "Cantidad de registros: " + listUbicacionesGeograficasPorEmpresa.size();
             }
-            context.update("form:informacionRegistro");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         } catch (Exception E) {
             System.out.println("ERROR CONTROLUBICACIONESGEOGRAFICAS.ModificarModificacion ERROR====================" + E.getMessage());
         }
@@ -711,14 +712,14 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 cambiarEmpresa();
             }
             getListUbicacionesGeograficasPorEmpresa();
-            context.update("form:datosUbicacionesGeograficas");
+            PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
             if (listUbicacionesGeograficasPorEmpresa == null || listUbicacionesGeograficasPorEmpresa.isEmpty()) {
                 infoRegistro = "Cantidad de registros: 0 ";
             } else {
                 infoRegistro = "Cantidad de registros: " + listUbicacionesGeograficasPorEmpresa.size();
             }
-            context.update("form:informacionRegistro");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         } catch (Exception E) {
             System.out.println("ERROR CONTROLUBICACIONESGEOGRAFICAS.ModificarModificacion ERROR====================" + E.getMessage());
         }
@@ -741,10 +742,10 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
-            context.update("form:datosUbicacionesGeograficas");
+            PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
 
         }
         System.out.println("Indice: " + index + " Celda: " + cualCelda);
@@ -766,16 +767,16 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 tipoActualizacion = 2;
             }
             if (dig == 2) {
-                context.update("form:tiposCentrosCostosDialogo");
-                context.execute("tiposCentrosCostosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:tiposCentrosCostosDialogo");
+                PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
                 dig = -1;
             }
             if (dig == 9) {
                 System.out.println("Secuencia Empresa Seleccionada = " + empresaSeleccionada.getSecuencia());
                 listaSucursalesPilas = null;
                 getListaSucursalesPilas();
-                context.update("form:sucursalesPilaDialogo");
-                context.execute("sucursalesPilaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:sucursalesPilaDialogo");
+                PrimefacesContextUI.ejecutar("PF('sucursalesPilaDialogo').show()");
                 dig = -1;
             }
 
@@ -803,20 +804,20 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
 
             }
-            context.update("form:datosUbicacionesGeograficas");
+            PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
         } else if (tipoActualizacion == 1) {
             // context.reset("formularioDialogos:nuevaTipoCentroCostos");
             System.out.println("Entro actualizar centro costo nuevo rgistro");
             nuevaUbicacionGeografica.setCiudad(ciudadSeleccionada);
             System.out.println("Centro Costo Seleccionado: " + nuevaUbicacionGeografica.getCiudad().getNombre());
-            context.update("formularioDialogos:nuevaTipoCentroCostos");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaTipoCentroCostos");
         } else if (tipoActualizacion == 2) {
             duplicarUbicacionGeografica.setCiudad(ciudadSeleccionada);
-            context.update("formularioDialogos:duplicarTipoCentroCostos");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoCentroCostos");
 
         }
         filtradoCiudades = null;
@@ -827,8 +828,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
         permitirIndex = true;
 
         context.reset("formularioDialogos:lovTipoUbicacionesGeograficas:globalFilter");
-        context.execute("lovTipoUbicacionesGeograficas.clearFilters()");
-        context.execute("tiposCentrosCostosDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoUbicacionesGeograficas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').hide()");
 
     }
 
@@ -840,8 +841,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovTipoUbicacionesGeograficas:globalFilter");
-        context.execute("lovTipoUbicacionesGeograficas.clearFilters()");
-        context.execute("tiposCentrosCostosDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoUbicacionesGeograficas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').hide()");
 
     }
 
@@ -860,22 +861,22 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
 
             }
-            context.update("form:datosUbicacionesGeograficas");
+            PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
         } else if (tipoActualizacion == 1) {
             // context.reset("formularioDialogos:nuevaTipoCentroCostos");
             System.out.println("Entro actualizar centro costo nuevo rgistro");
             nuevaUbicacionGeografica.setSucursalPila(sucursalesPilasSeleccionada);
             System.out.println("Centro Costo Seleccionado: " + nuevaUbicacionGeografica.getSucursalPila().getDescripcion());
-            context.update("formularioDialogos:nuevaSucursal");
-            context.update("form:datosUbicacionesGeograficas");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaSucursal");
+            PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
 
         } else if (tipoActualizacion == 2) {
             duplicarUbicacionGeografica.setSucursalPila(sucursalesPilasSeleccionada);
-            context.update("formularioDialogos:duplicarTipoCentroCostos");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoCentroCostos");
         }
         filtradoCiudades = null;
         ciudadSeleccionada = null;
@@ -885,8 +886,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
         permitirIndex = true;
 
         context.reset("formularioDialogos:lovSucursalesPila:globalFilter");
-        context.execute("lovSucursalesPila.clearFilters()");
-        context.execute("sucursalesPilaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovSucursalesPila').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('sucursalesPilaDialogo').hide()");
 
     }
 
@@ -899,8 +900,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
         listaSucursalesPilas = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovSucursalesPila:globalFilter");
-        context.execute("lovSucursalesPila.clearFilters()");
-        context.execute("sucursalesPilaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovSucursalesPila').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('sucursalesPilaDialogo').hide()");
     }
 
     public void seleccionUbicacionesGeograficasPorEmpresa() {
@@ -917,14 +918,14 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 filterUbicacionesGeograficasPorEmpresa = null;
                 aceptar = true;
                 banderaModificacionEmpresa = 1;
-                context.update("form:datosUbicacionesGeograficas");
-                context.execute("buscarUbicacionesGeograficasDialogo.hide()");
+                PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
+                PrimefacesContextUI.ejecutar("PF('buscarUbicacionesGeograficasDialogo').hide()");
                 context.reset("formularioDialogos:lovUbicacionesGeograficas:globalFilter");
             } /*else {
              System.err.println("listUbicacionesGeograficasPorEmpresa tamaño " + listUbicacionesGeograficasPorEmpresa.size());
              System.err.println("listUbicacionesGeograficasPorEmpresa nombre " + listUbicacionesGeograficasPorEmpresa.get(0).getDescripcion());
              banderaSeleccionUbicacionesGeograficasPorEmpresa = true;
-             context.execute("confirmarGuardar.show()");
+             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
              UbicacionesGeograficasPorEmpresaSeleccionado = null;
              listUbicacionesGeograficasPorEmpresa.clear();
              System.err.println("seleccionUbicacionesGeograficasPorEmpresa " + UbicacionesGeograficasPorEmpresaSeleccionado.getDescripcion());
@@ -932,7 +933,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
              filterUbicacionesGeograficasPorEmpresa = null;
              aceptar = true;
              banderaModificacionEmpresa = 0;
-             context.execute("buscarUbicacionesGeograficasDialogo.hide()");
+             PrimefacesContextUI.ejecutar("PF('buscarUbicacionesGeograficasDialogo').hide()");
              context.reset("formularioDialogos:lovUbicacionesGeograficas:globalFilter");
              }*/
 
@@ -950,7 +951,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
             aceptar = true;
             index = -1;
             tipoActualizacion = -1;
-            context.update("form:aceptarNCC");
+            PrimefacesContextUI.actualizar("form:aceptarNCC");
 
         } catch (Exception e) {
             System.out.println("ERROR CONTROLUBICACIONESGEOGRAFICAS.cancelarSeleccionVigencia ERROR====" + e);
@@ -1004,12 +1005,12 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 listaCiudades = null;
                 getListaCiudades();
             } else {
-                context.update("form:tiposCentrosCostosDialogo");
-                context.execute("tiposCentrosCostosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:tiposCentrosCostosDialogo");
+                PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
             }
 
-            context.update("formularioDialogos:nuevaTipoCentroCostos");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaTipoCentroCostos");
         }
         if (confirmarCambio.equalsIgnoreCase("SUCURSALESPILA")) {
             System.out.println(" NUEVO CAMPO SUCURSALPILA ");
@@ -1032,12 +1033,12 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 listaSucursalesPilas = null;
                 getListaCiudades();
             } else {
-                context.update("form:sucursalesPilaDialogo");
-                context.execute("sucursalesPilaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:sucursalesPilaDialogo");
+                PrimefacesContextUI.ejecutar("PF('sucursalesPilaDialogo').show()");
                 tipoActualizacion = tipoNuevo;
             }
 
-            context.update("formularioDialogos:nuevaSucursal");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaSucursal");
         }
 
     }
@@ -1050,8 +1051,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:sucursalesPilaDialogo");
-        context.execute("sucursalesPilaDialogo.show()");
+        PrimefacesContextUI.actualizar("form:sucursalesPilaDialogo");
+        PrimefacesContextUI.ejecutar("PF('sucursalesPilaDialogo').show()");
     }
 
     public void autocompletarDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
@@ -1080,8 +1081,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
                     listaCiudades = null;
                     getListaCiudades();
                 } else {
-                    context.update("form:tiposCentrosCostosDialogo");
-                    context.execute("tiposCentrosCostosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:tiposCentrosCostosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -1093,7 +1094,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 duplicarUbicacionGeografica.setCiudad(new Ciudades());
             }
 
-            context.update("formularioDialogos:duplicarTipoCentroCostos");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoCentroCostos");
         }
         if (confirmarCambio.equalsIgnoreCase("SUCURSALESPILA")) {
             if (!duplicarUbicacionGeografica.getSucursalPila().getDescripcion().equals("")) {
@@ -1116,8 +1117,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
                     listaSucursalesPilas = null;
                     getListaCiudades();
                 } else {
-                    context.update("form:sucursalesPilaDialogo");
-                    context.execute("sucursalesPilaDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:sucursalesPilaDialogo");
+                    PrimefacesContextUI.ejecutar("PF('sucursalesPilaDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -1129,7 +1130,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 duplicarUbicacionGeografica.setSucursalPila(new SucursalesPila());
             }
 
-            context.update("formularioDialogos:duplicarSucursalPila");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarSucursalPila");
             index = -1;
         }
 
@@ -1143,8 +1144,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:tiposCentrosCostosDialogo");
-        context.execute("tiposCentrosCostosDialogo.show()");
+        PrimefacesContextUI.actualizar("form:tiposCentrosCostosDialogo");
+        PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
     }
 
     public void limpiarNuevaUbicacionGeografica() {
@@ -1226,16 +1227,16 @@ public class ControlUbicacionesGeograficas implements Serializable {
             System.out.println("CONTROLUBICACIONESGEOGRAFICAS codigo alternativo : " + nuevaUbicacionGeografica.getCodigoalternativo());
 
             listUbicacionesGeograficasPorEmpresa.add(nuevaUbicacionGeografica);
-            context.update("form:datosUbicacionesGeograficas");
+            PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
             infoRegistro = "Cantidad de registros: " + listUbicacionesGeograficasPorEmpresa.size();
 
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             nuevaUbicacionGeografica = new UbicacionesGeograficas();
             // index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -1261,19 +1262,19 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 sucursalPila.setFilterStyle("display: none; visibility: hidden;");
                 codigoAT = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:codigoAT");
                 codigoAT.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosUbicacionesGeograficas");
+                PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
 
                 bandera = 0;
                 filtrarUbicacionesGeograficas = null;
                 tipoLista = 0;
             }
             mensajeValidacion = " ";
-            RequestContext.getCurrentInstance().execute("NuevoRegistroCentroCostos.hide()");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroCentroCostos').hide()");
 
         } else {
             contador = 0;
-            context.update("form:validacionDuplicarVigencia");
-            context.execute("validacionDuplicarVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -1281,13 +1282,13 @@ public class ControlUbicacionesGeograficas implements Serializable {
         if (tipoNuevo == 0) {
             tipoActualizacion = 1;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:tiposCentrosCostosDialogo");
-            context.execute("tiposCentrosCostosDialogo.show()");
+            PrimefacesContextUI.actualizar("form:tiposCentrosCostosDialogo");
+            PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
         } else if (tipoNuevo == 1) {
             tipoActualizacion = 2;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:tiposCentrosCostosDialogo");
-            context.execute("tiposCentrosCostosDialogo.show()");
+            PrimefacesContextUI.actualizar("form:tiposCentrosCostosDialogo");
+            PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
         }
     }
 
@@ -1295,13 +1296,13 @@ public class ControlUbicacionesGeograficas implements Serializable {
         if (tipoNuevo == 0) {
             tipoActualizacion = 1;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:sucursalesPilaDialogo");
-            context.execute("sucursalesPilaDialogo.show()");
+            PrimefacesContextUI.actualizar("form:sucursalesPilaDialogo");
+            PrimefacesContextUI.ejecutar("PF('sucursalesPilaDialogo').show()");
         } else if (tipoNuevo == 1) {
             tipoActualizacion = 2;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:sucursalesPilaDialogo");
-            context.execute("sucursalesPilaDialogo.show()");
+            PrimefacesContextUI.actualizar("form:sucursalesPilaDialogo");
+            PrimefacesContextUI.ejecutar("PF('sucursalesPilaDialogo').show()");
         }
     }
 
@@ -1310,14 +1311,14 @@ public class ControlUbicacionesGeograficas implements Serializable {
         nuevaUbicacionGeografica = new UbicacionesGeograficas();
         nuevaUbicacionGeografica.setCiudad(new Ciudades());
         index = -1;
-        context.update("formularioDialogos:nuevaUbicacionGeograficas");
-        context.execute("NuevoRegistroCentroCostos.show()");
+        PrimefacesContextUI.actualizar("formularioDialogos:nuevaUbicacionGeograficas");
+        PrimefacesContextUI.ejecutar("PF('NuevoRegistroCentroCostos').show()");
     }
 
     public void mostrarDialogoListaEmpresas() {
         RequestContext context = RequestContext.getCurrentInstance();
         index = -1;
-        context.execute("buscarUbicacionesGeograficasDialogo.show()");
+        PrimefacesContextUI.ejecutar("PF('buscarUbicacionesGeograficasDialogo').show()");
     }
 
     public void duplicandoCentroCostos() {
@@ -1368,8 +1369,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarUbicacionGeograficas");
-            context.execute("DuplicarRegistroCentroCostos.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarUbicacionGeograficas");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCentroCostos').show()");
             //index = -1;
         }
         /* } catch (Exception e) {
@@ -1441,15 +1442,15 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 listUbicacionesGeograficasPorEmpresa.add(duplicarUbicacionGeografica);
             }
             crearUbicacionesGeograficas.add(duplicarUbicacionGeografica);
-            context.update("form:datosUbicacionesGeograficas");
+            PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
             infoRegistro = "Cantidad de registros: " + listUbicacionesGeograficasPorEmpresa.size();
 
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -1476,21 +1477,21 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 codigoAT = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:codigoAT");
                 codigoAT.setFilterStyle("display: none; visibility: hidden;");
 
-                RequestContext.getCurrentInstance().update("form:datosUbicacionesGeograficas");
+                PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
                 bandera = 0;
                 filtrarUbicacionesGeograficas = null;
                 tipoLista = 0;
             }
             duplicarUbicacionGeografica = new UbicacionesGeograficas();
             duplicarUbicacionGeografica.setCiudad(new Ciudades());
-            RequestContext.getCurrentInstance().execute("DuplicarRegistroCentroCostos.hide()");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCentroCostos').hide()");
             mensajeValidacion = " ";
             banderaModificacionEmpresa = 1;
 
         } else {
             contador = 0;
-            context.update("form:validacionDuplicarVigencia");
-            context.execute("validacionDuplicarVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -1533,8 +1534,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
 
                 System.out.println("Borrado>0");
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:validacionBorrar");
-                context.execute("validacionBorrar.show()");
+                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
                 contarAfiliacionesEntidadesUbicacionGeografica = new BigInteger("-1");
                 contarInspeccionesUbicacionGeografica = new BigInteger("-1");
@@ -1591,8 +1592,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 if (guardado == true) {
                     guardado = false;
                 }
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                context.update("form:datosUbicacionesGeograficas");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
             }
         } catch (Exception e) {
             System.out.println("ERROR CONTROLUBICACIONESGEOGRAFICAS.BorrarCentroCosto ERROR=====================" + e);
@@ -1608,8 +1609,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
                     administrarUbicacionesGeograficas.borrarUbicacionesGeograficas(borrarUbicacionesGeograficas);
                     //mostrarBorrados
                     registrosBorrados = borrarUbicacionesGeograficas.size();
-                    context.update("form:mostrarBorrados");
-                    context.execute("mostrarBorrados.show()");
+                    PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                    PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                     borrarUbicacionesGeograficas.clear();
                 }
                 if (!modificarUbicacionesGeograficas.isEmpty()) {
@@ -1620,10 +1621,10 @@ public class ControlUbicacionesGeograficas implements Serializable {
                     administrarUbicacionesGeograficas.crearUbicacionesGeograficas(crearUbicacionesGeograficas);
                     crearUbicacionesGeograficas.clear();
                 }
-                context.update("form:datosUbicacionesGeograficas");
+                PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
                 FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                context.update("form:growl");
+                PrimefacesContextUI.actualizar("form:growl");
             }
 
             if (banderaModificacionEmpresa == 0) {
@@ -1634,7 +1635,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
             k = 0;
             guardado = true;
             index = -1;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             banderaModificacionEmpresa = 0;
             System.out.println("Se guardaron los datos con exito");
         } catch (Exception e) {
@@ -1647,7 +1648,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (banderaModificacionEmpresa == 0) {
             empresaSeleccionada = backUpEmpresaActual;
-            context.update("formularioDialogos:lovEmpresas");
+            PrimefacesContextUI.actualizar("formularioDialogos:lovEmpresas");
             banderaModificacionEmpresa = 1;
         }
 
@@ -1683,7 +1684,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 sucursalPila.setFilterStyle("width: 85%;");
                 codigoAT = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:codigoAT");
                 codigoAT.setFilterStyle("width: 85%;");
-                RequestContext.getCurrentInstance().update("form:datosUbicacionesGeograficas");
+                PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
                 bandera = 1;
             } else if (bandera == 1) {
                 System.out.println("Desactivar");
@@ -1712,7 +1713,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 codigoAT.setFilterStyle("display: none; visibility: hidden;");
                 tamano = 270;
 
-                RequestContext.getCurrentInstance().update("form:datosUbicacionesGeograficas");
+                PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
                 bandera = 0;
                 filtrarUbicacionesGeograficas = null;
                 tipoLista = 0;
@@ -1736,44 +1737,44 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 System.out.println("CONTROLUBICACIONESGEOGRAFICAS: Entro a editar... valor celda: " + cualCelda);
                 if (cualCelda == 0) {
-                    context.update("formularioDialogos:editarCodigo");
-                    context.execute("editarCodigo.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarCodigo");
+                    PrimefacesContextUI.ejecutar("PF('editarCodigo').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
-                    context.update("formularioDialogos:editarDescripcion");
-                    context.execute("editarDescripcion.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcion");
+                    PrimefacesContextUI.ejecutar("PF('editarDescripcion').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 2) {
-                    context.update("formularioDialogos:editarCiudad");
-                    context.execute("editarCiudad.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarCiudad");
+                    PrimefacesContextUI.ejecutar("PF('editarCiudad').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 3) {
-                    context.update("formularioDialogos:editarDireccion");
-                    context.execute("editarDireccion.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarDireccion");
+                    PrimefacesContextUI.ejecutar("PF('editarDireccion').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 4) {
-                    context.update("formularioDialogos:editarTelefono");
-                    context.execute("editarTelefono.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarTelefono");
+                    PrimefacesContextUI.ejecutar("PF('editarTelefono').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 5) {
-                    context.update("formularioDialogos:editarFax");
-                    context.execute("editarFax.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarFax");
+                    PrimefacesContextUI.ejecutar("PF('editarFax').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 6) {
-                    context.update("formularioDialogos:editarObservacion");
-                    context.execute("editarObservacion.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarObservacion");
+                    PrimefacesContextUI.ejecutar("PF('editarObservacion').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 8) {
-                    context.update("formularioDialogos:editarActividadEconomica");
-                    context.execute("editarActividadEconomica.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarActividadEconomica");
+                    PrimefacesContextUI.ejecutar("PF('editarActividadEconomica').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 9) {
-                    context.update("formularioDialogos:editarSucursalPilla");
-                    context.execute("editarSucursalPilla.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarSucursalPilla");
+                    PrimefacesContextUI.ejecutar("PF('editarSucursalPilla').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 10) {
-                    context.update("formularioDialogos:editarCodigoAlt");
-                    context.execute("editarCodigoAlt.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoAlt");
+                    PrimefacesContextUI.ejecutar("PF('editarCodigoAlt').show()");
                     cualCelda = -1;
                 }
             }
@@ -1790,14 +1791,14 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 if (cualCelda == 2) {
                     System.out.println("\n ListaValoresBoton \n");
-                    context.update("formularioDialogos:tiposCentrosCostosDialogo");
-                    context.execute("tiposCentrosCostosDialogo.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:tiposCentrosCostosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
                     tipoActualizacion = 0;
                 }
                 if (cualCelda == 9) {
                     System.out.println("\n ListaValoresBoton \n");
-                    context.update("formularioDialogos:sucursalesPilaDialogo");
-                    context.execute("sucursalesPilaDialogo.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:sucursalesPilaDialogo");
+                    PrimefacesContextUI.ejecutar("PF('sucursalesPilaDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
@@ -1838,24 +1839,24 @@ public class ControlUbicacionesGeograficas implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "UBICACIONESGEOGRAFICAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("UBICACIONESGEOGRAFICAS")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -1866,7 +1867,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
         index = -1;
         secRegistro = null;
         cualCelda = -1;
-        RequestContext.getCurrentInstance().execute("EmpresasDialogo.show()");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
     }
 
     public void cambiarEmpresa() {
@@ -1874,8 +1875,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
         System.err.println("Cambiar empresa  GUARDADO = " + guardado);
         System.err.println("Cambiar empresa  GUARDADO = " + empresaSeleccionada.getNombre());
         if (guardado == true) {
-            context.update("form:nombreEmpresa");
-            context.update("form:nitEmpresa");
+            PrimefacesContextUI.actualizar("form:nombreEmpresa");
+            PrimefacesContextUI.actualizar("form:nitEmpresa");
             listUbicacionesGeograficasPorEmpresa = null;
             listaSucursalesPilas = null;
             getListUbicacionesGeograficasPorEmpresa();
@@ -1885,18 +1886,18 @@ public class ControlUbicacionesGeograficas implements Serializable {
             aceptar = true;
             backUpEmpresaActual = empresaSeleccionada;
             banderaModificacionEmpresa = 0;
-            context.update("form:datosUbicacionesGeograficas");
+            PrimefacesContextUI.actualizar("form:datosUbicacionesGeograficas");
 
         } else {
             banderaModificacionEmpresa = 0;
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
 
-            //context.update("formularioDialogos:lovEmpresas");
+            //PrimefacesContextUI.actualizar("formularioDialogos:lovEmpresas");
             backUpEmpresaActual = empresaSeleccionada;
         }
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
-        context.execute("lovEmpresas.clearFilters()");
-        context.execute("EmpresasDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
     }
 
     public void cancelarCambioEmpresa() {
@@ -1905,8 +1906,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
         index = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
-        context.execute("lovEmpresas.clearFilters()");
-        context.execute("EmpresasDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
     }
 //-----------------------------------------------------------------------------**
 
@@ -1950,7 +1951,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
             } else {
                 infoRegistroEmpresas = "Cantidad de registros: " + listaEmpresas.size();
             }
-            context.update("form:infoRegistroEmpresas");
+            PrimefacesContextUI.actualizar("form:infoRegistroEmpresas");
             return listaEmpresas;
         } catch (Exception e) {
             System.out.println("ERROR LISTA EMPRESAS " + e);
@@ -2007,7 +2008,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listUbicacionesGeograficasPorEmpresa.size();
         }
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
         return listUbicacionesGeograficasPorEmpresa;
         // } catch (Exception e) {
         ///.out.println(" BETA  BETA ControlCentrosCosto: Error al recibir los UbicacionesGeograficas de la empresa seleccionada /n" + e);
@@ -2057,7 +2058,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
         } else {
             infoRegistroCiudades = "Cantidad de registros: " + listaCiudades.size();
         }
-        context.update("form:infoRegistroCiudades");
+        PrimefacesContextUI.actualizar("form:infoRegistroCiudades");
         return listaCiudades;
     }
 
@@ -2132,7 +2133,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
         } else {
             infoRegistroSucursalesPila = "Cantidad de registros: " + listaSucursalesPilas.size();
         }
-        context.update("form:infoRegistroSucursalesPila");
+        PrimefacesContextUI.actualizar("form:infoRegistroSucursalesPila");
         return listaSucursalesPilas;
     }
 

@@ -31,6 +31,7 @@ import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -167,12 +168,12 @@ public class ControlNReporteContabilidad implements Serializable {
         if (reporteS.getFecdesde().equals("SI")) {
             color = "red";
             decoracion = "underline";
-            RequestContext.getCurrentInstance().update("formParametros");
+            PrimefacesContextUI.actualizar("formParametros");
         }
         if (reporteS.getFechasta().equals("SI")) {
             color2 = "red";
             decoracion2 = "underline";
-            RequestContext.getCurrentInstance().update("formParametros");
+            PrimefacesContextUI.actualizar("formParametros");
         }
         if (reporteS.getEmdesde().equalsIgnoreCase("SI")) {
             empleadoDesdeParametroL = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametroL");
@@ -191,13 +192,13 @@ public class ControlNReporteContabilidad implements Serializable {
                 e.printStackTrace();
             }
         }
-        RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametroL");
+        PrimefacesContextUI.actualizar("formParametros:empleadoDesdeParametroL");
         System.out.println("reporteSeleccionado.getEmhasta(): " + actualInfoReporteTabla.getEmhasta());
         if (actualInfoReporteTabla.getEmhasta().equals("SI")) {
             empleadoHastaParametroL = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
             //empleadoHastaParametro.setStyle("position: absolute; top: 41px; left: 330px; height: 10px; font-size: 11px; width: 90px; color: red;");
             empleadoHastaParametroL.setStyle(empleadoHastaParametroL.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
+            PrimefacesContextUI.actualizar("formParametros:empleadoHastaParametro");
         }
  
 //        if (tipoLista == 0) {
@@ -223,7 +224,7 @@ public class ControlNReporteContabilidad implements Serializable {
 
     public void dispararDialogoGuardarCambios() {
         RequestContext context = RequestContext.getCurrentInstance();
-        context.execute("confirmarGuardar.show()");
+        PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
 
     }
 
@@ -254,16 +255,16 @@ public class ControlNReporteContabilidad implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros : 0";
             }
-            context.update("form:informacionRegistro");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         } catch (Exception e) {
             System.out.println("Error en guardar Cambios Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
@@ -285,36 +286,36 @@ public class ControlNReporteContabilidad implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (casilla >= 1) {
             if (casilla == 1) {
-                context.update("formularioDialogos:editarFechaDesde");
-                context.execute("editarFechaDesde.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaDesde");
+                PrimefacesContextUI.ejecutar("PF('editarFechaDesde').show()");
             }
             if (casilla == 2) {
-                context.update("formularioDialogos:empleadoDesde");
-                context.execute("empleadoDesde.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:empleadoDesde");
+                PrimefacesContextUI.ejecutar("PF('empleadoDesde').show()");
             }
 
             if (casilla == 3) {
-                context.update("formularioDialogos:editarFechaHasta");
-                context.execute("editarFechaHasta.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaHasta");
+                PrimefacesContextUI.ejecutar("PF('editarFechaHasta').show()");
             }
             if (casilla == 4) {
-                context.update("formularioDialogos:empleadoHasta");
-                context.execute("empleadoHasta.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:empleadoHasta");
+                PrimefacesContextUI.ejecutar("PF('empleadoHasta').show()");
             }
             if (casilla == 5) {
-                context.update("formularioDialogos:proceso");
-                context.execute("proceso.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:proceso");
+                PrimefacesContextUI.ejecutar("PF('proceso').show()");
             }
             casilla = -1;
         }
         if (casillaInforReporte >= 1) {
             if (casillaInforReporte == 1) {
-                context.update("formularioDialogos:infoReporteCodigoD");
-                context.execute("infoReporteCodigoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:infoReporteCodigoD");
+                PrimefacesContextUI.ejecutar("PF('infoReporteCodigoD').show()");
             }
             if (casillaInforReporte == 2) {
-                context.update("formularioDialogos:infoReporteNombreD");
-                context.execute("infoReporteNombreD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:infoReporteNombreD");
+                PrimefacesContextUI.ejecutar("PF('infoReporteNombreD').show()");
             }
             casillaInforReporte = -1;
         }
@@ -329,8 +330,8 @@ public class ControlNReporteContabilidad implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         seleccionRegistro(reporte);
         guardarCambios();
-        context.execute("generandoReporte.show();");
-        context.execute("generarDocumentoReporte();");
+        PrimefacesContextUI.ejecutar("PF('generandoReporte.show();");
+        PrimefacesContextUI.ejecutar("PF('generarDocumentoReporte();");
 //        if (cambiosReporte == true) {
 //            if (tipoLista == 0) {
 //                reporteGenerar = listaIR.get(reporte).getNombre();
@@ -346,7 +347,7 @@ public class ControlNReporteContabilidad implements Serializable {
 //            mostrarDialogoGenerarReporte();
 //        } else {
 //            RequestContext context = RequestContext.getCurrentInstance();
-//            context.execute("confirmarGuardarSinSalida.show()");
+//            PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalida').show()");
 //        }
     }
 
@@ -363,12 +364,12 @@ public class ControlNReporteContabilidad implements Serializable {
             }
             if (pathReporteGenerado != null) {
                 System.out.println("generando reporte - ingreso al 3 if");
-                context.execute("validarDescargaReporte();");
+                PrimefacesContextUI.ejecutar("PF('validarDescargaReporte();");
             } else {
                 System.out.println("generando reporte - ingreso al 3 if else");
-                context.execute("generandoReporte.hide();");
-                context.update("formDialogos:errorGenerandoReporte");
-                context.execute("errorGenerandoReporte.show();");
+                PrimefacesContextUI.ejecutar("PF('generandoReporte.hide();");
+                PrimefacesContextUI.actualizar("formDialogos:errorGenerandoReporte");
+                PrimefacesContextUI.ejecutar("PF('errorGenerandoReporte.show();");
             }
         } else {
             System.out.println("generando reporte - ingreso al if else");
@@ -379,8 +380,8 @@ public class ControlNReporteContabilidad implements Serializable {
     public void mostrarDialogoGenerarReporte() {
         defaultPropiedadesParametrosReporte();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("formDialogos:reporteAGenerar");
-        context.execute("reporteAGenerar.show()");
+        PrimefacesContextUI.actualizar("formDialogos:reporteAGenerar");
+        PrimefacesContextUI.ejecutar("PF('reporteAGenerar').show()");
     }
 
     public void cancelarGenerarReporte() {
@@ -394,7 +395,7 @@ public class ControlNReporteContabilidad implements Serializable {
             reporteIR.setFilterStyle("display: none; visibility: hidden;");
             tipoIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesContabilidad:tipoIR");
             tipoIR.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:reportesContabilidad");
+            PrimefacesContextUI.actualizar("form:reportesContabilidad");
             bandera = 0;
             filtrarListInforeportesUsuario = null;
             tipoLista = 0;
@@ -405,8 +406,8 @@ public class ControlNReporteContabilidad implements Serializable {
         try {
             listaIR = administrarNReporteContabilidad.listInforeportesUsuario();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ReportesDialogo");
-            context.execute("ReportesDialogo.show()");
+            PrimefacesContextUI.actualizar("form:ReportesDialogo");
+            PrimefacesContextUI.ejecutar("PF('ReportesDialogo').show()");
         } catch (Exception e) {
             System.out.println("Error mostrarDialogoBuscarReporte : " + e.toString());
         }
@@ -421,7 +422,7 @@ public class ControlNReporteContabilidad implements Serializable {
             reporteIR.setFilterStyle("display: none; visibility: hidden;");
             tipoIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesContabilidad:tipoIR");
             tipoIR.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:reportesContabilidad");
+            PrimefacesContextUI.actualizar("form:reportesContabilidad");
             bandera = 0;
             filtrarListInforeportesUsuario = null;
             tipoLista = 0;
@@ -437,7 +438,7 @@ public class ControlNReporteContabilidad implements Serializable {
         listaInfoReportesModificados.clear();
         cambiosReporte = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void cancelarYSalir() {
@@ -455,7 +456,7 @@ public class ControlNReporteContabilidad implements Serializable {
             tipoIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesLaboral:tipoIR");
             tipoIR.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "185";
-            RequestContext.getCurrentInstance().update("form:reportesLaboral");
+            PrimefacesContextUI.actualizar("form:reportesLaboral");
             bandera = 0;
             filtrarListInforeportesUsuario = null;
             tipoLista = 0;
@@ -475,9 +476,9 @@ public class ControlNReporteContabilidad implements Serializable {
             infoRegistro = "Cantidad de registros : 0";
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:informacionRegistro");
-        context.update("form:ACEPTAR");
-        context.update("form:reportesContabilidad");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:reportesContabilidad");
     }
 
     public void modificacionTipoReporte(int i) {
@@ -507,22 +508,22 @@ public class ControlNReporteContabilidad implements Serializable {
         }
         cambiosReporte = false;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void mostrarDialogosListas() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (casilla == 2) {
-            context.update("form:EmpleadoDesdeDialogo");
-            context.execute("EmpleadoDesdeDialogo.show()");
+            PrimefacesContextUI.actualizar("form:EmpleadoDesdeDialogo");
+            PrimefacesContextUI.ejecutar("PF('EmpleadoDesdeDialogo').show()");
         }
         if (casilla == 4) {
-            context.update("form:EmpleadoHastaDialogo");
-            context.execute("EmpleadoHastaDialogo.show()");
+            PrimefacesContextUI.actualizar("form:EmpleadoHastaDialogo");
+            PrimefacesContextUI.ejecutar("PF('EmpleadoHastaDialogo').show()");
         }
         if (casilla == 5) {
-            context.update("form:ProcesoDialogo");
-            context.execute("ProcesoDialogo.show()");
+            PrimefacesContextUI.actualizar("form:ProcesoDialogo");
+            PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').show()");
         }
     }
 
@@ -536,14 +537,14 @@ public class ControlNReporteContabilidad implements Serializable {
         cambiosReporte = false;
         RequestContext context = RequestContext.getCurrentInstance();
         /*
-         * context.update("form:ProcesoDialogo");
-         * context.update("form:lovProceso"); context.update("form:aceptarPro");
+         * PrimefacesContextUI.actualizar("form:ProcesoDialogo");
+         * PrimefacesContextUI.actualizar("form:lovProceso"); PrimefacesContextUI.actualizar("form:aceptarPro");
          */
         context.reset("form:lovProceso:globalFilter");
-        context.execute("lovProceso.clearFilters()");
-        context.execute("ProcesoDialogo.hide()");
-        context.update("form:ACEPTAR");
-        context.update("formParametros:procesoParametroL");
+        PrimefacesContextUI.ejecutar("PF('lovProceso').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').hide()");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("formParametros:procesoParametroL");
     }
 
     public void cancelarCambioProceso() {
@@ -553,8 +554,8 @@ public class ControlNReporteContabilidad implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovProceso:globalFilter");
-        context.execute("lovProceso.clearFilters()");
-        context.execute("ProcesoDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovProceso').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').hide()");
     }
 
     public void actualizarEmplDesde() {
@@ -567,15 +568,15 @@ public class ControlNReporteContabilidad implements Serializable {
         cambiosReporte = false;
         RequestContext context = RequestContext.getCurrentInstance();
         /*
-         * context.update("form:EmpleadoDesdeDialogo");
-         * context.update("form:lovEmpleadoDesde");
-         * context.update("form:aceptarED");
+         * PrimefacesContextUI.actualizar("form:EmpleadoDesdeDialogo");
+         * PrimefacesContextUI.actualizar("form:lovEmpleadoDesde");
+         * PrimefacesContextUI.actualizar("form:aceptarED");
          */
         context.reset("form:lovEmpleadoDesde:globalFilter");
-        context.execute("lovEmpleadoDesde.clearFilters()");
-        context.execute("EmpleadoDesdeDialogo.hide()");
-        context.update("form:ACEPTAR");
-        context.update("formParametros:empleadoDesdeParametroL");
+        PrimefacesContextUI.ejecutar("PF('lovEmpleadoDesde').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpleadoDesdeDialogo').hide()");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("formParametros:empleadoDesdeParametroL");
     }
 
     public void cancelarCambioEmplDesde() {
@@ -585,8 +586,8 @@ public class ControlNReporteContabilidad implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEmpleadoDesde:globalFilter");
-        context.execute("lovEmpleadoDesde.clearFilters()");
-        context.execute("EmpleadoDesdeDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpleadoDesde').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpleadoDesdeDialogo').hide()");
     }
 
     public void actualizarEmplHasta() {
@@ -599,15 +600,15 @@ public class ControlNReporteContabilidad implements Serializable {
         cambiosReporte = false;
         RequestContext context = RequestContext.getCurrentInstance();
         /*
-         * context.update("form:EmpleadoHastaDialogo");
-         * context.update("form:lovEmpleadoHasta");
-         * context.update("form:aceptarEH");
+         * PrimefacesContextUI.actualizar("form:EmpleadoHastaDialogo");
+         * PrimefacesContextUI.actualizar("form:lovEmpleadoHasta");
+         * PrimefacesContextUI.actualizar("form:aceptarEH");
          */
         context.reset("form:lovEmpleadoHasta:globalFilter");
-        context.execute("lovEmpleadoHasta.clearFilters()");
-        context.execute("EmpleadoHastaDialogo.hide()");
-        context.update("form:ACEPTAR");
-        context.update("formParametros:empleadoHastaParametroL");
+        PrimefacesContextUI.ejecutar("PF('lovEmpleadoHasta').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpleadoHastaDialogo').hide()");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("formParametros:empleadoHastaParametroL");
     }
 
     public void cancelarCambioEmplHasta() {
@@ -617,8 +618,8 @@ public class ControlNReporteContabilidad implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEmpleadoHasta:globalFilter");
-        context.execute("lovEmpleadoHasta.clearFilters()");
-        context.execute("EmpleadoHastaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpleadoHasta').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpleadoHastaDialogo').hide()");
     }
 
     public void autocompletarGeneral(String campoConfirmar, String valorConfirmar) {
@@ -640,11 +641,11 @@ public class ControlNReporteContabilidad implements Serializable {
                     listProcesos.clear();
                     getListProcesos();
                     cambiosReporte = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 } else {
                     permitirIndex = false;
-                    context.update("form:ProcesoDialogo");
-                    context.execute("ProcesoDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:ProcesoDialogo");
+                    PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').show()");
                 }
             } else {
                 parametroDeInforme.setProceso(new Procesos());
@@ -652,7 +653,7 @@ public class ControlNReporteContabilidad implements Serializable {
                 listProcesos.clear();
                 getListProcesos();
                 cambiosReporte = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
         if (campoConfirmar.equalsIgnoreCase("DESDE")) {
@@ -670,11 +671,11 @@ public class ControlNReporteContabilidad implements Serializable {
                     listProcesos.clear();
                     getListProcesos();
                     cambiosReporte = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 } else {
                     permitirIndex = false;
-                    context.update("form:EmpleadoDesdeDialogo");
-                    context.execute("EmpleadoDesdeDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:EmpleadoDesdeDialogo");
+                    PrimefacesContextUI.ejecutar("PF('EmpleadoDesdeDialogo').show()");
                 }
             } else {
                 parametroDeInforme.setCodigoempleadodesde(new BigDecimal("0"));
@@ -682,7 +683,7 @@ public class ControlNReporteContabilidad implements Serializable {
                 listProcesos.clear();
                 getListProcesos();
                 cambiosReporte = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
         if (campoConfirmar.equalsIgnoreCase("HASTA")) {
@@ -700,11 +701,11 @@ public class ControlNReporteContabilidad implements Serializable {
                     listEmpleados.clear();
                     getListEmpleados();
                     cambiosReporte = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 } else {
                     permitirIndex = false;
-                    context.update("form:EmpleadoHastaDialogo");
-                    context.execute("EmpleadoHastaDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:EmpleadoHastaDialogo");
+                    PrimefacesContextUI.ejecutar("PF('EmpleadoHastaDialogo').show()");
                 }
             } else {
                 parametroDeInforme.setCodigoempleadohasta(new BigDecimal("9999999999999999999999"));
@@ -712,7 +713,7 @@ public class ControlNReporteContabilidad implements Serializable {
                 listEmpleados.clear();
                 getListEmpleados();
                 cambiosReporte = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
     }
@@ -730,12 +731,12 @@ public class ControlNReporteContabilidad implements Serializable {
             parametroDeInforme.setProceso(new Procesos());
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("formParametros:fechaDesdeParametroL");
-        context.update("formParametros:empleadoDesdeParametroL");
-        context.update("formParametros:fechaHastaParametroL");
-        context.update("formParametros:empleadoHastaParametroL");
-        context.update("formParametros:estadoParametroL");
-        context.update("formParametros:procesoParametroL");
+        PrimefacesContextUI.actualizar("formParametros:fechaDesdeParametroL");
+        PrimefacesContextUI.actualizar("formParametros:empleadoDesdeParametroL");
+        PrimefacesContextUI.actualizar("formParametros:fechaHastaParametroL");
+        PrimefacesContextUI.actualizar("formParametros:empleadoHastaParametroL");
+        PrimefacesContextUI.actualizar("formParametros:estadoParametroL");
+        PrimefacesContextUI.actualizar("formParametros:procesoParametroL");
     }
 
     public void activarCtrlF11() {
@@ -747,7 +748,7 @@ public class ControlNReporteContabilidad implements Serializable {
             reporteIR.setFilterStyle("width: 85%;");
             tipoIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesContabilidad:tipoIR");
             tipoIR.setFilterStyle("width: 85%;");
-            RequestContext.getCurrentInstance().update("form:reportesContabilidad");
+            PrimefacesContextUI.actualizar("form:reportesContabilidad");
             tipoLista = 1;
             bandera = 1;
         } else if (bandera == 1) {
@@ -759,7 +760,7 @@ public class ControlNReporteContabilidad implements Serializable {
             reporteIR.setFilterStyle("display: none; visibility: hidden;");
             tipoIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesContabilidad:tipoIR");
             tipoIR.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:reportesContabilidad");
+            PrimefacesContextUI.actualizar("form:reportesContabilidad");
             bandera = 0;
             filtrarListInforeportesUsuario = null;
             tipoLista = 0;
@@ -777,15 +778,15 @@ public class ControlNReporteContabilidad implements Serializable {
         decoracion = "none";
         color2 = "black";
         decoracion2 = "none";
-        RequestContext.getCurrentInstance().update("formParametros");
+        PrimefacesContextUI.actualizar("formParametros");
 //
 //        empleadoDesdeParametroL = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametroL");
 //        empleadoDesdeParametroL.setStyle("position: absolute; top: 40px; left: 260px;height: 15px;width: 90px;");
-//        RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametroL");
+//        PrimefacesContextUI.actualizar("formParametros:empleadoDesdeParametroL");
 //
 //        empleadoHastaParametroL = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametroL");
 //        empleadoHastaParametroL.setStyle("position: absolute; top: 40px; left: 400px;height: 15px;width: 90px;");
-//        RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametroL");
+//        PrimefacesContextUI.actualizar("formParametros:empleadoHastaParametroL");
 
     }
 
@@ -796,13 +797,13 @@ public class ControlNReporteContabilidad implements Serializable {
                 parametroModificacion = parametroDeInforme;
                 cambiosReporte = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             } else {
                 parametroDeInforme.setFechadesde(fechaDesde);
                 parametroDeInforme.setFechahasta(fechaHasta);
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("formParametros");
-                context.execute("errorFechas.show()");
+                PrimefacesContextUI.actualizar("formParametros");
+                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         } else {
             parametroDeInforme.setCodigoempleadodesde(emplDesde);
@@ -810,8 +811,8 @@ public class ControlNReporteContabilidad implements Serializable {
             parametroDeInforme.setFechadesde(fechaDesde);
             parametroDeInforme.setFechahasta(fechaHasta);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formParametros");
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.actualizar("formParametros");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -824,12 +825,12 @@ public class ControlNReporteContabilidad implements Serializable {
 //        if (reporteS.getFecdesde().equals("SI")) {
 //            color = "red";
 //            decoracion = "underline";
-//            RequestContext.getCurrentInstance().update("formParametros");
+//            PrimefacesContextUI.actualizar("formParametros");
 //        }
 //        if (reporteS.getFechasta().equals("SI")) {
 //            color2 = "red";
 //            decoracion2 = "underline";
-//            RequestContext.getCurrentInstance().update("formParametros");
+//            PrimefacesContextUI.actualizar("formParametros");
 //        }
 //        if (reporteS.getEmdesde().equalsIgnoreCase("SI")) {
 //            empleadoDesdeParametroL = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametroL");
@@ -848,12 +849,12 @@ public class ControlNReporteContabilidad implements Serializable {
 //                e.printStackTrace();
 //            }
 //        }
-//        RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametroL");
+//        PrimefacesContextUI.actualizar("formParametros:empleadoDesdeParametroL");
 //        
 //        if (reporteS.getEmhasta().equalsIgnoreCase("SI")) {
 //            empleadoHastaParametroL = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametroL");
 //            empleadoHastaParametroL.setStyle("position: absolute; top: 40px; left: 400px;height: 15px;width: 90px; text-decoration: underline; color: red;");
-//            RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametroL");
+//            PrimefacesContextUI.actualizar("formParametros:empleadoHastaParametroL");
 //        }
 //    }
     public void parametrosDeReporte(int i) {
@@ -880,8 +881,8 @@ public class ControlNReporteContabilidad implements Serializable {
         setRequisitosReporte(cadena);
         if (!requisitosReporte.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formDialogos:requisitosReporte");
-            context.execute("requisitosReporte.show()");
+            PrimefacesContextUI.actualizar("formDialogos:requisitosReporte");
+            PrimefacesContextUI.ejecutar("PF('requisitosReporte').show()");
         }
     }
 
@@ -930,7 +931,7 @@ public class ControlNReporteContabilidad implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         infoRegistro = "Cantidad de Registros: " + filtrarListInforeportesUsuario.size();
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
 
     public void cancelarRequisitosReporte() {

@@ -24,6 +24,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -298,8 +299,8 @@ public class ControlEscalafonSalarial implements Serializable {
             index = -1;
             secRegistro = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosEscalafonSalarial");
-            context.execute("errorDatosNullEscalafon.show()");
+            PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullEscalafon').show()");
         }
     }
 
@@ -320,8 +321,8 @@ public class ControlEscalafonSalarial implements Serializable {
                 indexGS = -1;
                 secRegistroGS = null;
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosGrupoSalarial");
-                context.execute("errorDatosNullGrupo.show()");
+                PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
+                PrimefacesContextUI.ejecutar("PF('errorDatosNullGrupo').show()");
             }
         }
     }
@@ -360,7 +361,7 @@ public class ControlEscalafonSalarial implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //PrimefacesContextUI.actualizar("form:aceptar");
                     }
                 }
             }
@@ -368,8 +369,8 @@ public class ControlEscalafonSalarial implements Serializable {
             secRegistro = null;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosEscalafonSalarial");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
         } else {
             if (tipoLista == 0) {
                 listaEscalafonesSalariales.get(index).setDescripcion(auxEscalafonDescripcion);
@@ -380,8 +381,8 @@ public class ControlEscalafonSalarial implements Serializable {
             index = -1;
             secRegistro = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosEscalafonSalarial");
-            context.execute("errorDescripcionEscalafon.show()");
+            PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
+            PrimefacesContextUI.ejecutar("PF('errorDescripcionEscalafon').show()");
         }
 
     }
@@ -410,13 +411,13 @@ public class ControlEscalafonSalarial implements Serializable {
                     filtrarListaEscalafonesSalariales.get(indice).setTipotrabajador(lovTiposTrabajadores.get(indiceUnicoElemento));
                 }
                 cambiosPagina = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 lovTiposTrabajadores.clear();
                 getLovTiposTrabajadores();
             } else {
                 permitirIndex = false;
-                context.update("form:TipoTrabajadorDialogo");
-                context.execute("TipoTrabajadorDialogo.show()");
+                PrimefacesContextUI.actualizar("form:TipoTrabajadorDialogo");
+                PrimefacesContextUI.ejecutar("PF('TipoTrabajadorDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -442,13 +443,13 @@ public class ControlEscalafonSalarial implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //PrimefacesContextUI.actualizar("form:aceptar");
                     }
                 }
             }
             guardado = true;
         }
-        context.update("form:datosEscalafonSalarial");
+        PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
     }
 
     public void modificarGrupoSalarial(int indice) {
@@ -473,7 +474,7 @@ public class ControlEscalafonSalarial implements Serializable {
                 }
                 if (guardadoGS == true) {
                     guardadoGS = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //PrimefacesContextUI.actualizar("form:aceptar");
                 }
             }
         }
@@ -481,8 +482,8 @@ public class ControlEscalafonSalarial implements Serializable {
         secRegistroGS = null;
         cambiosPagina = false;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
-        context.update("form:datosGrupoSalarial");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
     }
 
     public void cambiarIndice(int indice, int celda) {
@@ -510,14 +511,14 @@ public class ControlEscalafonSalarial implements Serializable {
                 listaGruposSalariales = null;
                 getListaGruposSalariales();
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
                 if (banderaGS == 1) {
                     altoTablaGrupo = "120";
                     grupoSalario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGrupoSalarial:grupoSalario");
                     grupoSalario.setFilterStyle("display: none; visibility: hidden;");
                     grupoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGrupoSalarial:grupoDescripcion");
                     grupoDescripcion.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
+                    PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
                     banderaGS = 0;
                     filtrarListaGruposSalariales = null;
                     tipoListaGS = 0;
@@ -525,7 +526,7 @@ public class ControlEscalafonSalarial implements Serializable {
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
     }
 
@@ -566,7 +567,7 @@ public class ControlEscalafonSalarial implements Serializable {
             }
             cambiosPagina = true;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -591,19 +592,19 @@ public class ControlEscalafonSalarial implements Serializable {
                 listEscalafonesSalarialesModificar.clear();
             }
             listaEscalafonesSalariales = null;
-            context.update("form:datosEscalafonSalarial");
+            PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
             guardado = true;
             k = 0;
             index = -1;
             secRegistro = null;
             FacesMessage msg = new FacesMessage("Información", "Los datos de Escalafon Salarial se guardaron con Éxito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosEscalafonSalarial : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Escalafon Salarial, intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
@@ -627,19 +628,19 @@ public class ControlEscalafonSalarial implements Serializable {
                 listGruposSalarialesModificar.clear();
             }
             listaGruposSalariales = null;
-            context.update("form:datosGrupoSalarial");
+            PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
             guardadoGS = true;
             k = 0;
             indexGS = -1;
             secRegistroGS = null;
             FacesMessage msg = new FacesMessage("Información", "Los datos de Grupo Salarial se guardaron con Éxito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosEscalafonSalarial : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Grupo Salarial, intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
 
     }
@@ -652,16 +653,16 @@ public class ControlEscalafonSalarial implements Serializable {
         if (guardado == false) {
             cancelarModificacionEscalafonSalarial();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosEscalafonSalarial");
+            PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
         }
         if (guardadoGS == false) {
             cancelarModificacionGrupoSalarial();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosGrupoSalarial");
+            PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
         }
         cambiosPagina = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void cancelarModificacionEscalafonSalarial() {
@@ -673,7 +674,7 @@ public class ControlEscalafonSalarial implements Serializable {
             escalafonDescripcion.setFilterStyle("display: none; visibility: hidden;");
             escalafonTipoTrabajador = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafonSalarial:escalafonTipoTrabajador");
             escalafonTipoTrabajador.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosEscalafonSalarial");
+            PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
             bandera = 0;
             filtrarListaEscalafonesSalariales = null;
             tipoLista = 0;
@@ -688,7 +689,7 @@ public class ControlEscalafonSalarial implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosEscalafonSalarial");
+        PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
     }
 
     public void cancelarModificacionGrupoSalarial() {
@@ -698,7 +699,7 @@ public class ControlEscalafonSalarial implements Serializable {
             grupoSalario.setFilterStyle("display: none; visibility: hidden;");
             grupoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGrupoSalarial:grupoDescripcion");
             grupoDescripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
+            PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
             banderaGS = 0;
             filtrarListaGruposSalariales = null;
             tipoListaGS = 0;
@@ -712,7 +713,7 @@ public class ControlEscalafonSalarial implements Serializable {
         listaGruposSalariales = null;
         guardadoGS = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosGrupoSalarial");
+        PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
     }
 
     public void editarCelda() {
@@ -725,16 +726,16 @@ public class ControlEscalafonSalarial implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarEscalafonCodigoD");
-                context.execute("editarEscalafonCodigoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEscalafonCodigoD");
+                PrimefacesContextUI.ejecutar("PF('editarEscalafonCodigoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarEscalafonDescripcionD");
-                context.execute("editarEscalafonDescripcionD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEscalafonDescripcionD");
+                PrimefacesContextUI.ejecutar("PF('editarEscalafonDescripcionD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarEscalafonTipoTrabajadorD");
-                context.execute("editarEscalafonTipoTrabajadorD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEscalafonTipoTrabajadorD");
+                PrimefacesContextUI.ejecutar("PF('editarEscalafonTipoTrabajadorD').show()");
                 cualCelda = -1;
             }
             index = -1;
@@ -749,12 +750,12 @@ public class ControlEscalafonSalarial implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaGS == 0) {
-                context.update("formularioDialogos:editarGrupoDescripcionD");
-                context.execute("editarGrupoDescripcionD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarGrupoDescripcionD");
+                PrimefacesContextUI.ejecutar("PF('editarGrupoDescripcionD').show()");
                 cualCeldaGS = -1;
             } else if (cualCeldaGS == 1) {
-                context.update("formularioDialogos:editarGrupoSalarioD");
-                context.execute("editarGrupoSalarioD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarGrupoSalarioD");
+                PrimefacesContextUI.ejecutar("PF('editarGrupoSalarioD').show()");
                 cualCeldaGS = -1;
             }
 
@@ -775,20 +776,20 @@ public class ControlEscalafonSalarial implements Serializable {
                 } else{
                     disabledNuevoGrupoSalarial = true;
                 }
-                context.update("form:verificarNuevoRegistro");
-                context.execute("verificarNuevoRegistro.show()");
+                PrimefacesContextUI.actualizar("form:verificarNuevoRegistro");
+                PrimefacesContextUI.ejecutar("PF('verificarNuevoRegistro').show()");
             } else {
-                context.update("form:confirmarGuardar");
-                context.execute("confirmarGuardar.show()");
+                PrimefacesContextUI.actualizar("form:confirmarGuardar");
+                PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
             }
         } else {
             if (index >= 0) {
-                context.update("formularioDialogos:NuevoRegistroEscalafonSalarial");
-                context.execute("NuevoRegistroEscalafonSalarial.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroEscalafonSalarial");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroEscalafonSalarial').show()");
             }
             if (indexGS >= 0) {
-                context.update("formularioDialogos:NuevoRegistroGrupoSalarial");
-                context.execute("NuevoRegistroGrupoSalarial.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroGrupoSalarial");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroGrupoSalarial').show()");
             }
         }
     }
@@ -808,7 +809,7 @@ public class ControlEscalafonSalarial implements Serializable {
                     escalafonDescripcion.setFilterStyle("display: none; visibility: hidden;");
                     escalafonTipoTrabajador = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:escalafonTipoTrabajador:extraTipoDia");
                     escalafonTipoTrabajador.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosEscalafonSalarial");
+                    PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
                     bandera = 0;
                     filtrarListaEscalafonesSalariales = null;
                     tipoLista = 0;
@@ -825,22 +826,22 @@ public class ControlEscalafonSalarial implements Serializable {
                 nuevoEscalafonSalarial.setTipotrabajador(new TiposTrabajadores());
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:ACEPTAR");
-                context.update("form:datosEscalafonSalarial");
-                context.execute("NuevoRegistroEscalafonSalarial.hide()");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroEscalafonSalarial').hide()");
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:aceptar");
+                    PrimefacesContextUI.actualizar("form:aceptar");
                 }
                 index = -1;
                 secRegistro = null;
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorDescripcionEscalafon.show()");
+                PrimefacesContextUI.ejecutar("PF('errorDescripcionEscalafon').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullEscalafon.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullEscalafon').show()");
         }
     }
 
@@ -853,7 +854,7 @@ public class ControlEscalafonSalarial implements Serializable {
                 grupoSalario.setFilterStyle("display: none; visibility: hidden;");
                 grupoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGrupoSalarial:grupoDescripcion");
                 grupoDescripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
                 banderaGS = 0;
                 filtrarListaGruposSalariales = null;
                 tipoListaGS = 0;
@@ -873,18 +874,18 @@ public class ControlEscalafonSalarial implements Serializable {
             nuevoGrupoSalarial = new GruposSalariales();
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosGrupoSalarial");
-            context.execute("NuevoRegistroGrupoSalarial.hide()");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroGrupoSalarial').hide()");
             if (guardadoGS == true) {
                 guardadoGS = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                PrimefacesContextUI.actualizar("form:aceptar");
             }
             indexGS = -1;
             secRegistroGS = null;
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullGrupo.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullGrupo').show()");
         }
     }
     //LIMPIAR NUEVO REGISTRO
@@ -930,8 +931,8 @@ public class ControlEscalafonSalarial implements Serializable {
                 duplicarEscalafonSalarial.setTipotrabajador(filtrarListaEscalafonesSalariales.get(index).getTipotrabajador());
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:DuplicarRegistroEscalafonSalarial");
-            context.execute("DuplicarRegistroEscalafonSalarial.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroEscalafonSalarial");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroEscalafonSalarial').show()");
             index = -1;
             secRegistro = null;
         }
@@ -949,8 +950,8 @@ public class ControlEscalafonSalarial implements Serializable {
                 duplicarGrupoSalarial.setSalario(filtrarListaGruposSalariales.get(indexGS).getSalario());
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:DuplicarRegistroGrupoSalarial");
-            context.execute("DuplicarRegistroGrupoSalarial.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroGrupoSalarial");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroGrupoSalarial').show()");
             indexGS = -1;
             secRegistroGS = null;
         }
@@ -974,14 +975,14 @@ public class ControlEscalafonSalarial implements Serializable {
                 listEscalafonesSalarialesCrear.add(duplicarEscalafonSalarial);
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:ACEPTAR");
-                context.update("form:datosEscalafonSalarial");
-                context.execute("DuplicarRegistroEscalafonSalarial.hide()");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
+                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroEscalafonSalarial').hide()");
                 index = -1;
                 secRegistro = null;
                 if (guardado == true) {
                     guardado = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //PrimefacesContextUI.actualizar("form:aceptar");
                 }
                 if (bandera == 1) {
                     altoTablaEscalafon = "170";
@@ -991,7 +992,7 @@ public class ControlEscalafonSalarial implements Serializable {
                     escalafonDescripcion.setFilterStyle("display: none; visibility: hidden;");
                     escalafonTipoTrabajador = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafonSalarial:escalafonTipoTrabajador");
                     escalafonTipoTrabajador.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosEscalafonSalarial");
+                    PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
                     bandera = 0;
                     filtrarListaEscalafonesSalariales = null;
                     tipoLista = 0;
@@ -999,11 +1000,11 @@ public class ControlEscalafonSalarial implements Serializable {
                 duplicarEscalafonSalarial = new EscalafonesSalariales();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorDescripcionEscalafon.show()");
+                PrimefacesContextUI.ejecutar("PF('errorDescripcionEscalafon').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullEscalafon.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullEscalafon').show()");
         }
     }
 
@@ -1023,14 +1024,14 @@ public class ControlEscalafonSalarial implements Serializable {
             listGruposSalarialesCrear.add(duplicarGrupoSalarial);
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosGrupoSalarial");
-            context.execute("DuplicarRegistroGrupoSalarial.hide()");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroGrupoSalarial').hide()");
             indexGS = -1;
             secRegistroGS = null;
             if (guardadoGS == true) {
                 guardadoGS = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
             if (banderaGS == 1) {
                 altoTablaGrupo = "120";
@@ -1038,7 +1039,7 @@ public class ControlEscalafonSalarial implements Serializable {
                 grupoSalario.setFilterStyle("display: none; visibility: hidden;");
                 grupoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGrupoSalarial:grupoDescripcion");
                 grupoDescripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
                 banderaGS = 0;
                 filtrarListaGruposSalariales = null;
                 tipoListaGS = 0;
@@ -1046,7 +1047,7 @@ public class ControlEscalafonSalarial implements Serializable {
             duplicarGrupoSalarial = new GruposSalariales();
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullGrupo.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullGrupo').show()");
         }
     }
 
@@ -1078,7 +1079,7 @@ public class ControlEscalafonSalarial implements Serializable {
                 borrarEscalafonSalarial();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorBorrarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorBorrarRegistro').show()");
             }
         }
         if (indexGS >= 0) {
@@ -1119,14 +1120,14 @@ public class ControlEscalafonSalarial implements Serializable {
 
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosEscalafonSalarial");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
     }
@@ -1164,14 +1165,14 @@ public class ControlEscalafonSalarial implements Serializable {
 
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosGrupoSalarial");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
             indexGS = -1;
             secRegistroGS = null;
 
             if (guardadoGS == true) {
                 guardadoGS = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
     }
@@ -1191,7 +1192,7 @@ public class ControlEscalafonSalarial implements Serializable {
                 escalafonDescripcion.setFilterStyle("width: 85%;");
                 escalafonTipoTrabajador = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafonSalarial:escalafonTipoTrabajador");
                 escalafonTipoTrabajador.setFilterStyle("width: 85%");
-                RequestContext.getCurrentInstance().update("form:datosEscalafonSalarial");
+                PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
                 bandera = 1;
             } else if (bandera == 1) {
                 altoTablaEscalafon = "170";
@@ -1201,7 +1202,7 @@ public class ControlEscalafonSalarial implements Serializable {
                 escalafonDescripcion.setFilterStyle("display: none; visibility: hidden;");
                 escalafonTipoTrabajador = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafonSalarial:escalafonTipoTrabajador");
                 escalafonTipoTrabajador.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosEscalafonSalarial");
+                PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
                 bandera = 0;
                 filtrarListaEscalafonesSalariales = null;
                 tipoLista = 0;
@@ -1214,7 +1215,7 @@ public class ControlEscalafonSalarial implements Serializable {
                 grupoSalario.setFilterStyle("width: 85%;");
                 grupoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGrupoSalarial:grupoDescripcion");
                 grupoDescripcion.setFilterStyle("width: 85%;");
-                RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
                 banderaGS = 1;
             } else if (banderaGS == 1) {
                 altoTablaGrupo = "120";
@@ -1222,7 +1223,7 @@ public class ControlEscalafonSalarial implements Serializable {
                 grupoSalario.setFilterStyle("display: none; visibility: hidden;");
                 grupoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGrupoSalarial:grupoDescripcion");
                 grupoDescripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
+                PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
                 banderaGS = 0;
                 filtrarListaGruposSalariales = null;
                 tipoListaGS = 0;
@@ -1243,7 +1244,7 @@ public class ControlEscalafonSalarial implements Serializable {
             escalafonDescripcion.setFilterStyle("display: none; visibility: hidden;");
             escalafonTipoTrabajador = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafonSalarial:escalafonTipoTrabajador");
             escalafonTipoTrabajador.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosEscalafonSalarial");
+            PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
             bandera = 0;
             filtrarListaEscalafonesSalariales = null;
             tipoLista = 0;
@@ -1254,7 +1255,7 @@ public class ControlEscalafonSalarial implements Serializable {
             grupoSalario.setFilterStyle("display: none; visibility: hidden;");
             grupoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGrupoSalarial:grupoDescripcion");
             grupoDescripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
+            PrimefacesContextUI.actualizar("form:datosGrupoSalarial");
             banderaGS = 0;
             filtrarListaGruposSalariales = null;
             tipoListaGS = 0;
@@ -1278,15 +1279,15 @@ public class ControlEscalafonSalarial implements Serializable {
         guardadoGS = true;
         cambiosPagina = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (index >= 0) {
             if (cualCelda == 2) {
-                context.update("form:TipoTrabajadorDialogo");
-                context.execute("TipoTrabajadorDialogo.show()");
+                PrimefacesContextUI.actualizar("form:TipoTrabajadorDialogo");
+                PrimefacesContextUI.ejecutar("PF('TipoTrabajadorDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -1303,8 +1304,8 @@ public class ControlEscalafonSalarial implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            context.update("form:TipoTrabajadorDialogo");
-            context.execute("TipoTrabajadorDialogo.show()");
+            PrimefacesContextUI.actualizar("form:TipoTrabajadorDialogo");
+            PrimefacesContextUI.ejecutar("PF('TipoTrabajadorDialogo').show()");
         }
     }
 
@@ -1337,21 +1338,21 @@ public class ControlEscalafonSalarial implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoEscalafonSalarial.setTipotrabajador(lovTiposTrabajadores.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevoEscalafonSalarialTipoTrabajador");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoEscalafonSalarialTipoTrabajador");
                 } else if (tipoNuevo == 2) {
                     duplicarEscalafonSalarial.setTipotrabajador(lovTiposTrabajadores.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarEscalafonSalarialTipoTrabajador");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarEscalafonSalarialTipoTrabajador");
                 }
                 lovTiposTrabajadores.clear();
                 getLovTiposTrabajadores();
             } else {
-                context.update("form:TipoDiaDialogo");
-                context.execute("TipoDiaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:TipoDiaDialogo");
+                PrimefacesContextUI.ejecutar("PF('TipoDiaDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevoEscalafonSalarialTipoTrabajador");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoEscalafonSalarialTipoTrabajador");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarEscalafonSalarialTipoTrabajador");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarEscalafonSalarialTipoTrabajador");
                 }
             }
         }
@@ -1384,16 +1385,16 @@ public class ControlEscalafonSalarial implements Serializable {
             permitirIndex = true;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosEscalafonSalarial");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosEscalafonSalarial");
         } else if (tipoActualizacion == 1) {
             nuevoEscalafonSalarial.setTipotrabajador(tipoTrabajadorSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:nuevoEscalafonSalarialTipoTrabajador");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoEscalafonSalarialTipoTrabajador");
         } else if (tipoActualizacion == 2) {
             duplicarEscalafonSalarial.setTipotrabajador(tipoTrabajadorSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarEscalafonSalarialTipoTrabajador");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEscalafonSalarialTipoTrabajador");
         }
         filtrarLovTiposTrabajadores = null;
         tipoTrabajadorSeleccionado = null;
@@ -1403,12 +1404,12 @@ public class ControlEscalafonSalarial implements Serializable {
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         /*
-        context.update("form:TipoTrabajadorDialogo");
-        context.update("form:lovTipoTrabajador");
-        context.update("form:aceptarTT");*/
+        PrimefacesContextUI.actualizar("form:TipoTrabajadorDialogo");
+        PrimefacesContextUI.actualizar("form:lovTipoTrabajador");
+        PrimefacesContextUI.actualizar("form:aceptarTT");*/
         context.reset("form:lovTipoTrabajador:globalFilter");
-        context.execute("lovTipoTrabajador.clearFilters()");
-        context.execute("TipoTrabajadorDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoTrabajador').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('TipoTrabajadorDialogo').hide()");
     }
 
     public void cancelarCambioTipoTrabajador() {
@@ -1550,30 +1551,30 @@ public class ControlEscalafonSalarial implements Serializable {
                 backUp = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "EscalafonesSalariales";
                     msnConfirmarRastro = "La tabla ESCALAFONESSALARIALES tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("ESCALAFONESSALARIALES")) {
                 nombreTablaRastro = "EscalafonesSalariales";
                 msnConfirmarRastroHistorico = "La tabla ESCALAFONESSALARIALES tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;
@@ -1588,30 +1589,30 @@ public class ControlEscalafonSalarial implements Serializable {
                 backUp = secRegistroGS;
                 secRegistroGS = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "GruposSalariales";
                     msnConfirmarRastro = "La tabla GRUPOSSALARIALES tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("GRUPOSSALARIALES")) {
                 nombreTablaRastro = "GruposSalariales";
                 msnConfirmarRastroHistorico = "La tabla GRUPOSSALARIALES tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;

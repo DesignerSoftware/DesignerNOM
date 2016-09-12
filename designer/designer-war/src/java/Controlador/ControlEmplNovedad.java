@@ -28,6 +28,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -122,7 +123,7 @@ public class ControlEmplNovedad implements Serializable {
             modificarInfoRegistro(0);
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
 
 
     }
@@ -140,8 +141,8 @@ public class ControlEmplNovedad implements Serializable {
             modificarInfoRegistro(0);
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosNovedadesEmpleado");
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
 
     public void sencillo() {
@@ -166,11 +167,11 @@ public class ControlEmplNovedad implements Serializable {
             listNovedadesEmpleado.set(posi, actualNovedad);
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosNovedadesEmpleado");
+        PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
         index = -1;
         secRegistro = null;
     }
@@ -206,48 +207,48 @@ public class ControlEmplNovedad implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarCodigoConceptoD");
-                context.execute("editarCodigoConceptoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoConceptoD");
+                PrimefacesContextUI.ejecutar("PF('editarCodigoConceptoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarDescripcionConceptoD");
-                context.execute("editarDescripcionConceptoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionConceptoD");
+                PrimefacesContextUI.ejecutar("PF('editarDescripcionConceptoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarFechaInicial");
-                context.execute("editarFechaInicial.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicial");
+                PrimefacesContextUI.ejecutar("PF('editarFechaInicial').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                context.update("formularioDialogos:editarFechaFinal");
-                context.execute("editarFechaFinal.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinal");
+                PrimefacesContextUI.ejecutar("PF('editarFechaFinal').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                context.update("formularioDialogos:editarValorD");
-                context.execute("editarValorD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarValorD");
+                PrimefacesContextUI.ejecutar("PF('editarValorD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                context.update("formularioDialogos:editarSaldoD");
-                context.execute("editarSaldoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarSaldoD");
+                PrimefacesContextUI.ejecutar("PF('editarSaldoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
-                context.update("formularioDialogos:editarCodigoPeriodicidadD");
-                context.execute("editarCodigoPeriodicidadD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoPeriodicidadD");
+                PrimefacesContextUI.ejecutar("PF('editarCodigoPeriodicidadD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
-                context.update("formularioDialogos:editarNombrePeriodicidadD");
-                context.execute("editarNombrePeriodicidadD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarNombrePeriodicidadD");
+                PrimefacesContextUI.ejecutar("PF('editarNombrePeriodicidadD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 8) {
-                context.update("formularioDialogos:editarTerceroD");
-                context.execute("editarTerceroD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarTerceroD");
+                PrimefacesContextUI.ejecutar("PF('editarTerceroD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 9) {
-                context.update("formularioDialogos:editarObservacionD");
-                context.execute("editarObservacionD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarObservacionD");
+                PrimefacesContextUI.ejecutar("PF('editarObservacionD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 10) {
-                context.update("formularioDialogos:editarFechaIngreso");
-                context.execute("editarFechaIngreso.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaIngreso");
+                PrimefacesContextUI.ejecutar("PF('editarFechaIngreso').show()");
                 cualCelda = -1;
             }
         }
@@ -280,7 +281,7 @@ public class ControlEmplNovedad implements Serializable {
             novedadObservacion.setFilterStyle("width: 85%");
             novedadFechaReporte = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNovedadesEmpleado:novedadFechaReporte");
             novedadFechaReporte.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+            PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
             bandera = 1;
         } else if (bandera == 1) {
             cerrarFiltrado();
@@ -327,7 +328,7 @@ public class ControlEmplNovedad implements Serializable {
         novedadObservacion.setFilterStyle("display: none; visibility: hidden;");
         novedadFechaReporte = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNovedadesEmpleado:novedadFechaReporte");
         novedadFechaReporte.setFilterStyle("display: none; visibility: hidden;");
-        RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+        PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
         bandera = 0;
         filtrarListNovedadesEmpleado = null;
         tipoLista = 0;
@@ -382,7 +383,7 @@ public class ControlEmplNovedad implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         // infoRegistro = "Cantidad de Registros: " + filtrarListNovedadesEmpleado.size();
         modificarInfoRegistro(filtrarListNovedadesEmpleado.size());
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
     //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
 
@@ -394,21 +395,21 @@ public class ControlEmplNovedad implements Serializable {
                 backUpSecRegistro = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
                 if (administrarRastros.verificarHistoricosTabla("NOVEDADES")) {
-                    context.execute("confirmarRastroHistorico.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
                 } else {
-                    context.execute("errorRastroHistorico.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
                 }
 
             }

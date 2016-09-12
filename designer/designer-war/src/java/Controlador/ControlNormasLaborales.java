@@ -25,6 +25,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -121,7 +122,7 @@ public class ControlNormasLaborales implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             modificarInfoRegistro(filtrarNormasLaborales.size());
             System.err.println("filtrarNormasLaborales.size(): " + filtrarNormasLaborales.size());
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlNormasLaborales eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -188,9 +189,9 @@ public class ControlNormasLaborales implements Serializable {
             modificarInfoRegistro(0);
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:informacionRegistro");
-        context.update("form:datosNormaLaboral");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosNormaLaboral");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void salir() {
@@ -211,7 +212,7 @@ public class ControlNormasLaborales implements Serializable {
         codigo.setFilterStyle("display: none; visibility: hidden;");
         descripcion = (Column) c.getViewRoot().findComponent("form:datosNormaLaboral:descripcion");
         descripcion.setFilterStyle("display: none; visibility: hidden;");
-        RequestContext.getCurrentInstance().update("form:datosNormaLaboral");
+        PrimefacesContextUI.actualizar("form:datosNormaLaboral");
         bandera = 0;
         filtrarNormasLaborales = null;
         tipoLista = 0;
@@ -225,7 +226,7 @@ public class ControlNormasLaborales implements Serializable {
             codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosNormaLaboral:descripcion");
             descripcion.setFilterStyle("width: 85%;");
-            RequestContext.getCurrentInstance().update("form:datosNormaLaboral");
+            PrimefacesContextUI.actualizar("form:datosNormaLaboral");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -290,8 +291,8 @@ public class ControlNormasLaborales implements Serializable {
                     }
 
                 } else {
-                    context.update("form:validacionModificar");
-                    context.execute("validacionModificar.show()");
+                    PrimefacesContextUI.actualizar("form:validacionModificar");
+                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                 }
             } else {
                 if (normaLaboralSeleccionada.getCodigo() == null) {
@@ -300,8 +301,8 @@ public class ControlNormasLaborales implements Serializable {
                     normaLaboralSeleccionada.setCodigo(backUpCodigo);
                 }
             }
-            context.update("form:datosNormaLaboral");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosNormaLaboral");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -325,15 +326,15 @@ public class ControlNormasLaborales implements Serializable {
                 filtrarNormasLaborales.remove(normaLaboralSeleccionada);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosNormaLaboral");
+            PrimefacesContextUI.actualizar("form:datosNormaLaboral");
             //infoRegistro = "Cantidad de registros: " + listNormasLaborales.size();
             modificarInfoRegistro(listNormasLaborales.size());
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             normaLaboralSeleccionada = null;
             if (guardado) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -350,8 +351,8 @@ public class ControlNormasLaborales implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:validacionBorrar");
-                context.execute("validacionBorrar.show()");
+                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 normaLaboralSeleccionada = null;
                 borradoVC = new BigInteger("-1");
             }
@@ -370,8 +371,8 @@ public class ControlNormasLaborales implements Serializable {
                 administrarNormasLaborales.borrarNormasLaborales(borrarNormaLaboral);
                 //mostrarBorrados
                 registrosBorrados = borrarNormaLaboral.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarNormaLaboral.clear();
             }
             if (!crearNormaLaboral.isEmpty()) {
@@ -391,14 +392,14 @@ public class ControlNormasLaborales implements Serializable {
             } else {
                 modificarInfoRegistro(0);
             }
-            context.update("form:datosNormaLaboral");
+            PrimefacesContextUI.actualizar("form:datosNormaLaboral");
             FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
             k = 0;
             guardado = true;
         }
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -408,12 +409,12 @@ public class ControlNormasLaborales implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editCodigo");
-                context.execute("editCodigo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editDescripcion");
-                context.execute("editDescripcion.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
 
@@ -480,19 +481,19 @@ public class ControlNormasLaborales implements Serializable {
             normaLaboralSeleccionada = listNormasLaborales.get(listNormasLaborales.indexOf(nuevoNormaLaboral));
             nuevoNormaLaboral = new NormasLaborales();
 
-            context.update("form:datosNormaLaboral");
+            PrimefacesContextUI.actualizar("form:datosNormaLaboral");
             modificarInfoRegistro(listNormasLaborales.size());
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             if (guardado) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
 
-            context.execute("nuevoRegistroNormaLaboral.hide()");
+            PrimefacesContextUI.ejecutar("PF('nuevoRegistroNormaLaboral').hide()");
 
         } else {
-            context.update("form:validacionNuevaCentroCosto");
-            context.execute("validacionNuevaCentroCosto.show()");
+            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -515,8 +516,8 @@ public class ControlNormasLaborales implements Serializable {
             duplicarNormaLaboral.setCodigo(normaLaboralSeleccionada.getCodigo());
             duplicarNormaLaboral.setNombre(normaLaboralSeleccionada.getNombre());
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarNormaLaboral");
-            context.execute("duplicarRegistroNormasLaborales.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarNormaLaboral");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroNormasLaborales').show()");
         }
     }
 
@@ -572,24 +573,24 @@ public class ControlNormasLaborales implements Serializable {
             listNormasLaborales.add(duplicarNormaLaboral);
             crearNormaLaboral.add(duplicarNormaLaboral);
             normaLaboralSeleccionada = listNormasLaborales.get(listNormasLaborales.indexOf(duplicarNormaLaboral));
-            context.update("form:datosNormaLaboral");
+            PrimefacesContextUI.actualizar("form:datosNormaLaboral");
             //infoRegistro = "Cantidad de registros: " + listNormasLaborales.size();
             modificarInfoRegistro(listNormasLaborales.size());
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             if (guardado) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             if (bandera == 1) {
                 cerrarFiltrado();
             }
             duplicarNormaLaboral = new NormasLaborales();
-            RequestContext.getCurrentInstance().execute("duplicarRegistroNormasLaborales.hide()");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroNormasLaborales').hide()");
 
         } else {
             contador = 0;
-            context.update("form:validacionDuplicarVigencia");
-            context.execute("validacionDuplicarVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -619,21 +620,21 @@ public class ControlNormasLaborales implements Serializable {
             int resultado = administrarRastros.obtenerTabla(normaLaboralSeleccionada.getSecuencia(), "NORMASLABORALES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
-                context.execute("errorObjetosDB.show()");
+                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                context.execute("confirmarRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                context.execute("errorRegistroRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                context.execute("errorTablaConRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                context.execute("errorTablaSinRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("NORMASLABORALES")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }

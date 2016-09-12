@@ -25,6 +25,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 @ManagedBean
 @SessionScoped
@@ -103,7 +104,7 @@ public class ControlTiposDescansos implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarTiposDescansos.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlTiposDescansos eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -172,7 +173,7 @@ public class ControlTiposDescansos implements Serializable {
             diasTrabajados.setFilterStyle("display: none; visibility: hidden;");
             diasDescansados = (Column) c.getViewRoot().findComponent("form:datosTiposDescansos:diasDescansados");
             diasDescansados.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTiposDescansos");
+            PrimefacesContextUI.actualizar("form:datosTiposDescansos");
             bandera = 0;
             filtrarTiposDescansos = null;
             tipoLista = 0;
@@ -193,9 +194,9 @@ public class ControlTiposDescansos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listTiposDescansos.size();
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosTiposDescansos");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosTiposDescansos");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void salir() {
@@ -210,7 +211,7 @@ public class ControlTiposDescansos implements Serializable {
             diasTrabajados.setFilterStyle("display: none; visibility: hidden;");
             diasDescansados = (Column) c.getViewRoot().findComponent("form:datosTiposDescansos:diasDescansados");
             diasDescansados.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTiposDescansos");
+            PrimefacesContextUI.actualizar("form:datosTiposDescansos");
             bandera = 0;
             filtrarTiposDescansos = null;
             tipoLista = 0;
@@ -231,9 +232,9 @@ public class ControlTiposDescansos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listTiposDescansos.size();
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosTiposDescansos");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosTiposDescansos");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -248,7 +249,7 @@ public class ControlTiposDescansos implements Serializable {
             diasTrabajados.setFilterStyle("width: 85%;");
             diasDescansados = (Column) c.getViewRoot().findComponent("form:datosTiposDescansos:diasDescansados");
             diasDescansados.setFilterStyle("width: 85%;");
-            RequestContext.getCurrentInstance().update("form:datosTiposDescansos");
+            PrimefacesContextUI.actualizar("form:datosTiposDescansos");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -262,7 +263,7 @@ public class ControlTiposDescansos implements Serializable {
             diasTrabajados.setFilterStyle("display: none; visibility: hidden;");
             diasDescansados = (Column) c.getViewRoot().findComponent("form:datosTiposDescansos:diasDescansados");
             diasDescansados.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTiposDescansos");
+            PrimefacesContextUI.actualizar("form:datosTiposDescansos");
             bandera = 0;
             filtrarTiposDescansos = null;
             tipoLista = 0;
@@ -330,8 +331,8 @@ public class ControlTiposDescansos implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -380,8 +381,8 @@ public class ControlTiposDescansos implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -440,8 +441,8 @@ public class ControlTiposDescansos implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -492,16 +493,16 @@ public class ControlTiposDescansos implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
                 }
 
             }
-            context.update("form:datosTiposDescansos");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTiposDescansos");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -546,15 +547,15 @@ public class ControlTiposDescansos implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listTiposDescansos.size();
             }
-            context.update("form:informacionRegistro");
-            context.update("form:datosTiposDescansos");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:datosTiposDescansos");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -577,8 +578,8 @@ public class ControlTiposDescansos implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:validacionBorrar");
-                context.execute("validacionBorrar.show()");
+                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
                 contarCodeudoresTipoDocumento = new BigInteger("-1");
 
@@ -592,8 +593,8 @@ public class ControlTiposDescansos implements Serializable {
 
         if (!borrarTiposDescansos.isEmpty() || !crearTiposDescansos.isEmpty() || !modificarTiposDescansos.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:confirmarGuardar");
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
     }
@@ -607,8 +608,8 @@ public class ControlTiposDescansos implements Serializable {
                 administrarTiposDescansos.borrarTiposDescansos(borrarTiposDescansos);
                 //mostrarBorrados
                 registrosBorrados = borrarTiposDescansos.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarTiposDescansos.clear();
             }
             if (!modificarTiposDescansos.isEmpty()) {
@@ -621,15 +622,15 @@ public class ControlTiposDescansos implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listTiposDescansos = null;
-            context.update("form:datosTiposDescansos");
+            PrimefacesContextUI.actualizar("form:datosTiposDescansos");
             k = 0;
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
         index = -1;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -645,21 +646,21 @@ public class ControlTiposDescansos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editCodigo");
-                context.execute("editCodigo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editDescripcion");
-                context.execute("editDescripcion.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editDiasTrabajados");
-                context.execute("editDiasTrabajados.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editDiasTrabajados");
+                PrimefacesContextUI.ejecutar("PF('editDiasTrabajados').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 3) {
-                context.update("formularioDialogos:editDiasDescansados");
-                context.execute("editDiasDescansados.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editDiasDescansados");
+                PrimefacesContextUI.ejecutar("PF('editDiasDescansados').show()");
                 cualCelda = -1;
             }
 
@@ -716,7 +717,7 @@ public class ControlTiposDescansos implements Serializable {
                 diasTrabajados.setFilterStyle("display: none; visibility: hidden;");
                 diasDescansados = (Column) c.getViewRoot().findComponent("form:datosTiposDescansos:diasDescansados");
                 diasDescansados.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTiposDescansos");
+                PrimefacesContextUI.actualizar("form:datosTiposDescansos");
                 bandera = 0;
                 filtrarTiposDescansos = null;
                 tipoLista = 0;
@@ -731,22 +732,22 @@ public class ControlTiposDescansos implements Serializable {
 
             listTiposDescansos.add(nuevoTiposDescansos);
             nuevoTiposDescansos = new TiposDescansos();
-            context.update("form:datosTiposDescansos");
+            PrimefacesContextUI.actualizar("form:datosTiposDescansos");
             infoRegistro = "Cantidad de registros: " + listTiposDescansos.size();
 
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
 
-            context.execute("nuevoRegistroTiposDescansos.hide()");
+            PrimefacesContextUI.ejecutar("PF('nuevoRegistroTiposDescansos').hide()");
             index = -1;
             secRegistro = null;
 
         } else {
-            context.update("form:validacionNuevaCentroCosto");
-            context.execute("validacionNuevaCentroCosto.show()");
+            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -779,8 +780,8 @@ public class ControlTiposDescansos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarTE");
-            context.execute("duplicarRegistroTiposDescansos.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposDescansos').show()");
             index = -1;
             secRegistro = null;
         }
@@ -828,15 +829,15 @@ public class ControlTiposDescansos implements Serializable {
             }
             listTiposDescansos.add(duplicarTiposDescansos);
             crearTiposDescansos.add(duplicarTiposDescansos);
-            context.update("form:datosTiposDescansos");
+            PrimefacesContextUI.actualizar("form:datosTiposDescansos");
             infoRegistro = "Cantidad de registros: " + listTiposDescansos.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
@@ -848,18 +849,18 @@ public class ControlTiposDescansos implements Serializable {
                 diasTrabajados.setFilterStyle("display: none; visibility: hidden;");
                 diasDescansados = (Column) c.getViewRoot().findComponent("form:datosTiposDescansos:diasDescansados");
                 diasDescansados.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTiposDescansos");
+                PrimefacesContextUI.actualizar("form:datosTiposDescansos");
                 bandera = 0;
                 filtrarTiposDescansos = null;
                 tipoLista = 0;
             }
             duplicarTiposDescansos = new TiposDescansos();
-            RequestContext.getCurrentInstance().execute("duplicarRegistroTiposDescansos.hide()");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposDescansos').hide()");
 
         } else {
             contador = 0;
-            context.update("form:validacionDuplicarVigencia");
-            context.execute("validacionDuplicarVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -896,24 +897,24 @@ public class ControlTiposDescansos implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "TIPOSDESCANSOS"); //En ENCARGATURAS lo cambia por el Descripcion de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("TIPOSDESCANSOS")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -931,7 +932,7 @@ public class ControlTiposDescansos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listTiposDescansos.size();
         }
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
         return listTiposDescansos;
     }
 

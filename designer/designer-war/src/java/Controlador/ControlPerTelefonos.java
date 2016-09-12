@@ -25,6 +25,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 @ManagedBean
 @SessionScoped
@@ -144,7 +145,7 @@ public class ControlPerTelefonos implements Serializable {
         aceptar = true;
         getListaTelefonos();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosTelefonosPersona");
+        PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
     }
 
     //CANCELAR MODIFICACIONES
@@ -159,7 +160,7 @@ public class ControlPerTelefonos implements Serializable {
             tNumero.setFilterStyle("display: none; visibility: hidden;");
             tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
             tCiudad.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+            PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
             bandera = 0;
             filtradosListaTelefonos = null;
             tipoLista = 0;
@@ -179,9 +180,9 @@ public class ControlPerTelefonos implements Serializable {
         contarRegistros();
         deshabilitarBotonLov();
         RequestContext context = RequestContext.getCurrentInstance();
-        //context.update("form:infoRegistro");
-        context.update("form:ACEPTAR");
-        context.update("form:datosTelefonosPersona");
+        //PrimefacesContextUI.actualizar("form:infoRegistro");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
     }
 
     public void actualizarTiposTelefonos() {
@@ -208,30 +209,30 @@ public class ControlPerTelefonos implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             permitirIndex = true;
-            context.update("form:datosTelefonosPersona");
+            PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
         } else if (tipoActualizacion == 1) {
             nuevoTelefono.setTipotelefono(seleccionTipoTelefono);
-            context.update("formularioDialogos:nuevoTelefono");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTelefono");
         } else if (tipoActualizacion == 2) {
             duplicarTelefono.setTipotelefono(seleccionTipoTelefono);
-            context.update("formularioDialogos:duplicarTelefono");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTelefono");
         }
         filtradoslistaTiposTelefonos = null;
         seleccionTipoTelefono = null;
         aceptar = true;
         tipoActualizacion = -1;
         //cualCelda = -1;
-        context.update("form:tiposTelefonosDialogo");
-        context.update("form:LOVTiposTelefonos");
-        context.update("form:aceptarTT");
+        PrimefacesContextUI.actualizar("form:tiposTelefonosDialogo");
+        PrimefacesContextUI.actualizar("form:LOVTiposTelefonos");
+        PrimefacesContextUI.actualizar("form:aceptarTT");
 
         context.reset("formularioDialogos:LOVTiposTelefonos:globalFilter");
-        context.execute("LOVTiposTelefonos.clearFilters()");
-        context.execute("tiposTelefonosDialogo.hide()");
-        //context.update("formularioDialogos:LOVTiposTelefonos");
+        PrimefacesContextUI.ejecutar("PF('LOVTiposTelefonos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('tiposTelefonosDialogo').hide()");
+        //PrimefacesContextUI.actualizar("formularioDialogos:LOVTiposTelefonos");
     }
 
     public void cancelarCambioTiposTelefonos() {
@@ -242,12 +243,12 @@ public class ControlPerTelefonos implements Serializable {
         cualCelda = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:tiposTelefonosDialogo");
-        context.update("form:LOVTiposTelefonos");
-        context.update("form:aceptarTT");
+        PrimefacesContextUI.actualizar("form:tiposTelefonosDialogo");
+        PrimefacesContextUI.actualizar("form:LOVTiposTelefonos");
+        PrimefacesContextUI.actualizar("form:aceptarTT");
         context.reset("formularioDialogos:LOVTiposTelefonos:globalFilter");
-        context.execute("LOVTiposTelefonos.clearFilters()");
-        context.execute("tiposTelefonosDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('LOVTiposTelefonos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('tiposTelefonosDialogo').hide()");
     }
 //MOSTRAR DATOS CELDA
 
@@ -262,29 +263,29 @@ public class ControlPerTelefonos implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarFecha");
-                context.execute("editarFecha.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFecha");
+                PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
                 cualCelda = -1;
                 deshabilitarBotonLov();
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarTT");
-                context.execute("editarTT.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarTT");
+                PrimefacesContextUI.ejecutar("PF('editarTT').show()");
                 habilitarBotonLov();
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarNumeroTelefono");
-                context.execute("editarNumeroTelefono.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarNumeroTelefono");
+                PrimefacesContextUI.ejecutar("PF('editarNumeroTelefono').show()");
                 cualCelda = -1;
                 deshabilitarBotonLov();
             } else if (cualCelda == 3) {
-                context.update("formularioDialogos:editarCiudad");
-                context.execute("editarCiudad.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCiudad");
+                PrimefacesContextUI.ejecutar("PF('editarCiudad').show()");
                 cualCelda = -1;
                 habilitarBotonLov();
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -295,14 +296,14 @@ public class ControlPerTelefonos implements Serializable {
             if (cualCelda == 1) {
                 habilitarBotonLov();
                 modificarInfoRegistroTT(listaTiposTelefonos.size());
-                context.update("formularioDialogos:tiposTelefonosDialogo");
-                context.execute("tiposTelefonosDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:tiposTelefonosDialogo");
+                PrimefacesContextUI.ejecutar("PF('tiposTelefonosDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 3) {
                 habilitarBotonLov();
                 modificarInfoRegistroCiudad(listaCiudades.size());
-                context.update("formularioDialogos:ciudadesDialogo");
-                context.execute("ciudadesDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:ciudadesDialogo");
+                PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -326,16 +327,16 @@ public class ControlPerTelefonos implements Serializable {
             }
             modificarInfoRegistro(listaTelefonos.size());
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:infoRegistro");
-            context.update("form:datosTelefonosPersona");
+            PrimefacesContextUI.actualizar("form:infoRegistro");
+            PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
             telefonoSeleccionado = null;
 
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         } else {
-            RequestContext.getCurrentInstance().execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -363,10 +364,10 @@ public class ControlPerTelefonos implements Serializable {
                 altoTabla = "270";
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarTelefono");
-            context.execute("DuplicarRegistroTelefono.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTelefono");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTelefono').show()");
         } else {
-            RequestContext.getCurrentInstance().execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -393,13 +394,13 @@ public class ControlPerTelefonos implements Serializable {
         }
         for (int i = 0; i < listaTelefonos.size(); i++) {
             if ((listaTelefonos.get(i).getTipotelefono().getNombre().equals(duplicarTelefono.getTipotelefono().getNombre())) && (!(listaTelefonos.get(i).getFechavigencia().before(duplicarTelefono.getFechavigencia())) && !(duplicarTelefono.getFechavigencia().before(listaTelefonos.get(i).getFechavigencia())))) {
-                context.update("formularioDialogos:existeTipoTelefono");
-                context.execute("existeTipoTelefono.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:existeTipoTelefono");
+                PrimefacesContextUI.ejecutar("PF('existeTipoTelefono').show()");
                 pasaA++;
             }
             if (pasa != 0) {
-                context.update("formularioDialogos:validacionNuevoTelefono");
-                context.execute("validacionNuevoTelefono.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoTelefono");
+                PrimefacesContextUI.ejecutar("PF('validacionNuevoTelefono').show()");
             }
         }
 
@@ -409,12 +410,12 @@ public class ControlPerTelefonos implements Serializable {
             telefonoSeleccionado = duplicarTelefono;
             getListaTelefonos();
             modificarInfoRegistro(listaTelefonos.size());
-            context.update("form:datosTelefonosPersona");
-            context.update("form:infoRegistro");
-            RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+            PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
+            PrimefacesContextUI.actualizar("form:infoRegistro");
+            PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -429,13 +430,13 @@ public class ControlPerTelefonos implements Serializable {
                 tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
                 tCiudad.setFilterStyle("display: none; visibility: hidden;");
                 altoTabla = "270";
-                RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+                PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
                 bandera = 0;
                 filtradosListaTelefonos = null;
                 tipoLista = 0;
             }
             duplicarTelefono = new Telefonos();
-            RequestContext.getCurrentInstance().execute("DuplicarRegistroTelefono.hide()");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTelefono').hide()");
         }
 
     }
@@ -490,7 +491,7 @@ public class ControlPerTelefonos implements Serializable {
             tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
             tCiudad.setFilterStyle("width: 85%");
             altoTabla = "250";
-            RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+            PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
             bandera = 1;
 
         } else if (bandera == 1) {
@@ -505,7 +506,7 @@ public class ControlPerTelefonos implements Serializable {
             tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
             tCiudad.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "270";
-            RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+            PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
             bandera = 0;
             filtradosListaTelefonos = null;
             tipoLista = 0;
@@ -544,13 +545,13 @@ public class ControlPerTelefonos implements Serializable {
         }
         for (int i = 0; i < listaTelefonos.size(); i++) {
             if ((listaTelefonos.get(i).getTipotelefono().getNombre().equals(nuevoTelefono.getTipotelefono().getNombre())) && (!(listaTelefonos.get(i).getFechavigencia().before(nuevoTelefono.getFechavigencia())) && !(nuevoTelefono.getFechavigencia().before(listaTelefonos.get(i).getFechavigencia())))) {
-                context.update("formularioDialogos:existeTipoTelefono");
-                context.execute("existeTipoTelefono.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:existeTipoTelefono");
+                PrimefacesContextUI.ejecutar("PF('existeTipoTelefono').show()");
                 pasaA++;
             }
 //            if (pasa != 0) {
-//                context.update("formularioDialogos:validacionNuevoTelefono");
-//                context.execute("validacionNuevoTelefono.show()");
+//                PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoTelefono");
+//                PrimefacesContextUI.ejecutar("PF('validacionNuevoTelefono').show()");
 //            }
         }
 
@@ -564,7 +565,7 @@ public class ControlPerTelefonos implements Serializable {
                 tNumero.setFilterStyle("display: none; visibility: hidden;");
                 tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
                 tCiudad.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+                PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
                 bandera = 0;
                 filtradosListaTelefonos = null;
                 tipoLista = 0;
@@ -586,16 +587,16 @@ public class ControlPerTelefonos implements Serializable {
             getListaTelefonos();
             modificarInfoRegistro(listaTelefonos.size());
             deshabilitarBotonLov();
-            context.update("form:infoRegistro");
-            context.update("form:datosTelefonosPersona");
+            PrimefacesContextUI.actualizar("form:infoRegistro");
+            PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
-            context.execute("NuevoRegistroTelefono.hide()");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroTelefono').hide()");
         } else {
-            context.update("formularioDialogos:validacionNuevoTelefono");
-            context.execute("validacionNuevoTelefono.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoTelefono");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevoTelefono').show()");
         }
     }
 
@@ -624,16 +625,16 @@ public class ControlPerTelefonos implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             permitirIndex = true;
-            context.update("form:datosTelefonosPersona");
+            PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
         } else if (tipoActualizacion == 1) {
             nuevoTelefono.setCiudad(seleccionCiudades);
-            context.update("formularioDialogos:nuevoTelefono");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTelefono");
         } else if (tipoActualizacion == 2) {
             duplicarTelefono.setCiudad(seleccionCiudades);
-            context.update("formularioDialogos:duplicarTelefono");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTelefono");
         }
         filtradoslistaCiudades = null;
         seleccionCiudades = null;
@@ -641,9 +642,9 @@ public class ControlPerTelefonos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVCiudades:globalFilter");
-        context.execute("LOVCiudades.clearFilters()");
-        context.execute("ciudadesDialogo.hide()");
-        //context.update("formularioDialogos:LOVCiudades");
+        PrimefacesContextUI.ejecutar("PF('LOVCiudades').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').hide()");
+        //PrimefacesContextUI.actualizar("formularioDialogos:LOVCiudades");
     }
 
     public void cancelarCambioCiudad() {
@@ -655,8 +656,8 @@ public class ControlPerTelefonos implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVCiudades:globalFilter");
-        context.execute("LOVCiudades.clearFilters()");
-        context.execute("ciudadesDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('LOVCiudades').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').hide()");
     }
 
     //Ubicacion Celda.
@@ -709,7 +710,7 @@ public class ControlPerTelefonos implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 deshabilitarBotonLov();
@@ -725,13 +726,13 @@ public class ControlPerTelefonos implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 deshabilitarBotonLov();
                 telefonoSeleccionado = null;
             }
-            context.update("form:datosTelefonosPersona");
+            PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
         } else if (confirmarCambio.equalsIgnoreCase("TIPOTELEFONO")) {
             if (tipoLista == 0) {
                 telefonoSeleccionado.getTipotelefono().setNombre(TipoTelefono);
@@ -756,8 +757,8 @@ public class ControlPerTelefonos implements Serializable {
                 getListaTiposTelefonos();
             } else {
                 permitirIndex = false;
-                context.update("formularioDialogos:tiposTelefonosDialogo");
-                context.execute("tiposTelefonosDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:tiposTelefonosDialogo");
+                PrimefacesContextUI.ejecutar("PF('tiposTelefonosDialogo').show()");
                 tipoActualizacion = 0;
             }
         } else if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
@@ -782,8 +783,8 @@ public class ControlPerTelefonos implements Serializable {
                 getListaCiudades();
             } else {
                 permitirIndex = false;
-                context.update("formularioDialogos:ciudadesDialogo");
-                context.execute("ciudadesDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:ciudadesDialogo");
+                PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -797,7 +798,7 @@ public class ControlPerTelefonos implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 deshabilitarBotonLov();
@@ -812,13 +813,13 @@ public class ControlPerTelefonos implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 telefonoSeleccionado = null;
             }
         }
-        context.update("form:datosTelefonosPersona");
+        PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
     }
 
     //GUARDAR
@@ -866,16 +867,16 @@ public class ControlPerTelefonos implements Serializable {
             getListaTelefonos();
             contarRegistros();
             RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             k = 0;
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
         deshabilitarBotonLov();
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
         permitirIndex = true;
         telefonoSeleccionado = null;
 
@@ -895,7 +896,7 @@ public class ControlPerTelefonos implements Serializable {
             tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
             tCiudad.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "270";
-            RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+            PrimefacesContextUI.actualizar("form:datosTelefonosPersona");
             bandera = 0;
             filtradosListaTelefonos = null;
             tipoLista = 0;
@@ -952,21 +953,21 @@ public class ControlPerTelefonos implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoTelefono.setTipotelefono(listaTiposTelefonos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevoTipoTelefono");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoTelefono");
                 } else if (tipoNuevo == 2) {
                     duplicarTelefono.setTipotelefono(listaTiposTelefonos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarTipoTelefono");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoTelefono");
                 }
                 listaTiposTelefonos.clear();
                 getListaTiposTelefonos();
             } else {
-                context.update("form:tiposTelefonosDialogo");
-                context.execute("tiposTelefonosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:tiposTelefonosDialogo");
+                PrimefacesContextUI.ejecutar("PF('tiposTelefonosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevoTipoTelefono");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoTelefono");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarTipoTelefono");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoTelefono");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
@@ -984,21 +985,21 @@ public class ControlPerTelefonos implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoTelefono.setCiudad(listaCiudades.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaCiudad");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCiudad");
                 } else if (tipoNuevo == 2) {
                     duplicarTelefono.setCiudad(listaCiudades.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarCiudad");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCiudad");
                 }
                 listaCiudades.clear();
                 getListaCiudades();
             } else {
-                context.update("form:ciudadesDialogo");
-                context.execute("ciudadesDialogo.show()");
+                PrimefacesContextUI.actualizar("form:ciudadesDialogo");
+                PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaCiudad");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCiudad");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarCiudad");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCiudad");
                 }
             }
         }
@@ -1021,13 +1022,13 @@ public class ControlPerTelefonos implements Serializable {
         if (dlg == 0) {
             getListaTiposTelefonos();
             modificarInfoRegistroTT(listaTiposTelefonos.size());
-            context.update("formularioDialogos:tiposTelefonosDialogo");
-            context.execute("tiposTelefonosDialogo.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:tiposTelefonosDialogo");
+            PrimefacesContextUI.ejecutar("PF('tiposTelefonosDialogo').show()");
         } else if (dlg == 1) {
             modificarInfoRegistroCiudad(listaCiudades.size());
             //contarRegistros();
-            context.update("formularioDialogos:ciudadesDialogo");
-            context.execute("ciudadesDialogo.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:ciudadesDialogo");
+            PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
         }
 
     }
@@ -1037,22 +1038,22 @@ public class ControlPerTelefonos implements Serializable {
         if (telefonoSeleccionado != null) {
             int resultado = administrarRastros.obtenerTabla(telefonoSeleccionado.getSecuencia(), "TELEFONOS");
             if (resultado == 1) {
-                context.execute("errorObjetosDB.show()");
+                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                context.execute("confirmarRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                context.execute("errorRegistroRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                context.execute("errorTablaConRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                context.execute("errorTablaSinRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
             }
             deshabilitarBotonLov();
         } else {
             if (administrarRastros.verificarHistoricosTabla("TELEFONOS")) {
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
     }
@@ -1072,17 +1073,17 @@ public class ControlPerTelefonos implements Serializable {
         }
         telefonoSeleccionado = null;
         modificarInfoRegistro(filtradosListaTelefonos.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
+        PrimefacesContextUI.actualizar("form:infoRegistro");
     }
 
     public void eventoFiltrarTT() {
         modificarInfoRegistroTT(filtradoslistaTiposTelefonos.size());
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTT");
+        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroTT");
     }
 
     public void eventoFiltrarCiudad() {
         modificarInfoRegistroCiudad(filtradoslistaCiudades.size());
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCiudades");
+        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroCiudades");
     }
 
     public void modificarInfoRegistro(int valor) {
@@ -1107,12 +1108,12 @@ public class ControlPerTelefonos implements Serializable {
 
     public void habilitarBotonLov() {
         activarLov = false;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     public void deshabilitarBotonLov() {
         activarLov = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     //GETTER AND SETTER

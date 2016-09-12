@@ -26,6 +26,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -98,7 +99,7 @@ public class ControlEvalEvaluadores implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarEvalEvaluadores.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlEvalEvaluadores eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -159,7 +160,7 @@ public class ControlEvalEvaluadores implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEvalEvaluadores:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosEvalEvaluadores");
+            PrimefacesContextUI.actualizar("form:datosEvalEvaluadores");
             bandera = 0;
             filtrarEvalEvaluadores = null;
             tipoLista = 0;
@@ -181,9 +182,9 @@ public class ControlEvalEvaluadores implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listEvalEvaluadores.size();
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosEvalEvaluadores");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosEvalEvaluadores");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void salir() {
@@ -194,7 +195,7 @@ public class ControlEvalEvaluadores implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEvalEvaluadores:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosEvalEvaluadores");
+            PrimefacesContextUI.actualizar("form:datosEvalEvaluadores");
             bandera = 0;
             filtrarEvalEvaluadores = null;
             tipoLista = 0;
@@ -216,9 +217,9 @@ public class ControlEvalEvaluadores implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listEvalEvaluadores.size();
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosEvalEvaluadores");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosEvalEvaluadores");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -229,7 +230,7 @@ public class ControlEvalEvaluadores implements Serializable {
             codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEvalEvaluadores:descripcion");
             descripcion.setFilterStyle("width: 85%;");
-            RequestContext.getCurrentInstance().update("form:datosEvalEvaluadores");
+            PrimefacesContextUI.actualizar("form:datosEvalEvaluadores");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -239,7 +240,7 @@ public class ControlEvalEvaluadores implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEvalEvaluadores:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosEvalEvaluadores");
+            PrimefacesContextUI.actualizar("form:datosEvalEvaluadores");
             bandera = 0;
             filtrarEvalEvaluadores = null;
             tipoLista = 0;
@@ -309,14 +310,14 @@ public class ControlEvalEvaluadores implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    context.update("form:datosEvalEvaluadores");
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:datosEvalEvaluadores");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 } else {
 
                     System.out.println("backupCodigo : " + backupCodigo);
@@ -362,14 +363,14 @@ public class ControlEvalEvaluadores implements Serializable {
                             guardado = false;
                         }
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    context.update("form:datosEvalEvaluadores");
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:datosEvalEvaluadores");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
 
                 }
             } else {
@@ -427,8 +428,8 @@ public class ControlEvalEvaluadores implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -480,16 +481,16 @@ public class ControlEvalEvaluadores implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
                 }
 
             }
-            context.update("form:datosEvalEvaluadores");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosEvalEvaluadores");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -533,11 +534,11 @@ public class ControlEvalEvaluadores implements Serializable {
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:datosEvalEvaluadores");
+            PrimefacesContextUI.actualizar("form:datosEvalEvaluadores");
             infoRegistro = "Cantidad de registros: " + listEvalEvaluadores.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
 
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             index = -1;
             secRegistro = null;
 
@@ -560,8 +561,8 @@ public class ControlEvalEvaluadores implements Serializable {
             } else {
                 System.out.println("Borrado>0");
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:validacionBorrar");
-                context.execute("validacionBorrar.show()");
+                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
                 borradoVC = new BigInteger("-1");
             }
@@ -580,8 +581,8 @@ public class ControlEvalEvaluadores implements Serializable {
                 administrarEvalEvaluadores.borrarEvalEvaluadores(borrarEvalEvaluadores);
                 //mostrarBorrados
                 registrosBorrados = borrarEvalEvaluadores.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarEvalEvaluadores.clear();
             }
             if (!crearEvalEvaluadores.isEmpty()) {
@@ -596,13 +597,13 @@ public class ControlEvalEvaluadores implements Serializable {
             listEvalEvaluadores = null;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
-            context.update("form:datosEvalEvaluadores");
+            PrimefacesContextUI.actualizar("form:growl");
+            PrimefacesContextUI.actualizar("form:datosEvalEvaluadores");
             k = 0;
             guardado = true;
         }
         index = -1;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -618,12 +619,12 @@ public class ControlEvalEvaluadores implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editCodigo");
-                context.execute("editCodigo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editDescripcion");
-                context.execute("editDescripcion.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
 
@@ -683,7 +684,7 @@ public class ControlEvalEvaluadores implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosEvalEvaluadores:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosEvalEvaluadores");
+                PrimefacesContextUI.actualizar("form:datosEvalEvaluadores");
                 bandera = 0;
                 filtrarEvalEvaluadores = null;
                 tipoLista = 0;
@@ -700,24 +701,24 @@ public class ControlEvalEvaluadores implements Serializable {
             listEvalEvaluadores.add(nuevoEvalEvaluador);
             nuevoEvalEvaluador = new EvalEvaluadores();
 
-            context.update("form:datosEvalEvaluadores");
+            PrimefacesContextUI.actualizar("form:datosEvalEvaluadores");
             infoRegistro = "Cantidad de registros: " + listEvalEvaluadores.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
 
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             System.out.println("Despues de la bandera guardado");
 
-            context.execute("nuevoRegistroEvalEvaluadores.hide()");
+            PrimefacesContextUI.ejecutar("PF('nuevoRegistroEvalEvaluadores').hide()");
             index = -1;
             secRegistro = null;
             System.out.println("Despues de nuevoRegistroEvalEvaluadores");
 
         } else {
-            context.update("form:validacionNuevaCentroCosto");
-            context.execute("validacionNuevaCentroCosto.show()");
+            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -750,8 +751,8 @@ public class ControlEvalEvaluadores implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarEvalsEvaluadores");
-            context.execute("duplicarRegistroEvalEvaluadores.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEvalsEvaluadores");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroEvalEvaluadores').show()");
             index = -1;
             secRegistro = null;
         }
@@ -803,15 +804,15 @@ public class ControlEvalEvaluadores implements Serializable {
             }
             listEvalEvaluadores.add(duplicarEvalEvaluador);
             crearEvalEvaluadores.add(duplicarEvalEvaluador);
-            context.update("form:datosEvalEvaluadores");
+            PrimefacesContextUI.actualizar("form:datosEvalEvaluadores");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             infoRegistro = "Cantidad de registros: " + listEvalEvaluadores.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
 
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -820,18 +821,18 @@ public class ControlEvalEvaluadores implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosEvalEvaluadores:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosEvalEvaluadores");
+                PrimefacesContextUI.actualizar("form:datosEvalEvaluadores");
                 bandera = 0;
                 filtrarEvalEvaluadores = null;
                 tipoLista = 0;
             }
             duplicarEvalEvaluador = new EvalEvaluadores();
-            RequestContext.getCurrentInstance().execute("duplicarRegistroEvalEvaluadores.hide()");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroEvalEvaluadores').hide()");
 
         } else {
             contador = 0;
-            context.update("form:validacionDuplicarVigencia");
-            context.execute("validacionDuplicarVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -868,24 +869,24 @@ public class ControlEvalEvaluadores implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "EVALEVALUADORES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("EVALEVALUADORES")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -903,7 +904,7 @@ public class ControlEvalEvaluadores implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listEvalEvaluadores.size();
         }
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
         return listEvalEvaluadores;
     }
 

@@ -21,6 +21,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 @ManagedBean
 @SessionScoped
@@ -88,7 +89,7 @@ public class ControlBarra implements Serializable {
     public void contarLiquidados() {
         totalEmpleadosLiquidados = administrarBarra.contarEmpleadosLiquidados();
         System.out.println("totalEmpleadosLiquidados: " + totalEmpleadosLiquidados);
-        RequestContext.getCurrentInstance().update("form:empleadosLiquidados");
+        PrimefacesContextUI.actualizar("form:empleadosLiquidados");
     }
 
     public void liquidar() {
@@ -110,15 +111,15 @@ public class ControlBarra implements Serializable {
             System.out.println("Hora Inicio: " + formato.format(horaInicio));
             horaInicialLiquidacion = formato.format(horaInicio);
             horaFinalLiquidacion = "--:--:--";
-            context.execute("barra.start()");
-            context.update("form:liquidar");
-            context.update("form:cancelar");
-            context.update("form:horaF");
-            context.update("form:horaI");
-            context.update("form:estadoLiquidacion");
-            context.update("form:imagen");
+            PrimefacesContextUI.ejecutar("PF('barra.start()");
+            PrimefacesContextUI.actualizar("form:liquidar");
+            PrimefacesContextUI.actualizar("form:cancelar");
+            PrimefacesContextUI.actualizar("form:horaF");
+            PrimefacesContextUI.actualizar("form:horaI");
+            PrimefacesContextUI.actualizar("form:estadoLiquidacion");
+            PrimefacesContextUI.actualizar("form:imagen");
         } else {
-            context.execute("permisoLiquidacion.show()");
+            PrimefacesContextUI.ejecutar("PF('permisoLiquidacion').show()");
         }
         System.err.println("Termino la funcion liquidar()");
     }
@@ -150,22 +151,22 @@ public class ControlBarra implements Serializable {
         System.out.println("Hora Final: " + formato.format(horaFinal));
         horaFinalLiquidacion = formato.format(horaFinal);
         RequestContext context = RequestContext.getCurrentInstance();
-        context.execute("barra.stop()");
-        context.update("form:empleadosLiquidados");
-        context.update("form:horaF");
-        context.update("form:liquidar");
-        context.update("form:cancelar");
-        context.update("form:panelLiquidacion");
-        context.update("form:estadoLiquidacion");
-        context.update("form:PanelTotal");
-        context.update("form:imagen");
-        context.update("form:growl");
+        PrimefacesContextUI.ejecutar("PF('barra.stop()");
+        PrimefacesContextUI.actualizar("form:empleadosLiquidados");
+        PrimefacesContextUI.actualizar("form:horaF");
+        PrimefacesContextUI.actualizar("form:liquidar");
+        PrimefacesContextUI.actualizar("form:cancelar");
+        PrimefacesContextUI.actualizar("form:panelLiquidacion");
+        PrimefacesContextUI.actualizar("form:estadoLiquidacion");
+        PrimefacesContextUI.actualizar("form:PanelTotal");
+        PrimefacesContextUI.actualizar("form:imagen");
+        PrimefacesContextUI.actualizar("form:growl");
         consultarEstadoDatos();
     }
 
     public void cancelarLiquidacion() {
         RequestContext context = RequestContext.getCurrentInstance();
-        context.execute("barra.cancel()");
+        PrimefacesContextUI.ejecutar("PF('barra.cancel()");
         empezar = false;
         liquifinalizada = true;
         administrarBarra.cancelarLiquidacion(usuarioBD);
@@ -178,14 +179,14 @@ public class ControlBarra implements Serializable {
         botonLiquidar = false;
         FacesMessage msg = new FacesMessage("Información", "Liquidación cancelada.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        context.update("form:horaF");
-        context.update("form:liquidar");
-        context.update("form:cancelar");
-        context.update("form:estadoLiquidacion");
-        context.update("form:imagen");
-        context.execute("barra.setValue(" + barra + ")");
-        context.update("form:barra");
-        context.update("form:growl");
+        PrimefacesContextUI.actualizar("form:horaF");
+        PrimefacesContextUI.actualizar("form:liquidar");
+        PrimefacesContextUI.actualizar("form:cancelar");
+        PrimefacesContextUI.actualizar("form:estadoLiquidacion");
+        PrimefacesContextUI.actualizar("form:imagen");
+        PrimefacesContextUI.ejecutar("PF('barra.setValue(" + barra + ")");
+        PrimefacesContextUI.actualizar("form:barra");
+        PrimefacesContextUI.actualizar("form:growl");
         consultarEstadoDatos();
         contarRegistrosCerrada(0);
         contarRegistrosEnProceso(0);
@@ -226,8 +227,8 @@ public class ControlBarra implements Serializable {
         liquidacionesAbiertas = administrarBarra.consultarPreNomina();
         contarRegistrosCerrada(0);
         contarRegistrosEnProceso(0);
-        context.update("form:datosLiquidacionesCerradas");
-        context.update("form:datosLiquidacionesAbiertas");
+        PrimefacesContextUI.actualizar("form:datosLiquidacionesCerradas");
+        PrimefacesContextUI.actualizar("form:datosLiquidacionesAbiertas");
     }
 
     public void consultarEstadoDatos() {
@@ -267,8 +268,8 @@ public class ControlBarra implements Serializable {
                 altoScrollLiquidacionesCerradas = "105";
                 altoScrollLiquidacionesAbiertas = "105";
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosLiquidacionesCerradas");
-                context.update("form:datosLiquidacionesAbiertas");
+                PrimefacesContextUI.actualizar("form:datosLiquidacionesCerradas");
+                PrimefacesContextUI.actualizar("form:datosLiquidacionesAbiertas");
                 banderaFiltros = 1;
 
             } else if (banderaFiltros == 1) {
@@ -299,8 +300,8 @@ public class ControlBarra implements Serializable {
                 altoScrollLiquidacionesCerradas = "125";
                 altoScrollLiquidacionesAbiertas = "125";
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosLiquidacionesCerradas");
-                context.update("form:datosLiquidacionesAbiertas");
+                PrimefacesContextUI.actualizar("form:datosLiquidacionesCerradas");
+                PrimefacesContextUI.actualizar("form:datosLiquidacionesAbiertas");
                 banderaFiltros = 0;
                 filtradoLiquidacionesAbiertas = null;
                 filtradoLiquidacionesCerradas = null;
@@ -345,7 +346,7 @@ public class ControlBarra implements Serializable {
         } else {
             infoRegistroCerradas = String.valueOf(0);
         }
-        RequestContext.getCurrentInstance().update("form:infoRegistroCerradas");
+        PrimefacesContextUI.actualizar("form:infoRegistroCerradas");
     }
 
     public void contarRegistrosEnProceso(int tipoLista) {
@@ -356,7 +357,7 @@ public class ControlBarra implements Serializable {
         } else {
             infoRegistroEnProceso = String.valueOf(0);
         }
-        RequestContext.getCurrentInstance().update("form:infoRegistroEnProceso");
+        PrimefacesContextUI.actualizar("form:infoRegistroEnProceso");
     }
 
     //GETTER AND SETTER
@@ -390,13 +391,13 @@ public class ControlBarra implements Serializable {
             System.out.println("Estado: 1" + estado);
             if (preparandoDatos == true) {
                 barra = 101;
-                context.update("form:barra");
+                PrimefacesContextUI.actualizar("form:barra");
                 if (!estado.equalsIgnoreCase("INICIADO") && !estado.equalsIgnoreCase("EN COLA")) {
                     preparandoDatos = false;
                     barra = null;
                     bandera = true;
                     mensajeEstado = "Liquidando personal.";
-                    context.update("form:estadoLiquidacion");
+                    PrimefacesContextUI.actualizar("form:estadoLiquidacion");
                 }
             } else {
                 if (barra == null) {
@@ -410,8 +411,8 @@ public class ControlBarra implements Serializable {
                             bandera = false;
                         }
                         mensajeBarra = "Liquidando... " + barra + "%";
-                        context.update("form:barra");
-                        context.update("form:estadoLiquidacion");
+                        PrimefacesContextUI.actualizar("form:barra");
+                        PrimefacesContextUI.actualizar("form:estadoLiquidacion");
                         System.out.println("Liquidando... " + barra + "%");
                         if (bandera == true) {
                             if (cambioImagen == true) {
@@ -423,16 +424,16 @@ public class ControlBarra implements Serializable {
                             }
                             Date horaFinal = new Date();
                             horaFinalLiquidacion = formato.format(horaFinal);
-                            context.update("form:barra");
-                            context.update("form:horaF");
-                            context.update("form:imagen");
+                            PrimefacesContextUI.actualizar("form:barra");
+                            PrimefacesContextUI.actualizar("form:horaF");
+                            PrimefacesContextUI.actualizar("form:imagen");
                             contarLiquidados();
                         }
                     } else {
                         System.out.println("ES FINALIZADO");
                         if (barra < 100) {
                             System.out.println("Liquidacion Terminada Parcialmente");
-                            context.execute("barra.cancel()");
+                            PrimefacesContextUI.ejecutar("PF('barra.cancel()");
                             empezar = false;
                             liquifinalizada = true;
                             Date horaFinal = new Date();
@@ -444,15 +445,15 @@ public class ControlBarra implements Serializable {
                             botonLiquidar = false;
                             FacesMessage msg = new FacesMessage("Información", "Liquidación terminada parcialmente.");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                            context.update("form:horaF");
-                            context.update("form:liquidar");
-                            context.update("form:cancelar");
-                            context.update("form:estadoLiquidacion");
-                            context.update("form:imagen");
-                            context.execute("barra.setValue(" + barra + ")");
-                            context.update("form:barra");
-                            context.update("form:estadoLiquidacion");
-                            context.update("form:growl");
+                            PrimefacesContextUI.actualizar("form:horaF");
+                            PrimefacesContextUI.actualizar("form:liquidar");
+                            PrimefacesContextUI.actualizar("form:cancelar");
+                            PrimefacesContextUI.actualizar("form:estadoLiquidacion");
+                            PrimefacesContextUI.actualizar("form:imagen");
+                            PrimefacesContextUI.ejecutar("PF('barra.setValue(" + barra + ")");
+                            PrimefacesContextUI.actualizar("form:barra");
+                            PrimefacesContextUI.actualizar("form:estadoLiquidacion");
+                            PrimefacesContextUI.actualizar("form:growl");
                             consultarEstadoDatos();
                         } else {
                             if (barra >= 100) {

@@ -25,6 +25,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.panel.Panel;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 import org.primefaces.event.CellEditEvent;
 
 /**
@@ -124,7 +125,7 @@ public class CtrlVigenciasCargos implements Serializable {
             vcNombreCargo.setFilterStyle("");
             vcNombreJefe = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVCEmpleado:vcNombreJefe");
             vcNombreJefe.setFilterStyle("");
-            RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
+            PrimefacesContextUI.actualizar("form:datosVCEmpleado");
             bandera = 1;
         } else if (bandera == 1) {
             System.out.println("Desactivar");
@@ -138,7 +139,7 @@ public class CtrlVigenciasCargos implements Serializable {
             vcNombreCargo.setFilterStyle("display: none; visibility: hidden;");
             vcNombreJefe = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVCEmpleado:vcNombreJefe");
             vcNombreJefe.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
+            PrimefacesContextUI.actualizar("form:datosVCEmpleado");
             bandera = 0;
         }
     }
@@ -259,7 +260,7 @@ public class CtrlVigenciasCargos implements Serializable {
      System.out.println("Old:" + oldValue);
      System.out.println("New:" + newValue);
      guardado = false;
-     RequestContext.getCurrentInstance().update("form:aceptar");
+     PrimefacesContextUI.actualizar("form:aceptar");
      }
      if (guardarOk == true) {
      modificarAficiones();
@@ -289,9 +290,9 @@ public class CtrlVigenciasCargos implements Serializable {
             }
             listAficiones = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:aficiones");
+            PrimefacesContextUI.actualizar("form:aficiones");
             guardado = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            PrimefacesContextUI.actualizar("form:aceptar");
             k = 0;
         }
     }
@@ -316,13 +317,13 @@ public class CtrlVigenciasCargos implements Serializable {
                 System.out.println("Descripcion del que se va a matar: " + listAficionesBorrar.get(i).getDescripcion());
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:aficiones");
+            PrimefacesContextUI.actualizar("form:aficiones");
             index = -1;
             //guardado = false;
-            //RequestContext.getCurrentInstance().update("form:aceptar");
+            //PrimefacesContextUI.actualizar("form:aceptar");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
 
@@ -342,12 +343,12 @@ public class CtrlVigenciasCargos implements Serializable {
         index = -1;
         k = 0;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:aficiones");
+        PrimefacesContextUI.actualizar("form:aficiones");
         panelNuevo = (Panel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNuevo");
         panelNuevo.setStyle("border: none; display: none; visibility: hidden;");
-        RequestContext.getCurrentInstance().update("form:panelNuevo");
+        PrimefacesContextUI.actualizar("form:panelNuevo");
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:aceptar");
+        PrimefacesContextUI.actualizar("form:aceptar");
     }
 
     public void habilitarAgregar() {
@@ -364,13 +365,13 @@ public class CtrlVigenciasCargos implements Serializable {
 
         panelNuevo = (Panel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNuevo");
         panelNuevo.setStyle("border: none;");
-        RequestContext.getCurrentInstance().update("form:panelNuevo");
+        PrimefacesContextUI.actualizar("form:panelNuevo");
     }
 
     public void desabilitarAgregar() {
         panelNuevo = (Panel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNuevo");
         panelNuevo.setStyle("border: none; display: none; visibility: hidden;");
-        RequestContext.getCurrentInstance().update("form:panelNuevo");
+        PrimefacesContextUI.actualizar("form:panelNuevo");
     }
 
     public void activarGuardado(int indice) {
@@ -390,7 +391,7 @@ public class CtrlVigenciasCargos implements Serializable {
         }
 
         //guardado = false;
-        //RequestContext.getCurrentInstance().update("form:aceptar");
+        //PrimefacesContextUI.actualizar("form:aceptar");
     }
 
     /*   public void validate(FacesContext arg0, InputText arg1, Object arg2) throws ValidatorException {
@@ -430,10 +431,10 @@ public class CtrlVigenciasCargos implements Serializable {
         listAficiones.add(afi);
         afi = new Aficiones();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:aficiones");
+        PrimefacesContextUI.actualizar("form:aficiones");
         if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            PrimefacesContextUI.actualizar("form:aceptar");
         }
     }
 
@@ -454,11 +455,11 @@ public class CtrlVigenciasCargos implements Serializable {
             listAficiones.add(duplicarAficion);
             listAficionesCrear.add(duplicarAficion);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:aficiones");
+            PrimefacesContextUI.actualizar("form:aficiones");
             index = -1;
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
     }
@@ -469,14 +470,14 @@ public class CtrlVigenciasCargos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("form:editarCodigo");
+                PrimefacesContextUI.actualizar("form:editarCodigo");
                 System.out.println("Dialogo de Codigo");
-                context.execute("editarCodigo.show()");
+                PrimefacesContextUI.ejecutar("PF('editarCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("form:editarDescripcion");
+                PrimefacesContextUI.actualizar("form:editarDescripcion");
                 System.out.println("Dialogo de Descripcion");
-                context.execute("editarDescripcion.show()");
+                PrimefacesContextUI.ejecutar("PF('editarDescripcion').show()");
                 cualCelda = -1;
             }
         }
@@ -519,14 +520,14 @@ public class CtrlVigenciasCargos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:aficiones");
+            PrimefacesContextUI.actualizar("form:aficiones");
             editarAficion = new Aficiones();
             cambioEditor = false;
             index = -1;
             aceptarEditar = true;
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
     }
@@ -561,10 +562,10 @@ public class CtrlVigenciasCargos implements Serializable {
         aceptarEditar = false;
         if (dialog == 0) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:aceptarCod");
+            PrimefacesContextUI.actualizar("form:aceptarCod");
         } else if (dialog == 1) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:aceptarDesc");
+            PrimefacesContextUI.actualizar("form:aceptarDesc");
         }
 
     }
@@ -572,7 +573,7 @@ public class CtrlVigenciasCargos implements Serializable {
     public void activarAceptarGlobal() {
         if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            PrimefacesContextUI.actualizar("form:aceptar");
         }
     }
 

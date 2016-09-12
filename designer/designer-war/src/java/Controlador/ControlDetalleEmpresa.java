@@ -27,6 +27,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -395,8 +396,8 @@ public class ControlDetalleEmpresa implements Serializable {
                 filtrarListaDetallesEmpresas.get(index).setFechacamaracomercio(auxFechaCamaraComercio);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosDetalleEmpresa");
-            context.execute("errorFechas.show()");
+            PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
+            PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
         }
     }
 
@@ -431,8 +432,8 @@ public class ControlDetalleEmpresa implements Serializable {
             secRegistro = null;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
-        context.update("form:datosDetalleEmpresa");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
     }
 
     public void modificarDetalleEmpresa(int indice) {
@@ -469,8 +470,8 @@ public class ControlDetalleEmpresa implements Serializable {
                 secRegistro = null;
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosDetalleEmpresa");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
         } else {
             if (tipoLista == 0) {
                 listaDetallesEmpresas.get(indice).setTelefono(auxTelefono);
@@ -489,8 +490,8 @@ public class ControlDetalleEmpresa implements Serializable {
                 filtrarListaDetallesEmpresas.get(indice).setDocumentorepresentante(auxDocRepre);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosDetalleEmpresa");
-            context.execute("errorDatosNull.show()");
+            PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNull').show()");
         }
     }
 
@@ -522,8 +523,8 @@ public class ControlDetalleEmpresa implements Serializable {
                 cambiosPagina = false;
             } else {
                 permitirIndex = false;
-                context.update("form:CiudadDialogo");
-                context.execute("CiudadDialogo.show()");
+                PrimefacesContextUI.actualizar("form:CiudadDialogo");
+                PrimefacesContextUI.ejecutar("PF('CiudadDialogo').show()");
                 tipoActualizacion = 0;
             }
         } else if (confirmarCambio.equalsIgnoreCase("EMPRESA")) {
@@ -549,8 +550,8 @@ public class ControlDetalleEmpresa implements Serializable {
                 cambiosPagina = false;
             } else {
                 permitirIndex = false;
-                context.update("form:EmpresasDialogo");
-                context.execute("EmpresasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EmpresasDialogo");
+                PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
                 tipoActualizacion = 0;
             }
         } else if (confirmarCambio.equalsIgnoreCase("GERENTE")) {
@@ -577,8 +578,8 @@ public class ControlDetalleEmpresa implements Serializable {
                     getLovEmpleados();
                 } else {
                     permitirIndex = false;
-                    context.update("form:GerenteDialogo");
-                    context.execute("GerenteDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:GerenteDialogo");
+                    PrimefacesContextUI.ejecutar("PF('GerenteDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -616,8 +617,8 @@ public class ControlDetalleEmpresa implements Serializable {
                     getLovEmpleados();
                 } else {
                     permitirIndex = false;
-                    context.update("form:RepresentanteDialogo");
-                    context.execute("RepresentanteDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:RepresentanteDialogo");
+                    PrimefacesContextUI.ejecutar("PF('RepresentanteDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -655,8 +656,8 @@ public class ControlDetalleEmpresa implements Serializable {
                     getLovCargos();
                 } else {
                     permitirIndex = false;
-                    context.update("form:CargoFirmaDialogo");
-                    context.execute("CargoFirmaDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:CargoFirmaDialogo");
+                    PrimefacesContextUI.ejecutar("PF('CargoFirmaDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -694,8 +695,8 @@ public class ControlDetalleEmpresa implements Serializable {
                     getLovEmpleados();
                 } else {
                     permitirIndex = false;
-                    context.update("form:SubGerenteDialogo");
-                    context.execute("SubGerenteDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:SubGerenteDialogo");
+                    PrimefacesContextUI.ejecutar("PF('SubGerenteDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -733,8 +734,8 @@ public class ControlDetalleEmpresa implements Serializable {
                     getLovPersonas();
                 } else {
                     permitirIndex = false;
-                    context.update("form:PersonaFirmaDialogo");
-                    context.execute("PersonaFirmaDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:PersonaFirmaDialogo");
+                    PrimefacesContextUI.ejecutar("PF('PersonaFirmaDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -772,8 +773,8 @@ public class ControlDetalleEmpresa implements Serializable {
                     getLovCiudades();
                 } else {
                     permitirIndex = false;
-                    context.update("form:CiudadDocumentoDialogo");
-                    context.execute("CiudadDocumentoDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:CiudadDocumentoDialogo");
+                    PrimefacesContextUI.ejecutar("PF('CiudadDocumentoDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -823,8 +824,8 @@ public class ControlDetalleEmpresa implements Serializable {
             }
             cambiosPagina = false;
         }
-        context.update("form:ACEPTAR");
-        context.update("form:datosDetalleEmpresa");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
     }
 
     public void valoresBackupAutocompletarDetalleEmpresa(int tipoNuevo, String Campo) {
@@ -899,21 +900,21 @@ public class ControlDetalleEmpresa implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaDetalleEmpresa.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaEmpresaDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaEmpresaDetalle");
                 } else if (tipoNuevo == 2) {
                     duplicarDetalleEmpresa.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarEmpresaDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarEmpresaDetalle");
                 }
                 lovEmpresas = null;
                 getLovEmpresas();
             } else {
-                context.update("form:EmpresasDialogo");
-                context.execute("EmpresasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EmpresasDialogo");
+                PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaEmpresaDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaEmpresaDetalle");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarEmpresaDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarEmpresaDetalle");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("GERENTE")) {
@@ -932,21 +933,21 @@ public class ControlDetalleEmpresa implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
                         nuevaDetalleEmpresa.setGerentegeneral(lovEmpleados.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaGerenteDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaGerenteDetalle");
                     } else if (tipoNuevo == 2) {
                         duplicarDetalleEmpresa.setGerentegeneral(lovEmpleados.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarGerenteDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarGerenteDetalle");
                     }
                     lovEmpleados = null;
                     getLovEmpleados();
                 } else {
-                    context.update("form:GerenteDialogo");
-                    context.execute("GerenteDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:GerenteDialogo");
+                    PrimefacesContextUI.ejecutar("PF('GerenteDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
-                        context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaGerenteDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaGerenteDetalle");
                     } else if (tipoNuevo == 2) {
-                        context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarGerenteDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarGerenteDetalle");
                     }
                 }
             } else {
@@ -954,10 +955,10 @@ public class ControlDetalleEmpresa implements Serializable {
                 getLovEmpleados();
                 if (tipoNuevo == 1) {
                     nuevaDetalleEmpresa.setGerentegeneral(new Empleados());
-                    context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaGerenteDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaGerenteDetalle");
                 } else if (tipoNuevo == 2) {
                     duplicarDetalleEmpresa.setGerentegeneral(new Empleados());
-                    context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarGerenteDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarGerenteDetalle");
                 }
 
             }
@@ -977,21 +978,21 @@ public class ControlDetalleEmpresa implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
                         nuevaDetalleEmpresa.setSubgerente(lovEmpleados.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaSubGerenteDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaSubGerenteDetalle");
                     } else if (tipoNuevo == 2) {
                         duplicarDetalleEmpresa.setSubgerente(lovEmpleados.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarSubGerenteDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarSubGerenteDetalle");
                     }
                     lovEmpleados = null;
                     getLovEmpleados();
                 } else {
-                    context.update("form:SubGerenteDialogo");
-                    context.execute("SubGerenteDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:SubGerenteDialogo");
+                    PrimefacesContextUI.ejecutar("PF('SubGerenteDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
-                        context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaSubGerenteDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaSubGerenteDetalle");
                     } else if (tipoNuevo == 2) {
-                        context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarSubGerenteDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarSubGerenteDetalle");
                     }
                 }
             } else {
@@ -999,10 +1000,10 @@ public class ControlDetalleEmpresa implements Serializable {
                 getLovEmpleados();
                 if (tipoNuevo == 1) {
                     nuevaDetalleEmpresa.setSubgerente(new Empleados());
-                    context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaSubGerenteDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaSubGerenteDetalle");
                 } else if (tipoNuevo == 2) {
                     duplicarDetalleEmpresa.setSubgerente(new Empleados());
-                    context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarSubGerenteDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarSubGerenteDetalle");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("REPRESENTANTE")) {
@@ -1021,21 +1022,21 @@ public class ControlDetalleEmpresa implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
                         nuevaDetalleEmpresa.setRepresentantecir(lovEmpleados.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaRepresentanteDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaRepresentanteDetalle");
                     } else {
                         duplicarDetalleEmpresa.setRepresentantecir(lovEmpleados.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarRepresentanteDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarRepresentanteDetalle");
                     }
                     lovEmpleados = null;
                     getLovEmpleados();
                 } else {
-                    context.update("form:RepresentanteDialogo");
-                    context.execute("RepresentanteDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:RepresentanteDialogo");
+                    PrimefacesContextUI.ejecutar("PF('RepresentanteDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
-                        context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaRepresentanteDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaRepresentanteDetalle");
                     } else if (tipoNuevo == 2) {
-                        context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarRepresentanteDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarRepresentanteDetalle");
                     }
                 }
             } else {
@@ -1043,10 +1044,10 @@ public class ControlDetalleEmpresa implements Serializable {
                 getLovEmpleados();
                 if (tipoNuevo == 1) {
                     nuevaDetalleEmpresa.setRepresentantecir(new Empleados());
-                    context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaRepresentanteDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaRepresentanteDetalle");
                 } else {
                     duplicarDetalleEmpresa.setRepresentantecir(new Empleados());
-                    context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarRepresentanteDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarRepresentanteDetalle");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("CARGO")) {
@@ -1065,21 +1066,21 @@ public class ControlDetalleEmpresa implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
                         nuevaDetalleEmpresa.setCargofirmaconstancia(lovCargos.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaCargoFirmaDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaCargoFirmaDetalle");
                     } else if (tipoNuevo == 2) {
                         duplicarDetalleEmpresa.setCargofirmaconstancia(lovCargos.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarCargoFirmaDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarCargoFirmaDetalle");
                     }
                     lovCargos = null;
                     getLovCargos();
                 } else {
-                    context.update("form:CargoFirmaDialogo");
-                    context.execute("CargoFirmaDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:CargoFirmaDialogo");
+                    PrimefacesContextUI.ejecutar("PF('CargoFirmaDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
-                        context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaCargoFirmaDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaCargoFirmaDetalle");
                     } else if (tipoNuevo == 2) {
-                        context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarCargoFirmaDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarCargoFirmaDetalle");
                     }
                 }
             } else {
@@ -1087,10 +1088,10 @@ public class ControlDetalleEmpresa implements Serializable {
                 getLovCargos();
                 if (tipoNuevo == 1) {
                     nuevaDetalleEmpresa.setCargofirmaconstancia(new Cargos());
-                    context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaCargoFirmaDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaCargoFirmaDetalle");
                 } else if (tipoNuevo == 2) {
                     duplicarDetalleEmpresa.setCargofirmaconstancia(new Cargos());
-                    context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarCargoFirmaDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarCargoFirmaDetalle");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("PERSONA")) {
@@ -1109,21 +1110,21 @@ public class ControlDetalleEmpresa implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
                         nuevaDetalleEmpresa.setPersonafirmaconstancia(lovPersonas.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaPersonaFirmaDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaPersonaFirmaDetalle");
                     } else if (tipoNuevo == 2) {
                         duplicarDetalleEmpresa.setPersonafirmaconstancia(lovPersonas.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarPersonaFirmaDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarPersonaFirmaDetalle");
                     }
                     lovPersonas = null;
                     getLovPersonas();
                 } else {
-                    context.update("form:PersonaFirmaDialogo");
-                    context.execute("PersonaFirmaDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:PersonaFirmaDialogo");
+                    PrimefacesContextUI.ejecutar("PF('PersonaFirmaDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
-                        context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaPersonaFirmaDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaPersonaFirmaDetalle");
                     } else if (tipoNuevo == 2) {
-                        context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarPersonaFirmaDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarPersonaFirmaDetalle");
                     }
                 }
             } else {
@@ -1131,10 +1132,10 @@ public class ControlDetalleEmpresa implements Serializable {
                 getLovPersonas();
                 if (tipoNuevo == 1) {
                     nuevaDetalleEmpresa.setPersonafirmaconstancia(new Personas());
-                    context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaPersonaFirmaDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaPersonaFirmaDetalle");
                 } else if (tipoNuevo == 2) {
                     duplicarDetalleEmpresa.setPersonafirmaconstancia(new Personas());
-                    context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarPersonaFirmaDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarPersonaFirmaDetalle");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("CIUDADDOCUMENTO")) {
@@ -1153,21 +1154,21 @@ public class ControlDetalleEmpresa implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
                         nuevaDetalleEmpresa.setCiudaddocumentorepresentante(lovCiudades.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDocumentoDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDocumentoDetalle");
                     } else if (tipoNuevo == 2) {
                         duplicarDetalleEmpresa.setCiudaddocumentorepresentante(lovCiudades.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarCiudadDocumentoDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarCiudadDocumentoDetalle");
                     }
                     lovCiudades = null;
                     getLovCiudades();
                 } else {
-                    context.update("form:CiudadDocumentoDialogo");
-                    context.execute("CiudadDocumentoDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:CiudadDocumentoDialogo");
+                    PrimefacesContextUI.ejecutar("PF('CiudadDocumentoDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
-                        context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDocumentoDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDocumentoDetalle");
                     } else if (tipoNuevo == 2) {
-                        context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarCiudadDocumentoDetalle");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarCiudadDocumentoDetalle");
                     }
                 }
             } else {
@@ -1175,10 +1176,10 @@ public class ControlDetalleEmpresa implements Serializable {
                 getLovCiudades();
                 if (tipoNuevo == 1) {
                     nuevaDetalleEmpresa.setCiudaddocumentorepresentante(new Ciudades());
-                    context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDocumentoDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDocumentoDetalle");
                 } else if (tipoNuevo == 2) {
                     duplicarDetalleEmpresa.setCiudaddocumentorepresentante(new Ciudades());
-                    context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarCiudadDocumentoDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarCiudadDocumentoDetalle");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
@@ -1196,21 +1197,21 @@ public class ControlDetalleEmpresa implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaDetalleEmpresa.setCiudad(lovCiudades.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDetalle");
                 } else if (tipoNuevo == 2) {
                     duplicarDetalleEmpresa.setCiudad(lovCiudades.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarDetalleEmpresa::duplicarCiudadDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa::duplicarCiudadDetalle");
                 }
                 lovCiudades = null;
                 getLovCiudades();
             } else {
-                context.update("form:CiudadDialogo");
-                context.execute("CiudadDialogo.show()");
+                PrimefacesContextUI.actualizar("form:CiudadDialogo");
+                PrimefacesContextUI.ejecutar("PF('CiudadDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDetalle");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarDetalleEmpresa::duplicarCiudadDetalle");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa::duplicarCiudadDetalle");
                 }
             }
         }
@@ -1271,7 +1272,7 @@ public class ControlDetalleEmpresa implements Serializable {
     public void guardadoGeneral() {
         guardarCambios();
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:aceptar");
+        PrimefacesContextUI.actualizar("form:aceptar");
     }
 
     public void guardarCambios() {
@@ -1296,23 +1297,23 @@ public class ControlDetalleEmpresa implements Serializable {
                 } else {
                     infoRegistro = "Cantidad de registros : 0";
                 }
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosDetalleEmpresa");
+                PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
                 k = 0;
                 cambiosPagina = true;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 index = -1;
                 secRegistro = null;
                 FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                RequestContext.getCurrentInstance().update("form:growl");
+                PrimefacesContextUI.actualizar("form:growl");
             }
         } catch (Exception e) {
             System.out.println("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
@@ -1395,7 +1396,7 @@ public class ControlDetalleEmpresa implements Serializable {
             detalleExoneraLnsTarifa.setFilterStyle("display: none; visibility: hidden;");
             detalleReportaLnsTarifa = (Column) c.getViewRoot().findComponent("form:datosDetalleEmpresa:detalleReportaLnsTarifa");
             detalleReportaLnsTarifa.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
+            PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
             bandera = 0;
             filtrarListaDetallesEmpresas = null;
             tipoLista = 0;
@@ -1418,7 +1419,7 @@ public class ControlDetalleEmpresa implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros : 0";
         }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
         guardado = true;
         nuevaDetalleEmpresa = new DetallesEmpresas();
         nuevaDetalleEmpresa.setCiudad(new Ciudades());
@@ -1431,8 +1432,8 @@ public class ControlDetalleEmpresa implements Serializable {
         nuevaDetalleEmpresa.setPersonafirmaconstancia(new Personas());
         RequestContext context = RequestContext.getCurrentInstance();
         cambiosPagina = true;
-        context.update("form:ACEPTAR");
-        context.update("form:datosDetalleEmpresa");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
     }
 
     public void editarCelda() {
@@ -1445,96 +1446,96 @@ public class ControlDetalleEmpresa implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarEmpresaDE");
-                context.execute("editarEmpresaDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEmpresaDE");
+                PrimefacesContextUI.ejecutar("PF('editarEmpresaDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarTipoEmpresaDE");
-                context.execute("editarTipoEmpresaDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarTipoEmpresaDE");
+                PrimefacesContextUI.ejecutar("PF('editarTipoEmpresaDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                context.update("formularioDialogos:editarDireccionDE");
-                context.execute("editarDireccionDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDireccionDE");
+                PrimefacesContextUI.ejecutar("PF('editarDireccionDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                context.update("formularioDialogos:editarCiudadDE");
-                context.execute("editarCiudadDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCiudadDE");
+                PrimefacesContextUI.ejecutar("PF('editarCiudadDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                context.update("formularioDialogos:editarTelefonoDE");
-                context.execute("editarTelefonoDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarTelefonoDE");
+                PrimefacesContextUI.ejecutar("PF('editarTelefonoDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
-                context.update("formularioDialogos:editarFaxDE");
-                context.execute("editarFaxDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFaxDE");
+                PrimefacesContextUI.ejecutar("PF('editarFaxDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
-                context.update("formularioDialogos:editarNombreRepresentanteDE");
-                context.execute("editarNombreRepresentanteDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarNombreRepresentanteDE");
+                PrimefacesContextUI.ejecutar("PF('editarNombreRepresentanteDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 8) {
-                context.update("formularioDialogos:editarDocumentoRepresentanteDE");
-                context.execute("editarDocumentoRepresentanteDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDocumentoRepresentanteDE");
+                PrimefacesContextUI.ejecutar("PF('editarDocumentoRepresentanteDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 9) {
-                context.update("formularioDialogos:editarCiudadDocumentoDE");
-                context.execute("editarCiudadDocumentoDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCiudadDocumentoDE");
+                PrimefacesContextUI.ejecutar("PF('editarCiudadDocumentoDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 10) {
-                context.update("formularioDialogos:editarTipoNitDE");
-                context.execute("editarTipoNitDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarTipoNitDE");
+                PrimefacesContextUI.ejecutar("PF('editarTipoNitDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 11) {
-                context.update("formularioDialogos:editarDigitoVerificacionDE");
-                context.execute("editarDigitoVerificacionDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDigitoVerificacionDE");
+                PrimefacesContextUI.ejecutar("PF('editarDigitoVerificacionDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 12) {
-                context.update("formularioDialogos:editarGerenteDE");
-                context.execute("editarGerenteDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarGerenteDE");
+                PrimefacesContextUI.ejecutar("PF('editarGerenteDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 13) {
-                context.update("formularioDialogos:editarPersonaFirmaDE");
-                context.execute("editarPersonaFirmaDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarPersonaFirmaDE");
+                PrimefacesContextUI.ejecutar("PF('editarPersonaFirmaDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 14) {
-                context.update("formularioDialogos:editarCargoFirmaDE");
-                context.execute("editarCargoFirmaDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCargoFirmaDE");
+                PrimefacesContextUI.ejecutar("PF('editarCargoFirmaDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 15) {
-                context.update("formularioDialogos:editarEmailDE");
-                context.execute("editarEmailDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEmailDE");
+                PrimefacesContextUI.ejecutar("PF('editarEmailDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 17) {
-                context.update("formularioDialogos:editarCIIUDE");
-                context.execute("editarCIIUDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCIIUDE");
+                PrimefacesContextUI.ejecutar("PF('editarCIIUDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 18) {
-                context.update("formularioDialogos:editarActEconomicaDE");
-                context.execute("editarActEconomicaDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarActEconomicaDE");
+                PrimefacesContextUI.ejecutar("PF('editarActEconomicaDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 19) {
-                context.update("formularioDialogos:editarSubGerenteDE");
-                context.execute("editarSubGerenteDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarSubGerenteDE");
+                PrimefacesContextUI.ejecutar("PF('editarSubGerenteDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 20) {
-                context.update("formularioDialogos:editarArquitectoDE");
-                context.execute("editarArquitectoDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarArquitectoDE");
+                PrimefacesContextUI.ejecutar("PF('editarArquitectoDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 21) {
-                context.update("formularioDialogos:editarCargoArquitectoDE");
-                context.execute("editarCargoArquitectoDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCargoArquitectoDE");
+                PrimefacesContextUI.ejecutar("PF('editarCargoArquitectoDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 22) {
-                context.update("formularioDialogos:editarRepresentanteDE");
-                context.execute("editarRepresentanteDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarRepresentanteDE");
+                PrimefacesContextUI.ejecutar("PF('editarRepresentanteDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 23) {
-                context.update("formularioDialogos:editarNPlanillaDE");
-                context.execute("editarNPlanillaDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarNPlanillaDE");
+                PrimefacesContextUI.ejecutar("PF('editarNPlanillaDE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 30) {
-                context.update("formularioDialogos:editarFechaCamaraComercioDE");
-                context.execute("editarFechaCamaraComercioDE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaCamaraComercioDE");
+                PrimefacesContextUI.ejecutar("PF('editarFechaCamaraComercioDE').show()");
                 cualCelda = -1;
             }
         }
@@ -1624,7 +1625,7 @@ public class ControlDetalleEmpresa implements Serializable {
                     detalleExoneraLnsTarifa.setFilterStyle("display: none; visibility: hidden;");
                     detalleReportaLnsTarifa = (Column) c.getViewRoot().findComponent("form:datosDetalleEmpresa:detalleReportaLnsTarifa");
                     detalleReportaLnsTarifa.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
+                    PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
                     bandera = 0;
                     filtrarListaDetallesEmpresas = null;
                     tipoLista = 0;
@@ -1660,17 +1661,17 @@ public class ControlDetalleEmpresa implements Serializable {
 
                 infoRegistro = "Cantidad de registros : " + listaDetallesEmpresas.size();
 
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
-                context.update("form:ACEPTAR");
-                context.update("form:datosDetalleEmpresa");
-                context.execute("NuevoRegistroDetalleEmpresa.hide()");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroDetalleEmpresa').hide()");
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorFechas.show()");
+                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNull.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNull').show()");
         }
     }
 
@@ -1795,8 +1796,8 @@ public class ControlDetalleEmpresa implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarDetalleEmpresa");
-            context.execute("DuplicarRegistroDetalleEmpresa.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroDetalleEmpresa').show()");
             index = -1;
             secRegistro = null;
         }
@@ -1821,7 +1822,7 @@ public class ControlDetalleEmpresa implements Serializable {
                 secRegistro = null;
                 if (guardado == true) {
                     guardado = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //PrimefacesContextUI.actualizar("form:aceptar");
                 }
                 if (bandera == 1) {
                     altoTabla = "300";
@@ -1900,7 +1901,7 @@ public class ControlDetalleEmpresa implements Serializable {
                     detalleExoneraLnsTarifa.setFilterStyle("display: none; visibility: hidden;");
                     detalleReportaLnsTarifa = (Column) c.getViewRoot().findComponent("form:datosDetalleEmpresa:detalleReportaLnsTarifa");
                     detalleReportaLnsTarifa.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
+                    PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
                     bandera = 0;
                     filtrarListaDetallesEmpresas = null;
                     tipoLista = 0;
@@ -1908,17 +1909,17 @@ public class ControlDetalleEmpresa implements Serializable {
                 duplicarDetalleEmpresa = new DetallesEmpresas();
                 RequestContext context = RequestContext.getCurrentInstance();
                 infoRegistro = "Cantidad de registros : " + listaDetallesEmpresas.size();
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
-                context.update("form:ACEPTAR");
-                context.update("form:datosDetalleEmpresa");
-                context.execute("DuplicarRegistroDetalleEmpresa.hide()");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
+                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroDetalleEmpresa').hide()");
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorFechas.show()");
+                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNull.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNull').show()");
         }
     }
 
@@ -1986,9 +1987,9 @@ public class ControlDetalleEmpresa implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         infoRegistro = "Cantidad de registros : " + listaDetallesEmpresas.size();
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
-        context.update("form:ACEPTAR");
-        context.update("form:datosDetalleEmpresa");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
         index = -1;
         secRegistro = null;
         if (guardado == true) {
@@ -2079,7 +2080,7 @@ public class ControlDetalleEmpresa implements Serializable {
             detalleExoneraLnsTarifa.setFilterStyle("width: 85%");
             detalleReportaLnsTarifa = (Column) c.getViewRoot().findComponent("form:datosDetalleEmpresa:detalleReportaLnsTarifa");
             detalleReportaLnsTarifa.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
+            PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
             tipoLista = 1;
             bandera = 1;
         } else if (bandera == 1) {
@@ -2158,7 +2159,7 @@ public class ControlDetalleEmpresa implements Serializable {
             detalleExoneraLnsTarifa.setFilterStyle("display: none; visibility: hidden;");
             detalleReportaLnsTarifa = (Column) c.getViewRoot().findComponent("form:datosDetalleEmpresa:detalleReportaLnsTarifa");
             detalleReportaLnsTarifa.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
+            PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
             bandera = 0;
             filtrarListaDetallesEmpresas = null;
             tipoLista = 0;
@@ -2244,7 +2245,7 @@ public class ControlDetalleEmpresa implements Serializable {
             detalleExoneraLnsTarifa.setFilterStyle("display: none; visibility: hidden;");
             detalleReportaLnsTarifa = (Column) c.getViewRoot().findComponent("form:datosDetalleEmpresa:detalleReportaLnsTarifa");
             detalleReportaLnsTarifa.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
+            PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
             bandera = 0;
             filtrarListaDetallesEmpresas = null;
             tipoLista = 0;
@@ -2259,7 +2260,7 @@ public class ControlDetalleEmpresa implements Serializable {
         guardado = true;
         cambiosPagina = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
         tipoActualizacion = -1;
     }
 
@@ -2274,29 +2275,29 @@ public class ControlDetalleEmpresa implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            context.update("form:EmpresasDialogo");
-            context.execute("EmpresasDialogo.show()");
+            PrimefacesContextUI.actualizar("form:EmpresasDialogo");
+            PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
         } else if (dlg == 1) {
-            context.update("form:CiudadDialogo");
-            context.execute("CiudadDialogo.show()");
+            PrimefacesContextUI.actualizar("form:CiudadDialogo");
+            PrimefacesContextUI.ejecutar("PF('CiudadDialogo').show()");
         } else if (dlg == 2) {
-            context.update("form:CiudadDocumentoDialogo");
-            context.execute("CiudadDocumentoDialogo.show()");
+            PrimefacesContextUI.actualizar("form:CiudadDocumentoDialogo");
+            PrimefacesContextUI.ejecutar("PF('CiudadDocumentoDialogo').show()");
         } else if (dlg == 3) {
-            context.update("form:GerenteDialogo");
-            context.execute("GerenteDialogo.show()");
+            PrimefacesContextUI.actualizar("form:GerenteDialogo");
+            PrimefacesContextUI.ejecutar("PF('GerenteDialogo').show()");
         } else if (dlg == 4) {
-            context.update("form:PersonaFirmaDialogo");
-            context.execute("PersonaFirmaDialogo.show()");
+            PrimefacesContextUI.actualizar("form:PersonaFirmaDialogo");
+            PrimefacesContextUI.ejecutar("PF('PersonaFirmaDialogo').show()");
         } else if (dlg == 5) {
-            context.update("form:CargoFirmaDialogo");
-            context.execute("CargoFirmaDialogo.show()");
+            PrimefacesContextUI.actualizar("form:CargoFirmaDialogo");
+            PrimefacesContextUI.ejecutar("PF('CargoFirmaDialogo').show()");
         } else if (dlg == 6) {
-            context.update("form:SubGerenteDialogo");
-            context.execute("SubGerenteDialogo.show()");
+            PrimefacesContextUI.actualizar("form:SubGerenteDialogo");
+            PrimefacesContextUI.ejecutar("PF('SubGerenteDialogo').show()");
         } else if (dlg == 7) {
-            context.update("form:RepresentanteDialogo");
-            context.execute("RepresentanteDialogo.show()");
+            PrimefacesContextUI.actualizar("form:RepresentanteDialogo");
+            PrimefacesContextUI.ejecutar("PF('RepresentanteDialogo').show()");
         }
 
     }
@@ -2335,14 +2336,14 @@ public class ControlDetalleEmpresa implements Serializable {
                 permitirIndex = true;
 
             }
-            context.update("form:ACEPTAR");
-            context.update("form:datosDetalleEmpresa");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
         } else if (tipoActualizacion == 1) {
             nuevaDetalleEmpresa.setEmpresa(empresaSeleccionada);
-            context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaEmpresaDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaEmpresaDetalle");
         } else if (tipoActualizacion == 2) {
             duplicarDetalleEmpresa.setEmpresa(empresaSeleccionada);
-            context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarEmpresaDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarEmpresaDetalle");
         }
         filtrarLovEmpresas = null;
         empresaSeleccionada = null;
@@ -2351,12 +2352,12 @@ public class ControlDetalleEmpresa implements Serializable {
         secRegistro = null;
         tipoActualizacion = -1;
         /*
-        context.update("form:EmpresasDialogo");
-        context.update("form:lovEmpresas");
-        context.update("form:aceptarE");*/
+        PrimefacesContextUI.actualizar("form:EmpresasDialogo");
+        PrimefacesContextUI.actualizar("form:lovEmpresas");
+        PrimefacesContextUI.actualizar("form:aceptarE");*/
         context.reset("form:lovEmpresas:globalFilter");
-        context.execute("lovEmpresas.clearFilters()");
-        context.execute("EmpresasDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
     }
 
     public void cancelarCambioEmpresa() {
@@ -2369,8 +2370,8 @@ public class ControlDetalleEmpresa implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEmpresas:globalFilter");
-        context.execute("lovEmpresas.clearFilters()");
-        context.execute("EmpresasDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
     }
 
     public void actualizarCiudad() {
@@ -2400,14 +2401,14 @@ public class ControlDetalleEmpresa implements Serializable {
             }
             cambiosPagina = false;
             permitirIndex = true;
-            context.update("form:ACEPTAR");
-            context.update("form:datosDetalleEmpresa");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
         } else if (tipoActualizacion == 1) {
             nuevaDetalleEmpresa.setCiudad(ciudadSeleccionada);
-            context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDetalle");
         } else if (tipoActualizacion == 2) {
             duplicarDetalleEmpresa.setCiudad(ciudadSeleccionada);
-            context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarCiudadDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarCiudadDetalle");
         }
         filtrarLovCiudades = null;
         ciudadSeleccionada = null;
@@ -2416,12 +2417,12 @@ public class ControlDetalleEmpresa implements Serializable {
         secRegistro = null;
         tipoActualizacion = -1;
         /*
-        context.update("form:CiudadDialogo");
-        context.update("form:lovCiudad");
-        context.update("form:aceptarC");*/
+        PrimefacesContextUI.actualizar("form:CiudadDialogo");
+        PrimefacesContextUI.actualizar("form:lovCiudad");
+        PrimefacesContextUI.actualizar("form:aceptarC");*/
         context.reset("form:lovCiudad:globalFilter");
-        context.execute("lovCiudad.clearFilters()");
-        context.execute("CiudadDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovCiudad').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('CiudadDialogo').hide()");
     }
 
     public void cancelarCambioCiudad() {
@@ -2434,8 +2435,8 @@ public class ControlDetalleEmpresa implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovCiudad:globalFilter");
-        context.execute("lovCiudad.clearFilters()");
-        context.execute("CiudadDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovCiudad').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('CiudadDialogo').hide()");
     }
 
     public void actualizarCiudadDocumento() {
@@ -2466,14 +2467,14 @@ public class ControlDetalleEmpresa implements Serializable {
             cambiosPagina = false;
             permitirIndex = true;
 
-            context.update("form:ACEPTAR");
-            context.update("form:datosDetalleEmpresa");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
         } else if (tipoActualizacion == 1) {
             nuevaDetalleEmpresa.setCiudaddocumentorepresentante(ciudadSeleccionada);
-            context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDocumentoDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDocumentoDetalle");
         } else if (tipoActualizacion == 2) {
             duplicarDetalleEmpresa.setCiudaddocumentorepresentante(ciudadSeleccionada);
-            context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarCiudadDocumentoDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarCiudadDocumentoDetalle");
         }
         filtrarLovCiudades = null;
         ciudadSeleccionada = null;
@@ -2482,12 +2483,12 @@ public class ControlDetalleEmpresa implements Serializable {
         secRegistro = null;
         tipoActualizacion = -1;
         /*
-        context.update("form:CiudadDocumentoDialogo");
-        context.update("form:lovCiudadDocumento");
-        context.update("form:aceptarCD");*/
+        PrimefacesContextUI.actualizar("form:CiudadDocumentoDialogo");
+        PrimefacesContextUI.actualizar("form:lovCiudadDocumento");
+        PrimefacesContextUI.actualizar("form:aceptarCD");*/
         context.reset("form:lovCiudadDocumento:globalFilter");
-        context.execute("lovCiudadDocumento.clearFilters()");
-        context.execute("CiudadDocumentoDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovCiudadDocumento').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('CiudadDocumentoDialogo').hide()");
     }
 
     public void cancelarCambioCiudadDocumento() {
@@ -2500,8 +2501,8 @@ public class ControlDetalleEmpresa implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovCiudadDocumento:globalFilter");
-        context.execute("lovCiudadDocumento.clearFilters()");
-        context.execute("CiudadDocumentoDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovCiudadDocumento').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('CiudadDocumentoDialogo').hide()");
     }
 
     public void actualizarGerente() {
@@ -2531,14 +2532,14 @@ public class ControlDetalleEmpresa implements Serializable {
             }
             cambiosPagina = false;
             permitirIndex = true;
-            context.update("form:ACEPTAR");
-            context.update("form:datosDetalleEmpresa");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
         } else if (tipoActualizacion == 1) {
             nuevaDetalleEmpresa.setGerentegeneral(empleadoSeleccionado);
-            context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaGerenteDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaGerenteDetalle");
         } else if (tipoActualizacion == 2) {
             duplicarDetalleEmpresa.setGerentegeneral(empleadoSeleccionado);
-            context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarGerenteDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarGerenteDetalle");
         }
         filtrarLovEmpleados = null;
         empleadoSeleccionado = null;
@@ -2547,12 +2548,12 @@ public class ControlDetalleEmpresa implements Serializable {
         secRegistro = null;
         tipoActualizacion = -1;
         /*
-        context.update("form:GerenteDialogo");
-        context.update("form:lovGerente");
-        context.update("form:aceptarG");*/
+        PrimefacesContextUI.actualizar("form:GerenteDialogo");
+        PrimefacesContextUI.actualizar("form:lovGerente");
+        PrimefacesContextUI.actualizar("form:aceptarG");*/
         context.reset("form:lovGerente:globalFilter");
-        context.execute("lovGerente.clearFilters()");
-        context.execute("GerenteDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovGerente').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('GerenteDialogo').hide()");
     }
 
     public void cancelarCambioGerente() {
@@ -2565,8 +2566,8 @@ public class ControlDetalleEmpresa implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovGerente:globalFilter");
-        context.execute("lovGerente.clearFilters()");
-        context.execute("GerenteDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovGerente').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('GerenteDialogo').hide()");
     }
 
     public void actualizarSubGerente() {
@@ -2596,14 +2597,14 @@ public class ControlDetalleEmpresa implements Serializable {
             }
             cambiosPagina = false;
             permitirIndex = true;
-            context.update("form:ACEPTAR");
-            context.update("form:datosDetalleEmpresa");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
         } else if (tipoActualizacion == 1) {
             nuevaDetalleEmpresa.setSubgerente(empleadoSeleccionado);
-            context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaSubGerenteDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaSubGerenteDetalle");
         } else if (tipoActualizacion == 2) {
             duplicarDetalleEmpresa.setSubgerente(empleadoSeleccionado);
-            context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarSubGerenteDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarSubGerenteDetalle");
         }
         filtrarLovEmpleados = null;
         empleadoSeleccionado = null;
@@ -2612,12 +2613,12 @@ public class ControlDetalleEmpresa implements Serializable {
         secRegistro = null;
         tipoActualizacion = -1;
         /*
-        context.update("form:SubGerenteDialogo");
-        context.update("form:lovSubGerente");
-        context.update("form:aceptarSG");*/
+        PrimefacesContextUI.actualizar("form:SubGerenteDialogo");
+        PrimefacesContextUI.actualizar("form:lovSubGerente");
+        PrimefacesContextUI.actualizar("form:aceptarSG");*/
         context.reset("form:lovRepresentante:globalFilter");
-        context.execute("lovSubGerente.clearFilters()");
-        context.execute("SubGerenteDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovSubGerente').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('SubGerenteDialogo').hide()");
     }
 
     public void cancelarCambioSubGerente() {
@@ -2630,8 +2631,8 @@ public class ControlDetalleEmpresa implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovRepresentante:globalFilter");
-        context.execute("lovSubGerente.clearFilters()");
-        context.execute("SubGerenteDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovSubGerente').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('SubGerenteDialogo').hide()");
     }
 
     public void actualizarRepresentante() {
@@ -2661,14 +2662,14 @@ public class ControlDetalleEmpresa implements Serializable {
             }
             cambiosPagina = false;
             permitirIndex = true;
-            context.update("form:ACEPTAR");
-            context.update("form:datosDetalleEmpresa");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
         } else if (tipoActualizacion == 1) {
             nuevaDetalleEmpresa.setRepresentantecir(empleadoSeleccionado);
-            context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaRepresentanteDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaRepresentanteDetalle");
         } else if (tipoActualizacion == 2) {
             duplicarDetalleEmpresa.setRepresentantecir(empleadoSeleccionado);
-            context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarRepresentanteDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarRepresentanteDetalle");
         }
         filtrarLovEmpleados = null;
         empleadoSeleccionado = null;
@@ -2677,12 +2678,12 @@ public class ControlDetalleEmpresa implements Serializable {
         secRegistro = null;
         tipoActualizacion = -1;
         /*
-        context.update("form:RepresentanteDialogo");
-        context.update("form:lovRepresentante");
-        context.update("form:aceptarR");*/
+        PrimefacesContextUI.actualizar("form:RepresentanteDialogo");
+        PrimefacesContextUI.actualizar("form:lovRepresentante");
+        PrimefacesContextUI.actualizar("form:aceptarR");*/
         context.reset("form:lovRepresentante:globalFilter");
-        context.execute("lovRepresentante.clearFilters()");
-        context.execute("RepresentanteDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovRepresentante').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('RepresentanteDialogo').hide()");
     }
 
     public void cancelarCambioRepresentante() {
@@ -2695,8 +2696,8 @@ public class ControlDetalleEmpresa implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovRepresentante:globalFilter");
-        context.execute("lovRepresentante.clearFilters()");
-        context.execute("RepresentanteDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovRepresentante').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('RepresentanteDialogo').hide()");
     }
 
     public void actualizarPersona() {
@@ -2726,14 +2727,14 @@ public class ControlDetalleEmpresa implements Serializable {
             }
             cambiosPagina = false;
             permitirIndex = true;
-            context.update("form:ACEPTAR");
-            context.update("form:datosDetalleEmpresa");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
         } else if (tipoActualizacion == 1) {
             nuevaDetalleEmpresa.setPersonafirmaconstancia(personaSeleccionada);
-            context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaPersonaFirmaDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaPersonaFirmaDetalle");
         } else if (tipoActualizacion == 2) {
             duplicarDetalleEmpresa.setPersonafirmaconstancia(personaSeleccionada);
-            context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarPersonaFirmaDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarPersonaFirmaDetalle");
         }
         filtrarLovPersonas = null;
         personaSeleccionada = null;
@@ -2742,12 +2743,12 @@ public class ControlDetalleEmpresa implements Serializable {
         secRegistro = null;
         tipoActualizacion = -1;
         /*
-        context.update("form:PersonaFirmaDialogo");
-        context.update("form:lovPersona");
-        context.update("form:aceptarPF");*/
+        PrimefacesContextUI.actualizar("form:PersonaFirmaDialogo");
+        PrimefacesContextUI.actualizar("form:lovPersona");
+        PrimefacesContextUI.actualizar("form:aceptarPF");*/
         context.reset("form:lovPersona:globalFilter");
-        context.execute("lovPersona.clearFilters()");
-        context.execute("PersonaFirmaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovPersona').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('PersonaFirmaDialogo').hide()");
     }
 
     public void cancelarCambioPersona() {
@@ -2760,8 +2761,8 @@ public class ControlDetalleEmpresa implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovPersona:globalFilter");
-        context.execute("lovPersona.clearFilters()");
-        context.execute("PersonaFirmaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovPersona').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('PersonaFirmaDialogo').hide()");
     }
 
     public void actualizarCargo() {
@@ -2791,14 +2792,14 @@ public class ControlDetalleEmpresa implements Serializable {
             }
             cambiosPagina = false;
             permitirIndex = true;
-            context.update("form:ACEPTAR");
-            context.update("form:datosDetalleEmpresa");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosDetalleEmpresa");
         } else if (tipoActualizacion == 1) {
             nuevaDetalleEmpresa.setCargofirmaconstancia(cargoSeleccionado);
-            context.update("formularioDialogos:nuevaDetalleEmpresa:nuevaCargoFirmaDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalleEmpresa:nuevaCargoFirmaDetalle");
         } else if (tipoActualizacion == 2) {
             duplicarDetalleEmpresa.setCargofirmaconstancia(cargoSeleccionado);
-            context.update("formularioDialogos:duplicarDetalleEmpresa:duplicarCargoFirmaDetalle");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalleEmpresa:duplicarCargoFirmaDetalle");
         }
         filtrarLovCargos = null;
         cargoSeleccionado = null;
@@ -2807,12 +2808,12 @@ public class ControlDetalleEmpresa implements Serializable {
         secRegistro = null;
         tipoActualizacion = -1;
         /*
-        context.update("form:CargoFirmaDialogo");
-        context.update("form:lovCargoFirma");
-        context.update("form:aceptarCF");*/
+        PrimefacesContextUI.actualizar("form:CargoFirmaDialogo");
+        PrimefacesContextUI.actualizar("form:lovCargoFirma");
+        PrimefacesContextUI.actualizar("form:aceptarCF");*/
         context.reset("form:lovCargoFirma:globalFilter");
-        context.execute("lovCargoFirma.clearFilters()");
-        context.execute("CargoFirmaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovCargoFirma').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('CargoFirmaDialogo').hide()");
     }
 
     public void cancelarCambioCargo() {
@@ -2825,51 +2826,51 @@ public class ControlDetalleEmpresa implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovCargoFirma:globalFilter");
-        context.execute("lovCargoFirma.clearFilters()");
-        context.execute("CargoFirmaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovCargoFirma').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('CargoFirmaDialogo').hide()");
     }
 
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (index >= 0) {
             if (cualCelda == 0) {
-                context.update("form:EmpresasDialogo");
-                context.execute("EmpresasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EmpresasDialogo");
+                PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 4) {
-                context.update("form:CiudadDialogo");
-                context.execute("CiudadDialogo.show()");
+                PrimefacesContextUI.actualizar("form:CiudadDialogo");
+                PrimefacesContextUI.ejecutar("PF('CiudadDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 9) {
-                context.update("form:CiudadDocumentoDialogo");
-                context.execute("CiudadDocumentoDialogo.show()");
+                PrimefacesContextUI.actualizar("form:CiudadDocumentoDialogo");
+                PrimefacesContextUI.ejecutar("PF('CiudadDocumentoDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 12) {
-                context.update("form:GerenteDialogo");
-                context.execute("GerenteDialogo.show()");
+                PrimefacesContextUI.actualizar("form:GerenteDialogo");
+                PrimefacesContextUI.ejecutar("PF('GerenteDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 13) {
-                context.update("form:PersonaFirmaDialogo");
-                context.execute("PersonaFirmaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:PersonaFirmaDialogo");
+                PrimefacesContextUI.ejecutar("PF('PersonaFirmaDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 14) {
-                context.update("form:CargoFirmaDialogo");
-                context.execute("CargoFirmaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:CargoFirmaDialogo");
+                PrimefacesContextUI.ejecutar("PF('CargoFirmaDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 19) {
-                context.update("form:SubGerenteDialogo");
-                context.execute("SubGerenteDialogo.show()");
+                PrimefacesContextUI.actualizar("form:SubGerenteDialogo");
+                PrimefacesContextUI.ejecutar("PF('SubGerenteDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 22) {
-                context.update("form:RepresentanteDialogo");
-                context.execute("RepresentanteDialogo.show()");
+                PrimefacesContextUI.actualizar("form:RepresentanteDialogo");
+                PrimefacesContextUI.ejecutar("PF('RepresentanteDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -2914,7 +2915,7 @@ public class ControlDetalleEmpresa implements Serializable {
             tipoLista = 1;
         }
         infoRegistro = "Cantidad de registros : " + filtrarListaDetallesEmpresas.size();
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
 
     //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
@@ -2926,24 +2927,24 @@ public class ControlDetalleEmpresa implements Serializable {
                 backUpSecRegistro = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("DETALLESEMPRESAS")) {
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }

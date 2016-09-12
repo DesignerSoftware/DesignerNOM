@@ -28,6 +28,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -110,10 +111,10 @@ public class ControlFestivos implements Serializable {
             listFestivosPorPais = null;
             getListFestivosPorPais();
         } else {
-            context.update("form:confirmarPais");
-            context.execute("confirmarPais.show()");
+            PrimefacesContextUI.actualizar("form:confirmarPais");
+            PrimefacesContextUI.ejecutar("PF('confirmarPais').show()");
         }
-        context.update("form:datosHvEntrevista");
+        PrimefacesContextUI.actualizar("form:datosHvEntrevista");
     }
 
     public void anularCambios() {
@@ -164,14 +165,14 @@ public class ControlFestivos implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
                         }
-                        context.update("form:datosHvEntrevista");
+                        PrimefacesContextUI.actualizar("form:datosHvEntrevista");
 
                     }
                 } else {
-                    context.update("form:validacionModificar");
-                    context.execute("validacionModificar.show()");
+                    PrimefacesContextUI.actualizar("form:validacionModificar");
+                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     cancelarModificacion();
                 }
             } else {
@@ -210,14 +211,14 @@ public class ControlFestivos implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
                         }
-                        context.update("form:datosHvEntrevista");
+                        PrimefacesContextUI.actualizar("form:datosHvEntrevista");
 
                     }
                 } else {
-                    context.update("form:validacionModificar");
-                    context.execute("validacionModificar.show()");
+                    PrimefacesContextUI.actualizar("form:validacionModificar");
+                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     cancelarModificacion();
 
                 }
@@ -239,7 +240,7 @@ public class ControlFestivos implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de Registros: " + filtrarFestivosPorPais.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlFestivos eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -279,8 +280,8 @@ public class ControlFestivos implements Serializable {
                 tipoActualizacion = 2;
             }
             if (dig == 1) {
-                context.update("form:sucursalesDialogo");
-                context.execute("sucursalesDialogo.show()");
+                PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                 dig = -1;
             }
         } catch (Exception e) {
@@ -296,8 +297,8 @@ public class ControlFestivos implements Serializable {
         if (index >= 0) {
             if (cualCelda == 1) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:sucursalesDialogo");
-                context.execute("sucursalesDialogo.show()");
+                PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
             }
         }
     }
@@ -308,7 +309,7 @@ public class ControlFestivos implements Serializable {
             //CERRAR FILTRADO
             fecha = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:fecha");
             fecha.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
             bandera = 0;
             filtrarFestivosPorPais = null;
             tipoLista = 0;
@@ -331,9 +332,9 @@ public class ControlFestivos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: 0";
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosHvEntrevista");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
     public void salir() {
         if (bandera == 1) {
@@ -341,7 +342,7 @@ public class ControlFestivos implements Serializable {
             //CERRAR FILTRADO
             fecha = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:fecha");
             fecha.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
             bandera = 0;
             filtrarFestivosPorPais = null;
             tipoLista = 0;
@@ -364,9 +365,9 @@ public class ControlFestivos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: 0";
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosHvEntrevista");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -375,7 +376,7 @@ public class ControlFestivos implements Serializable {
             tamano = 160;
             fecha = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:fecha");
             fecha.setFilterStyle("width: 85%;");
-            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -383,7 +384,7 @@ public class ControlFestivos implements Serializable {
             System.out.println("Desactivar");
             fecha = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:fecha");
             fecha.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
             bandera = 0;
             filtrarFestivosPorPais = null;
             tipoLista = 0;
@@ -437,8 +438,8 @@ public class ControlFestivos implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -471,8 +472,8 @@ public class ControlFestivos implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -512,8 +513,8 @@ public class ControlFestivos implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -546,16 +547,16 @@ public class ControlFestivos implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
                 }
 
             }
-            context.update("form:datosHvEntrevista");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -612,9 +613,9 @@ public class ControlFestivos implements Serializable {
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:informacionRegistro");
-            context.update("form:datosHvEntrevista");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             index = -1;
             secRegistro = null;
 
@@ -635,8 +636,8 @@ public class ControlFestivos implements Serializable {
      System.out.println("Borrado>0");
 
      RequestContext context = RequestContext.getCurrentInstance();
-     context.update("form:validacionBorrar");
-     context.execute("validacionBorrar.show()");
+     PrimefacesContextUI.actualizar("form:validacionBorrar");
+     PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
      index = -1;
 
      competenciasCargos = new BigDecimal(-1);
@@ -650,8 +651,8 @@ public class ControlFestivos implements Serializable {
 
         if (!borrarFestivosPorPais.isEmpty() || !crearFestivosPorPais.isEmpty() || !modificarFestivosPorPais.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:confirmarGuardar");
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
     }
@@ -668,8 +669,8 @@ public class ControlFestivos implements Serializable {
                 }
                 //mostrarBorrados
                 registrosBorrados = borrarFestivosPorPais.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarFestivosPorPais.clear();
             }
             if (!crearFestivosPorPais.isEmpty()) {
@@ -693,8 +694,8 @@ public class ControlFestivos implements Serializable {
             listFestivosPorPais = null;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
-            context.update("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:growl");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
             k = 0;
             guardado = true;
             getListFestivosPorPais();
@@ -704,10 +705,10 @@ public class ControlFestivos implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: 0";
             }
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         }
         index = -1;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -723,12 +724,12 @@ public class ControlFestivos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarFecha");
-                context.execute("editarFecha.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFecha");
+                PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editPuntaje");
-                context.execute("editPuntaje.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editPuntaje");
+                PrimefacesContextUI.ejecutar("PF('editPuntaje').show()");
                 cualCelda = -1;
             }
 
@@ -781,7 +782,7 @@ public class ControlFestivos implements Serializable {
                 fecha = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:fecha");
                 fecha.setFilterStyle("display: none; visibility: hidden;");
 
-                RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+                PrimefacesContextUI.actualizar("form:datosHvEntrevista");
                 bandera = 0;
                 filtrarFestivosPorPais = null;
                 tipoLista = 0;
@@ -801,20 +802,20 @@ public class ControlFestivos implements Serializable {
             nuevoFestivos = new Festivos();
             nuevoFestivos.setPais(new Paises());
             infoRegistro = "Cantidad de registros: " + listFestivosPorPais.size();
-            context.update("form:informacionRegistro");
-            context.update("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
 
-            context.execute("nuevoRegistroEvalEmpresas.hide()");
+            PrimefacesContextUI.ejecutar("PF('nuevoRegistroEvalEmpresas').hide()");
             index = -1;
             secRegistro = null;
 
         } else {
-            context.update("form:validacionNuevaCentroCosto");
-            context.execute("validacionNuevaCentroCosto.show()");
+            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -848,8 +849,8 @@ public class ControlFestivos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarEvC");
-            context.execute("duplicarRegistroEvalCompetencias.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEvC");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroEvalCompetencias').show()");
             //index = -1;
             secRegistro = null;
         }
@@ -893,7 +894,7 @@ public class ControlFestivos implements Serializable {
             }
             listFestivosPorPais.add(duplicarFestivos);
             crearFestivosPorPais.add(duplicarFestivos);
-            context.update("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
             index = -1;
             secRegistro = null;
 
@@ -902,7 +903,7 @@ public class ControlFestivos implements Serializable {
             System.err.println("Pais " + duplicarFestivos.getPais().getNombre());
             System.err.println("-----------------------------------------------");
             infoRegistro = "Cantidad de registros: " + listFestivosPorPais.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
             }
@@ -911,21 +912,21 @@ public class ControlFestivos implements Serializable {
                 //CERRAR FILTRADO
                 fecha = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:fecha");
                 fecha.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+                PrimefacesContextUI.actualizar("form:datosHvEntrevista");
                 bandera = 0;
                 filtrarFestivosPorPais = null;
                 tipoLista = 0;
             }
             duplicarFestivos = new Festivos();
-            RequestContext.getCurrentInstance().execute("duplicarRegistroEvalCompetencias.hide()");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroEvalCompetencias').hide()");
 
         } else {
             contador = 0;
             fechas = 0;
-            context.update("form:validacionDuplicarVigencia");
-            context.execute("validacionDuplicarVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void limpiarDuplicarFestivos() {
@@ -961,24 +962,24 @@ public class ControlFestivos implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "FESTIVOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("FESTIVOS")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -995,7 +996,7 @@ public class ControlFestivos implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listFestivosPorPais.size();
             }
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         }
         return listFestivosPorPais;
     }
@@ -1078,7 +1079,7 @@ public class ControlFestivos implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listFestivosPorPais.size();
             }
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         }
         return listPaises;
     }

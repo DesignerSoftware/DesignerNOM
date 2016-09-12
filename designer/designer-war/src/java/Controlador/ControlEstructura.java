@@ -25,6 +25,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
@@ -189,7 +190,7 @@ public class ControlEstructura implements Serializable {
             arbolEstructuras = null;
             codigoEmpresa = organigramaSeleccionado.getEmpresa().getCodigo();
             getArbolEstructuras();
-            RequestContext.getCurrentInstance().update("form:arbolEstructuras");
+            PrimefacesContextUI.actualizar("form:arbolEstructuras");
         }
     }
 
@@ -221,10 +222,10 @@ public class ControlEstructura implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
-            context.update("form:datosOrganigramas");
+            PrimefacesContextUI.actualizar("form:datosOrganigramas");
         } else if (column.equalsIgnoreCase("EMPRESA")) {
             organigramaSeleccionado.getEmpresa().setNombre(auxEmpresa);
             for (int i = 0; i < lovEmpresas.size(); i++) {
@@ -241,8 +242,8 @@ public class ControlEstructura implements Serializable {
             } else {
                 permitirIndex = false;
                 contarRegistrosLovEmp(0);
-                context.update("form:EmpresasDialogo");
-                context.execute("EmpresasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EmpresasDialogo");
+                PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
                 tipoActualizacion = 0;
             }
         } else if (column.equalsIgnoreCase("COD")) {
@@ -257,8 +258,8 @@ public class ControlEstructura implements Serializable {
                 }
             }
             if (coincidencias > 0) {
-                context.update("formularioDialogos:validacionCodigoRepetido");
-                context.execute("validacionCodigoRepetido.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:validacionCodigoRepetido");
+                PrimefacesContextUI.ejecutar("PF('validacionCodigoRepetido').show()");
                 tipoActualizacion = 0;
             } else {
                 organigramaSeleccionado.setCodigo(cod);
@@ -277,8 +278,8 @@ public class ControlEstructura implements Serializable {
                 }
             }
             if (coincidencias > 0) {
-                context.update("formularioDialogos:validacionFechaRepetida");
-                context.execute("validacionFechaRepetida.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:validacionFechaRepetida");
+                PrimefacesContextUI.ejecutar("PF('validacionFechaRepetida').show()");
                 tipoActualizacion = 0;
             } else {
                 organigramaSeleccionado.setFecha(fecha);
@@ -294,11 +295,11 @@ public class ControlEstructura implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
         }
-        context.update("form:datosOrganigramas");
+        PrimefacesContextUI.actualizar("form:datosOrganigramas");
     }
 
     //ASIGNAR INDEX PARA LA TABLA PRINCIPAL
@@ -307,16 +308,16 @@ public class ControlEstructura implements Serializable {
         tipoActualizacion = 0;
         activarBotonLOV();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:EmpresasDialogo");
-        context.execute("EmpresasDialogo.show()");
+        PrimefacesContextUI.actualizar("form:EmpresasDialogo");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
     }
 
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (tipoAct = NUEVO - DUPLICADO)
     public void asignarIndexDialogos(int tipoAct) {
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = tipoAct;
-        context.update("form:EmpresasDialogo");
-        context.execute("EmpresasDialogo.show()");
+        PrimefacesContextUI.actualizar("form:EmpresasDialogo");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
     }
 
     //AUTOCOMPLETAR NUEVO Y DUPLICADO
@@ -346,25 +347,25 @@ public class ControlEstructura implements Serializable {
         if (coincidencias == 1) {
             if (tipoNuevo == 1) {
                 nuevoOrganigrama.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
-                context.update("formularioDialogos:nuevaEmpresa");
-                context.update("formularioDialogos:nuevoNit");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevaEmpresa");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevoNit");
             } else if (tipoNuevo == 2) {
                 duplicarOrganigrama.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
-                context.update("formularioDialogos:duplicarEmpresa");
-                context.update("formularioDialogos:duplicarNit");
+                PrimefacesContextUI.actualizar("formularioDialogos:duplicarEmpresa");
+                PrimefacesContextUI.actualizar("formularioDialogos:duplicarNit");
             }
             lovEmpresas.clear();
             getLovEmpresas();
         } else {
-            context.update("form:EmpresasDialogo");
-            context.execute("EmpresasDialogo.show()");
+            PrimefacesContextUI.actualizar("form:EmpresasDialogo");
+            PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
-                context.update("formularioDialogos:nuevaEmpresa");
-                context.update("formularioDialogos:nuevoNit");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevaEmpresa");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevoNit");
             } else if (tipoNuevo == 2) {
-                context.update("formularioDialogos:duplicarEmpresa");
-                context.update("formularioDialogos:duplicarNit");
+                PrimefacesContextUI.actualizar("formularioDialogos:duplicarEmpresa");
+                PrimefacesContextUI.actualizar("formularioDialogos:duplicarNit");
             }
         }
     }
@@ -373,22 +374,22 @@ public class ControlEstructura implements Serializable {
     public void agregarNuevoOrganigrama() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoOrganigrama.getEmpresa().getSecuencia() == null || nuevoOrganigrama.getCodigo() == null) {
-            context.update("form:validacioNuevoOrganigrama");
-            context.execute("validacioNuevoOrganigrama.show()");
+            PrimefacesContextUI.actualizar("form:validacioNuevoOrganigrama");
+            PrimefacesContextUI.ejecutar("PF('validacioNuevoOrganigrama').show()");
         } else {
             boolean continuar = true;
             for (int i = 0; i < listaOrganigramas.size(); i++) {
                 if (listaOrganigramas.get(i).getCodigo().equals(nuevoOrganigrama.getCodigo())) {
                     System.out.println(" nuevo codigo 1 igual");
-                    context.update("formularioDialogos:validacionCodigoRepetido");
-                    context.execute("validacionCodigoRepetido.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:validacionCodigoRepetido");
+                    PrimefacesContextUI.ejecutar("PF('validacionCodigoRepetido').show()");
                     continuar = false;
                     break;
                 } else if (listaOrganigramas.get(i).getFecha().equals(nuevoOrganigrama.getFecha())
                         && listaOrganigramas.get(i).getEmpresa().equals(nuevoOrganigrama.getEmpresa())) {
                     System.out.println(" nuevo fecha 1 igual para Empresa");
-                    context.update("formularioDialogos:validacionFechaRepetida");
-                    context.execute("validacionFechaRepetida.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:validacionFechaRepetida");
+                    PrimefacesContextUI.ejecutar("PF('validacionFechaRepetida').show()");
                     continuar = false;
                     break;
                 }
@@ -411,13 +412,13 @@ public class ControlEstructura implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
-                context.update("form:datosOrganigramas");
-                context.execute("NuevoRegistroOrganigramas.hide()");
+                PrimefacesContextUI.actualizar("form:datosOrganigramas");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroOrganigramas').hide()");
                 arbolEstructuras = null;
                 getArbolEstructuras();
-                context.update("form:arbolEstructuras");
+                PrimefacesContextUI.actualizar("form:arbolEstructuras");
             }
         }
     }
@@ -438,30 +439,30 @@ public class ControlEstructura implements Serializable {
             duplicarOrganigrama.setEmpresa(organigramaSeleccionado.getEmpresa());
             duplicarOrganigrama.setEstado(organigramaSeleccionado.getEstado());
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarOrganigrama");
-            context.execute("DuplicarRegistroOrganigramas.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarOrganigrama");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroOrganigramas').show()");
         }
     }
 
     public void confirmarDuplicar() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (duplicarOrganigrama.getEmpresa().getSecuencia() == null || duplicarOrganigrama.getCodigo() == null) {
-            context.update("form:validacioNuevoOrganigrama");
-            context.execute("validacioNuevoOrganigrama.show()");
+            PrimefacesContextUI.actualizar("form:validacioNuevoOrganigrama");
+            PrimefacesContextUI.ejecutar("PF('validacioNuevoOrganigrama').show()");
         } else {
             boolean continuar = true;
             for (int i = 0; i < listaOrganigramas.size(); i++) {
                 if (listaOrganigramas.get(i).getCodigo().equals(duplicarOrganigrama.getCodigo())) {
                     System.out.println(" nuevo codigo 1 igual");
-                    context.update("formularioDialogos:validacionCodigoRepetido");
-                    context.execute("validacionCodigoRepetido.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:validacionCodigoRepetido");
+                    PrimefacesContextUI.ejecutar("PF('validacionCodigoRepetido').show()");
                     continuar = false;
                     break;
                 } else if (listaOrganigramas.get(i).getFecha().equals(duplicarOrganigrama.getFecha())
                         && listaOrganigramas.get(i).getEmpresa().equals(duplicarOrganigrama.getEmpresa())) {
                     System.out.println(" nuevo fecha 1 igual para Empresa");
-                    context.update("formularioDialogos:validacionFechaRepetida");
-                    context.execute("validacionFechaRepetida.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:validacionFechaRepetida");
+                    PrimefacesContextUI.ejecutar("PF('validacionFechaRepetida').show()");
                     continuar = false;
                     break;
                 }
@@ -477,18 +478,18 @@ public class ControlEstructura implements Serializable {
                 anularBotonLOV();
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 if (bandera == 1) {
                     restaurarTabla();
                 }
-                context.update("form:datosOrganigramas");
+                PrimefacesContextUI.actualizar("form:datosOrganigramas");
                 duplicarOrganigrama = new Organigramas();
-                context.execute("DuplicarRegistroOrganigramas.hide()");
+                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroOrganigramas').hide()");
                 contarRegistrosOrg();
                 arbolEstructuras = null;
                 getArbolEstructuras();
-                context.update("form:arbolEstructuras");
+                PrimefacesContextUI.actualizar("form:arbolEstructuras");
             }
         }
     }
@@ -513,16 +514,16 @@ public class ControlEstructura implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
-            context.update("form:datosOrganigramas");
+            PrimefacesContextUI.actualizar("form:datosOrganigramas");
             permitirIndex = true;
         } else if (tipoActualizacion == 1) {
             nuevoOrganigrama.setEmpresa(empresaSeleccionada);
-            context.update("formularioDialogos:nuevoOrganigrama");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoOrganigrama");
         } else if (tipoActualizacion == 2) {
             duplicarOrganigrama.setEmpresa(empresaSeleccionada);
-            context.update("formularioDialogos:duplicarOrganigrama");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarOrganigrama");
         }
         filtradoEmpresas = null;
         empresaSeleccionada = null;
@@ -531,11 +532,11 @@ public class ControlEstructura implements Serializable {
         cualCelda = -1;
 
         context.reset("form:lovEmpresas:globalFilter");
-        context.execute("lovEmpresas.clearFilters()");
-        context.execute("EmpresasDialogo.hide()");
-        context.update("form:EmpresasDialogo");
-        context.update("form:lovEmpresas");
-        context.update("form:aceptarE");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        PrimefacesContextUI.actualizar("form:EmpresasDialogo");
+        PrimefacesContextUI.actualizar("form:lovEmpresas");
+        PrimefacesContextUI.actualizar("form:aceptarE");
     }
 
     public void cancelarEmpresa() {
@@ -546,11 +547,11 @@ public class ControlEstructura implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEmpresas:globalFilter");
-        context.execute("lovEmpresas.clearFilters()");
-        context.execute("EmpresasDialogo.hide()");
-        context.update("form:EmpresasDialogo");
-        context.update("form:lovEmpresas");
-        context.update("form:aceptarE");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        PrimefacesContextUI.actualizar("form:EmpresasDialogo");
+        PrimefacesContextUI.actualizar("form:lovEmpresas");
+        PrimefacesContextUI.actualizar("form:aceptarE");
     }
 
     //GUARDAR
@@ -577,21 +578,21 @@ public class ControlEstructura implements Serializable {
                 listaOrganigramas = null;
                 getListaOrganigramas();
                 organigramaSeleccionado = null;
-                context.update("form:datosOrganigramas");
+                PrimefacesContextUI.actualizar("form:datosOrganigramas");
                 contarRegistrosOrg();
                 guardado = true;
                 permitirIndex = true;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 k = 0;
                 FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                context.update("form:growl");
+                PrimefacesContextUI.actualizar("form:growl");
             }
         } catch (Exception e) {
             System.out.println("Error guardarCambiosOrganigramas Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
     //CANCELAR MODIFICACIONES
@@ -609,9 +610,9 @@ public class ControlEstructura implements Serializable {
         getListaOrganigramas();
         contarRegistrosOrg();
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
         permitirIndex = true;
-        RequestContext.getCurrentInstance().update("form:datosOrganigramas");
+        PrimefacesContextUI.actualizar("form:datosOrganigramas");
     }
 
     //CTRL + F11 ACTIVAR/DESACTIVAR
@@ -629,7 +630,7 @@ public class ControlEstructura implements Serializable {
             organigramaNit.setFilterStyle("width: 85%");
             organigramaEstado = (Column) c.getViewRoot().findComponent("form:datosOrganigramas:organigramaEstado");
             organigramaEstado.setFilterStyle("");
-            RequestContext.getCurrentInstance().update("form:datosOrganigramas");
+            PrimefacesContextUI.actualizar("form:datosOrganigramas");
             bandera = 1;
         } else if (bandera == 1) {
             restaurarTabla();
@@ -648,11 +649,11 @@ public class ControlEstructura implements Serializable {
         k = 0;
         listaOrganigramas = null;
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
         listaOrganigramas = null;
-        RequestContext.getCurrentInstance().update("form:datosOrganigramas");
+        PrimefacesContextUI.actualizar("form:datosOrganigramas");
         arbolEstructuras = null;
-        RequestContext.getCurrentInstance().update("form:arbolEstructuras");
+        PrimefacesContextUI.actualizar("form:arbolEstructuras");
         permitirIndex = true;
     }
 
@@ -674,15 +675,15 @@ public class ControlEstructura implements Serializable {
             }
             contarRegistrosOrg();
             anularBotonLOV();
-            context.update("form:datosOrganigramas");
+            PrimefacesContextUI.actualizar("form:datosOrganigramas");
             organigramaSeleccionado = null;
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             arbolEstructuras = null;
 //            getArbolEstructuras();
-//            context.update("form:arbolEstructuras");
+//            PrimefacesContextUI.actualizar("form:arbolEstructuras");
         }
     }
 
@@ -692,24 +693,24 @@ public class ControlEstructura implements Serializable {
             editarOrganigrama = organigramaSeleccionado;
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarFecha");
-                context.execute("editarFecha.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFecha");
+                PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarCod");
-                context.execute("editarCod.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCod");
+                PrimefacesContextUI.ejecutar("PF('editarCod').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarEmp");
-                context.execute("editarEmp.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEmp");
+                PrimefacesContextUI.ejecutar("PF('editarEmp').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                context.update("formularioDialogos:editarN");
-                context.execute("editarN.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarN");
+                PrimefacesContextUI.ejecutar("PF('editarN').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                context.update("formularioDialogos:editarEs");
-                context.execute("editarEs.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEs");
+                PrimefacesContextUI.ejecutar("PF('editarEs').show()");
                 cualCelda = -1;
             }
             anularBotonLOV();
@@ -722,8 +723,8 @@ public class ControlEstructura implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
                 contarRegistrosLovEmp(0);
-                context.update("form:EmpresasDialogo");
-                context.execute("EmpresasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EmpresasDialogo");
+                PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -762,12 +763,12 @@ public class ControlEstructura implements Serializable {
 
     public void anularBotonLOV() {
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     public void activarBotonLOV() {
         activarLOV = false;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     public void contarRegistrosOrg() {
@@ -778,7 +779,7 @@ public class ControlEstructura implements Serializable {
         } else {
             infoRegistro = String.valueOf(0);
         }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
 
     public void contarRegistrosLovEmp(int tipoListaLOV) {
@@ -789,7 +790,7 @@ public class ControlEstructura implements Serializable {
         } else {
             infoRegistroEmpresa = String.valueOf(0);
         }
-        RequestContext.getCurrentInstance().update("form:infoRegistroEmpresa");
+        PrimefacesContextUI.actualizar("form:infoRegistroEmpresa");
     }
 
     public void activarAceptar() {
@@ -812,9 +813,9 @@ public class ControlEstructura implements Serializable {
         }
         if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
-        RequestContext.getCurrentInstance().update("form:datosOrganigramas");
+        PrimefacesContextUI.actualizar("form:datosOrganigramas");
     }
 
     public void seleccionarEstadoNuevoOrganigrama(String estadoOrganigrama, int tipoNuevo) {
@@ -824,14 +825,14 @@ public class ControlEstructura implements Serializable {
             } else {
                 nuevoOrganigrama.setEstado("I");
             }
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoEstadoOrganigrama");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoEstadoOrganigrama");
         } else {
             if (estadoOrganigrama.equals("ACTIVO")) {
                 duplicarOrganigrama.setEstado("A");
             } else {
                 duplicarOrganigrama.setEstado("I");
             }
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarOrganigrama");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarOrganigrama");
         }
 
     }
@@ -841,21 +842,21 @@ public class ControlEstructura implements Serializable {
         if (organigramaSeleccionado != null) {
             int result = administrarRastros.obtenerTabla(organigramaSeleccionado.getSecuencia(), "ORGANIGRAMAS");
             if (result == 1) {
-                context.execute("errorObjetosDB.show()");
+                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
             } else if (result == 2) {
-                context.execute("confirmarRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
             } else if (result == 3) {
-                context.execute("errorRegistroRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
             } else if (result == 4) {
-                context.execute("errorTablaConRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
             } else if (result == 5) {
-                context.execute("errorTablaSinRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("ORGANIGRAMAS")) {
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -954,7 +955,7 @@ public class ControlEstructura implements Serializable {
         organigramaNit.setFilterStyle("display: none; visibility: hidden;");
         organigramaEstado = (Column) c.getViewRoot().findComponent("form:datosOrganigramas:organigramaEstado");
         organigramaEstado.setFilterStyle("display: none; visibility: hidden;");
-        RequestContext.getCurrentInstance().update("form:datosOrganigramas");
+        PrimefacesContextUI.actualizar("form:datosOrganigramas");
         bandera = 0;
         filtradoListaOrganigramas = null;
         tipoLista = 0;

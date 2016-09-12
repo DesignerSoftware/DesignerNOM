@@ -28,6 +28,7 @@ import org.primefaces.component.export.Exporter;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  * @author user
@@ -223,7 +224,7 @@ public class ControlTiposTrabajadores implements Serializable {
         }
         contarRegistrosVD();
         vigenciaDiaSeleccionado = null;
-        context.update("form:datosVigenciasDTT");
+        PrimefacesContextUI.actualizar("form:datosVigenciasDTT");
         tablaActiva = 1;
     }
 
@@ -243,7 +244,7 @@ public class ControlTiposTrabajadores implements Serializable {
         tablaActiva = 1;
         vigenciaDiaSeleccionado = null;
         System.out.println("cambiarIndiceDefault() tablaActiva: " + tablaActiva);
-        context.update("form:datosVigenciasDTT");
+        PrimefacesContextUI.actualizar("form:datosVigenciasDTT");
     }
 
     public void cambiarIndiceVD(VigenciasDiasTT vigenciaDia, int celda) {
@@ -276,8 +277,8 @@ public class ControlTiposTrabajadores implements Serializable {
         if (cualCelda == 3) {
             activarBotonLOV();
             contarRegistrosLovTC(0);
-            RequestContext.getCurrentInstance().update("form:dialogTiposCot");
-            RequestContext.getCurrentInstance().execute("dialogTiposCot.show()");
+            PrimefacesContextUI.actualizar("form:dialogTiposCot");
+            PrimefacesContextUI.ejecutar("PF('dialogTiposCot').show()");
         } else {
             anularBotonLOV();
         }
@@ -288,16 +289,16 @@ public class ControlTiposTrabajadores implements Serializable {
         tipoActualizacion = tipoAct;
         activarBotonLOV();
         contarRegistrosLovTC(0);
-        RequestContext.getCurrentInstance().update("form:dialogTiposCot");
-        RequestContext.getCurrentInstance().execute("dialogTiposCot.show()");
+        PrimefacesContextUI.actualizar("form:dialogTiposCot");
+        PrimefacesContextUI.ejecutar("PF('dialogTiposCot').show()");
     }
 
     public void listaValoresBoton() {
         if (cualCelda == 3) {
             contarRegistrosLovTC(0);
             tipoActualizacion = 0;
-            RequestContext.getCurrentInstance().update("form:dialogTiposCot");
-            RequestContext.getCurrentInstance().execute("dialogTiposCot.show()");
+            PrimefacesContextUI.actualizar("form:dialogTiposCot");
+            PrimefacesContextUI.ejecutar("PF('dialogTiposCot').show()");
         }
     }
 
@@ -318,8 +319,8 @@ public class ControlTiposTrabajadores implements Serializable {
             if (coincidencias == 1) {
                 tipoTrabajadorSeleccionado.setTipocotizante(lovTiposCotizantes.get(indiceUnicoElemento));
             } else {
-                context.update("form:dialogTiposCot");
-                context.execute("dialogTiposCot.show()");
+                PrimefacesContextUI.actualizar("form:dialogTiposCot");
+                PrimefacesContextUI.ejecutar("PF('dialogTiposCot').show()");
                 tipoActualizacion = 0;
             }
             if (coincidencias == 1) {
@@ -337,8 +338,8 @@ public class ControlTiposTrabajadores implements Serializable {
                 }
             }
             if (coincidencias > 0) {
-                context.update("form:errorClonadoRepetido");
-                context.execute("errorClonadoRepetido.show()");
+                PrimefacesContextUI.actualizar("form:errorClonadoRepetido");
+                PrimefacesContextUI.ejecutar("PF('errorClonadoRepetido').show()");
                 tipoActualizacion = 0;
             } else {
                 tipoTrabajadorSeleccionado.setCodigo(cod);
@@ -356,8 +357,8 @@ public class ControlTiposTrabajadores implements Serializable {
                 }
             }
             if (coincidencias > 0) {
-                context.update("form:errorClonadoRepetido");
-                context.execute("errorClonadoRepetido.show()");
+                PrimefacesContextUI.actualizar("form:errorClonadoRepetido");
+                PrimefacesContextUI.ejecutar("PF('errorClonadoRepetido').show()");
             } else {
                 tipoTrabajadorSeleccionado.setNombre(valor);
 //                if (coincidencias == 1) {
@@ -367,7 +368,7 @@ public class ControlTiposTrabajadores implements Serializable {
             tipoActualizacion = 0;
         }
         activarBotonLOV();
-        context.update("form:datosTTrabajadores");
+        PrimefacesContextUI.actualizar("form:datosTTrabajadores");
     }
 
     public void modificarTT(TiposTrabajadores tipoTrabajador) {
@@ -382,7 +383,7 @@ public class ControlTiposTrabajadores implements Serializable {
         }
         if (guardado) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
     }
 
@@ -400,14 +401,14 @@ public class ControlTiposTrabajadores implements Serializable {
             }
         }
         if (coincidencias == 1) {
-            context.update("form:dialogErrorFechas");
-            context.execute("dialogErrorFechas.show()");
+            PrimefacesContextUI.actualizar("form:dialogErrorFechas");
+            PrimefacesContextUI.ejecutar("PF('dialogErrorFechas').show()");
             tipoActualizacion = 0;
         } else {
             modificarVD(vigenciaDia);
         }
         activarBotonLOV();
-        context.update("form:datosVigenciasDTT");
+        PrimefacesContextUI.actualizar("form:datosVigenciasDTT");
     }
 
     public void modificarVD(VigenciasDiasTT vigenciaDia) {
@@ -420,7 +421,7 @@ public class ControlTiposTrabajadores implements Serializable {
             }
             if (guardado) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
     }
@@ -444,19 +445,19 @@ public class ControlTiposTrabajadores implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoTipoT.setTipocotizante(lovTiposCotizantes.get(indiceUnicoElemento));
-                    //Tok/ context.update("formularioDialogos:Campo en dialogo nuevo");
+                    //Tok/ PrimefacesContextUI.actualizar("formularioDialogos:Campo en dialogo nuevo");
                 } else if (tipoNuevo == 2) {
                     duplicarTT.setTipocotizante(lovTiposCotizantes.get(indiceUnicoElemento));
-                    //Tok/ context.update("formularioDialogos:Campo en dialogo duplicar");
+                    //Tok/ PrimefacesContextUI.actualizar("formularioDialogos:Campo en dialogo duplicar");
                 }
             } else {
-                context.update("form:dialogTiposCot");
-                context.execute("dialogTiposCot.show()");
+                PrimefacesContextUI.actualizar("form:dialogTiposCot");
+                PrimefacesContextUI.ejecutar("PF('dialogTiposCot').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    //Tok/ context.update("formularioDialogos:Campo en dialogo nuevo");
+                    //Tok/ PrimefacesContextUI.actualizar("formularioDialogos:Campo en dialogo nuevo");
                 } else if (tipoNuevo == 2) {
-                    //Tok/ context.update("formularioDialogos:Campo en dialogo duplicar");
+                    //Tok/ PrimefacesContextUI.actualizar("formularioDialogos:Campo en dialogo duplicar");
                 }
             }
         }
@@ -480,25 +481,25 @@ public class ControlTiposTrabajadores implements Serializable {
 
             if (guardado) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
-            context.update("form:datosTTrabajadores");
+            PrimefacesContextUI.actualizar("form:datosTTrabajadores");
         } else if (tipoActualizacion == 1) {// Para crear registro
             nuevoTipoT.setTipocotizante(tipoCotizanteLovSeleccionado);
-            //Tok/ context.update("formularioDialogos:Campo en dialogo nuevo");
+            //Tok/ PrimefacesContextUI.actualizar("formularioDialogos:Campo en dialogo nuevo");
         } else if (tipoActualizacion == 2) {// Para duplicar registro
             duplicarTT.setTipocotizante(tipoCotizanteLovSeleccionado);
-            //Tok/ context.update("formularioDialogos:Campo en dialogo duplicar");
+            //Tok/ PrimefacesContextUI.actualizar("formularioDialogos:Campo en dialogo duplicar");
         }
         filtrarLovTiposCotizantes = null;
         aceptar = true;
         tipoActualizacion = -1;
         context.reset("form:lovTiposCot:globalFilter");
-        context.execute("lovTiposCot.clearFilters()");
-        context.execute("dialogTiposCot.hide()");
-        context.update("form:dialogTiposCot");
-        context.update("form:lovTiposCot");
-        context.update("form:aceptarTC");
+        PrimefacesContextUI.ejecutar("PF('lovTiposCot').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('dialogTiposCot').hide()");
+        PrimefacesContextUI.actualizar("form:dialogTiposCot");
+        PrimefacesContextUI.actualizar("form:lovTiposCot");
+        PrimefacesContextUI.actualizar("form:aceptarTC");
     }
 
     /**
@@ -512,11 +513,11 @@ public class ControlTiposTrabajadores implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         context.reset("form:lovTiposCot:globalFilter");
-        context.execute("lovTiposCot.clearFilters()");
-        context.execute("dialogTiposCot.hide()");
-        context.update("form:dialogTiposCot");
-        context.update("form:lovTiposCot");
-        context.update("form:aceptarTC");
+        PrimefacesContextUI.ejecutar("PF('lovTiposCot').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('dialogTiposCot').hide()");
+        PrimefacesContextUI.actualizar("form:dialogTiposCot");
+        PrimefacesContextUI.actualizar("form:lovTiposCot");
+        PrimefacesContextUI.actualizar("form:aceptarTC");
     }
 
     /**
@@ -566,8 +567,8 @@ public class ControlTiposTrabajadores implements Serializable {
             VDTFecha = (Column) c.getViewRoot().findComponent("form:datosVigenciasDTT:VDTFecha");
             VDTFecha.setFilterStyle("width: 85%");
 
-            RequestContext.getCurrentInstance().update("form:datosTTrabajadores");
-            RequestContext.getCurrentInstance().update("form:datosVigenciasDTT");
+            PrimefacesContextUI.actualizar("form:datosTTrabajadores");
+            PrimefacesContextUI.actualizar("form:datosVigenciasDTT");
             bandera = 1;
 
         } else if (bandera == 1) {
@@ -617,8 +618,8 @@ public class ControlTiposTrabajadores implements Serializable {
         VDTFecha = (Column) c.getViewRoot().findComponent("form:datosVigenciasDTT:VDTFecha");
         VDTFecha.setFilterStyle("display: none; visibility: hidden;");
 
-        RequestContext.getCurrentInstance().update("form:datosTTrabajadores");
-        RequestContext.getCurrentInstance().update("form:datosVigenciasDTT");
+        PrimefacesContextUI.actualizar("form:datosTTrabajadores");
+        PrimefacesContextUI.actualizar("form:datosVigenciasDTT");
         bandera = 0;
         filtrarTiposTrabajadores = null;
         tipoLista = 0;
@@ -645,8 +646,8 @@ public class ControlTiposTrabajadores implements Serializable {
                 }
             }
             if (cont > 0) {
-                context.update("form:validacionNuevo");
-                context.execute("validacionNuevo.show()");
+                PrimefacesContextUI.actualizar("form:validacionNuevo");
+                PrimefacesContextUI.ejecutar("PF('validacionNuevo').show()");
             } else {
                 if (bandera == 1) {
                     restaurarTablaTT();
@@ -667,13 +668,13 @@ public class ControlTiposTrabajadores implements Serializable {
 
                 if (guardado) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
-                context.update("form:datosTTrabajadores");
-                context.execute("NuevoRegistroTT.hide()");
+                PrimefacesContextUI.actualizar("form:datosTTrabajadores");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroTT').hide()");
             }
         } else {
-            context.execute("errorNewRegNulos.show()");
+            PrimefacesContextUI.ejecutar("PF('errorNewRegNulos').show()");
         }
     }
 //LIMPIAR NUEVO REGISTRO
@@ -691,7 +692,7 @@ public class ControlTiposTrabajadores implements Serializable {
     public void duplicarTT() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoTrabajadorSeleccionado == null && vigenciaDiaSeleccionado == null) {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         } else if (tablaActiva == 2 && vigenciaDiaSeleccionado != null) {
             duplicarVD = new VigenciasDiasTT();
             intNuevaSec++;
@@ -703,8 +704,8 @@ public class ControlTiposTrabajadores implements Serializable {
             duplicarVD.setTipoTrabajador(vigenciaDiaSeleccionado.getTipoTrabajador());
             duplicarVD.setSecuencia(nuevaSecuencia);
             System.out.println("duplicarTT abrir duplicarRegistroVD");
-            context.update("formularioDialogos:duplicarRegistroVD");
-            context.execute("duplicarRegistroVD.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarRegistroVD");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroVD').show()");
 
         } else if (tablaActiva == 1 && tipoTrabajadorSeleccionado != null) {
             duplicarTT = new TiposTrabajadores();
@@ -731,8 +732,8 @@ public class ControlTiposTrabajadores implements Serializable {
             duplicarTT.setSemestreespecial(tipoTrabajadorSeleccionado.getSemestreespecial());
             duplicarTT.setSecuencia(nuevaSecuencia);
             System.out.println("duplicarTT abrir duplicarRegistroTT");
-            context.update("formularioDialogos:duplicarRegistroTT");
-            context.execute("duplicarRegistroTT.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarRegistroTT");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroTT').show()");
         }
     }
 
@@ -757,8 +758,8 @@ public class ControlTiposTrabajadores implements Serializable {
                 }
             }
             if (cont > 0) {
-                context.update("form:validacionNuevo");
-                context.execute("validacionNuevo.show()");
+                PrimefacesContextUI.actualizar("form:validacionNuevo");
+                PrimefacesContextUI.ejecutar("PF('validacionNuevo').show()");
             } else {
                 intNuevaSec++;
                 nuevaSecuencia = BigInteger.valueOf(intNuevaSec);
@@ -770,17 +771,17 @@ public class ControlTiposTrabajadores implements Serializable {
                 contarRegistrosTT();
                 if (guardado) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 duplicarTT = new TiposTrabajadores();
                 if (bandera == 1) {
                     restaurarTablaTT();
                 }
                 anularBotonLOV();
-                context.execute("duplicarRegistroTT.hide()");
+                PrimefacesContextUI.ejecutar("PF('duplicarRegistroTT').hide()");
             }
         } else {
-            context.execute("errorNewRegNulos.show()");
+            PrimefacesContextUI.ejecutar("PF('errorNewRegNulos').show()");
         }
     }
 //LIMPIAR DUPLICAR
@@ -800,7 +801,7 @@ public class ControlTiposTrabajadores implements Serializable {
     public void borrar() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoTrabajadorSeleccionado == null && vigenciaDiaSeleccionado == null) {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         } else {
 
             if (tablaActiva == 2 && vigenciaDiaSeleccionado != null) {
@@ -836,11 +837,11 @@ public class ControlTiposTrabajadores implements Serializable {
             }
 
             perderSeleccionTT();
-            context.update("form:datosTTrabajadores");
+            PrimefacesContextUI.actualizar("form:datosTTrabajadores");
 
             if (guardado) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
         anularBotonLOV();
@@ -861,8 +862,8 @@ public class ControlTiposTrabajadores implements Serializable {
                 }
             }
             if (cont > 0) {
-                context.update("form:validacionFechas");
-                context.execute("validacionFechas.show()");
+                PrimefacesContextUI.actualizar("form:validacionFechas");
+                PrimefacesContextUI.ejecutar("PF('validacionFechas').show()");
             } else {
                 if (bandera == 1) {
                     restaurarTablaTT();
@@ -879,13 +880,13 @@ public class ControlTiposTrabajadores implements Serializable {
 
                 if (guardado) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
-                context.update("form:datosVigenciasDTT");
-                context.execute("NuevoRegistroVD.hide()");
+                PrimefacesContextUI.actualizar("form:datosVigenciasDTT");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroVD').hide()");
             }
         } else {
-            context.execute("errorNewRegNulosVD.show()");
+            PrimefacesContextUI.ejecutar("PF('errorNewRegNulosVD').show()");
         }
     }
 //LIMPIAR NUEVO REGISTRO
@@ -902,7 +903,7 @@ public class ControlTiposTrabajadores implements Serializable {
     public void duplicarVDias() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaDiaSeleccionado == null) {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         } else {
             duplicarTT = new TiposTrabajadores();
             intNuevaSec++;
@@ -914,8 +915,8 @@ public class ControlTiposTrabajadores implements Serializable {
             duplicarVD.setSecuencia(nuevaSecuencia);
             duplicarVD.setTipoTrabajador(vigenciaDiaSeleccionado.getTipoTrabajador());
 
-            context.update("formularioDialogos:duplicarRegistroVD");
-            context.execute("duplicarRegistroVD.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarRegistroVD");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroVD').show()");
         }
     }
 
@@ -933,8 +934,8 @@ public class ControlTiposTrabajadores implements Serializable {
                 }
             }
             if (cont > 0) {
-                context.update("form:validacionFechas");
-                context.execute("validacionFechas.show()");
+                PrimefacesContextUI.actualizar("form:validacionFechas");
+                PrimefacesContextUI.ejecutar("PF('validacionFechas').show()");
             } else {
                 intNuevaSec++;
                 nuevaSecuencia = BigInteger.valueOf(intNuevaSec);
@@ -945,18 +946,18 @@ public class ControlTiposTrabajadores implements Serializable {
                 contarRegistrosVD();
                 if (guardado) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 duplicarVD = new VigenciasDiasTT();
                 if (bandera == 1) {
                     restaurarTablaTT();
                 }
                 anularBotonLOV();
-                context.update("form:datosVigenciasDTT");
-                context.execute("duplicarRegistroVD.hide()");
+                PrimefacesContextUI.actualizar("form:datosVigenciasDTT");
+                PrimefacesContextUI.ejecutar("PF('duplicarRegistroVD').hide()");
             }
         } else {
-            context.execute("errorNewRegNulosVD.show()");
+            PrimefacesContextUI.ejecutar("PF('errorNewRegNulosVD').show()");
         }
     }
 //LIMPIAR DUPLICAR
@@ -975,7 +976,7 @@ public class ControlTiposTrabajadores implements Serializable {
     public void borrarVD() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaDiaSeleccionado == null) {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         } else {
             if (!listVDModificar.isEmpty() && listVDModificar.contains(vigenciaDiaSeleccionado)) {
                 listVDModificar.remove(vigenciaDiaSeleccionado);
@@ -991,12 +992,12 @@ public class ControlTiposTrabajadores implements Serializable {
             }
             contarRegistrosTT();
             perderSeleccionTT();
-            context.update("form:datosVigenciasDTT");
+            PrimefacesContextUI.actualizar("form:datosVigenciasDTT");
 
             activarBotonLOV();
             if (guardado) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
     }
@@ -1015,19 +1016,19 @@ public class ControlTiposTrabajadores implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
-                context.update("form:datosTTrabajadores");
-                context.execute("dialogTiposCot.hide()");
+                PrimefacesContextUI.actualizar("form:datosTTrabajadores");
+                PrimefacesContextUI.ejecutar("PF('dialogTiposCot').hide()");
             } else if (tipoActualizacion == 1) {
                 nuevoTipoT.setTipocotizante(tipoCotizanteLovSeleccionado);
-                context.update("formularioDialogos:nuevatipoCotNTT");
-                context.execute("dialogTiposCot.hide()");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevatipoCotNTT");
+                PrimefacesContextUI.ejecutar("PF('dialogTiposCot').hide()");
             } else if (tipoActualizacion == 2) {
                 duplicarTT.setTipocotizante(tipoCotizanteLovSeleccionado);
-                context.update("formularioDialogos:duplicartipoCotNTT");
-                context.execute("dialogTiposCot.hide()");
+                PrimefacesContextUI.actualizar("formularioDialogos:duplicartipoCotNTT");
+                PrimefacesContextUI.ejecutar("PF('dialogTiposCot').hide()");
             }
             filtrarLovTiposCotizantes = null;
             tipoCotizanteLovSeleccionado = null;
@@ -1035,11 +1036,11 @@ public class ControlTiposTrabajadores implements Serializable {
             tipoActualizacion = -1;
 
             context.reset("form:lovTiposCot:globalFilter");
-            context.execute("lovTiposCot.clearFilters()");
-            context.update("form:dialogTiposCot");
-            context.update("form:lovTiposCot");
-            context.update("form:aceptarTC");
-            context.execute("dialogTiposCot.hide()");
+            PrimefacesContextUI.ejecutar("PF('lovTiposCot').clearFilters()");
+            PrimefacesContextUI.actualizar("form:dialogTiposCot");
+            PrimefacesContextUI.actualizar("form:lovTiposCot");
+            PrimefacesContextUI.actualizar("form:aceptarTC");
+            PrimefacesContextUI.ejecutar("PF('dialogTiposCot').hide()");
 
         } catch (Exception e) {
             System.out.println("ERROR BETA .actualizarCentroCosto ERROR============" + e.getMessage());
@@ -1056,11 +1057,11 @@ public class ControlTiposTrabajadores implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             context.reset("form:lovTiposCot:globalFilter");
-            context.execute("lovTiposCot.clearFilters()");
-            context.update("form:dialogTiposCot");
-            context.update("form:lovTiposCot");
-            context.update("form:aceptarTC");
-            context.execute("dialogTiposCot.hide()");
+            PrimefacesContextUI.ejecutar("PF('lovTiposCot').clearFilters()");
+            PrimefacesContextUI.actualizar("form:dialogTiposCot");
+            PrimefacesContextUI.actualizar("form:lovTiposCot");
+            PrimefacesContextUI.actualizar("form:aceptarTC");
+            PrimefacesContextUI.ejecutar("PF('dialogTiposCot').hide()");
         } catch (Exception e) {
             System.out.println("ERROR cancelarSeleccionTipoCot :" + e.getMessage());
         }
@@ -1072,11 +1073,11 @@ public class ControlTiposTrabajadores implements Serializable {
         tipoTrabajadorLovSeleccionado = null;
         try {
             if (guardado == false) {
-                context.execute("confirmarGuardar.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
             } else {
                 llenarLOVTT();
-                context.update("form:lovTiposTra");
-                context.execute("dialogTiposTra.show()");
+                PrimefacesContextUI.actualizar("form:lovTiposTra");
+                PrimefacesContextUI.ejecutar("PF('dialogTiposTra').show()");
                 contarRegistrosLovTT(0);
             }
         } catch (Exception e) {
@@ -1112,24 +1113,24 @@ public class ControlTiposTrabajadores implements Serializable {
                 contarRegistrosVD();
                 activarBotonLOV();
 
-                context.update("form:datosTTrabajadores");
-                context.update("form:datosVigenciasDTT");
-                context.update("form:mostrarTodos");
+                PrimefacesContextUI.actualizar("form:datosTTrabajadores");
+                PrimefacesContextUI.actualizar("form:datosVigenciasDTT");
+                PrimefacesContextUI.actualizar("form:mostrarTodos");
             } else if (tipoActualizacion == 3) {
                 tipoTrabajadorAClonar = new TiposTrabajadores();
                 tipoTrabajadorAClonar.setCodigo(tipoTrabajadorLovSeleccionado.getCodigo());
                 tipoTrabajadorAClonar.setNombre(tipoTrabajadorLovSeleccionado.getNombre());
                 tipoTrabajadorAClonar.setSecuencia(tipoTrabajadorLovSeleccionado.getSecuencia());
 
-                context.update("form:codigoTipoTClonarBase");
-                context.update("form:nombreTipoTClonarBase");
+                PrimefacesContextUI.actualizar("form:codigoTipoTClonarBase");
+                PrimefacesContextUI.actualizar("form:nombreTipoTClonarBase");
             }
             context.reset("form:lovTiposTra:globalFilter");
-            context.execute("lovTiposTra.clearFilters()");
-            context.update("form:dialogTiposTra");
-            context.update("form:lovTiposTra");
-            context.update("form:aceptarTTra");
-            context.execute("dialogTiposTra.hide()");
+            PrimefacesContextUI.ejecutar("PF('lovTiposTra').clearFilters()");
+            PrimefacesContextUI.actualizar("form:dialogTiposTra");
+            PrimefacesContextUI.actualizar("form:lovTiposTra");
+            PrimefacesContextUI.actualizar("form:aceptarTTra");
+            PrimefacesContextUI.ejecutar("PF('dialogTiposTra').hide()");
 
         } catch (Exception e) {
             System.out.println("ERROR seleccionarTipoTrabajador : " + e.getMessage());
@@ -1152,8 +1153,8 @@ public class ControlTiposTrabajadores implements Serializable {
                 tipoTrabajadorAClonar.setCodigo(listaTiposTrabajadores.get(indiceUnicoElemento).getCodigo());
                 tipoTrabajadorAClonar.setNombre(listaTiposTrabajadores.get(indiceUnicoElemento).getNombre());
                 tipoTrabajadorAClonar.setSecuencia(listaTiposTrabajadores.get(indiceUnicoElemento).getSecuencia());
-                context.update("form:codigoTipoTClonarBase");
-                context.update("form:nombreTipoTClonarBase");
+                PrimefacesContextUI.actualizar("form:codigoTipoTClonarBase");
+                PrimefacesContextUI.actualizar("form:nombreTipoTClonarBase");
             }
         } else if (column.equalsIgnoreCase("Nom")) {
             for (int i = 0; i < listaTiposTrabajadores.size(); i++) {
@@ -1167,14 +1168,14 @@ public class ControlTiposTrabajadores implements Serializable {
                 tipoTrabajadorAClonar.setCodigo(listaTiposTrabajadores.get(indiceUnicoElemento).getCodigo());
                 tipoTrabajadorAClonar.setNombre(listaTiposTrabajadores.get(indiceUnicoElemento).getNombre());
                 tipoTrabajadorAClonar.setSecuencia(listaTiposTrabajadores.get(indiceUnicoElemento).getSecuencia());
-                context.update("form:codigoTipoTClonarBase");
-                context.update("form:nombreTipoTClonarBase");
+                PrimefacesContextUI.actualizar("form:codigoTipoTClonarBase");
+                PrimefacesContextUI.actualizar("form:nombreTipoTClonarBase");
             }
         }
         if (coincidencias != 1) {
-            context.update("form:lovTiposTra");
-            context.update("form:dialogTiposTra");
-            context.execute("dialogTiposTra.show()");
+            PrimefacesContextUI.actualizar("form:lovTiposTra");
+            PrimefacesContextUI.actualizar("form:dialogTiposTra");
+            PrimefacesContextUI.ejecutar("PF('dialogTiposTra').show()");
         }
     }
 
@@ -1192,8 +1193,8 @@ public class ControlTiposTrabajadores implements Serializable {
                 }
             }
             if (error > 0) {
-                context.update("form:errorClonadoRepetido");
-                context.execute("errorClonadoRepetido.show()");
+                PrimefacesContextUI.actualizar("form:errorClonadoRepetido");
+                PrimefacesContextUI.ejecutar("PF('errorClonadoRepetido').show()");
             } else {
                 String retornoClonado = administrarTiposTrabajadores.clonarTT(nombreNuevoClonado, codigoNuevoClonado, tipoTrabajadorAClonar.getSecuencia());
                 if (retornoClonado.equals("S")) {
@@ -1209,18 +1210,18 @@ public class ControlTiposTrabajadores implements Serializable {
                         if (banderita) {
                             FacesMessage msg = new FacesMessage("Información", "Tipo trabajador clonado correctamente");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                            context.update("form:growl");
+                            PrimefacesContextUI.actualizar("form:growl");
                         }
                     }
                 } else {
                     FacesMessage msg = new FacesMessage("Error", "ERROR clonando Tipo trabajador : " + retornoClonado);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-                    context.update("form:growl");
+                    PrimefacesContextUI.actualizar("form:growl");
                 }
             }
         } else {
-            context.update("form:errorClonadoNulos");
-            context.execute("errorClonadoNulos.show()");
+            PrimefacesContextUI.actualizar("form:errorClonadoNulos");
+            PrimefacesContextUI.ejecutar("PF('errorClonadoNulos').show()");
         }
     }
 
@@ -1231,11 +1232,11 @@ public class ControlTiposTrabajadores implements Serializable {
             aceptar = true;
             tipoActualizacion = -1;
             context.reset("form:lovTiposTra:globalFilter");
-            context.execute("lovTiposTra.clearFilters()");
-            context.update("form:dialogTiposTra");
-            context.update("form:lovTiposTra");
-            context.update("form:aceptarTTra");
-            context.execute("dialogTiposTra.hide()");
+            PrimefacesContextUI.ejecutar("PF('lovTiposTra').clearFilters()");
+            PrimefacesContextUI.actualizar("form:dialogTiposTra");
+            PrimefacesContextUI.actualizar("form:lovTiposTra");
+            PrimefacesContextUI.actualizar("form:aceptarTTra");
+            PrimefacesContextUI.ejecutar("PF('dialogTiposTra').hide()");
         } catch (Exception e) {
             System.out.println("ERROR cancelarCambioTipoTrabajador : " + e.getMessage());
         }
@@ -1258,9 +1259,9 @@ public class ControlTiposTrabajadores implements Serializable {
         contarRegistrosVD();
         anularBotonLOV();
         mostrartodos = true;
-        context.update("form:datosTTrabajadores");
-        context.update("form:datosVigenciasDTT");
-        context.update("form:mostrarTodos");
+        PrimefacesContextUI.actualizar("form:datosTTrabajadores");
+        PrimefacesContextUI.actualizar("form:datosVigenciasDTT");
+        PrimefacesContextUI.actualizar("form:mostrarTodos");
     }
 
     //GUARDAR
@@ -1316,10 +1317,10 @@ public class ControlTiposTrabajadores implements Serializable {
             activarBotonLOV();
 
             guardado = true;
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
             intNuevaSec = 0;
         }
     }
@@ -1345,8 +1346,8 @@ public class ControlTiposTrabajadores implements Serializable {
         guardado = true;
         mostrartodos = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosTTrabajadores");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosTTrabajadores");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
     //SALIR
 
@@ -1379,42 +1380,42 @@ public class ControlTiposTrabajadores implements Serializable {
     public void editarCelda() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoTrabajadorSeleccionado == null && vigenciaDiaSeleccionado == null) {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         } else {
             if (tablaActiva == 1 && tipoTrabajadorSeleccionado != null) {
                 editarTT = tipoTrabajadorSeleccionado;
 
                 if (cualCelda == 0) {
-                    context.update("formularioDialogos:editarCodigoTT");
-                    context.execute("editarCodigoTT.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoTT");
+                    PrimefacesContextUI.ejecutar("PF('editarCodigoTT').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
-                    context.update("formularioDialogos:editarDescripTT");
-                    context.execute("editarDescripTT.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarDescripTT");
+                    PrimefacesContextUI.ejecutar("PF('editarDescripTT').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 2) {
-                    context.update("formularioDialogos:editarFactorDesTT");
-                    context.execute("editarFactorDesTT.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarFactorDesTT");
+                    PrimefacesContextUI.ejecutar("PF('editarFactorDesTT').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 3) {
-                    context.update("formularioDialogos:editarTipoCotTT");
-                    context.execute("editarTipoCotTT.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarTipoCotTT");
+                    PrimefacesContextUI.ejecutar("PF('editarTipoCotTT').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 4) {
-                    context.update("formularioDialogos:editarDiasVacNOTT");
-                    context.execute("editarDiasVacNOTT.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarDiasVacNOTT");
+                    PrimefacesContextUI.ejecutar("PF('editarDiasVacNOTT').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 5) {
-                    context.update("formularioDialogos:editarDiasVacTT");
-                    context.execute("editarDiasVacTT.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarDiasVacTT");
+                    PrimefacesContextUI.ejecutar("PF('editarDiasVacTT').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 8) {
-                    context.update("formularioDialogos:editarNivelEndTT");
-                    context.execute("editarNivelEndTT.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarNivelEndTT");
+                    PrimefacesContextUI.ejecutar("PF('editarNivelEndTT').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 10) {
-                    context.update("formularioDialogos:editarPorcentTT");
-                    context.execute("editarPorcentTT.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarPorcentTT");
+                    PrimefacesContextUI.ejecutar("PF('editarPorcentTT').show()");
                     cualCelda = -1;
                 }
             }
@@ -1422,12 +1423,12 @@ public class ControlTiposTrabajadores implements Serializable {
                 editarVD = vigenciaDiaSeleccionado;
 
                 if (cualCeldaVD == 0) {
-                    context.update("formularioDialogos:editarDiasVD");
-                    context.execute("editarDiasVD.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarDiasVD");
+                    PrimefacesContextUI.ejecutar("PF('editarDiasVD').show()");
                     cualCeldaVD = -1;
                 } else if (cualCeldaVD == 1) {
-                    context.update("formularioDialogos:editarFechaVD");
-                    context.execute("editarFechaVD.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaVD");
+                    PrimefacesContextUI.ejecutar("PF('editarFechaVD').show()");
                     cualCeldaVD = -1;
                 }
             }
@@ -1437,19 +1438,19 @@ public class ControlTiposTrabajadores implements Serializable {
     public void verificarNuevoVigenciasDias() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoTrabajadorSeleccionado != null) {
-            context.update("formularioDialogos:NuevoRegistroVD");
-            context.update("formularioDialogos:nuevoVD");
-            context.execute("NuevoRegistroVD.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroVD");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoVD");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroVD').show()");
         } else {
-            context.update("formularioDialogos:validacionNuevoVigenciasDias");
-            context.execute("validacionNuevoVigenciasDias.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoVigenciasDias");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevoVigenciasDias').show()");
         }
     }
 
     //METODO RASTROS PARA LAS TABLAS
     public void verificarRastro() {
         if (tipoTrabajadorSeleccionado == null && vigenciaDiaSeleccionado == null) {
-            RequestContext.getCurrentInstance().execute("verificarRastrosTablasH.show()");
+            PrimefacesContextUI.ejecutar("PF('verificarRastrosTablasH').show()");
         } else {
             if (tablaActiva == 2 && vigenciaDiaSeleccionado != null) {
                 verificarRastroVigenciasDias();
@@ -1463,18 +1464,18 @@ public class ControlTiposTrabajadores implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         int resultado = administrarRastros.obtenerTabla(tipoTrabajadorSeleccionado.getSecuencia(), "TIPOSTRABAJADORES");
         if (resultado == 1) {
-            context.execute("errorObjetosDB.show()");
+            PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
         } else if (resultado == 2) {
             nombreTablaRastro = "TiposTrabajadores";
             msnConfirmarRastro = "La tabla TIPOSTRABAJADORES tiene rastros para el registro seleccionado, ¿desea continuar?";
-            context.update("form:msnConfirmarRastro");
-            context.execute("confirmarRastro.show()");
+            PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+            PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
         } else if (resultado == 3) {
-            context.execute("errorRegistroRastro.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
         } else if (resultado == 4) {
-            context.execute("errorTablaConRastro.show()");
+            PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
         } else if (resultado == 5) {
-            context.execute("errorTablaSinRastro.show()");
+            PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
         }
     }
 
@@ -1483,10 +1484,10 @@ public class ControlTiposTrabajadores implements Serializable {
         if (administrarRastros.verificarHistoricosTabla("TIPOSTRABAJADORES")) {
             nombreTablaRastro = "TiposTrabajadores";
             msnConfirmarRastroHistorico = "La tabla TIPOSTRABAJADORES tiene rastros historicos, ¿Desea continuar?";
-            context.update("form:confirmarRastroHistorico");
-            context.execute("confirmarRastroHistorico.show()");
+            PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
         } else {
-            context.execute("errorRastroHistorico.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -1494,18 +1495,18 @@ public class ControlTiposTrabajadores implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         int resultado = administrarRastros.obtenerTabla(vigenciaDiaSeleccionado.getSecuencia(), "VIGENCIASDIASTT");
         if (resultado == 1) {
-            context.execute("errorObjetosDB.show()");
+            PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
         } else if (resultado == 2) {
             nombreTablaRastro = "VigenciasDiasTT";
             msnConfirmarRastro = "La tabla VIGENCIASDIASTT tiene rastros para el registro seleccionado, ¿desea continuar?";
-            context.update("form:msnConfirmarRastro");
-            context.execute("confirmarRastro.show()");
+            PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+            PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
         } else if (resultado == 3) {
-            context.execute("errorRegistroRastro.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
         } else if (resultado == 4) {
-            context.execute("errorTablaConRastro.show()");
+            PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
         } else if (resultado == 5) {
-            context.execute("errorTablaSinRastro.show()");
+            PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
         }
     }
 
@@ -1514,10 +1515,10 @@ public class ControlTiposTrabajadores implements Serializable {
         if (administrarRastros.verificarHistoricosTabla("VIGENCIASDIASTT")) {
             nombreTablaRastro = "VigenciasDiasTT";
             msnConfirmarRastroHistorico = "La tabla VIGENCIASDIASTT tiene rastros historicos, ¿Desea continuar?";
-            context.update("form:confirmarRastroHistorico");
-            context.execute("confirmarRastroHistorico.show()");
+            PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
         } else {
-            context.execute("errorRastroHistorico.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -1530,12 +1531,12 @@ public class ControlTiposTrabajadores implements Serializable {
 
     public void anularBotonLOV() {
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     public void activarBotonLOV() {
         activarLOV = false;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     //Perder seleccion TT
@@ -1545,8 +1546,8 @@ public class ControlTiposTrabajadores implements Serializable {
         listaVigenciasDiasTT = null;
         vigenciaDiaSeleccionado = null;
         contarRegistrosVD();
-        RequestContext.getCurrentInstance().update("form:datosTTrabajadores");
-        RequestContext.getCurrentInstance().update("form:datosVigenciasDTT");
+        PrimefacesContextUI.actualizar("form:datosTTrabajadores");
+        PrimefacesContextUI.actualizar("form:datosVigenciasDTT");
     }
 
     // Eventos filtrar //
@@ -1583,7 +1584,7 @@ public class ControlTiposTrabajadores implements Serializable {
         } else {
             infoRegistroTT = String.valueOf(0);
         }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
 
     public void contarRegistrosVD() {
@@ -1594,7 +1595,7 @@ public class ControlTiposTrabajadores implements Serializable {
         } else {
             infoRegistroVD = String.valueOf(0);
         }
-        RequestContext.getCurrentInstance().update("form:informacionRegistroDias");
+        PrimefacesContextUI.actualizar("form:informacionRegistroDias");
     }
 
     public void contarRegistrosLovTT(int tipoListaLOV) {
@@ -1605,7 +1606,7 @@ public class ControlTiposTrabajadores implements Serializable {
         } else {
             infoRegistroLovTT = String.valueOf(0);
         }
-        RequestContext.getCurrentInstance().update("form:informacionRegistroTTra");
+        PrimefacesContextUI.actualizar("form:informacionRegistroTTra");
     }
 
     public void contarRegistrosLovTC(int tipoListaLOV) {
@@ -1616,7 +1617,7 @@ public class ControlTiposTrabajadores implements Serializable {
         } else {
             infoRegistroTC = String.valueOf(0);
         }
-        RequestContext.getCurrentInstance().update("form:informacionRegistroTCot");
+        PrimefacesContextUI.actualizar("form:informacionRegistroTCot");
     }
 
     public void recordarSeleccionTT() {
@@ -1625,7 +1626,7 @@ public class ControlTiposTrabajadores implements Serializable {
             tablaTT = (DataTable) c.getViewRoot().findComponent("form:datosTTrabajadores");
             tablaTT.setSelection(tipoTrabajadorSeleccionado);
         } else {
-            RequestContext.getCurrentInstance().execute("datosTTrabajadores.unselectAllRows()");
+            PrimefacesContextUI.ejecutar("PF('datosTTrabajadores.unselectAllRows()");
         }
     }
 
@@ -1665,7 +1666,7 @@ public class ControlTiposTrabajadores implements Serializable {
 //                listaTiposTrabajadores.get(i).setModalidad(mapaModalidades.get(sec));
 //            }
 //        }
-//        RequestContext.getCurrentInstance().update("form:datosTTrabajadores");
+//        PrimefacesContextUI.actualizar("form:datosTTrabajadores");
 //    }
 //
 //    public String retornarModalidad(BigInteger sec) {

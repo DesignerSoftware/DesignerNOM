@@ -29,6 +29,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -165,14 +166,14 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
                     }
                     if (guardado) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
-                    context.update("form:datosVNL");
+                    PrimefacesContextUI.actualizar("form:datosVNL");
 
                 }
             } else {
-                context.update("form:validacionModificar");
-                context.execute("validacionModificar.show()");
+                PrimefacesContextUI.actualizar("form:validacionModificar");
+                PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
             }
         } else {
             if (vigenciaSeleccionada.getFechavigencia() == null) {
@@ -180,7 +181,7 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
                 mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                 contador++;
             }
-            context.update("form:datosVNL");
+            PrimefacesContextUI.actualizar("form:datosVNL");
 
         }
     }
@@ -192,12 +193,12 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
             cualCelda = celda;
             if (cualCelda == 0) {
                 activarLOV = true;
-                RequestContext.getCurrentInstance().update("form:listaValores");
+                PrimefacesContextUI.actualizar("form:listaValores");
                 backUpFecha = vigenciaSeleccionada.getFechavigencia();
             }
             if (cualCelda == 1) {
                 activarLOV = false;
-                RequestContext.getCurrentInstance().update("form:listaValores");
+                PrimefacesContextUI.actualizar("form:listaValores");
                 normaLaboral = vigenciaSeleccionada.getNormalaboral().getNombre();
             }
         }
@@ -216,11 +217,11 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
             }
             if (dig == 1) {
                 activarLOV = false;
-                RequestContext.getCurrentInstance().update("form:listaValores");
+                PrimefacesContextUI.actualizar("form:listaValores");
                 modificarInfoRegistroNorma(listaNormasLaborales.size());
                 normaLaboralSeleccionada = null;
-                context.update("form:sucursalesDialogo");
-                context.execute("sucursalesDialogo.show()");
+                PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                 dig = -1;
             }
         } catch (Exception e) {
@@ -235,7 +236,7 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         } else {
             if (!listEmplVigenciaNormaLaboralPorEmpleado.isEmpty()) {
                 if (vigenciaSeleccionada.getSecuencia() != null) {
@@ -243,12 +244,12 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
                         if (cualCelda == 1) {
                             normaLaboralSeleccionada = null;
                             modificarInfoRegistroNorma(listaNormasLaborales.size());
-                            context.update("form:sucursalesDialogo");
-                            context.execute("sucursalesDialogo.show()");
+                            PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                            PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                         }
                     }
                 } else {
-                    context.execute("seleccionarRegistro.show()");
+                    PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
                 }
             }
         }
@@ -257,7 +258,7 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
     public void cancelarModificacion() {
         cerrarFiltrado();
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
         borrarEmplVigenciaNormaLaboralPorEmplado.clear();
         crearEmplVigenciaNormaLaboralPorEmplado.clear();
         modificarEmplVigenciaNormaLaboralPorEmplado.clear();
@@ -273,9 +274,9 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
         }
         vigenciaSeleccionada = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:datosVNL");
-        context.update("form:ACEPTAR");
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosVNL");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
 
     private void cerrarFiltrado() {
@@ -286,7 +287,7 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
         parentesco = (Column) c.getViewRoot().findComponent("form:datosVNL:parentesco");
         parentesco.setFilterStyle("display: none; visibility: hidden;");
         altoTabla = "292";
-        RequestContext.getCurrentInstance().update("form:datosVNL");
+        PrimefacesContextUI.actualizar("form:datosVNL");
         bandera = 0;
         filtrarEmplVigenciaNormaLaboralPorEmplado = null;
         tipoLista = 0;
@@ -295,7 +296,7 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
     public void salir() {
         cerrarFiltrado();
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
         borrarEmplVigenciaNormaLaboralPorEmplado.clear();
         crearEmplVigenciaNormaLaboralPorEmplado.clear();
         modificarEmplVigenciaNormaLaboralPorEmplado.clear();
@@ -313,7 +314,7 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
             parentesco = (Column) c.getViewRoot().findComponent("form:datosVNL:parentesco");
             parentesco.setFilterStyle("width: 600px");
             altoTabla = "272";
-            RequestContext.getCurrentInstance().update("form:datosVNL");
+            PrimefacesContextUI.actualizar("form:datosVNL");
             bandera = 1;
         } else if (bandera == 1) {
             cerrarFiltrado();
@@ -331,7 +332,7 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("N")) {
             activarLOV = true;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            PrimefacesContextUI.actualizar("form:listaValores");
             if (!crearEmplVigenciaNormaLaboralPorEmplado.contains(vigenciaSeleccionada)) {
                 if (vigenciaSeleccionada.getFechavigencia() == null) {
                     mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -363,17 +364,17 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
                     }
 
                 } else {
-                    context.update("form:validacionModificar");
-                    context.execute("validacionModificar.show()");
+                    PrimefacesContextUI.actualizar("form:validacionModificar");
+                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     cancelarModificacion();
                 }
             }
 
-            context.update("form:datosVNL");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosVNL");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         } else if (confirmarCambio.equalsIgnoreCase("NORMASLABORALES")) {
             activarLOV = false;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            PrimefacesContextUI.actualizar("form:listaValores");
             if (!vigenciaSeleccionada.getNormalaboral().getNombre().equals("")) {
                 vigenciaSeleccionada.getNormalaboral().setNombre(normaLaboral);
 
@@ -392,14 +393,14 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
 
                 } else {
                     permitirIndex = false;
-                    context.update("form:sucursalesDialogo");
-                    context.execute("sucursalesDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                    PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
                 vigenciaSeleccionada.getNormalaboral().setNombre(normaLaboral);
-                context.update("form:sucursalesDialogo");
-                context.execute("sucursalesDialogo.show()");
+                PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
             }
 
             if (coincidencias == 1) {
@@ -414,8 +415,8 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
                     }
                 }
             }
-            context.update("form:datosVNL");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosVNL");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
     }
 
@@ -436,14 +437,14 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
                 guardado = false;
             }
             permitirIndex = true;
-            context.update("form:datosVNL");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosVNL");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         } else if (tipoActualizacion == 1) {
             nuevoEmplVigenciaNormaLaboral.setNormalaboral(normaLaboralSeleccionada);
-            context.update("formularioDialogos:nuevoNombreSucursal");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoNombreSucursal");
         } else if (tipoActualizacion == 2) {
             duplicarEmplVigenciaNormaLaboral.setNormalaboral(normaLaboralSeleccionada);
-            context.update("formularioDialogos:duplicarTipoCentroCostos");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoCentroCostos");
         }
         filtradoNormasLaborales = null;
         normaLaboralSeleccionada = null;
@@ -451,10 +452,10 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("form:lovTiposFamiliares:globalFilter");
-        context.execute("lovTiposFamiliares.clearFilters()");
-        context.execute("sucursalesDialogo.hide()");
-        //context.update("form:datosVNL");
-        context.update("form:sucursalesDialogo");
+        PrimefacesContextUI.ejecutar("PF('lovTiposFamiliares').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').hide()");
+        //PrimefacesContextUI.actualizar("form:datosVNL");
+        PrimefacesContextUI.actualizar("form:sucursalesDialogo");
     }
 
     public void cancelarCambioNormaLaboral() {
@@ -465,9 +466,9 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTiposFamiliares:globalFilter");
-        context.execute("lovTiposFamiliares.clearFilters()");
-        context.execute("sucursalesDialogo.hide()");
-        context.update("form:sucursalesDialogo");
+        PrimefacesContextUI.ejecutar("PF('lovTiposFamiliares').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').hide()");
+        PrimefacesContextUI.actualizar("form:sucursalesDialogo");
     }
 
     public void valoresBackupAutocompletar(int tipoNuevo) {
@@ -499,8 +500,8 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
                     listaNormasLaborales = null;
                     getListaNormasLaborales();
                 } else {
-                    context.update("form:sucursalesDialogo");
-                    context.execute("sucursalesDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                    PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -508,7 +509,7 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
                 nuevoEmplVigenciaNormaLaboral.setNormalaboral(new NormasLaborales());
                 nuevoEmplVigenciaNormaLaboral.getNormalaboral().setNombre(" ");
             }
-            context.update("formularioDialogos:nuevoNombreSucursal");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoNombreSucursal");
         }
 
     }
@@ -522,8 +523,8 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
         }
         normaLaboralSeleccionada = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:sucursalesDialogo");
-        context.execute("sucursalesDialogo.show()");
+        PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+        PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
     }
 
     public void limpiarNuevaNormaLaboral() {
@@ -539,13 +540,13 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
         if (tipoNuevo == 0) {
             tipoActualizacion = 1;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:sucursalesDialogo");
-            context.execute("sucursalesDialogo.show()");
+            PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+            PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
         } else if (tipoNuevo == 1) {
             tipoActualizacion = 2;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:sucursalesDialogo");
-            context.execute("sucursalesDialogo.show()");
+            PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+            PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
         }
     }
 
@@ -568,8 +569,8 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
                     listaNormasLaborales = null;
                     getListaNormasLaborales();
                 } else {
-                    context.update("form:sucursalesDialogo");
-                    context.execute("sucursalesDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                    PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -582,14 +583,14 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
                 }
 
             }
-            context.update("formularioDialogos:duplicarTipoCentroCostos");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoCentroCostos");
         }
     }
 
     public void borrarNormaLaboral() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         } else {
             if (vigenciaSeleccionada != null) {
                 if (!modificarEmplVigenciaNormaLaboralPorEmplado.isEmpty() && modificarEmplVigenciaNormaLaboralPorEmplado.contains(vigenciaSeleccionada)) {
@@ -610,12 +611,12 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
                 if (guardado) {
                     guardado = false;
                 }
-                context.update("form:datosVNL");
+                PrimefacesContextUI.actualizar("form:datosVNL");
                 modificarInfoRegistro(listEmplVigenciaNormaLaboralPorEmpleado.size());
                 activarLOV = true;
-                RequestContext.getCurrentInstance().update("form:listaValores");
-                context.update("form:informacionRegistro");
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:listaValores");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 vigenciaSeleccionada = null;
 
             }
@@ -626,8 +627,8 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
 
         if (!borrarEmplVigenciaNormaLaboralPorEmplado.isEmpty() || !crearEmplVigenciaNormaLaboralPorEmplado.isEmpty() || !modificarEmplVigenciaNormaLaboralPorEmplado.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:confirmarGuardar");
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
     }
@@ -640,8 +641,8 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
                 administrarVigenciaNormaLaboral.borrarVigenciaNormaLaboral(borrarEmplVigenciaNormaLaboralPorEmplado);
                 //mostrarBorrados
                 registrosBorrados = borrarEmplVigenciaNormaLaboralPorEmplado.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarEmplVigenciaNormaLaboralPorEmplado.clear();
             }
             if (!crearEmplVigenciaNormaLaboralPorEmplado.isEmpty()) {
@@ -653,35 +654,35 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
                 modificarEmplVigenciaNormaLaboralPorEmplado.clear();
             }
             activarLOV = true;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            PrimefacesContextUI.actualizar("form:listaValores");
             getListEmplVigenciaNormaLaboralPorEmpleado();
             contarRegistrosNorma();
-            context.update("form:datosVNL");
+            PrimefacesContextUI.actualizar("form:datosVNL");
             k = 0;
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
         //vigenciaSeleccionada = null;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
     public void editarCelda() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         } else {
             if (vigenciaSeleccionada != null) {
                 editarEmplVigenciaNormaLaboral = vigenciaSeleccionada;
                 if (cualCelda == 0) {
-                    context.update("formularioDialogos:editarFecha");
-                    context.execute("editarFecha.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarFecha");
+                    PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
-                    context.update("formularioDialogos:editPuntaje");
-                    context.execute("editPuntaje.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editPuntaje");
+                    PrimefacesContextUI.ejecutar("PF('editPuntaje').show()");
                     cualCelda = -1;
                 }
             }
@@ -728,21 +729,21 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
             modificarInfoRegistro(listEmplVigenciaNormaLaboralPorEmpleado.size());
             vigenciaSeleccionada = listEmplVigenciaNormaLaboralPorEmpleado.get(listEmplVigenciaNormaLaboralPorEmpleado.indexOf(nuevoEmplVigenciaNormaLaboral));
             activarLOV = true;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            PrimefacesContextUI.actualizar("form:listaValores");
             nuevoEmplVigenciaNormaLaboral = new VigenciasNormasEmpleados();
             nuevoEmplVigenciaNormaLaboral.setNormalaboral(new NormasLaborales());
-            context.update("form:datosVNL");
+            PrimefacesContextUI.actualizar("form:datosVNL");
             //infoRegistro = "Cantidad de registros: " + listEmplVigenciaNormaLaboralPorEmpleado.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             if (guardado) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
 
-            context.execute("nuevoRegistroEvalEmpresas.hide()");
+            PrimefacesContextUI.ejecutar("PF('nuevoRegistroEvalEmpresas').hide()");
         } else {
-            context.update("form:validacionNuevaCentroCosto");
-            context.execute("validacionNuevaCentroCosto.show()");
+            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -756,7 +757,7 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
     public void duplicandoEmplVigenciaNormaLaboral() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         } else {
             if (vigenciaSeleccionada != null) {
                 duplicarEmplVigenciaNormaLaboral = new VigenciasNormasEmpleados();
@@ -769,8 +770,8 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
                 duplicarEmplVigenciaNormaLaboral.setFechavigencia(vigenciaSeleccionada.getFechavigencia());
                 duplicarEmplVigenciaNormaLaboral.setNormalaboral(vigenciaSeleccionada.getNormalaboral());
 
-                context.update("formularioDialogos:duplicarEvC");
-                context.execute("duplicarRegistroEvalCompetencias.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:duplicarEvC");
+                PrimefacesContextUI.ejecutar("PF('duplicarRegistroEvalCompetencias').show()");
             }
         }
     }
@@ -821,28 +822,28 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
                 }
                 duplicarEmplVigenciaNormaLaboral = new VigenciasNormasEmpleados();
                 activarLOV = true;
-                RequestContext.getCurrentInstance().update("form:listaValores");
-                context.update("form:datosVNL");
-                context.update("form:informacionRegistro");
-                RequestContext.getCurrentInstance().execute("duplicarRegistroEvalCompetencias.hide()");
+                PrimefacesContextUI.actualizar("form:listaValores");
+                PrimefacesContextUI.actualizar("form:datosVNL");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                RequestContext.getCurrentInstance().execute("duplicarRegistroEvalCompetencias').hide()");
 
             } else {
                 contador = 0;
                 fechas = 0;
-                context.update("form:validacionDuplicarVigencia");
-                context.execute("validacionDuplicarVigencia.show()");
+                PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+                PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
             }
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
 
         } else {
-            context.update("form:validacioNuevaVigencia");
-            context.execute("validacioNuevaVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacioNuevaVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacioNuevaVigencia').show()");
         }
     }
 
     public void anularLOV() {
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     public void limpiarDuplicarEmplVigenciaNormaLaboral() {
@@ -872,21 +873,21 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
         if (vigenciaSeleccionada != null) {
             int resultado = administrarRastros.obtenerTabla(vigenciaSeleccionada.getSecuencia(), "VIGENCIASNORMASEMPLEADOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
             if (resultado == 1) {
-                context.execute("errorObjetosDB.show()");
+                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                context.execute("confirmarRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                context.execute("errorRegistroRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                context.execute("errorTablaConRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                context.execute("errorTablaSinRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASNORMASEMPLEADOS")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -897,14 +898,14 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
             tipoLista = 1;
         }
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
         modificarInfoRegistro(filtrarEmplVigenciaNormaLaboralPorEmplado.size());
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
 
     public void eventoFiltrarNorma() {
         modificarInfoRegistroNorma(filtradoNormasLaborales.size());
-        RequestContext.getCurrentInstance().update("form:infoRecursoNormasLaborales");
+        PrimefacesContextUI.actualizar("form:infoRecursoNormasLaborales");
     }
 
     private void modificarInfoRegistro(int valor) {

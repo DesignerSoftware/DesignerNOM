@@ -27,6 +27,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -124,7 +125,7 @@ public class ControlSucursalesPila implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarSucursalesPila.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR CONTROLSUCURSALESPILA eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -215,14 +216,14 @@ public class ControlSucursalesPila implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    context.update("form:datosGruposTiposEntidades");
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 } else {
 
                     System.out.println("backupCodigo : " + backupCodigo);
@@ -268,14 +269,14 @@ public class ControlSucursalesPila implements Serializable {
                             guardado = false;
                         }
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    context.update("form:datosGruposTiposEntidades");
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
 
                 }
             } else {
@@ -333,8 +334,8 @@ public class ControlSucursalesPila implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -386,16 +387,16 @@ public class ControlSucursalesPila implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
                 }
 
             }
-            context.update("form:datosGruposTiposEntidades");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -435,14 +436,14 @@ public class ControlSucursalesPila implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listSucursalesPilaPorEmpresa.size();
             }
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             banderaModificacionEmpresa = 0;
             if (banderaModificacionEmpresa == 0) {
                 cambiarEmpresa();
             }
-            context.update("form:datosSucursalesPila");
-            context.update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().update("formularioDialogos:aceptarE");
+            PrimefacesContextUI.actualizar("form:datosSucursalesPila");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("formularioDialogos:aceptarE");
 
         } catch (Exception E) {
             System.out.println("ERROR CONTROLSUCURSALESPILA.ModificarModificacion ERROR====================" + E.getMessage());
@@ -483,13 +484,13 @@ public class ControlSucursalesPila implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listSucursalesPilaPorEmpresa.size();
             }
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             banderaModificacionEmpresa = 0;
             if (banderaModificacionEmpresa == 0) {
                 cambiarEmpresa();
             }
-            context.update("form:datosSucursalesPila");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosSucursalesPila");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         } catch (Exception E) {
             System.out.println("ERROR CONTROLSUCURSALESPILA.ModificarModificacion ERROR====================" + E.getMessage());
         }
@@ -524,14 +525,14 @@ public class ControlSucursalesPila implements Serializable {
         try {
             if (guardado == false) {
                 banderaSeleccionSucursalesPilaPorEmpresa = true;
-                context.execute("confirmarGuardar.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
 
             } else {
                 listSucursalesPilaPorEmpresaBoton = null;
                 getListSucursalesPilaPorEmpresaBoton();
                 index = -1;
-                context.update("formularioDialogos:lovSucursalesPila");
-                context.execute("buscarSucursalesPilaDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:lovSucursalesPila");
+                PrimefacesContextUI.ejecutar("PF('buscarSucursalesPilaDialogo').show()");
 
             }
         } catch (Exception e) {
@@ -548,7 +549,7 @@ public class ControlSucursalesPila implements Serializable {
             aceptar = true;
             index = -1;
             tipoActualizacion = -1;
-            context.update("form:ACEPTARNCC");
+            PrimefacesContextUI.actualizar("form:ACEPTARNCC");
 
         } catch (Exception e) {
             System.out.println("ERROR CONTROLSUCURSALESPILA.cancelarSeleccionVigencia ERROR====" + e.getMessage());
@@ -625,7 +626,7 @@ public class ControlSucursalesPila implements Serializable {
 
                 }
                 listSucursalesPilaPorEmpresa.add(nuevoCentroCosto);
-                context.update("form:datosSucursalesPila");
+                PrimefacesContextUI.actualizar("form:datosSucursalesPila");
                 nuevoCentroCosto = new SucursalesPila();
                 // index = -1;
 
@@ -634,11 +635,11 @@ public class ControlSucursalesPila implements Serializable {
                 } else {
                     infoRegistro = "Cantidad de registros: " + listSucursalesPilaPorEmpresa.size();
                 }
-                context.update("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
                 secRegistro = null;
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 if (bandera == 1) {
                     FacesContext c = FacesContext.getCurrentInstance();
@@ -646,19 +647,19 @@ public class ControlSucursalesPila implements Serializable {
                     codigoCC.setFilterStyle("display: none; visibility: hidden;");
                     nombreCentroCosto = (Column) c.getViewRoot().findComponent("form:datosSucursalesPila:nombreCentroCosto");
                     nombreCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosSucursalesPila");
+                    PrimefacesContextUI.actualizar("form:datosSucursalesPila");
 
                     bandera = 0;
                     filtrarSucursalesPila = null;
                     tipoLista = 0;
                 }
                 mensajeValidacion = " ";
-                RequestContext.getCurrentInstance().execute("NuevoRegistroSucursalesPila.hide()");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroSucursalesPila').hide()");
 
             } else {
                 contador = 0;
-                context.update("form:validacionDuplicarVigencia");
-                context.execute("validacionDuplicarVigencia.show()");
+                PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+                PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
             }
 
         } catch (Exception e) {
@@ -670,13 +671,13 @@ public class ControlSucursalesPila implements Serializable {
         if (tipoNuevo == 0) {
             tipoActualizacion = 1;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:tiposSucursalesPilaDialogo");
-            context.execute("tiposSucursalesPilaDialogo.show()");
+            PrimefacesContextUI.actualizar("form:tiposSucursalesPilaDialogo");
+            PrimefacesContextUI.ejecutar("PF('tiposSucursalesPilaDialogo').show()");
         } else if (tipoNuevo == 1) {
             tipoActualizacion = 2;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:tiposSucursalesPilaDialogo");
-            context.execute("tiposSucursalesPilaDialogo.show()");
+            PrimefacesContextUI.actualizar("form:tiposSucursalesPilaDialogo");
+            PrimefacesContextUI.ejecutar("PF('tiposSucursalesPilaDialogo').show()");
         }
     }
 
@@ -684,14 +685,14 @@ public class ControlSucursalesPila implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         nuevoCentroCosto = new SucursalesPila();
         index = -1;
-        context.update("formularioDialogos:nuevoSucursalesPila");
-        context.execute("NuevoRegistroSucursalesPila.show()");
+        PrimefacesContextUI.actualizar("formularioDialogos:nuevoSucursalesPila");
+        PrimefacesContextUI.ejecutar("PF('NuevoRegistroSucursalesPila').show()");
     }
 
     public void mostrarDialogoListaEmpresas() {
         RequestContext context = RequestContext.getCurrentInstance();
         index = -1;
-        context.execute("buscarSucursalesPilaDialogo.show()");
+        PrimefacesContextUI.ejecutar("PF('buscarSucursalesPilaDialogo').show()");
     }
 
     public void duplicandoSucursalesPila() {
@@ -722,8 +723,8 @@ public class ControlSucursalesPila implements Serializable {
                 }
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("formularioDialogos:duplicarSucursalesPila");
-                context.execute("DuplicarRegistroSucursalesPila.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:duplicarSucursalesPila");
+                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroSucursalesPila').show()");
                 index = -1;
             }
         } catch (Exception e) {
@@ -801,20 +802,20 @@ public class ControlSucursalesPila implements Serializable {
                 listSucursalesPilaPorEmpresa.add(duplicarCentroCosto);
             }
             crearSucursalesPila.add(duplicarCentroCosto);
-            context.update("form:datosSucursalesPila");
+            PrimefacesContextUI.actualizar("form:datosSucursalesPila");
 
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             if (listSucursalesPilaPorEmpresa == null || listSucursalesPilaPorEmpresa.isEmpty()) {
                 infoRegistro = "Cantidad de registros: 0 ";
             } else {
                 infoRegistro = "Cantidad de registros: " + listSucursalesPilaPorEmpresa.size();
             }
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
@@ -823,20 +824,20 @@ public class ControlSucursalesPila implements Serializable {
                 //1
                 nombreCentroCosto = (Column) c.getViewRoot().findComponent("form:datosSucursalesPila:nombreCentroCosto");
                 nombreCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosSucursalesPila");
+                PrimefacesContextUI.actualizar("form:datosSucursalesPila");
                 bandera = 0;
                 filtrarSucursalesPila = null;
                 tipoLista = 0;
             }
             duplicarCentroCosto = new SucursalesPila();
-            RequestContext.getCurrentInstance().execute("DuplicarRegistroSucursalesPila.hide()");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroSucursalesPila').hide()");
             mensajeValidacion = " ";
             banderaModificacionEmpresa = 1;
 
         } else {
             contador = 0;
-            context.update("form:validacionDuplicarVigencia");
-            context.execute("validacionDuplicarVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -879,8 +880,8 @@ public class ControlSucursalesPila implements Serializable {
 
                 System.out.println("Borrado>0");
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:validacionBorrar");
-                context.execute("validacionBorrar.show()");
+                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
                 contarNovedadesAutoLiquidacionesSucursal_Pila = new BigInteger("-1");
                 contarNovedadesCorreccionesAutolSucursal_Pila = new BigInteger("-1");
@@ -938,14 +939,14 @@ public class ControlSucursalesPila implements Serializable {
                 if (guardado == true) {
                     guardado = false;
                 }
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 if (listSucursalesPilaPorEmpresa == null || listSucursalesPilaPorEmpresa.isEmpty()) {
                     infoRegistro = "Cantidad de registros: 0 ";
                 } else {
                     infoRegistro = "Cantidad de registros: " + listSucursalesPilaPorEmpresa.size();
                 }
-                context.update("form:informacionRegistro");
-                context.update("form:datosSucursalesPila");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:datosSucursalesPila");
             }
         } catch (Exception e) {
             System.out.println("ERROR CONTROLSUCURSALESPILA.BorrarCentroCosto ERROR=====================" + e.getMessage());
@@ -961,8 +962,8 @@ public class ControlSucursalesPila implements Serializable {
                 administrarSucursalesPila.borrarSucursalesPila(borrarSucursalesPila);
                 //mostrarBorrados
                 registrosBorrados = borrarSucursalesPila.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarSucursalesPila.clear();
             }
             if (!crearSucursalesPila.isEmpty()) {
@@ -975,14 +976,14 @@ public class ControlSucursalesPila implements Serializable {
             }
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
             System.out.println("Se guardaron los datos con exito");
             listSucursalesPilaPorEmpresa = null;
-            context.update(":form:datosSucursalesPila");
+            PrimefacesContextUI.actualizar(":form:datosSucursalesPila");
             k = 0;
             guardado = true;
             aceptar = true;
-            RequestContext.getCurrentInstance().update("formularioDialogos:aceptarE");
+            PrimefacesContextUI.actualizar("formularioDialogos:aceptarE");
 
             if (banderaModificacionEmpresa == 0) {
                 cambiarEmpresa();
@@ -993,13 +994,13 @@ public class ControlSucursalesPila implements Serializable {
                 listSucursalesPilaPorEmpresaBoton = null;
                 getListSucursalesPilaPorEmpresaBoton();
                 index = -1;
-                context.update("formularioDialogos:lovSucursalesPila");
-                context.execute("buscarSucursalesPilaDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:lovSucursalesPila");
+                PrimefacesContextUI.ejecutar("PF('buscarSucursalesPilaDialogo').show()");
                 banderaSeleccionSucursalesPilaPorEmpresa = false;
             }
         }
         index = -1;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
         banderaModificacionEmpresa = 0;
     }
 
@@ -1007,7 +1008,7 @@ public class ControlSucursalesPila implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (banderaModificacionEmpresa == 0) {
             empresaSeleccionada = backUpEmpresaActual;
-            context.update("formularioDialogos:lovEmpresas");
+            PrimefacesContextUI.actualizar("formularioDialogos:lovEmpresas");
             banderaModificacionEmpresa = 1;
         }
 
@@ -1025,7 +1026,7 @@ public class ControlSucursalesPila implements Serializable {
                 codigoCC.setFilterStyle("width: 85%;");
                 nombreCentroCosto = (Column) c.getViewRoot().findComponent("form:datosSucursalesPila:nombreCentroCosto");
                 nombreCentroCosto.setFilterStyle("width: 85%;");
-                RequestContext.getCurrentInstance().update("form:datosSucursalesPila");
+                PrimefacesContextUI.actualizar("form:datosSucursalesPila");
                 bandera = 1;
             } else if (bandera == 1) {
                 System.out.println("Desactivar");
@@ -1035,7 +1036,7 @@ public class ControlSucursalesPila implements Serializable {
                 codigoCC.setFilterStyle("display: none; visibility: hidden;");
                 nombreCentroCosto = (Column) c.getViewRoot().findComponent("form:datosSucursalesPila:nombreCentroCosto");
                 nombreCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosSucursalesPila");
+                PrimefacesContextUI.actualizar("form:datosSucursalesPila");
                 bandera = 0;
                 filtrarSucursalesPila = null;
                 tipoLista = 0;
@@ -1060,36 +1061,36 @@ public class ControlSucursalesPila implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 System.out.println("CONTROLSUCURSALESPILA: Entro a editar... valor celda: " + cualCelda);
                 if (cualCelda == 0) {
-                    context.update("formularioDialogos:editarCCC");
-                    context.execute("editarCCC.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarCCC");
+                    PrimefacesContextUI.ejecutar("PF('editarCCC').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
-                    context.update("formularioDialogos:editarNCC");
-                    context.execute("editarNCC.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarNCC");
+                    PrimefacesContextUI.ejecutar("PF('editarNCC').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 2) {
-                    context.update("formularioDialogos:editarTCC");
-                    context.execute("editarTCC.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarTCC");
+                    PrimefacesContextUI.ejecutar("PF('editarTCC').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 3) {
-                    context.update("formularioDialogos:editarMO");
-                    context.execute("editarMO.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarMO");
+                    PrimefacesContextUI.ejecutar("PF('editarMO').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 4) {
-                    context.update("formularioDialogos:editarCAT");
-                    context.execute("editarCAT.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarCAT");
+                    PrimefacesContextUI.ejecutar("PF('editarCAT').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 5) {
-                    context.update("formularioDialogos:editarO");
-                    context.execute("editarO.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarO");
+                    PrimefacesContextUI.ejecutar("PF('editarO').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 6) {
-                    context.update("formularioDialogos:editarCCTT");
-                    context.execute("editarCCTT.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarCCTT");
+                    PrimefacesContextUI.ejecutar("PF('editarCCTT').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 7) {
-                    context.update("formularioDialogos:editarD");
-                    context.execute("editarD.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarD");
+                    PrimefacesContextUI.ejecutar("PF('editarD').show()");
                     cualCelda = -1;
                 }
             }
@@ -1106,8 +1107,8 @@ public class ControlSucursalesPila implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 if (cualCelda == 2) {
                     System.out.println("\n ListaValoresBoton \n");
-                    context.update("formularioDialogos:tiposSucursalesPilaDialogo");
-                    context.execute("tiposSucursalesPilaDialogo.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:tiposSucursalesPilaDialogo");
+                    PrimefacesContextUI.ejecutar("PF('tiposSucursalesPilaDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
@@ -1148,24 +1149,24 @@ public class ControlSucursalesPila implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "SUCURSALESPILA"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("SUCURSALESPILA")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -1176,7 +1177,7 @@ public class ControlSucursalesPila implements Serializable {
         index = -1;
         secRegistro = null;
         cualCelda = -1;
-        RequestContext.getCurrentInstance().execute("EmpresasDialogo.show()");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
     }
 
     public void cambiarEmpresa() {
@@ -1184,23 +1185,23 @@ public class ControlSucursalesPila implements Serializable {
         System.err.println("Cambiar empresa  GUARDADO = " + guardado);
         System.err.println("Cambiar empresa  GUARDADO = " + empresaSeleccionada.getNombre());
         if (guardado == true) {
-            context.update("form:nombreEmpresa");
-            context.update("form:nitEmpresa");
+            PrimefacesContextUI.actualizar("form:nombreEmpresa");
+            PrimefacesContextUI.actualizar("form:nitEmpresa");
             getListSucursalesPilaPorEmpresa();
             filtradoListaEmpresas = null;
             listSucursalesPilaPorEmpresa = null;
             aceptar = true;
             context.reset("formularioDialogos:lovEmpresas:globalFilter");
-            context.execute("lovEmpresas.clearFilters()");
-            context.execute("EmpresasDialogo.hide()");
-            //context.update("formularioDialogos:lovEmpresas");
+            PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+            PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+            //PrimefacesContextUI.actualizar("formularioDialogos:lovEmpresas");
             backUpEmpresaActual = empresaSeleccionada;
             banderaModificacionEmpresa = 0;
-            context.update("form:datosSucursalesPila");
+            PrimefacesContextUI.actualizar("form:datosSucursalesPila");
 
         } else {
             banderaModificacionEmpresa = 0;
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
     }
 
@@ -1211,8 +1212,8 @@ public class ControlSucursalesPila implements Serializable {
         aceptar = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
-        context.execute("lovEmpresas.clearFilters()");
-        context.execute("EmpresasDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
 
     }
 //-----------------------------------------------------------------------------**
@@ -1257,7 +1258,7 @@ public class ControlSucursalesPila implements Serializable {
             } else {
                 infoRegistroEmpresas = "Cantidad de registros: " + listaEmpresas.size();
             }
-            context.update("form:infoRegistroEmpresas");
+            PrimefacesContextUI.actualizar("form:infoRegistroEmpresas");
             return listaEmpresas;
         } catch (Exception e) {
             System.out.println("ERRO LISTA EMPRESAS " + e);
@@ -1312,7 +1313,7 @@ public class ControlSucursalesPila implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listSucursalesPilaPorEmpresa.size();
             }
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             return listSucursalesPilaPorEmpresa;
         } catch (Exception e) {
             System.out.println(" BETA  BETA ControlCentrosCosto: Error al recibir los SucursalesPila de la empresa seleccionada /n" + e.getMessage());
@@ -1331,7 +1332,7 @@ public class ControlSucursalesPila implements Serializable {
             } else {
                 infoRegistroBoton = "Cantidad de registros: " + listSucursalesPilaPorEmpresaBoton.size();
             }
-            context.update("form:infoRegistroBoton");
+            PrimefacesContextUI.actualizar("form:infoRegistroBoton");
             return listSucursalesPilaPorEmpresaBoton;
 
         } catch (Exception e) {

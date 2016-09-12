@@ -27,6 +27,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -174,14 +175,14 @@ public class ControlIbcAutoliquid implements Serializable {
         ibcsTablaSeleccionada = null;
         if (cambiosIBC == true) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         } else {
             int posicion = listTiposEntidades.indexOf(tipoEntidadActual);
 //-            secRegistroTipoEntidad = listTiposEntidades.get(posicion).getSecuencia();
             listIbcsAutoliquidaciones = null;
             getListIbcsAutoliquidaciones();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosIBCS");
+            PrimefacesContextUI.actualizar("form:datosIBCS");
         }
     }
 
@@ -195,7 +196,7 @@ public class ControlIbcAutoliquid implements Serializable {
             }
             if (guardado) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
         cambiosIBC = true;
@@ -276,15 +277,15 @@ public class ControlIbcAutoliquid implements Serializable {
                 ibcsTablaSeleccionada.setFechainicial(fechaIni);
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosIBCS");
-                context.execute("errorFechas.show()");
+                PrimefacesContextUI.actualizar("form:datosIBCS");
+                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         } else {
             ibcsTablaSeleccionada.setFechainicial(fechaIni);
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosIBCS");
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.actualizar("form:datosIBCS");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -310,8 +311,8 @@ public class ControlIbcAutoliquid implements Serializable {
                     getListProcesos();
                 } else {
                     permitirIndex = false;
-                    context.update("form:ProcesosDialogo");
-                    context.execute("ProcesosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:ProcesosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -331,13 +332,13 @@ public class ControlIbcAutoliquid implements Serializable {
                 }
                 if (guardado) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
 
             cambiosIBC = true;
         }
-        context.update("form:datosIBCS");
+        PrimefacesContextUI.actualizar("form:datosIBCS");
     }
 
     public void cambiarIndice(IbcsAutoliquidaciones ibc, int celda) {
@@ -377,20 +378,20 @@ public class ControlIbcAutoliquid implements Serializable {
                     listIbcsAutoliquidacionesModificar.clear();
                 }
                 listIbcsAutoliquidaciones = null;
-                context.update("form:datosIBCS");
+                PrimefacesContextUI.actualizar("form:datosIBCS");
                 cambiosIBC = false;
                 k = 0;
                 guardado = true;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                context.update("form:growl");
+                PrimefacesContextUI.actualizar("form:growl");
             }
         } catch (Exception e) {
             System.out.println("Error guardarCambiosIBCS : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Se ha presentado un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
     //CANCELAR MODIFICACIONES
@@ -410,11 +411,11 @@ public class ControlIbcAutoliquid implements Serializable {
         k = 0;
         listIbcsAutoliquidaciones = null;
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
         cambiosIBC = false;
         getListIbcsAutoliquidaciones();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosIBCS");
+        PrimefacesContextUI.actualizar("form:datosIBCS");
     }
 
     //MOSTRAR DATOS CELDA
@@ -424,28 +425,28 @@ public class ControlIbcAutoliquid implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarFechaInicialD");
-                context.execute("editarFechaInicialD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicialD");
+                PrimefacesContextUI.ejecutar("PF('editarFechaInicialD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarFechaFinalD");
-                context.execute("editarFechaFinalD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinalD");
+                PrimefacesContextUI.ejecutar("PF('editarFechaFinalD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarEstadoD");
-                context.execute("editarEstadoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEstadoD");
+                PrimefacesContextUI.ejecutar("PF('editarEstadoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                context.update("formularioDialogos:editarProcesoD");
-                context.execute("editarProcesoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarProcesoD");
+                PrimefacesContextUI.ejecutar("PF('editarProcesoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                context.update("formularioDialogos:editarValorD");
-                context.execute("editarValorD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarValorD");
+                PrimefacesContextUI.ejecutar("PF('editarValorD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                context.update("formularioDialogos:editarFechaPagoD");
-                context.execute("editarFechaPagoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaPagoD");
+                PrimefacesContextUI.ejecutar("PF('editarFechaPagoD').show()");
                 cualCelda = -1;
             }
         }
@@ -454,8 +455,8 @@ public class ControlIbcAutoliquid implements Serializable {
 
     public void validarIngresoNuevoRegistro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:NuevoRegistroIBCS");
-        context.execute("NuevoRegistroIBCS.show()");
+        PrimefacesContextUI.actualizar("form:NuevoRegistroIBCS");
+        PrimefacesContextUI.ejecutar("PF('NuevoRegistroIBCS').show()");
 
     }
 
@@ -490,20 +491,20 @@ public class ControlIbcAutoliquid implements Serializable {
 
                 ////-----////
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosIBCS");
+                PrimefacesContextUI.actualizar("form:datosIBCS");
                 if (guardado) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
-                context.execute("NuevoRegistroIBCS.hide()");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroIBCS').hide()");
                 cambiosIBC = true;
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorFechas.show()");
+                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -527,8 +528,8 @@ public class ControlIbcAutoliquid implements Serializable {
             duplicarIBC.setValor(ibcsTablaSeleccionada.getValor());
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:DuplicarRegistroIBCS");
-            context.execute("DuplicarRegistroIBCS.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroIBCS");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroIBCS').show()");
         }
     }
 
@@ -546,20 +547,20 @@ public class ControlIbcAutoliquid implements Serializable {
                 listIbcsAutoliquidaciones.add(duplicarIBC);
                 duplicarIBC = new IbcsAutoliquidaciones();
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosIBCS");
+                PrimefacesContextUI.actualizar("form:datosIBCS");
                 if (guardado) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
-                context.execute("DuplicarRegistroIBCS.hide()");
+                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroIBCS').hide()");
                 cambiosIBC = true;
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorFechas.show()");
+                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -577,7 +578,7 @@ public class ControlIbcAutoliquid implements Serializable {
         ibcValor.setFilterStyle("display: none; visibility: hidden;");
         ibcFechaPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIBCS:ibcFechaPago");
         ibcFechaPago.setFilterStyle("display: none; visibility: hidden;");
-        RequestContext.getCurrentInstance().update("form:datosIBCS");
+        PrimefacesContextUI.actualizar("form:datosIBCS");
         bandera = 0;
         filtrarListIbcsAutoliquidaciones = null;
         tipoLista = 0;
@@ -589,7 +590,7 @@ public class ControlIbcAutoliquid implements Serializable {
         codigoTipoEntidad.setFilterStyle("display: none; visibility: hidden;");
         nombreTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoEntidad:nombreTipoEntidad");
         nombreTipoEntidad.setFilterStyle("display: none; visibility: hidden;");
-        RequestContext.getCurrentInstance().update("form:datosTipoEntidad");
+        PrimefacesContextUI.actualizar("form:datosTipoEntidad");
         banderaTE = 0;
         filtrarListTiposEntidades = null;
         tipoListaTE = 0;
@@ -617,12 +618,12 @@ public class ControlIbcAutoliquid implements Serializable {
                 filtrarListIbcsAutoliquidaciones.remove(ibcsTablaSeleccionada);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosIBCS");
+            PrimefacesContextUI.actualizar("form:datosIBCS");
             ibcsTablaSeleccionada = null;
             cambiosIBC = true;
             if (guardado) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
     }
@@ -651,7 +652,7 @@ public class ControlIbcAutoliquid implements Serializable {
             ibcValor.setFilterStyle("width: 85%");
             ibcFechaPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIBCS:ibcFechaPago");
             ibcFechaPago.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosIBCS");
+            PrimefacesContextUI.actualizar("form:datosIBCS");
             bandera = 1;
         } else if (bandera == 1) {
             cerrarFiltrado();
@@ -665,7 +666,7 @@ public class ControlIbcAutoliquid implements Serializable {
             codigoTipoEntidad.setFilterStyle("width: 85%");
             nombreTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoEntidad:nombreTipoEntidad");
             nombreTipoEntidad.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosTipoEntidad");
+            PrimefacesContextUI.actualizar("form:datosTipoEntidad");
             banderaTE = 1;
         } else if (banderaTE == 1) {
             cerrarFiltradoTE();
@@ -689,7 +690,7 @@ public class ControlIbcAutoliquid implements Serializable {
         k = 0;
         listIbcsAutoliquidaciones = null;
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void asignarIndex(IbcsAutoliquidaciones ibc, int dlg, int LND) {
@@ -703,8 +704,8 @@ public class ControlIbcAutoliquid implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            context.update("form:ProcesosDialogo");
-            context.execute("ProcesosDialogo.show()");
+            PrimefacesContextUI.actualizar("form:ProcesosDialogo");
+            PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').show()");
         }
     }
 
@@ -712,8 +713,8 @@ public class ControlIbcAutoliquid implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (ibcsTablaSeleccionada != null) {
             if (cualCelda == 3) {
-                context.update("form:ProcesosDialogo");
-                context.execute("ProcesosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:ProcesosDialogo");
+                PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -749,21 +750,21 @@ public class ControlIbcAutoliquid implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
                         nuevoIBC.setProceso(listProcesos.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:nuevaProcesoIBCS");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaProcesoIBCS");
                     } else if (tipoNuevo == 2) {
                         duplicarIBC.setProceso(listProcesos.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:duplicaProcesoIBCS");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicaProcesoIBCS");
                     }
                     listProcesos.clear();
                     getListProcesos();
                 } else {
-                    context.update("form:ProcesosDialogo");
-                    context.execute("ProcesosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:ProcesosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
-                        context.update("formularioDialogos:nuevaProcesoIBCS");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaProcesoIBCS");
                     } else if (tipoNuevo == 2) {
-                        context.update("formularioDialogos:duplicaProcesoIBCS");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicaProcesoIBCS");
                     }
                 }
             } else {
@@ -771,10 +772,10 @@ public class ControlIbcAutoliquid implements Serializable {
                 getListProcesos();
                 if (tipoNuevo == 1) {
                     nuevoIBC.setProceso(new Procesos());
-                    context.update("formularioDialogos:nuevaProcesoIBCS");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaProcesoIBCS");
                 } else if (tipoNuevo == 2) {
                     duplicarIBC.setProceso(new Procesos());
-                    context.update("formularioDialogos:duplicaProcesoIBCS");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicaProcesoIBCS");
                 }
             }
         }
@@ -798,28 +799,28 @@ public class ControlIbcAutoliquid implements Serializable {
 
             if (guardado) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             cambiosIBC = true;
             permitirIndex = true;
-            context.update("form:datosIBCS");
+            PrimefacesContextUI.actualizar("form:datosIBCS");
         } else if (tipoActualizacion == 1) {
             nuevoIBC.setProceso(procesoSeleccionado);
-            context.update("formularioDialogos:nuevaProcesoIBCS");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaProcesoIBCS");
         } else if (tipoActualizacion == 2) {
             duplicarIBC.setProceso(procesoSeleccionado);
-            context.update("formularioDialogos:duplicaProcesoIBCS");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicaProcesoIBCS");
         }
         filtrarListProcesos = null;
         procesoSeleccionado = null;
         aceptar = true;
         tipoActualizacion = -1;/*
-         * context.update("form:ProcesosDialogo");
-         * context.update("form:lovProcesos"); context.update("form:aceptarP");
+         * PrimefacesContextUI.actualizar("form:ProcesosDialogo");
+         * PrimefacesContextUI.actualizar("form:lovProcesos"); PrimefacesContextUI.actualizar("form:aceptarP");
          */
         context.reset("form:lovProcesos:globalFilter");
-        context.execute("lovProcesos.clearFilters()");
-        context.execute("ProcesosDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovProcesos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').hide()");
     }
 
     public void cancelarCambioProceso() {
@@ -830,8 +831,8 @@ public class ControlIbcAutoliquid implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovProcesos:globalFilter");
-        context.execute("lovProcesos.clearFilters()");
-        context.execute("ProcesosDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovProcesos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').hide()");
     }
 
     public void posicionTipoEntidad() {
@@ -927,30 +928,30 @@ public class ControlIbcAutoliquid implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(ibcsTablaSeleccionada.getSecuencia(), "IBCSAUTOLIQUIDACIONES");
                 backUp = ibcsTablaSeleccionada.getSecuencia();
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "IbcsAutoliquidaciones";
                     msnConfirmarRastro = "La tabla IBCSAUTOLIQUIDACIONES tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("IBCSAUTOLIQUIDACIONES")) {
                 nombreTablaRastro = "IbcsAutoliquidaciones";
                 msnConfirmarRastroHistorico = "La tabla IBCSAUTOLIQUIDACIONES tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
     }
@@ -962,28 +963,28 @@ public class ControlIbcAutoliquid implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(tipoEntidadActual.getSecuencia(), "TIPOSENTIDADES");
                 backUp = tipoEntidadActual.getSecuencia();
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "TiposEntidades";
                     msnConfirmarRastro = "La tabla TIPOSENTIDADES tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("TIPOSENTIDADES")) {
                 nombreTablaRastro = "TiposEntidades";
                 msnConfirmarRastroHistorico = "La tabla TIPOSENTIDADES tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
     }
@@ -1012,7 +1013,7 @@ public class ControlIbcAutoliquid implements Serializable {
 
     public void eventoFiltrarProceso() {
         modificarInfoRegistroProcesos(filtrarListProcesos.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistroProceso");
+        PrimefacesContextUI.actualizar("form:infoRegistroProceso");
     }
 
     private void modificarInfoRegistroTE(int valor) {
@@ -1031,14 +1032,14 @@ public class ControlIbcAutoliquid implements Serializable {
         if (listTiposEntidades != null) {
             if (listTiposEntidades.size() > 0) {
                 modificarInfoRegistroTE(listTiposEntidades.size());
-                RequestContext.getCurrentInstance().update("form:infoRegistroTE");
+                PrimefacesContextUI.actualizar("form:infoRegistroTE");
             } else {
                 modificarInfoRegistroTE(0);
-                RequestContext.getCurrentInstance().update("form:infoRegistroTE");
+                PrimefacesContextUI.actualizar("form:infoRegistroTE");
             }
         } else {
             modificarInfoRegistroTE(0);
-            RequestContext.getCurrentInstance().update("form:infoRegistroTE");
+            PrimefacesContextUI.actualizar("form:infoRegistroTE");
         }
     }
 
@@ -1046,14 +1047,14 @@ public class ControlIbcAutoliquid implements Serializable {
         if (listIbcsAutoliquidaciones != null) {
             if (listIbcsAutoliquidaciones.size() > 0) {
                 modificarInfoRegistroIBC(listIbcsAutoliquidaciones.size());
-                RequestContext.getCurrentInstance().update("form:infoRegistroIBC");
+                PrimefacesContextUI.actualizar("form:infoRegistroIBC");
             } else {
                 modificarInfoRegistroIBC(0);
-                RequestContext.getCurrentInstance().update("form:infoRegistroIBC");
+                PrimefacesContextUI.actualizar("form:infoRegistroIBC");
             }
         } else {
             modificarInfoRegistroIBC(0);
-            RequestContext.getCurrentInstance().update("form:infoRegistroIBC");
+            PrimefacesContextUI.actualizar("form:infoRegistroIBC");
         }
     }
 

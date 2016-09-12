@@ -24,6 +24,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -84,9 +85,9 @@ public class ControlCerrarLiquidacion implements Serializable {
         Integer conteo = administrarCerrarLiquidacion.consultarConteoProcesoSN(parametroEstructura.getProceso().getSecuencia());
         if (conteo == totalEmpleadosParaLiquidar) {
             cerrarLiquidacion();
-            RequestContext.getCurrentInstance().execute("formularioDialogos:liquidacionRealizada.show()");
+            RequestContext.getCurrentInstance().execute("formularioDialogos:liquidacionRealizada').show()");
         } else {
-            RequestContext.getCurrentInstance().execute("confirmarCerrarConteoFallo.show()");
+            RequestContext.getCurrentInstance().execute("confirmarCerrarConteoFallo').show()");
         }
     }
 
@@ -98,7 +99,7 @@ public class ControlCerrarLiquidacion implements Serializable {
         }
         FacesMessage msg = new FacesMessage("Información", "Liquidación cerrada con éxito.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        RequestContext.getCurrentInstance().update("form:growl");
+        PrimefacesContextUI.actualizar("form:growl");
     }
 
     public void confirmarAbrirLiquidacion() {
@@ -107,9 +108,9 @@ public class ControlCerrarLiquidacion implements Serializable {
         Integer conteo = administrarCerrarLiquidacion.contarLiquidacionesCerradas(parametroEstructura.getProceso().getSecuencia(), fechaDesde, fechaHasta);
         RequestContext context = RequestContext.getCurrentInstance();
         if (conteo > 0) {
-            context.execute("confirmarBorrarComprobante.show();");
+            PrimefacesContextUI.ejecutar("PF('confirmarBorrarComprobante.show();");
         } else {
-            context.execute("errorComprobante.show();");
+            PrimefacesContextUI.ejecutar("PF('errorComprobante.show();");
         }
     }
 
@@ -119,7 +120,7 @@ public class ControlCerrarLiquidacion implements Serializable {
         administrarCerrarLiquidacion.abrirLiquidacion(parametroEstructura.getProceso().getCodigo(), fechaDesde, fechaHasta);
         FacesMessage msg = new FacesMessage("Información", "Comprobante eliminado exitosamente.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        RequestContext.getCurrentInstance().update("form:growl");
+        PrimefacesContextUI.actualizar("form:growl");
     }
 
     public void exportPDF() throws IOException {
@@ -153,7 +154,7 @@ public class ControlCerrarLiquidacion implements Serializable {
             nombreEmpleado = (Column) c.getViewRoot().findComponent("form:datosEmpleadosParametros:nombreEmpleado");
             nombreEmpleado.setFilterStyle("width: 85%");
             altoTabla = "140";
-            RequestContext.getCurrentInstance().update("form:datosEmpleadosParametros");
+            PrimefacesContextUI.actualizar("form:datosEmpleadosParametros");
             bandera = 1;
         } else if (bandera == 1) {
             codigoEmpleado = (Column) c.getViewRoot().findComponent("form:datosEmpleadosParametros:codigoEmpleado");
@@ -161,7 +162,7 @@ public class ControlCerrarLiquidacion implements Serializable {
             nombreEmpleado = (Column) c.getViewRoot().findComponent("form:datosEmpleadosParametros:nombreEmpleado");
             nombreEmpleado.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "160";
-            RequestContext.getCurrentInstance().update("form:datosEmpleadosParametros");
+            PrimefacesContextUI.actualizar("form:datosEmpleadosParametros");
             bandera = 0;
             tipoLista = 0;
             filtradoListaParametros = null;
@@ -178,7 +179,7 @@ public class ControlCerrarLiquidacion implements Serializable {
 
     public void modificarInfoRegistro(int valor) {
         infoRegistro = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
 
     public void contarRegistros(){

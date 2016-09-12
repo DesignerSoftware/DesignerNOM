@@ -31,6 +31,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -237,7 +238,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
         cualTabla = 0;
 
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     @PostConstruct
@@ -292,7 +293,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
             }
             if (guardado) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
         cambiosVigencia = true;
@@ -340,15 +341,15 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 vigenciaLocalizacionSeleccionada.setFechavigencia(fechaVigencia);
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosVLEmpleado");
-                context.execute("errorFechas.show()");
+                PrimefacesContextUI.actualizar("form:datosVLEmpleado");
+                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         } else {
             vigenciaLocalizacionSeleccionada.setFechavigencia(fechaVigencia);
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosVLEmpleado");
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.actualizar("form:datosVLEmpleado");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -366,7 +367,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("CENTROCOSTO")) {
             activarLOV = false;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            PrimefacesContextUI.actualizar("form:listaValores");
             vigenciaLocalizacionSeleccionada.getLocalizacion().getCentrocosto().setCodigoNombre(centroCosto);
 
             for (int i = 0; i < listEstructurasCC.size(); i++) {
@@ -379,13 +380,13 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 vigenciaLocalizacionSeleccionada.setLocalizacion(listEstructurasCC.get(indiceUnicoElemento));
             } else {
                 permitirIndex = false;
-                context.update("form:LocalizacionDialogo");
-                context.execute("LocalizacionDialogo.show()");
+                PrimefacesContextUI.actualizar("form:LocalizacionDialogo");
+                PrimefacesContextUI.ejecutar("PF('LocalizacionDialogo').show()");
                 tipoActualizacion = 0;
             }
         } else if (confirmarCambio.equalsIgnoreCase("MOTIVOLOCALIZACION")) {
             activarLOV = false;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            PrimefacesContextUI.actualizar("form:listaValores");
             vigenciaLocalizacionSeleccionada.getMotivo().setDescripcion(motivoLocalizacion);
 
             for (int i = 0; i < listMotivosLocalizaciones.size(); i++) {
@@ -398,13 +399,13 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 vigenciaLocalizacionSeleccionada.setMotivo(listMotivosLocalizaciones.get(indiceUnicoElemento));
             } else {
                 permitirIndex = false;
-                context.update("form:MotivoDialogo");
-                context.execute("MotivoDialogo.show()");
+                PrimefacesContextUI.actualizar("form:MotivoDialogo");
+                PrimefacesContextUI.ejecutar("PF('MotivoDialogo').show()");
                 tipoActualizacion = 0;
             }
         } else if (confirmarCambio.equalsIgnoreCase("PROYECTO")) {
             activarLOV = false;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            PrimefacesContextUI.actualizar("form:listaValores");
             if (!vigenciaLocalizacionSeleccionada.getProyecto().getNombreproyecto().isEmpty()) {
                 vigenciaLocalizacionSeleccionada.getProyecto().setNombreproyecto(proyecto);
 
@@ -418,8 +419,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
                     vigenciaLocalizacionSeleccionada.setProyecto(listProyectos.get(indiceUnicoElemento));
                 } else {
                     permitirIndex = false;
-                    context.update("form:ProyectosDialogo");
-                    context.execute("ProyectosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:ProyectosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -427,7 +428,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
 
                 if (guardado) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 cambiosVigencia = true;
             }
@@ -442,13 +443,13 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 }
                 if (guardado) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
             cambiosVigencia = true;
 
         }
-        context.update("form:datosVLEmpleado");
+        PrimefacesContextUI.actualizar("form:datosVLEmpleado");
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -460,7 +461,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
      */
     public void modificarVPPorcentaje(String valor, int indice, int nTabla, int subPorcent) {
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
         tipoActualizacion = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         FacesContext c = FacesContext.getCurrentInstance();
@@ -474,38 +475,38 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 }
                 modificarVP();
                 if (porcentajePrueba.intValueExact() < 0 || porcentajePrueba.intValueExact() > 100) {
-                    context.update("form:validarPorcentajes");
-                    context.execute("validarPorcentajes.show()");
+                    PrimefacesContextUI.actualizar("form:validarPorcentajes");
+                    PrimefacesContextUI.ejecutar("PF('validarPorcentajes').show()");
                 }
 
                 vPPorcentaje = (Column) c.getViewRoot().findComponent("form:datosVPVigencia:vPPorcentaje");
                 vPPorcentaje.setFilterStyle("display: none; visibility: hidden;");
-                context.update("form:datosVPVigencia");
+                PrimefacesContextUI.actualizar("form:datosVPVigencia");
             }
             if (nTabla == 2) {
                 int porcentajePrueba = Integer.parseInt(valor);
                 vigenciasProrrateosProyectos.get(indice).setPorcentaje(porcentajePrueba);
                 modificarVPP();
                 if (porcentajePrueba < 0 || porcentajePrueba > 100) {
-                    context.update("form:validarPorcentajes");
-                    context.execute("validarPorcentajes.show()");
+                    PrimefacesContextUI.actualizar("form:validarPorcentajes");
+                    PrimefacesContextUI.ejecutar("PF('validarPorcentajes').show()");
                 }
 
                 vPPPorcentaje = (Column) c.getViewRoot().findComponent("form:datosVPPVigencia:vPPPorcentaje");
                 vPPPorcentaje.setFilterStyle("display: none; visibility: hidden;");
-                context.update("form:datosVPPVigencia");
+                PrimefacesContextUI.actualizar("form:datosVPPVigencia");
             }
 
         } catch (NumberFormatException e) {
-            context.update("form:validarPorcentajes");
-            context.execute("validarPorcentajes.show()");
+            PrimefacesContextUI.actualizar("form:validarPorcentajes");
+            PrimefacesContextUI.ejecutar("PF('validarPorcentajes').show()");
         }
 
     }
     /*
      * public void modificarVPPorcentajes(int tipoAct, int nTabla, String valor,
      * int subPorcent) { activarLOV = true;
-     * RequestContext.getCurrentInstance().update("form:listaValores");
+     * PrimefacesContextUI.actualizar("form:listaValores");
      * tipoActualizacion = tipoAct; RequestContext context =
      * RequestContext.getCurrentInstance(); try { System.out.println("entro al
      * try"); if (nTabla == 1) { BigDecimal porcentajePrueba = new
@@ -517,24 +518,24 @@ public class ControlVigenciaLocalizacion implements Serializable {
      * duplicarVP.setPorcentaje(porcentajePrueba); } } if
      * (porcentajePrueba.intValueExact() > 100 ||
      * porcentajePrueba.intValueExact() < 0) {
-     * context.update("form:validarPorcentajes");
-     * context.execute("validarPorcentajes.show()"); } } if (nTabla == 2) { int
+     * PrimefacesContextUI.actualizar("form:validarPorcentajes");
+     * PrimefacesContextUI.ejecutar("PF('validarPorcentajes').show()"); } } if (nTabla == 2) { int
      * porcentajePrueba = Integer.parseInt(valor); if (tipoActualizacion == 1) {
      * nuevaVigenciaPP.setPorcentaje(porcentajePrueba); } else if
      * (tipoActualizacion == 2) { } duplicarVPP.setPorcentaje(porcentajePrueba);
      * if (porcentajePrueba > 100 || porcentajePrueba < 0) {
-     * context.update("form:validarPorcentajes");
-     * context.execute("validarPorcentajes.show()"); } } if (nTabla == 1) { if
+     * PrimefacesContextUI.actualizar("form:validarPorcentajes");
+     * PrimefacesContextUI.ejecutar("PF('validarPorcentajes').show()"); } } if (nTabla == 1) { if
      * (tipoActualizacion == 1) {
-     * context.update("formularioDialogos:nuevaCentroCostoVP"); } else if
+     * PrimefacesContextUI.actualizar("formularioDialogos:nuevaCentroCostoVP"); } else if
      * (tipoActualizacion == 2) {
-     * context.update("formularioDialogos:duplicadoCentroCostoVP"); } } else if
+     * PrimefacesContextUI.actualizar("formularioDialogos:duplicadoCentroCostoVP"); } } else if
      * (nTabla == 2) { if (tipoActualizacion == 1) {
-     * context.update("formularioDialogos:nuevaProyectoVP"); } else if
+     * PrimefacesContextUI.actualizar("formularioDialogos:nuevaProyectoVP"); } else if
      * (tipoActualizacion == 2) {
-     * context.update("formularioDialogos:duplicadoProyectoVP"); } } } catch
-     * (NumberFormatException e) { context.update("form:validarPorcentajes");
-     * context.execute("validarPorcentajes.show()"); }
+     * PrimefacesContextUI.actualizar("formularioDialogos:duplicadoProyectoVP"); } } } catch
+     * (NumberFormatException e) { PrimefacesContextUI.actualizar("form:validarPorcentajes");
+     * PrimefacesContextUI.ejecutar("PF('validarPorcentajes').show()"); }
      *
      * }
      */
@@ -550,7 +551,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
             }
             if (guardado) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
         cambioVigenciaP = true;
@@ -616,7 +617,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
 
     public void modificarFechasVigenciasProrrateos(VigenciasProrrateos vProrrateo, int c) {
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
         vigenciaProrrateoSeleccionada = vProrrateo;
 
         if (vigenciaProrrateoSeleccionada.getFechainicial() != null) {
@@ -630,15 +631,15 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 vigenciaProrrateoSeleccionada.setFechainicial(fechaIniVP);
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosVPVigencia");
-                context.execute("errorFechas.show()");
+                PrimefacesContextUI.actualizar("form:datosVPVigencia");
+                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         } else {
             vigenciaProrrateoSeleccionada.setFechainicial(fechaIniVP);
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosVPVigencia");
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.actualizar("form:datosVPVigencia");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -655,7 +656,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("CENTROCOSTO")) {
             activarLOV = false;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            PrimefacesContextUI.actualizar("form:listaValores");
             vigenciaProrrateoSeleccionada.getCentrocosto().setNombre(centroCostosVP);
 
             for (int i = 0; i < listCentrosCostos.size(); i++) {
@@ -669,13 +670,13 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 vigenciaProrrateoSeleccionada.setCentrocosto(listCentrosCostos.get(indiceUnicoElemento));
             } else {
                 permitirIndexVP = false;
-                context.update("form:CentroCostosDialogo");
-                context.execute("CentroCostosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:CentroCostosDialogo");
+                PrimefacesContextUI.ejecutar("PF('CentroCostosDialogo').show()");
                 tipoActualizacion = 0;
             }
         } else if (confirmarCambio.equalsIgnoreCase("PROYECTO")) {
             activarLOV = false;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            PrimefacesContextUI.actualizar("form:listaValores");
             if (!vigenciaProrrateoSeleccionada.getProyecto().getNombreproyecto().isEmpty()) {
                 vigenciaProrrateoSeleccionada.getProyecto().setNombreproyecto(proyectoVP);
 
@@ -690,8 +691,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
                     vigenciaProrrateoSeleccionada.setProyecto(listProyectos.get(indiceUnicoElemento));
                 } else {
                     permitirIndexVP = false;
-                    context.update("form:ProyectosDialogo");
-                    context.execute("ProyectosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:ProyectosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -699,7 +700,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
 
                 if (guardado) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 cambioVigenciaP = true;
             }
@@ -714,12 +715,12 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 }
                 if (guardado) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
             cambioVigenciaP = true;
         }
-        context.update("form:datosVPVigencia");
+        PrimefacesContextUI.actualizar("form:datosVPVigencia");
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -740,7 +741,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
             }
             if (guardado) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
         cambioVigenciaPP = true;
@@ -806,7 +807,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
 
     public void modificarFechasVigenciasProrrateosProyecto(VigenciasProrrateosProyectos vProrrateosProyectos, int c) {
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
         vigenciaProrrateoProyectoSeleccionada = vProrrateosProyectos;
 
         if (vigenciaProrrateoProyectoSeleccionada.getFechainicial() != null) {
@@ -820,15 +821,15 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 vigenciaProrrateoProyectoSeleccionada.setFechainicial(fechaIniVPP);
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosVPPVigencia");
-                context.execute("errorFechas.show()");
+                PrimefacesContextUI.actualizar("form:datosVPPVigencia");
+                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         } else {
             vigenciaProrrateoProyectoSeleccionada.setFechainicial(fechaIniVPP);
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosVPPVigencia");
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.actualizar("form:datosVPPVigencia");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -857,8 +858,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 vigenciaProrrateoProyectoSeleccionada.setProyecto(listProyectos.get(indiceUnicoElemento));
             } else {
                 permitirIndexVPP = false;
-                context.update("form:ProyectosDialogo");
-                context.execute("ProyectosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:ProyectosDialogo");
+                PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -872,13 +873,13 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 }
                 if (guardado) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
             cambioVigenciaPP = true;
             //vigenciaProrrateoProyectoSeleccionada = null;
         }
-        context.update("form:datosVPPVigencia");
+        PrimefacesContextUI.actualizar("form:datosVPPVigencia");
     }
 
     /**
@@ -938,19 +939,19 @@ public class ControlVigenciaLocalizacion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigencia.setLocalizacion(listEstructurasCC.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaCentroCosto");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCentroCosto");
                 } else if (tipoNuevo == 2) {
                     duplicarVL.setLocalizacion(listEstructurasCC.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarCentroCosto");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCentroCosto");
                 }
             } else {
-                context.update("form:LocalizacionDialogo");
-                context.execute("LocalizacionDialogo.show()");
+                PrimefacesContextUI.actualizar("form:LocalizacionDialogo");
+                PrimefacesContextUI.ejecutar("PF('LocalizacionDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaCentroCosto");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCentroCosto");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarCentroCosto");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCentroCosto");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("MOTIVOLOCALIZACION")) {
@@ -968,19 +969,19 @@ public class ControlVigenciaLocalizacion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigencia.setMotivo(listMotivosLocalizaciones.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaMotivo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaMotivo");
                 } else if (tipoNuevo == 2) {
                     duplicarVL.setMotivo(listMotivosLocalizaciones.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarMotivo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarMotivo");
                 }
             } else {
-                context.update("form:MotivoDialogo");
-                context.execute("MotivoDialogo.show()");
+                PrimefacesContextUI.actualizar("form:MotivoDialogo");
+                PrimefacesContextUI.ejecutar("PF('MotivoDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaMotivo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaMotivo");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarMotivo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarMotivo");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("PROYECTO")) {
@@ -999,29 +1000,29 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
                         nuevaVigencia.setProyecto(listProyectos.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:nuevaProyecto");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaProyecto");
                     } else if (tipoNuevo == 2) {
                         duplicarVL.setProyecto(listProyectos.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:duplicarProyecto");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarProyecto");
                     }
                 } else {
-                    context.update("form:ProyectosDialogo");
-                    context.execute("ProyectosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:ProyectosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
-                        context.update("formularioDialogos:nuevaProyecto");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaProyecto");
                     } else if (tipoNuevo == 2) {
-                        context.update("formularioDialogos:duplicarProyecto");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarProyecto");
                     }
                 }
             }
         } else {
             if (tipoNuevo == 1) {
                 nuevaVigencia.setProyecto(new Proyectos());
-                context.update("formularioDialogos:nuevaProyecto");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevaProyecto");
             } else if (tipoNuevo == 2) {
                 duplicarVL.setProyecto(new Proyectos());
-                context.update("formularioDialogos:duplicarProyecto");
+                PrimefacesContextUI.actualizar("formularioDialogos:duplicarProyecto");
             }
         }
     }
@@ -1078,19 +1079,19 @@ public class ControlVigenciaLocalizacion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigenciaP.setCentrocosto(listCentrosCostos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaCentroCostoVP");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCentroCostoVP");
                 } else if (tipoNuevo == 2) {
                     duplicarVP.setCentrocosto(listCentrosCostos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicadoCentroCostoVP");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicadoCentroCostoVP");
                 }
             } else {
-                context.update("form:CentroCostosDialogo");
-                context.execute("CentroCostosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:CentroCostosDialogo");
+                PrimefacesContextUI.ejecutar("PF('CentroCostosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaCentroCostoVP");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCentroCostoVP");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicadoCentroCostoVP");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicadoCentroCostoVP");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("PROYECTO")) {
@@ -1109,29 +1110,29 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
                         nuevaVigenciaP.setProyecto(listProyectos.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:nuevaProyectoVP");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaProyectoVP");
                     } else if (tipoNuevo == 2) {
                         duplicarVP.setProyecto(listProyectos.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:duplicadoProyectoVP");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicadoProyectoVP");
                     }
                 } else {
-                    context.update("form:ProyectosDialogo");
-                    context.execute("ProyectosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:ProyectosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
-                        context.update("formularioDialogos:nuevaProyectoVP");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaProyectoVP");
                     } else if (tipoNuevo == 2) {
-                        context.update("formularioDialogos:duplicadoProyectoVP");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicadoProyectoVP");
                     }
                 }
             }
         } else {
             if (tipoNuevo == 1) {
                 nuevaVigenciaP.setProyecto(new Proyectos());
-                context.update("formularioDialogos:nuevaProyectoVP");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevaProyectoVP");
             } else if (tipoNuevo == 2) {
                 duplicarVP.setProyecto(new Proyectos());
-                context.update("formularioDialogos:duplicadoProyectoVP");
+                PrimefacesContextUI.actualizar("formularioDialogos:duplicadoProyectoVP");
             }
         }
     }
@@ -1181,19 +1182,19 @@ public class ControlVigenciaLocalizacion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigenciaPP.setProyecto(listProyectos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaProyectoVPP");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaProyectoVPP");
                 } else if (tipoNuevo == 2) {
                     duplicarVPP.setProyecto(listProyectos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarProyectoVPP");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarProyectoVPP");
                 }
             } else {
-                context.update("form:ProyectosDialogo");
-                context.execute("ProyectosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:ProyectosDialogo");
+                PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaProyectoVPP");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaProyectoVPP");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarProyectoVPP");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarProyectoVPP");
                 }
             }
         }
@@ -1230,14 +1231,14 @@ public class ControlVigenciaLocalizacion implements Serializable {
                     activarLOV = false;
                     proyecto = vigenciaLocalizacionSeleccionada.getProyecto().getNombreproyecto();
                 }
-                context.update("form:listaValores");
+                PrimefacesContextUI.actualizar("form:listaValores");
 
                 vigenciasProrrateosCentroC = null;
                 getVigenciasProrrateosCentroC();
                 vigenciasProrrateosProyectos = null;
                 getVigenciasProrrateosProyectos();
             } else {
-                context.execute("confirmarGuardarSinSalir.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalir').show()");
             }
         }
 
@@ -1249,10 +1250,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
         }
         contarRegistrosVP();
         contarRegistrosVPP();
-        RequestContext.getCurrentInstance().update("form:informacionRegistroVP");
-        RequestContext.getCurrentInstance().update("form:informacionRegistroVPP");
-        context.update("form:datosVPVigencia");
-        context.update("form:datosVPPVigencia");
+        PrimefacesContextUI.actualizar("form:informacionRegistroVP");
+        PrimefacesContextUI.actualizar("form:informacionRegistroVPP");
+        PrimefacesContextUI.actualizar("form:datosVPVigencia");
+        PrimefacesContextUI.actualizar("form:datosVPPVigencia");
     }
 
     /**
@@ -1279,21 +1280,21 @@ public class ControlVigenciaLocalizacion implements Serializable {
                     } else {
                         activarLOV = true;
                     }
-                    context.update("form:listaValores");
+                    PrimefacesContextUI.actualizar("form:listaValores");
                 }
             }
             if (bandera == 1) {
                 restablecerTablaVL();
-                context.update("form:datosVLEmpleado");
+                PrimefacesContextUI.actualizar("form:datosVLEmpleado");
             }
             if (banderaVPP == 1) {
                 restablecerTablaVPP();
             }
             vigenciaProrrateoProyectoSeleccionada = null;
             //recordarSeleccionVPP();
-            context.update("form:datosVPPVigencia");
+            PrimefacesContextUI.actualizar("form:datosVPPVigencia");
         } else {
-            context.execute("confirmarGuardarSinSalir.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalir').show()");
         }
     }
 
@@ -1317,20 +1318,20 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 } else {
                     activarLOV = true;
                 }
-                context.update("form:listaValores");
+                PrimefacesContextUI.actualizar("form:listaValores");
             }
             if (bandera == 1) {
                 restablecerTablaVL();
-                context.update("form:datosVLEmpleado");
+                PrimefacesContextUI.actualizar("form:datosVLEmpleado");
             }
             if (banderaVP == 1) {
                 restablecerTablaVP();
             }
             vigenciaProrrateoSeleccionada = null;
             //recordarSeleccionVP();
-            context.update("form:datosVPVigencia");
+            PrimefacesContextUI.actualizar("form:datosVPVigencia");
         } else {
-            context.execute("confirmarGuardarSinSalir.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalir').show()");
         }
     }
     //GUARDAR
@@ -1362,7 +1363,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
         }
         guardado = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     /**
@@ -1408,14 +1409,14 @@ public class ControlVigenciaLocalizacion implements Serializable {
             }
             vigenciaLocalizaciones = null;
             activarLOV = true;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            PrimefacesContextUI.actualizar("form:listaValores");
             contarRegistrosVL();
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosVLEmpleado");
+            PrimefacesContextUI.actualizar("form:datosVLEmpleado");
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Localizacion con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
             paraNuevaV = 0;
         }
         vigenciaLocalizacionSeleccionada = null;
@@ -1472,13 +1473,13 @@ public class ControlVigenciaLocalizacion implements Serializable {
             vigenciasProrrateosCentroC = null;
             contarRegistrosVP();
             activarLOV = true;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            PrimefacesContextUI.actualizar("form:listaValores");
             paraNuevaV = 0;
             RequestContext context = RequestContext.getCurrentInstance();
             cambioVigenciaP = false;
             FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Prorrateo Centro Costo con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
@@ -1514,14 +1515,14 @@ public class ControlVigenciaLocalizacion implements Serializable {
             vigenciasProrrateosProyectos = null;
             contarRegistrosVPP();
             activarLOV = true;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            PrimefacesContextUI.actualizar("form:listaValores");
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosVPPVigencia");
+            PrimefacesContextUI.actualizar("form:datosVPPVigencia");
             paraNuevaV = 0;
             cambioVigenciaPP = false;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Prorrateo Proyecto con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
     //CANCELAR MODIFICACIONES
@@ -1535,15 +1536,15 @@ public class ControlVigenciaLocalizacion implements Serializable {
         if (bandera == 1) {
             restablecerTablaVL();
             //CERRAR FILTRADO
-            context.update("form:datosVLEmpleado");
+            PrimefacesContextUI.actualizar("form:datosVLEmpleado");
         }
         if (banderaVP == 1) {
             restablecerTablaVP();
-            context.update("form:datosVPVigencia");
+            PrimefacesContextUI.actualizar("form:datosVPVigencia");
         }
         if (banderaVPP == 1) {
             restablecerTablaVPP();
-            context.update("form:datosVPPVigencia");
+            PrimefacesContextUI.actualizar("form:datosVPPVigencia");
         }
         listVLBorrar.clear();
         listVPBorrar.clear();
@@ -1567,7 +1568,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
         cambioVigenciaP = false;
         cambioVigenciaPP = false;
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
 
         getVigenciaLocalizaciones();
         getVigenciasProrrateosCentroC();
@@ -1576,14 +1577,14 @@ public class ControlVigenciaLocalizacion implements Serializable {
         contarRegistrosVP();
         contarRegistrosVPP();
 
-        RequestContext.getCurrentInstance().update("form:informacionRegistroVL");
-        RequestContext.getCurrentInstance().update("form:informacionRegistroVP");
-        RequestContext.getCurrentInstance().update("form:informacionRegistroVPP");
+        PrimefacesContextUI.actualizar("form:informacionRegistroVL");
+        PrimefacesContextUI.actualizar("form:informacionRegistroVP");
+        PrimefacesContextUI.actualizar("form:informacionRegistroVPP");
 
-        context.update("form:ACEPTAR");
-        context.update("form:datosVLEmpleado");
-        context.update("form:datosVPVigencia");
-        context.update("form:datosVPPVigencia");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosVLEmpleado");
+        PrimefacesContextUI.actualizar("form:datosVPVigencia");
+        PrimefacesContextUI.actualizar("form:datosVPPVigencia");
     }
 
     /**
@@ -1593,7 +1594,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         if (banderaVP == 1) {
             restablecerTablaVP();
-            RequestContext.getCurrentInstance().update("form:datosVPVigencia");
+            PrimefacesContextUI.actualizar("form:datosVPVigencia");
         }
         listVPBorrar.clear();
         listVPCrear.clear();
@@ -1603,8 +1604,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
         vigenciasProrrateosCentroC = null;
         guardado = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
-        context.update("form:datosVPVigencia");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosVPVigencia");
         cambioVigenciaP = false;
     }
 
@@ -1615,7 +1616,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         if (banderaVPP == 1) {
             restablecerTablaVPP();
-            RequestContext.getCurrentInstance().update("form:datosVPPVigencia");
+            PrimefacesContextUI.actualizar("form:datosVPPVigencia");
         }
         listVPPBorrar.clear();
         listVPPCrear.clear();
@@ -1625,8 +1626,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
         vigenciasProrrateosProyectos = null;
         guardado = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
-        context.update("form:datosVPPVigencia");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosVPPVigencia");
         cambioVigenciaPP = false;
     }
 
@@ -1639,30 +1640,30 @@ public class ControlVigenciaLocalizacion implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         //Si no hay registro selecciionado
         if (vigenciaLocalizacionSeleccionada == null && vigenciaProrrateoSeleccionada == null && vigenciaProrrateoProyectoSeleccionada == null) {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         } else {
             if (vigenciaLocalizacionSeleccionada != null) {
                 editarVL = vigenciaLocalizacionSeleccionada;
 
                 if (cualCelda == 0) {
-                    context.update("formularioDialogos:editarFechaVigencia");
-                    context.execute("editarFechaVigencia.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaVigencia");
+                    PrimefacesContextUI.ejecutar("PF('editarFechaVigencia').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
-                    context.update("formularioDialogos:editarCentroCosto");
-                    context.execute("editarCentroCosto.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarCentroCosto");
+                    PrimefacesContextUI.ejecutar("PF('editarCentroCosto').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 2) {
-                    context.update("formularioDialogos:editarLocalizacion");
-                    context.execute("editarLocalizacion.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarLocalizacion");
+                    PrimefacesContextUI.ejecutar("PF('editarLocalizacion').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 3) {
-                    context.update("formularioDialogos:editarMotivoD");
-                    context.execute("editarMotivoD.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarMotivoD");
+                    PrimefacesContextUI.ejecutar("PF('editarMotivoD').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 4) {
-                    context.update("formularioDialogos:editarProyecto");
-                    context.execute("editarProyecto.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarProyecto");
+                    PrimefacesContextUI.ejecutar("PF('editarProyecto').show()");
                     cualCelda = -1;
                 }
             }
@@ -1670,28 +1671,28 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 editarVP = vigenciaProrrateoSeleccionada;
 
                 if (cualCeldaVP == 0) {
-                    context.update("formularioDialogos:editarCentroCostoVP");
-                    context.execute("editarCentroCostoVP.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarCentroCostoVP");
+                    PrimefacesContextUI.ejecutar("PF('editarCentroCostoVP').show()");
                     cualCeldaVP = -1;
                 } else if (cualCeldaVP == 1) {
-                    context.update("formularioDialogos:sali");
-                    context.execute("editarPorcentajeVP.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:sali");
+                    PrimefacesContextUI.ejecutar("PF('editarPorcentajeVP').show()");
                     cualCeldaVP = -1;
                 } else if (cualCeldaVP == 2) {
-                    context.update("formularioDialogos:editarFechaInicialVP");
-                    context.execute("editarFechaInicialVP.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicialVP");
+                    PrimefacesContextUI.ejecutar("PF('editarFechaInicialVP').show()");
                     cualCeldaVP = -1;
                 } else if (cualCeldaVP == 3) {
-                    context.update("formularioDialogos:editarFechaFinalVP");
-                    context.execute("editarFechaFinalVP.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinalVP");
+                    PrimefacesContextUI.ejecutar("PF('editarFechaFinalVP').show()");
                     cualCeldaVP = -1;
                 } else if (cualCeldaVP == 4) {
-                    context.update("formularioDialogos:editarProyectoVP");
-                    context.execute("editarProyectoVP.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarProyectoVP");
+                    PrimefacesContextUI.ejecutar("PF('editarProyectoVP').show()");
                     cualCeldaVP = -1;
                 } else if (cualCeldaVP == 5) {
-                    context.update("formularioDialogos:editarSubPorcentajeVP");
-                    context.execute("editarSubPorcentajeVP.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarSubPorcentajeVP");
+                    PrimefacesContextUI.ejecutar("PF('editarSubPorcentajeVP').show()");
                     cualCeldaVP = -1;
                 }
             }
@@ -1699,20 +1700,20 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 editarVPP = vigenciaProrrateoProyectoSeleccionada;
 
                 if (cualCeldaVPP == 0) {
-                    context.update("formularioDialogos:editarProyectoVPP");
-                    context.execute("editarProyectoVPP.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarProyectoVPP");
+                    PrimefacesContextUI.ejecutar("PF('editarProyectoVPP').show()");
                     cualCeldaVPP = -1;
                 } else if (cualCeldaVPP == 1) {
-                    context.update("formularioDialogos:editarPorcentajeVPP");
-                    context.execute("editarPorcentajeVPP.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarPorcentajeVPP");
+                    PrimefacesContextUI.ejecutar("PF('editarPorcentajeVPP').show()");
                     cualCeldaVPP = -1;
                 } else if (cualCeldaVPP == 2) {
-                    context.update("formularioDialogos:editarFechaInicialVPP");
-                    context.execute("editarFechaInicialVPP.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicialVPP");
+                    PrimefacesContextUI.ejecutar("PF('editarFechaInicialVPP').show()");
                     cualCeldaVPP = -1;
                 } else if (cualCeldaVPP == 3) {
-                    context.update("formularioDialogos:editarFechaFinalVPP");
-                    context.execute("editarFechaFinalVPP.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinalVPP");
+                    PrimefacesContextUI.ejecutar("PF('editarFechaFinalVPP').show()");
                     cualCeldaVPP = -1;
                 }
             }
@@ -1735,8 +1736,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
             }
             if (cont > 0) {
                 mensajeValidacion = "FECHAS NO REPETIDAS";
-                context.update("form:validarNuevoFechas");
-                context.execute("validarNuevoFechas.show()");
+                PrimefacesContextUI.actualizar("form:validarNuevoFechas");
+                PrimefacesContextUI.ejecutar("PF('validarNuevoFechas').show()");
             } else {
                 FacesContext c = FacesContext.getCurrentInstance();
                 if (validarFechasRegistro(1)) {
@@ -1744,7 +1745,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
                     if (bandera == 1) {
                         restablecerTablaVL();
                         //CERRAR FILTRADO
-                        RequestContext.getCurrentInstance().update("form:datosVLEmpleado");
+                        PrimefacesContextUI.actualizar("form:datosVLEmpleado");
                     }
                     //AGREGAR REGISTRO A LA LISTA VIGENCIAS 
                     paraNuevaV++;
@@ -1756,27 +1757,27 @@ public class ControlVigenciaLocalizacion implements Serializable {
                     modificarInfoRegistroVL(vigenciaLocalizaciones.size());
                     vigenciaLocalizacionSeleccionada = vigenciaLocalizaciones.get(vigenciaLocalizaciones.indexOf(nuevaVigencia));
                     activarLOV = true;
-                    RequestContext.getCurrentInstance().update("form:listaValores");
+                    PrimefacesContextUI.actualizar("form:listaValores");
                     nuevaVigencia = new VigenciasLocalizaciones();
                     nuevaVigencia.setLocalizacion(new Estructuras());
                     nuevaVigencia.getLocalizacion().setCentrocosto(new CentrosCostos());
                     nuevaVigencia.setMotivo(new MotivosLocalizaciones());
                     nuevaVigencia.setProyecto(new Proyectos());
-                    context.update("form:datosVLEmpleado");
+                    PrimefacesContextUI.actualizar("form:datosVLEmpleado");
                     if (guardado) {
                         guardado = false;
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
-                    context.update("form:NuevoRegistroVL");
-                    context.execute("NuevoRegistroVL.hide()");
+                    PrimefacesContextUI.actualizar("form:NuevoRegistroVL");
+                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroVL').hide()");
                 } else {
-                    context.update("errorFechaVL");
-                    context.execute("errorFechaVL.show()");
+                    PrimefacesContextUI.actualizar("errorFechaVL");
+                    PrimefacesContextUI.ejecutar("PF('errorFechaVL').show()");
                 }
             }
         } else {
-            context.update("formularioDialogos:negacionNuevaVL");
-            context.execute("negacionNuevaVL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:negacionNuevaVL");
+            PrimefacesContextUI.ejecutar("PF('negacionNuevaVL').show()");
         }
     }
     //LIMPIAR NUEVO REGISTRO
@@ -1808,15 +1809,15 @@ public class ControlVigenciaLocalizacion implements Serializable {
             }
             if (cont > 0) {
                 mensajeValidacion = "FECHAS INICIALES NO REPETIDAS";
-                context.update("form:validarNuevoFechas");
-                context.execute("validarNuevoFechas.show()");
+                PrimefacesContextUI.actualizar("form:validarNuevoFechas");
+                PrimefacesContextUI.ejecutar("PF('validarNuevoFechas').show()");
             } else {
                 if (validarFechasRegistroVigenciaProrrateo(1)) {
                     cambioVigenciaP = true;
                     //CERRAR FILTRADO 
                     if (banderaVP == 1) {
                         restablecerTablaVP();
-                        RequestContext.getCurrentInstance().update("form:datosVPVigencia");
+                        PrimefacesContextUI.actualizar("form:datosVPVigencia");
                     } //AGREGAR REGISTRO A LA LISTA VIGENCIAS
                     paraNuevaV++;
                     nuevaVSecuencia =
@@ -1836,26 +1837,26 @@ public class ControlVigenciaLocalizacion implements Serializable {
                     modificarInfoRegistroVP(vigenciasProrrateosCentroC.size());
                     vigenciaProrrateoSeleccionada = vigenciasProrrateosCentroC.get(vigenciasProrrateosCentroC.indexOf(nuevaVigenciaP));
                     activarLOV = true;
-                    RequestContext.getCurrentInstance().update("form:listaValores");
+                    PrimefacesContextUI.actualizar("form:listaValores");
                     nuevaVigenciaP = new VigenciasProrrateos();
                     nuevaVigenciaP.setCentrocosto(new CentrosCostos());
                     nuevaVigenciaP.setProyecto(new Proyectos());
-                    context.update("form:datosVPVigencia");
-                    context.execute("NuevoRegistroVP.hide()");
+                    PrimefacesContextUI.actualizar("form:datosVPVigencia");
+                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroVP').hide()");
                     cualTabla = 0;
                     if (guardado) {
                         guardado = false;
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                     tipoActualizacion = -1;
                 } else {
-                    context.update("form:errorFechas");
-                    context.execute("errorFechas.show()");
+                    PrimefacesContextUI.actualizar("form:errorFechas");
+                    PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
                 }
             }
         } else {
-            context.update("formularioDialogos:negacionNuevaVLP");
-            context.execute("negacionNuevaVLP.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:negacionNuevaVLP");
+            PrimefacesContextUI.ejecutar("PF('negacionNuevaVLP').show()");
         }
     }
 
@@ -1884,15 +1885,15 @@ public class ControlVigenciaLocalizacion implements Serializable {
             }
             if (cont > 0) {
                 mensajeValidacion = "FECHAS INICIALES NO REPETIDAS";
-                context.update("form:validarNuevoFechas");
-                context.execute("validarNuevoFechas.show()");
+                PrimefacesContextUI.actualizar("form:validarNuevoFechas");
+                PrimefacesContextUI.ejecutar("PF('validarNuevoFechas').show()");
             } else {
                 if (validarFechasRegistroVigenciaProrrateoProyecto(1)) {
                     cambioVigenciaPP = true;
                     //CERRAR FILTRADO
                     if (banderaVPP == 1) {
                         restablecerTablaVPP();
-                        RequestContext.getCurrentInstance().update("form:datosVPPVigencia");
+                        PrimefacesContextUI.actualizar("form:datosVPPVigencia");
                     }
                     //AGREGAR REGISTRO A LA LISTA VIGENCIAS 
                     paraNuevaV++;
@@ -1909,23 +1910,23 @@ public class ControlVigenciaLocalizacion implements Serializable {
                     modificarInfoRegistroVPP(vigenciasProrrateosProyectos.size());
                     vigenciaProrrateoProyectoSeleccionada = vigenciasProrrateosProyectos.get(vigenciasProrrateosProyectos.indexOf(nuevaVigenciaPP));
                     activarLOV = true;
-                    RequestContext.getCurrentInstance().update("form:listaValores");
+                    PrimefacesContextUI.actualizar("form:listaValores");
                     nuevaVigenciaPP = new VigenciasProrrateosProyectos();
                     nuevaVigenciaPP.setProyecto(new Proyectos());
-                    context.update("form:datosVPPVigencia");
-                    context.execute("NuevoRegistroVPP.hide()");
+                    PrimefacesContextUI.actualizar("form:datosVPPVigencia");
+                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroVPP').hide()");
                     if (guardado) {
                         guardado = false;
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 } else {
-                    context.update("form:errorFechas");
-                    context.execute("errorFechas.show()");
+                    PrimefacesContextUI.actualizar("form:errorFechas");
+                    PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
                 }
             }
         } else {
-            context.update("formularioDialogos:negacionNuevaVLPP");
-            context.execute("negacionNuevaVLPP.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:negacionNuevaVLPP");
+            PrimefacesContextUI.ejecutar("PF('negacionNuevaVLPP').show()");
         }
     }
 
@@ -1946,7 +1947,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         //Si no hay registro selecciionado
         if (vigenciaLocalizacionSeleccionada == null && vigenciaProrrateoSeleccionada == null && vigenciaProrrateoProyectoSeleccionada == null) {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         } else {
             if (guardado) {
                 tipoActualizacion = 2;
@@ -1958,7 +1959,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
                     duplicarVigenciaL();
                 }
             } else {
-                context.execute("confirmarGuardarSinSalir.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalir').show()");
             }
         }
     }
@@ -1988,8 +1989,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 duplicarVL.setLocalizacion(new Estructuras());
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarVL");
-            context.execute("DuplicarRegistroVL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVL");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVL').show()");
         }
     }
 
@@ -2008,8 +2009,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
         }
         if (cont > 0) {
             mensajeValidacion = "FECHAS NO REPETIDAS";
-            context.update("form:validarNuevoFechas");
-            context.execute("validarNuevoFechas.show()");
+            PrimefacesContextUI.actualizar("form:validarNuevoFechas");
+            PrimefacesContextUI.ejecutar("PF('validarNuevoFechas').show()");
         } else {
             if (duplicarVL.getFechavigencia() != null && duplicarVL.getLocalizacion().getSecuencia() != null && duplicarVL.getMotivo().getSecuencia() != null) {
                 if (validarFechasRegistro(2)) {
@@ -2023,22 +2024,22 @@ public class ControlVigenciaLocalizacion implements Serializable {
                     vigenciaLocalizacionSeleccionada = vigenciaLocalizaciones.get(vigenciaLocalizaciones.indexOf(duplicarVL));
                     if (guardado) {
                         guardado = false;
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                     if (bandera == 1) {
                         restablecerTablaVL();
                         //CERRAR FILTRADO
                     }
                     activarLOV = true;
-                    RequestContext.getCurrentInstance().update("form:listaValores");
-                    context.update("form:datosVLEmpleado");
-                    context.execute("DuplicarRegistroVL.hide();");
+                    PrimefacesContextUI.actualizar("form:listaValores");
+                    PrimefacesContextUI.actualizar("form:datosVLEmpleado");
+                    PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVL.hide();");
                     duplicarVL = new VigenciasLocalizaciones();
                 } else {
-                    context.execute("errorFechaVL.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorFechaVL').show()");
                 }
             } else {
-                context.execute("negacionNuevaVL.show()");
+                PrimefacesContextUI.ejecutar("PF('negacionNuevaVL').show()");
             }
         }
     }
@@ -2072,8 +2073,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
             duplicarVP.setProyecto(vigenciaProrrateoSeleccionada.getProyecto());
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicadoVP");
-            context.execute("DuplicadoRegistroVP.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicadoVP");
+            PrimefacesContextUI.ejecutar("PF('DuplicadoRegistroVP').show()");
         }
     }
 
@@ -2092,8 +2093,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
         }
         if (cont > 0) {
             mensajeValidacion = "FECHAS INICIALES NO REPETIDAS";
-            context.update("form:validarNuevoFechas");
-            context.execute("validarNuevoFechas.show()");
+            PrimefacesContextUI.actualizar("form:validarNuevoFechas");
+            PrimefacesContextUI.ejecutar("PF('validarNuevoFechas').show()");
         } else {
             if (duplicarVP.getCentrocosto().getSecuencia() != null && duplicarVP.getPorcentaje() == null && duplicarVP.getFechainicial() != null) {
                 if (validarFechasRegistroVigenciaProrrateo(2)) {
@@ -2104,26 +2105,26 @@ public class ControlVigenciaLocalizacion implements Serializable {
                     vigenciasProrrateosCentroC.add(duplicarVP);
                     listVPCrear.add(duplicarVP);
                     modificarInfoRegistroVP(vigenciasProrrateosCentroC.size());
-                    context.update("form:datosVPVigencia");
-                    context.execute("DuplicadoRegistroVP.hide();");
+                    PrimefacesContextUI.actualizar("form:datosVPVigencia");
+                    PrimefacesContextUI.ejecutar("PF('DuplicadoRegistroVP.hide();");
                     vigenciaProrrateoSeleccionada = vigenciasProrrateosCentroC.get(vigenciasProrrateosCentroC.indexOf(duplicarVP));
                     if (guardado) {
                         guardado = false;
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                     if (banderaVP == 1) {
                         //CERRAR FILTRADO
                         restablecerTablaVP();
-                        RequestContext.getCurrentInstance().update("form:datosVPVigencia");
+                        PrimefacesContextUI.actualizar("form:datosVPVigencia");
                     }
                     activarLOV = true;
-                    RequestContext.getCurrentInstance().update("form:listaValores");
+                    PrimefacesContextUI.actualizar("form:listaValores");
                     duplicarVP = new VigenciasProrrateos();
                 } else {
-                    context.execute("errorFechas.show();");
+                    PrimefacesContextUI.ejecutar("PF('errorFechas.show();");
                 }
             } else {
-                context.execute("errorRegnew.show();");
+                PrimefacesContextUI.ejecutar("PF('errorRegnew.show();");
             }
 
         }
@@ -2153,8 +2154,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
             duplicarVPP.setProyecto(vigenciaProrrateoProyectoSeleccionada.getProyecto());
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarVPP");
-            context.execute("DuplicarRegistroVPP.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVPP");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVPP').show()");
         }
     }
 
@@ -2173,8 +2174,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
         }
         if (cont > 0) {
             mensajeValidacion = "FECHAS INICIALES NO REPETIDAS";
-            context.update("form:validarNuevoFechas");
-            context.execute("validarNuevoFechas.show()");
+            PrimefacesContextUI.actualizar("form:validarNuevoFechas");
+            PrimefacesContextUI.ejecutar("PF('validarNuevoFechas').show()");
         } else {
 
             if (duplicarVPP.getFechainicial() != null && duplicarVPP.getPorcentaje() >= 0 && duplicarVPP.getProyecto().getSecuencia() != null) {
@@ -2185,33 +2186,33 @@ public class ControlVigenciaLocalizacion implements Serializable {
                     vigenciasProrrateosProyectos.add(duplicarVPP);
                     listVPPCrear.add(duplicarVPP);
                     modificarInfoRegistroVPP(vigenciasProrrateosProyectos.size());
-                    context.update("form:datosVPPVigencia");
-                    context.execute("DuplicarRegistroVPP.show()");
+                    PrimefacesContextUI.actualizar("form:datosVPPVigencia");
+                    PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVPP').show()");
                     vigenciaProrrateoProyectoSeleccionada = vigenciasProrrateosProyectos.get(vigenciasProrrateosProyectos.indexOf(duplicarVPP));
                     if (guardado) {
                         guardado = false;
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                     if (banderaVPP == 1) {
                         restablecerTablaVPP();
-                        RequestContext.getCurrentInstance().update("form:datosVPPVigencia");
+                        PrimefacesContextUI.actualizar("form:datosVPPVigencia");
                     }
                     activarLOV = true;
-                    RequestContext.getCurrentInstance().update("form:listaValores");
+                    PrimefacesContextUI.actualizar("form:listaValores");
                     duplicarVPP = new VigenciasProrrateosProyectos();
                     cambioVigenciaPP = true;
                 } else {
-                    context.execute("errorFechas.show();");
+                    PrimefacesContextUI.ejecutar("PF('errorFechas.show();");
                 }
             } else {
-                context.execute("errorRegnew.show();");
+                PrimefacesContextUI.ejecutar("PF('errorRegnew.show();");
             }
         }
     }
 
     public void anularLOV() {
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     /**
@@ -2230,7 +2231,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         //Si no hay registro selecciionado
         if (vigenciaLocalizacionSeleccionada == null && vigenciaProrrateoSeleccionada == null && vigenciaProrrateoProyectoSeleccionada == null) {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         } else {
             System.out.println("entro a validarBorrado");
             if (vigenciaProrrateoSeleccionada != null) {
@@ -2249,8 +2250,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 if (tam == 0 && tam2 == 0) {
                     borrarVL();
                 } else {
-                    context.update("form:negacionBorradoVL");
-                    context.execute("negacionBorradoVL.show()");
+                    PrimefacesContextUI.actualizar("form:negacionBorradoVL");
+                    PrimefacesContextUI.ejecutar("PF('negacionBorradoVL').show()");
                 }
             }
         }
@@ -2281,12 +2282,12 @@ public class ControlVigenciaLocalizacion implements Serializable {
             modificarInfoRegistroVL(vigenciaLocalizaciones.size());
             vigenciaLocalizacionSeleccionada = null;
             activarLOV = true;
-            RequestContext.getCurrentInstance().update("form:informacionRegistroVL");
-            RequestContext.getCurrentInstance().update("form:listaValores");
-            RequestContext.getCurrentInstance().update("form:datosVLEmpleado");
+            PrimefacesContextUI.actualizar("form:informacionRegistroVL");
+            PrimefacesContextUI.actualizar("form:listaValores");
+            PrimefacesContextUI.actualizar("form:datosVLEmpleado");
             if (guardado) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
     }
@@ -2314,12 +2315,12 @@ public class ControlVigenciaLocalizacion implements Serializable {
         modificarInfoRegistroVP(vigenciasProrrateosCentroC.size());
         activarLOV = true;
         vigenciaProrrateoSeleccionada = null;
-        RequestContext.getCurrentInstance().update("form:informacionRegistroVP");
-        RequestContext.getCurrentInstance().update("form:listaValores");
-        RequestContext.getCurrentInstance().update("form:datosVPVigencia");
+        PrimefacesContextUI.actualizar("form:informacionRegistroVP");
+        PrimefacesContextUI.actualizar("form:listaValores");
+        PrimefacesContextUI.actualizar("form:datosVPVigencia");
         if (guardado) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
     }
 
@@ -2340,12 +2341,12 @@ public class ControlVigenciaLocalizacion implements Serializable {
         modificarInfoRegistroVP(vigenciasProrrateosCentroC.size());
         activarLOV = true;
         vigenciaProrrateoSeleccionada = null;
-        RequestContext.getCurrentInstance().update("form:listaValores");
-        RequestContext.getCurrentInstance().update("form:informacionRegistroVP");
-        RequestContext.getCurrentInstance().update("form:datosVPVigencia");
+        PrimefacesContextUI.actualizar("form:listaValores");
+        PrimefacesContextUI.actualizar("form:informacionRegistroVP");
+        PrimefacesContextUI.actualizar("form:datosVPVigencia");
         if (guardado) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
     }
 
@@ -2371,13 +2372,13 @@ public class ControlVigenciaLocalizacion implements Serializable {
         modificarInfoRegistroVPP(vigenciasProrrateosProyectos.size());
         activarLOV = true;
         vigenciaProrrateoProyectoSeleccionada = null;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:informacionRegistroVPP");
-        context.update("form:datosVPPVigencia");
+        PrimefacesContextUI.actualizar("form:informacionRegistroVPP");
+        PrimefacesContextUI.actualizar("form:datosVPPVigencia");
         if (guardado) {
             guardado = false;
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
     }
 
@@ -2416,11 +2417,11 @@ public class ControlVigenciaLocalizacion implements Serializable {
             vlProyecto = (Column) c.getViewRoot().findComponent("form:datosVLEmpleado:vlProyecto");
             vlProyecto.setFilterStyle("width: 80%");
             altoTabla1 = "84";
-            RequestContext.getCurrentInstance().update("form:datosVLEmpleado");
+            PrimefacesContextUI.actualizar("form:datosVLEmpleado");
             bandera = 1;
         } else if (bandera == 1) {
             restablecerTablaVL();
-            RequestContext.getCurrentInstance().update("form:datosVLEmpleado");
+            PrimefacesContextUI.actualizar("form:datosVLEmpleado");
         }
     }
 
@@ -2444,11 +2445,11 @@ public class ControlVigenciaLocalizacion implements Serializable {
             vPSubPorcentaje = (Column) c.getViewRoot().findComponent("form:datosVPVigencia:vPSubPorcentaje");
             vPSubPorcentaje.setFilterStyle("width: 80%");
             altoTabla2 = "84";
-            RequestContext.getCurrentInstance().update("form:datosVPVigencia");
+            PrimefacesContextUI.actualizar("form:datosVPVigencia");
             banderaVP = 1;
         } else if (banderaVP == 1) {
             restablecerTablaVP();
-            RequestContext.getCurrentInstance().update("form:datosVPVigencia");
+            PrimefacesContextUI.actualizar("form:datosVPVigencia");
         }
     }
 
@@ -2468,11 +2469,11 @@ public class ControlVigenciaLocalizacion implements Serializable {
             vPPFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVPPVigencia:vPPFechaFinal");
             vPPFechaFinal.setFilterStyle("width: 80%");
             altoTabla3 = "84";
-            RequestContext.getCurrentInstance().update("form:datosVPPVigencia");
+            PrimefacesContextUI.actualizar("form:datosVPPVigencia");
             banderaVPP = 1;
         } else if (banderaVPP == 1) {
             restablecerTablaVPP();
-            RequestContext.getCurrentInstance().update("form:datosVPPVigencia");
+            PrimefacesContextUI.actualizar("form:datosVPPVigencia");
         }
 
     }
@@ -2484,10 +2485,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
     public void salir() {
         RequestContext context = RequestContext.getCurrentInstance();
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
         if (bandera == 1) {
             restablecerTablaVL();
-            context.update("form:datosVLEmpleado");
+            PrimefacesContextUI.actualizar("form:datosVLEmpleado");
         }
 
         listVLBorrar.clear();
@@ -2505,7 +2506,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
         guardado = true;
         vigenciasProrrateosCentroC = null;
         vigenciasProrrateosProyectos = null;
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO) (list = ESTRUCTURAS - MOTIVOSLOCALIZACIONES - PROYECTOS)
 
@@ -2523,22 +2524,22 @@ public class ControlVigenciaLocalizacion implements Serializable {
             vigenciaLocalizacionSeleccionada = vLocalizacion;
         }
         activarLOV = false;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
         if (dlg == 0) {
             //Estructuras
             contarRegistrosEstrLoca();
-            context.update("form:LocalizacionDialogo");
-            context.execute("LocalizacionDialogo.show()");
+            PrimefacesContextUI.actualizar("form:LocalizacionDialogo");
+            PrimefacesContextUI.ejecutar("PF('LocalizacionDialogo').show()");
         } else if (dlg == 1) {
             //MotivosLocalizaciones
             contarRegistrosMotiLoc();
-            context.update("form:MotivoDialogo");
-            context.execute("MotivoDialogo.show()");
+            PrimefacesContextUI.actualizar("form:MotivoDialogo");
+            PrimefacesContextUI.ejecutar("PF('MotivoDialogo').show()");
         } else if (dlg == 2) {
             //Proyectos
             contarRegistrosProyecto();
-            context.update("form:ProyectosDialogo");
-            context.execute("ProyectosDialogo.show()");
+            PrimefacesContextUI.actualizar("form:ProyectosDialogo");
+            PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').show()");
         }
     }
 
@@ -2550,17 +2551,17 @@ public class ControlVigenciaLocalizacion implements Serializable {
         }
 
         activarLOV = false;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
         if (dlg == 0) {
             //Centro Costos
             contarRegistrosCentroC();
-            context.update("form:CentroCostosDialogo");
-            context.execute("CentroCostosDialogo.show()");
+            PrimefacesContextUI.actualizar("form:CentroCostosDialogo");
+            PrimefacesContextUI.ejecutar("PF('CentroCostosDialogo').show()");
         } else if (dlg == 1) {
             //Proyectos
             contarRegistrosProyecto();
-            context.update("form:ProyectosDialogo");
-            context.execute("ProyectosDialogo.show()");
+            PrimefacesContextUI.actualizar("form:ProyectosDialogo");
+            PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').show()");
         }
     }
 
@@ -2571,12 +2572,12 @@ public class ControlVigenciaLocalizacion implements Serializable {
             vigenciaProrrateoProyectoSeleccionada = vProrrateosProyectos;
         }
         activarLOV = false;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
         if (dlg == 0) {
             //Proyectos
             contarRegistrosProyecto();
-            context.update("form:ProyectosDialogo");
-            context.execute("ProyectosDialogo.show()");
+            PrimefacesContextUI.actualizar("form:ProyectosDialogo");
+            PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').show()");
         }
     }
 
@@ -2599,17 +2600,17 @@ public class ControlVigenciaLocalizacion implements Serializable {
 
             if (guardado) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             cambiosVigencia = true;
             permitirIndex = true;
-            context.update("form:datosVLEmpleado");
+            PrimefacesContextUI.actualizar("form:datosVLEmpleado");
         } else if (tipoActualizacion == 1) {// Para crear registro
             nuevaVigencia.setLocalizacion(estructuraSelecionada);
-            context.update("formularioDialogos:nuevaVL");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVL");
         } else if (tipoActualizacion == 2) {// Para duplicar registro
             duplicarVL.setLocalizacion(estructuraSelecionada);
-            context.update("formularioDialogos:duplicarVL");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVL");
         }
         filtradoEstructuraCC = null;
         estructuraSelecionada = null;
@@ -2617,9 +2618,9 @@ public class ControlVigenciaLocalizacion implements Serializable {
         tipoActualizacion = -1;
 
         context.reset("form:lovLocalizacion:globalFilter");
-        context.execute("lovLocalizacion.clearFilters()");
-        context.execute("LocalizacionDialogo.hide()");
-        context.update("form:lovLocalizacion");
+        PrimefacesContextUI.ejecutar("PF('lovLocalizacion').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('LocalizacionDialogo').hide()");
+        PrimefacesContextUI.actualizar("form:lovLocalizacion");
     }
 
     /**
@@ -2633,9 +2634,9 @@ public class ControlVigenciaLocalizacion implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovLocalizacion:globalFilter");
-        context.execute("lovLocalizacion.clearFilters()");
-        context.execute("LocalizacionDialogo.hide()");
-        context.update("form:lovLocalizacion");
+        PrimefacesContextUI.ejecutar("PF('lovLocalizacion').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('LocalizacionDialogo').hide()");
+        PrimefacesContextUI.actualizar("form:lovLocalizacion");
     }
 
     //Motivo Localizacion
@@ -2657,17 +2658,17 @@ public class ControlVigenciaLocalizacion implements Serializable {
 
             if (guardado) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             cambiosVigencia = true;
             permitirIndex = true;
-            context.update("form:datosVLEmpleado");
+            PrimefacesContextUI.actualizar("form:datosVLEmpleado");
         } else if (tipoActualizacion == 1) {// Para cerar registro
             nuevaVigencia.setMotivo(motivoLocalizacionSelecionado);
-            context.update("formularioDialogos:nuevaVL");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVL");
         } else if (tipoActualizacion == 2) {// Para duplicar registro
             duplicarVL.setMotivo(motivoLocalizacionSelecionado);
-            context.update("formularioDialogos:duplicarVL");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVL");
         }
         filtradoMotivosLocalizaciones = null;
         motivoLocalizacionSelecionado = new MotivosLocalizaciones();
@@ -2675,9 +2676,9 @@ public class ControlVigenciaLocalizacion implements Serializable {
         tipoActualizacion = -1;
 
         context.reset("form:lovMotivo:globalFilter");
-        context.execute("lovMotivo.clearFilters()");
-        context.execute("MotivoDialogo.hide()");
-        context.update("form:lovMotivo");
+        PrimefacesContextUI.ejecutar("PF('lovMotivo').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('MotivoDialogo').hide()");
+        PrimefacesContextUI.actualizar("form:lovMotivo");
     }
 
     /**
@@ -2692,9 +2693,9 @@ public class ControlVigenciaLocalizacion implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovMotivo:globalFilter");
-        context.execute("lovMotivo.clearFilters()");
-        context.execute("MotivoDialogo.hide()");
-        context.update("form:lovMotivo");
+        PrimefacesContextUI.ejecutar("PF('lovMotivo').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('MotivoDialogo').hide()");
+        PrimefacesContextUI.actualizar("form:lovMotivo");
     }
 
     //Motivo Localizacion
@@ -2708,13 +2709,13 @@ public class ControlVigenciaLocalizacion implements Serializable {
 
             if (cualTabla == 1) {
                 nuevaVigencia.setProyecto(proyectoSelecionado);
-                context.update("formularioDialogos:nuevaVL");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevaVL");
             } else if (cualTabla == 2) {
                 nuevaVigenciaP.setProyecto(proyectoSelecionado);
-                context.update("formularioDialogos:nuevaVP");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevaVP");
             } else if (cualTabla == 3) {
                 nuevaVigenciaPP.setProyecto(proyectoSelecionado);
-                context.update("formularioDialogos:nuevaVPP");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevaVPP");
             }
 
         } else if (vigenciaProrrateoSeleccionada != null) {
@@ -2729,14 +2730,14 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 }
                 if (guardado) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 cambioVigenciaP = true;
                 permitirIndexVP = true;
-                context.update("form:datosVPVigencia");
+                PrimefacesContextUI.actualizar("form:datosVPVigencia");
             } else if (tipoActualizacion == 2) {// Para duplicar registro
                 duplicarVP.setProyecto(proyectoSelecionado);
-                context.update("formularioDialogos:duplicarVP");
+                PrimefacesContextUI.actualizar("formularioDialogos:duplicarVP");
             }
             filtradoProyectos = null;
             proyectoSelecionado = new Proyectos();
@@ -2744,9 +2745,9 @@ public class ControlVigenciaLocalizacion implements Serializable {
             tipoActualizacion = -1;
 
             context.reset("form:lovProyectos:globalFilter");
-            context.execute("lovProyectos.clearFilters()");
-            context.execute("ProyectosDialogo.hide()");
-            context.update("form:lovProyectos");
+            PrimefacesContextUI.ejecutar("PF('lovProyectos').clearFilters()");
+            PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').hide()");
+            PrimefacesContextUI.actualizar("form:lovProyectos");
 
             //////////////////////////////////////////////
         } else if (vigenciaProrrateoProyectoSeleccionada != null) {
@@ -2762,14 +2763,14 @@ public class ControlVigenciaLocalizacion implements Serializable {
 
                 if (guardado) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 permitirIndexVPP = true;
                 cambioVigenciaPP = true;
-                context.update("form:datosVPPVigencia");
+                PrimefacesContextUI.actualizar("form:datosVPPVigencia");
             } else if (tipoActualizacion == 2) {// Para duplicar registro
                 duplicarVPP.setProyecto(proyectoSelecionado);
-                context.update("formularioDialogos:duplicarVPP");
+                PrimefacesContextUI.actualizar("formularioDialogos:duplicarVPP");
             }
             filtradoProyectos = null;
             proyectoSelecionado = new Proyectos();
@@ -2777,9 +2778,9 @@ public class ControlVigenciaLocalizacion implements Serializable {
             tipoActualizacion = -1;
 
             context.reset("form:lovProyectos:globalFilter");
-            context.execute("lovProyectos.clearFilters()");
-            context.execute("ProyectosDialogo.hide()");
-            context.update("form:lovProyectos");
+            PrimefacesContextUI.ejecutar("PF('lovProyectos').clearFilters()");
+            PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').hide()");
+            PrimefacesContextUI.actualizar("form:lovProyectos");
 
             ///////////////////////////////////////////////////////////////    
         } else if (vigenciaLocalizacionSeleccionada != null) {
@@ -2795,23 +2796,23 @@ public class ControlVigenciaLocalizacion implements Serializable {
 
                 if (guardado) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 cambiosVigencia = true;
                 permitirIndex = true;
-                context.update("form:datosVLEmpleado");
+                PrimefacesContextUI.actualizar("form:datosVLEmpleado");
             } else if (tipoActualizacion == 2) {// Para duplicar registro
                 duplicarVL.setProyecto(proyectoSelecionado);
-                context.update("formularioDialogos:duplicarVL");
+                PrimefacesContextUI.actualizar("formularioDialogos:duplicarVL");
             }
             filtradoProyectos = null;
             proyectoSelecionado = new Proyectos();
             aceptar = true;
             tipoActualizacion = -1;
             context.reset("form:lovProyectos:globalFilter");
-            context.execute("lovProyectos.clearFilters()");
-            context.execute("ProyectosDialogo.hide()");
-            context.update("form:lovProyectos");
+            PrimefacesContextUI.ejecutar("PF('lovProyectos').clearFilters()");
+            PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').hide()");
+            PrimefacesContextUI.actualizar("form:lovProyectos");
         }
     }
 
@@ -2826,9 +2827,9 @@ public class ControlVigenciaLocalizacion implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovProyectos:globalFilter");
-        context.execute("lovProyectos.clearFilters()");
-        context.execute("ProyectosDialogo.hide()");
-        context.update("form:lovProyectos");
+        PrimefacesContextUI.ejecutar("PF('lovProyectos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').hide()");
+        PrimefacesContextUI.actualizar("form:lovProyectos");
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -2851,17 +2852,17 @@ public class ControlVigenciaLocalizacion implements Serializable {
 
             if (guardado) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             cambioVigenciaP = true;
-            context.update("form:datosVPVigencia");
+            PrimefacesContextUI.actualizar("form:datosVPVigencia");
             permitirIndexVP = true;
         } else if (tipoActualizacion == 1) {// Para crear registro
             nuevaVigenciaP.setCentrocosto(centroCostoSeleccionado);
-            context.update("formularioDialogos:nuevaVP");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVP");
         } else if (tipoActualizacion == 2) {// Para duplicar registro
             duplicarVP.setCentrocosto(centroCostoSeleccionado);
-            context.update("formularioDialogos:duplicarVP");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVP");
         }
         filtradoCentroCostos = null;
         centroCostoSeleccionado = null;
@@ -2869,8 +2870,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
         tipoActualizacion = -1;
 
         context.reset("form:lovCentroCostos:globalFilter");
-        context.execute("lovCentroCostos.clearFilters()");
-        context.execute("CentroCostosDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovCentroCostos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('CentroCostosDialogo').hide()");
     }
 
     /**
@@ -2884,8 +2885,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
         permitirIndexVP = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovCentroCostos:globalFilter");
-        context.execute("lovCentroCostos.clearFilters()");
-        context.execute("CentroCostosDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovCentroCostos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('CentroCostosDialogo').hide()");
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -2907,8 +2908,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
         permitirIndexVP = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovProyectos:globalFilter");
-        context.execute("lovProyectos.clearFilters()");
-        context.execute("ProyectosDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovProyectos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').hide()");
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -2930,8 +2931,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
         permitirIndexVPP = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovProyectos:globalFilter");
-        context.execute("lovProyectos.clearFilters()");
-        context.execute("ProyectosDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovProyectos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').hide()");
     }
     //LISTA DE VALORES DINAMICA
 
@@ -2943,45 +2944,45 @@ public class ControlVigenciaLocalizacion implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         //Si no hay registro selecciionado
         if (vigenciaLocalizacionSeleccionada == null && vigenciaProrrateoSeleccionada == null && vigenciaProrrateoProyectoSeleccionada == null) {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         } else {
             tipoActualizacion = 0;
 
             if (vigenciaProrrateoSeleccionada != null) {
                 if (cualCeldaVP == 0) {
                     contarRegistrosCentroC();
-                    context.update("form:CentroCostosDialogo");
-                    context.execute("CentroCostosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:CentroCostosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('CentroCostosDialogo').show()");
                 }
                 if (cualCeldaVP == 4) {
                     contarRegistrosProyecto();
-                    context.update("form:ProyectosDialogo");
-                    context.execute("ProyectosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:ProyectosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').show()");
                 }
             } else if (vigenciaProrrateoProyectoSeleccionada != null) {
                 if (cualCeldaVPP == 0) {
                     contarRegistrosProyecto();
-                    context.update("form:ProyectosDialogo");
-                    context.execute("ProyectosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:ProyectosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').show()");
                 }
             } else if (vigenciaLocalizacionSeleccionada != null) {
                 if (cualCelda == 1) {
                     //Estructura
                     contarRegistrosEstrLoca();
-                    context.update("form:LocalizacionDialogo");
-                    context.execute("LocalizacionDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:LocalizacionDialogo");
+                    PrimefacesContextUI.ejecutar("PF('LocalizacionDialogo').show()");
                 }
                 if (cualCelda == 3) {
                     //Motivos
                     contarRegistrosMotiLoc();
-                    context.update("form:MotivoDialogo");
-                    context.execute("MotivoDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:MotivoDialogo");
+                    PrimefacesContextUI.ejecutar("PF('MotivoDialogo').show()");
                 }
                 if (cualCelda == 4) {
                     //Proyecto
                     contarRegistrosProyecto();
-                    context.update("form:ProyectosDialogo");
-                    context.execute("ProyectosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:ProyectosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('ProyectosDialogo').show()");
                 }
             }
         }
@@ -2994,11 +2995,11 @@ public class ControlVigenciaLocalizacion implements Serializable {
     public void validarNuevoRegistro() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (guardado == false) {
-            context.execute("confirmarGuardarSinSalir.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalir').show()");
         } else {
             //Dialogo de nuevo registro multiple
-            context.update("form:NuevoRegistroPagina");
-            context.execute("NuevoRegistroPagina.show()");
+            PrimefacesContextUI.actualizar("form:NuevoRegistroPagina");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroPagina').show()");
         }
     }
 
@@ -3007,8 +3008,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tabla == 1) {
             //Dialogo de nuevo registro vigencias localizaciones
-            context.update("form:NuevoRegistroVL");
-            context.execute("NuevoRegistroVL.show()");
+            PrimefacesContextUI.actualizar("form:NuevoRegistroVL");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroVL').show()");
         }
         if (tabla == 2) {
             if (vigenciaLocalizacionSeleccionada != null) {
@@ -3016,11 +3017,11 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 nuevaVigenciaP.setCentrocosto(new CentrosCostos());
                 nuevaVigenciaP.setProyecto(new Proyectos());
                 //Dialogo de nuevo registro vigencia prorrateo
-                context.update("form:NuevoRegistroVP");
-                context.execute("NuevoRegistroVP.show()");
+                PrimefacesContextUI.actualizar("form:NuevoRegistroVP");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroVP').show()");
                 tipoActualizacion = 1;
             } else {
-                context.execute("seleccionarRegistroLE.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistroLE').show()");
             }
         }
         if (tabla == 3) {
@@ -3028,11 +3029,11 @@ public class ControlVigenciaLocalizacion implements Serializable {
                 nuevaVigenciaPP = new VigenciasProrrateosProyectos();
                 nuevaVigenciaPP.setProyecto(new Proyectos());
                 //Dialogo de nuevo registro vigencia prorrateo proyecto
-                context.update("form:NuevoRegistroVPP");
-                context.execute("NuevoRegistroVPP.show()");
+                PrimefacesContextUI.actualizar("form:NuevoRegistroVPP");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroVPP').show()");
                 tipoActualizacion = 1;
             } else {
-                context.execute("seleccionarRegistroLE.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistroLE').show()");
             }
         }
     }
@@ -3048,12 +3049,12 @@ public class ControlVigenciaLocalizacion implements Serializable {
         }
         if (tam > 0) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:NuevoRegistroVPP");
-            context.execute("NuevoRegistroVPP.show()");
+            PrimefacesContextUI.actualizar("form:NuevoRegistroVPP");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroVPP').show()");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:negacionNuevoRegistroVPP");
-            context.execute("negacionNuevoRegistroVPP.show()");
+            PrimefacesContextUI.actualizar("form:negacionNuevoRegistroVPP");
+            PrimefacesContextUI.ejecutar("PF('negacionNuevoRegistroVPP').show()");
         }
     }
 
@@ -3208,7 +3209,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
         //Si no hay registros eleccionado
         if (vigenciaLocalizacionSeleccionada == null && vigenciaProrrateoSeleccionada == null && vigenciaProrrateoProyectoSeleccionada == null) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("verificarRastrosTablas.show()");
+            PrimefacesContextUI.ejecutar("PF('verificarRastrosTablas').show()");
         } else if (vigenciaProrrateoSeleccionada != null) {
             //Metodo Rastro Vigencias Afiliaciones
             verificarRastroVigenciaProrrateoCC();
@@ -3225,18 +3226,18 @@ public class ControlVigenciaLocalizacion implements Serializable {
         int resultado = administrarRastros.obtenerTabla(vigenciaLocalizacionSeleccionada.getSecuencia(), "VIGENCIASLOCALIZACIONES");
         backUp = vigenciaLocalizacionSeleccionada.getSecuencia();
         if (resultado == 1) {
-            context.execute("errorObjetosDB.show()");
+            PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
         } else if (resultado == 2) {
             nombreTablaRastro = "VigenciasLocalizaciones";
             msnConfirmarRastro = "La tabla VIGENCIASLOCALIZACIONES tiene rastros para el registro seleccionado, ¿desea continuar?";
-            context.update("form:msnConfirmarRastro");
-            context.execute("confirmarRastro.show()");
+            PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+            PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
         } else if (resultado == 3) {
-            context.execute("errorRegistroRastro.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
         } else if (resultado == 4) {
-            context.execute("errorTablaConRastro.show()");
+            PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
         } else if (resultado == 5) {
-            context.execute("errorTablaSinRastro.show()");
+            PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
         }
     }
 
@@ -3245,10 +3246,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
         if (administrarRastros.verificarHistoricosTabla("VIGENCIASLOCALIZACIONES")) {
             nombreTablaRastro = "VigenciasLocalizaciones";
             msnConfirmarRastroHistorico = "La tabla VIGENCIASLOCALIZACIONES tiene rastros historicos, ¿Desea continuar?";
-            context.update("form:confirmarRastroHistorico");
-            context.execute("confirmarRastroHistorico.show()");
+            PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
         } else {
-            context.execute("errorRastroHistorico.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -3257,18 +3258,18 @@ public class ControlVigenciaLocalizacion implements Serializable {
         int resultado = administrarRastros.obtenerTabla(vigenciaProrrateoSeleccionada.getSecuencia(), "VIGENCIASPRORRATEOS");
         backUp = vigenciaProrrateoSeleccionada.getSecuencia();
         if (resultado == 1) {
-            context.execute("errorObjetosDB.show()");
+            PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
         } else if (resultado == 2) {
             nombreTablaRastro = "VigenciasProrrateos";
             msnConfirmarRastro = "La tabla VIGENCIASPRORRATEOS tiene rastros para el registro seleccionado, ¿desea continuar?";
-            context.update("form:msnConfirmarRastro");
-            context.execute("confirmarRastro.show()");
+            PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+            PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
         } else if (resultado == 3) {
-            context.execute("errorRegistroRastro.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
         } else if (resultado == 4) {
-            context.execute("errorTablaConRastro.show()");
+            PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
         } else if (resultado == 5) {
-            context.execute("errorTablaSinRastro.show()");
+            PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
         }
     }
 
@@ -3277,10 +3278,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
         if (administrarRastros.verificarHistoricosTabla("VIGENCIASPRORRATEOS")) {
             nombreTablaRastro = "VigenciasProrrateos";
             msnConfirmarRastroHistorico = "La tabla VIGENCIASPRORRATEOS tiene rastros historicos, ¿Desea continuar?";
-            context.update("form:confirmarRastroHistorico");
-            context.execute("confirmarRastroHistorico.show()");
+            PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
         } else {
-            context.execute("errorRastroHistorico.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -3289,18 +3290,18 @@ public class ControlVigenciaLocalizacion implements Serializable {
         int resultado = administrarRastros.obtenerTabla(vigenciaProrrateoProyectoSeleccionada.getSecuencia(), "VIGENCIASPRORRATEOSPROYECTOS");
         backUp = vigenciaProrrateoProyectoSeleccionada.getSecuencia();
         if (resultado == 1) {
-            context.execute("errorObjetosDB.show()");
+            PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
         } else if (resultado == 2) {
             nombreTablaRastro = "VigenciasProrrateosProyectos";
             msnConfirmarRastro = "La tabla VIGENCIASPRORRATEOSPROYECTOS tiene rastros para el registro seleccionado, ¿desea continuar?";
-            context.update("form:msnConfirmarRastro");
-            context.execute("confirmarRastro.show()");
+            PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+            PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
         } else if (resultado == 3) {
-            context.execute("errorRegistroRastro.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
         } else if (resultado == 4) {
-            context.execute("errorTablaConRastro.show()");
+            PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
         } else if (resultado == 5) {
-            context.execute("errorTablaSinRastro.show()");
+            PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
         }
     }
 
@@ -3309,10 +3310,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
         if (administrarRastros.verificarHistoricosTabla("VIGENCIASPRORRATEOSPROYECTOS")) {
             nombreTablaRastro = "VigenciasProrrateosProyectos";
             msnConfirmarRastroHistorico = "La tabla VIGENCIASPRORRATEOSPROYECTOS tiene rastros historicos, ¿Desea continuar?";
-            context.update("form:confirmarRastroHistorico");
-            context.execute("confirmarRastroHistorico.show()");
+            PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
         } else {
-            context.execute("errorRastroHistorico.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -3325,10 +3326,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
             tipoLista = 1;
         }
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
         vigenciaLocalizacionSeleccionada = null;
         modificarInfoRegistroVL(filtradoVL.size());
-        RequestContext.getCurrentInstance().update("form:informacionRegistroVL");
+        PrimefacesContextUI.actualizar("form:informacionRegistroVL");
     }
 
     public void eventoFiltrarVP() {
@@ -3336,10 +3337,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
             tipoListaVP = 1;
         }
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
         vigenciaProrrateoSeleccionada = null;
         modificarInfoRegistroVP(filtradoVP.size());
-        RequestContext.getCurrentInstance().update("form:informacionRegistroVP");
+        PrimefacesContextUI.actualizar("form:informacionRegistroVP");
     }
 
     public void eventoFiltrarVPP() {
@@ -3347,30 +3348,30 @@ public class ControlVigenciaLocalizacion implements Serializable {
             tipoListaVPP = 1;
         }
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
         vigenciaProrrateoProyectoSeleccionada = null;
         modificarInfoRegistroVPP(filtradoPP.size());
-        RequestContext.getCurrentInstance().update("form:informacionRegistroVPP");
+        PrimefacesContextUI.actualizar("form:informacionRegistroVPP");
     }
 
     public void eventoFiltrarCentroC() {
         modificarInfoRegistroCentroC(filtradoCentroCostos.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistroCentroCosto");
+        PrimefacesContextUI.actualizar("form:infoRegistroCentroCosto");
     }
 
     public void eventoFiltrarEstrLoca() {
         modificarInfoRegistroEstrLoca(filtradoEstructuraCC.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistroLocalizacion");
+        PrimefacesContextUI.actualizar("form:infoRegistroLocalizacion");
     }
 
     public void eventoFiltrarMotiLoc() {
         modificarInfoRegistroMotiLoc(filtradoMotivosLocalizaciones.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistroMotivoLocalizacion");
+        PrimefacesContextUI.actualizar("form:infoRegistroMotivoLocalizacion");
     }
 
     public void eventoFiltrarProyecto() {
         modificarInfoRegistroProyecto(filtradoProyectos.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistroProyecto");
+        PrimefacesContextUI.actualizar("form:infoRegistroProyecto");
     }
 
     private void modificarInfoRegistroVL(int valor) {

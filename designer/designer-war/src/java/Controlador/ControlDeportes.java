@@ -25,6 +25,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -170,7 +171,7 @@ public class ControlDeportes implements Serializable {
             descripcion = (Column) c.getViewRoot().findComponent("form:datosDeporte:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             //contarRegistros();
-            RequestContext.getCurrentInstance().update("form:datosDeporte");
+            PrimefacesContextUI.actualizar("form:datosDeporte");
             bandera = 0;
             filtrarDeportes = null;
             tipoLista = 0;
@@ -188,9 +189,9 @@ public class ControlDeportes implements Serializable {
         getListDeportes();
         contarRegistros();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:infoRegistro");
-        context.update("form:datosDeporte");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:infoRegistro");
+        PrimefacesContextUI.actualizar("form:datosDeporte");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void salir() {
@@ -202,7 +203,7 @@ public class ControlDeportes implements Serializable {
             descripcion = (Column) c.getViewRoot().findComponent("form:datosDeporte:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             contarRegistros();
-            RequestContext.getCurrentInstance().update("form:datosDeporte");
+            PrimefacesContextUI.actualizar("form:datosDeporte");
             bandera = 0;
             filtrarDeportes = null;
             tipoLista = 0;
@@ -218,8 +219,8 @@ public class ControlDeportes implements Serializable {
         permitirIndex = true;
         contarRegistros();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosDeporte");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosDeporte");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -230,7 +231,7 @@ public class ControlDeportes implements Serializable {
             codigo.setFilterStyle("width: 85%");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosDeporte:descripcion");
             descripcion.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosDeporte");
+            PrimefacesContextUI.actualizar("form:datosDeporte");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -240,7 +241,7 @@ public class ControlDeportes implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosDeporte:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosDeporte");
+            PrimefacesContextUI.actualizar("form:datosDeporte");
             bandera = 0;
             filtrarDeportes = null;
             tipoLista = 0;
@@ -310,15 +311,15 @@ public class ControlDeportes implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         } else {
-            context.update("form:validacionModificar");
-            context.execute("validacionModificar.show()");
+            PrimefacesContextUI.actualizar("form:validacionModificar");
+            PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
         }
 
-        context.update("form:datosDeporte");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosDeporte");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void borrarDeporte() {
@@ -343,16 +344,16 @@ public class ControlDeportes implements Serializable {
                 listDeportes.remove(deporteSeleccionado);
             }
             modificarinfoRegistro(listDeportes.size());
-            context.update("form:infoRegistro");
-            context.update("form:datosDeporte");
+            PrimefacesContextUI.actualizar("form:infoRegistro");
+            PrimefacesContextUI.actualizar("form:datosDeporte");
             deporteSeleccionado = null;
 
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         } else {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
 
     }
@@ -380,8 +381,8 @@ public class ControlDeportes implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:validacionBorrar");
-                context.execute("validacionBorrar.show()");
+                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 deporteSeleccionado = null;
 
                 verificarBorradoVigenciasDeportes = new BigInteger("-1");
@@ -405,8 +406,8 @@ public class ControlDeportes implements Serializable {
                 administrarDeportes.borrarDeportes(borrarDeportes);
                 //mostrarBorrados
                 registrosBorrados = borrarDeportes.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarDeportes.clear();
             }
             if (!crearDeportes.isEmpty()) {
@@ -421,13 +422,13 @@ public class ControlDeportes implements Serializable {
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             contarRegistros();
-            context.update("form:growl");
-            context.update("form:datosDeporte");
+            PrimefacesContextUI.actualizar("form:growl");
+            PrimefacesContextUI.actualizar("form:datosDeporte");
             k = 0;
         }
         deporteSeleccionado = null;
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -443,17 +444,17 @@ public class ControlDeportes implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editCodigo");
-                context.execute("editCodigo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editDescripcion");
-                context.execute("editDescripcion.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
 
         } else {
-            RequestContext.getCurrentInstance().execute("seleccionarRegistro.show()");
+            RequestContext.getCurrentInstance().execute("seleccionarRegistro').show()");
         }
     }
 
@@ -505,7 +506,7 @@ public class ControlDeportes implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosDeporte:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosDeporte");
+                PrimefacesContextUI.actualizar("form:datosDeporte");
                 bandera = 0;
                 filtrarDeportes = null;
                 tipoLista = 0;
@@ -520,16 +521,16 @@ public class ControlDeportes implements Serializable {
             listDeportes.add(nuevoDeporte);
             nuevoDeporte = new Deportes();
             modificarinfoRegistro(listDeportes.size());
-            context.update("form:infoRegistro");
-            context.update("form:datosDeporte");
+            PrimefacesContextUI.actualizar("form:infoRegistro");
+            PrimefacesContextUI.actualizar("form:datosDeporte");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
-            context.execute("nuevoRegistroDeporte.hide()");
+            PrimefacesContextUI.ejecutar("PF('nuevoRegistroDeporte').hide()");
         } else {
-            context.update("form:validacionNuevaCentroCosto");
-            context.execute("validacionNuevaCentroCosto.show()");
+            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -558,10 +559,10 @@ public class ControlDeportes implements Serializable {
                 duplicarDeporte.setCodigo(deporteSeleccionado.getCodigo());
                 duplicarDeporte.setNombre(deporteSeleccionado.getNombre());
             }
-            context.update("formularioDialogos:duplicarDepor");
-            context.execute("duplicarRegistroDeporte.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDepor");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroDeporte').show()");
         } else {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -610,11 +611,11 @@ public class ControlDeportes implements Serializable {
             }
             listDeportes.add(duplicarDeporte);
             crearDeportes.add(duplicarDeporte);
-            context.update("form:datosDeporte");
+            PrimefacesContextUI.actualizar("form:datosDeporte");
             deporteSeleccionado = duplicarDeporte;
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
 
             }
             if (bandera == 1) {
@@ -625,19 +626,19 @@ public class ControlDeportes implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosDeporte:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosDeporte");
+                PrimefacesContextUI.actualizar("form:datosDeporte");
                 bandera = 0;
                 filtrarDeportes = null;
                 tipoLista = 0;
             }
             duplicarDeporte = new Deportes();
             modificarinfoRegistro(listDeportes.size());
-            RequestContext.getCurrentInstance().execute("duplicarRegistroDeporte.hide()");
+            RequestContext.getCurrentInstance().execute("duplicarRegistroDeporte').hide()");
 
         } else {
             contador = 0;
-            context.update("form:validacionDuplicarDeporte");
-            context.execute("validacionDuplicarDeporte.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarDeporte");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarDeporte').show()");
         }
     }
 
@@ -669,21 +670,21 @@ public class ControlDeportes implements Serializable {
             int resultado = administrarRastros.obtenerTabla(deporteSeleccionado.getSecuencia(), "DEPORTES");
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
-                context.execute("errorObjetosDB.show()");
+                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                context.execute("confirmarRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                context.execute("errorRegistroRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                context.execute("errorTablaConRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                context.execute("errorTablaSinRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("DEPORTES")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -696,7 +697,7 @@ public class ControlDeportes implements Serializable {
             }
             modificarinfoRegistro(filtrarDeportes.size());
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:infoRegistro");
+            PrimefacesContextUI.actualizar("form:infoRegistro");
         } catch (Exception e) {
             System.out.println("ERROR CONTROLDEPORTES eventoFiltrar ERROR===" + e.getMessage());
         }

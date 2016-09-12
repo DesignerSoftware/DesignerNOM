@@ -22,6 +22,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -136,32 +137,32 @@ public class ControlSolucionFormula implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarFechaHastaD");
-                context.execute("editarFechaHastaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaHastaD");
+                PrimefacesContextUI.ejecutar("PF('editarFechaHastaD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarConceptoD");
-                context.execute("editarConceptoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarConceptoD");
+                PrimefacesContextUI.ejecutar("PF('editarConceptoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarValorD");
-                context.execute("editarValorD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarValorD");
+                PrimefacesContextUI.ejecutar("PF('editarValorD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                context.update("formularioDialogos:editarSaldoD");
-                context.execute("editarSaldoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarSaldoD");
+                PrimefacesContextUI.ejecutar("PF('editarSaldoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                context.update("formularioDialogos:editarFechaPagoD");
-                context.execute("editarFechaPagoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaPagoD");
+                PrimefacesContextUI.ejecutar("PF('editarFechaPagoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                context.update("formularioDialogos:editarProcesoD");
-                context.execute("editarProcesoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarProcesoD");
+                PrimefacesContextUI.ejecutar("PF('editarProcesoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
-                context.update("formularioDialogos:editarFormulaD");
-                context.execute("editarFormulaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFormulaD");
+                PrimefacesContextUI.ejecutar("PF('editarFormulaD').show()");
                 cualCelda = -1;
             }
         }
@@ -186,7 +187,7 @@ public class ControlSolucionFormula implements Serializable {
             proceso.setFilterStyle("width: 85%;");
             formula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:formula");
             formula.setFilterStyle("width: 85%;");
-            RequestContext.getCurrentInstance().update("form:datosSolucionFormula");
+            PrimefacesContextUI.actualizar("form:datosSolucionFormula");
             bandera = 1;
         } else if (bandera == 1) {
             algoTabla = "300";
@@ -204,7 +205,7 @@ public class ControlSolucionFormula implements Serializable {
             proceso.setFilterStyle("display: none; visibility: hidden;");
             formula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:formula");
             formula.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosSolucionFormula");
+            PrimefacesContextUI.actualizar("form:datosSolucionFormula");
             bandera = 0;
             filtrarListaSolucionesFormulas = null;
             tipoLista = 0;
@@ -230,7 +231,7 @@ public class ControlSolucionFormula implements Serializable {
             proceso.setFilterStyle("display: none; visibility: hidden;");
             formula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:formula");
             formula.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosSolucionFormula");
+            PrimefacesContextUI.actualizar("form:datosSolucionFormula");
             bandera = 0;
             filtrarListaSolucionesFormulas = null;
             tipoLista = 0;
@@ -280,7 +281,7 @@ public class ControlSolucionFormula implements Serializable {
             tipoLista = 1;
         }
         infoRegistro = "Cantidad de registros : " + filtrarListaSolucionesFormulas.size();
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
     //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
 
@@ -292,24 +293,24 @@ public class ControlSolucionFormula implements Serializable {
                 backUpSecRegistro = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("SOLUCIONESFORMULAS")) {
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;

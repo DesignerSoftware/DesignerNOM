@@ -23,6 +23,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -185,14 +186,14 @@ public class ControlReformaLaboral implements Serializable {
         getListaDetallesReformasLaborales();
         detalleActualTabla = new DetallesReformasLaborales();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosDetalleReformaLaboral");
+        PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
         if (banderaDetalle == 1) {
             altoTablaDetalles = "135";
             detalleFactor = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalleReformaLaboral:detalleFactor");
             detalleFactor.setFilterStyle("display: none; visibility: hidden;");
             detalleTipoPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalleReformaLaboral:detalleTipoPago");
             detalleTipoPago.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosDetalleReformaLaboral");
+            PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
             banderaDetalle = 0;
             filtrarListaDetallesReformasLaborales = null;
             tipoListaDetalles = 0;
@@ -216,7 +217,7 @@ public class ControlReformaLaboral implements Serializable {
             reformaNombre.setFilterStyle("display: none; visibility: hidden;");
             reformaIntegral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosReformaLaboral:reformaIntegral");
             reformaIntegral.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosReformaLaboral");
+            PrimefacesContextUI.actualizar("form:datosReformaLaboral");
             bandera = 0;
             filtrarListaReformasLaborales = null;
             tipoLista = 0;
@@ -294,8 +295,8 @@ public class ControlReformaLaboral implements Serializable {
             index = -1;
             secRegistro = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosReformaLaboral");
-            context.execute("errorDatosNullReformaLaboral.show()");
+            PrimefacesContextUI.actualizar("form:datosReformaLaboral");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullReformaLaboral').show()");
         }
     }
 
@@ -333,7 +334,7 @@ public class ControlReformaLaboral implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //PrimefacesContextUI.actualizar("form:aceptar");
                     }
                 }
             }
@@ -341,8 +342,8 @@ public class ControlReformaLaboral implements Serializable {
             secRegistro = null;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosReformaLaboral");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosReformaLaboral");
         } else {
             if (tipoLista == 0) {
                 listaReformasLaborales.get(indice).setNombre(auxNombreReformaLaboral);
@@ -353,8 +354,8 @@ public class ControlReformaLaboral implements Serializable {
             index = -1;
             secRegistro = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosReformaLaboral");
-            context.execute("errorNombreReformaLaboral.show()");
+            PrimefacesContextUI.actualizar("form:datosReformaLaboral");
+            PrimefacesContextUI.ejecutar("PF('errorNombreReformaLaboral').show()");
         }
 
     }
@@ -376,8 +377,8 @@ public class ControlReformaLaboral implements Serializable {
             indexDetalle = -1;
             secRegistroDetalles = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosReformaLaboral");
-            context.execute("errorDatosNullDetalleReforma.show()");
+            PrimefacesContextUI.actualizar("form:datosReformaLaboral");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullDetalleReforma').show()");
         }
     }
 
@@ -411,7 +412,7 @@ public class ControlReformaLaboral implements Serializable {
                     }
                     if (guardadoDetalles == true) {
                         guardadoDetalles = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //PrimefacesContextUI.actualizar("form:aceptar");
                     }
                 }
             }
@@ -419,8 +420,8 @@ public class ControlReformaLaboral implements Serializable {
             secRegistroDetalles = null;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosDetalleReformaLaboral");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
         } else {
             if (tipoLista == 0) {
                 listaDetallesReformasLaborales.get(indice).setTipopago(auxTipoPagoDetalle);
@@ -431,8 +432,8 @@ public class ControlReformaLaboral implements Serializable {
             indexDetalle = -1;
             secRegistroDetalles = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosReformaLaboral");
-            context.execute("errorTipoPagoDetalleReforma.show()");
+            PrimefacesContextUI.actualizar("form:datosReformaLaboral");
+            PrimefacesContextUI.ejecutar("PF('errorTipoPagoDetalleReforma').show()");
         }
     }
 
@@ -457,21 +458,21 @@ public class ControlReformaLaboral implements Serializable {
             listaDetallesReformasLaborales = null;
             getListaDetallesReformasLaborales();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosDetalleReformaLaboral");
+            PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
             if (banderaDetalle == 1) {
                 altoTablaDetalles = "135";
                 detalleFactor = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalleReformaLaboral:detalleFactor");
                 detalleFactor.setFilterStyle("display: none; visibility: hidden;");
                 detalleTipoPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalleReformaLaboral:detalleTipoPago");
                 detalleTipoPago.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosDetalleReformaLaboral");
+                PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
                 banderaDetalle = 0;
                 filtrarListaDetallesReformasLaborales = null;
                 tipoListaDetalles = 0;
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
     }
 
@@ -499,7 +500,7 @@ public class ControlReformaLaboral implements Serializable {
             reformaNombre.setFilterStyle("display: none; visibility: hidden;");
             reformaIntegral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosReformaLaboral:reformaIntegral");
             reformaIntegral.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosReformaLaboral");
+            PrimefacesContextUI.actualizar("form:datosReformaLaboral");
             bandera = 0;
             filtrarListaReformasLaborales = null;
             tipoLista = 0;
@@ -527,7 +528,7 @@ public class ControlReformaLaboral implements Serializable {
             }
             cambiosPagina = true;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
     }
 
@@ -551,21 +552,21 @@ public class ControlReformaLaboral implements Serializable {
             }
             listaReformasLaborales = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosReformaLaboral");
+            PrimefacesContextUI.actualizar("form:datosReformaLaboral");
             guardado = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            PrimefacesContextUI.actualizar("form:aceptar");
             k = 0;
 
             index = -1;
             secRegistro = null;
             FacesMessage msg = new FacesMessage("Información", "Los datos de Reforma Laboral se guardaron con Éxito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosReformaLaboral : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el guardado de Reforma Laboral, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
@@ -589,21 +590,21 @@ public class ControlReformaLaboral implements Serializable {
             }
             listaDetallesReformasLaborales = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosDetalleReformaLaboral");
+            PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
             guardadoDetalles = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            PrimefacesContextUI.actualizar("form:aceptar");
             k = 0;
 
             indexDetalle = -1;
             secRegistroDetalles = null;
             FacesMessage msg = new FacesMessage("Información", "Los datos de Detalle Reforma Laboral se guardaron con Éxito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosDetalleReformaLaboral : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el guardado de Detalle Reforma Laboral, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
     //CANCELAR MODIFICACIONES
@@ -615,17 +616,17 @@ public class ControlReformaLaboral implements Serializable {
         if (guardado == false) {
             cancelarModificacionReformaLaboral();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosReformaLaboral");
+            PrimefacesContextUI.actualizar("form:datosReformaLaboral");
         }
         if (guardadoDetalles == false) {
             cancelarModificacionDetalleReformaLaboral();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosDetalleReformaLaboral");
+            PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
         }
         cancelarProcesoClonado();
         cambiosPagina = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void cancelarProcesoClonado() {
@@ -633,10 +634,10 @@ public class ControlReformaLaboral implements Serializable {
         nombreReformaClonar = " ";
         reformaLaboralAClonar = new ReformasLaborales();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:codigoReformaLaboralClonar");
-        context.update("form:nombreReformaLaboralClonar");
-        context.update("form:codigoReformaLaboralClonarBase");
-        context.update("form:nombreReformaLaboralClonarBase");
+        PrimefacesContextUI.actualizar("form:codigoReformaLaboralClonar");
+        PrimefacesContextUI.actualizar("form:nombreReformaLaboralClonar");
+        PrimefacesContextUI.actualizar("form:codigoReformaLaboralClonarBase");
+        PrimefacesContextUI.actualizar("form:nombreReformaLaboralClonarBase");
     }
 
     public void cancelarModificacionReformaLaboral() {
@@ -648,7 +649,7 @@ public class ControlReformaLaboral implements Serializable {
             reformaNombre.setFilterStyle("display: none; visibility: hidden;");
             reformaIntegral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosReformaLaboral:reformaIntegral");
             reformaIntegral.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosReformaLaboral");
+            PrimefacesContextUI.actualizar("form:datosReformaLaboral");
             bandera = 0;
             filtrarListaReformasLaborales = null;
             tipoLista = 0;
@@ -662,7 +663,7 @@ public class ControlReformaLaboral implements Serializable {
         listaReformasLaborales = null;
         guardado = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosReformaLaboral");
+        PrimefacesContextUI.actualizar("form:datosReformaLaboral");
     }
 
     public void cancelarModificacionDetalleReformaLaboral() {
@@ -672,7 +673,7 @@ public class ControlReformaLaboral implements Serializable {
             detalleFactor.setFilterStyle("display: none; visibility: hidden;");
             detalleTipoPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalleReformaLaboral:detalleTipoPago");
             detalleTipoPago.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosDetalleReformaLaboral");
+            PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
             banderaDetalle = 0;
             filtrarListaDetallesReformasLaborales = null;
             tipoListaDetalles = 0;
@@ -686,7 +687,7 @@ public class ControlReformaLaboral implements Serializable {
         listaDetallesReformasLaborales = null;
         guardadoDetalles = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosDetalleReformaLaboral");
+        PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
     }
 
     public void editarCelda() {
@@ -699,12 +700,12 @@ public class ControlReformaLaboral implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarCodigoReformaLaboralD");
-                context.execute("editarCodigoReformaLaboralD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoReformaLaboralD");
+                PrimefacesContextUI.ejecutar("PF('editarCodigoReformaLaboralD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarNombreReformaLaboralD");
-                context.execute("editarNombreReformaLaboralD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarNombreReformaLaboralD");
+                PrimefacesContextUI.ejecutar("PF('editarNombreReformaLaboralD').show()");
                 cualCelda = -1;
             }
             index = -1;
@@ -719,12 +720,12 @@ public class ControlReformaLaboral implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaDetalles == 0) {
-                context.update("formularioDialogos:editarTipoPagoDetalleD");
-                context.execute("editarTipoPagoDetalleD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarTipoPagoDetalleD");
+                PrimefacesContextUI.ejecutar("PF('editarTipoPagoDetalleD').show()");
                 cualCeldaDetalles = -1;
             } else if (cualCeldaDetalles == 1) {
-                context.update("formularioDialogos:editarFactorDetalleD");
-                context.execute("editarFactorDetalleD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFactorDetalleD");
+                PrimefacesContextUI.ejecutar("PF('editarFactorDetalleD').show()");
                 cualCeldaDetalles = -1;
             }
             indexDetalle = -1;
@@ -738,16 +739,16 @@ public class ControlReformaLaboral implements Serializable {
         int tam1 = listaReformasLaborales.size();
         int tam2 = listaDetallesReformasLaborales.size();
         if (tam1 == 0 || tam2 == 0) {
-            context.update("formularioDialogos:verificarNuevoRegistro");
-            context.execute("verificarNuevoRegistro.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:verificarNuevoRegistro");
+            PrimefacesContextUI.ejecutar("PF('verificarNuevoRegistro').show()");
         } else {
             if (index >= 0) {
-                context.update("formularioDialogos:NuevoRegistroReformaLaboral");
-                context.execute("NuevoRegistroReformaLaboral.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroReformaLaboral");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroReformaLaboral').show()");
             }
             if (indexDetalle >= 0) {
-                context.update("formularioDialogos:NuevoRegistroDetalleReformaLaboral");
-                context.execute("NuevoRegistroDetalleReformaLaboral.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroDetalleReformaLaboral");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroDetalleReformaLaboral').show()");
             }
         }
     }
@@ -767,7 +768,7 @@ public class ControlReformaLaboral implements Serializable {
                     reformaNombre.setFilterStyle("display: none; visibility: hidden;");
                     reformaIntegral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosReformaLaboral:reformaIntegral");
                     reformaIntegral.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosReformaLaboral");
+                    PrimefacesContextUI.actualizar("form:datosReformaLaboral");
                     bandera = 0;
                     filtrarListaReformasLaborales = null;
                     tipoLista = 0;
@@ -783,22 +784,22 @@ public class ControlReformaLaboral implements Serializable {
                 nuevoReformaLaboral = new ReformasLaborales();
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:ACEPTAR");
-                context.update("form:datosReformaLaboral");
-                context.execute("NuevoRegistroReformaLaboral.hide()");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:datosReformaLaboral");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroReformaLaboral').hide()");
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:aceptar");
+                    PrimefacesContextUI.actualizar("form:aceptar");
                 }
                 index = -1;
                 secRegistro = null;
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorNombreReformaLaboral.show()");
+                PrimefacesContextUI.ejecutar("PF('errorNombreReformaLaboral').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullReformaLaboral.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullReformaLaboral').show()");
         }
     }
 
@@ -814,7 +815,7 @@ public class ControlReformaLaboral implements Serializable {
                     detalleFactor.setFilterStyle("display: none; visibility: hidden;");
                     detalleTipoPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalleReformaLaboral:detalleTipoPago");
                     detalleTipoPago.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosDetalleReformaLaboral");
+                    PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
                     banderaDetalle = 0;
                     filtrarListaDetallesReformasLaborales = null;
                     tipoListaDetalles = 0;
@@ -835,24 +836,24 @@ public class ControlReformaLaboral implements Serializable {
                 listaDetallesReformasLaborales.add(nuevoDetalleReformaLaboral);
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 index = indexAux;
-                context.update("form:datosDetalleReformaLaboral");
-                context.execute("NuevoRegistroDetalleReformaLaboral.hide()");
+                PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroDetalleReformaLaboral').hide()");
                 nuevoDetalleReformaLaboral = new DetallesReformasLaborales();
                 if (guardadoDetalles == true) {
                     guardadoDetalles = false;
-                    RequestContext.getCurrentInstance().update("form:aceptar");
+                    PrimefacesContextUI.actualizar("form:aceptar");
                 }
                 indexDetalle = -1;
                 secRegistroDetalles = null;
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorTipoPagoDetalleReforma.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTipoPagoDetalleReforma').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullDetalleReforma.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullDetalleReforma').show()");
         }
     }
     //LIMPIAR NUEVO REGISTRO
@@ -901,8 +902,8 @@ public class ControlReformaLaboral implements Serializable {
                 duplicarReformaLaboral.setIntegral(filtrarListaReformasLaborales.get(index).getIntegral());
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:DuplicarRegistroReformaLaboral");
-            context.execute("DuplicarRegistroReformaLaboral.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroReformaLaboral");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroReformaLaboral').show()");
             index = -1;
             secRegistro = null;
         }
@@ -921,8 +922,8 @@ public class ControlReformaLaboral implements Serializable {
                 duplicarDetalleReformaLaboral.setTipopago(filtrarListaDetallesReformasLaborales.get(indexDetalle).getTipopago());
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:DuplicarRegistroDetalleReformaLaboral");
-            context.execute("DuplicarRegistroDetalleReformaLaboral.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroDetalleReformaLaboral");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroDetalleReformaLaboral').show()");
             indexDetalle = -1;
             secRegistroDetalles = null;
         }
@@ -948,14 +949,14 @@ public class ControlReformaLaboral implements Serializable {
                 listReformasLaboralesCrear.add(duplicarReformaLaboral);
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:ACEPTAR");
-                context.update("form:datosReformaLaboral");
-                context.execute("DuplicarRegistroReformaLaboral.hide()");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:datosReformaLaboral");
+                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroReformaLaboral').hide()");
                 index = -1;
                 secRegistro = null;
                 if (guardado == true) {
                     guardado = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //PrimefacesContextUI.actualizar("form:aceptar");
                 }
                 if (bandera == 1) {
                     altoTablaReforma = "157";
@@ -965,7 +966,7 @@ public class ControlReformaLaboral implements Serializable {
                     reformaNombre.setFilterStyle("display: none; visibility: hidden;");
                     reformaIntegral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosReformaLaboral:reformaIntegral");
                     reformaIntegral.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosReformaLaboral");
+                    PrimefacesContextUI.actualizar("form:datosReformaLaboral");
                     bandera = 0;
                     filtrarListaReformasLaborales = null;
                     tipoLista = 0;
@@ -973,11 +974,11 @@ public class ControlReformaLaboral implements Serializable {
                 duplicarReformaLaboral = new ReformasLaborales();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorNombreReformaLaboral.show()");
+                PrimefacesContextUI.ejecutar("PF('errorNombreReformaLaboral').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullReformaLaboral.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullReformaLaboral').show()");
         }
     }
 
@@ -997,14 +998,14 @@ public class ControlReformaLaboral implements Serializable {
                 listDetallesReformasLaboralesCrear.add(duplicarDetalleReformaLaboral);
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:ACEPTAR");
-                context.update("form:datosDetalleReformaLaboral");
-                context.execute("DuplicarRegistroDetalleReformaLaboral.hide()");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
+                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroDetalleReformaLaboral').hide()");
                 indexDetalle = -1;
                 secRegistroDetalles = null;
                 if (guardadoDetalles == true) {
                     guardadoDetalles = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //PrimefacesContextUI.actualizar("form:aceptar");
                 }
                 if (banderaDetalle == 1) {
                     altoTablaDetalles = "135";
@@ -1012,7 +1013,7 @@ public class ControlReformaLaboral implements Serializable {
                     detalleFactor.setFilterStyle("display: none; visibility: hidden;");
                     detalleTipoPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalleReformaLaboral:detalleTipoPago");
                     detalleTipoPago.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosDetalleReformaLaboral");
+                    PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
                     banderaDetalle = 0;
                     filtrarListaDetallesReformasLaborales = null;
                     tipoListaDetalles = 0;
@@ -1020,11 +1021,11 @@ public class ControlReformaLaboral implements Serializable {
                 duplicarDetalleReformaLaboral = new DetallesReformasLaborales();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorTipoPagoDetalleReforma.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTipoPagoDetalleReforma').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullDetalleReforma.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullDetalleReforma').show()");
         }
     }
 
@@ -1055,7 +1056,7 @@ public class ControlReformaLaboral implements Serializable {
                 borrarReformaLaboral();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorBorrarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorBorrarRegistro').show()");
             }
         }
         if (indexDetalle >= 0) {
@@ -1096,14 +1097,14 @@ public class ControlReformaLaboral implements Serializable {
 
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosReformaLaboral");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosReformaLaboral");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
     }
@@ -1141,14 +1142,14 @@ public class ControlReformaLaboral implements Serializable {
 
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosDetalleReformaLaboral");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
             indexDetalle = -1;
             secRegistroDetalles = null;
 
             if (guardadoDetalles == true) {
                 guardadoDetalles = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
     }
@@ -1168,7 +1169,7 @@ public class ControlReformaLaboral implements Serializable {
                 reformaNombre.setFilterStyle("width: 85%;");
                 reformaIntegral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosReformaLaboral:reformaIntegral");
                 reformaIntegral.setFilterStyle("width: 85%;");
-                RequestContext.getCurrentInstance().update("form:datosReformaLaboral");
+                PrimefacesContextUI.actualizar("form:datosReformaLaboral");
                 bandera = 1;
             } else if (bandera == 1) {
                 altoTablaReforma = "157";
@@ -1178,7 +1179,7 @@ public class ControlReformaLaboral implements Serializable {
                 reformaNombre.setFilterStyle("display: none; visibility: hidden;");
                 reformaIntegral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosReformaLaboral:reformaIntegral");
                 reformaIntegral.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosReformaLaboral");
+                PrimefacesContextUI.actualizar("form:datosReformaLaboral");
                 bandera = 0;
                 filtrarListaReformasLaborales = null;
                 tipoLista = 0;
@@ -1191,7 +1192,7 @@ public class ControlReformaLaboral implements Serializable {
                 detalleFactor.setFilterStyle("width: 85%;");
                 detalleTipoPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalleReformaLaboral:detalleTipoPago");
                 detalleTipoPago.setFilterStyle("width: 85%;");
-                RequestContext.getCurrentInstance().update("form:datosDetalleReformaLaboral");
+                PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
                 banderaDetalle = 1;
             } else if (banderaDetalle == 1) {
                 altoTablaDetalles = "135";
@@ -1199,7 +1200,7 @@ public class ControlReformaLaboral implements Serializable {
                 detalleFactor.setFilterStyle("display: none; visibility: hidden;");
                 detalleTipoPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalleReformaLaboral:detalleTipoPago");
                 detalleTipoPago.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosDetalleReformaLaboral");
+                PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
                 banderaDetalle = 0;
                 filtrarListaDetallesReformasLaborales = null;
                 tipoListaDetalles = 0;
@@ -1220,7 +1221,7 @@ public class ControlReformaLaboral implements Serializable {
             reformaNombre.setFilterStyle("display: none; visibility: hidden;");
             reformaIntegral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosReformaLaboral:reformaIntegral");
             reformaIntegral.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosReformaLaboral");
+            PrimefacesContextUI.actualizar("form:datosReformaLaboral");
             bandera = 0;
             filtrarListaReformasLaborales = null;
             tipoLista = 0;
@@ -1231,7 +1232,7 @@ public class ControlReformaLaboral implements Serializable {
             detalleFactor.setFilterStyle("display: none; visibility: hidden;");
             detalleTipoPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalleReformaLaboral:detalleTipoPago");
             detalleTipoPago.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosDetalleReformaLaboral");
+            PrimefacesContextUI.actualizar("form:datosDetalleReformaLaboral");
             banderaDetalle = 0;
             filtrarListaDetallesReformasLaborales = null;
             tipoListaDetalles = 0;
@@ -1255,7 +1256,7 @@ public class ControlReformaLaboral implements Serializable {
         guardadoDetalles = true;
         cambiosPagina = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
         reformaActualTabla = new ReformasLaborales();
         detalleActualTabla = new DetallesReformasLaborales();
     }
@@ -1369,7 +1370,7 @@ public class ControlReformaLaboral implements Serializable {
     public void verificarRastro() {
         if (listaDetallesReformasLaborales == null || listaReformasLaborales == null) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("verificarRastrosTablas.show()");
+            PrimefacesContextUI.ejecutar("PF('verificarRastrosTablas').show()");
         } else {
             if (index >= 0) {
                 verificarRastroReformaLaboral();
@@ -1391,30 +1392,30 @@ public class ControlReformaLaboral implements Serializable {
                 backUp = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "ReformasLaborales";
                     msnConfirmarRastro = "La tabla REFORMASLABORALES tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("REFORMASLABORALES")) {
                 nombreTablaRastro = "ReformasLaborales";
                 msnConfirmarRastroHistorico = "La tabla REFORMASLABORALES tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;
@@ -1429,30 +1430,30 @@ public class ControlReformaLaboral implements Serializable {
                 backUp = secRegistroDetalles;
                 secRegistroDetalles = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "DetallesReformasLaborales";
                     msnConfirmarRastro = "La tabla DETALLESREFORMASLABORALES tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("DETALLESREFORMASLABORALES")) {
                 nombreTablaRastro = "DetallesReformasLaborales";
                 msnConfirmarRastroHistorico = "La tabla DETALLESREFORMASLABORALES tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;
@@ -1475,25 +1476,25 @@ public class ControlReformaLaboral implements Serializable {
     public void clonarReformaLaboral() {
         if ((nombreReformaClonar.isEmpty()) || (codigoReformaClonar <= 0) || (reformaLaboralAClonar.getSecuencia() == null)) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:errorClonadoReforma");
-            context.execute("errorClonadoReforma.show()");
+            PrimefacesContextUI.actualizar("form:errorClonadoReforma");
+            PrimefacesContextUI.ejecutar("PF('errorClonadoReforma').show()");
         } else {
             if (validarCodigoNuevoClonado() == true) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:continuarOperacionClonado");
-                context.execute("continuarOperacionClonado.show()");
+                PrimefacesContextUI.actualizar("form:continuarOperacionClonado");
+                PrimefacesContextUI.ejecutar("PF('continuarOperacionClonado').show()");
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:errorCodigoClonado");
-                context.execute("errorCodigoClonado.show()");
+                PrimefacesContextUI.actualizar("form:errorCodigoClonado");
+                PrimefacesContextUI.ejecutar("PF('errorCodigoClonado').show()");
             }
         }
     }
 
     public void dispararDialogoClonarReformaLaboral() {
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ReformaLaboralDialogo");
-        context.execute("ReformaLaboralDialogo.show()");
+        PrimefacesContextUI.actualizar("form:ReformaLaboralDialogo");
+        PrimefacesContextUI.ejecutar("PF('ReformaLaboralDialogo').show()");
     }
 
     public void posicionReformaLaboralClonar() {
@@ -1502,7 +1503,7 @@ public class ControlReformaLaboral implements Serializable {
             auxNombreClonar = reformaLaboralAClonar.getNombre();
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
     }
 
@@ -1511,17 +1512,17 @@ public class ControlReformaLaboral implements Serializable {
         lovReformasLaborales.clear();
         getLovReformasLaborales();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:codigoReformaLaboralClonarBase");
-        context.update("form:nombreReformaLaboralClonarBase");
+        PrimefacesContextUI.actualizar("form:codigoReformaLaboralClonarBase");
+        PrimefacesContextUI.actualizar("form:nombreReformaLaboralClonarBase");
         reformaLaboralSeleccionado = new ReformasLaborales();
         filtrarLovReformasLaborales = null;/*
-         context.update("form:ReformaLaboralDialogo");
-         context.update("form:lovReformaLaboral");
-         context.update("form:aceptarRL");*/
+         PrimefacesContextUI.actualizar("form:ReformaLaboralDialogo");
+         PrimefacesContextUI.actualizar("form:lovReformaLaboral");
+         PrimefacesContextUI.actualizar("form:aceptarRL");*/
 
         context.reset("form:lovReformaLaboral:globalFilter");
-        context.execute("lovReformaLaboral.clearFilters()");
-        context.execute("ReformaLaboralDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovReformaLaboral').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ReformaLaboralDialogo').hide()");
     }
 
     public void cancelarReformaLaboralClonar() {
@@ -1529,8 +1530,8 @@ public class ControlReformaLaboral implements Serializable {
         filtrarLovReformasLaborales = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovReformaLaboral:globalFilter");
-        context.execute("lovReformaLaboral.clearFilters()");
-        context.execute("ReformaLaboralDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovReformaLaboral').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ReformaLaboralDialogo').hide()");
     }
 
     public void autoCompletarSeleccionarReformaLaboralClonar(String valorConfirmar, int tipoAutoCompletar) {
@@ -1552,10 +1553,10 @@ public class ControlReformaLaboral implements Serializable {
             } else {
                 reformaLaboralAClonar.setCodigo(auxCodigoClonar);
                 reformaLaboralAClonar.setNombre(auxNombreClonar);
-                context.update("form:codigoReformaLaboralClonarBase");
-                context.update("form:nombreReformaLaboralClonarBase");
-                context.update("form:ReformaLaboralDialogo");
-                context.execute("ReformaLaboralDialogo.show()");
+                PrimefacesContextUI.actualizar("form:codigoReformaLaboralClonarBase");
+                PrimefacesContextUI.actualizar("form:nombreReformaLaboralClonarBase");
+                PrimefacesContextUI.actualizar("form:ReformaLaboralDialogo");
+                PrimefacesContextUI.ejecutar("PF('ReformaLaboralDialogo').show()");
             }
         }
         if (tipoAutoCompletar == 1) {
@@ -1572,10 +1573,10 @@ public class ControlReformaLaboral implements Serializable {
             } else {
                 reformaLaboralAClonar.setCodigo(auxCodigoClonar);
                 reformaLaboralAClonar.setNombre(auxNombreClonar);
-                context.update("form:codigoReformaLaboralClonarBase");
-                context.update("form:nombreReformaLaboralClonarBase");
-                context.update("form:TipoDiaDialogo");
-                context.execute("TipoDiaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:codigoReformaLaboralClonarBase");
+                PrimefacesContextUI.actualizar("form:nombreReformaLaboralClonarBase");
+                PrimefacesContextUI.actualizar("form:TipoDiaDialogo");
+                PrimefacesContextUI.ejecutar("PF('TipoDiaDialogo').show()");
             }
         }
     }

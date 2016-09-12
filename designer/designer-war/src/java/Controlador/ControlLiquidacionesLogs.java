@@ -29,6 +29,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -109,7 +110,7 @@ public class ControlLiquidacionesLogs implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarLiquidacionesLogs.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlLiquidacionesLogs eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -167,7 +168,7 @@ public class ControlLiquidacionesLogs implements Serializable {
                 }
             }
 
-            context.update("form:datosLiquidacionesLogs");
+            PrimefacesContextUI.actualizar("form:datosLiquidacionesLogs");
 
         }
 
@@ -311,7 +312,7 @@ public class ControlLiquidacionesLogs implements Serializable {
 
             }
         }
-        context.update("form:datosLiquidacionesLogs");
+        PrimefacesContextUI.actualizar("form:datosLiquidacionesLogs");
     }
 
     public void asignarIndex(Integer indice, int LND, int dig) {
@@ -354,7 +355,7 @@ public class ControlLiquidacionesLogs implements Serializable {
             proceso.setFilterStyle("display: none; visibility: hidden;");
             valor = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:valor");
             valor.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
+            PrimefacesContextUI.actualizar("form:datosLiquidacionesLogs");
             bandera = 0;
             filtrarLiquidacionesLogs = null;
             tipoLista = 0;
@@ -377,9 +378,9 @@ public class ControlLiquidacionesLogs implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listLiquidacionesLogs.size();
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosLiquidacionesLogs");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosLiquidacionesLogs");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void salir() {
@@ -398,9 +399,9 @@ public class ControlLiquidacionesLogs implements Serializable {
             proceso.setFilterStyle("display: none; visibility: hidden;");
             valor = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:valor");
             valor.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
+            PrimefacesContextUI.actualizar("form:datosLiquidacionesLogs");
 
-            RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
+            PrimefacesContextUI.actualizar("form:datosLiquidacionesLogs");
             bandera = 0;
             filtrarLiquidacionesLogs = null;
             tipoLista = 0;
@@ -417,8 +418,8 @@ public class ControlLiquidacionesLogs implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosLiquidacionesLogs");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosLiquidacionesLogs");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -437,7 +438,7 @@ public class ControlLiquidacionesLogs implements Serializable {
             proceso.setFilterStyle("width: 85%;");
             valor = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:valor");
             valor.setFilterStyle("width: 85%;");
-            RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
+            PrimefacesContextUI.actualizar("form:datosLiquidacionesLogs");
 
             System.out.println("Activar");
             bandera = 1;
@@ -456,9 +457,9 @@ public class ControlLiquidacionesLogs implements Serializable {
             proceso.setFilterStyle("display: none; visibility: hidden;");
             valor = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:valor");
             valor.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
+            PrimefacesContextUI.actualizar("form:datosLiquidacionesLogs");
 
-            RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
+            PrimefacesContextUI.actualizar("form:datosLiquidacionesLogs");
             bandera = 0;
             filtrarLiquidacionesLogs = null;
             tipoLista = 0;
@@ -477,28 +478,28 @@ public class ControlLiquidacionesLogs implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarFechaInicial");
-                context.execute("editarFechaInicial.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicial");
+                PrimefacesContextUI.ejecutar("PF('editarFechaInicial').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarFechaHasta");
-                context.execute("editarFechaHasta.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaHasta");
+                PrimefacesContextUI.ejecutar("PF('editarFechaHasta').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarEmpleado");
-                context.execute("editarEmpleado.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEmpleado");
+                PrimefacesContextUI.ejecutar("PF('editarEmpleado').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                context.update("formularioDialogos:editarOperandoE");
-                context.execute("editarOperandoE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarOperandoE");
+                PrimefacesContextUI.ejecutar("PF('editarOperandoE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                context.update("formularioDialogos:editarProcesoE");
-                context.execute("editarProcesoE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarProcesoE");
+                PrimefacesContextUI.ejecutar("PF('editarProcesoE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                context.update("formularioDialogos:editarValorE");
-                context.execute("editarValorE.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarValorE");
+                PrimefacesContextUI.ejecutar("PF('editarValorE').show()");
                 cualCelda = -1;
             }
 
@@ -517,8 +518,8 @@ public class ControlLiquidacionesLogs implements Serializable {
     public void revisarDialogoGuardar() {
 
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:confirmarGuardar");
-        context.execute("confirmarGuardar.show()");
+        PrimefacesContextUI.actualizar("form:confirmarGuardar");
+        PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
     }
 
     public void borrarLiquidacionesLogsEmpleado() {
@@ -544,9 +545,9 @@ public class ControlLiquidacionesLogs implements Serializable {
             proceso.setFilterStyle("display: none; visibility: hidden;");
             valor = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:valor");
             valor.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
+            PrimefacesContextUI.actualizar("form:datosLiquidacionesLogs");
 
-            RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
+            PrimefacesContextUI.actualizar("form:datosLiquidacionesLogs");
             bandera = 0;
             filtrarLiquidacionesLogs = null;
             tipoLista = 0;
@@ -554,11 +555,11 @@ public class ControlLiquidacionesLogs implements Serializable {
         listLiquidacionesLogs = null;
         getListLiquidacionesLogs();
         aceptar = true;
-        context.update("form:datosLiquidacionesLogs");
-        context.update("form:nombreEmpleado");
+        PrimefacesContextUI.actualizar("form:datosLiquidacionesLogs");
+        PrimefacesContextUI.actualizar("form:nombreEmpleado");
         context.reset("form:lovTipoCentrosCostos:globalFilter");
-        context.execute("lovTipoCentrosCostos.clearFilters()");
-        context.execute("tiposCentrosCostosDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoCentrosCostos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').hide()");
     }
 
     public void cancelarCambioEmpleado() {
@@ -569,15 +570,15 @@ public class ControlLiquidacionesLogs implements Serializable {
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTipoCentrosCostos:globalFilter");
-        context.execute("lovTipoCentrosCostos.clearFilters()");
-        context.execute("tiposCentrosCostosDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoCentrosCostos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').hide()");
 
     }
 
     public void llamarDialogoEmpleado() {
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:tiposCentrosCostosDialogo");
-        context.execute("tiposCentrosCostosDialogo.show()");
+        PrimefacesContextUI.actualizar("form:tiposCentrosCostosDialogo");
+        PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
     }
 
     public void exportPDF() throws IOException {
@@ -609,24 +610,24 @@ public class ControlLiquidacionesLogs implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "LIQUIDACIONESLOGS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("LIQUIDACIONESLOGS")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -650,7 +651,7 @@ public class ControlLiquidacionesLogs implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listLiquidacionesLogs.size();
         }
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
 
         return listLiquidacionesLogs;
     }

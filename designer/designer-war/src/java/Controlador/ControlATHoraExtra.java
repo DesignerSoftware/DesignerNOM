@@ -27,6 +27,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -200,7 +201,7 @@ public class ControlATHoraExtra implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
             indexHorasExtras = -1;
@@ -215,13 +216,13 @@ public class ControlATHoraExtra implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
             indexHorasExtras = -1;
             secRegistro = null;
         }
-        context.update("form:datosHoraExtra");
+        PrimefacesContextUI.actualizar("form:datosHoraExtra");
     }
 
     public void modificarTurnoEmpleado(int indice, String confirmarCambio, String valorConfirmar) {
@@ -251,8 +252,8 @@ public class ControlATHoraExtra implements Serializable {
                 getLovMotivosTurnos();
             } else {
                 permitirIndexHoraExtra = false;
-                context.update("form:MotivoTurnoDialogo");
-                context.execute("MotivoTurnoDialogo.show()");
+                PrimefacesContextUI.actualizar("form:MotivoTurnoDialogo");
+                PrimefacesContextUI.ejecutar("PF('MotivoTurnoDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -278,8 +279,8 @@ public class ControlATHoraExtra implements Serializable {
                 getLovEstructuras();
             } else {
                 permitirIndexHoraExtra = false;
-                context.update("form:EstructuraDialogo");
-                context.execute("EstructuraDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EstructuraDialogo");
+                PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -294,7 +295,7 @@ public class ControlATHoraExtra implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 indexHorasExtras = -1;
@@ -309,14 +310,14 @@ public class ControlATHoraExtra implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 indexHorasExtras = -1;
                 secRegistro = null;
             }
         }
-        context.update("form:datosHoraExtra");
+        PrimefacesContextUI.actualizar("form:datosHoraExtra");
     }
 
     public boolean validarCamposNullTurnosEmpleados(int i) {
@@ -423,8 +424,8 @@ public class ControlATHoraExtra implements Serializable {
                     filtrarListaTurnosEmpleados.get(i).setFechainicial(auxHoraExtraFechaIni);
 
                 }
-                context.update("form:datosHoraExtra");
-                context.execute("errorFechaTurno.show()");
+                PrimefacesContextUI.actualizar("form:datosHoraExtra");
+                PrimefacesContextUI.ejecutar("PF('errorFechaTurno').show()");
             }
         } else {
             if (tipoListaHorasExtras == 0) {
@@ -435,8 +436,8 @@ public class ControlATHoraExtra implements Serializable {
                 filtrarListaTurnosEmpleados.get(i).setFechainicial(auxHoraExtraFechaIni);
 
             }
-            context.update("form:datosHoraExtra");
-            context.execute("errorNullTurno.show()");
+            PrimefacesContextUI.actualizar("form:datosHoraExtra");
+            PrimefacesContextUI.ejecutar("PF('errorNullTurno').show()");
         }
     }
 
@@ -492,7 +493,7 @@ public class ControlATHoraExtra implements Serializable {
             horaExtraComentario = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraComentario");
             horaExtraComentario.setFilterStyle("display: none; visibility: hidden;");
             altoTablaHorasExtras = "75";
-            RequestContext.getCurrentInstance().update("form:datosHoraExtra");
+            PrimefacesContextUI.actualizar("form:datosHoraExtra");
             banderaHorasExtras = 0;
             filtrarListaTurnosEmpleados = null;
             tipoListaHorasExtras = 0;
@@ -514,7 +515,7 @@ public class ControlATHoraExtra implements Serializable {
             detalleOpcion = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleOpcion");
             detalleOpcion.setFilterStyle("display: none; visibility: hidden;");
             altoTablaDetalleHoraExtra = "70";
-            RequestContext.getCurrentInstance().update("form:datosDetalle");
+            PrimefacesContextUI.actualizar("form:datosDetalle");
             banderaDetalleHoraExtra = 0;
             filtrarListaVWEstadosExtras = null;
             tipoListaDetalleHoraExtra = 0;
@@ -523,10 +524,10 @@ public class ControlATHoraExtra implements Serializable {
         listaVWEstadosExtras = null;
         getListaTurnosEmpleados();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosHoraExtra");
-        context.update("form:datosDetalle");
-        context.update("form:totalHoras");
-        context.update("form:totalMinutos");
+        PrimefacesContextUI.actualizar("form:datosHoraExtra");
+        PrimefacesContextUI.actualizar("form:datosDetalle");
+        PrimefacesContextUI.actualizar("form:totalHoras");
+        PrimefacesContextUI.actualizar("form:totalMinutos");
     }
 
     public void cambiarIndiceHoraExtra(int i, int celda) {
@@ -567,7 +568,7 @@ public class ControlATHoraExtra implements Serializable {
                 detalleOpcion = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleOpcion");
                 detalleOpcion.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaDetalleHoraExtra = "70";
-                RequestContext.getCurrentInstance().update("form:datosDetalle");
+                PrimefacesContextUI.actualizar("form:datosDetalle");
                 banderaDetalleHoraExtra = 0;
                 filtrarListaVWEstadosExtras = null;
                 tipoListaDetalleHoraExtra = 0;
@@ -576,7 +577,7 @@ public class ControlATHoraExtra implements Serializable {
             if (!listTurnosEmpleadosCrear.isEmpty()) {
                 if (listTurnosEmpleadosCrear.contains(turnoEmpleadoSeleccionado)) {
                     listaVWEstadosExtras = null;
-                    context.execute("infoDetalleHoraExtra.show()");
+                    PrimefacesContextUI.ejecutar("PF('infoDetalleHoraExtra').show()");
                     System.out.println("Msn guardar");
                 } else {
                     listaVWEstadosExtras = null;
@@ -584,9 +585,9 @@ public class ControlATHoraExtra implements Serializable {
                     System.out.println("Dato ya almacenado");
                 }
             }
-            context.update("form:datosDetalle");
-            context.update("form:totalHoras");
-            context.update("form:totalMinutos");
+            PrimefacesContextUI.actualizar("form:datosDetalle");
+            PrimefacesContextUI.actualizar("form:totalHoras");
+            PrimefacesContextUI.actualizar("form:totalMinutos");
         }
     }
 
@@ -608,13 +609,13 @@ public class ControlATHoraExtra implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (indexEmpleado >= 0) {
             if (cualCeldaEmpleado == 0) {
-                context.update("formularioDialogos:editarEmpleadoCodigo");
-                context.execute("editarEmpleadoCodigo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEmpleadoCodigo");
+                PrimefacesContextUI.ejecutar("PF('editarEmpleadoCodigo').show()");
                 cualCeldaEmpleado = -1;
             }
             if (cualCeldaEmpleado == 1) {
-                context.update("formularioDialogos:editarEmpleadoNombre");
-                context.execute("editarEmpleadoNombre.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEmpleadoNombre");
+                PrimefacesContextUI.ejecutar("PF('editarEmpleadoNombre').show()");
                 cualCeldaEmpleado = -1;
             }
             indexEmpleado = -1;
@@ -626,38 +627,38 @@ public class ControlATHoraExtra implements Serializable {
                 editarTurnoEmpleado = filtrarListaTurnosEmpleados.get(indexHorasExtras);
             }
             if (cualCeldaHorasExtras == 1) {
-                context.update("formularioDialogos:editarHoraExtraFechaInicial");
-                context.execute("editarHoraExtraFechaInicial.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarHoraExtraFechaInicial");
+                PrimefacesContextUI.ejecutar("PF('editarHoraExtraFechaInicial').show()");
                 cualCeldaHorasExtras = -1;
             }
             if (cualCeldaHorasExtras == 2) {
-                context.update("formularioDialogos:editarHoraExtraFechaFinal");
-                context.execute("editarHoraExtraFechaFinal.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarHoraExtraFechaFinal");
+                PrimefacesContextUI.ejecutar("PF('editarHoraExtraFechaFinal').show()");
                 cualCeldaHorasExtras = -1;
             }
             if (cualCeldaHorasExtras == 3) {
-                context.update("formularioDialogos:editarHoraExtraMotivo");
-                context.execute("editarHoraExtraMotivo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarHoraExtraMotivo");
+                PrimefacesContextUI.ejecutar("PF('editarHoraExtraMotivo').show()");
                 cualCeldaHorasExtras = -1;
             }
             if (cualCeldaHorasExtras == 4) {
-                context.update("formularioDialogos:editarHoraExtraNHA");
-                context.execute("editarHoraExtraNHA.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarHoraExtraNHA");
+                PrimefacesContextUI.ejecutar("PF('editarHoraExtraNHA').show()");
                 cualCeldaHorasExtras = -1;
             }
             if (cualCeldaHorasExtras == 5) {
-                context.update("formularioDialogos:editarHoraExtraNVA");
-                context.execute("editarHoraExtraNVA.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarHoraExtraNVA");
+                PrimefacesContextUI.ejecutar("PF('editarHoraExtraNVA').show()");
                 cualCeldaHorasExtras = -1;
             }
             if (cualCeldaHorasExtras == 7) {
-                context.update("formularioDialogos:editarHoraExtraEstructura");
-                context.execute("editarHoraExtraEstructura.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarHoraExtraEstructura");
+                PrimefacesContextUI.ejecutar("PF('editarHoraExtraEstructura').show()");
                 cualCeldaHorasExtras = -1;
             }
             if (cualCeldaHorasExtras == 8) {
-                context.update("formularioDialogos:editarHoraExtraComentario");
-                context.execute("editarHoraExtraComentario.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarHoraExtraComentario");
+                PrimefacesContextUI.ejecutar("PF('editarHoraExtraComentario').show()");
                 cualCeldaHorasExtras = -1;
             }
             indexHorasExtras = -1;
@@ -669,33 +670,33 @@ public class ControlATHoraExtra implements Serializable {
                 editarDetalleTurno = filtrarListaVWEstadosExtras.get(indexDetalleHoraExtra);
             }
             if (cualCeldaDetalleHoraExtra == 0) {
-                context.update("formularioDialogos:editarHoraExtraComentario");
-                context.execute("editarHoraExtraComentario.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarHoraExtraComentario");
+                PrimefacesContextUI.ejecutar("PF('editarHoraExtraComentario').show()");
                 cualCeldaDetalleHoraExtra = -1;
             }
             if (cualCeldaDetalleHoraExtra == 1) {
-                context.update("formularioDialogos:editarHoraExtraComentario");
-                context.execute("editarHoraExtraComentario.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarHoraExtraComentario");
+                PrimefacesContextUI.ejecutar("PF('editarHoraExtraComentario').show()");
                 cualCeldaDetalleHoraExtra = -1;
             }
             if (cualCeldaDetalleHoraExtra == 2) {
-                context.update("formularioDialogos:editarHoraExtraComentario");
-                context.execute("editarHoraExtraComentario.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarHoraExtraComentario");
+                PrimefacesContextUI.ejecutar("PF('editarHoraExtraComentario').show()");
                 cualCeldaDetalleHoraExtra = -1;
             }
             if (cualCeldaDetalleHoraExtra == 3) {
-                context.update("formularioDialogos:editarHoraExtraComentario");
-                context.execute("editarHoraExtraComentario.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarHoraExtraComentario");
+                PrimefacesContextUI.ejecutar("PF('editarHoraExtraComentario').show()");
                 cualCeldaDetalleHoraExtra = -1;
             }
             if (cualCeldaDetalleHoraExtra == 5) {
-                context.update("formularioDialogos:editarHoraExtraComentario");
-                context.execute("editarHoraExtraComentario.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarHoraExtraComentario");
+                PrimefacesContextUI.ejecutar("PF('editarHoraExtraComentario').show()");
                 cualCeldaDetalleHoraExtra = -1;
             }
             if (cualCeldaDetalleHoraExtra == 6) {
-                context.update("formularioDialogos:editarHoraExtraComentario");
-                context.execute("editarHoraExtraComentario.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarHoraExtraComentario");
+                PrimefacesContextUI.ejecutar("PF('editarHoraExtraComentario').show()");
                 cualCeldaDetalleHoraExtra = -1;
             }
             indexDetalleHoraExtra = -1;
@@ -708,14 +709,14 @@ public class ControlATHoraExtra implements Serializable {
         if (indexHorasExtras >= 0) {
             if (cualCeldaHorasExtras == 3) {
                 tipoActualizacion = 0;
-                context.update("form:MotivoTurnoDialogo");
-                context.execute("MotivoTurnoDialogo.show()");
+                PrimefacesContextUI.actualizar("form:MotivoTurnoDialogo");
+                PrimefacesContextUI.ejecutar("PF('MotivoTurnoDialogo').show()");
                 cualCeldaHorasExtras = -1;
             }
             if (cualCeldaHorasExtras == 7) {
                 tipoActualizacion = 0;
-                context.update("form:EstructuraDialogo");
-                context.execute("EstructuraDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EstructuraDialogo");
+                PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').show()");
                 cualCeldaHorasExtras = -1;
             }
             secRegistro = null;
@@ -728,13 +729,13 @@ public class ControlATHoraExtra implements Serializable {
             indexHorasExtras = indice;
             if (dialogo == 0) {
                 tipoActualizacion = LND;
-                context.update("form:MotivoTurnoDialogo");
-                context.execute("MotivoTurnoDialogo.show()");
+                PrimefacesContextUI.actualizar("form:MotivoTurnoDialogo");
+                PrimefacesContextUI.ejecutar("PF('MotivoTurnoDialogo').show()");
             }
             if (dialogo == 1) {
                 tipoActualizacion = LND;
-                context.update("form:EstructuraDialogo");
-                context.execute("EstructuraDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EstructuraDialogo");
+                PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').show()");
             }
         }
 
@@ -786,7 +787,7 @@ public class ControlATHoraExtra implements Serializable {
                 detalleOpcion = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleOpcion");
                 detalleOpcion.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaDetalleHoraExtra = "70";
-                RequestContext.getCurrentInstance().update("form:datosDetalle");
+                PrimefacesContextUI.actualizar("form:datosDetalle");
                 banderaDetalleHoraExtra = 0;
                 filtrarListaVWEstadosExtras = null;
                 tipoListaDetalleHoraExtra = 0;
@@ -794,14 +795,14 @@ public class ControlATHoraExtra implements Serializable {
             indexHorasExtras = -1;
             listaVWEstadosExtras = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosHoraExtra");
-            context.update("form:datosDetalle");
-            context.update("form:totalHoras");
-            context.update("form:totalMinutos");
+            PrimefacesContextUI.actualizar("form:datosHoraExtra");
+            PrimefacesContextUI.actualizar("form:datosDetalle");
+            PrimefacesContextUI.actualizar("form:totalHoras");
+            PrimefacesContextUI.actualizar("form:totalMinutos");
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
     }
@@ -816,7 +817,7 @@ public class ControlATHoraExtra implements Serializable {
             empleadoNombre = (Column) c.getViewRoot().findComponent("form:datosEmpleado:empleadoNombre");
             empleadoNombre.setFilterStyle("display: none; visibility: hidden;");
             altoTablaEmpleado = "70";
-            RequestContext.getCurrentInstance().update("form:datosCuadrilla");
+            PrimefacesContextUI.actualizar("form:datosCuadrilla");
             banderaEmpleado = 0;
             filtrarListaEmpleados = null;
             tipoListaEmpleado = 0;
@@ -842,7 +843,7 @@ public class ControlATHoraExtra implements Serializable {
             horaExtraComentario = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraComentario");
             horaExtraComentario.setFilterStyle("display: none; visibility: hidden;");
             altoTablaHorasExtras = "75";
-            RequestContext.getCurrentInstance().update("form:datosHoraExtra");
+            PrimefacesContextUI.actualizar("form:datosHoraExtra");
             banderaHorasExtras = 0;
             filtrarListaTurnosEmpleados = null;
             tipoListaHorasExtras = 0;
@@ -865,7 +866,7 @@ public class ControlATHoraExtra implements Serializable {
             detalleOpcion = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleOpcion");
             detalleOpcion.setFilterStyle("display: none; visibility: hidden;");
             altoTablaDetalleHoraExtra = "70";
-            RequestContext.getCurrentInstance().update("form:datosDetalle");
+            PrimefacesContextUI.actualizar("form:datosDetalle");
             banderaDetalleHoraExtra = 0;
             filtrarListaVWEstadosExtras = null;
             tipoListaDetalleHoraExtra = 0;
@@ -900,7 +901,7 @@ public class ControlATHoraExtra implements Serializable {
         activarMostrarTodos = true;
 
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:PanelTotal");
+        PrimefacesContextUI.actualizar("form:PanelTotal");
     }
 
     public void salir() {
@@ -913,7 +914,7 @@ public class ControlATHoraExtra implements Serializable {
             empleadoNombre = (Column) c.getViewRoot().findComponent("form:datosEmpleado:empleadoNombre");
             empleadoNombre.setFilterStyle("display: none; visibility: hidden;");
             altoTablaEmpleado = "70";
-            RequestContext.getCurrentInstance().update("form:datosCuadrilla");
+            PrimefacesContextUI.actualizar("form:datosCuadrilla");
             banderaEmpleado = 0;
             filtrarListaEmpleados = null;
             tipoListaEmpleado = 0;
@@ -939,7 +940,7 @@ public class ControlATHoraExtra implements Serializable {
             horaExtraComentario = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraComentario");
             horaExtraComentario.setFilterStyle("display: none; visibility: hidden;");
             altoTablaHorasExtras = "75";
-            RequestContext.getCurrentInstance().update("form:datosHoraExtra");
+            PrimefacesContextUI.actualizar("form:datosHoraExtra");
             banderaHorasExtras = 0;
             filtrarListaTurnosEmpleados = null;
             tipoListaHorasExtras = 0;
@@ -962,7 +963,7 @@ public class ControlATHoraExtra implements Serializable {
             detalleOpcion = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleOpcion");
             detalleOpcion.setFilterStyle("display: none; visibility: hidden;");
             altoTablaDetalleHoraExtra = "70";
-            RequestContext.getCurrentInstance().update("form:datosDetalle");
+            PrimefacesContextUI.actualizar("form:datosDetalle");
             banderaDetalleHoraExtra = 0;
             filtrarListaVWEstadosExtras = null;
             tipoListaDetalleHoraExtra = 0;
@@ -1022,21 +1023,21 @@ public class ControlATHoraExtra implements Serializable {
             listaTurnosEmpleados = null;
             indexEmpleado = indexEmpladoAux;
             getListaTurnosEmpleados();
-            context.update("form:datosHoraExtra");
+            PrimefacesContextUI.actualizar("form:datosHoraExtra");
             guardado = true;
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             k = 0;
             indexEmpleado = -1;
             indexHorasExtras = -1;
             secRegistro = null;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Horas Extras con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosTurnoEmpleado Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el guardado de Horas Extras");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
 
     }
@@ -1044,10 +1045,10 @@ public class ControlATHoraExtra implements Serializable {
     public void dispararDialogoBuscarEmpleados() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (guardado == true) {
-            context.update("formEmpleado:EmpleadoDialogo");
-            context.execute("EmpleadoDialogo.show()");
+            PrimefacesContextUI.actualizar("formEmpleado:EmpleadoDialogo");
+            PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').show()");
         } else {
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
     }
 
@@ -1055,7 +1056,7 @@ public class ControlATHoraExtra implements Serializable {
         if (guardado == true) {
             cancelarModificacion();
         } else {
-            RequestContext.getCurrentInstance().execute("confirmarGuardar.show()");
+            RequestContext.getCurrentInstance().execute("confirmarGuardar').show()");
         }
     }
 
@@ -1070,7 +1071,7 @@ public class ControlATHoraExtra implements Serializable {
             empleadoNombre = (Column) c.getViewRoot().findComponent("form:datosEmpleado:empleadoNombre");
             empleadoNombre.setFilterStyle("display: none; visibility: hidden;");
             altoTablaEmpleado = "70";
-            RequestContext.getCurrentInstance().update("form:datosCuadrilla");
+            PrimefacesContextUI.actualizar("form:datosCuadrilla");
             banderaEmpleado = 0;
             filtrarListaEmpleados = null;
             tipoListaEmpleado = 0;
@@ -1096,7 +1097,7 @@ public class ControlATHoraExtra implements Serializable {
             horaExtraComentario = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraComentario");
             horaExtraComentario.setFilterStyle("display: none; visibility: hidden;");
             altoTablaHorasExtras = "75";
-            RequestContext.getCurrentInstance().update("form:datosHoraExtra");
+            PrimefacesContextUI.actualizar("form:datosHoraExtra");
             banderaHorasExtras = 0;
             filtrarListaTurnosEmpleados = null;
             tipoListaHorasExtras = 0;
@@ -1119,7 +1120,7 @@ public class ControlATHoraExtra implements Serializable {
             detalleOpcion = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleOpcion");
             detalleOpcion.setFilterStyle("display: none; visibility: hidden;");
             altoTablaDetalleHoraExtra = "70";
-            RequestContext.getCurrentInstance().update("form:datosDetalle");
+            PrimefacesContextUI.actualizar("form:datosDetalle");
             banderaDetalleHoraExtra = 0;
             filtrarListaVWEstadosExtras = null;
             tipoListaDetalleHoraExtra = 0;
@@ -1141,14 +1142,14 @@ public class ControlATHoraExtra implements Serializable {
         activarBuscar = true;
         activarMostrarTodos = false;
 
-        context.update("form:panelTotal");
+        PrimefacesContextUI.actualizar("form:panelTotal");
         /*
-        context.update("formEmpleado:EmpleadoDialogo");
-        context.update("formEmpleado:lovEmpleado");
-        context.update("formEmpleado:aceptarE");*/
+        PrimefacesContextUI.actualizar("formEmpleado:EmpleadoDialogo");
+        PrimefacesContextUI.actualizar("formEmpleado:lovEmpleado");
+        PrimefacesContextUI.actualizar("formEmpleado:aceptarE");*/
         context.reset("formEmpleado:lovEmpleado:globalFilter");
-        context.execute("lovEmpleado.clearFilters()");
-        context.execute("EmpleadoDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpleado').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').hide()");
 
     }
 
@@ -1160,8 +1161,8 @@ public class ControlATHoraExtra implements Serializable {
         secRegistro = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formEmpleado:lovEmpleado:globalFilter");
-        context.execute("lovEmpleado.clearFilters()");
-        context.execute("EmpleadoDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpleado').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').hide()");
     }
 
     public void actualizarMotivoTurno() {
@@ -1188,16 +1189,16 @@ public class ControlATHoraExtra implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
-            context.update("form:datosHoraExtra");
+            PrimefacesContextUI.actualizar("form:datosHoraExtra");
             permitirIndexHoraExtra = true;
         } else if (tipoActualizacion == 1) {
             nuevaTurno.setMotivoturno(motivoSeleccionado);
-            context.update("formularioDialogos:nuevaMotivoTurnoHoraExtra");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaMotivoTurnoHoraExtra");
         } else if (tipoActualizacion == 2) {
             duplicarTurno.setMotivoturno(motivoSeleccionado);
-            context.update("formularioDialogos:duplicarMotivoTurnoHoraExtra");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarMotivoTurnoHoraExtra");
         }
         filtrarLovMotivosTurnos = null;
         motivoSeleccionado = null;
@@ -1206,12 +1207,12 @@ public class ControlATHoraExtra implements Serializable {
         secRegistro = null;
         tipoActualizacion = -1;
         /*
-         context.update("form:MotivoTurnoDialogo");
-         context.update("form:lovMotivoTurno");
-         context.update("form:aceptarMT");*/
+         PrimefacesContextUI.actualizar("form:MotivoTurnoDialogo");
+         PrimefacesContextUI.actualizar("form:lovMotivoTurno");
+         PrimefacesContextUI.actualizar("form:aceptarMT");*/
         context.reset("form:lovMotivoTurno:globalFilter");
-        context.execute("lovMotivoTurno.clearFilters()");
-        context.execute("MotivoTurnoDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovMotivoTurno').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('MotivoTurnoDialogo').hide()");
     }
 
     public void cancelarCambioMotivoTurno() {
@@ -1224,8 +1225,8 @@ public class ControlATHoraExtra implements Serializable {
         permitirIndexHoraExtra = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovMotivoTurno:globalFilter");
-        context.execute("lovMotivoTurno.clearFilters()");
-        context.execute("MotivoTurnoDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovMotivoTurno').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('MotivoTurnoDialogo').hide()");
     }
 
     public void actualizarEstructura() {
@@ -1252,16 +1253,16 @@ public class ControlATHoraExtra implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
-            context.update("form:datosHoraExtra");
+            PrimefacesContextUI.actualizar("form:datosHoraExtra");
             permitirIndexHoraExtra = true;
         } else if (tipoActualizacion == 1) {
             nuevaTurno.setEstructuraaprueba(estructuraSeleccionada);
-            context.update("formularioDialogos:nuevaEstructuraHoraExtra");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaEstructuraHoraExtra");
         } else if (tipoActualizacion == 2) {
             duplicarTurno.setEstructuraaprueba(estructuraSeleccionada);
-            context.update("formularioDialogos:duplicarEstructuraHoraExtra");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEstructuraHoraExtra");
         }
         filtrarLovEstructuras = null;
         estructuraSeleccionada = null;
@@ -1270,12 +1271,12 @@ public class ControlATHoraExtra implements Serializable {
         secRegistro = null;
         tipoActualizacion = -1;
         /*
-         context.update("form:EstructuraDialogo");
-         context.update("form:lovEstructura");
-         context.update("form:aceptarEA");*/
+         PrimefacesContextUI.actualizar("form:EstructuraDialogo");
+         PrimefacesContextUI.actualizar("form:lovEstructura");
+         PrimefacesContextUI.actualizar("form:aceptarEA");*/
         context.reset("form:lovEstructura:globalFilter");
-        context.execute("lovEstructura.clearFilters()");
-        context.execute("EstructuraDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEstructura').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').hide()");
     }
 
     public void cancelarCambioEstructura() {
@@ -1288,8 +1289,8 @@ public class ControlATHoraExtra implements Serializable {
         permitirIndexHoraExtra = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEstructura:globalFilter");
-        context.execute("lovEstructura.clearFilters()");
-        context.execute("EstructuraDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEstructura').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').hide()");
     }
 
     public void eventoFiltrar() {
@@ -1319,7 +1320,7 @@ public class ControlATHoraExtra implements Serializable {
                 empleadoNombre = (Column) c.getViewRoot().findComponent("form:datosEmpleado:empleadoNombre");
                 empleadoNombre.setFilterStyle("width: 85%;");
                 altoTablaEmpleado = "52";
-                RequestContext.getCurrentInstance().update("form:datosCuadrilla");
+                PrimefacesContextUI.actualizar("form:datosCuadrilla");
                 banderaEmpleado = 1;
             } else if (banderaEmpleado == 1) {
                 //CERRAR FILTRADO
@@ -1328,7 +1329,7 @@ public class ControlATHoraExtra implements Serializable {
                 empleadoNombre = (Column) c.getViewRoot().findComponent("form:datosEmpleado:empleadoNombre");
                 empleadoNombre.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaEmpleado = "70";
-                RequestContext.getCurrentInstance().update("form:datosCuadrilla");
+                PrimefacesContextUI.actualizar("form:datosCuadrilla");
                 banderaEmpleado = 0;
                 filtrarListaEmpleados = null;
                 tipoListaEmpleado = 0;
@@ -1355,7 +1356,7 @@ public class ControlATHoraExtra implements Serializable {
                 horaExtraComentario = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraComentario");
                 horaExtraComentario.setFilterStyle("width: 85%;");
                 altoTablaHorasExtras = "43";
-                RequestContext.getCurrentInstance().update("form:datosHoraExtra");
+                PrimefacesContextUI.actualizar("form:datosHoraExtra");
                 banderaHorasExtras = 1;
             } else if (banderaHorasExtras == 1) {
                 horaExtraProcesado = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraProcesado");
@@ -1377,7 +1378,7 @@ public class ControlATHoraExtra implements Serializable {
                 horaExtraComentario = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraComentario");
                 horaExtraComentario.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaHorasExtras = "75";
-                RequestContext.getCurrentInstance().update("form:datosHoraExtra");
+                PrimefacesContextUI.actualizar("form:datosHoraExtra");
                 banderaHorasExtras = 0;
                 filtrarListaTurnosEmpleados = null;
                 tipoListaHorasExtras = 0;
@@ -1401,7 +1402,7 @@ public class ControlATHoraExtra implements Serializable {
                 detalleOpcion = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleOpcion");
                 detalleOpcion.setFilterStyle("width: 85%;");
                 altoTablaDetalleHoraExtra = "38";
-                RequestContext.getCurrentInstance().update("form:datosDetalle");
+                PrimefacesContextUI.actualizar("form:datosDetalle");
                 banderaHorasExtras = 1;
             } else if (banderaDetalleHoraExtra == 1) {
                 detalleConcepto = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleConcepto");
@@ -1419,7 +1420,7 @@ public class ControlATHoraExtra implements Serializable {
                 detalleOpcion = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleOpcion");
                 detalleOpcion.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaDetalleHoraExtra = "70";
-                RequestContext.getCurrentInstance().update("form:datosDetalle");
+                PrimefacesContextUI.actualizar("form:datosDetalle");
                 banderaDetalleHoraExtra = 0;
                 filtrarListaVWEstadosExtras = null;
                 tipoListaDetalleHoraExtra = 0;
@@ -1463,21 +1464,21 @@ public class ControlATHoraExtra implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaTurno.setMotivoturno(lovMotivosTurnos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaMotivoTurnoHoraExtra");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaMotivoTurnoHoraExtra");
                 } else if (tipoNuevo == 2) {
                     duplicarTurno.setMotivoturno(lovMotivosTurnos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarMotivoTurnoHoraExtra");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarMotivoTurnoHoraExtra");
                 }
                 lovMotivosTurnos.clear();
                 getLovMotivosTurnos();
             } else {
-                context.update("form:MotivoTurnoDialogo");
-                context.execute("MotivoTurnoDialogo.show()");
+                PrimefacesContextUI.actualizar("form:MotivoTurnoDialogo");
+                PrimefacesContextUI.ejecutar("PF('MotivoTurnoDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaMotivoTurnoHoraExtra");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaMotivoTurnoHoraExtra");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarMotivoTurnoHoraExtra");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarMotivoTurnoHoraExtra");
                 }
             }
         }
@@ -1496,21 +1497,21 @@ public class ControlATHoraExtra implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaTurno.setEstructuraaprueba(lovEstructuras.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaEstructuraHoraExtra");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaEstructuraHoraExtra");
                 } else if (tipoNuevo == 2) {
                     duplicarTurno.setEstructuraaprueba(lovEstructuras.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarEstructuraHoraExtra");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarEstructuraHoraExtra");
                 }
                 lovEstructuras.clear();
                 getLovEstructuras();
             } else {
-                context.update("form:EstructuraDialogo");
-                context.execute("EstructuraDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EstructuraDialogo");
+                PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaEstructuraHoraExtra");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaEstructuraHoraExtra");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarEstructuraHoraExtra");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarEstructuraHoraExtra");
                 }
             }
         }
@@ -1524,8 +1525,8 @@ public class ControlATHoraExtra implements Serializable {
         if (tam > 0) {
             if (indexEmpladoAux >= 0) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("formularioDialogos:NuevoRegistroTurno");
-                context.execute("NuevoRegistroTurno.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroTurno");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroTurno').show()");
             }
         }
     }
@@ -1564,7 +1565,7 @@ public class ControlATHoraExtra implements Serializable {
                     horaExtraComentario = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraComentario");
                     horaExtraComentario.setFilterStyle("display: none; visibility: hidden;");
                     altoTablaHorasExtras = "75";
-                    RequestContext.getCurrentInstance().update("form:datosHoraExtra");
+                    PrimefacesContextUI.actualizar("form:datosHoraExtra");
                     banderaHorasExtras = 0;
                     filtrarListaTurnosEmpleados = null;
                     tipoListaHorasExtras = 0;
@@ -1583,19 +1584,19 @@ public class ControlATHoraExtra implements Serializable {
                 nuevaTurno = new TurnosEmpleados();
                 nuevaTurno.setMotivoturno(new MotivosTurnos());
                 nuevaTurno.setEstructuraaprueba(new Estructuras());
-                context.update("form:datosHoraExtra");
-                context.execute("NuevoRegistroTurno.hide()");
+                PrimefacesContextUI.actualizar("form:datosHoraExtra");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroTurno').hide()");
                 if (guardado == true) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 indexHorasExtras = -1;
                 secRegistro = null;
             } else {
-                context.execute("errorFechaTurno.show()");
+                PrimefacesContextUI.ejecutar("PF('errorFechaTurno').show()");
             }
         } else {
-            context.execute("errorNullTurno.show()");
+            PrimefacesContextUI.ejecutar("PF('errorNullTurno').show()");
         }
     }
 
@@ -1623,8 +1624,8 @@ public class ControlATHoraExtra implements Serializable {
                 duplicarTurno.setComentario(filtrarListaTurnosEmpleados.get(indexHorasExtras).getComentario());
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:DuplicarRegistroTurno");
-            context.execute("DuplicarRegistroTurno.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroTurno");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTurno').show()");
         }
     }
 
@@ -1662,7 +1663,7 @@ public class ControlATHoraExtra implements Serializable {
                     horaExtraComentario = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraComentario");
                     horaExtraComentario.setFilterStyle("display: none; visibility: hidden;");
                     altoTablaHorasExtras = "75";
-                    RequestContext.getCurrentInstance().update("form:datosHoraExtra");
+                    PrimefacesContextUI.actualizar("form:datosHoraExtra");
                     banderaHorasExtras = 0;
                     filtrarListaTurnosEmpleados = null;
                     tipoListaHorasExtras = 0;
@@ -1681,19 +1682,19 @@ public class ControlATHoraExtra implements Serializable {
                 duplicarTurno = new TurnosEmpleados();
                 duplicarTurno.setMotivoturno(new MotivosTurnos());
                 duplicarTurno.setEstructuraaprueba(new Estructuras());
-                context.update("form:datosHoraExtra");
-                context.execute("DuplicarRegistroTurno.hide()");
+                PrimefacesContextUI.actualizar("form:datosHoraExtra");
+                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTurno').hide()");
                 if (guardado == true) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 indexHorasExtras = -1;
                 secRegistro = null;
             } else {
-                context.execute("errorFechaTurno.show()");
+                PrimefacesContextUI.ejecutar("PF('errorFechaTurno').show()");
             }
         } else {
-            context.execute("errorNullTurno.show()");
+            PrimefacesContextUI.ejecutar("PF('errorNullTurno').show()");
         }
     }
 
@@ -1801,7 +1802,7 @@ public class ControlATHoraExtra implements Serializable {
             verificarRastroHoraExtra();
         }
         if (indexDetalleHoraExtra >= 0) {
-            RequestContext.getCurrentInstance().execute("errorTablaSinRastro.show()");
+            RequestContext.getCurrentInstance().execute("errorTablaSinRastro').show()");
         }
     }
 
@@ -1813,24 +1814,24 @@ public class ControlATHoraExtra implements Serializable {
                 backUpSecRegistro = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("EMPLEADOS")) {
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -1845,24 +1846,24 @@ public class ControlATHoraExtra implements Serializable {
                 backUpSecRegistro = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB_HE.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB_HE').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro_HE.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro_HE').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro_HE.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro_HE').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("TURNOSEMPLEADOS")) {
-                context.execute("confirmarRastroHistorico_HE.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico_HE').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }

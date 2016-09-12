@@ -26,6 +26,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -159,7 +160,7 @@ public class ControlDependenciaOperando implements Serializable {
                         guardado = false;
                     }
                     cambiosPagina = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 index = -1;
                 secRegistro = null;
@@ -175,12 +176,12 @@ public class ControlDependenciaOperando implements Serializable {
                         guardado = false;
                     }
                     cambiosPagina = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 index = -1;
                 secRegistro = null;
             }
-            context.update("form:datosDependenciasOperandos");
+            PrimefacesContextUI.actualizar("form:datosDependenciasOperandos");
         } else if (confirmarCambio.equalsIgnoreCase("OPERANDO")) {
             if (tipoLista == 0) {
                 listaDependenciasOperandos.get(indice).getOperando().setNombre(Operando);
@@ -204,8 +205,8 @@ public class ControlDependenciaOperando implements Serializable {
                 getLovListaOperandos();
             } else {
                 permitirIndex = false;
-                context.update("formularioDialogos:operandosDialogo");
-                context.execute("operandosDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:operandosDialogo");
+                PrimefacesContextUI.ejecutar("PF('operandosDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -230,8 +231,8 @@ public class ControlDependenciaOperando implements Serializable {
         }
         if (dlg == 0) {
             System.out.println("Operando en asignar Index" + operando);
-            context.update("formularioDialogos:operandosDialogo");
-            context.execute("operandosDialogo.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:operandosDialogo");
+            PrimefacesContextUI.ejecutar("PF('operandosDialogo').show()");
         }
 
     }
@@ -241,8 +242,8 @@ public class ControlDependenciaOperando implements Serializable {
         if (index >= 0) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("form:operandosDialogo");
-                context.execute("operandosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:operandosDialogo");
+                PrimefacesContextUI.ejecutar("PF('operandosDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -268,7 +269,7 @@ public class ControlDependenciaOperando implements Serializable {
             dependenciasOperandosNombre.setFilterStyle("width: 85%");
             dependenciasOperandosConsecutivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosConsecutivo");
             dependenciasOperandosConsecutivo.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosDependenciasOperandos");
+            PrimefacesContextUI.actualizar("form:datosDependenciasOperandos");
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
@@ -281,7 +282,7 @@ public class ControlDependenciaOperando implements Serializable {
             dependenciasOperandosNombre.setFilterStyle("display: none; visibility: hidden;");
             dependenciasOperandosConsecutivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosConsecutivo");
             dependenciasOperandosConsecutivo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosDependenciasOperandos");
+            PrimefacesContextUI.actualizar("form:datosDependenciasOperandos");
             bandera = 0;
             filtradosListaDependenciasOperandos = null;
             tipoLista = 0;
@@ -300,7 +301,7 @@ public class ControlDependenciaOperando implements Serializable {
             dependenciasOperandosNombre.setFilterStyle("display: none; visibility: hidden;");
             dependenciasOperandosConsecutivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosConsecutivo");
             dependenciasOperandosConsecutivo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosDependenciasOperandos");
+            PrimefacesContextUI.actualizar("form:datosDependenciasOperandos");
             bandera = 0;
             filtradosListaDependenciasOperandos = null;
             tipoLista = 0;
@@ -320,8 +321,8 @@ public class ControlDependenciaOperando implements Serializable {
         cambiosPagina = true;
 
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
-        context.update("form:datosDependenciasOperandos");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosDependenciasOperandos");
     }
 
     //MOSTRAR DATOS CELDA
@@ -337,12 +338,12 @@ public class ControlDependenciaOperando implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarNombre");
-                context.execute("editarNombre.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarNombre");
+                PrimefacesContextUI.ejecutar("PF('editarNombre').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarConsecutivo");
-                context.execute("editarConsecutivo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarConsecutivo");
+                PrimefacesContextUI.ejecutar("PF('editarConsecutivo').show()");
             }
 
         }
@@ -414,27 +415,27 @@ public class ControlDependenciaOperando implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoDependenciaOperando.setOperando(lovListaOperandos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevoNombre");
-                    context.update("formularioDialogos:nuevoCodigo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoNombre");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoCodigo");
 
                 } else if (tipoNuevo == 2) {
                     duplicarDependenciaOperando.setOperando(lovListaOperandos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarNombre");
-                    context.update("formularioDialogos:duplicarCodigo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarNombre");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCodigo");
 
                 }
                 lovListaOperandos.clear();
                 getLovListaOperandos();
             } else {
-                context.update("form:operandosDialogo");
-                context.execute("operandosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:operandosDialogo");
+                PrimefacesContextUI.ejecutar("PF('operandosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevoCodigo");
-                    context.update("formularioDialogos:nuevoNombre");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoCodigo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoNombre");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarCodigo");
-                    context.update("formularioDialogos:duplicarNombre");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCodigo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarNombre");
                 }
             }
         }
@@ -464,8 +465,8 @@ public class ControlDependenciaOperando implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarDependenciaOperando");
-            context.execute("DuplicarDependenciaOperando.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDependenciaOperando");
+            PrimefacesContextUI.ejecutar("PF('DuplicarDependenciaOperando').show()");
             index = -1;
             secRegistro = null;
         }
@@ -505,11 +506,11 @@ public class ControlDependenciaOperando implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             cambiosPagina = true;
-            context.update("form:ACEPTAR");
-            context.update("form:datosDependenciasOperandos");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosDependenciasOperandos");
             guardado = true;
             permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            PrimefacesContextUI.actualizar("form:aceptar");
             //  k = 0;
         }
         index = -1;
@@ -524,24 +525,24 @@ public class ControlDependenciaOperando implements Serializable {
                 int result = administrarRastros.obtenerTabla(secRegistro, "NOVEDADESOPERANDOS");
                 System.out.println("resultado: " + result);
                 if (result == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (result == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (result == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (result == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (result == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("NOVEDADESOPERANDOS")) {
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;
@@ -577,20 +578,20 @@ public class ControlDependenciaOperando implements Serializable {
             permitirIndex = true;
             cambiosPagina = false;
 
-            context.update("form:ACEPTAR");
-            context.update("form:datosDependenciasOperandos");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosDependenciasOperandos");
         } else if (tipoActualizacion == 1) {
             System.out.println("LAWWWWWWL");
             nuevoDependenciaOperando.setCodigo(seleccionOperandos.getCodigo());
             nuevoDependenciaOperando.setDescripcion(seleccionOperandos.getNombre());
-            context.update("formularioDialogos:nuevoCodigo");
-            context.update("formularioDialogos:nuevoNombre");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoCodigo");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoNombre");
         } else if (tipoActualizacion == 2) {
             System.out.println("ENTRO DUPLICAR");
             duplicarDependenciaOperando.setCodigo(seleccionOperandos.getCodigo());
             duplicarDependenciaOperando.setDescripcion(seleccionOperandos.getNombre());
-            context.update("formularioDialogos:duplicarCodigo");
-            context.update("formularioDialogos:duplicarNombre");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCodigo");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarNombre");
 
         }
         System.out.println("listaDependenciasOperandos.size()" + listaDependenciasOperandos.size());
@@ -602,9 +603,9 @@ public class ControlDependenciaOperando implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVOperandos:globalFilter");
-        context.execute("LOVOperandos.clearFilters()");
-        context.execute("operandosDialogo.hide()");
-        //context.update("formularioDialogos:LOVOperandos");
+        PrimefacesContextUI.ejecutar("PF('LOVOperandos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('operandosDialogo').hide()");
+        //PrimefacesContextUI.actualizar("formularioDialogos:LOVOperandos");
     }
 
     public void cancelarCambioOperandos() {
@@ -618,8 +619,8 @@ public class ControlDependenciaOperando implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVOperandos:globalFilter");
-        context.execute("LOVOperandos.clearFilters()");
-        context.execute("operandosDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('LOVOperandos').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('operandosDialogo').hide()");
     }
 
     public void agregarNuevoDependenciaOperando() {
@@ -640,8 +641,8 @@ public class ControlDependenciaOperando implements Serializable {
         }
 
         if (pasa != 0) {
-            context.update("formularioDialogos:validacionNuevoDependenciaOperando");
-            context.execute("validacionNuevoDependenciaOperando.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoDependenciaOperando");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevoDependenciaOperando').show()");
         }
 
         if (pasa == 0) {
@@ -656,7 +657,7 @@ public class ControlDependenciaOperando implements Serializable {
                 dependenciasOperandosNombre.setFilterStyle("display: none; visibility: hidden;");
                 dependenciasOperandosConsecutivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosConsecutivo");
                 dependenciasOperandosConsecutivo.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosDependenciasOperandos");
+                PrimefacesContextUI.actualizar("form:datosDependenciasOperandos");
                 bandera = 0;
                 filtradosListaDependenciasOperandos = null;
                 tipoLista = 0;
@@ -669,16 +670,16 @@ public class ControlDependenciaOperando implements Serializable {
             nuevoDependenciaOperando.setOperando(operando);
 
             cambiosPagina = false;
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             listaDependenciasOperandosCrear.add(nuevoDependenciaOperando);
             listaDependenciasOperandos.add(nuevoDependenciaOperando);
             nuevoDependenciaOperando = new DependenciasOperandos();
-            context.update("form:datosDependenciasOperandos");
+            PrimefacesContextUI.actualizar("form:datosDependenciasOperandos");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                PrimefacesContextUI.actualizar("form:aceptar");
             }
-            context.execute("NuevoDependenciaOperando.hide()");
+            PrimefacesContextUI.ejecutar("PF('NuevoDependenciaOperando').hide()");
             index = -1;
             secRegistro = null;
         }
@@ -720,13 +721,13 @@ public class ControlDependenciaOperando implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosDependenciasOperandos");
+            PrimefacesContextUI.actualizar("form:datosDependenciasOperandos");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
     }
@@ -743,7 +744,7 @@ public class ControlDependenciaOperando implements Serializable {
             dependenciasOperandosNombre.setFilterStyle("display: none; visibility: hidden;");
             dependenciasOperandosConsecutivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosConsecutivo");
             dependenciasOperandosConsecutivo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosDependenciasOperandos");
+            PrimefacesContextUI.actualizar("form:datosDependenciasOperandos");
             bandera = 0;
             filtradosListaDependenciasOperandos = null;
             tipoLista = 0;
@@ -777,8 +778,8 @@ public class ControlDependenciaOperando implements Serializable {
         }
 
         if (pasa != 0) {
-            context.update("formularioDialogos:validacionNuevoDependenciaOperando");
-            context.execute("validacionNuevoDependenciaOperando.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoDependenciaOperando");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevoDependenciaOperando').show()");
         }
 
         if (pasa == 0) {
@@ -792,13 +793,13 @@ public class ControlDependenciaOperando implements Serializable {
                 dependenciasOperandosNombre.setFilterStyle("display: none; visibility: hidden;");
                 dependenciasOperandosConsecutivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosConsecutivo");
                 dependenciasOperandosConsecutivo.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosDependenciasOperandos");
+                PrimefacesContextUI.actualizar("form:datosDependenciasOperandos");
                 bandera = 0;
                 filtradosListaDependenciasOperandos = null;
                 tipoLista = 0;
             }
             cambiosPagina = false;
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             duplicarDependenciaOperando.setOperando(operando);
             listaDependenciasOperandos.add(duplicarDependenciaOperando);
             listaDependenciasOperandosCrear.add(duplicarDependenciaOperando);
@@ -806,12 +807,12 @@ public class ControlDependenciaOperando implements Serializable {
             index = -1;
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
-            context.update("form:datosDependenciasOperandos");
+            PrimefacesContextUI.actualizar("form:datosDependenciasOperandos");
             duplicarDependenciaOperando = new DependenciasOperandos();
-            context.update("formularioDialogos:DuplicarDependenciaOperando");
-            context.execute("DuplicarDependenciaOperando.hide()");
+            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarDependenciaOperando");
+            PrimefacesContextUI.ejecutar("PF('DuplicarDependenciaOperando').hide()");
         }
     }
 

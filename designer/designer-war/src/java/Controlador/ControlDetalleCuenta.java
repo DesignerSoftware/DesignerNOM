@@ -25,6 +25,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -189,32 +190,32 @@ public class ControlDetalleCuenta implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaCredito == 0) {
-                context.update("formularioDialogos:editarFechaInicialCreditoD");
-                context.execute("editarFechaInicialCreditoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicialCreditoD");
+                PrimefacesContextUI.ejecutar("PF('editarFechaInicialCreditoD').show()");
                 cualCeldaCredito = -1;
             } else if (cualCeldaCredito == 1) {
-                context.update("formularioDialogos:editarFechaFinalCreditoD");
-                context.execute("editarFechaFinalCreditoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinalCreditoD");
+                PrimefacesContextUI.ejecutar("PF('editarFechaFinalCreditoD').show()");
                 cualCeldaCredito = -1;
             } else if (cualCeldaCredito == 2) {
-                context.update("formularioDialogos:editarCodigoCreditoD");
-                context.execute("editarCodigoCreditoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoCreditoD");
+                PrimefacesContextUI.ejecutar("PF('editarCodigoCreditoD').show()");
                 cualCeldaCredito = -1;
             } else if (cualCeldaCredito == 3) {
-                context.update("formularioDialogos:editarDescripcionCreditoD");
-                context.execute("editarDescripcionCreditoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionCreditoD");
+                PrimefacesContextUI.ejecutar("PF('editarDescripcionCreditoD').show()");
                 cualCeldaCredito = -1;
             } else if (cualCeldaCredito == 4) {
-                context.update("formularioDialogos:editarDescripcionCCCreditoD");
-                context.execute("editarDescripcionCCCreditoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionCCCreditoD");
+                PrimefacesContextUI.ejecutar("PF('editarDescripcionCCCreditoD').show()");
                 cualCeldaCredito = -1;
             } else if (cualCeldaCredito == 5) {
-                context.update("formularioDialogos:editarCCCreditoD");
-                context.execute("editarCCCreditoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCCCreditoD");
+                PrimefacesContextUI.ejecutar("PF('editarCCCreditoD').show()");
                 cualCeldaCredito = -1;
             } else if (cualCeldaCredito == 6) {
-                context.update("formularioDialogos:editarTipoCreditoD");
-                context.execute("editarTipoCreditoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarTipoCreditoD");
+                PrimefacesContextUI.ejecutar("PF('editarTipoCreditoD').show()");
                 cualCeldaCredito = -1;
             }
         }
@@ -227,32 +228,32 @@ public class ControlDetalleCuenta implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaDebito == 0) {
-                context.update("formularioDialogos:editarFechaInicialDebitoD");
-                context.execute("editarFechaInicialDebitoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicialDebitoD");
+                PrimefacesContextUI.ejecutar("PF('editarFechaInicialDebitoD').show()");
                 cualCeldaDebito = -1;
             } else if (cualCeldaDebito == 1) {
-                context.update("formularioDialogos:editarFechaFinalDebitoD");
-                context.execute("editarFechaFinalDebitoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinalDebitoD");
+                PrimefacesContextUI.ejecutar("PF('editarFechaFinalDebitoD').show()");
                 cualCeldaDebito = -1;
             } else if (cualCeldaDebito == 2) {
-                context.update("formularioDialogos:editarCodigoDebitoD");
-                context.execute("editarCodigoDebitoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoDebitoD");
+                PrimefacesContextUI.ejecutar("PF('editarCodigoDebitoD').show()");
                 cualCeldaDebito = -1;
             } else if (cualCeldaDebito == 3) {
-                context.update("formularioDialogos:editarDescripcionDebitoD");
-                context.execute("editarDescripcionDebitoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionDebitoD");
+                PrimefacesContextUI.ejecutar("PF('editarDescripcionDebitoD').show()");
                 cualCeldaDebito = -1;
             } else if (cualCeldaDebito == 4) {
-                context.update("formularioDialogos:editarDescripcionCCDebitoD");
-                context.execute("editarDescripcionCCDebitoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionCCDebitoD");
+                PrimefacesContextUI.ejecutar("PF('editarDescripcionCCDebitoD').show()");
                 cualCeldaDebito = -1;
             } else if (cualCeldaDebito == 5) {
-                context.update("formularioDialogos:editarCCDebitoD");
-                context.execute("editarCCDebitoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCCDebitoD");
+                PrimefacesContextUI.ejecutar("PF('editarCCDebitoD').show()");
                 cualCeldaDebito = -1;
             } else if (cualCeldaDebito == 5) {
-                context.update("formularioDialogos:editarTipoDebitoD");
-                context.execute("editarTipoDebitoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarTipoDebitoD");
+                PrimefacesContextUI.ejecutar("PF('editarTipoDebitoD').show()");
                 cualCeldaDebito = -1;
             }
         }
@@ -300,7 +301,7 @@ public class ControlDetalleCuenta implements Serializable {
             creditoCC.setFilterStyle("width: 85%");
             creditoTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoTipo");
             creditoTipo.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosCuentaCredito");
+            PrimefacesContextUI.actualizar("form:datosCuentaCredito");
             banderaCredito = 1;
         } else if (banderaCredito == 1) {
             altoTablaCredito = "120";
@@ -318,7 +319,7 @@ public class ControlDetalleCuenta implements Serializable {
             creditoCC.setFilterStyle("display: none; visibility: hidden;");
             creditoTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoTipo");
             creditoTipo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosCuentaCredito");
+            PrimefacesContextUI.actualizar("form:datosCuentaCredito");
             banderaCredito = 0;
             filtrarListCuentasCredito = null;
             tipoListaCredito = 0;
@@ -347,7 +348,7 @@ public class ControlDetalleCuenta implements Serializable {
             debitoCC.setFilterStyle("width: 85%;");
             debitoTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoTipo");
             debitoTipo.setFilterStyle("width: 85%;");
-            RequestContext.getCurrentInstance().update("form:datosCuentaDebito");
+            PrimefacesContextUI.actualizar("form:datosCuentaDebito");
             banderaDebito = 1;
         } else if (banderaDebito == 1) {
             altoTablaDebito = "105";
@@ -365,7 +366,7 @@ public class ControlDetalleCuenta implements Serializable {
             debitoCC.setFilterStyle("display: none; visibility: hidden;");
             debitoTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoTipo");
             debitoTipo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosCuentaDebito");
+            PrimefacesContextUI.actualizar("form:datosCuentaDebito");
             banderaDebito = 0;
             filtrarListCuentasDebito = null;
             tipoListaDebito = 0;
@@ -393,7 +394,7 @@ public class ControlDetalleCuenta implements Serializable {
             creditoCC.setFilterStyle("display: none; visibility: hidden;");
             creditoTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoTipo");
             creditoTipo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosCuentaCredito");
+            PrimefacesContextUI.actualizar("form:datosCuentaCredito");
             banderaCredito = 0;
             filtrarListCuentasCredito = null;
             tipoListaCredito = 0;
@@ -414,7 +415,7 @@ public class ControlDetalleCuenta implements Serializable {
             debitoCC.setFilterStyle("display: none; visibility: hidden;");
             debitoTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoTipo");
             debitoTipo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosCuentaDebito");
+            PrimefacesContextUI.actualizar("form:datosCuentaDebito");
             banderaDebito = 0;
             filtrarListCuentasDebito = null;
             tipoListaDebito = 0;
@@ -564,7 +565,7 @@ public class ControlDetalleCuenta implements Serializable {
         if (listCuentasDebito == null || listCuentasCredito == null) {
             //Dialogo para seleccionar el rato de la tabla deseada
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("verificarRastrosTablas.show()");
+            PrimefacesContextUI.ejecutar("PF('verificarRastrosTablas').show()");
         }
 
         if ((listCuentasDebito != null) && (listCuentasCredito != null)) {
@@ -590,30 +591,30 @@ public class ControlDetalleCuenta implements Serializable {
                 backUp = secRegistroCredito;
                 secRegistroCredito = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "VigenciasCuentas";
                     msnConfirmarRastro = "La tabla VIGENCIASCUENTAS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASCUENTAS")) {
                 nombreTablaRastro = "VigenciasCuentas";
                 msnConfirmarRastroHistorico = "La tabla VIGENCIASCUENTAS tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         indexCredito = -1;
@@ -629,30 +630,30 @@ public class ControlDetalleCuenta implements Serializable {
                 backUp = backUpSecRegistroDebito;
                 secRegistroDebito = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "VigenciasCuentas";
                     msnConfirmarRastro = "La tabla VIGENCIASCUENTAS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASCUENTAS")) {
                 nombreTablaRastro = "VigenciasCuentas";
                 msnConfirmarRastroHistorico = "La tabla VIGENCIASCUENTAS tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         indexDebito = -1;

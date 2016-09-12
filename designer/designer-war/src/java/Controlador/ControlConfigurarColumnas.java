@@ -19,6 +19,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -129,12 +130,12 @@ public class ControlConfigurarColumnas implements Serializable {
                 eliminarColumnasCargadas();
             } else {
                 permitirIndex = false;
-                context.update("form:ColumnaEscenarioDialogo");
-                context.execute("ColumnaEscenarioDialogo.show()");
+                PrimefacesContextUI.actualizar("form:ColumnaEscenarioDialogo");
+                PrimefacesContextUI.ejecutar("PF('ColumnaEscenarioDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
-        context.update("form:datosConfigurarColumna");
+        PrimefacesContextUI.actualizar("form:datosConfigurarColumna");
     }
 
     public void posicionColumnaEscenario() {
@@ -189,7 +190,7 @@ public class ControlConfigurarColumnas implements Serializable {
             vrlFecha.setFilterStyle("display: none; visibility: hidden;");
             vrlNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConfigurarColumna:vrlNombre");
             vrlNombre.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosConfigurarColumna");
+            PrimefacesContextUI.actualizar("form:datosConfigurarColumna");
             bandera = 0;
             filtrarListaColumnasEscenarios = null;
             tipoLista = 0;
@@ -205,7 +206,7 @@ public class ControlConfigurarColumnas implements Serializable {
         getLovColumnasEscenarios();
         getColumnaSeleccionada();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosConfigurarColumna");
+        PrimefacesContextUI.actualizar("form:datosConfigurarColumna");
     }
 
     public void editarCelda() {
@@ -219,12 +220,12 @@ public class ControlConfigurarColumnas implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarCampoColumna");
-                context.execute("editarCampoColumna.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCampoColumna");
+                PrimefacesContextUI.ejecutar("PF('editarCampoColumna').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarDescripcionColumna");
-                context.execute("editarDescripcionColumna.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionColumna");
+                PrimefacesContextUI.ejecutar("PF('editarDescripcionColumna').show()");
                 cualCelda = -1;
             }
         }
@@ -239,7 +240,7 @@ public class ControlConfigurarColumnas implements Serializable {
         if (index >= 0) {
             listaColumnasEscenarios.remove(index);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosConfigurarColumna");
+            PrimefacesContextUI.actualizar("form:datosConfigurarColumna");
             index = -1;
             eliminarColumnasCargadas();
         }
@@ -257,7 +258,7 @@ public class ControlConfigurarColumnas implements Serializable {
             vrlFecha.setFilterStyle("width: 85%");
             vrlNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConfigurarColumna:vrlNombre");
             vrlNombre.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosConfigurarColumna");
+            PrimefacesContextUI.actualizar("form:datosConfigurarColumna");
             bandera = 1;
         } else if (bandera == 1) {
             altoTabla = "275";
@@ -265,7 +266,7 @@ public class ControlConfigurarColumnas implements Serializable {
             vrlFecha.setFilterStyle("display: none; visibility: hidden;");
             vrlNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConfigurarColumna:vrlNombre");
             vrlNombre.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosConfigurarColumna");
+            PrimefacesContextUI.actualizar("form:datosConfigurarColumna");
             bandera = 0;
             filtrarListaColumnasEscenarios = null;
             tipoLista = 0;
@@ -283,7 +284,7 @@ public class ControlConfigurarColumnas implements Serializable {
             vrlFecha.setFilterStyle("display: none; visibility: hidden;");
             vrlNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConfigurarColumna:vrlNombre");
             vrlNombre.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosConfigurarColumna");
+            PrimefacesContextUI.actualizar("form:datosConfigurarColumna");
             bandera = 0;
             filtrarListaColumnasEscenarios = null;
             tipoLista = 0;
@@ -298,18 +299,18 @@ public class ControlConfigurarColumnas implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (listaColumnasEscenarios.size() < 10) {
             tipoActualizacion = 1;
-            context.update("form:ColumnaEscenarioDialogo");
-            context.execute("ColumnaEscenarioDialogo.show()");
+            PrimefacesContextUI.actualizar("form:ColumnaEscenarioDialogo");
+            PrimefacesContextUI.ejecutar("PF('ColumnaEscenarioDialogo').show()");
         } else {
-            context.execute("errorNewColumna.show()");
+            PrimefacesContextUI.ejecutar("PF('errorNewColumna').show()");
         }
     }
 
     public void dispararDialogoActualizarColumna() {
         tipoActualizacion = 0;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ColumnaEscenarioDialogo");
-        context.execute("ColumnaEscenarioDialogo.show()");
+        PrimefacesContextUI.actualizar("form:ColumnaEscenarioDialogo");
+        PrimefacesContextUI.ejecutar("PF('ColumnaEscenarioDialogo').show()");
     }
 
     public void agregarColumnaEscenario() {
@@ -320,7 +321,7 @@ public class ControlConfigurarColumnas implements Serializable {
             vrlFecha.setFilterStyle("display: none; visibility: hidden;");
             vrlNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConfigurarColumna:vrlNombre");
             vrlNombre.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosConfigurarColumna");
+            PrimefacesContextUI.actualizar("form:datosConfigurarColumna");
             bandera = 0;
             filtrarListaColumnasEscenarios = null;
             tipoLista = 0;
@@ -333,7 +334,7 @@ public class ControlConfigurarColumnas implements Serializable {
         }
         if (guardado == true) {
             guardado = false;
-            //RequestContext.getCurrentInstance().update("form:aceptar");
+            //PrimefacesContextUI.actualizar("form:aceptar");
         }
         permitirIndex = true;
         filtrarLovColumnasEscenarios = null;
@@ -342,14 +343,14 @@ public class ControlConfigurarColumnas implements Serializable {
         index = -1;
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosConfigurarColumna");
+        PrimefacesContextUI.actualizar("form:datosConfigurarColumna");
         /*
-         context.update("form:ColumnaEscenarioDialogo");
-         context.update("form:lovColumnaEscenario");
-         context.update("form:aceptarCE");*/
+         PrimefacesContextUI.actualizar("form:ColumnaEscenarioDialogo");
+         PrimefacesContextUI.actualizar("form:lovColumnaEscenario");
+         PrimefacesContextUI.actualizar("form:aceptarCE");*/
         context.reset("form:lovColumnaEscenario:globalFilter");
-        context.execute("lovColumnaEscenario.clearFilters()");
-        context.execute("ColumnaEscenarioDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovColumnaEscenario').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ColumnaEscenarioDialogo').hide()");
         //eliminarColumnasCargadas();
     }
 
@@ -365,8 +366,8 @@ public class ControlConfigurarColumnas implements Serializable {
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovColumnaEscenario:globalFilter");
-        context.execute("lovColumnaEscenario.clearFilters()");
-        context.execute("ColumnaEscenarioDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovColumnaEscenario').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ColumnaEscenarioDialogo').hide()");
     }
 
     //LISTA DE VALORES DINAMICA
@@ -377,8 +378,8 @@ public class ControlConfigurarColumnas implements Serializable {
     public void listaValoresBoton() {
         if (index >= 0) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ColumnaEscenarioDialogo");
-            context.execute("ColumnaEscenarioDialogo.show()");
+            PrimefacesContextUI.actualizar("form:ColumnaEscenarioDialogo");
+            PrimefacesContextUI.ejecutar("PF('ColumnaEscenarioDialogo').show()");
             tipoActualizacion = 0;
         }
     }

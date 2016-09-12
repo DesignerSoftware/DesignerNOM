@@ -26,6 +26,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -100,7 +101,7 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarSoCondicionesAmbientalesP.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR EVENTO FILTRAR ERROR===" + e.getMessage());
         }
@@ -167,7 +168,7 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesAmbientalesP:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosSoCondicionesAmbientalesP");
+            PrimefacesContextUI.actualizar("form:datosSoCondicionesAmbientalesP");
             bandera = 0;
             filtrarSoCondicionesAmbientalesP = null;
             tipoLista = 0;
@@ -189,9 +190,9 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listSoCondicionesAmbientalesP.size();
         }
-        context.update("form:informacionRegistro");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        context.update("form:datosSoCondicionesAmbientalesP");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosSoCondicionesAmbientalesP");
     }
 
     public void salir() {
@@ -202,7 +203,7 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesAmbientalesP:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosSoCondicionesAmbientalesP");
+            PrimefacesContextUI.actualizar("form:datosSoCondicionesAmbientalesP");
             bandera = 0;
             filtrarSoCondicionesAmbientalesP = null;
             tipoLista = 0;
@@ -218,8 +219,8 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        context.update("form:datosSoCondicionesAmbientalesP");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosSoCondicionesAmbientalesP");
     }
 
     public void activarCtrlF11() {
@@ -230,7 +231,7 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
             codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesAmbientalesP:descripcion");
             descripcion.setFilterStyle("width: 85%;");
-            RequestContext.getCurrentInstance().update("form:datosSoCondicionesAmbientalesP");
+            PrimefacesContextUI.actualizar("form:datosSoCondicionesAmbientalesP");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -240,7 +241,7 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesAmbientalesP:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosSoCondicionesAmbientalesP");
+            PrimefacesContextUI.actualizar("form:datosSoCondicionesAmbientalesP");
             bandera = 0;
             filtrarSoCondicionesAmbientalesP = null;
             tipoLista = 0;
@@ -312,8 +313,8 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -364,8 +365,8 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -430,8 +431,8 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -488,16 +489,16 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
                 }
 
             }
-            context.update("form:datosSoCondicionesAmbientalesP");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosSoCondicionesAmbientalesP");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -540,15 +541,15 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
 
             }
             infoRegistro = "Cantidad de registros: " + listSoCondicionesAmbientalesP.size();
-            context.update("form:informacionRegistro");
-            context.update("form:datosSoCondicionesAmbientalesP");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:datosSoCondicionesAmbientalesP");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -568,8 +569,8 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:validacionBorrar");
-                context.execute("validacionBorrar.show()");
+                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
                 verificarBorradoAccidentes = new BigInteger("-1");
             }
@@ -582,8 +583,8 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
 
         if (!borrarSoCondicionesAmbientalesP.isEmpty() || !crearSoCondicionesAmbientalesP.isEmpty() || !modificarSoCondicionesAmbientalesP.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:confirmarGuardar");
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
     }
@@ -597,8 +598,8 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
                 administrarSoCondicionesAmbientalesP.borrarSoCondicionesAmbientalesP(borrarSoCondicionesAmbientalesP);
                 //mostrarBorrados
                 registrosBorrados = borrarSoCondicionesAmbientalesP.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarSoCondicionesAmbientalesP.clear();
             }
             if (!crearSoCondicionesAmbientalesP.isEmpty()) {
@@ -613,16 +614,16 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
             listSoCondicionesAmbientalesP = null;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
-            context.update("form:datosClasesAusentismos");
-            context.update("form:datosSoCondicionesAmbientalesP");
+            PrimefacesContextUI.actualizar("form:growl");
+            PrimefacesContextUI.actualizar("form:datosClasesAusentismos");
+            PrimefacesContextUI.actualizar("form:datosSoCondicionesAmbientalesP");
             k = 0;
             if (guardado == false) {
                 guardado = true;
             }
         }
         index = -1;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -638,12 +639,12 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editCodigo");
-                context.execute("editCodigo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editDescripcion");
-                context.execute("editDescripcion.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
 
@@ -703,7 +704,7 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesAmbientalesP:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosSoCondicionesAmbientalesP");
+                PrimefacesContextUI.actualizar("form:datosSoCondicionesAmbientalesP");
                 bandera = 0;
                 filtrarSoCondicionesAmbientalesP = null;
                 tipoLista = 0;
@@ -718,21 +719,21 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
 
             listSoCondicionesAmbientalesP.add(nuevaSoCondicionAmbientalP);
             nuevaSoCondicionAmbientalP = new SoCondicionesAmbientalesP();
-            context.update("form:datosSoCondicionesAmbientalesP");
+            PrimefacesContextUI.actualizar("form:datosSoCondicionesAmbientalesP");
             infoRegistro = "Cantidad de registros: " + listSoCondicionesAmbientalesP.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
 
-            context.execute("nuevoRegistroSoCondicionesAmbientalesPeligrosaP.hide()");
+            PrimefacesContextUI.ejecutar("PF('nuevoRegistroSoCondicionesAmbientalesPeligrosaP').hide()");
             index = -1;
             secRegistro = null;
 
         } else {
-            context.update("form:validacionNuevaCentroCosto");
-            context.execute("validacionNuevaCentroCosto.show()");
+            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -765,8 +766,8 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarRCAP");
-            context.execute("duplicarRegistroSoCondicionesAmbientalesP.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarRCAP");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroSoCondicionesAmbientalesP').show()");
             index = -1;
             secRegistro = null;
         }
@@ -819,15 +820,15 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
             }
             listSoCondicionesAmbientalesP.add(duplicarSoCondicionAmbientalP);
             crearSoCondicionesAmbientalesP.add(duplicarSoCondicionAmbientalP);
-            context.update("form:datosSoCondicionesAmbientalesP");
+            PrimefacesContextUI.actualizar("form:datosSoCondicionesAmbientalesP");
             infoRegistro = "Cantidad de registros: " + listSoCondicionesAmbientalesP.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
@@ -835,18 +836,18 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesAmbientalesP:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosSoCondicionesAmbientalesP");
+                PrimefacesContextUI.actualizar("form:datosSoCondicionesAmbientalesP");
                 bandera = 0;
                 filtrarSoCondicionesAmbientalesP = null;
                 tipoLista = 0;
             }
             duplicarSoCondicionAmbientalP = new SoCondicionesAmbientalesP();
-            RequestContext.getCurrentInstance().execute("duplicarRegistroSoCondicionesAmbientalesP.hide()");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroSoCondicionesAmbientalesP').hide()");
 
         } else {
             contador = 0;
-            context.update("form:validacionDuplicarVigencia");
-            context.execute("validacionDuplicarVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -883,24 +884,24 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "SOCONDICIONESAMBIENTALESP"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("SOCONDICIONESAMBIENTALESP")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -918,7 +919,7 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listSoCondicionesAmbientalesP.size();
         }
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
         return listSoCondicionesAmbientalesP;
     }
 

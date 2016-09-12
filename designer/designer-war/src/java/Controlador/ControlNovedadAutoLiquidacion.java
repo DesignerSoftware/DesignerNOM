@@ -33,6 +33,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -270,23 +271,23 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (novedadSeleccionada != null) {
             if (cualCelda == 0) {
-                context.update("formularioDialogos:empresasDialogo");
-                context.execute("empresasDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:empresasDialogo");
+                PrimefacesContextUI.ejecutar("PF('empresasDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 1) {
-                context.update("formularioDialogos:sucursalesDialogo");
-                context.execute("sucursalesDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:sucursalesDialogo");
+                PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 4) {
-                context.update("formularioDialogos:tiposEntidadesDialogo");
-                context.execute("tiposEntidadesDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:tiposEntidadesDialogo");
+                PrimefacesContextUI.ejecutar("PF('tiposEntidadesDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 13) {
-                context.update("formularioDialogos:tercerosDialogo");
-                context.execute("tercerosDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:tercerosDialogo");
+                PrimefacesContextUI.ejecutar("PF('tercerosDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -297,81 +298,81 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         if (novedadSeleccionada != null) {
             editarnovedad = novedadSeleccionada;
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarEmpresa");
-                context.execute("editarEmpresa.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEmpresa");
+                PrimefacesContextUI.ejecutar("PF('editarEmpresa').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarSucursal");
-                context.execute("editarSucursal.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarSucursal");
+                PrimefacesContextUI.ejecutar("PF('editarSucursal').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarAnio");
-                context.execute("editarAnio.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarAnio");
+                PrimefacesContextUI.ejecutar("PF('editarAnio').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                context.update("formularioDialogos:editarMes");
-                context.execute("editarMes.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarMes");
+                PrimefacesContextUI.ejecutar("PF('editarMes').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                context.update("formularioDialogos:editarTipoEntidad");
-                context.execute("editarTipoEntidad.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarTipoEntidad");
+                PrimefacesContextUI.ejecutar("PF('editarTipoEntidad').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                context.update("formularioDialogos:editarFormularioUnico");
-                context.execute("editarFormularioUnico.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFormularioUnico");
+                PrimefacesContextUI.ejecutar("PF('editarFormularioUnico').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
-                context.update("formularioDialogos:editarNumRadicado");
-                context.execute("editarNumRadicado.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarNumRadicado");
+                PrimefacesContextUI.ejecutar("PF('editarNumRadicado').show()");
             } else if (cualCelda == 7) {
-                context.update("formularioDialogos:editarCorrecciones");
-                context.execute("editarCorrecciones.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCorrecciones");
+                PrimefacesContextUI.ejecutar("PF('editarCorrecciones').show()");
             } else if (cualCelda == 8) {
-                context.update("formularioDialogos:editarAnioMes");
-                context.execute("editarAnioMes.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarAnioMes");
+                PrimefacesContextUI.ejecutar("PF('editarAnioMes').show()");
             } else if (cualCelda == 9) {
-                context.update("formularioDialogos:editarPlanilla");
-                context.execute("editarPlanilla.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarPlanilla");
+                PrimefacesContextUI.ejecutar("PF('editarPlanilla').show()");
             } else if (cualCelda == 10) {
-                context.update("formularioDialogos:editarDiasM");
-                context.execute("editarDiasM.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDiasM");
+                PrimefacesContextUI.ejecutar("PF('editarDiasM').show()");
             } else if (cualCelda == 11) {
-                context.update("formularioDialogos:editarIntMora");
-                context.execute("editarIntMora.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarIntMora");
+                PrimefacesContextUI.ejecutar("PF('editarIntMora').show()");
             } else if (cualCelda == 12) {
-                context.update("formularioDialogos:editarRadicaciondescuento");
-                context.execute("editarRadicaciondescuento.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarRadicaciondescuento");
+                PrimefacesContextUI.ejecutar("PF('editarRadicaciondescuento').show()");
             } else if (cualCelda == 13) {
-                context.update("formularioDialogos:editarNitTercero");
-                context.execute("editarNitTercero.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarNitTercero");
+                PrimefacesContextUI.ejecutar("PF('editarNitTercero').show()");
             } else if (cualCelda == 14) {
-                context.update("formularioDialogos:editarNombreTercero");
-                context.execute("editarNombreTercero.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarNombreTercero");
+                PrimefacesContextUI.ejecutar("PF('editarNombreTercero').show()");
             } else if (cualCelda == 15) {
-                context.update("formularioDialogos:editarSaldoFavor");
-                context.execute("editarSaldoFavor.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarSaldoFavor");
+                PrimefacesContextUI.ejecutar("PF('editarSaldoFavor').show()");
             } else if (cualCelda == 16) {
-                context.update("formularioDialogos:editarValorMoraUpc");
-                context.execute("editarValorMoraUpc.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarValorMoraUpc");
+                PrimefacesContextUI.ejecutar("PF('editarValorMoraUpc').show()");
             } else if (cualCelda == 17) {
-                context.update("formularioDialogos:editarSaldoFavorUpc");
-                context.execute("editarSaldoFavorUpc.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarSaldoFavorUpc");
+                PrimefacesContextUI.ejecutar("PF('editarSaldoFavorUpc').show()");
             } else if (cualCelda == 18) {
-                context.update("formularioDialogos:editarValorMoraSolidaridad");
-                context.execute("editarValorMoraSolidaridad.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarValorMoraSolidaridad");
+                PrimefacesContextUI.ejecutar("PF('editarValorMoraSolidaridad').show()");
             } else if (cualCelda == 19) {
-                context.update("formularioDialogos:editarValorMoraSubsistencia");
-                context.execute("editarValorMoraSubsistencia.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarValorMoraSubsistencia");
+                PrimefacesContextUI.ejecutar("PF('editarValorMoraSubsistencia').show()");
             } else if (cualCelda == 20) {
-                context.update("formularioDialogos:editarValorOtros");
-                context.execute("editarValorOtros.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarValorOtros");
+                PrimefacesContextUI.ejecutar("PF('editarValorOtros').show()");
             } else if (cualCelda == 21) {
-                context.update("formularioDialogos:editarDestino");
-                context.execute("editarDestino.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDestino");
+                PrimefacesContextUI.ejecutar("PF('editarDestino').show()");
             }
 
         } else {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -402,19 +403,19 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = LND;
         if (dlg == 0) {
-            context.update("formularioDialogos:empresasDialogo");
-            context.execute("empresasDialogo.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:empresasDialogo");
+            PrimefacesContextUI.ejecutar("PF('empresasDialogo').show()");
         } else if (dlg == 1) {
             listaSucursales = null;
             getListaSucursales();
-            context.update("formularioDialogos:sucursalesDialogo");
-            context.execute("sucursalesDialogo.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:sucursalesDialogo");
+            PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
         } else if (dlg == 4) {
-            context.update("formularioDialogos:tiposEntidadesDialogo");
-            context.execute("tiposEntidadesDialogo.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:tiposEntidadesDialogo");
+            PrimefacesContextUI.ejecutar("PF('tiposEntidadesDialogo').show()");
         } else if (dlg == 13) {
-            context.update("formularioDialogos:tercerosDialogo");
-            context.execute("tercerosDialogo.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:tercerosDialogo");
+            PrimefacesContextUI.ejecutar("PF('tercerosDialogo').show()");
         }
     }
 
@@ -425,14 +426,14 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             } else if (correccion.equals("SI")) {
                 nuevanovedad.setCorreccion("S");
             }
-                RequestContext.getCurrentInstance().update("formularioDialogos:nuevacorreccion");
+                PrimefacesContextUI.actualizar("formularioDialogos:nuevacorreccion");
         } else {
             if (correccion.equals("NO")) {
                 duplicarnovedad.setCorreccion("N");
             } else if (correccion.equals("SI")) {
                 duplicarnovedad.setCorreccion("S");
             }
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarcorreccion");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarcorreccion");
         }
     }
 
@@ -505,12 +506,12 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
 //                }
                 guardado = true;
                 permitirIndex = true;
-                RequestContext.getCurrentInstance().update("form:novedadesAuto");
+                PrimefacesContextUI.actualizar("form:novedadesAuto");
 //            k = 0;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
                 FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                RequestContext.getCurrentInstance().update("form:growl");
+                PrimefacesContextUI.actualizar("form:growl");
                 System.out.println("guarda datos con éxito");
                 novedadSeleccionada = null;
             }
@@ -518,7 +519,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             System.out.println("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
@@ -540,16 +541,16 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             if (tipoLista == 1) {
                 filtrarlistaNovedades.remove(novedadSeleccionada);
             }
-            context.update("form:novedadesAuto");
+            PrimefacesContextUI.actualizar("form:novedadesAuto");
             modificarInfoRegistroNovedad(listaNovedades.size());
             novedadSeleccionada = null;
 
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         } else {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -604,7 +605,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             destino = (Column) c.getViewRoot().findComponent("form:novedadesAuto:destino");
             destino.setFilterStyle("width: 85%");
 
-            RequestContext.getCurrentInstance().update("form:novedadesAuto");
+            PrimefacesContextUI.actualizar("form:novedadesAuto");
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
@@ -654,7 +655,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             destino = (Column) c.getViewRoot().findComponent("form:novedadesAuto:destino");
             destino.setFilterStyle("display: none; visibility: hidden;");
 
-            RequestContext.getCurrentInstance().update("form:novedadesAuto");
+            PrimefacesContextUI.actualizar("form:novedadesAuto");
             bandera = 0;
             tipoLista = 0;
         }
@@ -730,7 +731,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
                 vlrOtros.setFilterStyle("display: none; visibility: hidden;");
                 destino = (Column) c.getViewRoot().findComponent("form:novedadesAuto:destino");
                 destino.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:novedadesAuto");
+                PrimefacesContextUI.actualizar("form:novedadesAuto");
                 bandera = 0;
                 tipoLista = 0;
             }
@@ -752,14 +753,14 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             nuevanovedad.setSucursalpila(new SucursalesPila());
             nuevanovedad.setDestino("ACTIVOS");
             modificarInfoRegistroNovedad(listaNovedades.size());
-            context.update("form:novedadesAuto");
-            context.execute("nuevaNovedadAuto.hide()");
+            PrimefacesContextUI.actualizar("form:novedadesAuto");
+            PrimefacesContextUI.ejecutar("PF('nuevaNovedadAuto').hide()");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         } else {
-            context.execute("form:validarNuevo.show()");
+            PrimefacesContextUI.ejecutar("PF('form:validarNuevo').show()");
         }
 
     }
@@ -818,10 +819,10 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
 
             }
 //            deshabilitarBotonLov();
-            context.update("formularioDialogos:duplicarNovedades");
-            context.execute("duplicarNovedadAuto.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarNovedades");
+            PrimefacesContextUI.ejecutar("PF('duplicarNovedadAuto').show()");
         } else {
-            context.execute("formularioDialogos:seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
 
@@ -837,11 +838,11 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         getListaNovedades();
         modificarInfoRegistroNovedad(listaNovedades.size());
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:novedadesAuto");
-        context.execute("duplicarNovedadAuto.hide()");
+        PrimefacesContextUI.actualizar("form:novedadesAuto");
+        PrimefacesContextUI.ejecutar("PF('duplicarNovedadAuto').hide()");
         if (guardado == true) {
             guardado = false;
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
         if (bandera == 1) {
             altotabla = 260;
@@ -889,7 +890,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             vlrOtros.setFilterStyle("display: none; visibility: hidden;");
             destino = (Column) c.getViewRoot().findComponent("form:novedadesAuto:destino");
             destino.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:novedadesAuto");
+            PrimefacesContextUI.actualizar("form:novedadesAuto");
 
             bandera = 0;
             filtrarlistaNovedades = null;
@@ -912,7 +913,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
         } else {
@@ -925,11 +926,11 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             }
         }
-        context.update("form:novedadesAuto");
+        PrimefacesContextUI.actualizar("form:novedadesAuto");
     }
 
     public void modificarNovedadAuto(NovedadesAutoLiquidaciones novedad, String confirmarCambio, String valorConfirmar) {
@@ -951,8 +952,8 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
                 getListaTiposEntidades();
             } else {
                 permitirIndex = false;
-                context.update("formularioDialogos:tiposEntidadesDialogo");
-                context.execute("tiposEntidadesDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:tiposEntidadesDialogo");
+                PrimefacesContextUI.ejecutar("PF('tiposEntidadesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -971,8 +972,8 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
                     getListaTerceros();
                 } else {
                     permitirIndex = false;
-                    context.update("formularioDialogos:tercerosDialogo");
-                    context.execute("tercerosDialogo.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:tercerosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('tercerosDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -1000,8 +1001,8 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
                 getListaEmpresas();
             } else {
                 permitirIndex = false;
-                context.update("formularioDialogos:empresasDialogo");
-                context.execute("empresasDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:empresasDialogo");
+                PrimefacesContextUI.ejecutar("PF('empresasDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -1019,8 +1020,8 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
 //                getListaSucursales();
             } else {
                 permitirIndex = false;
-                context.update("formularioDialogos:sucursalesDialogo");
-                context.execute("sucursalesDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:sucursalesDialogo");
+                PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -1032,10 +1033,10 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
-        context.update("form:novedadesAuto");
+        PrimefacesContextUI.actualizar("form:novedadesAuto");
     }
 
     public void verificarRastro() {
@@ -1043,21 +1044,21 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         if (novedadSeleccionada != null) {
             int result = administrarRastros.obtenerTabla(novedadSeleccionada.getSecuencia(), "NOVEDADESAUTOLIQUIDACION");
             if (result == 1) {
-                context.execute("errorObjetosDB.show()");
+                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
             } else if (result == 2) {
-                context.execute("confirmarRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
             } else if (result == 3) {
-                context.execute("errorRegistroRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
             } else if (result == 4) {
-                context.execute("errorTablaConRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
             } else if (result == 5) {
-                context.execute("errorTablaSinRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("NOVEDADESAUTOLIQUIDACION")) {
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
     }
@@ -1090,18 +1091,18 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
             permitirIndex = true;
             //deshabilitarBotonLov();
-            context.update("form:novedadesAuto");
+            PrimefacesContextUI.actualizar("form:novedadesAuto");
         } else if (tipoActualizacion == 1) {
             nuevanovedad.setEmpresa(empresaSeleccionada);
-            context.update("formularioDialogos:nuevaNovedad");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaNovedad");
         } else if (tipoActualizacion == 2) {
             duplicarnovedad.setEmpresa(empresaSeleccionada);
-            context.update("formularioDialogos:duplicarNovedad");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarNovedad");
         }
         auxiliar = empresaSeleccionada.getSecuencia();
         filtrarlistaEmpresas = null;
@@ -1109,12 +1110,12 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
-        context.execute("lovEmpresas.clearFilters()");
-        context.execute("empresasDialogo.hide()");
-        context.update("formularioDialogos:empresasDialogo");
-        context.update("formularioDialogos:lovEmpresas");
-        context.update("formularioDialogos:aceptarD");
-        context.update("formularioDialogos:sucursalesDialogo");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('empresasDialogo').hide()");
+        PrimefacesContextUI.actualizar("formularioDialogos:empresasDialogo");
+        PrimefacesContextUI.actualizar("formularioDialogos:lovEmpresas");
+        PrimefacesContextUI.actualizar("formularioDialogos:aceptarD");
+        PrimefacesContextUI.actualizar("formularioDialogos:sucursalesDialogo");
 
     }
 
@@ -1126,11 +1127,11 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         empresaSeleccionada = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
-        context.execute("lovEmpresas.clearFilters()");
-        context.execute("empresasDialogo.hide()");
-        context.update("formularioDialogos:empresasDialogo");
-        context.update("formularioDialogos:lovEmpresas");
-        context.update("formularioDialogos:aceptarD");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('empresasDialogo').hide()");
+        PrimefacesContextUI.actualizar("formularioDialogos:empresasDialogo");
+        PrimefacesContextUI.actualizar("formularioDialogos:lovEmpresas");
+        PrimefacesContextUI.actualizar("formularioDialogos:aceptarD");
     }
 
     public void actualizarTercero() {
@@ -1157,29 +1158,29 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
             permitirIndex = true;
             //deshabilitarBotonLov();
-            context.update("form:novedadesAuto");
+            PrimefacesContextUI.actualizar("form:novedadesAuto");
         } else if (tipoActualizacion == 1) {
             nuevanovedad.setTercero(terceroSeleccionado);
-            context.update("formularioDialogos:nuevaNovedad");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaNovedad");
         } else if (tipoActualizacion == 2) {
             duplicarnovedad.setTercero(terceroSeleccionado);
-            context.update("formularioDialogos:duplicarNovedad");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarNovedad");
         }
         filtrarlistaTerceros = null;
         terceroSeleccionado = null;
         aceptar = true;
         tipoActualizacion = -1;
         context.reset("formularioDialogos:lovTerceros:globalFilter");
-        context.execute("lovTerceros.clearFilters()");
-        context.execute("tercerosDialogo.hide()");
-        context.update("formularioDialogos:tercerosDialogo");
-        context.update("formularioDialogos:lovTerceros");
-        context.update("formularioDialogos:aceptarT");
+        PrimefacesContextUI.ejecutar("PF('lovTerceros').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('tercerosDialogo').hide()");
+        PrimefacesContextUI.actualizar("formularioDialogos:tercerosDialogo");
+        PrimefacesContextUI.actualizar("formularioDialogos:lovTerceros");
+        PrimefacesContextUI.actualizar("formularioDialogos:aceptarT");
 
     }
 
@@ -1191,11 +1192,11 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovTerceros:globalFilter");
-        context.execute("lovTerceros.clearFilters()");
-        context.execute("tercerosDialogo.hide()");
-        context.update("formularioDialogos:tercerosDialogo");
-        context.update("formularioDialogos:lovTerceros");
-        context.update("formularioDialogos:aceptarT");
+        PrimefacesContextUI.ejecutar("PF('lovTerceros').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('tercerosDialogo').hide()");
+        PrimefacesContextUI.actualizar("formularioDialogos:tercerosDialogo");
+        PrimefacesContextUI.actualizar("formularioDialogos:lovTerceros");
+        PrimefacesContextUI.actualizar("formularioDialogos:aceptarT");
     }
 
     public void actualizarSucursal() {
@@ -1222,29 +1223,29 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
             permitirIndex = true;
             //deshabilitarBotonLov();
-            context.update("form:novedadesAuto");
+            PrimefacesContextUI.actualizar("form:novedadesAuto");
         } else if (tipoActualizacion == 1) {
             nuevanovedad.setSucursalpila(sucursalSeleccionada);
-            context.update("formularioDialogos:nuevaNovedad");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaNovedad");
         } else if (tipoActualizacion == 2) {
             duplicarnovedad.setSucursalpila(sucursalSeleccionada);
-            context.update("formularioDialogos:duplicarNovedad");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarNovedad");
         }
         filtrarlistaSucursales = null;
         sucursalSeleccionada = null;
         aceptar = true;
         tipoActualizacion = -1;
         context.reset("formularioDialogos:lovSucursales:globalFilter");
-        context.execute("lovSucursales.clearFilters()");
-        context.execute("sucursalesDialogo.hide()");
-        context.update("formularioDialogos:sucursalesDialogo");
-        context.update("formularioDialogos:lovSucursales");
-        context.update("formularioDialogos:aceptarS");
+        PrimefacesContextUI.ejecutar("PF('lovSucursales').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').hide()");
+        PrimefacesContextUI.actualizar("formularioDialogos:sucursalesDialogo");
+        PrimefacesContextUI.actualizar("formularioDialogos:lovSucursales");
+        PrimefacesContextUI.actualizar("formularioDialogos:aceptarS");
 
     }
 
@@ -1257,11 +1258,11 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         listaSucursales= null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovSucursales:globalFilter");
-        context.execute("lovSucursales.clearFilters()");
-        context.execute("sucursalesDialogo.hide()");
-        context.update("formularioDialogos:sucursalesDialogo");
-        context.update("formularioDialogos:lovSucursales");
-        context.update("formularioDialogos:aceptarS");
+        PrimefacesContextUI.ejecutar("PF('lovSucursales').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').hide()");
+        PrimefacesContextUI.actualizar("formularioDialogos:sucursalesDialogo");
+        PrimefacesContextUI.actualizar("formularioDialogos:lovSucursales");
+        PrimefacesContextUI.actualizar("formularioDialogos:aceptarS");
     }
 
     public void actualizarTipoEntidad() {
@@ -1288,29 +1289,29 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
             permitirIndex = true;
             //deshabilitarBotonLov();
-            context.update("form:novedadesAuto");
+            PrimefacesContextUI.actualizar("form:novedadesAuto");
         } else if (tipoActualizacion == 1) {
             nuevanovedad.setTipoentidad(tipoEntidadSeleccionada);
-            context.update("formularioDialogos:nuevaNovedad");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaNovedad");
         } else if (tipoActualizacion == 2) {
             duplicarnovedad.setTipoentidad(tipoEntidadSeleccionada);
-            context.update("formularioDialogos:duplicarNovedad");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarNovedad");
         }
         filtrarlistaTiposEntidades = null;
         tipoEntidadSeleccionada = null;
         aceptar = true;
         tipoActualizacion = -1;
         context.reset("formularioDialogos:lovTiposEntidades:globalFilter");
-        context.execute("lovTiposEntidades.clearFilters()");
-        context.execute("tiposEntidadesDialogo.hide()");
-        context.update("formularioDialogos:tiposEntidadesDialogo");
-        context.update("formularioDialogos:lovTiposEntidades");
-        context.update("formularioDialogos:aceptarTE");
+        PrimefacesContextUI.ejecutar("PF('lovTiposEntidades').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('tiposEntidadesDialogo').hide()");
+        PrimefacesContextUI.actualizar("formularioDialogos:tiposEntidadesDialogo");
+        PrimefacesContextUI.actualizar("formularioDialogos:lovTiposEntidades");
+        PrimefacesContextUI.actualizar("formularioDialogos:aceptarTE");
 
     }
 
@@ -1322,11 +1323,11 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovTiposEntidades:globalFilter");
-        context.execute("lovTiposEntidades.clearFilters()");
-        context.execute("tiposEntidadesDialogo.hide()");
-        context.update("formularioDialogos:tiposEntidadesDialogo");
-        context.update("formularioDialogos:lovTiposEntidades");
-        context.update("formularioDialogos:aceptarTE");
+        PrimefacesContextUI.ejecutar("PF('lovTiposEntidades').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('tiposEntidadesDialogo').hide()");
+        PrimefacesContextUI.actualizar("formularioDialogos:tiposEntidadesDialogo");
+        PrimefacesContextUI.actualizar("formularioDialogos:lovTiposEntidades");
+        PrimefacesContextUI.actualizar("formularioDialogos:aceptarTE");
     }
 
     public void autocompletarNuevoyDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
@@ -1348,23 +1349,23 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevanovedad.setEmpresa(listaEmpresas.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaEmpresa");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaEmpresa");
                 } else if (tipoNuevo == 2) {
                     duplicarnovedad.setEmpresa(listaEmpresas.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarEmpresa");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarEmpresa");
                 }
                 listaEmpresas.clear();
                 getListaEmpresas();
             } else {
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaEmpresa");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaEmpresa");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarEmpresa");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarEmpresa");
                 }
             }
-            context.update("formularioDialogos:empresasDialogo");
-            context.execute("empresasDialogo.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:empresasDialogo");
+            PrimefacesContextUI.ejecutar("PF('empresasDialogo').show()");
         }
         if (confirmarCambio.equalsIgnoreCase("SUCURSAL")) {
             if (tipoNuevo == 1) {
@@ -1381,21 +1382,21 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevanovedad.setSucursalpila(listaSucursales.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaSucursal");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaSucursal");
                 } else if (tipoNuevo == 2) {
                     duplicarnovedad.setSucursalpila(listaSucursales.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarSucursal");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarSucursal");
                 }
             } else {
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaSucursal");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaSucursal");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarSucursal");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarSucursal");
                 }
             }
-            context.update("formularioDIalogos:sucursalesDialogo");
-            context.execute("sucursalesDialogo.show()");
+            PrimefacesContextUI.actualizar("formularioDIalogos:sucursalesDialogo");
+            PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
         }
 
         if (confirmarCambio.equalsIgnoreCase("TERCERO")) {
@@ -1413,22 +1414,22 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevanovedad.setTercero(listaTerceros.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevoTercero");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTercero");
                 } else if (tipoNuevo == 2) {
                     duplicarnovedad.setTercero(listaTerceros.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarTercero");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTercero");
                 }
                 listaTerceros.clear();
                 getListaTerceros();
             } else {
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevoTercero");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTercero");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarTipoEntidad");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoEntidad");
                 }
-                context.update("formularioDIalogos:tercerosDialogo");
-                context.execute("tercerosDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDIalogos:tercerosDialogo");
+                PrimefacesContextUI.ejecutar("PF('tercerosDialogo').show()");
             }
         }
 
@@ -1447,23 +1448,23 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevanovedad.setTipoentidad(listaTiposEntidades.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevoTipoEntidad");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoEntidad");
                 } else if (tipoNuevo == 2) {
                     duplicarnovedad.setTipoentidad(listaTiposEntidades.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarTipoEntidad");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoEntidad");
                 }
                 listaTiposEntidades.clear();
                 getListaTerceros();
             } else {
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevoTipoEntidad");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoEntidad");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarTipoEntidad");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoEntidad");
                 }
             }
-            context.update("formularioDIalogos:tiposEntidadesDialogo");
-            context.execute("tiposEntidadesDialogo.show()");
+            PrimefacesContextUI.actualizar("formularioDIalogos:tiposEntidadesDialogo");
+            PrimefacesContextUI.ejecutar("PF('tiposEntidadesDialogo').show()");
         }
 
     }
@@ -1566,8 +1567,8 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         limpiarDuplicarNovedad();
         altotabla = 260;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:novedadesAuto");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:novedadesAuto");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -1654,12 +1655,12 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
 
     public void habilitarBotonLov() {
         activarlov = false;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     public void deshabilitarBotonLov() {
         activarlov = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     public void eventoFiltrar() {
@@ -1696,34 +1697,34 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
 
     public void modificarInfoRegistroNovedad(int valor) {
         infoRegistroNovedades = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:infoRegistroNovedad");
+        PrimefacesContextUI.actualizar("form:infoRegistroNovedad");
     }
 
     public void modificarInfoRegistroEmpresas(int valor) {
         infoRegistroEmpresas = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEmpresa");
+        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroEmpresa");
     }
 
     public void modificarInfoRegistroTerceros(int valor) {
         infoRegistroTerceros = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTercero");
+        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroTercero");
     }
 
     public void modificarInfoRegistroSucursales(int valor) {
         infoRegistroSucursales = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroSucursal");
+        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroSucursal");
     }
 
     public void modificarInfoRegistroTipoEntidad(int valor) {
         infoRegistroTipoEntidad = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTipoEntidad");
+        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroTipoEntidad");
     }
 
     public void dispararDialogoNuevoRegistro(){
         nuevanovedad.setAnio(anioParametro);
         nuevanovedad.setMes(mesParametro);
-        RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedadAuto");
-        RequestContext.getCurrentInstance().execute("nuevaNovedadAuto.show()");
+        PrimefacesContextUI.actualizar("formularioDialogos:nuevaNovedadAuto");
+        PrimefacesContextUI.ejecutar("PF('nuevaNovedadAuto').show()");
     }
     
     ////////////////SETS Y GETS//////////////////

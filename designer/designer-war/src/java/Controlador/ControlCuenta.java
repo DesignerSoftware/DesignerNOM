@@ -27,6 +27,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -195,7 +196,7 @@ public class ControlCuenta implements Serializable {
                     if (guardado == true) {
                         guardado = false;
 
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 index = -1;
@@ -209,7 +210,7 @@ public class ControlCuenta implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 index = -1;
@@ -217,7 +218,7 @@ public class ControlCuenta implements Serializable {
             }
             cambiosCuentas = true;
             activoDetalle = true;
-            context.update("form:DETALLES");
+            PrimefacesContextUI.actualizar("form:DETALLES");
         } else {
             if (tipoLista == 0) {
                 listCuentas.get(indice).setCodigo(auxCodigoCuenta);
@@ -226,9 +227,9 @@ public class ControlCuenta implements Serializable {
                 filtrarListCuentas.get(indice).setCodigo(auxCodigoCuenta);
                 filtrarListCuentas.get(indice).setDescripcion(auxDescripcionCuenta);
             }
-            context.execute("errorDatosNullCuenta.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullCuenta').show()");
         }
-        context.update("form:datosCuenta");
+        PrimefacesContextUI.actualizar("form:datosCuenta");
     }
 
     public void modificarCuentaAutocompletar(int indice, String confirmarCambio, String valorConfirmar) {
@@ -259,8 +260,8 @@ public class ControlCuenta implements Serializable {
                     getListCuentasTesoreria();
                 } else {
                     permitirIndex = false;
-                    context.update("form:ContracuentaDialogo");
-                    context.execute("ContracuentaDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:ContracuentaDialogo");
+                    PrimefacesContextUI.ejecutar("PF('ContracuentaDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -297,8 +298,8 @@ public class ControlCuenta implements Serializable {
                     getListRubros();
                 } else {
                     permitirIndex = false;
-                    context.update("form:RubrosDialogo");
-                    context.execute("RubrosDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:RubrosDialogo");
+                    PrimefacesContextUI.ejecutar("PF('RubrosDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -322,13 +323,13 @@ public class ControlCuenta implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 index = -1;
                 secRegistroCuentas = null;
                 activoDetalle = true;
-                RequestContext.getCurrentInstance().update("form:DETALLES");
+                PrimefacesContextUI.actualizar("form:DETALLES");
             } else {
                 if (!listCuentasCrear.contains(filtrarListCuentas.get(indice))) {
                     if (listCuentasModificar.isEmpty()) {
@@ -338,17 +339,17 @@ public class ControlCuenta implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        context.update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
                 }
                 index = -1;
                 secRegistroCuentas = null;
                 activoDetalle = true;
-                RequestContext.getCurrentInstance().update("form:DETALLES");
+                PrimefacesContextUI.actualizar("form:DETALLES");
             }
             cambiosCuentas = true;
         }
-        context.update("form:datosCuenta");
+        PrimefacesContextUI.actualizar("form:datosCuenta");
     }
 
     public void cambiarIndice(int indice, int celda) {
@@ -356,7 +357,7 @@ public class ControlCuenta implements Serializable {
             cualCelda = celda;
             index = indice;
             activoDetalle = false;
-            RequestContext.getCurrentInstance().update("form:DETALLES");
+            PrimefacesContextUI.actualizar("form:DETALLES");
             if (tipoLista == 0) {
                 secRegistroCuentas = listCuentas.get(index).getSecuencia();
                 cuentaActual = listCuentas.get(index);
@@ -387,7 +388,7 @@ public class ControlCuenta implements Serializable {
         if (cambiosCuentas == true) {
             guardarCambiosCuenta();
             guardado = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
     }
 
@@ -416,9 +417,9 @@ public class ControlCuenta implements Serializable {
                     //infoRegistro = "Cantidad de registros : 0";
                     modificarInfoRegistro(0);
                 }
-                context.update("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
 
-                context.update("form:datosCuenta");
+                PrimefacesContextUI.actualizar("form:datosCuenta");
                 k = 0;
                 index = -1;
                 secRegistroCuentas = null;
@@ -426,17 +427,17 @@ public class ControlCuenta implements Serializable {
                 activoDetalle = true;
                 guardado = true;
                 cambiosCuentas = false;
-                context.update("form:ACEPTAR");
-                context.update("form:DETALLES");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:DETALLES");
                 FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                context.update("form:growl");
+                PrimefacesContextUI.actualizar("form:growl");
             }
         } catch (Exception e) {
             System.out.println("Error guardarCambiosCuenta Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado+, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
 
@@ -468,7 +469,7 @@ public class ControlCuenta implements Serializable {
             cuentaAsociadaSAP.setFilterStyle("display: none; visibility: hidden;");
             cuentaSubCuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaSubCuenta");
             cuentaSubCuenta.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosCuenta");
+            PrimefacesContextUI.actualizar("form:datosCuenta");
             bandera = 0;
             filtrarListCuentas = null;
             tipoLista = 0;
@@ -478,7 +479,7 @@ public class ControlCuenta implements Serializable {
         listCuentasModificar.clear();
         index = -1;
         activoDetalle = true;
-        RequestContext.getCurrentInstance().update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
         secRegistroCuentas = null;
         k = 0;
         listCuentas = null;
@@ -494,11 +495,11 @@ public class ControlCuenta implements Serializable {
             //infoRegistro = "Cantidad de registros : 0";
             modificarInfoRegistro(0);
         }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
         getListCuentasTesoreria();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
-        context.update("form:datosCuenta");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosCuenta");
     }
 
     public void editarCelda() {
@@ -511,24 +512,24 @@ public class ControlCuenta implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarCodigoCuentaD");
-                context.execute("editarCodigoCuentaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoCuentaD");
+                PrimefacesContextUI.ejecutar("PF('editarCodigoCuentaD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarDescripcionCuentaD");
-                context.execute("editarDescripcionCuentaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionCuentaD");
+                PrimefacesContextUI.ejecutar("PF('editarDescripcionCuentaD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                context.update("formularioDialogos:editarCuentaTCuentaD");
-                context.execute("editarCuentaTCuentaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCuentaTCuentaD");
+                PrimefacesContextUI.ejecutar("PF('editarCuentaTCuentaD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                context.update("formularioDialogos:editarRubroCuentaD");
-                context.execute("editarRubroCuentaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarRubroCuentaD");
+                PrimefacesContextUI.ejecutar("PF('editarRubroCuentaD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 11) {
-                context.update("formularioDialogos:editarCodigoACuentaD");
-                context.execute("editarCodigoACuentaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoACuentaD");
+                PrimefacesContextUI.ejecutar("PF('editarCodigoACuentaD').show()");
                 cualCelda = -1;
             }
         }
@@ -536,13 +537,13 @@ public class ControlCuenta implements Serializable {
         index = -1;
         secRegistroCuentas = null;
         activoDetalle = true;
-        RequestContext.getCurrentInstance().update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
     }
 
     public void validarIngresoNuevoRegistro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:NuevoRegistroCuenta");
-        context.execute("NuevoRegistroCuenta.show()");
+        PrimefacesContextUI.actualizar("form:NuevoRegistroCuenta");
+        PrimefacesContextUI.ejecutar("PF('NuevoRegistroCuenta').show()");
 
     }
 
@@ -646,7 +647,7 @@ public class ControlCuenta implements Serializable {
                 cuentaAsociadaSAP.setFilterStyle("display: none; visibility: hidden;");
                 cuentaSubCuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaSubCuenta");
                 cuentaSubCuenta.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosCuenta");
+                PrimefacesContextUI.actualizar("form:datosCuenta");
                 bandera = 0;
                 filtrarListCuentas = null;
                 tipoLista = 0;
@@ -660,26 +661,26 @@ public class ControlCuenta implements Serializable {
             listCuentas.add(nuevoCuentas);
             //infoRegistro = "Cantidad de registros : " + listCuentas.size();
             modificarInfoRegistro(listCuentas.size());
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             ////------////
             nuevoCuentas = new Cuentas();
             nuevoCuentas.setRubropresupuestal(new Rubrospresupuestales());
             nuevoCuentas.setContracuentatesoreria(new Cuentas());
             ////-----////
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosCuenta");
+            PrimefacesContextUI.actualizar("form:datosCuenta");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
-            context.execute("NuevoRegistroCuenta.hide()");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroCuenta').hide()");
             cambiosCuentas = true;
             index = -1;
             secRegistroCuentas = null;
             activoDetalle = true;
-            RequestContext.getCurrentInstance().update("form:DETALLES");
+            PrimefacesContextUI.actualizar("form:DETALLES");
         } else {
-            RequestContext.getCurrentInstance().execute("errorDatosNullCuenta.show()");
+            RequestContext.getCurrentInstance().execute("errorDatosNullCuenta').show()");
         }
     }
 
@@ -690,7 +691,7 @@ public class ControlCuenta implements Serializable {
         index = -1;
         secRegistroCuentas = null;
         activoDetalle = true;
-        RequestContext.getCurrentInstance().update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
     }
 
     public void duplicarCuenta() {
@@ -738,12 +739,12 @@ public class ControlCuenta implements Serializable {
             duplicarCuentas.setContracuentatesoreria(new Cuentas());
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("formularioDialogos:DuplicarRegistroCuenta");
-        context.execute("DuplicarRegistroCuenta.show()");
+        PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroCuenta");
+        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCuenta').show()");
         index = -1;
         secRegistroCuentas = null;
         activoDetalle = true;
-        RequestContext.getCurrentInstance().update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
     }
 
     public void confirmarDuplicar() {
@@ -775,7 +776,7 @@ public class ControlCuenta implements Serializable {
                 cuentaAsociadaSAP.setFilterStyle("display: none; visibility: hidden;");
                 cuentaSubCuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaSubCuenta");
                 cuentaSubCuenta.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosCuenta");
+                PrimefacesContextUI.actualizar("form:datosCuenta");
                 bandera = 0;
                 filtrarListCuentas = null;
                 tipoLista = 0;
@@ -789,21 +790,21 @@ public class ControlCuenta implements Serializable {
             duplicarCuentas = new Cuentas();
             //infoRegistro = "Cantidad de registros : " + listCuentas.size();
             modificarInfoRegistro(listCuentas.size());
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosCuenta");
+            PrimefacesContextUI.actualizar("form:datosCuenta");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
-            context.execute("DuplicarRegistroCuenta.hide()");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCuenta').hide()");
             cambiosCuentas = true;
             index = -1;
             secRegistroCuentas = null;
             activoDetalle = true;
-            RequestContext.getCurrentInstance().update("form:DETALLES");
+            PrimefacesContextUI.actualizar("form:DETALLES");
         } else {
-            RequestContext.getCurrentInstance().execute("errorDatosNullCuenta.show()");
+            RequestContext.getCurrentInstance().execute("errorDatosNullCuenta').show()");
         }
     }
 
@@ -814,7 +815,7 @@ public class ControlCuenta implements Serializable {
         index = -1;
         secRegistroCuentas = null;
         activoDetalle = true;
-        RequestContext.getCurrentInstance().update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
     }
 
     public void borrarCuenta() {
@@ -851,18 +852,18 @@ public class ControlCuenta implements Serializable {
                 //infoRegistro = "Cantidad de registros : " + filtrarListCuentas.size();
                 modificarInfoRegistro(filtrarListCuentas.size());
             }
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosCuenta");
+            PrimefacesContextUI.actualizar("form:datosCuenta");
 
             index = -1;
             activoDetalle = true;
-            RequestContext.getCurrentInstance().update("form:DETALLES");
+            PrimefacesContextUI.actualizar("form:DETALLES");
             secRegistroCuentas = null;
             cambiosCuentas = true;
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
     }
@@ -900,7 +901,7 @@ public class ControlCuenta implements Serializable {
             cuentaAsociadaSAP.setFilterStyle("width: 85%");
             cuentaSubCuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaSubCuenta");
             cuentaSubCuenta.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosCuenta");
+            PrimefacesContextUI.actualizar("form:datosCuenta");
             bandera = 1;
         } else if (bandera == 1) {
             altoTabla = "335";
@@ -928,7 +929,7 @@ public class ControlCuenta implements Serializable {
             cuentaAsociadaSAP.setFilterStyle("display: none; visibility: hidden;");
             cuentaSubCuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaSubCuenta");
             cuentaSubCuenta.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosCuenta");
+            PrimefacesContextUI.actualizar("form:datosCuenta");
             bandera = 0;
             filtrarListCuentas = null;
             tipoLista = 0;
@@ -964,7 +965,7 @@ public class ControlCuenta implements Serializable {
             cuentaAsociadaSAP.setFilterStyle("display: none; visibility: hidden;");
             cuentaSubCuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaSubCuenta");
             cuentaSubCuenta.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosCuenta");
+            PrimefacesContextUI.actualizar("form:datosCuenta");
             bandera = 0;
             filtrarListCuentas = null;
             tipoLista = 0;
@@ -975,7 +976,7 @@ public class ControlCuenta implements Serializable {
         listCuentasModificar.clear();
         index = -1;
         activoDetalle = true;
-        RequestContext.getCurrentInstance().update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
         secRegistroCuentas = null;
         listCuentas = null;
         listaEmpresas = null;
@@ -984,7 +985,7 @@ public class ControlCuenta implements Serializable {
         listCuentas = null;
         guardado = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void asignarIndex(Integer indice, int dlg, int LND) {
@@ -998,11 +999,11 @@ public class ControlCuenta implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            context.update("form:ContracuentaDialogo");
-            context.execute("ContracuentaDialogo.show()");
+            PrimefacesContextUI.actualizar("form:ContracuentaDialogo");
+            PrimefacesContextUI.ejecutar("PF('ContracuentaDialogo').show()");
         } else if (dlg == 1) {
-            context.update("form:RubrosDialogo");
-            context.execute("RubrosDialogo.show()");
+            PrimefacesContextUI.actualizar("form:RubrosDialogo");
+            PrimefacesContextUI.ejecutar("PF('RubrosDialogo').show()");
         }
     }
 
@@ -1010,13 +1011,13 @@ public class ControlCuenta implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (index >= 0) {
             if (cualCelda == 3) {
-                context.update("form:ContracuentaDialogo");
-                context.execute("ContracuentaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:ContracuentaDialogo");
+                PrimefacesContextUI.ejecutar("PF('ContracuentaDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 5) {
-                context.update("form:RubrosDialogo");
-                context.execute("RubrosDialogo.show()");
+                PrimefacesContextUI.actualizar("form:RubrosDialogo");
+                PrimefacesContextUI.ejecutar("PF('RubrosDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -1058,30 +1059,30 @@ public class ControlCuenta implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
                         nuevoCuentas.setContracuentatesoreria(listCuentasTesoreria.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:nuevaTerceroCT");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaTerceroCT");
                     } else if (tipoNuevo == 2) {
                         duplicarCuentas.setContracuentatesoreria(listCuentasTesoreria.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:duplicarTerceroCT");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarTerceroCT");
                     }
                     listCuentasTesoreria.clear();
                     getListCuentasTesoreria();
                 } else {
-                    context.update("form:TerceroDialogo");
-                    context.execute("TerceroDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:TerceroDialogo");
+                    PrimefacesContextUI.ejecutar("PF('TerceroDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
-                        context.update("formularioDialogos:nuevaTerceroCT");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaTerceroCT");
                     } else if (tipoNuevo == 2) {
-                        context.update("formularioDialogos:duplicarTerceroCT");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarTerceroCT");
                     }
                 }
             } else {
                 if (tipoNuevo == 1) {
                     nuevoCuentas.setContracuentatesoreria(new Cuentas());
-                    context.update("formularioDialogos:nuevaTerceroCT");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaTerceroCT");
                 } else if (tipoNuevo == 2) {
                     duplicarCuentas.setContracuentatesoreria(new Cuentas());
-                    context.update("formularioDialogos:duplicarTerceroCT");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTerceroCT");
                 }
                 listCuentasTesoreria.clear();
                 getListCuentasTesoreria();
@@ -1102,30 +1103,30 @@ public class ControlCuenta implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
                         nuevoCuentas.setRubropresupuestal(listRubros.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:nuevaCodigoAT");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaCodigoAT");
                     } else if (tipoNuevo == 2) {
                         duplicarCuentas.setRubropresupuestal(listRubros.get(indiceUnicoElemento));
-                        context.update("formularioDialogos:duplicarCodigoAT");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarCodigoAT");
                     }
                     listRubros.clear();
                     getListRubros();
                 } else {
-                    context.update("form:CiudadDialogo");
-                    context.execute("CiudadDialogo.show()");
+                    PrimefacesContextUI.actualizar("form:CiudadDialogo");
+                    PrimefacesContextUI.ejecutar("PF('CiudadDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
-                        context.update("formularioDialogos:nuevaCodigoAT");
+                        PrimefacesContextUI.actualizar("formularioDialogos:nuevaCodigoAT");
                     } else if (tipoNuevo == 2) {
-                        context.update("formularioDialogos:duplicarCodigoAT");
+                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarCodigoAT");
                     }
                 }
             } else {
                 if (tipoNuevo == 1) {
                     nuevoCuentas.setRubropresupuestal(new Rubrospresupuestales());
-                    context.update("formularioDialogos:nuevaCodigoAT");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCodigoAT");
                 } else if (tipoNuevo == 2) {
                     duplicarCuentas.setRubropresupuestal(new Rubrospresupuestales());
-                    context.update("formularioDialogos:duplicarCodigoAT");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCodigoAT");
                 }
                 listRubros.clear();
                 getListRubros();
@@ -1161,33 +1162,33 @@ public class ControlCuenta implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             cambiosCuentas = true;
             permitirIndex = true;
-            context.update("form:datosCuenta");
+            PrimefacesContextUI.actualizar("form:datosCuenta");
         } else if (tipoActualizacion == 1) {
             nuevoCuentas.setContracuentatesoreria(cuentaSeleccionada);
-            context.update("formularioDialogos:nuevaTerceroCT");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaTerceroCT");
         } else if (tipoActualizacion == 2) {
             duplicarCuentas.setContracuentatesoreria(cuentaSeleccionada);
-            context.update("formularioDialogos:duplicarTTerceroCT");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTTerceroCT");
         }
         filtrarListCuentas = null;
         cuentaSeleccionada = null;
         aceptar = true;
         index = -1;
         activoDetalle = true;
-        RequestContext.getCurrentInstance().update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
         secRegistroCuentas = null;
         tipoActualizacion = -1;
         /*
-         context.update("form:ContracuentaDialogo");
-         context.update("form:lovContracuenta");
-         context.update("form:aceptarCC");*/
+         PrimefacesContextUI.actualizar("form:ContracuentaDialogo");
+         PrimefacesContextUI.actualizar("form:lovContracuenta");
+         PrimefacesContextUI.actualizar("form:aceptarCC");*/
         context.reset("form:lovContracuenta:globalFilter");
-        context.execute("lovContracuenta.clearFilters()");
-        context.execute("ContracuentaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovContracuenta').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ContracuentaDialogo').hide()");
     }
 
     public void cancelarCambioCuenta() {
@@ -1200,10 +1201,10 @@ public class ControlCuenta implements Serializable {
         tipoActualizacion = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
         context.reset("form:lovContracuenta:globalFilter");
-        context.execute("lovContracuenta.clearFilters()");
-        context.execute("ContracuentaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovContracuenta').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ContracuentaDialogo').hide()");
     }
 
     public void actualizarRubro() {
@@ -1230,34 +1231,34 @@ public class ControlCuenta implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             cambiosCuentas = true;
             permitirIndex = true;
 
-            context.update("form:datosCuenta");
+            PrimefacesContextUI.actualizar("form:datosCuenta");
         } else if (tipoActualizacion == 1) {
             nuevoCuentas.setRubropresupuestal(rubroSeleccionado);
-            context.update("formularioDialogos:nuevaCiudadT");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaCiudadT");
         } else if (tipoActualizacion == 2) {
             duplicarCuentas.setRubropresupuestal(rubroSeleccionado);
-            context.update("formularioDialogos:duplicarTCiudadT");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTCiudadT");
         }
         filtrarListRubros = null;
         rubroSeleccionado = null;
         aceptar = true;
         index = -1;
         activoDetalle = true;
-        RequestContext.getCurrentInstance().update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
         secRegistroCuentas = null;
         tipoActualizacion = -1;
         /*
-         context.update("form:RubrosDialogo");
-         context.update("form:lovRubros");
-         context.update("form:aceptarRP");*/
+         PrimefacesContextUI.actualizar("form:RubrosDialogo");
+         PrimefacesContextUI.actualizar("form:lovRubros");
+         PrimefacesContextUI.actualizar("form:aceptarRP");*/
         context.reset("form:lovRubros:globalFilter");
-        context.execute("lovRubros.clearFilters()");
-        context.execute("RubrosDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovRubros').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('RubrosDialogo').hide()");
     }
 
     public void cancelarCambioRubro() {
@@ -1270,10 +1271,10 @@ public class ControlCuenta implements Serializable {
         tipoActualizacion = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
         context.reset("form:lovRubros:globalFilter");
-        context.execute("lovRubros.clearFilters()");
-        context.execute("RubrosDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovRubros').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('RubrosDialogo').hide()");
     }
 
     public String exportXML() {
@@ -1299,7 +1300,7 @@ public class ControlCuenta implements Serializable {
         index = -1;
         secRegistroCuentas = null;
         activoDetalle = true;
-        RequestContext.getCurrentInstance().update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
     }
 
     public void verificarExportXLS() throws IOException {
@@ -1318,7 +1319,7 @@ public class ControlCuenta implements Serializable {
         index = -1;
         secRegistroCuentas = null;
         activoDetalle = true;
-        RequestContext.getCurrentInstance().update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
     }
 
     public void eventoFiltrar() {
@@ -1328,15 +1329,15 @@ public class ControlCuenta implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         //infoRegistro = "Cantidad de Registros: " + filtrarListCuentas.size();
         modificarInfoRegistro(filtrarListCuentas.size());
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
 
     public void dialogoSeleccionarCuenta() {
         RequestContext context = RequestContext.getCurrentInstance();
         System.out.println("Empresa Actual : " + empresaActual.getNombre());
         getListCuentasTesoreria();
-        context.update("form:BuscarCuentasDialogo");
-        context.execute("BuscarCuentasDialogo.show()");
+        PrimefacesContextUI.actualizar("form:BuscarCuentasDialogo");
+        PrimefacesContextUI.ejecutar("PF('BuscarCuentasDialogo').show()");
     }
 
     public void validarSeleccionCuenta() {
@@ -1347,18 +1348,18 @@ public class ControlCuenta implements Serializable {
             listCuentas.add(cuentaSeleccionada);
             cuentaSeleccionada = new Cuentas();
             filtrarListCuentasTesoreria = null;
-            context.update("form:datosCuenta");
+            PrimefacesContextUI.actualizar("form:datosCuenta");
             /*
-             context.update("form:BuscarCuentasDialogo");
-             context.update("form:lovCuentas");
-             context.update("form:aceptarBC");*/
+             PrimefacesContextUI.actualizar("form:BuscarCuentasDialogo");
+             PrimefacesContextUI.actualizar("form:lovCuentas");
+             PrimefacesContextUI.actualizar("form:aceptarBC");*/
             context.reset("form:lovCuentas:globalFilter");
-            context.execute("lovCuentas.clearFilters()");
-            context.execute("BuscarCuentasDialogo.hide()");
+            PrimefacesContextUI.ejecutar("PF('lovCuentas').clearFilters()");
+            PrimefacesContextUI.ejecutar("PF('BuscarCuentasDialogo').hide()");
         } else {
             cuentaSeleccionada = new Cuentas();
             filtrarListCuentasTesoreria = null;
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
     }
 
@@ -1367,8 +1368,8 @@ public class ControlCuenta implements Serializable {
         cuentaSeleccionada = new Cuentas();
         filtrarListCuentasTesoreria = null;
         context.reset("form:lovCuentas:globalFilter");
-        context.execute("lovCuentas.clearFilters()");
-        context.execute("BuscarCuentasDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovCuentas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('BuscarCuentasDialogo').hide()");
     }
 
     public void mostrarTodos() {
@@ -1376,10 +1377,10 @@ public class ControlCuenta implements Serializable {
         if (cambiosCuentas == false) {
             listCuentas = null;
             getListCuentas();
-            context.update("form:datosCuenta");
+            PrimefacesContextUI.actualizar("form:datosCuenta");
             cuentaActual = null;
         } else {
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
     }
 
@@ -1388,7 +1389,7 @@ public class ControlCuenta implements Serializable {
         verificarRastroTerceros();
         index = -1;
         activoDetalle = true;
-        RequestContext.getCurrentInstance().update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
     }
 
     //Verificar Rastro Vigencia Sueldos
@@ -1401,44 +1402,44 @@ public class ControlCuenta implements Serializable {
                 backUp = secRegistroCuentas;
                 secRegistroCuentas = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "Cuentas";
                     msnConfirmarRastro = "La tabla CUENTAS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("CUENTAS")) {
                 nombreTablaRastro = "Cuentas";
                 msnConfirmarRastroHistorico = "La tabla CUENTAS tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;
         activoDetalle = true;
-        RequestContext.getCurrentInstance().update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
     }
 
     public void lovEmpresas() {
         index = -1;
         activoDetalle = true;
-        RequestContext.getCurrentInstance().update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
         secRegistroCuentas = null;
         cualCelda = -1;
-        RequestContext.getCurrentInstance().execute("EmpresasDialogo.show()");
+        RequestContext.getCurrentInstance().execute("EmpresasDialogo').show()");
     }
 
     public void actualizarEmpresa() {
@@ -1459,28 +1460,28 @@ public class ControlCuenta implements Serializable {
                 modificarInfoRegistro(0);
             }
             getListCuentasTesoreria();
-            context.update("form:nombreEmpresa");
-            context.update("form:nitEmpresa");
-            context.update("form:datosCuenta");
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:nombreEmpresa");
+            PrimefacesContextUI.actualizar("form:nitEmpresa");
+            PrimefacesContextUI.actualizar("form:datosCuenta");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
 
             //empresaSeleccionada = new Empresas();
             filtrarListEmpresas = null;
 
-            context.update("formularioDialogos:EmpresasDialogo");
-            context.update("formularioDialogos:lovEmpresas");
-            context.update("formularioDialogos:aceptarE");
+            PrimefacesContextUI.actualizar("formularioDialogos:EmpresasDialogo");
+            PrimefacesContextUI.actualizar("formularioDialogos:lovEmpresas");
+            PrimefacesContextUI.actualizar("formularioDialogos:aceptarE");
             context.reset("formularioDialogos:lovEmpresas:globalFilter");
-            context.execute("EmpresasDialogo.hide()");
+            PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
         } else {
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
     }
 
     public void cancelarCambioEmpresa() {
         index = -1;
         activoDetalle = true;
-        RequestContext.getCurrentInstance().update("form:DETALLES");
+        PrimefacesContextUI.actualizar("form:DETALLES");
         filtrarListEmpresas = null;
     }
 
@@ -1526,7 +1527,7 @@ public class ControlCuenta implements Serializable {
             modificarInfoRegistro(0);
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosCuenta");
+        PrimefacesContextUI.actualizar("form:datosCuenta");
     }
     
     public String redirigir() {

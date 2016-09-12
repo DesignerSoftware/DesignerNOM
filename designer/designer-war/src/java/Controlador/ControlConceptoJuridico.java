@@ -28,6 +28,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -156,14 +157,14 @@ public class ControlConceptoJuridico implements Serializable {
             if (index >= 0) {
                 modificarConcepto(index);
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("formTexto:editarTexto");
+                PrimefacesContextUI.actualizar("formTexto:editarTexto");
                 cambioTextNormativo = false;
             }
         } else {
             textoNormativo = textoNormaAux;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formTexto:editarTexto");
-            context.execute("errorRegNuevo.show()");
+            PrimefacesContextUI.actualizar("formTexto:editarTexto");
+            PrimefacesContextUI.ejecutar("PF('errorRegNuevo').show()");
             index = -1;
         }
     }
@@ -201,15 +202,15 @@ public class ControlConceptoJuridico implements Serializable {
                 index = -1;
                 secRegistroConcepto = null;
             }
-            context.update("form:ACEPTAR");
-            context.update("form:datosConcepto");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosConcepto");
             cambiosConceptos = true;
         } else {
             listConceptosJuridicos.get(index).setExpedidopor(auxExpPor);
             listConceptosJuridicos.get(index).setQuien(auxQuien);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosConcepto");
-            context.execute("errorRegNuevo.show()");
+            PrimefacesContextUI.actualizar("form:datosConcepto");
+            PrimefacesContextUI.ejecutar("PF('errorRegNuevo').show()");
             index = -1;
         }
     }
@@ -228,10 +229,10 @@ public class ControlConceptoJuridico implements Serializable {
             auxExpPor = listConceptosJuridicos.get(index).getExpedidopor();
             auxQuien = listConceptosJuridicos.get(index).getQuien();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formTexto:editarTexto");
+            PrimefacesContextUI.actualizar("formTexto:editarTexto");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
     }
 
@@ -243,8 +244,8 @@ public class ControlConceptoJuridico implements Serializable {
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             listConceptosJuridicos.get(index).setFecha(auxFecha);
-            context.update("form:datosConcepto");
-            context.execute("errorRegNuevo.show()");
+            PrimefacesContextUI.actualizar("form:datosConcepto");
+            PrimefacesContextUI.ejecutar("PF('errorRegNuevo').show()");
             index = -1;
         }
     }
@@ -263,9 +264,9 @@ public class ControlConceptoJuridico implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros : 0";
         }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     /**
@@ -289,10 +290,10 @@ public class ControlConceptoJuridico implements Serializable {
                     listConceptosJuridicosModificar.clear();
                 }
                 listConceptosJuridicos = null;
-                context.update("form:datosConcepto");
+                PrimefacesContextUI.actualizar("form:datosConcepto");
                 FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                context.update("form:growl");
+                PrimefacesContextUI.actualizar("form:growl");
                 k = 0;
             }
             cambioTextNormativo = true;
@@ -303,7 +304,7 @@ public class ControlConceptoJuridico implements Serializable {
             System.out.println("Error guardarCambiosConcepto : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Un error se presento en el guardado, por favor intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
     }
     //CANCELAR MODIFICACIONES
@@ -314,7 +315,7 @@ public class ControlConceptoJuridico implements Serializable {
     public void refrescarTexto() {
         textoNormaAux = listConceptosJuridicos.get(indexAux).getTexto();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("formTexto:editarTexto");
+        PrimefacesContextUI.actualizar("formTexto:editarTexto");
     }
 
     public void cancelarModificacion() {
@@ -327,7 +328,7 @@ public class ControlConceptoJuridico implements Serializable {
             conceptoCargo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConcepto:conceptoCargo");
             conceptoCargo.setFilterStyle("display: none; visibility: hidden;");
 
-            RequestContext.getCurrentInstance().update("form:datosConcepto");
+            PrimefacesContextUI.actualizar("form:datosConcepto");
             bandera = 0;
             filtrarListConceptosJuridicos = null;
             tipoLista = 0;
@@ -341,7 +342,7 @@ public class ControlConceptoJuridico implements Serializable {
         k = 0;
         listConceptosJuridicos = null;
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
         cambiosConceptos = false;
         getListConceptosJuridicos();
         textoNormativo = "";
@@ -351,10 +352,10 @@ public class ControlConceptoJuridico implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros : 0";
         }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosConcepto");
-        context.update("formTexto:editarTexto");
+        PrimefacesContextUI.actualizar("form:datosConcepto");
+        PrimefacesContextUI.actualizar("formTexto:editarTexto");
     }
 
     //MOSTRAR DATOS CELDA
@@ -375,20 +376,20 @@ public class ControlConceptoJuridico implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarFechaCD");
-                context.execute("editarFechaCD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaCD");
+                PrimefacesContextUI.ejecutar("PF('editarFechaCD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarNombreCD");
-                context.execute("editarNombreCD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarNombreCD");
+                PrimefacesContextUI.ejecutar("PF('editarNombreCD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarCargoCD");
-                context.execute("editarCargoCD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCargoCD");
+                PrimefacesContextUI.ejecutar("PF('editarCargoCD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                context.update("formularioDialogos:editaTextoD");
-                context.execute("editaTextoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editaTextoD");
+                PrimefacesContextUI.ejecutar("PF('editaTextoD').show()");
                 cualCelda = -1;
             }
         }
@@ -399,9 +400,9 @@ public class ControlConceptoJuridico implements Serializable {
     public void validarIngresoNuevoRegistro() {
         RequestContext context = RequestContext.getCurrentInstance();
         limpiarNuevoConcepto();
-        context.update("form:nuevaC");
-        context.update("formularioDialogos:NuevoRegistroConcepto");
-        context.execute("NuevoRegistroConcepto.show()");
+        PrimefacesContextUI.actualizar("form:nuevaC");
+        PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroConcepto");
+        PrimefacesContextUI.ejecutar("PF('NuevoRegistroConcepto').show()");
 
     }
 
@@ -413,7 +414,7 @@ public class ControlConceptoJuridico implements Serializable {
             duplicarConceptoM();
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -425,7 +426,7 @@ public class ControlConceptoJuridico implements Serializable {
             borrarConcepto();
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -470,7 +471,7 @@ public class ControlConceptoJuridico implements Serializable {
                 conceptoNombre.setFilterStyle("display: none; visibility: hidden;");
                 conceptoCargo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConcepto:conceptoCargo");
                 conceptoCargo.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosConcepto");
+                PrimefacesContextUI.actualizar("form:datosConcepto");
                 bandera = 0;
                 filtrarListConceptosJuridicos = null;
                 tipoLista = 0;
@@ -500,21 +501,21 @@ public class ControlConceptoJuridico implements Serializable {
 
             infoRegistro = "Cantidad de registros : " + listConceptosJuridicos.size();
 
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("NuevoRegistroConcepto.hide()");
-            context.update("form:datosConcepto");
-            context.update("formularioDialogos:NuevoRegistroConcepto");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroConcepto').hide()");
+            PrimefacesContextUI.actualizar("form:datosConcepto");
+            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroConcepto");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             cambiosConceptos = true;
             index = -1;
             secRegistroConcepto = null;
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorRegNuevo.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegNuevo').show()");
         }
     }
 
@@ -547,8 +548,8 @@ public class ControlConceptoJuridico implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:DuplicarRegistroConcepto");
-            context.execute("DuplicarRegistroConcepto.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroConcepto");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroConcepto').show()");
 
         }
     }
@@ -569,7 +570,7 @@ public class ControlConceptoJuridico implements Serializable {
                     conceptoCargo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConcepto:conceptoCargo");
                     conceptoCargo.setFilterStyle("display: none; visibility: hidden;");
 
-                    RequestContext.getCurrentInstance().update("form:datosConcepto");
+                    PrimefacesContextUI.actualizar("form:datosConcepto");
                     bandera = 0;
                     filtrarListConceptosJuridicos = null;
                     tipoLista = 0;
@@ -598,21 +599,21 @@ public class ControlConceptoJuridico implements Serializable {
 
                 infoRegistro = "Cantidad de registros : " + listConceptosJuridicos.size();
 
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                PrimefacesContextUI.actualizar("form:informacionRegistro");
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosConcepto");
+                PrimefacesContextUI.actualizar("form:datosConcepto");
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
-                context.execute("DuplicarRegistroConcepto.hide()");
+                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroConcepto').hide()");
                 cambiosConceptos = true;
                 index = -1;
                 secRegistroConcepto = null;
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorRegNuevo.show()");
+            PrimefacesContextUI.ejecutar("PF('errorRegNuevo').show()");
         }
     }
 
@@ -665,17 +666,17 @@ public class ControlConceptoJuridico implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros : 0";
             }
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosConcepto");
-            context.update("formTexto:editarTexto");
+            PrimefacesContextUI.actualizar("form:datosConcepto");
+            PrimefacesContextUI.actualizar("formTexto:editarTexto");
             index = -1;
             secRegistroConcepto = null;
             cambiosConceptos = true;
             if (guardado == true) {
                 guardado = false;
             }
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
     }
 
@@ -700,7 +701,7 @@ public class ControlConceptoJuridico implements Serializable {
             conceptoNombre.setFilterStyle("width: 85%");
             conceptoCargo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConcepto:conceptoCargo");
             conceptoCargo.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosConcepto");
+            PrimefacesContextUI.actualizar("form:datosConcepto");
             bandera = 1;
         } else if (bandera == 1) {
             altoTabla = "180";
@@ -710,7 +711,7 @@ public class ControlConceptoJuridico implements Serializable {
             conceptoNombre.setFilterStyle("display: none; visibility: hidden;");
             conceptoCargo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConcepto:conceptoCargo");
             conceptoCargo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosConcepto");
+            PrimefacesContextUI.actualizar("form:datosConcepto");
             bandera = 0;
             filtrarListConceptosJuridicos = null;
             tipoLista = 0;
@@ -731,7 +732,7 @@ public class ControlConceptoJuridico implements Serializable {
             conceptoCargo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConcepto:conceptoCargo");
             conceptoCargo.setFilterStyle("display: none; visibility: hidden;");
 
-            RequestContext.getCurrentInstance().update("form:datosConcepto");
+            PrimefacesContextUI.actualizar("form:datosConcepto");
             bandera = 0;
             filtrarListConceptosJuridicos = null;
             tipoLista = 0;
@@ -756,7 +757,7 @@ public class ControlConceptoJuridico implements Serializable {
         cambioTextNormativo = true;
         nuevoConcepto = new ConceptosJuridicos();
         duplicarConcepto = new ConceptosJuridicos();
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -838,7 +839,7 @@ public class ControlConceptoJuridico implements Serializable {
             }
         }
         infoRegistro = "Cantidad de registros : " + filtrarListConceptosJuridicos.size();
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
 
     //METODO RASTROS PARA LAS TABLAS EN EMPLVIGENCIASUELDOS
@@ -858,30 +859,30 @@ public class ControlConceptoJuridico implements Serializable {
                 backUp = secRegistroConcepto;
                 secRegistroConcepto = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "ConceptosJuridicos";
                     msnConfirmarRastro = "La tabla CONCEPTOSJURIDICOS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("CONCEPTOSJURIDICOS")) {
                 nombreTablaRastro = "ConceptosJuridicos";
                 msnConfirmarRastroHistorico = "La tabla CONCEPTOSJURIDICOS tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;
@@ -894,8 +895,8 @@ public class ControlConceptoJuridico implements Serializable {
         cualCelda = -1;
         aceptar = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:EmpresasDialogo");
-        context.execute("EmpresasDialogo.show()");
+        PrimefacesContextUI.actualizar("form:EmpresasDialogo");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
     }
 
     public void actualizarEmpresa() {
@@ -909,19 +910,19 @@ public class ControlConceptoJuridico implements Serializable {
             }
             textoNormativo = "";
             ////////////
-            context.update("form:datosConcepto");
-            context.update("form:nombreEmpresa");
-            context.update("form:nitEmpresa");
-            context.update("formTexto:editarTexto");
+            PrimefacesContextUI.actualizar("form:datosConcepto");
+            PrimefacesContextUI.actualizar("form:nombreEmpresa");
+            PrimefacesContextUI.actualizar("form:nitEmpresa");
+            PrimefacesContextUI.actualizar("formTexto:editarTexto");
             filtrarListEmpresas = null;
             aceptar = true;
             /*
-             context.update("form:EmpresasDialogo");
-             context.update("form:lovEmpresas");
-             context.update("form:aceptarE");*/
+             PrimefacesContextUI.actualizar("form:EmpresasDialogo");
+             PrimefacesContextUI.actualizar("form:lovEmpresas");
+             PrimefacesContextUI.actualizar("form:aceptarE");*/
             context.reset("form:lovEmpresas:globalFilter");
-            context.execute("lovEmpresas.clearFilters()");
-            context.execute("EmpresasDialogo.hide()");
+            PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+            PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
             backUpEmpresaActual = empresaActual;
             getListConceptosJuridicos();
             if (listConceptosJuridicos != null) {
@@ -929,10 +930,10 @@ public class ControlConceptoJuridico implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros : 0";
             }
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
     }
 
@@ -942,8 +943,8 @@ public class ControlConceptoJuridico implements Serializable {
         filtrarListEmpresas = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEmpresas:globalFilter");
-        context.execute("lovEmpresas.clearFilters()");
-        context.execute("EmpresasDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
     }
 
     public void limpiarMSNRastros() {

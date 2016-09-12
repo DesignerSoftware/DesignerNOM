@@ -25,6 +25,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -179,7 +180,7 @@ public class ControlTiposAusentismos implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposAusentismos:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTiposAusentismos");
+            PrimefacesContextUI.actualizar("form:datosTiposAusentismos");
             bandera = 0;
             filtrarTiposAusentismos = null;
             tipoLista = 0;
@@ -197,8 +198,8 @@ public class ControlTiposAusentismos implements Serializable {
         getListTiposAusentismos();
         RequestContext context = RequestContext.getCurrentInstance();
         contarRegistros();
-        context.update("form:datosTiposAusentismos");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosTiposAusentismos");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void salir() {
@@ -209,7 +210,7 @@ public class ControlTiposAusentismos implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposAusentismos:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTiposAusentismos");
+            PrimefacesContextUI.actualizar("form:datosTiposAusentismos");
             bandera = 0;
             filtrarTiposAusentismos = null;
             tipoLista = 0;
@@ -225,8 +226,8 @@ public class ControlTiposAusentismos implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosTiposAusentismos");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosTiposAusentismos");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -237,7 +238,7 @@ public class ControlTiposAusentismos implements Serializable {
             codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposAusentismos:descripcion");
             descripcion.setFilterStyle("width: 85%;");
-            RequestContext.getCurrentInstance().update("form:datosTiposAusentismos");
+            PrimefacesContextUI.actualizar("form:datosTiposAusentismos");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -247,7 +248,7 @@ public class ControlTiposAusentismos implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposAusentismos:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTiposAusentismos");
+            PrimefacesContextUI.actualizar("form:datosTiposAusentismos");
             bandera = 0;
             filtrarTiposAusentismos = null;
             tipoLista = 0;
@@ -304,8 +305,8 @@ public class ControlTiposAusentismos implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                 } else {
                     if (tiposAusentismosSeleccionado.getCodigo() == a) {
@@ -340,8 +341,8 @@ public class ControlTiposAusentismos implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                 }
             } else {
@@ -385,8 +386,8 @@ public class ControlTiposAusentismos implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                 } else {
                     if (tiposAusentismosSeleccionado.getCodigo() == a) {
@@ -423,14 +424,14 @@ public class ControlTiposAusentismos implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                 }
 
             }
-            context.update("form:datosTiposAusentismos");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTiposAusentismos");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -455,16 +456,16 @@ public class ControlTiposAusentismos implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosTiposAusentismos");
+            PrimefacesContextUI.actualizar("form:datosTiposAusentismos");
             modificarInfoRegistro(listTiposAusentismos.size());
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
 
             tiposAusentismosSeleccionado = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -491,8 +492,8 @@ public class ControlTiposAusentismos implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:validacionBorrar");
-                context.execute("validacionBorrar.show()");
+                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 tiposAusentismosSeleccionado = null;
                 contarClasesAusentimosTipoAusentismo = new BigInteger("-1");
 
@@ -506,8 +507,8 @@ public class ControlTiposAusentismos implements Serializable {
 
         if (!borrarTiposAusentismos.isEmpty() || !crearTiposAusentismos.isEmpty() || !modificarTiposAusentismos.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:confirmarGuardar");
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
     }
@@ -521,8 +522,8 @@ public class ControlTiposAusentismos implements Serializable {
                 administrarTiposAusentismos.borrarTiposAusentismos(borrarTiposAusentismos);
                 //mostrarBorrados
                 registrosBorrados = borrarTiposAusentismos.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarTiposAusentismos.clear();
             }
             if (!modificarTiposAusentismos.isEmpty()) {
@@ -535,15 +536,15 @@ public class ControlTiposAusentismos implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listTiposAusentismos = null;
-            context.update("form:datosTiposAusentismos");
+            PrimefacesContextUI.actualizar("form:datosTiposAusentismos");
             k = 0;
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
         tiposAusentismosSeleccionado = null;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -559,17 +560,17 @@ public class ControlTiposAusentismos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editCodigo");
-                context.execute("editCodigo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editDescripcion");
-                context.execute("editDescripcion.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
 
         } else{
-            RequestContext.getCurrentInstance().execute("formularioDialogos:seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
 
@@ -627,7 +628,7 @@ public class ControlTiposAusentismos implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposAusentismos:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTiposAusentismos");
+                PrimefacesContextUI.actualizar("form:datosTiposAusentismos");
                 bandera = 0;
                 filtrarTiposAusentismos = null;
                 tipoLista = 0;
@@ -642,19 +643,19 @@ public class ControlTiposAusentismos implements Serializable {
             listTiposAusentismos.add(nuevoTiposAusentismos);
             tiposAusentismosSeleccionado = nuevoTiposAusentismos;
             nuevoTiposAusentismos = new Tiposausentismos();
-            context.update("form:datosTiposAusentismos");
+            PrimefacesContextUI.actualizar("form:datosTiposAusentismos");
             modificarInfoRegistro(listTiposAusentismos.size());
 
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
 
-            context.execute("nuevoRegistroTiposAusentismos.hide()");
+            PrimefacesContextUI.ejecutar("PF('nuevoRegistroTiposAusentismos').hide()");
 
         } else {
-            context.update("form:validacionNuevoTipoAusentismo");
-            context.execute("validacionNuevoTipoAusentismo.show()");
+            PrimefacesContextUI.actualizar("form:validacionNuevoTipoAusentismo");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevoTipoAusentismo').show()");
             contador = 0;
         }
     }
@@ -684,8 +685,8 @@ public class ControlTiposAusentismos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarTE");
-            context.execute("duplicarRegistroTiposAusentismos.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposAusentismos').show()");
         }
     }
 
@@ -741,11 +742,11 @@ public class ControlTiposAusentismos implements Serializable {
             listTiposAusentismos.add(duplicarTiposAusentismos);
             crearTiposAusentismos.add(duplicarTiposAusentismos);
             tiposAusentismosSeleccionado = duplicarTiposAusentismos;
-            context.update("form:datosTiposAusentismos");
+            PrimefacesContextUI.actualizar("form:datosTiposAusentismos");
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             modificarInfoRegistro(listTiposAusentismos.size());
 
             if (bandera == 1) {
@@ -755,18 +756,18 @@ public class ControlTiposAusentismos implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposAusentismos:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTiposAusentismos");
+                PrimefacesContextUI.actualizar("form:datosTiposAusentismos");
                 bandera = 0;
                 filtrarTiposAusentismos = null;
                 tipoLista = 0;
             }
             duplicarTiposAusentismos = new Tiposausentismos();
-            RequestContext.getCurrentInstance().execute("duplicarRegistroTiposAusentismos.hide()");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposAusentismos').hide()");
 
         } else {
             contador = 0;
-            context.update("form:validacionDuplicarTipoAusentismo");
-            context.execute("validacionDuplicarTipoAusentismo.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarTipoAusentismo");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarTipoAusentismo').show()");
         }
     }
 
@@ -796,22 +797,22 @@ public class ControlTiposAusentismos implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(tiposAusentismosSeleccionado.getSecuencia(), "TIPOSAUSENTISMOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } 
          else {
             if (administrarRastros.verificarHistoricosTabla("TIPOSAUSENTISMOS")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -819,7 +820,7 @@ public class ControlTiposAusentismos implements Serializable {
 
     public void modificarInfoRegistro(int valor){
         infoRegistro = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
     }
     
     public void contarRegistros(){

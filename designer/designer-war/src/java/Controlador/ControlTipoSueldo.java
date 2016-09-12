@@ -30,6 +30,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -435,8 +436,8 @@ public class ControlTipoSueldo implements Serializable {
             index = -1;
             secRegistro = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosTipoSueldo");
-            context.execute("errorDatosNullTipoSueldo.show()");
+            PrimefacesContextUI.actualizar("form:datosTipoSueldo");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullTipoSueldo').show()");
         }
     }
 
@@ -474,7 +475,7 @@ public class ControlTipoSueldo implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //PrimefacesContextUI.actualizar("form:aceptar");
                     }
                 }
             }
@@ -482,8 +483,8 @@ public class ControlTipoSueldo implements Serializable {
             secRegistro = null;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosTipoSueldo");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTipoSueldo");
         } else {
             if (tipoLista == 0) {
                 listaTiposSueldos.get(index).setDescripcion(auxDescripcionTipoSueldo);
@@ -494,8 +495,8 @@ public class ControlTipoSueldo implements Serializable {
             index = -1;
             secRegistro = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosTipoSueldo");
-            context.execute("errorDescripcionTipoSueldo.show()");
+            PrimefacesContextUI.actualizar("form:datosTipoSueldo");
+            PrimefacesContextUI.ejecutar("PF('errorDescripcionTipoSueldo').show()");
         }
 
     }
@@ -522,7 +523,7 @@ public class ControlTipoSueldo implements Serializable {
                 }
                 if (guardadoTSFormulas == true) {
                     guardadoTSFormulas = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //PrimefacesContextUI.actualizar("form:aceptar");
                 }
             }
         }
@@ -530,8 +531,8 @@ public class ControlTipoSueldo implements Serializable {
         secRegistroTSFormulas = null;
         cambiosPagina = false;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
-        context.update("form:datosTSFormula");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosTSFormula");
     }
 
     public void modificarTSFormula(int indice, String confirmarCambio, String valorConfirmar) {
@@ -560,11 +561,11 @@ public class ControlTipoSueldo implements Serializable {
                 lovFormulas.clear();
                 getLovFormulas();
                 cambiosPagina = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             } else {
                 permitirIndexTSFormulas = false;
-                context.update("form:FormulaDialogo");
-                context.execute("FormulaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:FormulaDialogo");
+                PrimefacesContextUI.ejecutar("PF('FormulaDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -590,11 +591,11 @@ public class ControlTipoSueldo implements Serializable {
                 lovConceptos.clear();
                 getLovConceptos();
                 cambiosPagina = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             } else {
                 permitirIndexTSFormulas = false;
-                context.update("form:ConceptoDialogo");
-                context.execute("ConceptoDialogo.show()");
+                PrimefacesContextUI.actualizar("form:ConceptoDialogo");
+                PrimefacesContextUI.ejecutar("PF('ConceptoDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -621,12 +622,12 @@ public class ControlTipoSueldo implements Serializable {
                     }
                     if (guardadoTSFormulas == true) {
                         guardadoTSFormulas = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //PrimefacesContextUI.actualizar("form:aceptar");
                     }
                 }
             }
         }
-        context.update("form:datosTSFormula");
+        PrimefacesContextUI.actualizar("form:datosTSFormula");
     }
 
     public void modificarTSGrupo(int indice) {
@@ -651,7 +652,7 @@ public class ControlTipoSueldo implements Serializable {
                 }
                 if (guardadoTSGrupos == true) {
                     guardadoTSGrupos = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //PrimefacesContextUI.actualizar("form:aceptar");
                 }
             }
         }
@@ -659,8 +660,8 @@ public class ControlTipoSueldo implements Serializable {
         secRegistroTSGrupos = null;
         cambiosPagina = false;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
-        context.update("form:datosTSGrupo");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosTSGrupo");
     }
 
     public void modificarTSGrupo(int indice, String confirmarCambio, String valorConfirmar) {
@@ -689,11 +690,11 @@ public class ControlTipoSueldo implements Serializable {
                 lovGruposTiposEntidades.clear();
                 getLovGruposTiposEntidades();
                 cambiosPagina = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             } else {
                 permitirIndexTSGrupos = false;
-                context.update("form:GrupoDialogo");
-                context.execute("GrupoDialogo.show()");
+                PrimefacesContextUI.actualizar("form:GrupoDialogo");
+                PrimefacesContextUI.ejecutar("PF('GrupoDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -719,12 +720,12 @@ public class ControlTipoSueldo implements Serializable {
                     }
                     if (guardadoTSGrupos == true) {
                         guardadoTSGrupos = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //PrimefacesContextUI.actualizar("form:aceptar");
                     }
                 }
             }
         }
-        context.update("form:datosTSGrupo");
+        PrimefacesContextUI.actualizar("form:datosTSGrupo");
     }
 
     public void modificarTEFormula(int indice) {
@@ -750,7 +751,7 @@ public class ControlTipoSueldo implements Serializable {
                     }
                     if (guardadoTEFormulas == true) {
                         guardadoTEFormulas = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //PrimefacesContextUI.actualizar("form:aceptar");
                     }
                 }
             }
@@ -758,8 +759,8 @@ public class ControlTipoSueldo implements Serializable {
             secRegistroTEFormulas = null;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosTEFormula");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTEFormula");
         } else {
             if (tipoListaTEFormulas == 0) {
                 listaTEFormulasConceptos.get(indexTEFormulas).setConcepto(auxConceptoTE);
@@ -770,8 +771,8 @@ public class ControlTipoSueldo implements Serializable {
                 filtrarListaTEFormulasConceptos.get(indexTEFormulas).setTipoentidad(auxTipoEntidadTE);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorNuevoRegistroTEFormula.show()");
-            context.update("form:datosTEFormula");
+            PrimefacesContextUI.ejecutar("PF('errorNuevoRegistroTEFormula').show()");
+            PrimefacesContextUI.actualizar("form:datosTEFormula");
         }
     }
 
@@ -801,11 +802,11 @@ public class ControlTipoSueldo implements Serializable {
                 lovFormulas.clear();
                 getLovFormulas();
                 cambiosPagina = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             } else {
                 permitirIndexTEFormulas = false;
-                context.update("form:FormulaTEDialogo");
-                context.execute("FormulaTEDialogo.show()");
+                PrimefacesContextUI.actualizar("form:FormulaTEDialogo");
+                PrimefacesContextUI.ejecutar("PF('FormulaTEDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -831,11 +832,11 @@ public class ControlTipoSueldo implements Serializable {
                 lovConceptos.clear();
                 getLovConceptos();
                 cambiosPagina = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             } else {
                 permitirIndexTEFormulas = false;
-                context.update("form:ConceptoTEDialogo");
-                context.execute("ConceptoTEDialogo.show()");
+                PrimefacesContextUI.actualizar("form:ConceptoTEDialogo");
+                PrimefacesContextUI.ejecutar("PF('ConceptoTEDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -861,11 +862,11 @@ public class ControlTipoSueldo implements Serializable {
                 lovTiposEntidades.clear();
                 getLovTiposEntidades();
                 cambiosPagina = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             } else {
                 permitirIndexTEFormulas = false;
-                context.update("form:TipoEntidadDialogo");
-                context.execute("TipoEntidadDialogo.show()");
+                PrimefacesContextUI.actualizar("form:TipoEntidadDialogo");
+                PrimefacesContextUI.ejecutar("PF('TipoEntidadDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -892,12 +893,12 @@ public class ControlTipoSueldo implements Serializable {
                     }
                     if (guardadoTEFormulas == true) {
                         guardadoTEFormulas = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //PrimefacesContextUI.actualizar("form:aceptar");
                     }
                 }
             }
         }
-        context.update("form:datosTEFormula");
+        PrimefacesContextUI.actualizar("form:datosTEFormula");
     }
 
     public void posicionTSFormula() {
@@ -942,12 +943,12 @@ public class ControlTipoSueldo implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             listaTSFormulasConceptos = null;
             getListaTSFormulasConceptos();
-            context.update("form:datosTSFormula");
+            PrimefacesContextUI.actualizar("form:datosTSFormula");
             listaTSGruposTiposEntidades = null;
             getListaTSGruposTiposEntidades();
-            context.update("form:datosTSGrupo");
+            PrimefacesContextUI.actualizar("form:datosTSGrupo");
             listaTEFormulasConceptos = null;
-            context.update("form:datosTEFormula");
+            PrimefacesContextUI.actualizar("form:datosTEFormula");
             if (banderaTSFormulas == 1) {
                 altoTablaTSFormulas = "230";
                 tsFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaConcepto");
@@ -958,7 +959,7 @@ public class ControlTipoSueldo implements Serializable {
                 tsFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
                 tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
                 tsFormulaOrigen.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTSFormula");
+                PrimefacesContextUI.actualizar("form:datosTSFormula");
                 banderaTSFormulas = 0;
                 filtrarListaTSFormulasConceptos = null;
                 tipoListaTSFormulas = 0;
@@ -967,14 +968,14 @@ public class ControlTipoSueldo implements Serializable {
                 altoTablaTSGrupos = "73";
                 tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
                 tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTSGrupo");
+                PrimefacesContextUI.actualizar("form:datosTSGrupo");
                 banderaTSGrupos = 0;
                 filtrarListaTSGruposTiposEntidades = null;
                 tipoListaTSGrupos = 0;
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
     }
 
@@ -1002,7 +1003,7 @@ public class ControlTipoSueldo implements Serializable {
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
     }
 
@@ -1033,7 +1034,7 @@ public class ControlTipoSueldo implements Serializable {
                     tsFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
                     tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
                     tsFormulaOrigen.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosTSFormula");
+                    PrimefacesContextUI.actualizar("form:datosTSFormula");
                     banderaTSFormulas = 0;
                     filtrarListaTSFormulasConceptos = null;
                     tipoListaTSFormulas = 0;
@@ -1048,7 +1049,7 @@ public class ControlTipoSueldo implements Serializable {
                     teFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
                     teFormulaTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaTipoEntidad");
                     teFormulaTipoEntidad.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosTEFormula");
+                    PrimefacesContextUI.actualizar("form:datosTEFormula");
                     banderaTEFormulas = 0;
                     filtrarListaTEFormulasConceptos = null;
                     tipoListaTEFormulas = 0;
@@ -1057,16 +1058,16 @@ public class ControlTipoSueldo implements Serializable {
                 listaTEFormulasConceptos = null;
                 getListaTEFormulasConceptos();
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("form:lovTipoEntidad.clearFilters()");
-                context.update("form:TipoEntidadDialogo");
-                context.update("form:lovTipoEntidad");
-                context.update("form:datosTEFormula");
+                PrimefacesContextUI.ejecutar("PF('form:lovTipoEntidad').clearFilters()");
+                PrimefacesContextUI.actualizar("form:TipoEntidadDialogo");
+                PrimefacesContextUI.actualizar("form:lovTipoEntidad");
+                PrimefacesContextUI.actualizar("form:datosTEFormula");
                 lovTiposEntidades = null;
                 getLovTiposEntidades();
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
     }
 
@@ -1080,9 +1081,9 @@ public class ControlTipoSueldo implements Serializable {
             lovTiposEntidades = null;
             getLovTiposEntidades();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("form:lovTipoEntidad.clearFilters()");
-            context.update("form:TipoEntidadDialogo");
-            context.update("form:lovTipoEntidad");
+            PrimefacesContextUI.ejecutar("PF('form:lovTipoEntidad').clearFilters()");
+            PrimefacesContextUI.actualizar("form:TipoEntidadDialogo");
+            PrimefacesContextUI.actualizar("form:lovTipoEntidad");
             if (tipoListaTEFormulas == 0) {
                 secRegistroTEFormulas = listaTEFormulasConceptos.get(indexTEFormulas).getSecuencia();
                 formula = listaTEFormulasConceptos.get(indexTEFormulas).getFormula().getNombrelargo();
@@ -1103,7 +1104,7 @@ public class ControlTipoSueldo implements Serializable {
                 altoTablaTSGrupos = "73";
                 tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
                 tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTSGrupo");
+                PrimefacesContextUI.actualizar("form:datosTSGrupo");
                 banderaTSGrupos = 0;
                 filtrarListaTSGruposTiposEntidades = null;
                 tipoListaTSGrupos = 0;
@@ -1138,10 +1139,10 @@ public class ControlTipoSueldo implements Serializable {
             }
             FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
             cambiosPagina = true;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
     }
 
@@ -1165,9 +1166,9 @@ public class ControlTipoSueldo implements Serializable {
         }
         listaTiposSueldos = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosTipoSueldo");
+        PrimefacesContextUI.actualizar("form:datosTipoSueldo");
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:aceptar");
+        PrimefacesContextUI.actualizar("form:aceptar");
         k = 0;
         index = -1;
         secRegistro = null;
@@ -1189,9 +1190,9 @@ public class ControlTipoSueldo implements Serializable {
         }
         listaTSFormulasConceptos = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosTSFormula");
+        PrimefacesContextUI.actualizar("form:datosTSFormula");
         guardadoTSFormulas = true;
-        RequestContext.getCurrentInstance().update("form:aceptar");
+        PrimefacesContextUI.actualizar("form:aceptar");
         k = 0;
         indexTSFormulas = -1;
         secRegistroTSFormulas = null;
@@ -1212,9 +1213,9 @@ public class ControlTipoSueldo implements Serializable {
         }
         listaTSGruposTiposEntidades = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosTSGrupo");
+        PrimefacesContextUI.actualizar("form:datosTSGrupo");
         guardadoTSGrupos = true;
-        RequestContext.getCurrentInstance().update("form:aceptar");
+        PrimefacesContextUI.actualizar("form:aceptar");
         k = 0;
         indexTSGrupos = -1;
         secRegistroTSGrupos = null;
@@ -1235,9 +1236,9 @@ public class ControlTipoSueldo implements Serializable {
         }
         listaTEFormulasConceptos = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosTEFormula");
+        PrimefacesContextUI.actualizar("form:datosTEFormula");
         guardadoTEFormulas = true;
-        RequestContext.getCurrentInstance().update("form:aceptar");
+        PrimefacesContextUI.actualizar("form:aceptar");
         k = 0;
         indexTEFormulas = -1;
         secRegistroTEFormulas = null;
@@ -1251,22 +1252,22 @@ public class ControlTipoSueldo implements Serializable {
         if (guardado == false) {
             cancelarModificacionTipoSueldo();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosTipoSueldo");
+            PrimefacesContextUI.actualizar("form:datosTipoSueldo");
         }
         if (guardadoTSFormulas == false) {
             cancelarModificacionTSFormula();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosTSFormula");
+            PrimefacesContextUI.actualizar("form:datosTSFormula");
         }
         if (guardadoTSGrupos == false) {
             cancelarModificacionTSGrupo();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosTSGrupo");
+            PrimefacesContextUI.actualizar("form:datosTSGrupo");
         }
         if (guardadoTEFormulas == false) {
             cancelarModificacionTEFormula();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosTEFormula");
+            PrimefacesContextUI.actualizar("form:datosTEFormula");
         }
         indexAuxTSGrupos = -1;
         lovTiposEntidades = null;
@@ -1274,8 +1275,8 @@ public class ControlTipoSueldo implements Serializable {
         getListaTEFormulasConceptos();
         cambiosPagina = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
-        context.update("form:datosTEFormula");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosTEFormula");
     }
 
     public void cancelarModificacionTipoSueldo() {
@@ -1291,7 +1292,7 @@ public class ControlTipoSueldo implements Serializable {
             tipoSueldoBas.setFilterStyle("display: none; visibility: hidden;");
             tipoSueldoAdi = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoAdi");
             tipoSueldoAdi.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
+            PrimefacesContextUI.actualizar("form:datosTipoSueldo");
             bandera = 0;
             filtrarListaTiposSueldos = null;
             tipoLista = 0;
@@ -1305,7 +1306,7 @@ public class ControlTipoSueldo implements Serializable {
         listaTiposSueldos = null;
         guardado = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosTipoSueldo");
+        PrimefacesContextUI.actualizar("form:datosTipoSueldo");
     }
 
     public void cancelarModificacionTSFormula() {
@@ -1319,7 +1320,7 @@ public class ControlTipoSueldo implements Serializable {
             tsFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
             tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
             tsFormulaOrigen.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTSFormula");
+            PrimefacesContextUI.actualizar("form:datosTSFormula");
             banderaTSFormulas = 0;
             filtrarListaTSFormulasConceptos = null;
             tipoListaTSFormulas = 0;
@@ -1334,7 +1335,7 @@ public class ControlTipoSueldo implements Serializable {
         guardadoTSFormulas = true;
         permitirIndexTSFormulas = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosTSFormula");
+        PrimefacesContextUI.actualizar("form:datosTSFormula");
     }
 
     public void cancelarModificacionTSGrupo() {
@@ -1342,7 +1343,7 @@ public class ControlTipoSueldo implements Serializable {
             altoTablaTSGrupos = "73";
             tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
             tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTSGrupo");
+            PrimefacesContextUI.actualizar("form:datosTSGrupo");
             banderaTSGrupos = 0;
             filtrarListaTSGruposTiposEntidades = null;
             tipoListaTSGrupos = 0;
@@ -1357,7 +1358,7 @@ public class ControlTipoSueldo implements Serializable {
         guardadoTSGrupos = true;
         permitirIndexTSGrupos = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosTSGrupo");
+        PrimefacesContextUI.actualizar("form:datosTSGrupo");
     }
 
     public void cancelarModificacionTEFormula() {
@@ -1371,7 +1372,7 @@ public class ControlTipoSueldo implements Serializable {
             teFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
             teFormulaTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaTipoEntidad");
             teFormulaTipoEntidad.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTEFormula");
+            PrimefacesContextUI.actualizar("form:datosTEFormula");
             banderaTEFormulas = 0;
             filtrarListaTEFormulasConceptos = null;
             tipoListaTEFormulas = 0;
@@ -1386,7 +1387,7 @@ public class ControlTipoSueldo implements Serializable {
         guardadoTEFormulas = true;
         permitirIndexTEFormulas = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosTEFormula");
+        PrimefacesContextUI.actualizar("form:datosTEFormula");
     }
 
     public void editarCelda() {
@@ -1399,12 +1400,12 @@ public class ControlTipoSueldo implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarCodigoTipoSueldoD");
-                context.execute("editarCodigoTipoSueldoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoTipoSueldoD");
+                PrimefacesContextUI.ejecutar("PF('editarCodigoTipoSueldoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarDescripcionTipoSueldoD");
-                context.execute("editarDescripcionTipoSueldoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionTipoSueldoD");
+                PrimefacesContextUI.ejecutar("PF('editarDescripcionTipoSueldoD').show()");
                 cualCelda = -1;
             }
             index = -1;
@@ -1419,16 +1420,16 @@ public class ControlTipoSueldo implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaTSFormulas == 0) {
-                context.update("formularioDialogos:editarFormulaTSFormulaD");
-                context.execute("editarFormulaTSFormulaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFormulaTSFormulaD");
+                PrimefacesContextUI.ejecutar("PF('editarFormulaTSFormulaD').show()");
                 cualCeldaTSFormulas = -1;
             } else if (cualCeldaTSFormulas == 1) {
-                context.update("formularioDialogos:editarConceptoTSFormulaD");
-                context.execute("editarConceptoTSFormulaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarConceptoTSFormulaD");
+                PrimefacesContextUI.ejecutar("PF('editarConceptoTSFormulaD').show()");
                 cualCeldaTSFormulas = -1;
             } else if (cualCeldaTSFormulas == 2) {
-                context.update("formularioDialogos:editarEmpresaTSFormulaD");
-                context.execute("editarEmpresaTSFormulaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEmpresaTSFormulaD");
+                PrimefacesContextUI.ejecutar("PF('editarEmpresaTSFormulaD').show()");
                 cualCeldaTSFormulas = -1;
             }
             indexTSFormulas = -1;
@@ -1443,8 +1444,8 @@ public class ControlTipoSueldo implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaTSGrupos == 0) {
-                context.update("formularioDialogos:editarGrupoTSGrupoD");
-                context.execute("editarGrupoTSGrupoD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarGrupoTSGrupoD");
+                PrimefacesContextUI.ejecutar("PF('editarGrupoTSGrupoD').show()");
                 cualCeldaTSGrupos = -1;
             }
             indexTSGrupos = -1;
@@ -1459,20 +1460,20 @@ public class ControlTipoSueldo implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaTEFormulas == 0) {
-                context.update("formularioDialogos:editarFormulaTETipoEntidadD");
-                context.execute("editarFormulaTETipoEntidadD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFormulaTETipoEntidadD");
+                PrimefacesContextUI.ejecutar("PF('editarFormulaTETipoEntidadD').show()");
                 cualCeldaTEFormulas = -1;
             } else if (cualCeldaTEFormulas == 1) {
-                context.update("formularioDialogos:editarFormulaTEFormulaD");
-                context.execute("editarFormulaTEFormulaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFormulaTEFormulaD");
+                PrimefacesContextUI.ejecutar("PF('editarFormulaTEFormulaD').show()");
                 cualCeldaTEFormulas = -1;
             } else if (cualCeldaTEFormulas == 2) {
-                context.update("formularioDialogos:editarConceptoTEFormulaD");
-                context.execute("editarConceptoTEFormulaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarConceptoTEFormulaD");
+                PrimefacesContextUI.ejecutar("PF('editarConceptoTEFormulaD').show()");
                 cualCeldaTEFormulas = -1;
             } else if (cualCeldaTEFormulas == 3) {
-                context.update("formularioDialogos:editarEmpresaTEFormulaD");
-                context.execute("editarEmpresaTEFormulaD.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarEmpresaTEFormulaD");
+                PrimefacesContextUI.ejecutar("PF('editarEmpresaTEFormulaD').show()");
                 cualCeldaTEFormulas = -1;
             }
             indexTEFormulas = -1;
@@ -1483,7 +1484,7 @@ public class ControlTipoSueldo implements Serializable {
     public void dialogoNuevoRegistro() {
         if (guardado == false || guardadoTSFormulas == false || guardadoTSGrupos == false || guardadoTEFormulas == false) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             int tam1 = listaTiposSueldos.size();
@@ -1494,38 +1495,38 @@ public class ControlTipoSueldo implements Serializable {
                 activoFormulaConcepto = false;
                 activoGrupoDistribucion = false;
                 activoTipoEntidad = true;
-                context.update("formularioDialogos:verificarNuevoRegistro");
-                context.execute("verificarNuevoRegistro.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:verificarNuevoRegistro");
+                PrimefacesContextUI.ejecutar("PF('verificarNuevoRegistro').show()");
             } else {
                 if (index >= 0) {
-                    context.update("formularioDialogos:NuevoRegistroTipoSueldo");
-                    context.execute("NuevoRegistroTipoSueldo.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroTipoSueldo");
+                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroTipoSueldo').show()");
                 }
                 if (indexTSFormulas >= 0) {
-                    context.update("formularioDialogos:NuevoRegistroTSFormula");
-                    context.execute("NuevoRegistroTSFormula.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroTSFormula");
+                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroTSFormula').show()");
                 }
                 if (indexTSGrupos >= 0) {
                     if (tam4 > 0) {
                         lovTiposEntidades = null;
                         getLovTiposEntidades();
-                        context.execute("form:lovTipoEntidad.clearFilters()");
-                        context.update("form:TipoEntidadDialogo");
-                        context.update("form:lovTipoEntidad");
-                        context.update("formularioDialogos:NuevoRegistroTSGrupo");
-                        context.execute("NuevoRegistroTSGrupo.show()");
+                        PrimefacesContextUI.ejecutar("PF('form:lovTipoEntidad').clearFilters()");
+                        PrimefacesContextUI.actualizar("form:TipoEntidadDialogo");
+                        PrimefacesContextUI.actualizar("form:lovTipoEntidad");
+                        PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroTSGrupo");
+                        PrimefacesContextUI.ejecutar("PF('NuevoRegistroTSGrupo').show()");
 
                     } else {
                         activoFormulaConcepto = false;
                         activoGrupoDistribucion = false;
                         activoTipoEntidad = false;
-                        context.update("formularioDialogos:verificarNuevoRegistro");
-                        context.execute("verificarNuevoRegistro.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:verificarNuevoRegistro");
+                        PrimefacesContextUI.ejecutar("PF('verificarNuevoRegistro').show()");
                     }
                 }
                 if (indexTEFormulas >= 0) {
-                    context.update("formularioDialogos:NuevoRegistroTEFormula");
-                    context.execute("NuevoRegistroTEFormula.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroTEFormula");
+                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroTEFormula').show()");
                 }
             }
         }
@@ -1550,7 +1551,7 @@ public class ControlTipoSueldo implements Serializable {
                     tipoSueldoBas.setFilterStyle("display: none; visibility: hidden;");
                     tipoSueldoAdi = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoAdi");
                     tipoSueldoAdi.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
+                    PrimefacesContextUI.actualizar("form:datosTipoSueldo");
                     bandera = 0;
                     filtrarListaTiposSueldos = null;
                     tipoLista = 0;
@@ -1566,22 +1567,22 @@ public class ControlTipoSueldo implements Serializable {
                 nuevoTipoSueldo = new TiposSueldos();
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:ACEPTAR");
-                context.update("form:datosTipoSueldo");
-                context.execute("NuevoRegistroTipoSueldo.hide()");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:datosTipoSueldo");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroTipoSueldo').hide()");
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:aceptar");
+                    PrimefacesContextUI.actualizar("form:aceptar");
                 }
                 index = -1;
                 secRegistro = null;
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorDescripcionTipoSueldo.show()");
+                PrimefacesContextUI.ejecutar("PF('errorDescripcionTipoSueldo').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullTipoSueldo.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullTipoSueldo').show()");
         }
     }
 
@@ -1598,7 +1599,7 @@ public class ControlTipoSueldo implements Serializable {
                 tsFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
                 tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
                 tsFormulaOrigen.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTSFormula");
+                PrimefacesContextUI.actualizar("form:datosTSFormula");
                 banderaTSFormulas = 0;
                 filtrarListaTSFormulasConceptos = null;
                 tipoListaTSFormulas = 0;
@@ -1619,23 +1620,23 @@ public class ControlTipoSueldo implements Serializable {
             listaTSFormulasConceptos.add(nuevoTSFormulaConcepto);
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             index = indexAux;
-            context.update("form:datosTSFormula");
-            context.execute("NuevoRegistroTSFormula.hide()");
+            PrimefacesContextUI.actualizar("form:datosTSFormula");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroTSFormula').hide()");
             nuevoTSFormulaConcepto = new TSFormulasConceptos();
             nuevoTSFormulaConcepto.setFormula(new Formulas());
             nuevoTSFormulaConcepto.setConcepto(new Conceptos());
             nuevoTSFormulaConcepto.getConcepto().setEmpresa(new Empresas());
             if (guardadoTSFormulas == true) {
                 guardadoTSFormulas = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                PrimefacesContextUI.actualizar("form:aceptar");
             }
             indexTSFormulas = -1;
             secRegistroTSFormulas = null;
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullTSFormula.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullTSFormula').show()");
         }
     }
 
@@ -1645,7 +1646,7 @@ public class ControlTipoSueldo implements Serializable {
                 altoTablaTSGrupos = "73";
                 tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
                 tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTSGrupo");
+                PrimefacesContextUI.actualizar("form:datosTSGrupo");
                 banderaTSGrupos = 0;
                 filtrarListaTSGruposTiposEntidades = null;
                 tipoListaTSGrupos = 0;
@@ -1666,21 +1667,21 @@ public class ControlTipoSueldo implements Serializable {
             listaTSGruposTiposEntidades.add(nuevoTSGrupoTipoEntidad);
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             index = indexAux;
-            context.update("form:datosTSGrupo");
-            context.execute("NuevoRegistroTSGrupo.hide()");
+            PrimefacesContextUI.actualizar("form:datosTSGrupo");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroTSGrupo').hide()");
             nuevoTSGrupoTipoEntidad = new TSGruposTiposEntidades();
             nuevoTSGrupoTipoEntidad.setGrupotipoentidad(new Grupostiposentidades());
             if (guardadoTSGrupos == true) {
                 guardadoTSGrupos = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                PrimefacesContextUI.actualizar("form:aceptar");
             }
             indexTSGrupos = -1;
             secRegistroTSGrupos = null;
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullTSGrupo.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullTSGrupo').show()");
         }
     }
 
@@ -1698,7 +1699,7 @@ public class ControlTipoSueldo implements Serializable {
                     teFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
                     teFormulaTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaTipoEntidad");
                     teFormulaTipoEntidad.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosTEFormula");
+                    PrimefacesContextUI.actualizar("form:datosTEFormula");
                     banderaTEFormulas = 0;
                     filtrarListaTEFormulasConceptos = null;
                     tipoListaTEFormulas = 0;
@@ -1719,10 +1720,10 @@ public class ControlTipoSueldo implements Serializable {
                 listaTEFormulasConceptos.add(nuevoTEFormulaConcepto);
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
 
-                context.update("form:datosTEFormula");
-                context.execute("NuevoRegistroTEFormula.hide()");
+                PrimefacesContextUI.actualizar("form:datosTEFormula");
+                PrimefacesContextUI.ejecutar("PF('NuevoRegistroTEFormula').hide()");
                 nuevoTEFormulaConcepto = new TEFormulasConceptos();
                 nuevoTEFormulaConcepto.setFormula(new Formulas());
                 nuevoTEFormulaConcepto.setTipoentidad(new TiposEntidades());
@@ -1730,17 +1731,17 @@ public class ControlTipoSueldo implements Serializable {
                 nuevoTEFormulaConcepto.getConcepto().setEmpresa(new Empresas());
                 if (guardadoTEFormulas == true) {
                     guardadoTEFormulas = false;
-                    RequestContext.getCurrentInstance().update("form:aceptar");
+                    PrimefacesContextUI.actualizar("form:aceptar");
                 }
                 indexTEFormulas = -1;
                 secRegistroTEFormulas = null;
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorNuevoRegistroTEFormula.show()");
+                PrimefacesContextUI.ejecutar("PF('errorNuevoRegistroTEFormula').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullTEFormula.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullTEFormula').show()");
         }
     }
     //LIMPIAR NUEVO REGISTRO
@@ -1816,8 +1817,8 @@ public class ControlTipoSueldo implements Serializable {
             duplicarTipoSueldo.setAdicionalbasico(filtrarListaTiposSueldos.get(index).getAdicionalbasico());
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("formularioDialogos:DuplicarRegistroTipoSueldo");
-        context.execute("DuplicarRegistroTipoSueldo.show()");
+        PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroTipoSueldo");
+        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTipoSueldo').show()");
         index = -1;
         secRegistro = null;
 
@@ -1838,8 +1839,8 @@ public class ControlTipoSueldo implements Serializable {
             duplicarTSFormulaConcepto.setConcepto(filtrarListaTSFormulasConceptos.get(indexTSFormulas).getConcepto());
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("formularioDialogos:DuplicarRegistroTSFormula");
-        context.execute("DuplicarRegistroTSFormula.show()");
+        PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroTSFormula");
+        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTSFormula').show()");
         indexTSFormulas = -1;
         secRegistroTSFormulas = null;
 
@@ -1856,8 +1857,8 @@ public class ControlTipoSueldo implements Serializable {
             duplicarTSGrupoTipoEntidad.setGrupotipoentidad(filtrarListaTSGruposTiposEntidades.get(indexTSGrupos).getGrupotipoentidad());
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("formularioDialogos:DuplicarRegistroTSGrupo");
-        context.execute("DuplicarRegistroTSGrupo.show()");
+        PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroTSGrupo");
+        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTSGrupo').show()");
         indexTSGrupos = -1;
         secRegistroTSGrupos = null;
 
@@ -1879,8 +1880,8 @@ public class ControlTipoSueldo implements Serializable {
             duplicarTEFormulaConcepto.setConcepto(filtrarListaTEFormulasConceptos.get(indexTEFormulas).getConcepto());
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("formularioDialogos:DuplicarRegistroTEFormula");
-        context.execute("DuplicarRegistroTEFormula.show()");
+        PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroTEFormula");
+        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTEFormula').show()");
         indexTEFormulas = -1;
         secRegistroTEFormulas = null;
 
@@ -1907,7 +1908,7 @@ public class ControlTipoSueldo implements Serializable {
                     tipoSueldoBas.setFilterStyle("display: none; visibility: hidden;");
                     tipoSueldoAdi = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoAdi");
                     tipoSueldoAdi.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
+                    PrimefacesContextUI.actualizar("form:datosTipoSueldo");
                     bandera = 0;
                     filtrarListaTiposSueldos = null;
                     tipoLista = 0;
@@ -1921,23 +1922,23 @@ public class ControlTipoSueldo implements Serializable {
                 listTiposSueldosCrear.add(duplicarTipoSueldo);
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:ACEPTAR");
-                context.update("form:datosTipoSueldo");
-                context.execute("DuplicarRegistroTipoSueldo.hide()");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:datosTipoSueldo");
+                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTipoSueldo').hide()");
                 index = -1;
                 secRegistro = null;
                 if (guardado == true) {
                     guardado = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //PrimefacesContextUI.actualizar("form:aceptar");
                 }
                 duplicarTipoSueldo = new TiposSueldos();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorDescripcionTipoSueldo.show()");
+                PrimefacesContextUI.ejecutar("PF('errorDescripcionTipoSueldo').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullTipoSueldo.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullTipoSueldo').show()");
         }
     }
 
@@ -1954,7 +1955,7 @@ public class ControlTipoSueldo implements Serializable {
                 tsFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
                 tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
                 tsFormulaOrigen.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTSFormula");
+                PrimefacesContextUI.actualizar("form:datosTSFormula");
                 banderaTSFormulas = 0;
                 filtrarListaTSFormulasConceptos = null;
                 tipoListaTSFormulas = 0;
@@ -1972,14 +1973,14 @@ public class ControlTipoSueldo implements Serializable {
             listTSFormulasConceptosCrear.add(duplicarTSFormulaConcepto);
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosTSFormula");
-            context.execute("DuplicarRegistroTSFormula.hide()");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTSFormula");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTSFormula').hide()");
             indexTSFormulas = -1;
             secRegistroTSFormulas = null;
             if (guardadoTSFormulas == true) {
                 guardadoTSFormulas = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
 
             duplicarTSFormulaConcepto = new TSFormulasConceptos();
@@ -1988,7 +1989,7 @@ public class ControlTipoSueldo implements Serializable {
             duplicarTSFormulaConcepto.getConcepto().setEmpresa(new Empresas());
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullTSFormula.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullTSFormula').show()");
         }
     }
 
@@ -1998,7 +1999,7 @@ public class ControlTipoSueldo implements Serializable {
                 altoTablaTSGrupos = "73";
                 tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
                 tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTSGrupo");
+                PrimefacesContextUI.actualizar("form:datosTSGrupo");
                 banderaTSGrupos = 0;
                 filtrarListaTSGruposTiposEntidades = null;
                 tipoListaTSGrupos = 0;
@@ -2016,21 +2017,21 @@ public class ControlTipoSueldo implements Serializable {
             listTSGruposTiposEntidadesCrear.add(duplicarTSGrupoTipoEntidad);
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosTSGrupo");
-            context.execute("DuplicarRegistroTSGrupo.hide()");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTSGrupo");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTSGrupo').hide()");
             indexTSGrupos = -1;
             secRegistroTSGrupos = null;
             if (guardadoTSGrupos == true) {
                 guardadoTSGrupos = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
 
             duplicarTSGrupoTipoEntidad = new TSGruposTiposEntidades();
             duplicarTSGrupoTipoEntidad.setGrupotipoentidad(new Grupostiposentidades());
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullTSGrupo.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullTSGrupo').show()");
         }
     }
 
@@ -2048,7 +2049,7 @@ public class ControlTipoSueldo implements Serializable {
                     teFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
                     teFormulaTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaTipoEntidad");
                     teFormulaTipoEntidad.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosTEFormula");
+                    PrimefacesContextUI.actualizar("form:datosTEFormula");
                     banderaTEFormulas = 0;
                     filtrarListaTEFormulasConceptos = null;
                     tipoListaTEFormulas = 0;
@@ -2066,14 +2067,14 @@ public class ControlTipoSueldo implements Serializable {
                 listTEFormulasConceptosCrear.add(duplicarTEFormulaConcepto);
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:ACEPTAR");
-                context.update("form:datosTEFormula");
-                context.execute("DuplicarRegistroTEFormula.hide()");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:datosTEFormula");
+                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTEFormula').hide()");
                 indexTEFormulas = -1;
                 secRegistroTEFormulas = null;
                 if (guardadoTEFormulas == true) {
                     guardadoTEFormulas = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //PrimefacesContextUI.actualizar("form:aceptar");
                 }
                 duplicarTEFormulaConcepto = new TEFormulasConceptos();
                 duplicarTEFormulaConcepto.setFormula(new Formulas());
@@ -2082,11 +2083,11 @@ public class ControlTipoSueldo implements Serializable {
                 duplicarTEFormulaConcepto.getConcepto().setEmpresa(new Empresas());
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorNuevoRegistroTEFormula.show()");
+                PrimefacesContextUI.ejecutar("PF('errorNuevoRegistroTEFormula').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("errorDatosNullTEFormula.show()");
+            PrimefacesContextUI.ejecutar("PF('errorDatosNullTEFormula').show()");
         }
     }
 
@@ -2134,7 +2135,7 @@ public class ControlTipoSueldo implements Serializable {
                 borrarTipoSueldo();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorBorrarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorBorrarRegistro').show()");
             }
         }
         if (indexTSFormulas >= 0) {
@@ -2146,7 +2147,7 @@ public class ControlTipoSueldo implements Serializable {
                 borrarTSGrupo();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.execute("errorBorrarRegistroTSGrupo.show()");
+                PrimefacesContextUI.ejecutar("PF('errorBorrarRegistroTSGrupo').show()");
             }
         }
         if (indexTEFormulas >= 0) {
@@ -2187,14 +2188,14 @@ public class ControlTipoSueldo implements Serializable {
 
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosTipoSueldo");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTipoSueldo");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
     }
@@ -2232,14 +2233,14 @@ public class ControlTipoSueldo implements Serializable {
 
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosTSFormula");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTSFormula");
             indexTSFormulas = -1;
             secRegistroTSFormulas = null;
 
             if (guardadoTSFormulas == true) {
                 guardadoTSFormulas = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
     }
@@ -2277,14 +2278,14 @@ public class ControlTipoSueldo implements Serializable {
 
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosTSGrupo");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTSGrupo");
             indexTSGrupos = -1;
             secRegistroTSGrupos = null;
 
             if (guardadoTSGrupos == true) {
                 guardadoTSGrupos = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
     }
@@ -2322,14 +2323,14 @@ public class ControlTipoSueldo implements Serializable {
 
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosTEFormula");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTEFormula");
             indexTEFormulas = -1;
             secRegistroTEFormulas = null;
 
             if (guardadoTEFormulas == true) {
                 guardadoTEFormulas = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
     }
@@ -2353,7 +2354,7 @@ public class ControlTipoSueldo implements Serializable {
                 tipoSueldoBas.setFilterStyle("width: 85%;");
                 tipoSueldoAdi = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoAdi");
                 tipoSueldoAdi.setFilterStyle("width: 85%;");
-                RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
+                PrimefacesContextUI.actualizar("form:datosTipoSueldo");
                 bandera = 1;
             } else {
                 altoTablaTiposSueldos = "80";
@@ -2367,7 +2368,7 @@ public class ControlTipoSueldo implements Serializable {
                 tipoSueldoBas.setFilterStyle("display: none; visibility: hidden;");
                 tipoSueldoAdi = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoAdi");
                 tipoSueldoAdi.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
+                PrimefacesContextUI.actualizar("form:datosTipoSueldo");
                 bandera = 0;
                 filtrarListaTiposSueldos = null;
                 tipoLista = 0;
@@ -2384,7 +2385,7 @@ public class ControlTipoSueldo implements Serializable {
                 tsFormulaEmpresa.setFilterStyle("width: 85%;");
                 tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
                 tsFormulaOrigen.setFilterStyle("width: 85%;");
-                RequestContext.getCurrentInstance().update("form:datosTSFormula");
+                PrimefacesContextUI.actualizar("form:datosTSFormula");
                 banderaTSFormulas = 1;
             } else {
                 altoTablaTSFormulas = "230";
@@ -2396,7 +2397,7 @@ public class ControlTipoSueldo implements Serializable {
                 tsFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
                 tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
                 tsFormulaOrigen.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTSFormula");
+                PrimefacesContextUI.actualizar("form:datosTSFormula");
                 banderaTSFormulas = 0;
                 filtrarListaTSFormulasConceptos = null;
                 tipoListaTSFormulas = 0;
@@ -2407,13 +2408,13 @@ public class ControlTipoSueldo implements Serializable {
                 altoTablaTSGrupos = "51";
                 tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
                 tsGrupoGrupo.setFilterStyle("width: 85%;");
-                RequestContext.getCurrentInstance().update("form:datosTSGrupo");
+                PrimefacesContextUI.actualizar("form:datosTSGrupo");
                 banderaTSGrupos = 1;
             } else {
                 altoTablaTSGrupos = "73";
                 tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
                 tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTSGrupo");
+                PrimefacesContextUI.actualizar("form:datosTSGrupo");
                 banderaTSGrupos = 0;
                 filtrarListaTSGruposTiposEntidades = null;
                 tipoListaTSGrupos = 0;
@@ -2430,7 +2431,7 @@ public class ControlTipoSueldo implements Serializable {
                 teFormulaEmpresa.setFilterStyle("width: 85%;");
                 teFormulaTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaTipoEntidad");
                 teFormulaTipoEntidad.setFilterStyle("width: 85%;");
-                RequestContext.getCurrentInstance().update("form:datosTEFormula");
+                PrimefacesContextUI.actualizar("form:datosTEFormula");
                 banderaTEFormulas = 1;
             } else {
                 altoTablaTEFormulas = "73";
@@ -2442,7 +2443,7 @@ public class ControlTipoSueldo implements Serializable {
                 teFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
                 teFormulaTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaTipoEntidad");
                 teFormulaTipoEntidad.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTEFormula");
+                PrimefacesContextUI.actualizar("form:datosTEFormula");
                 banderaTEFormulas = 0;
                 filtrarListaTEFormulasConceptos = null;
                 tipoListaTEFormulas = 0;
@@ -2467,7 +2468,7 @@ public class ControlTipoSueldo implements Serializable {
             tipoSueldoBas.setFilterStyle("display: none; visibility: hidden;");
             tipoSueldoAdi = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoAdi");
             tipoSueldoAdi.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
+            PrimefacesContextUI.actualizar("form:datosTipoSueldo");
             bandera = 0;
             filtrarListaTiposSueldos = null;
             tipoLista = 0;
@@ -2482,7 +2483,7 @@ public class ControlTipoSueldo implements Serializable {
             tsFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
             tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
             tsFormulaOrigen.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTSFormula");
+            PrimefacesContextUI.actualizar("form:datosTSFormula");
             banderaTSFormulas = 0;
             filtrarListaTSFormulasConceptos = null;
             tipoListaTSFormulas = 0;
@@ -2491,7 +2492,7 @@ public class ControlTipoSueldo implements Serializable {
             altoTablaTSGrupos = "73";
             tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
             tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTSGrupo");
+            PrimefacesContextUI.actualizar("form:datosTSGrupo");
             banderaTSGrupos = 0;
             filtrarListaTSGruposTiposEntidades = null;
             tipoListaTSGrupos = 0;
@@ -2506,7 +2507,7 @@ public class ControlTipoSueldo implements Serializable {
             teFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
             teFormulaTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaTipoEntidad");
             teFormulaTipoEntidad.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTEFormula");
+            PrimefacesContextUI.actualizar("form:datosTEFormula");
             banderaTEFormulas = 0;
             filtrarListaTEFormulasConceptos = null;
             tipoListaTEFormulas = 0;
@@ -2548,44 +2549,44 @@ public class ControlTipoSueldo implements Serializable {
         lovGruposTiposEntidades = null;
         lovTiposEntidades = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (indexTSFormulas >= 0) {
             if (cualCeldaTSFormulas == 0) {
-                context.update("form:FormulaDialogo");
-                context.execute("FormulaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:FormulaDialogo");
+                PrimefacesContextUI.ejecutar("PF('FormulaDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCeldaTSFormulas == 1) {
-                context.update("form:ConceptoDialogo");
-                context.execute("ConceptoDialogo.show()");
+                PrimefacesContextUI.actualizar("form:ConceptoDialogo");
+                PrimefacesContextUI.ejecutar("PF('ConceptoDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
         if (indexTSGrupos >= 0) {
             if (cualCeldaTSGrupos == 0) {
-                context.update("form:GrupoDialogo");
-                context.execute("GrupoDialogo.show()");
+                PrimefacesContextUI.actualizar("form:GrupoDialogo");
+                PrimefacesContextUI.ejecutar("PF('GrupoDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
         if (indexTEFormulas >= 0) {
             if (cualCeldaTEFormulas == 0) {
-                context.update("form:TipoEntidadDialogo");
-                context.execute("TipoEntidadDialogo.show()");
+                PrimefacesContextUI.actualizar("form:TipoEntidadDialogo");
+                PrimefacesContextUI.ejecutar("PF('TipoEntidadDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCeldaTEFormulas == 1) {
-                context.update("form:FormulaTEDialogo");
-                context.execute("FormulaTEDialogo.show()");
+                PrimefacesContextUI.actualizar("form:FormulaTEDialogo");
+                PrimefacesContextUI.ejecutar("PF('FormulaTEDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCeldaTEFormulas == 2) {
-                context.update("form:ConceptoTEDialogo");
-                context.execute("ConceptoTEDialogo.show()");
+                PrimefacesContextUI.actualizar("form:ConceptoTEDialogo");
+                PrimefacesContextUI.ejecutar("PF('ConceptoTEDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -2603,12 +2604,12 @@ public class ControlTipoSueldo implements Serializable {
                 tipoActualizacion = 2;
             }
             if (dlg == 0) {
-                context.update("form:FormulaDialogo");
-                context.execute("FormulaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:FormulaDialogo");
+                PrimefacesContextUI.ejecutar("PF('FormulaDialogo').show()");
             }
             if (dlg == 1) {
-                context.update("form:ConceptoDialogo");
-                context.execute("ConceptoDialogo.show()");
+                PrimefacesContextUI.actualizar("form:ConceptoDialogo");
+                PrimefacesContextUI.ejecutar("PF('ConceptoDialogo').show()");
             }
         }
         if (tabla == 2) {
@@ -2621,8 +2622,8 @@ public class ControlTipoSueldo implements Serializable {
                 tipoActualizacion = 2;
             }
             if (dlg == 0) {
-                context.update("form:GrupoDialogo");
-                context.execute("GrupoDialogo.show()");
+                PrimefacesContextUI.actualizar("form:GrupoDialogo");
+                PrimefacesContextUI.ejecutar("PF('GrupoDialogo').show()");
             }
         }
         if (tabla == 3) {
@@ -2635,16 +2636,16 @@ public class ControlTipoSueldo implements Serializable {
                 tipoActualizacion = 2;
             }
             if (dlg == 0) {
-                context.update("form:TipoEntidadDialogo");
-                context.execute("TipoEntidadDialogo.show()");
+                PrimefacesContextUI.actualizar("form:TipoEntidadDialogo");
+                PrimefacesContextUI.ejecutar("PF('TipoEntidadDialogo').show()");
             }
             if (dlg == 1) {
-                context.update("form:FormulaTEDialogo");
-                context.execute("FormulaTEDialogo.show()");
+                PrimefacesContextUI.actualizar("form:FormulaTEDialogo");
+                PrimefacesContextUI.ejecutar("PF('FormulaTEDialogo').show()");
             }
             if (dlg == 2) {
-                context.update("form:ConceptoTEDialogo");
-                context.execute("ConceptoTEDialogo.show()");
+                PrimefacesContextUI.actualizar("form:ConceptoTEDialogo");
+                PrimefacesContextUI.ejecutar("PF('ConceptoTEDialogo').show()");
             }
         }
     }
@@ -2713,21 +2714,21 @@ public class ControlTipoSueldo implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoTSFormulaConcepto.setFormula(lovFormulas.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevoTSFormulaFormula");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTSFormulaFormula");
                 } else if (tipoNuevo == 2) {
                     duplicarTSFormulaConcepto.setFormula(lovFormulas.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarTSFormulaFormula");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTSFormulaFormula");
                 }
                 lovFormulas.clear();
                 getLovFormulas();
             } else {
-                context.update("form:FormulaDialogo");
-                context.execute("FormulaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:FormulaDialogo");
+                PrimefacesContextUI.ejecutar("PF('FormulaDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevoTSFormulaFormula");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTSFormulaFormula");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarTSFormulaFormula");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTSFormulaFormula");
                 }
             }
         }
@@ -2746,23 +2747,23 @@ public class ControlTipoSueldo implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoTSFormulaConcepto.setConcepto(lovConceptos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevoTSFormulaCConcepto");
-                    context.update("formularioDialogos:nuevoTSFormulaEmpresa");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTSFormulaCConcepto");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTSFormulaEmpresa");
                 } else if (tipoNuevo == 2) {
                     duplicarTSFormulaConcepto.setConcepto(lovConceptos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarTSFormulaCConcepto");
-                    context.update("formularioDialogos:duplicarTSFormulaEmpresa");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTSFormulaCConcepto");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTSFormulaEmpresa");
                 }
                 lovConceptos.clear();
                 getLovConceptos();
             } else {
-                context.update("form:ConceptoDialogo");
-                context.execute("ConceptoDialogo.show()");
+                PrimefacesContextUI.actualizar("form:ConceptoDialogo");
+                PrimefacesContextUI.ejecutar("PF('ConceptoDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevoTSFormulaCConcepto");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTSFormulaCConcepto");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarTSFormulaCConcepto");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTSFormulaCConcepto");
                 }
             }
         }
@@ -2787,21 +2788,21 @@ public class ControlTipoSueldo implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoTSGrupoTipoEntidad.setGrupotipoentidad(lovGruposTiposEntidades.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevoTSGrupoGrupo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTSGrupoGrupo");
                 } else if (tipoNuevo == 2) {
                     duplicarTSGrupoTipoEntidad.setGrupotipoentidad(lovGruposTiposEntidades.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarTSGrupoGrupo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTSGrupoGrupo");
                 }
                 lovGruposTiposEntidades.clear();
                 getLovGruposTiposEntidades();
             } else {
-                context.update("form:FormulaDialogo");
-                context.execute("FormulaDialogo.show()");
+                PrimefacesContextUI.actualizar("form:FormulaDialogo");
+                PrimefacesContextUI.ejecutar("PF('FormulaDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevoTSGrupoGrupo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTSGrupoGrupo");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarTSGrupoGrupo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTSGrupoGrupo");
                 }
             }
         }
@@ -2826,21 +2827,21 @@ public class ControlTipoSueldo implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoTEFormulaConcepto.setTipoentidad(lovTiposEntidades.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevoTEFormulaTipoEntidad");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTEFormulaTipoEntidad");
                 } else if (tipoNuevo == 2) {
                     duplicarTEFormulaConcepto.setTipoentidad(lovTiposEntidades.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarTEFormulaTipoEntidad");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTEFormulaTipoEntidad");
                 }
                 lovTiposEntidades.clear();
                 getLovTiposEntidades();
             } else {
-                context.update("form:TipoEntidadDialogo");
-                context.execute("TipoEntidadDialogo.show()");
+                PrimefacesContextUI.actualizar("form:TipoEntidadDialogo");
+                PrimefacesContextUI.ejecutar("PF('TipoEntidadDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevoTEFormulaTipoEntidad");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTEFormulaTipoEntidad");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarTEFormulaTipoEntidad");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTEFormulaTipoEntidad");
                 }
             }
         }
@@ -2859,21 +2860,21 @@ public class ControlTipoSueldo implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoTEFormulaConcepto.setFormula(lovFormulas.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevoTEFormulaFormula");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTEFormulaFormula");
                 } else if (tipoNuevo == 2) {
                     duplicarTEFormulaConcepto.setFormula(lovFormulas.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarTEFormulaFormula");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTEFormulaFormula");
                 }
                 lovFormulas.clear();
                 getLovFormulas();
             } else {
-                context.update("form:FormulaTEDialogo");
-                context.execute("FormulaTEDialogo.show()");
+                PrimefacesContextUI.actualizar("form:FormulaTEDialogo");
+                PrimefacesContextUI.ejecutar("PF('FormulaTEDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevoTEFormulaFormula");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTEFormulaFormula");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarTEFormulaFormula");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTEFormulaFormula");
                 }
             }
         }
@@ -2892,23 +2893,23 @@ public class ControlTipoSueldo implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoTEFormulaConcepto.setConcepto(lovConceptos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevoTEFormulaCConcepto");
-                    context.update("formularioDialogos:nuevoTEFormulaEmpresa");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTEFormulaCConcepto");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTEFormulaEmpresa");
                 } else if (tipoNuevo == 2) {
                     duplicarTEFormulaConcepto.setConcepto(lovConceptos.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarTEFormulaCConcepto");
-                    context.update("formularioDialogos:duplicarTEFormulaEmpresa");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTEFormulaCConcepto");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTEFormulaEmpresa");
                 }
                 lovConceptos.clear();
                 getLovConceptos();
             } else {
-                context.update("form:ConceptoTEDialogo");
-                context.execute("ConceptoTEDialogo.show()");
+                PrimefacesContextUI.actualizar("form:ConceptoTEDialogo");
+                PrimefacesContextUI.ejecutar("PF('ConceptoTEDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevoTEFormulaCConcepto");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTEFormulaCConcepto");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarTEFormulaCConcepto");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTEFormulaCConcepto");
                 }
             }
         }
@@ -2941,16 +2942,16 @@ public class ControlTipoSueldo implements Serializable {
             permitirIndexTSFormulas = true;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosTSFormula");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTSFormula");
         } else if (tipoActualizacion == 1) {
             nuevoTSFormulaConcepto.setFormula(formulaSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:nuevoTSFormulaFormula");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTSFormulaFormula");
         } else if (tipoActualizacion == 2) {
             duplicarTSFormulaConcepto.setFormula(formulaSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarTSFormulaFormula");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTSFormulaFormula");
         }
         filtrarLovFormulas = null;
         formulaSeleccionado = null;
@@ -2959,12 +2960,12 @@ public class ControlTipoSueldo implements Serializable {
         secRegistroTSFormulas = null;
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        /*context.update("form:FormulaDialogo");
-        context.update("form:lovFormula");
-        context.update("form:aceptarF");*/
+        /*PrimefacesContextUI.actualizar("form:FormulaDialogo");
+        PrimefacesContextUI.actualizar("form:lovFormula");
+        PrimefacesContextUI.actualizar("form:aceptarF");*/
         context.reset("form:lovFormula:globalFilter");
-        context.execute("lovFormula.clearFilters()");
-        context.execute("FormulaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovFormula').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('FormulaDialogo').hide()");
     }
 
     public void cancelarCambioFormula() {
@@ -2977,8 +2978,8 @@ public class ControlTipoSueldo implements Serializable {
         permitirIndexTSFormulas = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovFormula:globalFilter");
-        context.execute("lovFormula.clearFilters()");
-        context.execute("FormulaDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovFormula').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('FormulaDialogo').hide()");
     }
 
     public void actualizarConcepto() {
@@ -3008,18 +3009,18 @@ public class ControlTipoSueldo implements Serializable {
             permitirIndexTSFormulas = true;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosTSFormula");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTSFormula");
         } else if (tipoActualizacion == 1) {
             nuevoTSFormulaConcepto.setConcepto(conceptoSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:nuevoTSFormulaCConcepto");
-            context.update("formularioDialogos:nuevoTSFormulaEmpresa");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTSFormulaCConcepto");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTSFormulaEmpresa");
         } else if (tipoActualizacion == 2) {
             duplicarTSFormulaConcepto.setConcepto(conceptoSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarTSFormulaCConcepto");
-            context.update("formularioDialogos:duplicarTSFormulaEmpresa");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTSFormulaCConcepto");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTSFormulaEmpresa");
         }
         filtrarLovConceptos = null;
         conceptoSeleccionado = null;
@@ -3028,12 +3029,12 @@ public class ControlTipoSueldo implements Serializable {
         secRegistroTSFormulas = null;
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        /*context.update("form:ConceptoDialogo");
-        context.update("form:lovConcepto");
-        context.update("form:aceptarC");*/
+        /*PrimefacesContextUI.actualizar("form:ConceptoDialogo");
+        PrimefacesContextUI.actualizar("form:lovConcepto");
+        PrimefacesContextUI.actualizar("form:aceptarC");*/
         context.reset("form:lovConcepto:globalFilter");
-        context.execute("lovConcepto.clearFilters()");
-        context.execute("ConceptoDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovConcepto').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ConceptoDialogo').hide()");
     }
 
     public void cancelarCambioConcepto() {
@@ -3046,8 +3047,8 @@ public class ControlTipoSueldo implements Serializable {
         permitirIndexTSFormulas = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovConcepto:globalFilter");
-        context.execute("lovConcepto.clearFilters()");
-        context.execute("ConceptoDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovConcepto').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ConceptoDialogo').hide()");
     }
 
     public void actualizarGrupo() {
@@ -3077,16 +3078,16 @@ public class ControlTipoSueldo implements Serializable {
             permitirIndexTSGrupos = true;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosTSGrupo");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTSGrupo");
         } else if (tipoActualizacion == 1) {
             nuevoTSGrupoTipoEntidad.setGrupotipoentidad(grupoTipoEntidadSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:nuevoTSGrupoGrupo");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTSGrupoGrupo");
         } else if (tipoActualizacion == 2) {
             duplicarTSGrupoTipoEntidad.setGrupotipoentidad(grupoTipoEntidadSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarTSGrupoGrupo");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTSGrupoGrupo");
         }
         filtrarLovGruposTiposEntidades = null;
         grupoTipoEntidadSeleccionado = null;
@@ -3095,12 +3096,12 @@ public class ControlTipoSueldo implements Serializable {
         secRegistroTSGrupos = null;
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        /*context.update("form:GrupoDialogo");
-         context.update("form:lovGrupo");
-         context.update("form:aceptarG");*/
+        /*PrimefacesContextUI.actualizar("form:GrupoDialogo");
+         PrimefacesContextUI.actualizar("form:lovGrupo");
+         PrimefacesContextUI.actualizar("form:aceptarG");*/
         context.reset("form:lovGrupo:globalFilter");
-        context.execute("lovGrupo.clearFilters()");
-        context.execute("GrupoDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovGrupo').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('GrupoDialogo').hide()");
     }
 
     public void cancelarCambioGrupo() {
@@ -3113,8 +3114,8 @@ public class ControlTipoSueldo implements Serializable {
         permitirIndexTSGrupos = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovGrupo:globalFilter");
-        context.execute("lovGrupo.clearFilters()");
-        context.execute("GrupoDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovGrupo').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('GrupoDialogo').hide()");
     }
 
     public void actualizarTipoEntidad() {
@@ -3144,16 +3145,16 @@ public class ControlTipoSueldo implements Serializable {
             permitirIndexTEFormulas = true;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosTEFormula");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTEFormula");
         } else if (tipoActualizacion == 1) {
             nuevoTEFormulaConcepto.setTipoentidad(tipoEntidadSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:nuevoTEFormulaTipoEntidad");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTEFormulaTipoEntidad");
         } else if (tipoActualizacion == 2) {
             duplicarTEFormulaConcepto.setTipoentidad(tipoEntidadSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarTEFormulaTipoEntidad");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTEFormulaTipoEntidad");
         }
         lovTiposEntidades = null;
         tipoEntidadSeleccionado = null;
@@ -3162,12 +3163,12 @@ public class ControlTipoSueldo implements Serializable {
         secRegistroTEFormulas = null;
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        /*context.update("form:TipoEntidadDialogo");
-         context.update("form:lovTipoEntidad");
-         context.update("form:aceptarTE");*/
+        /*PrimefacesContextUI.actualizar("form:TipoEntidadDialogo");
+         PrimefacesContextUI.actualizar("form:lovTipoEntidad");
+         PrimefacesContextUI.actualizar("form:aceptarTE");*/
         context.reset("form:lovTipoEntidad:globalFilter");
-        context.execute("lovTipoEntidad.clearFilters()");
-        context.execute("TipoEntidadDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoEntidad').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('TipoEntidadDialogo').hide()");
     }
 
     public void cancelarCambioTipoEntidad() {
@@ -3180,8 +3181,8 @@ public class ControlTipoSueldo implements Serializable {
         permitirIndexTEFormulas = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTipoEntidad:globalFilter");
-        context.execute("lovTipoEntidad.clearFilters()");
-        context.execute("TipoEntidadDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoEntidad').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('TipoEntidadDialogo').hide()");
     }
 
     public void actualizarFormulaTE() {
@@ -3211,16 +3212,16 @@ public class ControlTipoSueldo implements Serializable {
             permitirIndexTEFormulas = true;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosTEFormula");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTEFormula");
         } else if (tipoActualizacion == 1) {
             nuevoTEFormulaConcepto.setFormula(formulaSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:nuevoTEFormulaFormula");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTEFormulaFormula");
         } else if (tipoActualizacion == 2) {
             duplicarTEFormulaConcepto.setFormula(formulaSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarTEFormulaFormula");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTEFormulaFormula");
         }
         filtrarLovFormulas = null;
         formulaSeleccionado = null;
@@ -3229,12 +3230,12 @@ public class ControlTipoSueldo implements Serializable {
         secRegistroTEFormulas = null;
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        /*context.update("form:FormulaTEDialogo");
-         context.update("form:lovFormulaTE");
-         context.update("form:aceptarFTE");*/
+        /*PrimefacesContextUI.actualizar("form:FormulaTEDialogo");
+         PrimefacesContextUI.actualizar("form:lovFormulaTE");
+         PrimefacesContextUI.actualizar("form:aceptarFTE");*/
         context.reset("form:lovFormulaTE:globalFilter");
-        context.execute("lovFormulaTE.clearFilters()");
-        context.execute("FormulaTEDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovFormulaTE').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('FormulaTEDialogo').hide()");
     }
 
     public void cancelarCambioFormulaTE() {
@@ -3247,8 +3248,8 @@ public class ControlTipoSueldo implements Serializable {
         permitirIndexTEFormulas = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovFormulaTE:globalFilter");
-        context.execute("lovFormulaTE.clearFilters()");
-        context.execute("FormulaTEDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovFormulaTE').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('FormulaTEDialogo').hide()");
     }
 
     public void actualizarConceptoTE() {
@@ -3278,18 +3279,18 @@ public class ControlTipoSueldo implements Serializable {
             permitirIndexTEFormulas = true;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:ACEPTAR");
-            context.update("form:datosTEFormula");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTEFormula");
         } else if (tipoActualizacion == 1) {
             nuevoTEFormulaConcepto.setConcepto(conceptoSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:nuevoTEFormulaCConcepto");
-            context.update("formularioDialogos:nuevoTEFormulaEmpresa");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTEFormulaCConcepto");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTEFormulaEmpresa");
         } else if (tipoActualizacion == 2) {
             duplicarTEFormulaConcepto.setConcepto(conceptoSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarTEFormulaCConcepto");
-            context.update("formularioDialogos:duplicarTEFormulaEmpresa");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTEFormulaCConcepto");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTEFormulaEmpresa");
         }
         filtrarLovConceptos = null;
         conceptoSeleccionado = null;
@@ -3299,12 +3300,12 @@ public class ControlTipoSueldo implements Serializable {
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         /*
-         context.update("form:ConceptoTEDialogo");
-         context.update("form:lovConceptoTE");
-         context.update("form:aceptarCTE");*/
+         PrimefacesContextUI.actualizar("form:ConceptoTEDialogo");
+         PrimefacesContextUI.actualizar("form:lovConceptoTE");
+         PrimefacesContextUI.actualizar("form:aceptarCTE");*/
         context.reset("form:lovConceptoTE:globalFilter");
-        context.execute("lovConceptoTE.clearFilters()");
-        context.execute("ConceptoTEDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovConceptoTE').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ConceptoTEDialogo').hide()");
     }
 
     public void cancelarCambioConceptoTE() {
@@ -3317,8 +3318,8 @@ public class ControlTipoSueldo implements Serializable {
         permitirIndexTEFormulas = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovConceptoTE:globalFilter");
-        context.execute("lovConceptoTE.clearFilters()");
-        context.execute("ConceptoTEDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovConceptoTE').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('ConceptoTEDialogo').hide()");
     }
 
     /**
@@ -3504,7 +3505,7 @@ public class ControlTipoSueldo implements Serializable {
         int tam3 = listaTEFormulasConceptos.size();
         if (tam == 0 || tam1 == 0 || tam2 == 0 || tam3 == 0) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("verificarRastrosTablas.show()");
+            PrimefacesContextUI.ejecutar("PF('verificarRastrosTablas').show()");
         } else {
             if (index >= 0) {
                 verificarRastroTipoSueldo();
@@ -3534,30 +3535,30 @@ public class ControlTipoSueldo implements Serializable {
                 backUp = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "TiposSueldos";
                     msnConfirmarRastro = "La tabla TIPOSSUELDOS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("TIPOSSUELDOS")) {
                 nombreTablaRastro = "TiposSueldos";
                 msnConfirmarRastroHistorico = "La tabla TIPOSSUELDOS tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;
@@ -3572,30 +3573,30 @@ public class ControlTipoSueldo implements Serializable {
                 backUp = secRegistroTSFormulas;
                 secRegistroTSFormulas = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "TSFormulasConceptos";
                     msnConfirmarRastro = "La tabla TSFORMULASCONCEPTOS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("TSFORMULASCONCEPTOS")) {
                 nombreTablaRastro = "TSFormulasConceptos";
                 msnConfirmarRastroHistorico = "La tabla TSFORMULASCONCEPTOS tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         indexTSFormulas = -1;
@@ -3610,30 +3611,30 @@ public class ControlTipoSueldo implements Serializable {
                 backUp = backUpSecRegistroTSGrupos;
                 secRegistroTSGrupos = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "TSGruposTiposEntidades";
                     msnConfirmarRastro = "La tabla TSGRUPOSTIPOSENTIDADES tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("TSGRUPOSTIPOSENTIDADES")) {
                 nombreTablaRastro = "TSGruposTiposEntidades";
                 msnConfirmarRastroHistorico = "La tabla TSGRUPOSTIPOSENTIDADES tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         indexTSGrupos = -1;
@@ -3648,30 +3649,30 @@ public class ControlTipoSueldo implements Serializable {
                 backUp = secRegistroTEFormulas;
                 secRegistroTEFormulas = null;
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "TEFormulasConceptos";
                     msnConfirmarRastro = "La tabla TEFORMULASCONCEPTOS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    context.update("form:msnConfirmarRastro");
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("TEFORMULASCONCEPTOS")) {
                 nombreTablaRastro = "TEFormulasConceptos";
                 msnConfirmarRastroHistorico = "La tabla TEFORMULASCONCEPTOS tiene rastros historicos, ¿Desea continuar?";
-                context.update("form:confirmarRastroHistorico");
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
         indexTEFormulas = -1;

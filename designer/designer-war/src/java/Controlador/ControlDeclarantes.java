@@ -25,6 +25,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -172,13 +173,13 @@ public class ControlDeclarantes implements Serializable {
             }
             cambiosPagina = false;
             permitirIndex = true;
-            context.update("form:datosDeclarantes");
+            PrimefacesContextUI.actualizar("form:datosDeclarantes");
         } else if (tipoActualizacion == 1) {
             nuevoDeclarante.setRetencionminima(seleccionado);
-            context.update("formularioDialogos:nuevoDeclarante");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoDeclarante");
         } else if (tipoActualizacion == 2) {
             duplicarDeclarante.setRetencionminima(seleccionado);
-            context.update("formularioDialogos:duplicarDeclarante");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDeclarante");
         }
         filtradoListaDeclarantes = null;
         retencionesSeleccionado = null;
@@ -188,9 +189,9 @@ public class ControlDeclarantes implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVMinimas:globalFilter");
-        context.execute("LOVMinimas.clearFilters()");
-        context.execute("minimasDialogo.hide()");
-        //context.update("formularioDialogos:LOVMinimas");
+        PrimefacesContextUI.ejecutar("PF('LOVMinimas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('minimasDialogo').hide()");
+        //PrimefacesContextUI.actualizar("formularioDialogos:LOVMinimas");
     }
 
     //LISTA DE VALORES DINAMICA
@@ -198,8 +199,8 @@ public class ControlDeclarantes implements Serializable {
         if (index >= 0) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 3) {
-                context.update("formularioDialogos:minimasDialogo");
-                context.execute("minimasDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:minimasDialogo");
+                PrimefacesContextUI.ejecutar("PF('minimasDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -222,25 +223,25 @@ public class ControlDeclarantes implements Serializable {
         for (int i = 0; i < listaDeclarantes.size(); i++) {
             if (listaDeclarantes.get(index).getFechainicial().after(listaDeclarantes.get(i).getFechainicial()) && listaDeclarantes.get(index).getFechainicial().before(listaDeclarantes.get(i).getFechafinal())) {
                 listaDeclarantes.get(index).setFechainicial(fechaInicial);
-                context.update("formularioDialogos:fechasTraslapadas");
-                context.execute("fechasTraslapadas.show()");
-                context.update("form:datosDeclarantes");
+                PrimefacesContextUI.actualizar("formularioDialogos:fechasTraslapadas");
+                PrimefacesContextUI.ejecutar("PF('fechasTraslapadas').show()");
+                PrimefacesContextUI.actualizar("form:datosDeclarantes");
                 break;
             }
         }
 
         if (listaDeclarantes.get(index).getFechafinal().before(listaDeclarantes.get(index).getFechainicial())) {
             listaDeclarantes.get(index).setFechafinal(fechaFinal);
-            context.update("formularioDialogos:fechas");
-            context.execute("fechas.show()");
-            context.update("form:datosDeclarantes");
+            PrimefacesContextUI.actualizar("formularioDialogos:fechas");
+            PrimefacesContextUI.ejecutar("PF('fechas').show()");
+            PrimefacesContextUI.actualizar("form:datosDeclarantes");
         }
 
         if (listaDeclarantes.get(index).getFechainicial().after(listaDeclarantes.get(index).getFechafinal())) {
             listaDeclarantes.get(index).setFechainicial(fechaInicial);
-            context.update("formularioDialogos:fechas");
-            context.execute("fechas.show()");
-            context.update("form:datosDeclarantes");
+            PrimefacesContextUI.actualizar("formularioDialogos:fechas");
+            PrimefacesContextUI.ejecutar("PF('fechas').show()");
+            PrimefacesContextUI.actualizar("form:datosDeclarantes");
         }
         if (confirmarCambio.equalsIgnoreCase("N")) {
             if (tipoLista == 0) {
@@ -255,7 +256,7 @@ public class ControlDeclarantes implements Serializable {
                         guardado = false;
                     }
                     cambiosPagina = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 index = -1;
                 secRegistro = null;
@@ -271,12 +272,12 @@ public class ControlDeclarantes implements Serializable {
                         guardado = false;
                     }
                     cambiosPagina = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
                 index = -1;
                 secRegistro = null;
             }
-            context.update("form:datosDeclarantes");
+            PrimefacesContextUI.actualizar("form:datosDeclarantes");
         } else if (confirmarCambio.equalsIgnoreCase("MINIMA")) {
             if (tipoLista == 0) {
                 listaDeclarantes.get(indice).getRetencionminima().setRetencion(Minima);
@@ -309,8 +310,8 @@ public class ControlDeclarantes implements Serializable {
                 getLovlistaRetenciones();
             } else {
                 permitirIndex = false;
-                context.update("formularioDialogos:minimasDialogo");
-                context.execute("minimasDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:minimasDialogo");
+                PrimefacesContextUI.ejecutar("PF('minimasDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -338,16 +339,16 @@ public class ControlDeclarantes implements Serializable {
             /*
              if (listaDeclarantes.get(index).getFechafinal().before(listaDeclarantes.get(index).getFechainicial())) {
              listaDeclarantes.get(index).setFechafinal(fechaFinal);
-             context.update("formularioDialogos:fechas");
-             context.execute("fechas.show()");
-             context.update("form:datosDeclarantes");
+             PrimefacesContextUI.actualizar("formularioDialogos:fechas");
+             PrimefacesContextUI.ejecutar("PF('fechas').show()");
+             PrimefacesContextUI.actualizar("form:datosDeclarantes");
              }
 
              if (listaDeclarantes.get(index).getFechainicial().after(listaDeclarantes.get(index).getFechafinal())) {
              listaDeclarantes.get(index).setFechainicial(fechaInicial);
-             context.update("formularioDialogos:fechas");
-             context.execute("fechas.show()");
-             context.update("form:datosDeclarantes");
+             PrimefacesContextUI.actualizar("formularioDialogos:fechas");
+             PrimefacesContextUI.ejecutar("PF('fechas').show()");
+             PrimefacesContextUI.actualizar("form:datosDeclarantes");
              }
              */
             if (solapado == false) {
@@ -367,8 +368,8 @@ public class ControlDeclarantes implements Serializable {
                         filtradoListaDeclarantes.get(i).setFechainicial(fechaInicial);
 
                     }
-                    context.update("form:datosDeclarantes");
-                    context.execute("errorFechas.show()");
+                    PrimefacesContextUI.actualizar("form:datosDeclarantes");
+                    PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
                 }
             } else {
                 if (tipoLista == 0) {
@@ -377,9 +378,9 @@ public class ControlDeclarantes implements Serializable {
                 if (tipoLista == 1) {
                     filtradoListaDeclarantes.get(index).setFechainicial(fechaInicial);
                 }
-                context.update("formularioDialogos:fechasTraslapadas");
-                context.execute("fechasTraslapadas.show()");
-                context.update("form:datosDeclarantes");
+                PrimefacesContextUI.actualizar("formularioDialogos:fechasTraslapadas");
+                PrimefacesContextUI.ejecutar("PF('fechasTraslapadas').show()");
+                PrimefacesContextUI.actualizar("form:datosDeclarantes");
             }
         } else {
             if (tipoLista == 0) {
@@ -390,8 +391,8 @@ public class ControlDeclarantes implements Serializable {
                 filtradoListaDeclarantes.get(i).setFechainicial(fechaInicial);
                 filtradoListaDeclarantes.get(i).setFechafinal(fechaFinal);
             }
-            context.update("form:datosDeclarantes");
-            context.execute("errorRegNew.show()");
+            PrimefacesContextUI.actualizar("form:datosDeclarantes");
+            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
 
@@ -466,7 +467,7 @@ public class ControlDeclarantes implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             context.reset("formularioDialogos:LOVMinimas:globalFilter");
-            context.update("formularioDialogos:LOVMinimas");
+            PrimefacesContextUI.actualizar("formularioDialogos:LOVMinimas");
         }
     }
     //FALTA GUARDAR
@@ -484,12 +485,12 @@ public class ControlDeclarantes implements Serializable {
             System.out.println("Tipo Actualizacion: " + tipoActualizacion);
             if (nuevoDeclarante.getFechafinal() == null) {
                 System.out.println("La fecha final es nula");
-                context.update("formularioDialogos:fechaNula");
-                context.execute("fechaNula.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:fechaNula");
+                PrimefacesContextUI.ejecutar("PF('fechaNula').show()");
             } else {
                 lovlistaRetenciones = administrarDeclarantes.retencionesMinimas(nuevoDeclarante.getFechafinal());
-                context.update("formularioDialogos:minimasDialogo");
-                context.execute("minimasDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:minimasDialogo");
+                PrimefacesContextUI.ejecutar("PF('minimasDialogo').show()");
 
             }
         } else if (LND == 2) {
@@ -499,20 +500,20 @@ public class ControlDeclarantes implements Serializable {
             System.out.println("Tipo Actualizacion: " + tipoActualizacion);
             if (duplicarDeclarante.getFechafinal() == null) {
                 System.out.println("La fecha final es nula");
-                context.update("formularioDialogos:fechaNula");
-                context.execute("fechaNula.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:fechaNula");
+                PrimefacesContextUI.ejecutar("PF('fechaNula').show()");
             } else {
                 lovlistaRetenciones = administrarDeclarantes.retencionesMinimas(duplicarDeclarante.getFechafinal());
-                context.update("formularioDialogos:minimasDialogo");
-                context.execute("minimasDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:minimasDialogo");
+                PrimefacesContextUI.ejecutar("PF('minimasDialogo').show()");
 
             }
         }
         if (dlg == 0) {
             lovlistaRetenciones = null;
             getLovlistaRetenciones();
-            context.update("formularioDialogos:minimasDialogo");
-            context.execute("minimasDialogo.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:minimasDialogo");
+            PrimefacesContextUI.ejecutar("PF('minimasDialogo').show()");
         }
     }
 
@@ -537,8 +538,8 @@ public class ControlDeclarantes implements Serializable {
         listaDeclarantes = null;
         guardado = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosDeclarantes");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosDeclarantes");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void cancelarCambioDeclarantes() {
@@ -552,8 +553,8 @@ public class ControlDeclarantes implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVMinimas:globalFilter");
-        context.execute("LOVMinimas.clearFilters()");
-        context.execute("minimasDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('LOVMinimas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('minimasDialogo').hide()");
     }
 
     //MOSTRAR DATOS CELDA
@@ -572,20 +573,20 @@ public class ControlDeclarantes implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarFechaInicial");
-                context.execute("editarFechaInicial.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicial");
+                PrimefacesContextUI.ejecutar("PF('editarFechaInicial').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarFechaFinal");
-                context.execute("editarFechaFinal.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinal");
+                PrimefacesContextUI.ejecutar("PF('editarFechaFinal').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editarDeseado");
-                context.execute("editarDeseado.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarDeseado");
+                PrimefacesContextUI.ejecutar("PF('editarDeseado').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                context.update("formularioDialogos:editarMinima");
-                context.execute("editarMinima.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarMinima");
+                PrimefacesContextUI.ejecutar("PF('editarMinima').show()");
                 cualCelda = -1;
             }
         }
@@ -615,8 +616,8 @@ public class ControlDeclarantes implements Serializable {
 
          for (int i = 0; i < listaDeclarantes.size(); i++) {
          if (nuevoDeclarante.getFechainicial().after(listaDeclarantes.get(i).getFechainicial()) && nuevoDeclarante.getFechainicial().before(listaDeclarantes.get(i).getFechafinal())) {
-         context.update("formularioDialogos:fechasTraslapadas");
-         context.execute("fechasTraslapadas.show()");
+         PrimefacesContextUI.actualizar("formularioDialogos:fechasTraslapadas");
+         PrimefacesContextUI.ejecutar("PF('fechasTraslapadas').show()");
          pasa2++;
          break;
          }
@@ -624,23 +625,23 @@ public class ControlDeclarantes implements Serializable {
 
          if (nuevoDeclarante.getFechafinal() != null && nuevoDeclarante.getFechainicial() != null) {
          if (nuevoDeclarante.getFechafinal().before(nuevoDeclarante.getFechainicial())) {
-         context.update("formularioDialogos:fechas");
-         context.execute("fechas.show()");
+         PrimefacesContextUI.actualizar("formularioDialogos:fechas");
+         PrimefacesContextUI.ejecutar("PF('fechas').show()");
          nuevoDeclarante.setFechafinal(null);
-         context.update("formularioDialogos:nuevaFechaFinal");
+         PrimefacesContextUI.actualizar("formularioDialogos:nuevaFechaFinal");
          pasa2++;
          } else if (nuevoDeclarante.getFechainicial().after(nuevoDeclarante.getFechafinal())) {
-         context.update("formularioDialogos:fecha");
-         context.execute("fecha.show()");
+         PrimefacesContextUI.actualizar("formularioDialogos:fecha");
+         PrimefacesContextUI.ejecutar("PF('fecha').show()");
          nuevoDeclarante.setFechainicial(null);
-         context.update("formularioDialogos:nuevaFechaInicio");
+         PrimefacesContextUI.actualizar("formularioDialogos:nuevaFechaInicio");
          pasa2++;
          }
          }
 
          if (pasa != 0) {
-         context.update("formularioDialogos:validacionNuevoDeclarante");
-         context.execute("validacionNuevoDeclarante.show()");
+         PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoDeclarante");
+         PrimefacesContextUI.ejecutar("PF('validacionNuevoDeclarante').show()");
          }
          */
         if (nuevoDeclarante.getFechainicial() != null && nuevoDeclarante.getFechafinal() != null) {
@@ -664,31 +665,31 @@ public class ControlDeclarantes implements Serializable {
                     nuevoDeclarante.setPersona(persona);
 
                     cambiosPagina = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                     listaDeclarantesCrear.add(nuevoDeclarante);
                     listaDeclarantes.add(nuevoDeclarante);
                     nuevoDeclarante = new Declarantes();
-                    context.update("form:datosDeclarantes");
+                    PrimefacesContextUI.actualizar("form:datosDeclarantes");
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:aceptar");
+                        PrimefacesContextUI.actualizar("form:aceptar");
                     }
-                    context.execute("NuevoRegistroDeclarantes.hide()");
+                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroDeclarantes').hide()");
                     index = -1;
                     secRegistro = null;
                 } else {
                     System.out.println("traslapacion de fechas");
-                    context.update("formularioDialogos:fechasTraslapadas");
-                    context.execute("fechasTraslapadas.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:fechasTraslapadas");
+                    PrimefacesContextUI.ejecutar("PF('fechasTraslapadas').show()");
                 }
             } else {
                 System.out.println("error fechas ingresadas");
-                context.update("formularioDialogos:fechas");
-                context.execute("fechas.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:fechas");
+                PrimefacesContextUI.ejecutar("PF('fechas').show()");
             }
         } else {
             System.out.println("fechas obligatorias");
-            context.execute("validacionNuevoDeclarante.show()");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevoDeclarante').show()");
         }
     }
 
@@ -730,21 +731,21 @@ public class ControlDeclarantes implements Serializable {
                 }
                 if (tipoNuevo == 1) {
                     nuevoDeclarante.setRetencionminima(seleccionado);
-                    context.update("formularioDialogos:nuevoTarifaDeseo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTarifaDeseo");
                 } else if (tipoNuevo == 2) {
                     duplicarDeclarante.setRetencionminima(seleccionado);
-                    context.update("formularioDialogos:duplicarTarifaDeseo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTarifaDeseo");
                 }
                 lovlistaRetenciones.clear();
                 getLovlistaRetenciones();
             } else {
-                context.update("form:minimasDialogo");
-                context.execute("minimasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:minimasDialogo");
+                PrimefacesContextUI.ejecutar("PF('minimasDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevoTarifaDeseo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTarifaDeseo");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarTarifaDeseo");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTarifaDeseo");
                 }
             }
         }
@@ -793,8 +794,8 @@ public class ControlDeclarantes implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarDeclarante");
-            context.execute("DuplicarRegistroDeclarantes.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDeclarante");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroDeclarantes').show()");
             index = -1;
             secRegistro = null;
         }
@@ -829,30 +830,30 @@ public class ControlDeclarantes implements Serializable {
                     duplicarDeclarante.setPersona(persona);
 
                     cambiosPagina = false;
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                     listaDeclarantesCrear.add(duplicarDeclarante);
                     listaDeclarantes.add(duplicarDeclarante);
                     duplicarDeclarante = new Declarantes();
-                    context.update("form:datosDeclarantes");
+                    PrimefacesContextUI.actualizar("form:datosDeclarantes");
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:aceptar");
+                        PrimefacesContextUI.actualizar("form:aceptar");
                     }
-                    context.execute("DuplicarRegistroDeclarantes.hide()");
+                    PrimefacesContextUI.ejecutar("PF('DuplicarRegistroDeclarantes').hide()");
                     index = -1;
                     secRegistro = null;
                 } else {
                     System.out.println("traslapacion de fechas");
-                    context.update("formularioDialogos:fechasTraslapadas");
-                    context.execute("fechasTraslapadas.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:fechasTraslapadas");
+                    PrimefacesContextUI.ejecutar("PF('fechasTraslapadas').show()");
                 }
             } else {
                 System.out.println("error fechas ingresadas");
-                context.execute("fecha.show()");
+                PrimefacesContextUI.ejecutar("PF('fecha').show()");
             }
         } else {
             System.out.println("fechas obligatorias");
-            context.execute("validacionNuevoDeclarante.show()");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevoDeclarante').show()");
         }
 
         duplicarDeclarante = new Declarantes();
@@ -903,13 +904,13 @@ public class ControlDeclarantes implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosDeclarantes");
+            PrimefacesContextUI.actualizar("form:datosDeclarantes");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
     }
@@ -934,7 +935,7 @@ public class ControlDeclarantes implements Serializable {
             declarantesPromedio.setFilterStyle("width: 85%");
             declarantesTarifa = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesTarifa");
             declarantesTarifa.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosDeclarantes");
+            PrimefacesContextUI.actualizar("form:datosDeclarantes");
             bandera = 1;
 
         } else if (bandera == 1) {
@@ -973,7 +974,7 @@ public class ControlDeclarantes implements Serializable {
             declarantesTarifa = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesTarifa");
             declarantesTarifa.setFilterStyle("display: none; visibility: hidden;");
             altoScrollDeclarantes = "270";
-            RequestContext.getCurrentInstance().update("form:datosDeclarantes");
+            PrimefacesContextUI.actualizar("form:datosDeclarantes");
             bandera = 0;
             filtradoListaDeclarantes = null;
             tipoLista = 0;
@@ -1038,24 +1039,24 @@ public class ControlDeclarantes implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "DECLARANTES");
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("DECLARANTES")) {
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -1109,14 +1110,14 @@ public class ControlDeclarantes implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             cambiosPagina = true;
-            context.update("form:ACEPTAR");
-            context.update("form:datosDeclarantes");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosDeclarantes");
             guardado = true;
             permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
             //  k = 0;
         }
         index = -1;

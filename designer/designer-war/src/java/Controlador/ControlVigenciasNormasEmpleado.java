@@ -26,6 +26,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -129,7 +130,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
     }
@@ -153,7 +154,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             context1.update("formExportar:botonPrueba2");
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("formExportar:botonPrueba");
+        PrimefacesContextUI.actualizar("formExportar:botonPrueba");
     }
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -194,9 +195,9 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             System.out.println("Se guardaron los datos con exito");
             vigenciasNormasEmpleado = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosVNEEmpleado");
+            PrimefacesContextUI.actualizar("form:datosVNEEmpleado");
             guardado = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            PrimefacesContextUI.actualizar("form:aceptar");
             k = 0;
         }
         index = -1;
@@ -212,7 +213,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             vneFecha.setFilterStyle("display: none; visibility: hidden;");
             vneNombreNormaLaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVNEmpleados:vneNombreNormaLaboral");
             vneNombreNormaLaboral.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVNEmpleados");
+            PrimefacesContextUI.actualizar("form:datosVNEmpleados");
             bandera = 0;
             filtrarVNE = null;
             tipoLista = 0;
@@ -225,7 +226,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
         vigenciasNormasEmpleado = null;
         guardado = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosVNEmpleados");
+        PrimefacesContextUI.actualizar("form:datosVNEmpleados");
     }
 
     //MOSTRAR DATOS CELDA
@@ -241,12 +242,12 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarFecha");
-                context.execute("editarFecha.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFecha");
+                PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editarNormaLaboral");
-                context.execute("editarNormaLaboral.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarNormaLaboral");
+                PrimefacesContextUI.ejecutar("PF('editarNormaLaboral').show()");
                 cualCelda = -1;
             }
         }
@@ -262,7 +263,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             vneFecha.setFilterStyle("display: none; visibility: hidden;");
             vneNombreNormaLaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVNEmpleados:vneNombreNormaLaboral");
             vneNombreNormaLaboral.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVNEmpleados");
+            PrimefacesContextUI.actualizar("form:datosVNEmpleados");
             bandera = 0;
             filtrarVNE = null;
             tipoLista = 0;
@@ -276,10 +277,10 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
         vigenciasNormasEmpleado.add(nuevaVigenciaNormasEmpleados);
         nuevaVigenciaNormasEmpleados = new VigenciasNormasEmpleados();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosVNEmpleados");
+        PrimefacesContextUI.actualizar("form:datosVNEmpleados");
         if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            PrimefacesContextUI.actualizar("form:aceptar");
         }
         index = -1;
     }
@@ -312,8 +313,8 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarVNE");
-            context.execute("DuplicarRegistroVNE.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVNE");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVNE').show()");
             index = -1;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////            
         }
@@ -326,11 +327,11 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
         listVNECrear.add(duplicarVNE);
         RequestContext context = RequestContext.getCurrentInstance();
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        context.update("form:datosVNEmpleados");
+        PrimefacesContextUI.actualizar("form:datosVNEmpleados");
         index = -1;
         if (guardado == true) {
             guardado = false;
-            //RequestContext.getCurrentInstance().update("form:aceptar");
+            //PrimefacesContextUI.actualizar("form:aceptar");
         }
         if (bandera == 1) {
             //CERRAR FILTRADO/////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -338,7 +339,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             vneFecha.setFilterStyle("display: none; visibility: hidden;");
             vneNombreNormaLaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVNEmpleados:vneNombreNormaLaboral");
             vneNombreNormaLaboral.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVNEmpleados");
+            PrimefacesContextUI.actualizar("form:datosVNEmpleados");
             bandera = 0;
             filtrarVNE = null;
             tipoLista = 0;
@@ -388,12 +389,12 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosVNEmpleados");
+            PrimefacesContextUI.actualizar("form:datosVNEmpleados");
             index = -1;
 
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //PrimefacesContextUI.actualizar("form:aceptar");
             }
         }
     }
@@ -406,7 +407,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             vneFecha.setFilterStyle("width: 85%;");
             vneNombreNormaLaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVNEmpleados:vneNombreNormaLaboral");
             vneNombreNormaLaboral.setFilterStyle("width: 85%;");
-            RequestContext.getCurrentInstance().update("form:datosVNEmpleados");
+            PrimefacesContextUI.actualizar("form:datosVNEmpleados");
             bandera = 1;
         } else if (bandera == 1) {
             System.out.println("Desactivar");
@@ -414,7 +415,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             vneFecha.setFilterStyle("display: none; visibility: hidden;");
             vneNombreNormaLaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVNEmpleados:vneNombreNormaLaboral");
             vneNombreNormaLaboral.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVNEmpleados");
+            PrimefacesContextUI.actualizar("form:datosVNEmpleados");
             bandera = 0;
             filtrarVNE = null;
             tipoLista = 0;
@@ -428,7 +429,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             vneFecha.setFilterStyle("display: none; visibility: hidden;");
             vneNombreNormaLaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVNEmpleados:vneNombreNormaLaboral");
             vneNombreNormaLaboral.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosVNEmpleados");
+            PrimefacesContextUI.actualizar("form:datosVNEmpleados");
             bandera = 0;
             filtrarVNE = null;
             tipoLista = 0;
@@ -457,8 +458,8 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             tipoActualizacion = 2;
         }
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////       
-        context.update("form:NormasLaboralesDialogo");
-        context.execute("NormasLaboralesDialogo.show()");
+        PrimefacesContextUI.actualizar("form:NormasLaboralesDialogo");
+        PrimefacesContextUI.ejecutar("PF('NormasLaboralesDialogo').show()");
     }
 
     //LOVS
@@ -475,19 +476,19 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //PrimefacesContextUI.actualizar("form:aceptar");
                 }
             }
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaNormasEmpleados.setNormalaboral(normaLaboralSelecionada);
             RequestContext context = RequestContext.getCurrentInstance();
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            context.update("formularioDialogos:nuevaVNE");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVNE");
         } else if (tipoActualizacion == 2) {
             duplicarVNE.setNormalaboral(normaLaboralSelecionada);
             RequestContext context = RequestContext.getCurrentInstance();
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            context.update("formularioDialogos:duplicarVNE");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVNE");
         }
         filtradoNormasLaborales = null;
         normaLaboralSelecionada = null;
@@ -510,18 +511,18 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
         if (index >= 0) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
-                context.update("form:TipoEntidadDialogo");
-                context.execute("TipoEntidadDialogo.show()");
+                PrimefacesContextUI.actualizar("form:TipoEntidadDialogo");
+                PrimefacesContextUI.ejecutar("PF('TipoEntidadDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 3) {
-                context.update("form:NombreTerceroDialogo");
-                context.execute("NombreTerceroDialogo.show()");
+                PrimefacesContextUI.actualizar("form:NombreTerceroDialogo");
+                PrimefacesContextUI.ejecutar("PF('NombreTerceroDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 6) {
-                context.update("form:EstadosAfilacionesDialogo");
-                context.execute("EstadosAfilacionesDialogo.show()");
+                PrimefacesContextUI.actualizar("form:EstadosAfilacionesDialogo");
+                PrimefacesContextUI.ejecutar("PF('EstadosAfilacionesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }

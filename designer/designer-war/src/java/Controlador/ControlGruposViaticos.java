@@ -26,6 +26,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -100,7 +101,7 @@ public class ControlGruposViaticos implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarGruposViaticos.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlGruposViaticos eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -164,7 +165,7 @@ public class ControlGruposViaticos implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             estado = (Column) c.getViewRoot().findComponent("form:datosGruposViaticos:estado");
             estado.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosGruposViaticos");
+            PrimefacesContextUI.actualizar("form:datosGruposViaticos");
             bandera = 0;
             filtrarGruposViaticos = null;
             tipoLista = 0;
@@ -187,9 +188,9 @@ public class ControlGruposViaticos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listGruposViaticos.size();
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosGruposViaticos");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosGruposViaticos");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void salir() {
@@ -202,7 +203,7 @@ public class ControlGruposViaticos implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             estado = (Column) c.getViewRoot().findComponent("form:datosGruposViaticos:estado");
             estado.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosGruposViaticos");
+            PrimefacesContextUI.actualizar("form:datosGruposViaticos");
             bandera = 0;
             filtrarGruposViaticos = null;
             tipoLista = 0;
@@ -225,9 +226,9 @@ public class ControlGruposViaticos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listGruposViaticos.size();
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosGruposViaticos");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosGruposViaticos");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -238,7 +239,7 @@ public class ControlGruposViaticos implements Serializable {
             codigo.setFilterStyle("width: 85%");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposViaticos:descripcion");
             descripcion.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosGruposViaticos");
+            PrimefacesContextUI.actualizar("form:datosGruposViaticos");
             estado = (Column) c.getViewRoot().findComponent("form:datosGruposViaticos:estado");
             estado.setFilterStyle("width: 85%");
             System.out.println("Activar");
@@ -252,7 +253,7 @@ public class ControlGruposViaticos implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             estado = (Column) c.getViewRoot().findComponent("form:datosGruposViaticos:estado");
             estado.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosGruposViaticos");
+            PrimefacesContextUI.actualizar("form:datosGruposViaticos");
             bandera = 0;
             filtrarGruposViaticos = null;
             tipoLista = 0;
@@ -327,14 +328,14 @@ public class ControlGruposViaticos implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    context.update("form:datosGruposViaticos");
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:datosGruposViaticos");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 } else {
 
                     System.out.println("backupCodigo : " + backupCodigo);
@@ -381,14 +382,14 @@ public class ControlGruposViaticos implements Serializable {
                             guardado = false;
                         }
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    context.update("form:datosGruposViaticos");
-                    context.update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:datosGruposViaticos");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
 
                 }
             } else {
@@ -452,8 +453,8 @@ public class ControlGruposViaticos implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -511,16 +512,16 @@ public class ControlGruposViaticos implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
                 }
 
             }
-            context.update("form:datosGruposViaticos");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosGruposViaticos");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -561,15 +562,15 @@ public class ControlGruposViaticos implements Serializable {
             }
             infoRegistro = "Cantidad de registros: " + listGruposViaticos.size();
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:informacionRegistro");
-            context.update("form:datosGruposViaticos");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:datosGruposViaticos");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -604,8 +605,8 @@ public class ControlGruposViaticos implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:validacionBorrar");
-                context.execute("validacionBorrar.show()");
+                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
                 verificarCargos = new BigInteger("-1");
                 verificarEersViaticos = new BigInteger("-1");
@@ -622,8 +623,8 @@ public class ControlGruposViaticos implements Serializable {
 
         if (!borrarGruposViaticos.isEmpty() || !crearGruposViaticos.isEmpty() || !modificarGruposViaticos.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:confirmarGuardar");
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
     }
@@ -637,8 +638,8 @@ public class ControlGruposViaticos implements Serializable {
                 administrarGruposViaticos.borrarGruposViaticos(borrarGruposViaticos);
                 //mostrarBorrados
                 registrosBorrados = borrarGruposViaticos.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarGruposViaticos.clear();
             }
             if (!modificarGruposViaticos.isEmpty()) {
@@ -653,13 +654,13 @@ public class ControlGruposViaticos implements Serializable {
             listGruposViaticos = null;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
-            context.update("form:datosGruposViaticos");
+            PrimefacesContextUI.actualizar("form:growl");
+            PrimefacesContextUI.actualizar("form:datosGruposViaticos");
             k = 0;
             guardado = true;
         }
         index = -1;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -675,12 +676,12 @@ public class ControlGruposViaticos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editCodigo");
-                context.execute("editCodigo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editDescripcion");
-                context.execute("editDescripcion.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
 
@@ -749,7 +750,7 @@ public class ControlGruposViaticos implements Serializable {
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 estado = (Column) c.getViewRoot().findComponent("form:datosGruposViaticos:estado");
                 estado.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosGruposViaticos");
+                PrimefacesContextUI.actualizar("form:datosGruposViaticos");
                 bandera = 0;
                 filtrarGruposViaticos = null;
                 tipoLista = 0;
@@ -764,21 +765,21 @@ public class ControlGruposViaticos implements Serializable {
 
             listGruposViaticos.add(nuevoGruposViaticos);
             infoRegistro = "Cantidad de registros: " + listGruposViaticos.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             nuevoGruposViaticos = new GruposViaticos();
-            context.update("form:datosGruposViaticos");
+            PrimefacesContextUI.actualizar("form:datosGruposViaticos");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
 
-            context.execute("nuevoRegistroGruposViaticos.hide()");
+            PrimefacesContextUI.ejecutar("PF('nuevoRegistroGruposViaticos').hide()");
             index = -1;
             secRegistro = null;
 
         } else {
-            context.update("form:validacionNuevaCentroCosto");
-            context.execute("validacionNuevaCentroCosto.show()");
+            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -814,8 +815,8 @@ public class ControlGruposViaticos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarTE");
-            context.execute("duplicarRegistroGruposViaticos.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroGruposViaticos').show()");
             index = -1;
             secRegistro = null;
         }
@@ -875,15 +876,15 @@ public class ControlGruposViaticos implements Serializable {
             }
             listGruposViaticos.add(duplicarGruposViaticos);
             crearGruposViaticos.add(duplicarGruposViaticos);
-            context.update("form:datosGruposViaticos");
+            PrimefacesContextUI.actualizar("form:datosGruposViaticos");
             index = -1;
             infoRegistro = "Cantidad de registros: " + listGruposViaticos.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
@@ -893,18 +894,18 @@ public class ControlGruposViaticos implements Serializable {
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 estado = (Column) c.getViewRoot().findComponent("form:datosGruposViaticos:estado");
                 estado.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosGruposViaticos");
+                PrimefacesContextUI.actualizar("form:datosGruposViaticos");
                 bandera = 0;
                 filtrarGruposViaticos = null;
                 tipoLista = 0;
             }
             duplicarGruposViaticos = new GruposViaticos();
-            RequestContext.getCurrentInstance().execute("duplicarRegistroGruposViaticos.hide()");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroGruposViaticos').hide()");
 
         } else {
             contador = 0;
-            context.update("form:validacionDuplicarVigencia");
-            context.execute("validacionDuplicarVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -941,24 +942,24 @@ public class ControlGruposViaticos implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "GRUPOSINFADICIONALES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("GRUPOSINFADICIONALES")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -977,7 +978,7 @@ public class ControlGruposViaticos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listGruposViaticos.size();
         }
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
         return listGruposViaticos;
     }
 

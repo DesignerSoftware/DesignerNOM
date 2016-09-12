@@ -26,6 +26,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -135,7 +136,7 @@ public class ControlTiposEntidades implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             //infoRegistro = "Cantidad de registros: " + filtrarTiposEntidades.size();
             modificarInfoRegistro(filtrarTiposEntidades.size());
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlTiposEntidades eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -144,7 +145,7 @@ public class ControlTiposEntidades implements Serializable {
     public void eventoFiltrarGrupo() {
         RequestContext context = RequestContext.getCurrentInstance();
         modificarInfoRegistroGrupo(filtradoGruposTiposEntidades.size());
-        context.update("form:infoRegistroGruposTiposEntidades");
+        PrimefacesContextUI.actualizar("form:infoRegistroGruposTiposEntidades");
     }
 
     public void cambiarIndice(TiposEntidades te, int celda) {
@@ -165,9 +166,9 @@ public class ControlTiposEntidades implements Serializable {
                 grupoAsociadoAutoCompletar = tipoEntidadSeleccionada.getGrupo().getNombre();
             }
         } else {
-            context.execute("datosTipoEntidad.selectRow(" + te + ", false); datosTipoEntidad.unselectAllRows()");
+            PrimefacesContextUI.ejecutar("PF('datosTipoEntidad.selectRow(" + te + ", false); datosTipoEntidad.unselectAllRows()");
         }
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     /**
@@ -193,11 +194,11 @@ public class ControlTiposEntidades implements Serializable {
         if (dig == 2) {
             modificarInfoRegistroGrupo(listaGruposTiposEntidades.size());
             grupoTESeleccionada = null;
-            context.update("form:gruposTiposEntidadesDialogo");
-            context.execute("gruposTiposEntidadesDialogo.show()");
+            PrimefacesContextUI.actualizar("form:gruposTiposEntidadesDialogo");
+            PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').show()");
             dig = -1;
         }
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:listaValores");
         tipoActualizacion = 0;
     }
 
@@ -211,12 +212,12 @@ public class ControlTiposEntidades implements Serializable {
             if (cualCelda == 2) {
                 grupoTESeleccionada = null;
                 modificarInfoRegistroGrupo(listaGruposTiposEntidades.size());
-                context.update("form:gruposTiposEntidadesDialogo");
-                context.execute("gruposTiposEntidadesDialogo.show()");
+                PrimefacesContextUI.actualizar("form:gruposTiposEntidadesDialogo");
+                PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }else {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
     }
 // tipo Entidad
@@ -238,14 +239,14 @@ public class ControlTiposEntidades implements Serializable {
                 guardado = false;
             }
             permitirIndex = true;
-            context.update("form:datosTipoEntidad");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosTipoEntidad");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         } else if (tipoActualizacion == 1) {
             nuevoTipoEntidad.setGrupo(grupoTESeleccionada);
-            context.update("formularioDialogos:nuevoTipoEntidad");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoEntidad");
         } else if (tipoActualizacion == 2) {
             duplicarTipoEntidad.setGrupo(grupoTESeleccionada);
-            context.update("formularioDialogos:duplicarTiposEntidades");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTiposEntidades");
         }
         filtradoGruposTiposEntidades = null;
         grupoTESeleccionada = null;
@@ -253,9 +254,9 @@ public class ControlTiposEntidades implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("form:lovGruposTiposEntidades:globalFilter");
-        context.execute("lovGruposTiposEntidades.clearFilters()");
-        context.execute("gruposTiposEntidadesDialogo.hide()");
-        //context.update("form:lovGruposTiposEntidades");
+        PrimefacesContextUI.ejecutar("PF('lovGruposTiposEntidades').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').hide()");
+        //PrimefacesContextUI.actualizar("form:lovGruposTiposEntidades");
     }
 
     public void cancelarCambioGrupoTipoEntidad() {
@@ -267,8 +268,8 @@ public class ControlTiposEntidades implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovGruposTiposEntidades:globalFilter");
-        context.execute("lovGruposTiposEntidades.clearFilters()");
-        context.execute("gruposTiposEntidadesDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('lovGruposTiposEntidades').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').hide()");
     }
 //------------------------------------------------------------------------------
 
@@ -330,12 +331,12 @@ public class ControlTiposEntidades implements Serializable {
                     }
 
                 } else {
-                    context.update("form:validacionModificar");
-                    context.execute("validacionModificar.show()");
+                    PrimefacesContextUI.actualizar("form:validacionModificar");
+                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                 }
             }
 
-            context.update("form:datosTipoEntidad");
+            PrimefacesContextUI.actualizar("form:datosTipoEntidad");
         } else if (confirmarCambio.equalsIgnoreCase("GRUPOSTIPOSENTIDADES")) {
             activarLOV = false;
             tipoEntidadSeleccionada.getGrupo().setNombre(grupoAsociadoAutoCompletar);
@@ -352,13 +353,13 @@ public class ControlTiposEntidades implements Serializable {
                 getListaGruposTiposEntidades();
             } else {
                 permitirIndex = false;
-                context.update("form:gruposTiposEntidadesDialogo");
-                context.execute("gruposTiposEntidadesDialogo.show()");
+                PrimefacesContextUI.actualizar("form:gruposTiposEntidadesDialogo");
+                PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
-        context.update("form:datosTipoEntidad");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosTipoEntidad");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -392,22 +393,22 @@ public class ControlTiposEntidades implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoTipoEntidad.setGrupo(listaGruposTiposEntidades.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevoGrupoAsociado");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoGrupoAsociado");
                 } else if (tipoNuevo == 2) {
                     nuevoTipoEntidad.setGrupo(listaGruposTiposEntidades.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarGrupoAsociado");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarGrupoAsociado");
                 }
                 listaGruposTiposEntidades.clear();
                 listaGruposTiposEntidades = null;
                 getListaGruposTiposEntidades();
             } else {
-                context.update("form:gruposTiposEntidadesDialogo");
-                context.execute("gruposTiposEntidadesDialogo.show()");
+                PrimefacesContextUI.actualizar("form:gruposTiposEntidadesDialogo");
+                PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevoGrupoAsociado");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoGrupoAsociado");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarGrupoAsociado");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarGrupoAsociado");
                 }
             }
         }
@@ -422,8 +423,8 @@ public class ControlTiposEntidades implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:gruposTiposEntidadesDialogo");
-        context.execute("gruposTiposEntidadesDialogo.show()");
+        PrimefacesContextUI.actualizar("form:gruposTiposEntidadesDialogo");
+        PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').show()");
     }
 
     public void activarCtrlF11() {
@@ -436,7 +437,7 @@ public class ControlTiposEntidades implements Serializable {
             nombre.setFilterStyle("width: 85%");
             grupoAsociado = (Column) c.getViewRoot().findComponent("form:datosTipoEntidad:grupoAsociado");
             grupoAsociado.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosTipoEntidad");
+            PrimefacesContextUI.actualizar("form:datosTipoEntidad");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -462,10 +463,10 @@ public class ControlTiposEntidades implements Serializable {
         } else {
             modificarInfoRegistro(0);
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosTipoEntidad");
-        context.update("form:ACEPTAR");
-        RequestContext.getCurrentInstance().update("form:listaValores");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosTipoEntidad");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:listaValores");
     }
 
     public void salir() {
@@ -490,7 +491,7 @@ public class ControlTiposEntidades implements Serializable {
         nombre.setFilterStyle("display: none; visibility: hidden;");
         grupoAsociado = (Column) c.getViewRoot().findComponent("form:datosTipoEntidad:grupoAsociado");
         grupoAsociado.setFilterStyle("display: none; visibility: hidden;");
-        RequestContext.getCurrentInstance().update("form:datosTipoEntidad");
+        PrimefacesContextUI.actualizar("form:datosTipoEntidad");
         bandera = 0;
         filtrarTiposEntidades = null;
         tipoLista = 0;
@@ -559,18 +560,18 @@ public class ControlTiposEntidades implements Serializable {
             nuevoTipoEntidad = new TiposEntidades();
             nuevoTipoEntidad.setGrupo(new Grupostiposentidades());
 
-            context.update("form:datosTipoEntidad");
+            PrimefacesContextUI.actualizar("form:datosTipoEntidad");
             modificarInfoRegistro(listTiposEntidades.size());
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
 
             if (guardado) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
-            context.execute("nuevoRegistroTipoEntidad.hide()");
+            PrimefacesContextUI.ejecutar("PF('nuevoRegistroTipoEntidad').hide()");
         } else {
-            context.update("form:validacionDuplicarVigencia");
-            context.execute("validacionDuplicarVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
             contador = 0;
         }
     }
@@ -589,21 +590,21 @@ public class ControlTiposEntidades implements Serializable {
             editarTipoEntidad = tipoEntidadSeleccionada;
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editCodigo");
-                context.execute("editCodigo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editNombre");
-                context.execute("editNombre.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editNombre");
+                PrimefacesContextUI.ejecutar("PF('editNombre').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editGrupoAsociado");
-                context.execute("editGrupoAsociado.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editGrupoAsociado");
+                PrimefacesContextUI.ejecutar("PF('editGrupoAsociado').show()");
                 cualCelda = -1;
             }
 
         } else {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -611,13 +612,13 @@ public class ControlTiposEntidades implements Serializable {
         if (tipoNuevo == 0) {
             tipoActualizacion = 1;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:gruposTiposEntidadesDialogo");
-            context.execute("gruposTiposEntidadesDialogo.show()");
+            PrimefacesContextUI.actualizar("form:gruposTiposEntidadesDialogo");
+            PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').show()");
         } else if (tipoNuevo == 1) {
             tipoActualizacion = 2;
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:gruposTiposEntidadesDialogo");
-            context.execute("gruposTiposEntidadesDialogo.show()");
+            PrimefacesContextUI.actualizar("form:gruposTiposEntidadesDialogo");
+            PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').show()");
         }
     }
 
@@ -635,8 +636,8 @@ public class ControlTiposEntidades implements Serializable {
                 System.out.println("VERIFICARBORRADO borradoFCE : " + borradoFCE);
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:validacionBorrar");
-                context.execute("validacionBorrar.show()");
+                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 //tipoEntidadSeleccionada = null;
             }
         } catch (Exception e) {
@@ -666,17 +667,17 @@ public class ControlTiposEntidades implements Serializable {
             modificarInfoRegistro(listTiposEntidades.size());
             tipoEntidadSeleccionada = null;
             activarLOV = true;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            PrimefacesContextUI.actualizar("form:listaValores");
 
-            context.update("form:informacionRegistro");
-            context.update("form:datosTipoEntidad");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:datosTipoEntidad");
 
             if (guardado) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         } else {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
 
     }
@@ -694,10 +695,10 @@ public class ControlTiposEntidades implements Serializable {
             duplicarTipoEntidad.setGrupo(tipoEntidadSeleccionada.getGrupo());
             duplicarTipoEntidad.setNombre(tipoEntidadSeleccionada.getNombre());
 
-            context.update("formularioDialogos:duplicarTiposEntidades");
-            context.execute("duplicarRegistroTiposEntidades.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTiposEntidades");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposEntidades').show()");
         }else {
-            context.execute("seleccionarRegistro.show()");
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -752,14 +753,14 @@ public class ControlTiposEntidades implements Serializable {
             }
             listTiposEntidades.add(duplicarTipoEntidad);
             crearTiposEntidades.add(duplicarTipoEntidad);
-            context.update("form:datosTipoEntidad");
+            PrimefacesContextUI.actualizar("form:datosTipoEntidad");
             modificarInfoRegistro(listTiposEntidades.size());
             tipoEntidadSeleccionada = listTiposEntidades.get(listTiposEntidades.indexOf(duplicarTipoEntidad));
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
 
             if (guardado) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             if (bandera == 1) {
                 //CERRAR FILTRADO
@@ -767,13 +768,13 @@ public class ControlTiposEntidades implements Serializable {
             }
             duplicarTipoEntidad = new TiposEntidades();
             activarLOV = true;
-            RequestContext.getCurrentInstance().update("form:listaValores");
-            RequestContext.getCurrentInstance().execute("duplicarRegistroTiposEntidades.hide()");
+            PrimefacesContextUI.actualizar("form:listaValores");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposEntidades').hide()");
 
         } else {
             contador = 0;
-            context.update("form:validacionDuplicarVigencia");
-            context.execute("validacionDuplicarVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -789,8 +790,8 @@ public class ControlTiposEntidades implements Serializable {
                 administrarTipoEntidad.borrarTipoEntidad(borrarTiposEntidades);
                 //mostrarBorrados
                 registrosBorrados = borrarTiposEntidades.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarTiposEntidades.clear();
             }
             if (!crearTiposEntidades.isEmpty()) {
@@ -812,16 +813,16 @@ public class ControlTiposEntidades implements Serializable {
                 modificarInfoRegistro(0);
             }
             activarLOV = true;
-            context.update("form:datosTipoEntidad");
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            PrimefacesContextUI.actualizar("form:datosTipoEntidad");
+            PrimefacesContextUI.actualizar("form:listaValores");
             guardado = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             k = 0;
             permitirIndex = true;
             FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
         }
 
     }
@@ -848,21 +849,21 @@ public class ControlTiposEntidades implements Serializable {
             int resultado = administrarRastros.obtenerTabla(tipoEntidadSeleccionada.getSecuencia(), "TIPOSENTIDADES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
-                context.execute("errorObjetosDB.show()");
+                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                context.execute("confirmarRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                context.execute("errorRegistroRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                context.execute("errorTablaConRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                context.execute("errorTablaSinRastro.show()");
+                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("TIPOSENTIDADES")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
         }
     }

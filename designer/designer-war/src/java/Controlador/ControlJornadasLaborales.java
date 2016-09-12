@@ -29,6 +29,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -216,7 +217,7 @@ public class ControlJornadasLaborales implements Serializable {
             tablaImprimir = ":formExportar:datosJornadasLaboralesExportar";
             nombreArchivo = "JornadasLaboralesXML";
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:exportarXML");
+            PrimefacesContextUI.actualizar("form:exportarXML");
             if (tipoLista == 0) {
                 secRegistro = listaJornadasLaborales.get(index).getSecuencia();
                 descrecuperado = listaJornadasLaborales.get(index).getDescripcion();
@@ -283,8 +284,8 @@ public class ControlJornadasLaborales implements Serializable {
             } else {
                 infoRegistroJL = "Cantidad de registros: 0";
             }
-            context.update("form:datosJornadasLaborales");
-            context.update("form:infoRegistroJL");
+            PrimefacesContextUI.actualizar("form:datosJornadasLaborales");
+            PrimefacesContextUI.actualizar("form:infoRegistroJL");
             getListaJornadasSemanales();
             if (listaJornadasSemanales != null && !listaJornadasSemanales.isEmpty()) {
                 jornadaSemanalSeleccionada = listaJornadasSemanales.get(0);
@@ -292,14 +293,14 @@ public class ControlJornadasLaborales implements Serializable {
             } else {
                 infoRegistroSL = "Cantidad de registros: 0";
             }
-            context.update("form:datosSemanasLaborales");
-            context.update("form:infoRegistroSL");
+            PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
+            PrimefacesContextUI.actualizar("form:infoRegistroSL");
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
             guardado = true;
             permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
 
         }
 
@@ -325,12 +326,12 @@ public class ControlJornadasLaborales implements Serializable {
             } else {
                 infoRegistroSL = "Cantidad de registros: 0";
             }
-            context.update("form:datosSemanasLaborales");
-            context.update("form:infoRegistroSL");
+            PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
+            PrimefacesContextUI.actualizar("form:infoRegistroSL");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:confirmarGuardarSinSalida");
-            context.execute("confirmarGuardarSinSalida.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:confirmarGuardarSinSalida");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalida').show()");
         }
     }
 
@@ -341,7 +342,7 @@ public class ControlJornadasLaborales implements Serializable {
         secuenciaJornada = jornadaLaboralSeleccionada.getSecuencia();
         listaJornadasSemanales = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosSemanasLaborales");
+        PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
     }
 
     //Ubicacion Celda. Tabla 2
@@ -355,7 +356,7 @@ public class ControlJornadasLaborales implements Serializable {
             cualInsertar = "formularioDialogos:NuevoRegistroJornadaSemanal";
             nombreArchivo = "JornadasSemanalesXML";
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:exportarXML");
+            PrimefacesContextUI.actualizar("form:exportarXML");
             System.out.println("entre cambiar indice");
             if (tipoListaJS == 0) {
                 diarecuperado = listaJornadasSemanales.get(indexJS).getDia();
@@ -404,7 +405,7 @@ public class ControlJornadasLaborales implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
                     }
                 }
@@ -421,14 +422,14 @@ public class ControlJornadasLaborales implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
                     }
                 }
                 index = -1;
                 secRegistro = null;
             }
-            context.update("form:datosJornadasLaborales");
+            PrimefacesContextUI.actualizar("form:datosJornadasLaborales");
         } else if (confirmarCambio.equalsIgnoreCase("D")) {
             if (tipoLista == 0) {
                 if (!listaJornadasLaboralesCrear.contains(listaJornadasLaborales.get(indice))) {
@@ -439,8 +440,8 @@ public class ControlJornadasLaborales implements Serializable {
 
                     if (pasa != 0) {
                         listaJornadasLaborales.get(indice).setDescripcion(descrecuperado);
-                        context.update("formularioDialogos:validacionDescripcion");
-                        context.execute("validacionDescripcion.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionDescripcion");
+                        PrimefacesContextUI.ejecutar("PF('validacionDescripcion').show()");
                     }
 
                     if (pasa == 0) {
@@ -452,7 +453,7 @@ public class ControlJornadasLaborales implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
 
                         }
                     }
@@ -469,8 +470,8 @@ public class ControlJornadasLaborales implements Serializable {
 
                     if (pasa != 0) {
                         filtradoListaJornadasLaborales.get(indice).setDescripcion(descrecuperado);
-                        context.update("formularioDialogos:validacionDescripcion");
-                        context.execute("validacionDescripcion.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionDescripcion");
+                        PrimefacesContextUI.ejecutar("PF('validacionDescripcion').show()");
                     }
 
                     if (pasa == 0) {
@@ -482,7 +483,7 @@ public class ControlJornadasLaborales implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
 
                         }
                     }
@@ -490,7 +491,7 @@ public class ControlJornadasLaborales implements Serializable {
                 index = -1;
                 secRegistro = null;
             }
-            context.update("form:datosJornadasLaborales");
+            PrimefacesContextUI.actualizar("form:datosJornadasLaborales");
         } else if (confirmarCambio.equalsIgnoreCase("C")) {
             if (tipoLista == 0) {
                 if (!listaJornadasLaboralesCrear.contains(listaJornadasLaborales.get(indice))) {
@@ -516,13 +517,13 @@ public class ControlJornadasLaborales implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
 
                         }
                     } else {
                         listaJornadasLaborales.get(indice).setCodigo(codiguin);
-                        context.update("formularioDialogos:validacionCodigo");
-                        context.execute("validacionCodigo.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionCodigo");
+                        PrimefacesContextUI.ejecutar("PF('validacionCodigo').show()");
                     }
                 }
                 index = -1;
@@ -548,19 +549,19 @@ public class ControlJornadasLaborales implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
 
                         }
                     } else {
                         filtradoListaJornadasLaborales.get(indice).setCodigo(codiguin);
-                        context.update("formularioDialogos:validacionCodigo");
-                        context.execute("validacionCodigo.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionCodigo");
+                        PrimefacesContextUI.ejecutar("PF('validacionCodigo').show()");
                     }
                 }
                 index = -1;
                 secRegistro = null;
             }
-            context.update("form:datosJornadasLaborales");
+            PrimefacesContextUI.actualizar("form:datosJornadasLaborales");
         } else if (confirmarCambio.equalsIgnoreCase("JORNADAS")) {
             if (tipoLista == 0) {
                 listaJornadasLaborales.get(indice).getJornada().setDescripcion(jornada);
@@ -583,8 +584,8 @@ public class ControlJornadasLaborales implements Serializable {
                 getLovJornadas();
             } else {
                 permitirIndex = false;
-                context.update("formularioDialogos:jornadasDialogo");
-                context.execute("jornadasDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:jornadasDialogo");
+                PrimefacesContextUI.ejecutar("PF('jornadasDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -598,7 +599,7 @@ public class ControlJornadasLaborales implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
                     }
                 }
@@ -614,7 +615,7 @@ public class ControlJornadasLaborales implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
                     }
                 }
@@ -622,7 +623,7 @@ public class ControlJornadasLaborales implements Serializable {
                 secRegistro = null;
             }
         }
-        context.update("form:datosJornadasLaborales");
+        PrimefacesContextUI.actualizar("form:datosJornadasLaborales");
     }
 
     //AUTOCOMPLETAR SEGUNDA TABLA
@@ -655,8 +656,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux.getHorainicial() != null && (aux.getHorainicial() > 23 || aux.getHorainicial() < 0)) {
                         aux.setHorainicial(hirecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionHorasSL");
-                        context.execute("validacionHorasSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
                     }
                     if (aux.getMinutoinicial() == null) {
                         System.out.println("Entro a Minuto Inicial");
@@ -665,8 +666,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux.getMinutoinicial() != null && (aux.getMinutoinicial() > 59 || aux.getMinutoinicial() < 0)) {
                         aux.setMinutoinicial(mirecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionMinutosSL");
-                        context.execute("validacionMinutosSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
                     }
                     if (aux.getHorainicialalimentacion() == null) {
                         System.out.println("Entro a Hora Inicial Alimentación");
@@ -676,8 +677,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux.getHorainicialalimentacion() != null && (aux.getHorainicialalimentacion() > 23 || aux.getHorainicialalimentacion() < 0)) {
                         aux.setHorainicialalimentacion(hiarecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionHorasSL");
-                        context.execute("validacionHorasSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
                     }
                     if (aux.getMinutoinicialalimentacion() == null) {
                         System.out.println("Entro a Minuto Inicial Alimentación");
@@ -687,8 +688,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux.getMinutoinicialalimentacion() != null && (aux.getMinutoinicialalimentacion() > 59 || aux.getMinutoinicialalimentacion() < 0)) {
                         aux.setMinutoinicialalimentacion(miarecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionMinutosSL");
-                        context.execute("validacionMinutosSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
                     }
                     if (aux.getHorafinalalimentacion() == null) {
                         System.out.println("Entro a Hora Final Alimentación");
@@ -698,8 +699,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux.getHorafinalalimentacion() != null && (aux.getHorafinalalimentacion() > 23 || aux.getHorafinalalimentacion() < 0)) {
                         aux.setHorafinalalimentacion(hfarecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionHorasSL");
-                        context.execute("validacionHorasSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
                     }
                     if (aux.getMinutofinalalimentacion() == null) {
                         System.out.println("Entro a Minuto Final Alimentación");
@@ -709,8 +710,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux.getMinutofinalalimentacion() != null && (aux.getMinutofinalalimentacion() > 59 || aux.getMinutofinalalimentacion() < 0)) {
                         aux.setMinutofinalalimentacion(mfarecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionMinutosSL");
-                        context.execute("validacionMinutosSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
                     }
                     if (aux.getHorafinal() == null) {
                         System.out.println("Entro a Hora Final");
@@ -720,8 +721,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux.getHorafinal() != null && (aux.getHorafinal() > 23 || aux.getHorafinal() < 0)) {
                         aux.setHorafinal(hfrecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionHorasSL");
-                        context.execute("validacionHorasSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
                     }
                     if (aux.getMinutofinal() == null) {
                         System.out.println("Entro a Minuto Final");
@@ -731,8 +732,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux.getMinutofinal() != null && (aux.getMinutofinal() > 59 || aux.getMinutofinal() < 0)) {
                         aux.setMinutofinal(mfrecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionMinutosSL");
-                        context.execute("validacionMinutosSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
                     }
 
                     if (pasa != 0) {
@@ -744,8 +745,8 @@ public class ControlJornadasLaborales implements Serializable {
                         aux.setMinutofinalalimentacion(mfarecuperado);
                         aux.setHorafinal(hfrecuperado);
                         aux.setMinutofinal(mfrecuperado);
-                        context.update("formularioDialogos:validacionNuevaJornadaSemanal");
-                        context.execute("validacionNuevaJornadaSemanal.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaJornadaSemanal");
+                        PrimefacesContextUI.ejecutar("PF('validacionNuevaJornadaSemanal').show()");
                     }
                     if (pasa == 0 && pasas == 0) {
                         if (listaJornadasSemanalesModificar.isEmpty()) {
@@ -755,7 +756,7 @@ public class ControlJornadasLaborales implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
                         }
                     }
                 }
@@ -773,8 +774,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux2.getHorainicial() != null && (aux2.getHorainicial() > 23 || aux2.getHorainicial() < 0)) {
                         aux2.setHorainicial(hirecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionHorasSL");
-                        context.execute("validacionHorasSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
                     }
                     if (aux2.getMinutoinicial() == null) {
                         System.out.println("Entro a Minuto Inicial");
@@ -783,8 +784,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux2.getMinutoinicial() != null && (aux2.getMinutoinicial() > 59 || aux2.getMinutoinicial() < 0)) {
                         aux2.setMinutoinicial(mirecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionMinutosSL");
-                        context.execute("validacionMinutosSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
                     }
                     if (aux2.getHorainicialalimentacion() == null) {
                         System.out.println("Entro a Hora Inicial Alimentación");
@@ -794,8 +795,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux2.getHorainicialalimentacion() != null && (aux2.getHorainicialalimentacion() > 23 || aux2.getHorainicialalimentacion() < 0)) {
                         aux2.setHorainicialalimentacion(hiarecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionHorasSL");
-                        context.execute("validacionHorasSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
                     }
                     if (aux2.getMinutoinicialalimentacion() == null) {
                         System.out.println("Entro a Minuto Inicial Alimentación");
@@ -805,8 +806,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux2.getMinutoinicialalimentacion() != null && (aux2.getMinutoinicialalimentacion() > 59 || aux2.getMinutoinicialalimentacion() < 0)) {
                         aux2.setMinutoinicialalimentacion(miarecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionMinutosSL");
-                        context.execute("validacionMinutosSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
                     }
                     if (aux2.getHorafinalalimentacion() == null) {
                         System.out.println("Entro a Hora Final Alimentación");
@@ -816,8 +817,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux2.getHorafinalalimentacion() != null && (aux2.getHorafinalalimentacion() > 23 || aux2.getHorafinalalimentacion() < 0)) {
                         aux2.setHorafinalalimentacion(hfarecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionHorasSL");
-                        context.execute("validacionHorasSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
                     }
                     if (aux2.getMinutofinalalimentacion() == null) {
                         System.out.println("Entro a Minuto Final Alimentación");
@@ -827,8 +828,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux2.getMinutofinalalimentacion() != null && (aux2.getMinutofinalalimentacion() > 59 || aux2.getMinutofinalalimentacion() < 0)) {
                         aux2.setMinutofinalalimentacion(mfarecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionMinutosSL");
-                        context.execute("validacionMinutosSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
                     }
                     if (aux2.getHorafinal() == null) {
                         System.out.println("Entro a Hora Final");
@@ -838,8 +839,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux2.getHorafinal() != null && (aux2.getHorafinal() > 23 || aux2.getHorafinal() < 0)) {
                         aux2.setHorafinal(hfrecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionHorasSL");
-                        context.execute("validacionHorasSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
                     }
                     if (aux2.getMinutofinal() == null) {
                         System.out.println("Entro a Minuto Final");
@@ -849,8 +850,8 @@ public class ControlJornadasLaborales implements Serializable {
                     if (aux2.getMinutofinal() != null && (aux2.getMinutofinal() > 59 || aux2.getMinutofinal() < 0)) {
                         aux2.setMinutofinal(mfrecuperado);
                         pasas++;
-                        context.update("formularioDialogos:validacionMinutosSL");
-                        context.execute("validacionMinutosSL.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+                        PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
                     }
 
                     if (pasa != 0) {
@@ -862,8 +863,8 @@ public class ControlJornadasLaborales implements Serializable {
                         aux2.setMinutofinalalimentacion(mfarecuperado);
                         aux2.setHorafinal(hfrecuperado);
                         aux2.setMinutofinal(mfrecuperado);
-                        context.update("formularioDialogos:validacionNuevaJornadaSemanal");
-                        context.execute("validacionNuevaJornadaSemanal.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaJornadaSemanal");
+                        PrimefacesContextUI.ejecutar("PF('validacionNuevaJornadaSemanal').show()");
                     }
                     if (pasa == 0 && pasas == 0) {
 
@@ -874,14 +875,14 @@ public class ControlJornadasLaborales implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                            PrimefacesContextUI.actualizar("form:ACEPTAR");
                         }
                     }
                 }
                 index = -1;
                 secRegistro = null;
             }
-            context.update("form:datosSemanasLaborales");
+            PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
         }
 
     }
@@ -903,8 +904,8 @@ public class ControlJornadasLaborales implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            context.update("form:jornadasDialogo");
-            context.execute("jornadasDialogo.show()");
+            PrimefacesContextUI.actualizar("form:jornadasDialogo");
+            PrimefacesContextUI.ejecutar("PF('jornadasDialogo').show()");
         }
     }
 
@@ -933,17 +934,17 @@ public class ControlJornadasLaborales implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
 
             }
             permitirIndex = true;
-            context.update("form:datosJornadasLaborales");
+            PrimefacesContextUI.actualizar("form:datosJornadasLaborales");
         } else if (tipoActualizacion == 1) {
             nuevaJornadaLaboral.setJornada(jornadaSeleccionada);
-            context.update("formularioDialogos:nuevaJornadaLaboral");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevaJornadaLaboral");
         } else if (tipoActualizacion == 2) {
             duplicarJornadaLaboral.setJornada(jornadaSeleccionada);
-            context.update("formularioDialogos:duplicarJornadaLaboral");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarJornadaLaboral");
         }
         lovFiltradoJornadas = null;
         jornadaSeleccionada = null;
@@ -953,9 +954,9 @@ public class ControlJornadasLaborales implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVJornadas:globalFilter");
-        context.execute("LOVJornadas.clearFilters()");
-        context.execute("jornadasDialogo.hide()");
-        //context.update("formularioDialogos:LOVJornadas");
+        PrimefacesContextUI.ejecutar("PF('LOVJornadas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('jornadasDialogo').hide()");
+        //PrimefacesContextUI.actualizar("formularioDialogos:LOVJornadas");
     }
 
     public void cancelarCambioJornadas() {
@@ -969,8 +970,8 @@ public class ControlJornadasLaborales implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVJornadas:globalFilter");
-        context.execute("LOVJornadas.clearFilters()");
-        context.execute("jornadasDialogo.hide()");
+        PrimefacesContextUI.ejecutar("PF('LOVJornadas').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('jornadasDialogo').hide()");
     }
 
     public void seleccionarDia(String estadoDia, int indiceJS, int celda) {
@@ -993,12 +994,12 @@ public class ControlJornadasLaborales implements Serializable {
                 }
                 if (coincidencia > 1) {
                     listaJornadasSemanales.get(i).setEstadoDia(diita);
-                    context.update("formularioDialogos:validacionDia");
-                    context.execute("validacionDia.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:validacionDia");
+                    PrimefacesContextUI.ejecutar("PF('validacionDia').show()");
                     System.out.println("I find you 2!");
                     System.out.println("dia 2: " + listaJornadasSemanales.get(i).getDia());
                     System.out.println("estad dia 2: " + listaJornadasSemanales.get(i).getEstadoDia());
-                    context.update("form:datosSemanasLaborales");
+                    PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
                 }
             }
 
@@ -1042,11 +1043,11 @@ public class ControlJornadasLaborales implements Serializable {
                         pasas++;
                         filtradoListaJornadasSemanales.get(indexJS).setDia(diarecuperado);
                         filtradoListaJornadasSemanales.get(indexJS).setEstadoDia(diita);
-                        context.update("formularioDialogos:validacionDia");
-                        context.execute("validacionDia.show()");
+                        PrimefacesContextUI.actualizar("formularioDialogos:validacionDia");
+                        PrimefacesContextUI.ejecutar("PF('validacionDia').show()");
                         System.out.println("I find you !");
-                        // RequestContext.getCurrentInstance().update("form:datosSemanasLaborales");
-                        context.update("form:datosSemanasLaborales");
+                        // PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
+                        PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
                     }
                 }
             }
@@ -1078,9 +1079,9 @@ public class ControlJornadasLaborales implements Serializable {
         }
         if (guardado == true) {
             guardado = false;
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
-        RequestContext.getCurrentInstance().update("form:datosSemanasLaborales");
+        PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
 
     }
 
@@ -1103,7 +1104,7 @@ public class ControlJornadasLaborales implements Serializable {
             } else if (estadoDia.equals("NADA")) {
                 nuevaSemanaLaboral.setDia(" ");
             }
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoDiaSemanaLaboral");
+            PrimefacesContextUI.actualizar("formularioDialogos:nuevoDiaSemanaLaboral");
         } else {
             if (estadoDia.equals("LUNES")) {
                 duplicarSemanaLaboral.setDia("LUN");
@@ -1122,7 +1123,7 @@ public class ControlJornadasLaborales implements Serializable {
             } else if (estadoDia.equals("NADA")) {
                 duplicarSemanaLaboral.setDia(" ");
             }
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDiaSemanaLaboral");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDiaSemanaLaboral");
         }
 
     }
@@ -1134,7 +1135,7 @@ public class ControlJornadasLaborales implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         infoRegistroJL = "Cantidad de registros: " + filtradoListaJornadasLaborales.size();
-        context.update("form:infoRegistroJL");
+        PrimefacesContextUI.actualizar("form:infoRegistroJL");
     }
     
 
@@ -1145,7 +1146,7 @@ public class ControlJornadasLaborales implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         infoRegistroSL = "Cantidad de registros: " + filtradoListaJornadasSemanales.size();
-        context.update("form:infoRegistroSL");
+        PrimefacesContextUI.actualizar("form:infoRegistroSL");
     }
 
     //MOSTRAR CELDA
@@ -1162,25 +1163,25 @@ public class ControlJornadasLaborales implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 System.out.println("Codigo: " + editarJornadaLaboral.getCodigo());
-                context.update("formEditar:editarCodigo");
-                context.execute("editarCodigo.show()");
+                PrimefacesContextUI.actualizar("formEditar:editarCodigo");
+                PrimefacesContextUI.ejecutar("PF('editarCodigo').show()");
                 System.out.println("sh0w");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formEditar:editarDescripcion");
-                context.execute("editarDescripcion.show()");
+                PrimefacesContextUI.actualizar("formEditar:editarDescripcion");
+                PrimefacesContextUI.ejecutar("PF('editarDescripcion').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formEditar:editarHorasDiarias");
-                context.execute("editarHorasDiarias.show()");
+                PrimefacesContextUI.actualizar("formEditar:editarHorasDiarias");
+                PrimefacesContextUI.ejecutar("PF('editarHorasDiarias').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                context.update("formEditar:editarHorasMensuales");
-                context.execute("editarHorasMensuales.show()");
+                PrimefacesContextUI.actualizar("formEditar:editarHorasMensuales");
+                PrimefacesContextUI.ejecutar("PF('editarHorasMensuales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
-                context.update("formEditar:editarJornada");
-                context.execute("editarJornada.show()");
+                PrimefacesContextUI.actualizar("formEditar:editarJornada");
+                PrimefacesContextUI.ejecutar("PF('editarJornada').show()");
                 cualCelda = -1;
             }
             index = -1;
@@ -1196,36 +1197,36 @@ public class ControlJornadasLaborales implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             System.out.println("Cual Tabla: " + CualTabla);
             if (cualCelda == 1) {
-                context.update("formEditar:editarHoraInicialJS");
-                context.execute("editarHoraInicial.show()");
+                PrimefacesContextUI.actualizar("formEditar:editarHoraInicialJS");
+                PrimefacesContextUI.ejecutar("PF('editarHoraInicial').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                context.update("formEditar:editarMinutoInicialJS");
-                context.execute("editarMinutoInicialJS.show()");
+                PrimefacesContextUI.actualizar("formEditar:editarMinutoInicialJS");
+                PrimefacesContextUI.ejecutar("PF('editarMinutoInicialJS').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                context.update("formEditar:editarHoraInicialAlimentacionJS");
-                context.execute("editarHoraInicialAlimentacionJS.show()");
+                PrimefacesContextUI.actualizar("formEditar:editarHoraInicialAlimentacionJS");
+                PrimefacesContextUI.ejecutar("PF('editarHoraInicialAlimentacionJS').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                context.update("formEditar:editarMinutoInicialAlimentacionJS");
-                context.execute("editarMinutoInicialAlimentacionJS.show()");
+                PrimefacesContextUI.actualizar("formEditar:editarMinutoInicialAlimentacionJS");
+                PrimefacesContextUI.ejecutar("PF('editarMinutoInicialAlimentacionJS').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                context.update("formEditar:editarHoraFinalAlimentacionJS");
-                context.execute("editarHoraFinalAlimentacionJS.show()");
+                PrimefacesContextUI.actualizar("formEditar:editarHoraFinalAlimentacionJS");
+                PrimefacesContextUI.ejecutar("PF('editarHoraFinalAlimentacionJS').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
-                context.update("formEditar:editarMinutoFinalAlimentacionJS");
-                context.execute("editarMinutoFinalAlimentacionJS.show()");
+                PrimefacesContextUI.actualizar("formEditar:editarMinutoFinalAlimentacionJS");
+                PrimefacesContextUI.ejecutar("PF('editarMinutoFinalAlimentacionJS').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
-                context.update("formEditar:editarHoraFinalJS");
-                context.execute("editarHoraFinalJS.show()");
+                PrimefacesContextUI.actualizar("formEditar:editarHoraFinalJS");
+                PrimefacesContextUI.ejecutar("PF('editarHoraFinalJS').show()");
                 cualCelda = -1;
             } else if (cualCelda == 8) {
-                context.update("formEditar:editarMinutoFinalJS");
-                context.execute("editarMinutoFinalJS.show()");
+                PrimefacesContextUI.actualizar("formEditar:editarMinutoFinalJS");
+                PrimefacesContextUI.ejecutar("PF('editarMinutoFinalJS').show()");
                 cualCelda = -1;
             }
             indexJS = -1;
@@ -1238,8 +1239,8 @@ public class ControlJornadasLaborales implements Serializable {
         if (index >= 0) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 7) {
-                context.update("formularioDialogos:jornadasDialogo");
-                context.execute("jornadasDialogo.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:jornadasDialogo");
+                PrimefacesContextUI.ejecutar("PF('jornadasDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -1269,7 +1270,7 @@ public class ControlJornadasLaborales implements Serializable {
             jornadasLaboralesJornadas = (Column) c.getViewRoot().findComponent("form:datosJornadasLaborales:jornadasLaboralesJornadas");
             jornadasLaboralesJornadas.setFilterStyle("width: 85%;");
             altoTabla = "95";
-            RequestContext.getCurrentInstance().update("form:datosJornadasLaborales");
+            PrimefacesContextUI.actualizar("form:datosJornadasLaborales");
             bandera = 1;
 
         } else if (bandera == 1 && CualTabla == 0) {
@@ -1288,7 +1289,7 @@ public class ControlJornadasLaborales implements Serializable {
             jornadasLaboralesJornadas = (Column) c.getViewRoot().findComponent("form:datosJornadasLaborales:jornadasLaboralesJornadas");
             jornadasLaboralesJornadas.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "115";
-            RequestContext.getCurrentInstance().update("form:datosJornadasLaborales");
+            PrimefacesContextUI.actualizar("form:datosJornadasLaborales");
             bandera = 0;
             filtradoListaJornadasLaborales = null;
             tipoLista = 0;
@@ -1315,7 +1316,7 @@ public class ControlJornadasLaborales implements Serializable {
             SemanaLaboralMinutoFinal = (Column) c.getViewRoot().findComponent("form:datosSemanasLaborales:SemanaLaboralMinutoFinal");
             SemanaLaboralMinutoFinal.setFilterStyle("width: 85%;");
             altoTabla2 = "91";
-            RequestContext.getCurrentInstance().update("form:datosSemanasLaborales");
+            PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
             banderaJS = 1;
 
         } else if (banderaJS == 1 && CualTabla == 1) {
@@ -1340,7 +1341,7 @@ public class ControlJornadasLaborales implements Serializable {
             SemanaLaboralMinutoFinal = (Column) c.getViewRoot().findComponent("form:datosSemanasLaborales:SemanaLaboralMinutoFinal");
             SemanaLaboralMinutoFinal.setFilterStyle("display: none; visibility: hidden;");
             altoTabla2 = "115";
-            RequestContext.getCurrentInstance().update("form:datosSemanasLaborales");
+            PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
             banderaJS = 0;
             filtradoListaJornadasSemanales = null;
             tipoListaJS = 0;
@@ -1405,22 +1406,22 @@ public class ControlJornadasLaborales implements Serializable {
         if (nuevaJornadaLaboral.getHorasdiarias() != null && (nuevaJornadaLaboral.getHorasdiarias().compareTo(BigDecimal.ONE) == 0 || nuevaJornadaLaboral.getHorasdiarias().compareTo(BigDecimal.ONE) == -1)) {
             mensajeValidacionhoras = mensajeValidacionhoras + " Horas Diarias. ";
             pasas++;
-            context.update("formularioDialogos:validacionHorasJL");
-            context.execute("validacionHorasJL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasJL");
+            PrimefacesContextUI.ejecutar("PF('validacionHorasJL').show()");
         }
         if (nuevaJornadaLaboral.getHorasmensuales() != null && (nuevaJornadaLaboral.getHorasmensuales().compareTo(Short.valueOf("0")) == 0 || nuevaJornadaLaboral.getHorasmensuales().compareTo(Short.valueOf("0")) < 0)) {
             mensajeValidacionhoras = mensajeValidacionhoras + " Horas Mensuales. ";
             pasas++;
-            context.update("formularioDialogos:validacionHorasJL");
-            context.execute("validacionHorasJL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasJL");
+            PrimefacesContextUI.ejecutar("PF('validacionHorasJL').show()");
         }
         if (nuevaJornadaLaboral.getCodigo() != null) {
 
             for (int i = 0; i < listaJornadasLaborales.size(); i++) {
                 if (nuevaJornadaLaboral.getCodigo() == listaJornadasLaborales.get(i).getCodigo()) {
                     pasas++;
-                    context.update("formularioDialogos:validacionCodigo");
-                    context.execute("validacionCodigo.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:validacionCodigo");
+                    PrimefacesContextUI.ejecutar("PF('validacionCodigo').show()");
                 }
             }
         }
@@ -1431,8 +1432,8 @@ public class ControlJornadasLaborales implements Serializable {
         }
 
         if (pasa != 0) {
-            context.update("formularioDialogos:validacionNuevaJornadaLaboral");
-            context.execute("validacionNuevaJornadaLaboral.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaJornadaLaboral");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaJornadaLaboral').show()");
         }
 
         if (pasa == 0 && pasas == 0) {
@@ -1458,7 +1459,7 @@ public class ControlJornadasLaborales implements Serializable {
                 jornadasLaboralesJornadas = (Column) c.getViewRoot().findComponent("form:datosJornadasLaborales:jornadasLaboralesJornadas");
                 jornadasLaboralesJornadas.setFilterStyle("display: none; visibility: hidden;");
                 altoTabla = "115";
-                RequestContext.getCurrentInstance().update("form:datosJornadasLaborales");
+                PrimefacesContextUI.actualizar("form:datosJornadasLaborales");
                 bandera = 0;
                 filtradoListaJornadasLaborales = null;
                 tipoLista = 0;
@@ -1484,15 +1485,15 @@ public class ControlJornadasLaborales implements Serializable {
             listaJornadasLaboralesCrear.add(nuevaJornadaLaboral);
             listaJornadasLaborales.add(nuevaJornadaLaboral);
             infoRegistroJL = "Cantidad de registros: " + listaJornadasLaborales.size();
-            context.update("form:infoRegistroJL");
+            PrimefacesContextUI.actualizar("form:infoRegistroJL");
             nuevaJornadaLaboral = new JornadasLaborales();
-            context.update("form:datosJornadasLaborales");
+            PrimefacesContextUI.actualizar("form:datosJornadasLaborales");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
-            context.update("formularioDialogos:NuevoRegistroJornadaLaboral");
-            context.execute("NuevoRegistroJornadaLaboral.hide()");
+            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroJornadaLaboral");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroJornadaLaboral').hide()");
             index = -1;
             secRegistro = null;
         }
@@ -1514,8 +1515,8 @@ public class ControlJornadasLaborales implements Serializable {
                 System.out.println("listaJornadasSemanales.get(i).getDia() : " + listaJornadasSemanales.get(i).getDia());
                 if (nuevaSemanaLaboral.getDia().equalsIgnoreCase(listaJornadasSemanales.get(i).getDia())) {
                     pasas++;
-                    context.update("formularioDialogos:validacionDia");
-                    context.execute("validacionDia.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:validacionDia");
+                    PrimefacesContextUI.ejecutar("PF('validacionDia').show()");
                     System.out.println("I find you !");
                 }
             }
@@ -1528,8 +1529,8 @@ public class ControlJornadasLaborales implements Serializable {
         if (nuevaSemanaLaboral.getHorainicial() != null && (nuevaSemanaLaboral.getHorainicial() > 23 || nuevaSemanaLaboral.getHorainicial() < 0)) {
             mensajeValidacionhora = mensajeValidacionhora + " Hora Inicial Jornada\n ";
             pasas++;
-            context.update("formularioDialogos:validacionHorasSL");
-            context.execute("validacionHorasSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+            PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
         }
         if (nuevaSemanaLaboral.getMinutoinicial() == null) {
             System.out.println("Entro a Minuto Inicial");
@@ -1539,8 +1540,8 @@ public class ControlJornadasLaborales implements Serializable {
         if (nuevaSemanaLaboral.getMinutoinicial() != null && (nuevaSemanaLaboral.getMinutoinicial() > 59 || nuevaSemanaLaboral.getMinutoinicial() < 0)) {
             mensajeValidacionminuto = mensajeValidacionminuto + " Minuto Inicial Jornada\n ";
             pasas++;
-            context.update("formularioDialogos:validacionMinutosSL");
-            context.execute("validacionMinutosSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+            PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
         }
         if (nuevaSemanaLaboral.getHorainicialalimentacion() == null) {
             System.out.println("Entro a Hora Inicial Alimentación");
@@ -1550,8 +1551,8 @@ public class ControlJornadasLaborales implements Serializable {
         if (nuevaSemanaLaboral.getHorainicialalimentacion() != null && (nuevaSemanaLaboral.getHorainicialalimentacion() > 23 || nuevaSemanaLaboral.getHorainicialalimentacion() < 0)) {
             mensajeValidacionhora = mensajeValidacionhora + " Hora Inicial Alimentacion\n ";
             pasas++;
-            context.update("formularioDialogos:validacionHorasSL");
-            context.execute("validacionHorasSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+            PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
         }
         if (nuevaSemanaLaboral.getMinutoinicialalimentacion() == null) {
             System.out.println("Entro a Minuto Inicial Alimentación");
@@ -1561,8 +1562,8 @@ public class ControlJornadasLaborales implements Serializable {
         if (nuevaSemanaLaboral.getMinutoinicialalimentacion() != null && (nuevaSemanaLaboral.getMinutoinicialalimentacion() > 59 || nuevaSemanaLaboral.getMinutoinicialalimentacion() < 0)) {
             mensajeValidacionminuto = mensajeValidacionminuto + " Minuto Inicial Alimentacion\n ";
             pasas++;
-            context.update("formularioDialogos:validacionMinutosSL");
-            context.execute("validacionMinutosSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+            PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
         }
         if (nuevaSemanaLaboral.getHorafinalalimentacion() == null) {
             System.out.println("Entro a Hora Final Alimentación");
@@ -1572,8 +1573,8 @@ public class ControlJornadasLaborales implements Serializable {
         if (nuevaSemanaLaboral.getHorafinalalimentacion() != null && (nuevaSemanaLaboral.getHorafinalalimentacion() > 23 || nuevaSemanaLaboral.getHorafinalalimentacion() < 0)) {
             mensajeValidacionhora = mensajeValidacionhora + " Hora Final Alimentacion\n ";
             pasas++;
-            context.update("formularioDialogos:validacionHorasSL");
-            context.execute("validacionHorasSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+            PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
         }
         if (nuevaSemanaLaboral.getMinutofinalalimentacion() == null) {
             System.out.println("Entro a Minuto Final Alimentación");
@@ -1583,8 +1584,8 @@ public class ControlJornadasLaborales implements Serializable {
         if (nuevaSemanaLaboral.getMinutofinalalimentacion() != null && (nuevaSemanaLaboral.getMinutofinalalimentacion() > 59 || nuevaSemanaLaboral.getMinutofinalalimentacion() < 0)) {
             mensajeValidacionminuto = mensajeValidacionminuto + " Minuto Final Alimentacion\n ";
             pasas++;
-            context.update("formularioDialogos:validacionMinutosSL");
-            context.execute("validacionMinutosSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+            PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
         }
         if (nuevaSemanaLaboral.getHorafinal() == null) {
             System.out.println("Entro a Hora Final");
@@ -1594,8 +1595,8 @@ public class ControlJornadasLaborales implements Serializable {
         if (nuevaSemanaLaboral.getHorafinal() != null && (nuevaSemanaLaboral.getHorafinal() > 23 || nuevaSemanaLaboral.getHorafinal() < 0)) {
             mensajeValidacionhora = mensajeValidacionhora + " Hora Final Jornada\n ";
             pasas++;
-            context.update("formularioDialogos:validacionHorasSL");
-            context.execute("validacionHorasSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+            PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
         }
         if (nuevaSemanaLaboral.getMinutofinal() == null) {
             System.out.println("Entro a Minuto Final");
@@ -1605,13 +1606,13 @@ public class ControlJornadasLaborales implements Serializable {
         if (nuevaSemanaLaboral.getMinutofinal() != null && (nuevaSemanaLaboral.getMinutofinal() > 59 || nuevaSemanaLaboral.getMinutofinal() < 0)) {
             mensajeValidacionminuto = mensajeValidacionminuto + " Minuto Final Jornada\n ";
             pasas++;
-            context.update("formularioDialogos:validacionMinutosSL");
-            context.execute("validacionMinutosSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+            PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
         }
 
         if (pasa != 0) {
-            context.update("formularioDialogos:validacionNuevaJornadaSemanal");
-            context.execute("validacionNuevaJornadaSemanal.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaJornadaSemanal");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaJornadaSemanal').show()");
         }
         if (pasa == 0 && pasas == 0) {
             if (banderaJS == 1) {
@@ -1638,7 +1639,7 @@ public class ControlJornadasLaborales implements Serializable {
                 SemanaLaboralMinutoFinal = (Column) c.getViewRoot().findComponent("form:datosSemanasLaborales:SemanaLaboralMinutoFinal");
                 SemanaLaboralMinutoFinal.setFilterStyle("display: none; visibility: hidden;");
                 altoTabla2 = "115";
-                RequestContext.getCurrentInstance().update("form:datosSemanasLaborales");
+                PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
                 banderaJS = 0;
                 filtradoListaJornadasSemanales = null;
                 tipoListaJS = 0;
@@ -1655,14 +1656,14 @@ public class ControlJornadasLaborales implements Serializable {
             listaJornadasSemanales.add(nuevaSemanaLaboral);
             nuevaSemanaLaboral = new JornadasSemanales();
             infoRegistroSL = "Cantidad de registros: " + listaJornadasSemanales.size();
-            context.update("form:infoRegistroSL");
-            context.update("form:datosSemanasLaborales");
+            PrimefacesContextUI.actualizar("form:infoRegistroSL");
+            PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
-            context.update("formularioDialogos:NuevoRegistroJornadaSemanal");
-            context.execute("NuevoRegistroJornadaSemanal.hide()");
+            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroJornadaSemanal");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroJornadaSemanal').hide()");
             index = -1;
             secRegistro = null;
         }
@@ -1674,14 +1675,14 @@ public class ControlJornadasLaborales implements Serializable {
         System.out.println("listaJornadasLaborales: " + listaJornadasLaborales);
         System.out.println("listaSemanas: " + listaJornadasSemanales);
         if ((listaJornadasLaborales.isEmpty() || listaJornadasSemanales.isEmpty())) {
-            context.update("formularioDialogos:elegirTabla");
-            context.execute("elegirTabla.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:elegirTabla");
+            PrimefacesContextUI.ejecutar("PF('elegirTabla').show()");
         } else if (CualTabla == 0) {
-            context.update("formularioDialogos:NuevoRegistroJornadaLaboral");
-            context.execute("NuevoRegistroJornadaLaboral.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroJornadaLaboral");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroJornadaLaboral').show()");
         } else if (CualTabla == 1) {
-            context.update("formularioDialogos:NuevoRegistroJornadaSemanal");
-            context.execute("NuevoRegistroJornadaSemanal.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroJornadaSemanal");
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroJornadaSemanal').show()");
         }
     }
 
@@ -1724,20 +1725,20 @@ public class ControlJornadasLaborales implements Serializable {
                 }
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form:datosJornadasLaborales");
-                context.update("form:infoRegistroJL");
+                PrimefacesContextUI.actualizar("form:datosJornadasLaborales");
+                PrimefacesContextUI.actualizar("form:infoRegistroJL");
                 index = -1;
                 secRegistro = null;
 
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    PrimefacesContextUI.actualizar("form:ACEPTAR");
                 }
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
                 FacesMessage msg = new FacesMessage("Advertencia", "No se puede realizar la operación porque tiene un valor asociado");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                context.update("form:growl");
+                PrimefacesContextUI.actualizar("form:growl");
 
             }
 
@@ -1777,14 +1778,14 @@ public class ControlJornadasLaborales implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:datosSemanasLaborales");
-            context.update("form:infoRegistroSL");
+            PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
+            PrimefacesContextUI.actualizar("form:infoRegistroSL");
             indexJS = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
         }
 
@@ -1843,8 +1844,8 @@ public class ControlJornadasLaborales implements Serializable {
                 duplicarJornadaLaboral.setJornada(filtradoListaJornadasLaborales.get(index).getJornada());
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarJornadaLaboral");
-            context.execute("DuplicarRegistroJornadaLaboral.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarJornadaLaboral");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroJornadaLaboral').show()");
             index = -1;
             secRegistro = null;
 
@@ -1881,8 +1882,8 @@ public class ControlJornadasLaborales implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarSemanaLaboral");
-            context.execute("duplicarRegistroSemanaLaboral.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarSemanaLaboral");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroSemanaLaboral').show()");
             indexJS = -1;
             secRegistro = null;
 
@@ -1896,8 +1897,8 @@ public class ControlJornadasLaborales implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("formularioDialogos:jornadasDialogo");
-        context.execute("jornadasDialogo.show()");
+        PrimefacesContextUI.actualizar("formularioDialogos:jornadasDialogo");
+        PrimefacesContextUI.ejecutar("PF('jornadasDialogo').show()");
     }
 
     //LIMPIAR DUPLICAR JORNADA LABORAL
@@ -1925,21 +1926,21 @@ public class ControlJornadasLaborales implements Serializable {
         if (duplicarJornadaLaboral.getHorasdiarias() != null && (duplicarJornadaLaboral.getHorasdiarias().compareTo(BigDecimal.ONE) == 0 || duplicarJornadaLaboral.getHorasdiarias().compareTo(BigDecimal.ONE) == -1)) {
             mensajeValidacionhoras = mensajeValidacionhoras + " Horas Diarias. ";
             pasa++;
-            context.update("formularioDialogos:validacionHorasJL");
-            context.execute("validacionHorasJL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasJL");
+            PrimefacesContextUI.ejecutar("PF('validacionHorasJL').show()");
         }
         if (duplicarJornadaLaboral.getHorasmensuales() != null && (duplicarJornadaLaboral.getHorasmensuales().compareTo(Short.valueOf("0")) == 0 || duplicarJornadaLaboral.getHorasmensuales().compareTo(Short.valueOf("0")) < 0)) {
             mensajeValidacionhoras = mensajeValidacionhoras + " Horas Mensuale. ";
             pasa++;
-            context.update("formularioDialogos:validacionHorasJL");
-            context.execute("validacionHorasJL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasJL");
+            PrimefacesContextUI.ejecutar("PF('validacionHorasJL').show()");
         }
         if (duplicarJornadaLaboral.getCodigo() != null) {
             for (int i = 0; i < listaJornadasLaborales.size(); i++) {
                 if (duplicarJornadaLaboral.getCodigo() == listaJornadasLaborales.get(i).getCodigo()) {
                     pasa++;
-                    context.update("formularioDialogos:validacionCodigo");
-                    context.execute("validacionCodigo.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:validacionCodigo");
+                    PrimefacesContextUI.ejecutar("PF('validacionCodigo').show()");
                 }
             }
         }
@@ -1973,7 +1974,7 @@ public class ControlJornadasLaborales implements Serializable {
                 jornadasLaboralesJornadas = (Column) c.getViewRoot().findComponent("form:datosJornadasLaborales:jornadasLaboralesJornadas");
                 jornadasLaboralesJornadas.setFilterStyle("display: none; visibility: hidden;");
                 altoTabla = "115";
-                RequestContext.getCurrentInstance().update("form:datosJornadasLaborales");
+                PrimefacesContextUI.actualizar("form:datosJornadasLaborales");
                 bandera = 0;
                 filtradoListaJornadasLaborales = null;
                 tipoLista = 0;
@@ -1982,22 +1983,22 @@ public class ControlJornadasLaborales implements Serializable {
             listaJornadasLaborales.add(duplicarJornadaLaboral);
             listaJornadasLaboralesCrear.add(duplicarJornadaLaboral);
 
-            context.update("form:datosJornadasLaborales");
+            PrimefacesContextUI.actualizar("form:datosJornadasLaborales");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
 
             duplicarJornadaLaboral = new JornadasLaborales();
             infoRegistroJL = "Cantidad de registros: " + listaJornadasLaborales.size();
-            context.update("form:infoRegistroJL");
+            PrimefacesContextUI.actualizar("form:infoRegistroJL");
 
-            context.update("formularioDialogos:DuplicarRegistroJornadaLaboral");
-            context.execute("DuplicarRegistroJornadaLaboral.hide()");
+            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroJornadaLaboral");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroJornadaLaboral').hide()");
 
         } else if (duplicarJornadaLaboral.getDescripcion() == null || duplicarJornadaLaboral.getDescripcion().equals("")) {
-            context.update("formularioDialogos:validacionNuevaJornadaLaboral");
-            context.execute("validacionNuevaJornadaLaboral.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaJornadaLaboral");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaJornadaLaboral').show()");
         }
     }
 
@@ -2021,8 +2022,8 @@ public class ControlJornadasLaborales implements Serializable {
                 System.out.println("listaJornadasSemanales.get(i).getDia() : " + listaJornadasSemanales.get(i).getDia());
                 if (duplicarSemanaLaboral.getDia().equalsIgnoreCase(listaJornadasSemanales.get(i).getDia())) {
                     pasas++;
-                    context.update("formularioDialogos:validacionDia");
-                    context.execute("validacionDia.show()");
+                    PrimefacesContextUI.actualizar("formularioDialogos:validacionDia");
+                    PrimefacesContextUI.ejecutar("PF('validacionDia').show()");
                     System.out.println("I find you !");
                 }
             }
@@ -2035,8 +2036,8 @@ public class ControlJornadasLaborales implements Serializable {
         if (duplicarSemanaLaboral.getHorainicial() != null && (duplicarSemanaLaboral.getHorainicial() > 23 || duplicarSemanaLaboral.getHorainicial() < 0)) {
             mensajeValidacionhora = mensajeValidacionhora + " Hora Inicial Jornada\n ";
             pasas++;
-            context.update("formularioDialogos:validacionHorasSL");
-            context.execute("validacionHorasSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+            PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
         }
         if (duplicarSemanaLaboral.getMinutoinicial() == null) {
             System.out.println("Entro a Minuto Inicial");
@@ -2046,8 +2047,8 @@ public class ControlJornadasLaborales implements Serializable {
         if (duplicarSemanaLaboral.getMinutoinicial() != null && (duplicarSemanaLaboral.getMinutoinicial() > 59 || duplicarSemanaLaboral.getMinutoinicial() < 0)) {
             mensajeValidacionminuto = mensajeValidacionminuto + " Minuto Inicial Jornada\n ";
             pasas++;
-            context.update("formularioDialogos:validacionMinutosSL");
-            context.execute("validacionMinutosSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+            PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
         }
         if (duplicarSemanaLaboral.getHorainicialalimentacion() == null) {
             System.out.println("Entro a Hora Inicial Alimentación");
@@ -2057,8 +2058,8 @@ public class ControlJornadasLaborales implements Serializable {
         if (duplicarSemanaLaboral.getHorainicialalimentacion() != null && (duplicarSemanaLaboral.getHorainicialalimentacion() > 23 || duplicarSemanaLaboral.getHorainicialalimentacion() < 0)) {
             mensajeValidacionhora = mensajeValidacionhora + " Hora Inicial Alimentacion\n ";
             pasas++;
-            context.update("formularioDialogos:validacionHorasSL");
-            context.execute("validacionHorasSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+            PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
         }
         if (duplicarSemanaLaboral.getMinutoinicialalimentacion() == null) {
             System.out.println("Entro a Minuto Inicial Alimentación");
@@ -2068,8 +2069,8 @@ public class ControlJornadasLaborales implements Serializable {
         if (duplicarSemanaLaboral.getMinutoinicialalimentacion() != null && (duplicarSemanaLaboral.getMinutoinicialalimentacion() > 59 || duplicarSemanaLaboral.getMinutoinicialalimentacion() < 0)) {
             mensajeValidacionminuto = mensajeValidacionminuto + " Minuto Inicial Alimentacion\n ";
             pasas++;
-            context.update("formularioDialogos:validacionMinutosSL");
-            context.execute("validacionMinutosSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+            PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
         }
         if (duplicarSemanaLaboral.getHorafinalalimentacion() == null) {
             System.out.println("Entro a Hora Final Alimentación");
@@ -2079,8 +2080,8 @@ public class ControlJornadasLaborales implements Serializable {
         if (duplicarSemanaLaboral.getHorafinalalimentacion() != null && (duplicarSemanaLaboral.getHorafinalalimentacion() > 23 || duplicarSemanaLaboral.getHorafinalalimentacion() < 0)) {
             mensajeValidacionhora = mensajeValidacionhora + " Hora Final Alimentacion\n ";
             pasas++;
-            context.update("formularioDialogos:validacionHorasSL");
-            context.execute("validacionHorasSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+            PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
         }
         if (duplicarSemanaLaboral.getMinutofinalalimentacion() == null) {
             System.out.println("Entro a Minuto Final Alimentación");
@@ -2090,8 +2091,8 @@ public class ControlJornadasLaborales implements Serializable {
         if (duplicarSemanaLaboral.getMinutofinalalimentacion() != null && (duplicarSemanaLaboral.getMinutofinalalimentacion() > 59 || duplicarSemanaLaboral.getMinutofinalalimentacion() < 0)) {
             mensajeValidacionminuto = mensajeValidacionminuto + " Minuto Final Alimentacion\n ";
             pasas++;
-            context.update("formularioDialogos:validacionMinutosSL");
-            context.execute("validacionMinutosSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+            PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
         }
         if (duplicarSemanaLaboral.getHorafinal() == null) {
             System.out.println("Entro a Hora Final");
@@ -2101,8 +2102,8 @@ public class ControlJornadasLaborales implements Serializable {
         if (duplicarSemanaLaboral.getHorafinal() != null && (duplicarSemanaLaboral.getHorafinal() > 23 || duplicarSemanaLaboral.getHorafinal() < 0)) {
             mensajeValidacionhora = mensajeValidacionhora + " Hora Final Jornada\n ";
             pasas++;
-            context.update("formularioDialogos:validacionHorasSL");
-            context.execute("validacionHorasSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionHorasSL");
+            PrimefacesContextUI.ejecutar("PF('validacionHorasSL').show()");
         }
         if (duplicarSemanaLaboral.getMinutofinal() == null) {
             System.out.println("Entro a Minuto Final");
@@ -2112,20 +2113,20 @@ public class ControlJornadasLaborales implements Serializable {
         if (duplicarSemanaLaboral.getMinutofinal() != null && (duplicarSemanaLaboral.getMinutofinal() > 59 || duplicarSemanaLaboral.getMinutofinal() < 0)) {
             mensajeValidacionminuto = mensajeValidacionminuto + " Minuto Final Jornada\n ";
             pasas++;
-            context.update("formularioDialogos:validacionMinutosSL");
-            context.execute("validacionMinutosSL.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionMinutosSL");
+            PrimefacesContextUI.ejecutar("PF('validacionMinutosSL').show()");
         }
 
         if (pasa != 0) {
-            context.update("formularioDialogos:validacionNuevaJornadaSemanal");
-            context.execute("validacionNuevaJornadaSemanal.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaJornadaSemanal");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaJornadaSemanal').show()");
         }
         if (pasa == 0 && pasas == 0) {
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
             if (banderaJS == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -2149,7 +2150,7 @@ public class ControlJornadasLaborales implements Serializable {
                 SemanaLaboralMinutoFinal = (Column) c.getViewRoot().findComponent("form:datosSemanasLaborales:SemanaLaboralMinutoFinal");
                 SemanaLaboralMinutoFinal.setFilterStyle("display: none; visibility: hidden;");
                 altoTabla2 = "115";
-                RequestContext.getCurrentInstance().update("form:datosSemanasLaborales");
+                PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
                 banderaJS = 0;
                 filtradoListaJornadasSemanales = null;
                 tipoListaJS = 0;
@@ -2157,13 +2158,13 @@ public class ControlJornadasLaborales implements Serializable {
             }
             listaJornadasSemanales.add(duplicarSemanaLaboral);
             listaJornadasSemanalesCrear.add(duplicarSemanaLaboral);
-            context.update("form:datosSemanasLaborales");
+            PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
             duplicarSemanaLaboral = new JornadasSemanales();
             infoRegistroSL = "Cantidad de registros: " + listaJornadasSemanales.size();
-            context.update("form:infoRegistroSL");
+            PrimefacesContextUI.actualizar("form:infoRegistroSL");
 
-            context.update("formularioDialogos:duplicarSemanaLaboral");
-            context.execute("duplicarRegistroSemanaLaboral.hide()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarSemanaLaboral");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroSemanaLaboral').hide()");
         }
     }
 
@@ -2186,21 +2187,21 @@ public class ControlJornadasLaborales implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaJornadaLaboral.setJornada(lovJornadas.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:nuevaJornada");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaJornada");
                 } else if (tipoNuevo == 2) {
                     duplicarJornadaLaboral.setJornada(lovJornadas.get(indiceUnicoElemento));
-                    context.update("formularioDialogos:duplicarJornada");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarJornada");
                 }
                 lovJornadas.clear();
                 getLovJornadas();
             } else {
-                context.update("form:jornadasDialogo");
-                context.execute("jornadasDialogo.show()");
+                PrimefacesContextUI.actualizar("form:jornadasDialogo");
+                PrimefacesContextUI.ejecutar("PF('jornadasDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    context.update("formularioDialogos:nuevaJornada");
+                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaJornada");
                 } else if (tipoNuevo == 2) {
-                    context.update("formularioDialogos:duplicarJornada");
+                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarJornada");
                 }
             }
         }
@@ -2208,14 +2209,14 @@ public class ControlJornadasLaborales implements Serializable {
 
     public void dialogoJornadaLaboral() {
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:NuevoRegistroJornadaLaboral");
-        context.execute("NuevoRegistroJornadaLaboral.show()");
+        PrimefacesContextUI.actualizar("form:NuevoRegistroJornadaLaboral");
+        PrimefacesContextUI.ejecutar("PF('NuevoRegistroJornadaLaboral').show()");
     }
 
     public void dialogoSemanaLaboral() {
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:NuevoRegistroJornadaSemanal");
-        context.execute("NuevoRegistroJornadaSemanal.show()");
+        PrimefacesContextUI.actualizar("form:NuevoRegistroJornadaSemanal");
+        PrimefacesContextUI.ejecutar("PF('NuevoRegistroJornadaSemanal').show()");
 
     }
 
@@ -2230,28 +2231,28 @@ public class ControlJornadasLaborales implements Serializable {
                     int resultado = administrarRastros.obtenerTabla(secRegistro, "JORNADASLABORALES");
                     System.out.println("resultado: " + resultado);
                     if (resultado == 1) {
-                        context.execute("errorObjetosDB.show()");
+                        PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                     } else if (resultado == 2) {
-                        context.execute("confirmarRastro.show()");
+                        PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                     } else if (resultado == 3) {
-                        context.execute("errorRegistroRastro.show()");
+                        PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                     } else if (resultado == 4) {
-                        context.execute("errorTablaConRastro.show()");
+                        PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                     } else if (resultado == 5) {
-                        context.execute("errorTablaSinRastro.show()");
+                        PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                     } else if (resultado == 6) {
-                        context.execute("errorTablaSinRastro.show()");
+                        PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                     } else if (resultado == 7) {
-                        context.execute("errorTablaSinRastro.show()");
+                        PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                     }
                 } else {
-                    context.execute("seleccionarRegistro.show()");
+                    PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
                 }
             } else {
                 if (administrarRastros.verificarHistoricosTabla("JORNADASLABORALES")) {
-                    context.execute("confirmarRastroHistorico.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
                 } else {
-                    context.execute("errorRastroHistorico.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
                 }
 
             }
@@ -2265,30 +2266,30 @@ public class ControlJornadasLaborales implements Serializable {
                     int resultadoJS = administrarRastros.obtenerTabla(secRegistro, "JORNADASSEMANALES");
                     System.out.println("resultado: " + resultadoJS);
                     if (resultadoJS == 1) {
-                        context.execute("errorObjetosDBJS.show()");
+                        PrimefacesContextUI.ejecutar("PF('errorObjetosDBJS').show()");
                     } else if (resultadoJS == 2) {
-                        context.execute("confirmarRastroJS.show()");
+                        PrimefacesContextUI.ejecutar("PF('confirmarRastroJS').show()");
                     } else if (resultadoJS == 3) {
-                        context.execute("errorRegistroRastroJS.show()");
+                        PrimefacesContextUI.ejecutar("PF('errorRegistroRastroJS').show()");
                     } else if (resultadoJS == 4) {
-                        context.execute("errorTablaConRastroJS.show()");
+                        PrimefacesContextUI.ejecutar("PF('errorTablaConRastroJS').show()");
                     } else if (resultadoJS == 5) {
-                        context.execute("errorTablaSinRastroJS.show()");
+                        PrimefacesContextUI.ejecutar("PF('errorTablaSinRastroJS').show()");
                     } else if (resultadoJS == 6) {
-                        context.execute("errorTablaSinRastroJS.show()");
+                        PrimefacesContextUI.ejecutar("PF('errorTablaSinRastroJS').show()");
                     } else if (resultadoJS == 7) {
-                        context.execute("errorTablaSinRastroJS.show()");
+                        PrimefacesContextUI.ejecutar("PF('errorTablaSinRastroJS').show()");
                     } else if (resultadoJS == 8) {
-                        context.execute("errorTablaSinRastroJS.show()");
+                        PrimefacesContextUI.ejecutar("PF('errorTablaSinRastroJS').show()");
                     }
                 } else {
-                    context.execute("seleccionarRegistroJS.show()");
+                    PrimefacesContextUI.ejecutar("PF('seleccionarRegistroJS').show()");
                 }
             } else {
                 if (administrarRastros.verificarHistoricosTabla("JORNADASSEMANALES")) {
-                    context.execute("confirmarRastroHistoricoJS.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastroHistoricoJS').show()");
                 } else {
-                    context.execute("errorRastroHistoricoJS.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRastroHistoricoJS').show()");
                 }
 
             }
@@ -2317,7 +2318,7 @@ public class ControlJornadasLaborales implements Serializable {
             jornadasLaboralesJornadas = (Column) c.getViewRoot().findComponent("form:datosJornadasLaborales:pECalificaciones");
             jornadasLaboralesJornadas.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "115";
-            RequestContext.getCurrentInstance().update("form:datosJornadasLaborales");
+            PrimefacesContextUI.actualizar("form:datosJornadasLaborales");
             bandera = 0;
             filtradoListaJornadasLaborales = null;
             tipoLista = 0;
@@ -2344,7 +2345,7 @@ public class ControlJornadasLaborales implements Serializable {
             SemanaLaboralMinutoFinal = (Column) c.getViewRoot().findComponent("form:datosSemanasLaborales:SemanaLaboralMFA");
             SemanaLaboralMinutoFinal.setFilterStyle("display: none; visibility: hidden;");
             altoTabla2 = "115";
-            RequestContext.getCurrentInstance().update("form:datosSemanasLaborales");
+            PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
             banderaJS = 0;
             filtradoListaJornadasSemanales = null;
             tipoListaJS = 0;
@@ -2377,11 +2378,11 @@ public class ControlJornadasLaborales implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("form:datosJornadasLaborales");
-        context.update("form:infoRegistroJL");
-        context.update("form:datosSemanasLaborales");
-        context.update("form:infoRegistroSL");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:datosJornadasLaborales");
+        PrimefacesContextUI.actualizar("form:infoRegistroJL");
+        PrimefacesContextUI.actualizar("form:datosSemanasLaborales");
+        PrimefacesContextUI.actualizar("form:infoRegistroSL");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     //Getter & Setters
@@ -2406,7 +2407,7 @@ public class ControlJornadasLaborales implements Serializable {
                 } else {
                     infoRegistroJL = "Cantidad de registros: " + listaJornadasLaborales.size();
                 }
-                context.update("form:infoRegistroJL");
+                PrimefacesContextUI.actualizar("form:infoRegistroJL");
             } else {
                 jornadaLaboralSeleccionada = new JornadasLaborales();
             }
@@ -2444,7 +2445,7 @@ public class ControlJornadasLaborales implements Serializable {
             } else {
                 infoRegistroSL = "Cantidad de registros: " + listaJornadasSemanales.size();
             }
-            context.update("form:infoRegistroSL");
+            PrimefacesContextUI.actualizar("form:infoRegistroSL");
         }
         return listaJornadasSemanales;
     }
@@ -2494,7 +2495,7 @@ public class ControlJornadasLaborales implements Serializable {
         } else {
             infoRegistroJornadas = "Cantidad de registros: " + lovJornadas.size();
         }
-        context.update("formularioDialogos:infoRegistroJornadas");
+        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroJornadas");
         return lovJornadas;
     }
 

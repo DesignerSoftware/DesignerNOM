@@ -28,6 +28,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -157,20 +158,20 @@ public class ControlHvEntrevistas implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
-                    context.update("form:datosHvEntrevista");
+                    PrimefacesContextUI.actualizar("form:datosHvEntrevista");
 
                 } else {
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        PrimefacesContextUI.actualizar("form:ACEPTAR");
                     }
-                    context.update("form:datosHvEntrevista");
+                    PrimefacesContextUI.actualizar("form:datosHvEntrevista");
                 }
             } else {
-                context.update("form:validacionModificar");
-                context.execute("validacionModificar.show()");
+                PrimefacesContextUI.actualizar("form:validacionModificar");
+                PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
             }
             index = -1;
             secRegistro = null;
@@ -187,7 +188,7 @@ public class ControlHvEntrevistas implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarHvEntrevistas.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlHvEntrevistas eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -265,7 +266,7 @@ public class ControlHvEntrevistas implements Serializable {
             tipoPuntaje.setFilterStyle("display: none; visibility: hidden;");
             puntaje = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:puntaje");
             puntaje.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
             bandera = 0;
             filtrarHvEntrevistas = null;
             tipoLista = 0;
@@ -286,9 +287,9 @@ public class ControlHvEntrevistas implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listHvEntrevistas.size();
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosHvEntrevista");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void salir() {
@@ -303,7 +304,7 @@ public class ControlHvEntrevistas implements Serializable {
             tipoPuntaje.setFilterStyle("display: none; visibility: hidden;");
             puntaje = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:puntaje");
             puntaje.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
             bandera = 0;
             filtrarHvEntrevistas = null;
             tipoLista = 0;
@@ -324,9 +325,9 @@ public class ControlHvEntrevistas implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listHvEntrevistas.size();
         }
-        context.update("form:informacionRegistro");
-        context.update("form:datosHvEntrevista");
-        context.update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -341,7 +342,7 @@ public class ControlHvEntrevistas implements Serializable {
             tipoPuntaje.setFilterStyle("width: 85%");
             puntaje = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:puntaje");
             puntaje.setFilterStyle("width: 85%");
-            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -355,7 +356,7 @@ public class ControlHvEntrevistas implements Serializable {
             tipoPuntaje.setFilterStyle("display: none; visibility: hidden;");
             puntaje = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:puntaje");
             puntaje.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
             bandera = 0;
             filtrarHvEntrevistas = null;
             tipoLista = 0;
@@ -397,8 +398,8 @@ public class ControlHvEntrevistas implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -419,8 +420,8 @@ public class ControlHvEntrevistas implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -451,8 +452,8 @@ public class ControlHvEntrevistas implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -475,16 +476,16 @@ public class ControlHvEntrevistas implements Serializable {
                         }
 
                     } else {
-                        context.update("form:validacionModificar");
-                        context.execute("validacionModificar.show()");
+                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
                 }
 
             }
-            context.update("form:datosHvEntrevista");
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -529,15 +530,15 @@ public class ControlHvEntrevistas implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listHvEntrevistas.size();
             }
-            context.update("form:informacionRegistro");
-            context.update("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            context.update("form:ACEPTAR");
+            PrimefacesContextUI.actualizar("form:ACEPTAR");
         }
 
     }
@@ -555,8 +556,8 @@ public class ControlHvEntrevistas implements Serializable {
      System.out.println("Borrado>0");
 
      RequestContext context = RequestContext.getCurrentInstance();
-     context.update("form:validacionBorrar");
-     context.execute("validacionBorrar.show()");
+     PrimefacesContextUI.actualizar("form:validacionBorrar");
+     PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
      index = -1;
 
      competenciasCargos = new BigDecimal(-1);
@@ -570,8 +571,8 @@ public class ControlHvEntrevistas implements Serializable {
 
         if (!borrarHvEntrevistas.isEmpty() || !crearHvEntrevistas.isEmpty() || !modificarHvEntrevistas.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:confirmarGuardar");
-            context.execute("confirmarGuardar.show()");
+            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
     }
@@ -585,8 +586,8 @@ public class ControlHvEntrevistas implements Serializable {
                 administrarHvEntrevistas.borrarHvEntrevistas(borrarHvEntrevistas);
                 //mostrarBorrados
                 registrosBorrados = borrarHvEntrevistas.size();
-                context.update("form:mostrarBorrados");
-                context.execute("mostrarBorrados.show()");
+                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarHvEntrevistas.clear();
             }
             if (!crearHvEntrevistas.isEmpty()) {
@@ -601,14 +602,14 @@ public class ControlHvEntrevistas implements Serializable {
             listHvEntrevistas = null;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.update("form:growl");
+            PrimefacesContextUI.actualizar("form:growl");
 
-            context.update("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
             k = 0;
         }
         guardado = true;
         index = -1;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        PrimefacesContextUI.actualizar("form:ACEPTAR");
 
     }
 
@@ -624,22 +625,22 @@ public class ControlHvEntrevistas implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                context.update("formularioDialogos:editarFecha");
-                context.execute("editarFecha.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editarFecha");
+                PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                context.update("formularioDialogos:editNombre");
-                context.execute("editNombre.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editNombre");
+                PrimefacesContextUI.ejecutar("PF('editNombre').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 2) {
-                context.update("formularioDialogos:editDescripcionCompetencia");
-                context.execute("editDescripcionCompetencia.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcionCompetencia");
+                PrimefacesContextUI.ejecutar("PF('editDescripcionCompetencia').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 3) {
-                context.update("formularioDialogos:editPuntaje");
-                context.execute("editPuntaje.show()");
+                PrimefacesContextUI.actualizar("formularioDialogos:editPuntaje");
+                PrimefacesContextUI.ejecutar("PF('editPuntaje').show()");
                 cualCelda = -1;
             }
 
@@ -711,7 +712,7 @@ public class ControlHvEntrevistas implements Serializable {
                 puntaje = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:puntaje");
                 puntaje.setFilterStyle("display: none; visibility: hidden;");
 
-                RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+                PrimefacesContextUI.actualizar("form:datosHvEntrevista");
                 bandera = 0;
                 filtrarHvEntrevistas = null;
                 tipoLista = 0;
@@ -731,21 +732,21 @@ public class ControlHvEntrevistas implements Serializable {
             crearHvEntrevistas.add(nuevoHvEntrevista);
             listHvEntrevistas.add(nuevoHvEntrevista);
             nuevoHvEntrevista = new HvEntrevistas();
-            context.update("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
             infoRegistro = "Cantidad de registros: " + listHvEntrevistas.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
 
-            context.execute("nuevoRegistroEvalEmpresas.hide()");
+            PrimefacesContextUI.ejecutar("PF('nuevoRegistroEvalEmpresas').hide()");
             index = -1;
             secRegistro = null;
 
         } else {
-            context.update("form:validacionNuevaCentroCosto");
-            context.execute("validacionNuevaCentroCosto.show()");
+            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -784,8 +785,8 @@ public class ControlHvEntrevistas implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            context.update("formularioDialogos:duplicarEvC");
-            context.execute("duplicarRegistroEvalCompetencias.show()");
+            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEvC");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroEvalCompetencias').show()");
             index = -1;
             secRegistro = null;
         }
@@ -835,7 +836,7 @@ public class ControlHvEntrevistas implements Serializable {
                 puntaje = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:puntaje");
                 puntaje.setFilterStyle("display: none; visibility: hidden;");
 
-                RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+                PrimefacesContextUI.actualizar("form:datosHvEntrevista");
                 bandera = 0;
                 filtrarHvEntrevistas = null;
                 tipoLista = 0;
@@ -846,11 +847,11 @@ public class ControlHvEntrevistas implements Serializable {
             }
             listHvEntrevistas.add(duplicarHvEntrevista);
             crearHvEntrevistas.add(duplicarHvEntrevista);
-            context.update("form:datosHvEntrevista");
+            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
             index = -1;
             secRegistro = null;
             infoRegistro = "Cantidad de registros: " + listHvEntrevistas.size();
-            context.update("form:informacionRegistro");
+            PrimefacesContextUI.actualizar("form:informacionRegistro");
             System.err.println("---------------DUPLICAR REGISTRO----------------");
             System.err.println("fecha " + duplicarHvEntrevista.getFecha());
             System.err.println("nombre " + duplicarHvEntrevista.getNombre());
@@ -859,16 +860,16 @@ public class ControlHvEntrevistas implements Serializable {
             System.err.println("-----------------------------------------------");
             if (guardado == true) {
                 guardado = false;
-                context.update("form:ACEPTAR");
+                PrimefacesContextUI.actualizar("form:ACEPTAR");
             }
 
             duplicarHvEntrevista = new HvEntrevistas();
-            RequestContext.getCurrentInstance().execute("duplicarRegistroEvalCompetencias.hide()");
+            PrimefacesContextUI.ejecutar("PF('duplicarRegistroEvalCompetencias').hide()");
 
         } else {
             contador = 0;
-            context.update("form:validacionDuplicarVigencia");
-            context.execute("validacionDuplicarVigencia.show()");
+            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -905,24 +906,24 @@ public class ControlHvEntrevistas implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "HVENTREVISTAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    context.execute("errorObjetosDB.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    context.execute("confirmarRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    context.execute("errorRegistroRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    context.execute("errorTablaConRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    context.execute("errorTablaSinRastro.show()");
+                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                context.execute("seleccionarRegistro.show()");
+                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("HVENTREVISTAS")) { // igual acá
-                context.execute("confirmarRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
-                context.execute("errorRastroHistorico.show()");
+                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -951,7 +952,7 @@ public class ControlHvEntrevistas implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listHvEntrevistas.size();
         }
-        context.update("form:informacionRegistro");
+        PrimefacesContextUI.actualizar("form:informacionRegistro");
         return listHvEntrevistas;
     }
 

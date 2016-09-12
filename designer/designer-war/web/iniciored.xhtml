@@ -4,228 +4,228 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-    <h:head>
-        <link href="./resources/css/GrowlInicioRed.css" rel="stylesheet" type="text/css"/>
-        <link href="./resources/css/Tema.css" rel="stylesheet" type="text/css" />
-        <link rel="shortcut icon" href="Imagenes/Iconos/favicon.ico" />
-        <style type="text/css">
-            .triangulo_top_left {
-                width: 0;
-                height: 0;
-                border-left: 100px solid transparent;
-                border-right: 0px solid transparent;
-                border-top: 30px solid #EFDB78;
-                display: inline;
-                position: relative; 
-                top: 5px; 
-                left: -6px;
-            }            
-        </style>
-        <title>Designer.NOM - Gerencia Integral de Recursos Humanos y N&oacute;mina</title>
-    </h:head>
-    <h:body style="background-color: rgb(149, 197, 233); position: relative; " onload="iniciarcomponentes()">
-        <h:form id="form" style="position: absolute; left: 50%; transform: translate(-50%, 0%);">
-            <p:growl id="growl"  showDetail="true" sticky="true"/> 
-            <p:growl id="informacionAcceso" showDetail="true"/> 
+   <h:head>
+      <link href="./resources/css/GrowlInicioRed.css" rel="stylesheet" type="text/css"/>
+      <link href="./resources/css/Tema.css" rel="stylesheet" type="text/css" />
+      <link rel="shortcut icon" href="Imagenes/Iconos/favicon.ico" />
+      <style type="text/css">
+         .triangulo_top_left {
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 0px solid transparent;
+            border-top: 30px solid #EFDB78;
+            display: inline;
+            position: relative; 
+            top: 5px; 
+            left: -6px;
+         }            
+      </style>
+      <title>Designer.NOM - Gerencia Integral de Recursos Humanos y N&oacute;mina</title>
+   </h:head>
+   <h:body style="background-color: rgb(149, 197, 233); position: relative; " onload="iniciarcomponentes()">
+      <h:form id="form" style="position: absolute; left: 50%; transform: translate(-50%, 0%);">
+         <p:remoteCommand name="validarMensaje" actionListener="#{controlInicioRed.validarDialogoSesion()}"/>
+         <p:growl id="growl"  showDetail="true" sticky="true"/> 
+         <p:growl id="informacionAcceso" showDetail="true"/> 
 
-            <p:panel id="acceso" header="Iniciar Sesi&oacute;n"
-                     style="font-size: 12px; background-color: #2D7AD7; box-shadow: 5px 5px 12px #000000;
-                     position: relative; top: 108px; left: 475px; height: 155.2px; width: 621.6px; min-width: 300px; text-align: center;">
-                <h:panelGrid columns="3" width="100%" columnClasses="columnaConectA, columnaConectB, columnaConectC"> 
-                    <h:outputLabel/>
-                    <h:outputLabel for="usuario" value="Usuario: " 
-                                   style="color: white; font-size: 13px; font-weight: bold;"/>
-                    <p:inputText id="usuario" value="#{controlInicioRed.usuario}" disabled="#{controlInicioRed.estadoInicio}"
-                                 style="font-weight: bold; text-transform: uppercase;"/>
-                    <h:outputLabel/>
-                    <h:outputLabel for="contrasenha" value="Contrase&ntilde;a: " style="color: white; font-size: 13px; font-weight: bold;"/>
-                    <p:password id="contrasenha" value="#{controlInicioRed.contraseña}" disabled="#{controlInicioRed.estadoInicio}"
-                                style="font-weight: bold; text-transform: uppercase;"/>
-                    <h:outputLabel/>
-                    <h:outputLabel for="baseDatos" value="Base de datos: " 
-                                   style="color: white; font-size: 13px; font-weight: bold;"/>
-                    <p:inputText id="baseDatos" value="#{controlInicioRed.baseDatos}" disabled="#{controlInicioRed.estadoInicio}"
-                                 style="font-weight: bold; text-transform: uppercase;"/>
-                    <h:outputLabel/>
-                    <p:commandButton id="btnLogin" value="#{controlInicioRed.txtBoton}" actionListener="#{controlInicioRed.ingresar()}" onclick="validarMensaje();" oncomplete="estadoSesion.hide()" 
-                                     styleClass="cssBotonIngreso" /> 
-                    <p:commandButton id="btnCambioClave" value="Cambio de Clave" disabled="#{controlInicioRed.cambioClave}" update=":formularioDialogos:cambiarClave" oncomplete="cambiarClave.show();" styleClass="cssBotonIngreso" />
-                    <p:commandButton id="btnCandadoLogin" value="" 
-                                     style="position: absolute; top: 40px; left: 80px; width: 110px; height: 110px; 
-                                     background-image: url(Imagenes/Iconos/#{controlInicioRed.candadoLogin}); background-repeat: no-repeat; background-size: 100% 100%; border: none;" 
-                                     />
-                </h:panelGrid> 
-                <p:focus for="usuario"/>
-                <p:remoteCommand name="validarMensaje" actionListener="#{controlInicioRed.validarDialogoSesion()}"/>
-            </p:panel>
-            <fieldset id="modulos" style="font-size: 12px; border-radius: 10px;  background-color: #2D7AD7; box-shadow: 5px 5px 12px #000000;
-                      position: relative; top: 115px; width: 1082.68px; text-align: center;">
-                <!--
-                <strong style="font-size: 20px; color: white; font-family: Calibri;"> -->
-                <h:outputText value="Bienvenido al Sistema Integral de N&oacute;mina y Talento Humano" style="font-size: 20px; color: white; font-family: Calibri; font-weight: bold;" />
-                <!--    <br/>
-                    <h:outputText value="Seleccione el m&oacute;dulo al cual desea ingresar" />
-                    <br/> 
-                 </strong> -->
+         <p:panel id="acceso" header="Iniciar Sesi&oacute;n"
+                  style="font-size: 12px; background-color: #2D7AD7; box-shadow: 5px 5px 12px #000000;
+                  position: relative; top: 108px; left: 475px; height: 155.2px; width: 621.6px; min-width: 300px; text-align: center;">
+            <h:panelGrid columns="3" width="100%" columnClasses="columnaConectA, columnaConectB, columnaConectC"> 
+               <h:outputLabel/>
+               <h:outputLabel for="usuario" value="Usuario: " 
+                              style="color: white; font-size: 13px; font-weight: bold;"/>
+               <p:inputText id="usuario" value="#{controlInicioRed.usuario}" disabled="#{controlInicioRed.estadoInicio}"
+                            style="font-weight: bold; text-transform: uppercase;"/>
+               <h:outputLabel/>
+               <h:outputLabel for="contrasenha" value="Contrase&ntilde;a: " style="color: white; font-size: 13px; font-weight: bold;"/>
+               <p:password id="contrasenha" value="#{controlInicioRed.contraseña}" disabled="#{controlInicioRed.estadoInicio}"
+                           style="font-weight: bold; text-transform: uppercase;"/>
+               <h:outputLabel/>
+               <h:outputLabel for="baseDatos" value="Base de datos: " 
+                              style="color: white; font-size: 13px; font-weight: bold;"/>
+               <p:inputText id="baseDatos" value="#{controlInicioRed.baseDatos}" disabled="#{controlInicioRed.estadoInicio}"
+                            style="font-weight: bold; text-transform: uppercase;"/>
+               <h:outputLabel/>
+               <p:commandButton id="btnLogin" value="#{controlInicioRed.txtBoton}" actionListener="#{controlInicioRed.ingresar()}" onclick="validarMensaje()" oncomplete="estadoSesion.hide()" 
+                                styleClass="cssBotonIngreso" process="@this"/> 
+               <p:commandButton id="btnCambioClave" value="Cambio de Clave" disabled="#{controlInicioRed.cambioClave}" update=":formularioDialogos:cambiarClave" oncomplete="cambiarClave.show();" styleClass="cssBotonIngreso" />
+               <p:commandButton id="btnCandadoLogin" value="" 
+                                style="position: absolute; top: 40px; left: 80px; width: 110px; height: 110px; 
+                                background-image: url(Imagenes/Iconos/#{controlInicioRed.candadoLogin}); background-repeat: no-repeat; background-size: 100% 100%; border: none;" 
+                                />
+            </h:panelGrid> 
+            <p:focus for="usuario"/>
+         </p:panel>
+         <fieldset id="modulos" style="font-size: 12px; border-radius: 10px;  background-color: #2D7AD7; box-shadow: 5px 5px 12px #000000;
+                   position: relative; top: 115px; width: 1082.68px; text-align: center;">
+            <!--
+            <strong style="font-size: 20px; color: white; font-family: Calibri;"> -->
+            <h:outputText value="Bienvenido al Sistema Integral de N&oacute;mina y Talento Humano" style="font-size: 20px; color: white; font-family: Calibri; font-weight: bold;" />
+            <!--    <br/>
+                <h:outputText value="Seleccione el m&oacute;dulo al cual desea ingresar" />
+                <br/> 
+             </strong> -->
 
-                <h:panelGrid id="txtModulos" columns="7" style="border:none; width: 70%; position: relative; margin: 0 auto;">
-                    <h:outputText/>
-                    <p:commandButton id="btnPersonal" value=" " disabled="#{controlInicioRed.modulosDesigner}" 
-                                     style="width: 185px; height: 185px; background-image: url(Imagenes/Iconos/b_personal.png); background-repeat: no-repeat; background-size: 100% 100%;
-                                     border: none;" 
-                                     actionListener="#{controlRemoto.datosIniciales(0)}" action="nomina"/>
-                    <p:commandButton id="btnNomina" value=" " disabled="#{controlInicioRed.modulosDesigner}" 
-                                     style="width: 185px; height: 185px; background-image: url(Imagenes/Iconos/b_nomina.png); background-repeat: no-repeat; background-size: 100% 100%;
-                                     border: none;" 
-                                     actionListener="#{controlRemoto.datosIniciales(1)}" action="nomina"/>
-                    <p:commandButton id="btnIntegracion" value=" " disabled="#{controlInicioRed.modulosDesigner}" 
-                                     style="width: 185px; height: 185px; background-image: url(Imagenes/Iconos/b_contabi.png); background-repeat: no-repeat; background-size: 100% 100%;
-                                     border: none;" 
-                                     actionListener="#{controlRemoto.datosIniciales(2)}" action="nomina"/>
-                    <p:commandButton id="btnGerencial" value=" " disabled="#{controlInicioRed.modulosDesigner}" 
-                                     style="width: 185px; height: 185px; background-image: url(Imagenes/Iconos/b_gerencial.png); background-repeat: no-repeat; background-size: 100% 100%;
-                                     border: none;" 
-                                     actionListener="#{controlRemoto.datosIniciales(3)}" action="nomina"/>
-                    <p:commandButton id="btnDesigner" value=" " disabled="#{controlInicioRed.modulosDesigner}" 
-                                     style="width: 185px; height: 185px; background-image: url(Imagenes/Iconos/b_designer1.png); background-repeat: no-repeat; background-size: 100% 100%;
-                                     border: none;" 
-                                     actionListener="#{controlRemoto.datosIniciales(4)}" action="nomina"/>
-                    <h:outputText/>
-                    <h:outputText/>
-                    <h:outputText value="PERSONAL" style="font-family: Arial; font-size: 19px; font-style: oblique; color: white; font-weight: bold;
-                                  text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;"/>
-                    <h:outputText value="N&Oacute;MINA" style="font-family: Arial; font-size: 19px; font-style: oblique; color: white; font-weight: bold;
-                                  text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;"/> 
-                    <h:outputText value="INTEGRACI&Oacute;N" style="font-family: Arial; font-size: 19px; font-style: oblique; color: white; font-weight: bold;
-                                  text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;"/> 
-                    <h:outputText value="GERENCIAL" style="font-family: Arial; font-size: 19px; font-style: oblique; color: white; font-weight: bold;
-                                  text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;"/> 
-                    <h:outputText value="DESIGNER" style="font-family: Arial; font-size: 19px; font-style: oblique; color: white; font-weight: bold;
-                                  text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;"/> 
-                    <h:outputText/>
-                </h:panelGrid>
+            <h:panelGrid id="txtModulos" columns="7" style="border:none; width: 70%; position: relative; margin: 0 auto;">
+               <h:outputText/>
+               <p:commandButton id="btnPersonal" value=" " disabled="#{controlInicioRed.modulosDesigner}" 
+                                style="width: 185px; height: 185px; background-image: url(Imagenes/Iconos/b_personal.png); background-repeat: no-repeat; background-size: 100% 100%;
+                                border: none;" 
+                                actionListener="#{controlRemoto.datosIniciales(0)}" action="nomina"/>
+               <p:commandButton id="btnNomina" value=" " disabled="#{controlInicioRed.modulosDesigner}" 
+                                style="width: 185px; height: 185px; background-image: url(Imagenes/Iconos/b_nomina.png); background-repeat: no-repeat; background-size: 100% 100%;
+                                border: none;" 
+                                actionListener="#{controlRemoto.datosIniciales(1)}" action="nomina"/>
+               <p:commandButton id="btnIntegracion" value=" " disabled="#{controlInicioRed.modulosDesigner}" 
+                                style="width: 185px; height: 185px; background-image: url(Imagenes/Iconos/b_contabi.png); background-repeat: no-repeat; background-size: 100% 100%;
+                                border: none;" 
+                                actionListener="#{controlRemoto.datosIniciales(2)}" action="nomina"/>
+               <p:commandButton id="btnGerencial" value=" " disabled="#{controlInicioRed.modulosDesigner}" 
+                                style="width: 185px; height: 185px; background-image: url(Imagenes/Iconos/b_gerencial.png); background-repeat: no-repeat; background-size: 100% 100%;
+                                border: none;" 
+                                actionListener="#{controlRemoto.datosIniciales(3)}" action="nomina"/>
+               <p:commandButton id="btnDesigner" value=" " disabled="#{controlInicioRed.modulosDesigner}" 
+                                style="width: 185px; height: 185px; background-image: url(Imagenes/Iconos/b_designer1.png); background-repeat: no-repeat; background-size: 100% 100%;
+                                border: none;" 
+                                actionListener="#{controlRemoto.datosIniciales(4)}" action="nomina"/>
+               <h:outputText/>
+               <h:outputText/>
+               <h:outputText value="PERSONAL" style="font-family: Arial; font-size: 19px; font-style: oblique; color: white; font-weight: bold;
+                             text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;"/>
+               <h:outputText value="N&Oacute;MINA" style="font-family: Arial; font-size: 19px; font-style: oblique; color: white; font-weight: bold;
+                             text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;"/> 
+               <h:outputText value="INTEGRACI&Oacute;N" style="font-family: Arial; font-size: 19px; font-style: oblique; color: white; font-weight: bold;
+                             text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;"/> 
+               <h:outputText value="GERENCIAL" style="font-family: Arial; font-size: 19px; font-style: oblique; color: white; font-weight: bold;
+                             text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;"/> 
+               <h:outputText value="DESIGNER" style="font-family: Arial; font-size: 19px; font-style: oblique; color: white; font-weight: bold;
+                             text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;"/> 
+               <h:outputText/>
+            </h:panelGrid>
+         </fieldset>
+         <fieldset id="banner" style="position: absolute; top: 108px; height: 158px; width: 460px; padding: 0px;">
+            <p:imageSwitch id="bannerConsultas" effect="fade" widgetVar="informacion" style="box-shadow: 5px 5px 12px #000000" slideshowSpeed="5000">  
+               <ui:repeat value="#{controlInicioRed.banner}" var="banner">  
+                  <a href="#{banner.urlImagen}" target="_blank">
+                     <p:graphicImage value="Imagenes/#{banner.imagen}" style="width: 460px; height: 158px"/>
+                  </a>
+               </ui:repeat>  
+            </p:imageSwitch>
+            <p:commandButton type="button" onclick="informacion.previous();" 
+                             style="position: relative; top: -30px; left: 5px; width: 25px; height: 25px; z-index: 20"  
+                             icon="ui-icon-circle-triangle-w"/>  
+            <p:commandButton type="button" onclick="informacion.next();" 
+                             style="position: relative; top: -30px; left: 5px; width: 25px; height: 25px; z-index: 20"
+                             icon="ui-icon-circle-triangle-e"/>
+         </fieldset>
+         <fieldset id="recordatorio" style="font-size: 12px; border-radius: 10px; background-color: #2D7AD7; box-shadow: 5px 5px 12px #000000; 
+                   position: absolute; top: 543px; width: 1082.68px; height: 120px; text-align: center;">
+            <p:commandButton id="btnProverbio" value="" action="proverbio" actionListener="#{controlProverbio.recibirPagina('nomina')}" process="@this" disabled="#{controlInicioRed.modulosDesigner}" 
+                             style="background-image: url(Imagenes/Iconos/bombillo1.png); background-size: 100% 100%; background-repeat: no-repeat;
+                             width: 60px; height: 70px; position: relative; top: -20px; display: inline-flex; border: none;"/>
+            <p class="triangulo_top_left"></p>
+            <fieldset id="recorTexto" style="font-size: 12px; border-radius: 10px; background-color: #EFDB78; 
+                      box-shadow: 3px 3px 8px #000000; z-index: 1; width: 667px; display: inline;
+                      position: relative; top: 5px; left: -12px;">
+               <p:inputTextarea id="recordatorio" value="#{controlInicioRed.recordatorio.mensaje}" readonly="true"
+                                style="background-color: #EFDB78; width: 640px; height: 50px; overflow: auto; border: none; font-weight: bold; text-align: justify; box-shadow: none;" />
             </fieldset>
-            <fieldset id="banner" style="position: absolute; top: 108px; height: 158px; width: 460px; padding: 0px;">
-                <p:imageSwitch id="bannerConsultas" effect="fade" widgetVar="informacion" style="box-shadow: 5px 5px 12px #000000" slideshowSpeed="5000">  
-                    <ui:repeat value="#{controlInicioRed.banner}" var="banner">  
-                        <a href="#{banner.urlImagen}" target="_blank">
-                            <p:graphicImage value="Imagenes/#{banner.imagen}" style="width: 460px; height: 158px"/>
-                        </a>
-                    </ui:repeat>  
-                </p:imageSwitch>
-                <p:commandButton type="button" onclick="informacion.previous();" 
-                                 style="position: relative; top: -30px; left: 5px; width: 25px; height: 25px; z-index: 20"  
-                                 icon="ui-icon-circle-triangle-w"/>  
-                <p:commandButton type="button" onclick="informacion.next();" 
-                                 style="position: relative; top: -30px; left: 5px; width: 25px; height: 25px; z-index: 20"
-                                 icon="ui-icon-circle-triangle-e"/>
-            </fieldset>
-            <fieldset id="recordatorio" style="font-size: 12px; border-radius: 10px; background-color: #2D7AD7; box-shadow: 5px 5px 12px #000000; 
-                      position: absolute; top: 543px; width: 1082.68px; height: 120px; text-align: center;">
-                <p:commandButton id="btnProverbio" value="" action="proverbio" actionListener="#{controlProverbio.recibirPagina('nomina')}" process="@this" disabled="#{controlInicioRed.modulosDesigner}" 
-                                 style="background-image: url(Imagenes/Iconos/bombillo1.png); background-size: 100% 100%; background-repeat: no-repeat;
-                                 width: 60px; height: 70px; position: relative; top: -20px; display: inline-flex; border: none;"/>
-                <p class="triangulo_top_left"></p>
-                <fieldset id="recorTexto" style="font-size: 12px; border-radius: 10px; background-color: #EFDB78; 
-                          box-shadow: 3px 3px 8px #000000; z-index: 1; width: 667px; display: inline;
-                          position: relative; top: 5px; left: -12px;">
-                    <p:inputTextarea id="recordatorio" value="#{controlInicioRed.recordatorio.mensaje}" readonly="true"
-                                     style="background-color: #EFDB78; width: 640px; height: 50px; overflow: auto; border: none; font-weight: bold; text-align: justify; box-shadow: none;" />
-                </fieldset>
-                <div style="display: inline;">
-                    <p:commandButton value="" actionListener="#{controlInicioRed.nuevoRecordatorio()}"  process="@this" 
-                                     style="width: 20px; height: 20px; background-image: url(Imagenes/Iconos/arriba.png); background-size: 100% 100%; background-repeat: no-repeat; 
-                                     position: relative; top: -30px; left: -10px;"/>
-                    <p:commandButton value="" actionListener="#{controlInicioRed.nuevoRecordatorio()}" process="@this" 
-                                     style="width: 20px; height: 20px; background-image: url(Imagenes/Iconos/abajo.png); background-size: 100% 100%; background-repeat: no-repeat; 
-                                     position: relative; top: -5px; left: -31px;" />
-                </div>
-                <h:panelGrid id="piedepagina" columns="2" style="border:none; width: 100%" columnClasses="columnaPieA, columnaPieB">
-                        <!-- <h:outputText value="Designer.NOM &reg; 1998 - #{controlInicioRed.añoActual} / Vis&iacute;tenos: " style="position: absolute; top: 80px; left: 10px;"/> -->
-                    <!--<a href="http://www.nomina.com.co/" target="_blank" style="position: absolute; top: 80px; left: 295px; font-size: 15px; color: white">www.nomina.com.co</a>-->
-                    <h:outputText value="Su compañ&iacute;a de Tecnolog&iacute;a y Consultor&iacute;a en N&oacute;mina y Talento Humano desde 1998" 
-                                  style="color: white; font-size: 16px; font-family: Calibri; font-weight: bold;"/>
-                    <h:outputText value=" #{controlInicioRed.mostrarFecha}" 
-                                  style="color: white; font-size: 16px; font-family: Calibri; font-weight: bold;"/>
-                </h:panelGrid>
-            </fieldset>
-            <fieldset id="cabecera" style="font-size: 12px; width: 1082.68px; height: 77.6px; border-radius: 10px; 
-                      background-image: url(Imagenes/Iconos/fondoencabezado.png); background-repeat: no-repeat; background-size: 100% 100%; box-shadow: 5px 5px 12px #000000;
-                      position: absolute; top: 0px; text-align: right; font-size: 14px;">
-                <h:form>
-                    <div id="redessociales" style="float: left; position:relative; top: 17px; margin-left: 270px;">
-                        <a href="http://www.facebook.com/nominads" target="_blank" style="color: transparent;">
-                            <p:graphicImage value="Imagenes/Iconos/rs_Facebook.png" alt="facebook" style="left: 0px; width: 20px; height: 20px; "/>
-                        </a>
-                        <a href="https://plus.google.com/+nominads" target="_blank">
-                            <p:graphicImage value="Imagenes/Iconos/rs_GooglePlus.png" alt="googleplus" style="left: 0px; width: 20px; height: 20px; "/>
-                        </a>
-                        <a href="https://www.youtube.com/user/nominads" target="_blank">
-                            <p:graphicImage value="Imagenes/Iconos/rs_Youtube.png" alt="youtube" style="left: 0px; width: 20px; height: 20px; "/>
-                        </a>
-                        <a href="https://twitter.com/#!/NominaDesigner" target="_blank">
-                            <p:graphicImage value="Imagenes/Iconos/rs_Twitter.png" alt="twiter" style="left: 0px; width: 20px; height: 20px; "/>
-                        </a>
-                        <a href="https://www.linkedin.com/company/designer-software-limitada" target="_blank">
-                            <p:graphicImage value="Imagenes/Iconos/rs_LinkedIn.png" alt="linkedin" style="left: 0px; width: 20px; height: 20px; "/>
-                        </a>
-                        <a href="http://www.nomina.com.co/soporte/descargas/file/43-teamviewer3.html" target="_blank">
-                            <p:graphicImage value="Imagenes/Iconos/rs_Teamviewer.png" alt="teamviewer" style="left: 0px; width: 20px; height: 20px; "/>
-                        </a>
-                        <a href="tel:+5717475043" target="_blank">
-                            <p:graphicImage value="Imagenes/Iconos/rs_pbx.png" alt="celular" style="left: 0px; width: 20px; height: 20px; "/>
-                        </a>
-                    </div>
-                </h:form>
-                <br/>
-                <h:outputText value="Designer.NOM - La Facilidad de Liquidar y Contabilizar N&oacute;mina con Talento Humano" style="color: white; font-weight: bold;"/>
-                <br/>
-                <h:outputText value="versi&oacute;n #{controlInicioRed.añoActual} - Licencia de uso a: " style="font-size: 14px; color: white; font-weight: bold;"/>
-                <br/>
-                <h:outputText id="nombreEmpresa" value="#{controlInicioRed.nombreEmpresa}" 
-                              style="font-size: 14px; width: 600px; position: relative; top: 10px; font-weight: bold;"/>
-            </fieldset>
-            
-            <p:remoteCommand name="iniciarcomponentes" actionListener="#{controlInicioRed.inicioComponentes()}"/>
-        </h:form>
-        <h:form id="formularioDialogos">
-            <p:dialog id="cambiarClave" header="Atenci&oacute;n - Cambio de clave" widgetVar="cambiarClave"  resizable="false" draggable="false" modal="true" height="130" width="375px;" 
-                      style="font-size: 12px;" closable="false">  
-                <h:outputText value="Permite actualizar su clave de entrada al sistema" style="width: 300px; font-weight: bold; color: #14388B;" />
-                <p:outputLabel for="Nclave" value="Nueva clave: " style="font-weight: bold"/>
-                <p:password id="Nclave" value="#{controlInicioRed.NClave}" style="text-transform: uppercase"/>
-                <p:outputLabel for="Rclave" value="Repetir nueva clave: " style="font-weight: bold"/>
-                <p:password id="Rclave" value="#{controlInicioRed.rclave}" style="text-transform: uppercase"/>
-                <p:commandButton value="Aceptar" icon="ui-icon-check" actionListener="#{controlInicioRed.cambiarClave()}" />
-                <p:commandButton value="Cancelar" icon="ui-icon-close" onclick="cambiarClave.hide();" actionListener="#{controlInicioRed.cancelarCambioClave()}" process="@this" />
-            </p:dialog>
+            <div style="display: inline;">
+               <p:commandButton value="" actionListener="#{controlInicioRed.nuevoRecordatorio()}"  process="@this" 
+                                style="width: 20px; height: 20px; background-image: url(Imagenes/Iconos/arriba.png); background-size: 100% 100%; background-repeat: no-repeat; 
+                                position: relative; top: -30px; left: -10px;"/>
+               <p:commandButton value="" actionListener="#{controlInicioRed.nuevoRecordatorio()}" process="@this" 
+                                style="width: 20px; height: 20px; background-image: url(Imagenes/Iconos/abajo.png); background-size: 100% 100%; background-repeat: no-repeat; 
+                                position: relative; top: -5px; left: -31px;" />
+            </div>
+            <h:panelGrid id="piedepagina" columns="2" style="border:none; width: 100%" columnClasses="columnaPieA, columnaPieB">
+                    <!-- <h:outputText value="Designer.NOM &reg; 1998 - #{controlInicioRed.añoActual} / Vis&iacute;tenos: " style="position: absolute; top: 80px; left: 10px;"/> -->
+               <!--<a href="http://www.nomina.com.co/" target="_blank" style="position: absolute; top: 80px; left: 295px; font-size: 15px; color: white">www.nomina.com.co</a>-->
+               <h:outputText value="Su compañ&iacute;a de Tecnolog&iacute;a y Consultor&iacute;a en N&oacute;mina y Talento Humano desde 1998" 
+                             style="color: white; font-size: 16px; font-family: Calibri; font-weight: bold;"/>
+               <h:outputText value=" #{controlInicioRed.mostrarFecha}" 
+                             style="color: white; font-size: 16px; font-family: Calibri; font-weight: bold;"/>
+            </h:panelGrid>
+         </fieldset>
+         <fieldset id="cabecera" style="font-size: 12px; width: 1082.68px; height: 77.6px; border-radius: 10px; 
+                   background-image: url(Imagenes/Iconos/fondoencabezado.png); background-repeat: no-repeat; background-size: 100% 100%; box-shadow: 5px 5px 12px #000000;
+                   position: absolute; top: 0px; text-align: right; font-size: 14px;">
+            <h:form>
+               <div id="redessociales" style="float: left; position:relative; top: 17px; margin-left: 270px;">
+                  <a href="http://www.facebook.com/nominads" target="_blank" style="color: transparent;">
+                     <p:graphicImage value="Imagenes/Iconos/rs_Facebook.png" alt="facebook" style="left: 0px; width: 20px; height: 20px; "/>
+                  </a>
+                  <a href="https://plus.google.com/+nominads" target="_blank">
+                     <p:graphicImage value="Imagenes/Iconos/rs_GooglePlus.png" alt="googleplus" style="left: 0px; width: 20px; height: 20px; "/>
+                  </a>
+                  <a href="https://www.youtube.com/user/nominads" target="_blank">
+                     <p:graphicImage value="Imagenes/Iconos/rs_Youtube.png" alt="youtube" style="left: 0px; width: 20px; height: 20px; "/>
+                  </a>
+                  <a href="https://twitter.com/#!/NominaDesigner" target="_blank">
+                     <p:graphicImage value="Imagenes/Iconos/rs_Twitter.png" alt="twiter" style="left: 0px; width: 20px; height: 20px; "/>
+                  </a>
+                  <a href="https://www.linkedin.com/company/designer-software-limitada" target="_blank">
+                     <p:graphicImage value="Imagenes/Iconos/rs_LinkedIn.png" alt="linkedin" style="left: 0px; width: 20px; height: 20px; "/>
+                  </a>
+                  <a href="http://www.nomina.com.co/soporte/descargas/file/43-teamviewer3.html" target="_blank">
+                     <p:graphicImage value="Imagenes/Iconos/rs_Teamviewer.png" alt="teamviewer" style="left: 0px; width: 20px; height: 20px; "/>
+                  </a>
+                  <a href="tel:+5717475043" target="_blank">
+                     <p:graphicImage value="Imagenes/Iconos/rs_pbx.png" alt="celular" style="left: 0px; width: 20px; height: 20px; "/>
+                  </a>
+               </div>
+            </h:form>
+            <br/>
+            <h:outputText value="Designer.NOM - La Facilidad de Liquidar y Contabilizar N&oacute;mina con Talento Humano" style="color: white; font-weight: bold;"/>
+            <br/>
+            <h:outputText value="versi&oacute;n #{controlInicioRed.añoActual} - Licencia de uso a: " style="font-size: 14px; color: white; font-weight: bold;"/>
+            <br/>
+            <h:outputText id="nombreEmpresa" value="#{controlInicioRed.nombreEmpresa}" 
+                          style="font-size: 14px; width: 600px; position: relative; top: 10px; font-weight: bold;"/>
+         </fieldset>
 
-            <p:dialog id="errorCambioClave" header="ATENCI&Oacute;N" widgetVar="errorCambioClave"  resizable="false" draggable="false" modal="true" height="60" width="300px;" 
-                      style="font-size: 12px;" closable="true">  
-                <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" />
-                <h:outputText value="Las contrase&ntilde;as no coniciden, por favor verificar e intentar de nuevo." style="width: 200px; font-weight:bold; text-align: center" />
-            </p:dialog>
+         <p:remoteCommand name="iniciarcomponentes" actionListener="#{controlInicioRed.inicioComponentes()}"/>
+      </h:form>
+      <h:form id="formularioDialogos">
+         <p:dialog id="cambiarClave" header="Atenci&oacute;n - Cambio de clave" widgetVar="cambiarClave"  resizable="false" draggable="false" modal="true" height="130" width="375px;" 
+                   style="font-size: 12px;" closable="false">  
+            <h:outputText value="Permite actualizar su clave de entrada al sistema" style="width: 300px; font-weight: bold; color: #14388B;" />
+            <p:outputLabel for="Nclave" value="Nueva clave: " style="font-weight: bold"/>
+            <p:password id="Nclave" value="#{controlInicioRed.NClave}" style="text-transform: uppercase"/>
+            <p:outputLabel for="Rclave" value="Repetir nueva clave: " style="font-weight: bold"/>
+            <p:password id="Rclave" value="#{controlInicioRed.rclave}" style="text-transform: uppercase"/>
+            <p:commandButton value="Aceptar" icon="ui-icon-check" actionListener="#{controlInicioRed.cambiarClave()}" />
+            <p:commandButton value="Cancelar" icon="ui-icon-close" onclick="cambiarClave.hide();" actionListener="#{controlInicioRed.cancelarCambioClave()}" process="@this" />
+         </p:dialog>
 
-            <p:dialog id="errorCambioClaveCamposVacios" header="ATENCI&Oacute;N" widgetVar="errorCambioClaveCamposVacios" resizable="false" draggable="false" modal="true" height="60" width="300" style="font-size: 12px;" closable="true">  
-                <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" />
-                <h:outputText value="Existen campos vacios, por favor ingrese una valor." style="width: 200px; font-weight:bold; text-align: center;" />
-            </p:dialog>
+         <p:dialog id="errorCambioClave" header="ATENCI&Oacute;N" widgetVar="errorCambioClave"  resizable="false" draggable="false" modal="true" height="60" width="300px;" 
+                   style="font-size: 12px;" closable="true">  
+            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" />
+            <h:outputText value="Las contrase&ntilde;as no coniciden, por favor verificar e intentar de nuevo." style="width: 200px; font-weight:bold; text-align: center" />
+         </p:dialog>
 
-            <p:dialog id="errorCambioClaveReusar" header="ATENCI&Oacute;N" widgetVar="errorCambioClaveReusar"  resizable="false" draggable="false" modal="true" height="60" width="300" style="font-size: 12px;" closable="true">  
-                <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" />
-                <h:outputText value="Ya ha utilizado esta contrase&ntilde;a, por favor utilize una diferente." style="width: 200px; font-weight:bold; text-align: center" />
-            </p:dialog>
+         <p:dialog id="errorCambioClaveCamposVacios" header="ATENCI&Oacute;N" widgetVar="errorCambioClaveCamposVacios" resizable="false" draggable="false" modal="true" height="60" width="300" style="font-size: 12px;" closable="true">  
+            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" />
+            <h:outputText value="Existen campos vacios, por favor ingrese una valor." style="width: 200px; font-weight:bold; text-align: center;" />
+         </p:dialog>
 
-            <p:dialog id="exitoCambioClave" header="ATENCI&Oacute;N" widgetVar="exitoCambioClave"  resizable="false" draggable="false" modal="true" height="60" width="300" style="font-size: 12px;" closable="true">  
-                <h:graphicImage value="Imagenes/Iconos/correcto.png" width="50" height="50" />
-                <h:outputText value="La contraseña se ha cambiado exitosamente." style="width: 200px; font-weight:bold; text-align: center" />
-            </p:dialog>
+         <p:dialog id="errorCambioClaveReusar" header="ATENCI&Oacute;N" widgetVar="errorCambioClaveReusar"  resizable="false" draggable="false" modal="true" height="60" width="300" style="font-size: 12px;" closable="true">  
+            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" />
+            <h:outputText value="Ya ha utilizado esta contrase&ntilde;a, por favor utilize una diferente." style="width: 200px; font-weight:bold; text-align: center" />
+         </p:dialog>
 
-            <p:dialog id="estadoSesion" header="Informaci&oacute;n" widgetVar="estadoSesion"  resizable="false" draggable="false" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
-                <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="vertical-align: middle;" />
-                <h:outputText value="#{controlInicioRed.msgSesion}" style="font-size: 12px; width: 240px; text-align: justify; font-weight:bold;" />
-            </p:dialog>
-        </h:form>
-    </h:body>
+         <p:dialog id="exitoCambioClave" header="ATENCI&Oacute;N" widgetVar="exitoCambioClave"  resizable="false" draggable="false" modal="true" height="60" width="300" style="font-size: 12px;" closable="true">  
+            <h:graphicImage value="Imagenes/Iconos/correcto.png" width="50" height="50" />
+            <h:outputText value="La contraseña se ha cambiado exitosamente." style="width: 200px; font-weight:bold; text-align: center" />
+         </p:dialog>
+
+         <p:dialog id="estadoSesion" header="Informaci&oacute;n" widgetVar="estadoSesion"  resizable="false" draggable="false" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
+            <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="vertical-align: middle;" />
+            <h:outputText value="#{controlInicioRed.msgSesion}" style="font-size: 12px; width: 240px; text-align: justify; font-weight:bold;" />
+         </p:dialog>
+      </h:form>
+   </h:body>
 </html>
 
