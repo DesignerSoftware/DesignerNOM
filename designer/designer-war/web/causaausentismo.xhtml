@@ -51,7 +51,7 @@ and open the template in the editor.
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none; " oncomplete="NuevoRegistroCausaAusentismo.show()" update=":formularioDialogos:nuevaCausasAusentismos" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none; " oncomplete="PF('NuevoRegistroCausaAusentismo').show()" update=":formularioDialogos:nuevaCausasAusentismos" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none; " actionListener="#{controlCausasAusentismos.borrarCausaAusentismo()}" process="@this"/>  
@@ -65,7 +65,7 @@ and open the template in the editor.
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none; " actionListener="#{controlCausasAusentismos.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none; " actionListener="#{controlCausasAusentismos.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -286,7 +286,7 @@ and open the template in the editor.
                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlCausasAusentismos.infoRegistro}" style="position: absolute; left: 15px; top: 340px; font-weight: bold"/>
 
                         </fieldset>
-                        <p:commandButton style="position: absolute; left: 683px; top: 470px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"  id="ACEPTAR" value=" " onclick="confirmarGuardar.show();" disabled="#{controlCausasAusentismos.guardado}" update=":form:datosCausasAusentismos" process="@this" />
+                        <p:commandButton style="position: absolute; left: 683px; top: 470px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"  id="ACEPTAR" value=" " onclick="PF('confirmarGuardar').show();" disabled="#{controlCausasAusentismos.guardado}" update=":form:datosCausasAusentismos" process="@this" />
                         <p:commandButton style="position: absolute; left: 775px; top: 470px;width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"  id="ATRAS" value=" " actionListener="#{controlCausasAusentismos.salir()}" action="#{controlCausasAusentismos.redirigir()}" process="@this" />
 
                     </p:panel>
@@ -300,9 +300,9 @@ and open the template in the editor.
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlCausasAusentismos.guardarCambiosCausaAusentismo()}" action="#{controlCausasAusentismos.redirigir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlCausasAusentismos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCausasAusentismos.guardarCambiosCausaAusentismo()}" action="#{controlCausasAusentismos.redirigir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCausasAusentismos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <!-- Ya Existe -->
@@ -311,18 +311,18 @@ and open the template in the editor.
                     <p:dialog id="validacionNuevaCausaAusentismo" header="#{msg['atencion']}" widgetVar="validacionNuevaCausaAusentismo"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevo']} #{controlCausasAusentismos.mensajeValidacion}" style="position: absolute; left: 80px; top: 10px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevaCausaAusentismo.hide();"  icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevaCausaAusentismo').hide();"  icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validacionCodigo" header="#{msg['atencion']}" widgetVar="validacionCodigo"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionCodigo']}" style="position: absolute; left: 80px; top: 10px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionCodigo.hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionCodigo').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px;" process="@this" />
                     </p:dialog>  
                     <p:dialog id="validacionCodigo2" header="#{msg['atencion']}" widgetVar="validacionCodigo2"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionCodigodos']}" style="position: absolute; left: 80px; top: 10px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionCodigo2.hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionCodigo2').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px;" process="@this" />
                     </p:dialog>  
 
                     <!-- Nuevo Registro -->                    
@@ -333,17 +333,17 @@ and open the template in the editor.
 
                         <p:panel id="nuevaCausasAusentismos" style="border: none;">
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px;" /></strong>
-                            <p:inputText maxlength="4" id="nuevoCodigo" value="#{controlCausasAusentismos.nuevaCausasAusentismos.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 70px; text-transform: uppercase" onclick="select();">
+                            <p:inputText maxlength="4" id="nuevoCodigo" value="#{controlCausasAusentismos.nuevaCausasAusentismos.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 70px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="nuevoDescripcion" value="#{controlCausasAusentismos.nuevaCausasAusentismos.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 100px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoDescripcion" value="#{controlCausasAusentismos.nuevaCausasAusentismos.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 100px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['claseN']}" style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText id="nuevoClase" value="#{controlCausasAusentismos.nuevaCausasAusentismos.clase.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoClase" value="#{controlCausasAusentismos.nuevaCausasAusentismos.clase.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 130px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlCausasAusentismos.valoresBackupAutocompletar(1)}" />
                                 <p:ajax event="change" listener="#{controlCausasAusentismos.autocompletarNuevoyDuplicado(controlCausasAusentismos.nuevaCausasAusentismos.clase.descripcion,1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlCausasAusentismos.llamarLovClasesAusentismos(1)}" />
@@ -362,12 +362,12 @@ and open the template in the editor.
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['porcentajeliquidacionN']}" style=" position: absolute; top: 195px;" /></strong>
-                            <p:inputText id="nuevoPorcentajeLiquidacion" value="#{controlCausasAusentismos.nuevaCausasAusentismos.porcentajeliquidacion}" style=" width: 122px; position: absolute; left: 185px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoPorcentajeLiquidacion" value="#{controlCausasAusentismos.nuevaCausasAusentismos.porcentajeliquidacion}" style=" width: 122px; position: absolute; left: 185px; top: 190px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['restadiasincapacidadN']}" style=" position: absolute; top: 225px;" /></strong>
-                            <p:inputText id="nuevoRestaDiasIncapacidad" value="#{controlCausasAusentismos.nuevaCausasAusentismos.restadiasincapacidad}" style=" width: 122px; position: absolute; left: 185px; top: 220px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoRestaDiasIncapacidad" value="#{controlCausasAusentismos.nuevaCausasAusentismos.restadiasincapacidad}" style=" width: 122px; position: absolute; left: 185px; top: 220px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
@@ -406,7 +406,7 @@ and open the template in the editor.
 
                             <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 400px;" actionListener="#{controlCausasAusentismos.limpiarNuevaCausaAusentismo()}" update="nuevaCausasAusentismos" process="@this"/>
                             <p:commandButton id="agregarC" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 170px; top: 400px;"  actionListener="#{controlCausasAusentismos.agregarNuevaCausaAusentismo()}" process="@this"/>
-                            <p:commandButton id="cancelarC" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 270px; top: 400px;" actionListener="#{controlCausasAusentismos.limpiarNuevaCausaAusentismo()}" update="nuevaCausasAusentismos" onclick="NuevoRegistroCausaAusentismo.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarC" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 270px; top: 400px;" actionListener="#{controlCausasAusentismos.limpiarNuevaCausaAusentismo()}" update="nuevaCausasAusentismos" onclick="PF('NuevoRegistroCausaAusentismo').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -419,17 +419,17 @@ and open the template in the editor.
                         <p:panel id="duplicarCausaAusentismo" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px;" /></strong>
-                            <p:inputText maxlength="4" id="duplicadoCodigo" value="#{controlCausasAusentismos.duplicarCausasAusentismos.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 70px; text-transform: uppercase" onclick="select();">
+                            <p:inputText maxlength="4" id="duplicadoCodigo" value="#{controlCausasAusentismos.duplicarCausasAusentismos.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 70px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="duplicadoDescripcion" value="#{controlCausasAusentismos.duplicarCausasAusentismos.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 100px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicadoDescripcion" value="#{controlCausasAusentismos.duplicarCausasAusentismos.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 100px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['claseN']}" style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText id="duplicadoClase" value="#{controlCausasAusentismos.duplicarCausasAusentismos.clase.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicadoClase" value="#{controlCausasAusentismos.duplicarCausasAusentismos.clase.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 130px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlCausasAusentismos.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlCausasAusentismos.autocompletarNuevoyDuplicado(controlCausasAusentismos.duplicarCausasAusentismos.clase.descripcion,2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlCausasAusentismos.llamarLovClasesAusentismos(2)}" />
@@ -448,12 +448,12 @@ and open the template in the editor.
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['porcentajeliquidacionN']}" style=" position: absolute; top: 195px;" /></strong>
-                            <p:inputText id="duplicadoPorcentajeLiquidacion" value="#{controlCausasAusentismos.duplicarCausasAusentismos.porcentajeliquidacion}" style=" width: 122px; position: absolute; left: 185px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicadoPorcentajeLiquidacion" value="#{controlCausasAusentismos.duplicarCausasAusentismos.porcentajeliquidacion}" style=" width: 122px; position: absolute; left: 185px; top: 190px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['restadiasincapacidadN']}" style=" position: absolute; top: 225px;" /></strong>
-                            <p:inputText id="duplicadoRestaDiasIncapacidad" value="#{controlCausasAusentismos.duplicarCausasAusentismos.restadiasincapacidad}" style=" width: 122px; position: absolute; left: 185px; top: 220px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicadoRestaDiasIncapacidad" value="#{controlCausasAusentismos.duplicarCausasAusentismos.restadiasincapacidad}" style=" width: 122px; position: absolute; left: 185px; top: 220px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
@@ -492,7 +492,7 @@ and open the template in the editor.
 
                             <p:commandButton id="limpiarDuplicadoCausaAusentismo" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 400px;" actionListener="#{controlCausasAusentismos.limpiarDuplicarCausaAusentismo()}" update="duplicarCausaAusentismo" process="@this"/>
                             <p:commandButton id="agregarDuplicadoCausaAusentismo" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 170px; top: 400px;"  process="@this" actionListener="#{controlCausasAusentismos.confirmarDuplicar()}"  />
-                            <p:commandButton id="cancelarDuplicadoCausaAusentismo" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 270px; top: 400px;" actionListener="#{controlCausasAusentismos.limpiarDuplicarCausaAusentismo()}" update="duplicarCausaAusentismo" onclick="DuplicarRegistroCausaAusentismo.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicadoCausaAusentismo" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 270px; top: 400px;" actionListener="#{controlCausasAusentismos.limpiarDuplicarCausaAusentismo()}" update="duplicarCausaAusentismo" onclick="PF('DuplicarRegistroCausaAusentismo').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>                  
 
@@ -502,15 +502,15 @@ and open the template in the editor.
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlCausasAusentismos.causasAusentismoSeleccionado.getSecuencia(), 'Causasausentismos', 'causaausentismo')}" style="position: absolute; top: 63px; left: 170px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 235px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlCausasAusentismos.causasAusentismoSeleccionado.getSecuencia(), 'Causasausentismos', 'causaausentismo')}" style="position: absolute; top: 63px; left: 170px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 235px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('Causasausentismos', 'causaausentismo')}" style="position: absolute; top: 60px; left: 170px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 235px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('Causasausentismos', 'causaausentismo')}" style="position: absolute; top: 60px; left: 170px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 235px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -526,8 +526,8 @@ and open the template in the editor.
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlCausasAusentismos.causasAusentismoSeleccionado.getSecuencia(), 'Causasausentismos', 'causaausentismo')}" style="position: absolute; top: 65px; left: 170px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" icon="ui-icon-close" style="position: absolute; top: 65px; left: 235px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlCausasAusentismos.causasAusentismoSeleccionado.getSecuencia(), 'Causasausentismos', 'causaausentismo')}" style="position: absolute; top: 65px; left: 170px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 65px; left: 235px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  

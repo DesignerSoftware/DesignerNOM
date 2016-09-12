@@ -224,7 +224,7 @@
                   </fieldset>
 
                   <p:commandButton id="ACEPTAR" value="" styleClass="cssBotonAceptar" update=":form:datosFormulaConcepto" process="@this"
-                                   onclick="confirmarGuardar.show();" disabled="#{controlFormulaConcepto.guardado}"/>
+                                   onclick="PF('confirmarGuardar').show();" disabled="#{controlFormulaConcepto.guardado}"/>
                   <p:commandButton id="ATRAS" value="" styleClass="cssBotonCancelar" action="retornoFormula" process="@this"
                                    actionListener="#{controlFormulaConcepto.salir()}"/>
                   <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlFormulaConcepto.infoRegistro}" style="position: absolute; left: 15px; top: 485px; font-weight: bold"/>
@@ -233,15 +233,15 @@
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFormulaConcepto.formulaConceptoSeleccionada.secuencia, controlFormulaConcepto.nombreTablaRastro , 'conceptoFormulaRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlFormulaConcepto.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFormulaConcepto.formulaConceptoSeleccionada.secuencia, controlFormulaConcepto.nombreTablaRastro , 'conceptoFormulaRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlFormulaConcepto.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlFormulaConcepto.nombreTablaRastro , 'conceptoFormulaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlFormulaConcepto.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlFormulaConcepto.nombreTablaRastro , 'conceptoFormulaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlFormulaConcepto.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -257,8 +257,8 @@
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFormulaConcepto.formulaConceptoSeleccionada.secuencia, controlFormulaConcepto.nombreTablaRastro , 'conceptoFormulaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFormulaConcepto.formulaConceptoSeleccionada.secuencia, controlFormulaConcepto.nombreTablaRastro , 'conceptoFormulaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -289,9 +289,9 @@
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                  <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlFormulaConcepto.guardadoGeneral()}" action="retornoFormula" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                  <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlFormulaConcepto.salir()}" action="retornoFormula" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                  <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFormulaConcepto.guardadoGeneral()}" action="retornoFormula" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFormulaConcepto.salir()}" action="retornoFormula" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>
 
                <p:hotkey bind="ctrl+f11" actionListener="#{controlFormulaConcepto.activarCtrlF11()}"/>
@@ -400,7 +400,7 @@
                      </div>
 
                      <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                     <p:inputText id="nuevaCodigo" value="#{controlFormulaConcepto.nuevaFormulaConcepto.codigoConcepto}" style="width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase" onclick="select();" >
+                     <p:inputText id="nuevaCodigo" value="#{controlFormulaConcepto.nuevaFormulaConcepto.codigoConcepto}" style="width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase" onclick="PF('select();" >
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,1)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(1,'CODIGO')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('CODIGO', controlFormulaConcepto.nuevaFormulaConcepto.codigoConcepto, 1)}" />
@@ -410,7 +410,7 @@
                      <p:watermark for="nuevaCodigo" value="#{msg['codigo']}" />
 
                      <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                     <p:inputText id="nuevaConcepto" value="#{controlFormulaConcepto.nuevaFormulaConcepto.nombreConcepto}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
+                     <p:inputText id="nuevaConcepto" value="#{controlFormulaConcepto.nuevaFormulaConcepto.nombreConcepto}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="PF('select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,1)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(1, 'CONCEPTO')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('CONCEPTO', controlFormulaConcepto.nuevaFormulaConcepto.nombreConcepto, 1)}" />
@@ -420,7 +420,7 @@
                      <p:watermark for="nuevaConcepto" value="#{msg['descripcion']}" />
 
                      <strong><h:outputText value="*#{msg['ordenN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                     <p:inputText id="nuevaOrden" value="#{controlFormulaConcepto.nuevaFormulaConcepto.strOrden}" style="width: 122px; position: absolute; left: 220px; top: 190px; text-transform: uppercase" onclick="select();">
+                     <p:inputText id="nuevaOrden" value="#{controlFormulaConcepto.nuevaFormulaConcepto.strOrden}" style="width: 122px; position: absolute; left: 220px; top: 190px; text-transform: uppercase" onclick="PF('select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(1,1)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(1, 'ORDEN')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('ORDEN', controlFormulaConcepto.nuevaFormulaConcepto.strOrden, 1)}" />
@@ -430,7 +430,7 @@
                      <p:watermark for="nuevaOrden" value="#{msg['orden']}" />
 
                      <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                     <p:inputText id="nuevaEmpresa" value="#{controlFormulaConcepto.nuevaFormulaConcepto.nombreEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 220px; text-transform: uppercase" onclick="select();">
+                     <p:inputText id="nuevaEmpresa" value="#{controlFormulaConcepto.nuevaFormulaConcepto.nombreEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 220px; text-transform: uppercase" onclick="PF('select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,1)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(1, 'EMPRESA')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('EMPRESA', controlFormulaConcepto.nuevaFormulaConcepto.nombreEmpresa, 1)}" />
@@ -440,7 +440,7 @@
                      <p:watermark for="nuevaEmpresa" value="#{msg['empresa']}" />
 
                      <strong><h:outputText value="*#{msg['nitN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                     <p:inputText id="nuevaNIT" value="#{controlFormulaConcepto.nuevaFormulaConcepto.nitEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 250px; text-transform: uppercase" onclick="select();">
+                     <p:inputText id="nuevaNIT" value="#{controlFormulaConcepto.nuevaFormulaConcepto.nitEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 250px; text-transform: uppercase" onclick="PF('select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,1)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(1, 'NIT')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('NIT', controlFormulaConcepto.nuevaFormulaConcepto.nitEmpresa, 1)}" />
@@ -451,7 +451,7 @@
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarNF" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 295px;" actionListener="#{controlFormulaConcepto.limpiarNuevoFormula()}" update="nuevaF" process="@this"/>
                      <p:commandButton icon="ui-icon-circle-check" id="agregarNF" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 295px;"  process="@this" actionListener="#{controlFormulaConcepto.agregarNuevoFormula()}"  />
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarNF" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 295px;" actionListener="#{controlFormulaConcepto.limpiarNuevoFormula()}" update="nuevaF" onclick="NuevoRegistroFormula.hide();"  process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarNF" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 295px;" actionListener="#{controlFormulaConcepto.limpiarNuevoFormula()}" update="nuevaF" onclick="PF('NuevoRegistroFormula').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
@@ -478,7 +478,7 @@
                      </div>
 
                      <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarCodigo" value="#{controlFormulaConcepto.duplicarFormulaConcepto.codigoConcepto}" style="width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase" onclick="select();" >
+                     <p:inputText id="duplicarCodigo" value="#{controlFormulaConcepto.duplicarFormulaConcepto.codigoConcepto}" style="width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase" onclick="PF('select();" >
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,2)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(2, 'CODIGO')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('CODIGO', controlFormulaConcepto.duplicarFormulaConcepto.codigoConcepto, 2)}" />
@@ -488,7 +488,7 @@
                      <p:watermark for="duplicarCodigo" value="#{msg['codigo']}" />
 
                      <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarConcepto" value="#{controlFormulaConcepto.duplicarFormulaConcepto.nombreConcepto}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
+                     <p:inputText id="duplicarConcepto" value="#{controlFormulaConcepto.duplicarFormulaConcepto.nombreConcepto}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="PF('select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,2)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(2, 'CONCEPTO')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('CONCEPTO', controlFormulaConcepto.duplicarFormulaConcepto.nombreConcepto, 2)}" />
@@ -498,7 +498,7 @@
                      <p:watermark for="duplicarConcepto" value="#{msg['descripcion']}" />
 
                      <strong><h:outputText value="*#{msg['ordenN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarOrden" value="#{controlFormulaConcepto.duplicarFormulaConcepto.strOrden}" style="width: 122px; position: absolute; left: 220px; top: 190px; text-transform: uppercase" onclick="select();">
+                     <p:inputText id="duplicarOrden" value="#{controlFormulaConcepto.duplicarFormulaConcepto.strOrden}" style="width: 122px; position: absolute; left: 220px; top: 190px; text-transform: uppercase" onclick="PF('select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(1,2)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(2, 'ORDEN')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('ORDEN', controlFormulaConcepto.duplicarFormulaConcepto.strOrden, 2)}" />
@@ -508,7 +508,7 @@
                      <p:watermark for="duplicarOrden" value="#{msg['orden']}" />
 
                      <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarEmpresa" value="#{controlFormulaConcepto.duplicarFormulaConcepto.nombreEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 220px; text-transform: uppercase" onclick="select();">
+                     <p:inputText id="duplicarEmpresa" value="#{controlFormulaConcepto.duplicarFormulaConcepto.nombreEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 220px; text-transform: uppercase" onclick="PF('select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,2)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(2, 'EMPRESA')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('EMPRESA', controlFormulaConcepto.duplicarFormulaConcepto.nombreEmpresa, 2)}" />
@@ -518,7 +518,7 @@
                      <p:watermark for="duplicarEmpresa" value="#{msg['empresa']}" />
 
                      <strong><h:outputText value="*#{msg['nitN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarNIT" value="#{controlFormulaConcepto.duplicarFormulaConcepto.nitEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 250px; text-transform: uppercase" onclick="select();">
+                     <p:inputText id="duplicarNIT" value="#{controlFormulaConcepto.duplicarFormulaConcepto.nitEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 250px; text-transform: uppercase" onclick="PF('select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,2)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(2, 'NIT')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('NIT', controlFormulaConcepto.duplicarFormulaConcepto.nitEmpresa, 2)}" />
@@ -529,7 +529,7 @@
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarDF" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 295px;" actionListener="#{controlFormulaConcepto.limpiarDuplicarFormula()}" update="duplicarF" process="@this"/>
                      <p:commandButton icon="ui-icon-circle-check" id="agregarDF" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 295px;"  process="@this" actionListener="#{controlFormulaConcepto.confirmarDuplicarFormula()}"  />
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDF" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 295px;" actionListener="#{controlFormulaConcepto.limpiarDuplicarFormula()}" update="duplicarF" onclick="DuplicarRegistroFormula.hide();"  process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDF" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 295px;" actionListener="#{controlFormulaConcepto.limpiarDuplicarFormula()}" update="duplicarF" onclick="PF('DuplicarRegistroFormula').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 

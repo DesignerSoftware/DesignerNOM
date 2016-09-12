@@ -35,13 +35,13 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" onclick="exportarExcel.show();" />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" onclick="PF('exportarExcel').show();" />
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" onclick="exportarXML.show();"/>
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" onclick="PF('exportarXML').show();"/>
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" onclick="exportarPDF.show();"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" onclick="PF('exportarPDF').show();"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -378,32 +378,32 @@
                     <p:dialog id="permisoLiquidacion" header="#{msg['atencion']}" widgetVar="permisoLiquidacion"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['permisoLiquidacion']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="permisoLiquidacion.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('permisoLiquidacion').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="exportarExcel" header="#{msg['informacion']}" widgetVar="exportarExcel"  resizable="false" draggable="false" modal="true" height="110" width="400" style=";">  
                         <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;" />
                         <p:commandButton value="#{msg['liquidacionesCerradas']}" actionListener="#{controlBarra.exportXLS(0)}" ajax="false" 
-                                         onclick="exportarExcel.hide();" style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this" />
+                                         onclick="PF('exportarExcel').hide();" style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this" />
                         <p:commandButton value="#{msg['liquidacionesPrenomina']}" actionListener="#{controlBarra.exportXLS(1)}" ajax="false"  
-                                         onclick="exportarExcel.hide();" style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this" />
+                                         onclick="PF('exportarExcel').hide();" style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="exportarPDF" header="#{msg['informacion']}" widgetVar="exportarPDF"  resizable="false" draggable="false" modal="true" height="110" width="400" style=";">  
                         <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;" />
-                        <p:commandButton value="#{msg['liquidacionesCerradas']}" actionListener="#{controlBarra.exportPDF(0)}" ajax="false" onclick="exportarPDF.hide();" 
+                        <p:commandButton value="#{msg['liquidacionesCerradas']}" actionListener="#{controlBarra.exportPDF(0)}" ajax="false" onclick="PF('exportarPDF').hide();" 
                                          style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this" />
-                        <p:commandButton value="#{msg['liquidacionesPrenomina']}" actionListener="#{controlBarra.exportPDF(1)}" ajax="false"  onclick="exportarPDF.hide();" 
+                        <p:commandButton value="#{msg['liquidacionesPrenomina']}" actionListener="#{controlBarra.exportPDF(1)}" ajax="false"  onclick="PF('exportarPDF').hide();" 
                                          style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="exportarXML" header="#{msg['informacion']}" widgetVar="exportarXML"  resizable="false" draggable="false" modal="true" height="110" width="400" style=";">  
                         <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;" />
-                        <p:commandButton value="#{msg['liquidacionesCerradas']}" ajax="false" onclick="exportarXML.hide();" 
+                        <p:commandButton value="#{msg['liquidacionesCerradas']}" ajax="false" onclick="PF('exportarXML').hide();" 
                                          style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this">
                             <p:dataExporter type="xml"  target=":formExportar:datosLiquidacionesCerradasExportar" fileName="LiquidacionesCerradasXML" encoding="UTF-8"/>
                         </p:commandButton>
-                        <p:commandButton value="#{msg['liquidacionesPrenomina']}" ajax="false"  onclick="exportarXML.hide();" 
+                        <p:commandButton value="#{msg['liquidacionesPrenomina']}" ajax="false"  onclick="PF('exportarXML').hide();" 
                                          style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this" >
                             <p:dataExporter type="xml"  target=":formExportar:datosLiquidacionesAbiertasExportar" fileName="LiquidacionesAbiertasXML" encoding="UTF-8"/>
                         </p:commandButton>

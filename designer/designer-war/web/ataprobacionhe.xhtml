@@ -24,7 +24,7 @@
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlATAprobacionHE.editarCelda()}" process="@this"
-                                                 onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"/>
+                                                 onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -33,7 +33,7 @@
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlATAprobacionHE.activarCtrlF11()}" process="@this"
-                                                 onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"/>
+                                                 onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -68,7 +68,7 @@
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlATAprobacionHE.cancelarModificacion()}" process="@this"
-                                                 onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"/>  
+                                                 onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlATAprobacionHE.salir()}" action="#{controlATAprobacionHE.redirigir()}" process="@this"/>  
@@ -115,7 +115,7 @@
                                 var $num = #{controlATAprobacionHE.obtenerNumeroScrollCabecera()};
                                 $win.scroll(function() {
                                     if ($win.height() + $win.scrollTop() == $num) {
-                                        operacionEnProceso.show();
+                                        operacionEnProceso').show();
                                         pruebaRemota();
                                     }
                                 });
@@ -132,8 +132,8 @@
                                              widgetVar="tablaSuperiorIzquierda" styleClass="hide-row-names" filteredValue="#{controlATAprobacionHE.filtrarListaEersCabeceras}"
                                              selection="#{controlATAprobacionHE.cabeceraSeleccionada}" selectionMode="single"
                                              >
-                                    <p:ajax event="sort" onstart="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" listener="#{controlATAprobacionHE.organizarTablas()}" />   
-                                    <p:ajax event="filter" onstart="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" listener="#{controlATAprobacionHE.eventoFiltrar()}"/>
+                                    <p:ajax event="sort" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" listener="#{controlATAprobacionHE.organizarTablas()}" />   
+                                    <p:ajax event="filter" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" listener="#{controlATAprobacionHE.eventoFiltrar()}"/>
                                     <!-- NO SE OLVIDE !!! 
                                     <p:ajax event="filter" update=":form:tablaInferiorDerecha, :form:tablaInferiorIzquierda"/> -->
 
@@ -199,8 +199,8 @@
                                              selection="#{controlATAprobacionHE.cabeceraSeleccionada}" selectionMode="single"
                                              >
 
-                                    <p:ajax event="filter" onstart="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" listener="#{controlATAprobacionHE.eventoFiltrar()}"/>
-                                    <p:ajax event="sort" onstart="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" listener="#{controlATAprobacionHE.organizarTablas()}" />   
+                                    <p:ajax event="filter" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" listener="#{controlATAprobacionHE.eventoFiltrar()}"/>
+                                    <p:ajax event="sort" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" listener="#{controlATAprobacionHE.organizarTablas()}" />   
                                   <!--  <p:ajax event="sort" listener="#{controlRemoto.recargar()}" /> 
                                     <p:ajax event="filter" update=":form:tablaInferiorDerecha, :form:tablaInferiorIzquierda"/> -->
 
@@ -464,7 +464,7 @@
 
 
 
-                        <p:commandButton style="position: absolute; left: 683px; top: 480px;  " id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="confirmarGuardarSalida.show();"  process="@this" disabled="#{controlATAprobacionHE.guardado}"/>
+                        <p:commandButton style="position: absolute; left: 683px; top: 480px;  " id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('confirmarGuardarSalida').show();"  process="@this" disabled="#{controlATAprobacionHE.guardado}"/>
                         <p:commandButton style="position: absolute; left: 775px; top: 480px;  " id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlATAprobacionHE.salir()}" action="#{controlATAprobacionHE.redirigir()}" process="@this" />
 
                     </p:panel>
@@ -472,17 +472,17 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATAprobacionHE.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATAprobacionHE.cancelarModificacion()}"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATAprobacionHE.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATAprobacionHE.cancelarModificacion()}"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlATAprobacionHE.guardarSalir()}" action="#{controlATAprobacionHE.redirigir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlATAprobacionHE.cancelarSalir()}" action="#{controlATAprobacionHE.redirigir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlATAprobacionHE.guardarSalir()}" action="#{controlATAprobacionHE.redirigir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlATAprobacionHE.cancelarSalir()}" action="#{controlATAprobacionHE.redirigir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
 
@@ -494,15 +494,15 @@
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATAprobacionHE.backUpSecRegistro, 'EersCabeceras', 'rastroATAprocacionHE')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATAprobacionHE.backUpSecRegistro, 'EersCabeceras', 'rastroATAprocacionHE')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('EersCabeceras', 'rastroATAprocacionHE')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('EersCabeceras', 'rastroATAprocacionHE')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -513,8 +513,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATAprobacionHE.backUpSecRegistro, 'EersCabeceras', 'rastroATAprocacionHE')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATAprobacionHE.backUpSecRegistro, 'EersCabeceras', 'rastroATAprocacionHE')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
 

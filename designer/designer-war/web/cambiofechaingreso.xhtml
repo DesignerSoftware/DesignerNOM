@@ -109,40 +109,40 @@
                     <p:dialog id="validacionCambio" header="#{msg['atencion']}" widgetVar="validacionCambio"  resizable="false" draggable="false" modal="true" height="105" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="No se puede agregar sin una fecha nueva" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="validacionCambio.hide();" style="position: absolute; top: 68px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionCambio').hide();" style="position: absolute; top: 68px; left: 300px;" process="@this" />
                     </p:dialog> 
                     
                     <p:dialog id="exito" header="#{msg['atencion']}" widgetVar="exito"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="Su cambio de fecha fue realizado exitosamente. " style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" action="emplvigenciatipocontrato" icon="ui-icon-check" onclick="exito.hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" action="emplvigenciatipocontrato" icon="ui-icon-check" onclick="PF('exito').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="paso1" header="#{msg['atencion']}" widgetVar="paso1"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="En este momento va a cambiar la fecha de ingreso del empleado: #{controlCambioFechaIngreso.empleado.persona.nombreCompleto}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlCambioFechaIngreso.dialogoPaso2()}" onclick="paso1.hide(), paso2.show();" style="position: absolute; top: 50px; left: 210px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="paso1.hide()" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlCambioFechaIngreso.dialogoPaso2()}" onclick="PF('paso1').hide(), ('paso2').show();" style="position: absolute; top: 50px; left: 210px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('paso1').hide()" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="paso2" header="#{msg['atencion']}" widgetVar="paso2"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="Tiene conocimiento de lo que este cambio implica?, y que es bajo su responsabilidad?" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlCambioFechaIngreso.dialogoPaso3()}" onclick="paso2.hide(), paso3.show();" style="position: absolute; top: 50px; left: 210px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="paso2.hide()" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlCambioFechaIngreso.dialogoPaso3()}" onclick="PF('paso2').hide(), ('paso3').show();" style="position: absolute; top: 50px; left: 210px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('paso2').hide()" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="paso3" header="#{msg['atencion']}" widgetVar="paso3"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="La fecha anterior es: #{controlCambioFechaIngreso.fechaOld} , y la nueva fecha es: #{controlCambioFechaIngreso.fechaNew}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" actionListener="#{controlCambioFechaIngreso.realizarCambioFecha()}" icon="ui-icon-check" onclick="paso3.hide()" style="position: absolute; top: 50px; left: 210px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="paso3.hide()" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" actionListener="#{controlCambioFechaIngreso.realizarCambioFecha()}" icon="ui-icon-check" onclick="PF('paso3').hide()" style="position: absolute; top: 50px; left: 210px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('paso3').hide()" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="error" header="#{msg['atencion']}" widgetVar="error"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="Este empleado no existe o esta activo, por tal motivo no se puede realizar el cambio." style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}"  icon="ui-icon-check" onclick="error.hide()" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}"  icon="ui-icon-check" onclick="PF('error').hide()" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
                 </h:form>
 

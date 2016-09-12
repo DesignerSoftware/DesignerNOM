@@ -43,7 +43,7 @@
                                 <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator /> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="NuevoRegistroConceptosRedondeos.show()" update=":formularioDialogos:nuevoConceptoRedondeo" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroConceptosRedondeos').show()" update=":formularioDialogos:nuevoConceptoRedondeo" process="@this"/> 
                                 <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}"/>
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlConceptoRedondeo.borrarConceptosRedondeos()}" process="@this"/>  
@@ -113,7 +113,7 @@
                             </p:dataTable>
                         </fieldset>
 
-                        <p:commandButton style="position: absolute; left: 700px; top: 460px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="ACEPTAR" value="#{msg['aceptar']}"  disabled="#{controlConceptoRedondeo.cambiosPagina}" icon="ui-icon-check" onclick="confirmarGuardar.show();" update=":form:datosConceptosRedondeos" process="@this" />
+                        <p:commandButton style="position: absolute; left: 700px; top: 460px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="ACEPTAR" value="#{msg['aceptar']}"  disabled="#{controlConceptoRedondeo.cambiosPagina}" icon="ui-icon-check" onclick="PF('confirmarGuardar').show();" update=":form:datosConceptosRedondeos" process="@this" />
                         <p:commandButton style="position: absolute; left: 25px; top: 460px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="REFRESCAR" value="#{msg['refrescar']}"  icon="ui-icon-refresh" actionListener="#{controlConceptoRedondeo.cancelarModificacion()}" process="@this" />
                         <p:commandButton style="position: absolute; left: 783px; top: 460px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="ATRAS" value="#{msg['atras']}"  icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlConceptoRedondeo.salir()}" process="@this" action="#{controlConceptoRedondeo.volverPaginaAnterior()}"/>
 
@@ -128,20 +128,20 @@
                     <!-- DIALOGOS EDITAR -->
                     <p:dialog id="editarConcepto" header="#{msg['editarConcepto']}"  widgetVar="editarConcepto" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px; padding: 0px">  
                         <p:inputTextarea value="#{controlConceptoRedondeo.editarConceptosRedondeos.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                        <p:commandButton id="cancelarConcepto" value="#{msg['atras']}"  onclick="editarConcepto.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                        <p:commandButton id="cancelarConcepto" value="#{msg['atras']}"  onclick="PF('editarConcepto').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarTipoRedondeo" header="#{msg['editarTipoRedondeo']}"  widgetVar="editarTipoRedondeo" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px; padding: 0px">  
                         <p:inputTextarea value="#{controlConceptoRedondeo.editarConceptosRedondeos.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                        <p:commandButton id="cancelarTipoRedondeo" value="#{msg['atras']}"  onclick="editarTipoRedondeo.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                        <p:commandButton id="cancelarTipoRedondeo" value="#{msg['atras']}"  onclick="PF('editarTipoRedondeo').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlConceptoRedondeo.guardarCambiosConceptosRedondeos()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlConceptoRedondeo.guardarCambiosConceptosRedondeos()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <!-- Nuevo Registro -->
@@ -154,7 +154,7 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 345px; height: 88px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['conceptoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText id="nuevoConcepto" value="#{controlConceptoRedondeo.nuevoConceptoRedondeo.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 17px; left: 152px; text-transform:uppercase" onclick="select();">
+                                <p:inputText id="nuevoConcepto" value="#{controlConceptoRedondeo.nuevoConceptoRedondeo.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 17px; left: 152px; text-transform:uppercase" onclick="PF('select();">
                                     <p:ajax event="click" listener="#{controlConceptoRedondeo.valoresBackupAutocompletar(1, 'CONCEPTO')}" />
                                     <p:ajax event="change" listener="#{controlConceptoRedondeo.autocompletarNuevoyDuplicado('CONCEPTO', controlConceptoRedondeo.nuevoConceptoRedondeo.concepto.descripcion, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlConceptoRedondeo.asignarIndex(indice, 0, 1)}" />
@@ -162,7 +162,7 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 17px;  " id="btnNuevoConcepto" icon="ui-icon-search" process="@this"  actionListener="#{controlConceptoRedondeo.asignarIndex(indice, 0, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['tiporedondeoN']}" style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                                <p:inputText id="nuevoTipo" value="#{controlConceptoRedondeo.nuevoConceptoRedondeo.tiporedondeo.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 57px; left: 152px; text-transform:uppercase" onclick="select();">
+                                <p:inputText id="nuevoTipo" value="#{controlConceptoRedondeo.nuevoConceptoRedondeo.tiporedondeo.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 57px; left: 152px; text-transform:uppercase" onclick="PF('select();">
                                     <p:ajax event="click" listener="#{controlConceptoRedondeo.valoresBackupAutocompletar(1, 'TIPO')}" />
                                     <p:ajax event="change" listener="#{controlConceptoRedondeo.autocompletarNuevoyDuplicado('TIPO', controlConceptoRedondeo.nuevoConceptoRedondeo.tiporedondeo.descripcion, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlConceptoRedondeo.asignarIndex(indice, 1, 1)}" />
@@ -171,7 +171,7 @@
 
                                 <p:commandButton id="limpiarN" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 20px; top: 120px;" actionListener="#{controlConceptoRedondeo.limpiarNuevaConceptosRedondeos()}" update="nuevoConceptoRedondeo" process="@this"/>
                                 <p:commandButton id="agregarN" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 210px; top: 120px;"  process="@this" actionListener="#{controlConceptoRedondeo.agregarNuevoConceptoRedondeo()}"/>
-                                <p:commandButton id="cancelarN" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 280px; top: 120px;" actionListener="#{controlConceptoRedondeo.limpiarNuevaConceptosRedondeos()}" update="nuevoConceptoRedondeo" onclick="NuevoRegistroConceptosRedondeos.hide();"  process="@this"/>
+                                <p:commandButton id="cancelarN" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 280px; top: 120px;" actionListener="#{controlConceptoRedondeo.limpiarNuevaConceptosRedondeos()}" update="nuevoConceptoRedondeo" onclick="PF('NuevoRegistroConceptosRedondeos').hide();"  process="@this"/>
                             </fieldset>
                         </p:panel>
                     </p:dialog>
@@ -186,7 +186,7 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 345px; height: 88px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['conceptoN']}"  style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText id="duplicarConcepto" value="#{controlConceptoRedondeo.duplicarConceptoRedondeo.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 17px; left: 152px; text-transform:uppercase" onclick="select();">
+                                <p:inputText id="duplicarConcepto" value="#{controlConceptoRedondeo.duplicarConceptoRedondeo.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 17px; left: 152px; text-transform:uppercase" onclick="PF('select();">
                                     <p:ajax event="click" listener="#{controlConceptoRedondeo.valoresBackupAutocompletar(2, 'CONCEPTO')}" />
                                     <p:ajax event="change" listener="#{controlConceptoRedondeo.autocompletarNuevoyDuplicado('CONCEPTO', controlConceptoRedondeo.duplicarConceptoRedondeo.concepto.descripcion, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlConceptoRedondeo.asignarIndex(indice, 0, 2)}" />
@@ -194,7 +194,7 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 17px;  " id="btnDuplicarConcepto" icon="ui-icon-search" process="@this"  actionListener="#{controlConceptoRedondeo.asignarIndex(indice, 0, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['tiporedondeoN']}"  style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                                <p:inputText id="duplicarTipo" value="#{controlConceptoRedondeo.duplicarConceptoRedondeo.tiporedondeo.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 57px; left: 152px; text-transform:uppercase" onclick="select();">
+                                <p:inputText id="duplicarTipo" value="#{controlConceptoRedondeo.duplicarConceptoRedondeo.tiporedondeo.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 57px; left: 152px; text-transform:uppercase" onclick="PF('select();">
                                     <p:ajax event="click" listener="#{controlConceptoRedondeo.valoresBackupAutocompletar(2, 'TIPO')}" />
                                     <p:ajax event="change" listener="#{controlConceptoRedondeo.autocompletarNuevoyDuplicado('TIPO', controlConceptoRedondeo.duplicarConceptoRedondeo.tiporedondeo.descripcion, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlConceptoRedondeo.asignarIndex(indice, 1, 2)}" />
@@ -203,7 +203,7 @@
 
                                 <p:commandButton id="limpiarD" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 20px; top: 120px;" actionListener="#{controlConceptoRedondeo.limpiarDuplicarConceptosRedondeos()}" update="duplicarConceptosRedondeos" process="@this"/>
                                 <p:commandButton id="agregarD" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 210px; top: 120px;"  process="@this" actionListener="#{controlConceptoRedondeo.confirmarDuplicar()}"/>
-                                <p:commandButton id="cancelarD" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 280px; top: 120px;" actionListener="#{controlConceptoRedondeo.limpiarDuplicarConceptosRedondeos()}" update="duplicarConceptosRedondeos" onclick="DuplicarRegistroConceptosRedondeos.hide();"  process="@this"/>
+                                <p:commandButton id="cancelarD" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 280px; top: 120px;" actionListener="#{controlConceptoRedondeo.limpiarDuplicarConceptosRedondeos()}" update="duplicarConceptosRedondeos" onclick="PF('DuplicarRegistroConceptosRedondeos').hide();"  process="@this"/>
                             </fieldset>
                         </p:panel>
                     </p:dialog>
@@ -211,7 +211,7 @@
                     <p:dialog id="validacionNuevoConceptoRedondeo" header="#{msg['atencion']}" widgetVar="validacionNuevoConceptoRedondeo"  resizable="false" draggable="false" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevo']} #{controlConceptoRedondeo.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevoConceptoRedondeo.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevoConceptoRedondeo').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <!-- DIALOGOS RASTROS -->
@@ -219,15 +219,15 @@
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center"/>
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlConceptoRedondeo.secRegistro, 'ConceptosRedondeos', 'conceptosredondeos')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this"/>
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlConceptoRedondeo.secRegistro, 'ConceptosRedondeos', 'conceptosredondeos')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center"/>
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('ConceptosRedondeos', 'conceptosredondeos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this"/>
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('ConceptosRedondeos', 'conceptosredondeos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
@@ -243,8 +243,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlConceptoRedondeo.secRegistro, 'ConceptosRedondeos', 'conceptosredondeos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlConceptoRedondeo.secRegistro, 'ConceptosRedondeos', 'conceptosredondeos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  

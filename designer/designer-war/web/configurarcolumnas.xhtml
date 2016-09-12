@@ -18,7 +18,7 @@
                         <p:toolbar style="font-size: 12px; position: absolute; top: 37px; left: 12px; height: 23px">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " oncomplete="opcionInhabilitada.show()" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " oncomplete="PF('opcionInhabilitada').show()" process="@this" />
                                 <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlConfigurarColumnas.editarCelda()}" process="@this"/>
@@ -52,10 +52,10 @@
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlConfigurarColumnas.borrarColumnaEscenario()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) "  oncomplete="opcionInhabilitada.show()" process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) "  oncomplete="PF('opcionInhabilitada').show()" process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) "  oncomplete="errorTablaSinRastro.show()" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) "  oncomplete="PF('errorTablaSinRastro').show()" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
                                 
                                  <p:separator style="position: relative; top: -9px"/> 
@@ -171,11 +171,11 @@
 
                     <p:dialog id="editarCampoColumna" header="#{msg['editarCampoColumna']}" widgetVar="editarCampoColumna" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlConfigurarColumnas.editarColumna.nombrecolumna}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                        <p:commandButton id="cancelarCampoColumna" value="#{msg['atras']}" onclick="editarCampoColumna.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                        <p:commandButton id="cancelarCampoColumna" value="#{msg['atras']}" onclick="PF('editarCampoColumna').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
                     <p:dialog id="editarDescripcionColumna" header="#{msg['editarDescripcionColumna']}" widgetVar="editarDescripcionColumna" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlConfigurarColumnas.editarColumna.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                        <p:commandButton id="cancelarDescripcionColumna" value="#{msg['atras']}" onclick="editarDescripcionColumna.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                        <p:commandButton id="cancelarDescripcionColumna" value="#{msg['atras']}" onclick="PF('editarDescripcionColumna').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                 </h:form>

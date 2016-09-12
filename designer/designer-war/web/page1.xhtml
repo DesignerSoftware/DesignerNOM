@@ -65,7 +65,7 @@
 
                         </p:panel>
                 <!--        <p:commandButton id="comprobar" value="Ver Proceso" style="position: absolute; top: 355px; left: 85px; font-size: 12px;"  actionListener="#{ctrlVigenciasCargos.verProceso()}" process="@this"/> -->
-                        <p:commandButton id="aceptar" value="Aceptar" style="position: absolute; top: 355px; left: 185px; font-size: 12px;"  onclick="alerta.show();" process="@this" disabled="#{ctrlVigenciasCargos.guardado}"/> 
+                        <p:commandButton id="aceptar" value="Aceptar" style="position: absolute; top: 355px; left: 185px; font-size: 12px;"  onclick="PF('alerta').show();" process="@this" disabled="#{ctrlVigenciasCargos.guardado}"/> 
                         <p:commandButton id="cancelar" value="Cancelar" style="position: absolute; top: 355px; left: 260px; font-size: 12px; "  actionListener="#{ctrlVigenciasCargos.cancelarModAficion()}" process="@this"/>
 
                         <p:toolbar style="font-size: 12px; position: absolute; top: 30px; left: 10px;">  
@@ -109,9 +109,9 @@
                     <p:dialog id="alerta" header="ATENCIÓN...!" widgetVar="alerta"  resizable="false" draggable="false" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="Si" onclick="alerta.hide();" actionListener="#{ctrlVigenciasCargos.modificarAficiones()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
-                        <p:commandButton value="No" onclick="alerta.hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
-                        <p:commandButton value="Cancelar" onclick="alerta.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('alerta').hide();" actionListener="#{ctrlVigenciasCargos.modificarAficiones()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
+                        <p:commandButton value="No" onclick="PF('alerta').hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
+                        <p:commandButton value="Cancelar" onclick="PF('alerta').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="editarCodigo" header="Editar Código" widgetVar="editarCodigo" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px; padding: 0px">  
@@ -119,8 +119,8 @@
                             <p:ajax event="change" listener="#{ctrlVigenciasCargos.cambioEditable()}"/>
                             <p:ajax event="keyup" listener="#{ctrlVigenciasCargos.activarAceptar('0')}"/>
                         </p:inputTextarea>
-                        <p:commandButton id="aceptarCod" value="Aceptar" onclick="editarCodigo.hide();" style="position: absolute; top: 60px; left: 80px; font-size: 11px;" process="@this" actionListener="#{ctrlVigenciasCargos.aplicarCambioCelda()}" disabled="#{ctrlVigenciasCargos.aceptarEditar}"  />
-                        <p:commandButton value="Cancelar" onclick="editarCodigo.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this" actionListener="#{ctrlVigenciasCargos.reiniciarEditar()}" />
+                        <p:commandButton id="aceptarCod" value="Aceptar" onclick="PF('editarCodigo').hide();" style="position: absolute; top: 60px; left: 80px; font-size: 11px;" process="@this" actionListener="#{ctrlVigenciasCargos.aplicarCambioCelda()}" disabled="#{ctrlVigenciasCargos.aceptarEditar}"  />
+                        <p:commandButton value="Cancelar" onclick="PF('editarCodigo').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this" actionListener="#{ctrlVigenciasCargos.reiniciarEditar()}" />
                     </p:dialog>
 
                     <p:dialog id="editarDescripcion" header="Editar Descripción" widgetVar="editarDescripcion" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
@@ -128,8 +128,8 @@
                             <p:ajax event="change" listener="#{ctrlVigenciasCargos.cambioEditable()}"/>
                             <p:ajax event="keyup" listener="#{ctrlVigenciasCargos.activarAceptar('1')}"/>
                         </p:inputTextarea>
-                        <p:commandButton id="aceptarDesc" value="Aceptar" onclick="editarDescripcion.hide();" style="position: absolute; top: 60px; left: 80px; font-size: 11px;" process="@this" actionListener="#{ctrlVigenciasCargos.aplicarCambioCelda()}" disabled="#{ctrlVigenciasCargos.aceptarEditar}" />
-                        <p:commandButton value="Cancelar" onclick="editarDescripcion.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this" actionListener="#{ctrlVigenciasCargos.reiniciarEditar()}"/>
+                        <p:commandButton id="aceptarDesc" value="Aceptar" onclick="PF('editarDescripcion').hide();" style="position: absolute; top: 60px; left: 80px; font-size: 11px;" process="@this" actionListener="#{ctrlVigenciasCargos.aplicarCambioCelda()}" disabled="#{ctrlVigenciasCargos.aceptarEditar}" />
+                        <p:commandButton value="Cancelar" onclick="PF('editarDescripcion').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this" actionListener="#{ctrlVigenciasCargos.reiniciarEditar()}"/>
                     </p:dialog>
 
                     <p:commandButton style="position: absolute; left: 596px; top: 400px; font-size: 10px; font-family: Arial, Helvetica, sans-serif;" id="CANCELAR" value="Atras" action="vigenciaaficion" />

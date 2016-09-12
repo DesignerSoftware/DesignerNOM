@@ -703,7 +703,7 @@ public class ControlEmplVacaPendiente implements Serializable {
                 tipoListaDisfrutadas = 0;
             }
             vacaDisfrutadaSeleccionada = null;
-            PrimefacesContextUI.ejecutar("PF('datosVacacionesDEmpleado.unselectAllRows()");
+            PrimefacesContextUI.ejecutar("PF('datosVacacionesDEmpleado').unselectAllRows()");
             PrimefacesContextUI.actualizar("form:datosVacacionesDEmpleado");
         }
         if (tabla == 2) {
@@ -726,7 +726,7 @@ public class ControlEmplVacaPendiente implements Serializable {
                 tipoListaPendientes = 0;
             }
             vacaPendienteSeleccionada = null;
-            PrimefacesContextUI.ejecutar("PF('datosVacacionesPEmpleado.unselectAllRows()");
+            PrimefacesContextUI.ejecutar("PF('datosVacacionesPEmpleado').unselectAllRows()");
             PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
         }
     }

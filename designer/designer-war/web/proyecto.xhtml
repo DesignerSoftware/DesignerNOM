@@ -49,7 +49,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="NuevoRegistroP.show()" update=":formularioDialogos:nuevaP"  process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroP').show()" update=":formularioDialogos:nuevaP"  process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlProyecto.borrarP()}" process="@this"/>  
@@ -66,7 +66,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlProyecto.cancelarModificacionP()}" process="@this" oncomplete="window.location.reload()"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlProyecto.cancelarModificacionP()}" process="@this" oncomplete="PF('window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -74,7 +74,7 @@
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar> 
-                        <p:commandButton style=" position: absolute; left: 680px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" disabled="#{controlProyecto.guardado}" value=" " onclick="confirmarGuardar.show();" update=":form:datosProyectos" process="@this" />
+                        <p:commandButton style=" position: absolute; left: 680px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" disabled="#{controlProyecto.guardado}" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosProyectos" process="@this" />
                         <p:commandButton style=" position: absolute; left: 770px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=""  actionListener="#{controlProyecto.salir()}" action="#{controlProyecto.redirigir()}" process="@this" />
 
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 380px;width: 830px; border-radius: 10px; text-align: left">
@@ -422,7 +422,7 @@
                                          filteredValue="#{controlProyecto.filtarLovProyectos}" emptyMessage="#{msg['lovvacio']}">  
                                 <p:ajax event="filter" listener="#{controlProyecto.eventoFiltrarProyecto()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarPro"/>
-                                <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarProyecto()}" process="@this" onstart="lovProyecto.clearFilters()"/>
+                                <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarProyecto()}" process="@this" onstart="PF('lovProyecto').clearFilters()"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarPR']}: "  style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovProyecto.filter();" style="width:150px; position: relative; left: 20px;" />  
@@ -452,31 +452,31 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlProyecto.guardadoGeneral()}" action="#{controlProyecto.redirigir()}" style="position: absolute; top: 50px; left: 122px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlProyecto.salir()}" action="#{controlProyecto.redirigir()}" style="position: absolute; top: 50px; left: 188px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlProyecto.guardadoGeneral()}" action="#{controlProyecto.redirigir()}" style="position: absolute; top: 50px; left: 122px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlProyecto.salir()}" action="#{controlProyecto.redirigir()}" style="position: absolute; top: 50px; left: 188px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
                     
                     <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="77" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionBorrar']}" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionBorrar.hide();" style="position: absolute; top: 45px; left: 280px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 45px; left: 280px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
                     
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecto.backUpSecRegistro, 'Proyectos', 'proyectoRastro')}" 
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecto.backUpSecRegistro, 'Proyectos', 'proyectoRastro')}" 
                                          style="position: absolute; top: 63px; left: 180px;" action="rastro" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 250px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 250px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Proyectos', 'proyectoRastro')}"
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Proyectos', 'proyectoRastro')}"
                                          style="position: absolute; top: 60px; left: 180px;" action="rastro" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -492,9 +492,9 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecto.backUpSecRegistro, 'Proyectos', 'proyectoRastro')}" 
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecto.backUpSecRegistro, 'Proyectos', 'proyectoRastro')}" 
                                          style="position: absolute; top: 63px; left: 180px;" action="rastro" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 63px; left: 250px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 63px; left: 250px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" closable="true">  
@@ -520,7 +520,7 @@
                     <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 85px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="errorFechas.hide();" style="position: absolute; top: 60px; left: 250px;" process="@this"  icon="ui-icon-close"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this"  icon="ui-icon-close"/>
                     </p:dialog>
 
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlProyecto.activarCtrlF11()}"/> 
@@ -534,7 +534,7 @@
                         <p:panel id="nuevaP" style="border: none;">
 
                             <strong><h:outputText value="#{msg['empresaN']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaEmpresaP" value="#{controlProyecto.nuevaProyectos.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaEmpresaP" value="#{controlProyecto.nuevaProyectos.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'EMPRESAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('EMPRESAS', controlProyecto.nuevaProyectos.empresa.nombre,1)}" process="@this" update="nuevaEmpresaP"/>
@@ -543,19 +543,19 @@
                             <p:watermark for="nuevaEmpresaP" value="#{msg['empresa']}" />
 
                             <strong><h:outputText value="#{msg['codigoN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCodigoP" maxlength="20" value="#{controlProyecto.nuevaProyectos.codigo}"  style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="nuevaCodigoP" maxlength="20" value="#{controlProyecto.nuevaProyectos.codigo}"  style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" update="nuevaCodigoP"/>
                             </p:inputText>
                             <p:watermark for="nuevaCodigoP" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['nombreN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaProyectoP" maxlength="50" value="#{controlProyecto.nuevaProyectos.nombreproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="nuevaProyectoP" maxlength="50" value="#{controlProyecto.nuevaProyectos.nombreproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" update="nuevaProyectoP"/>
                             </p:inputText>
                             <p:watermark for="nuevaProyectoP" value="#{msg['nombreproyecto']}" />
 
                             <strong><h:outputText value="#{msg['clienteN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaClienteP" value="#{controlProyecto.nuevaProyectos.pryCliente.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaClienteP" value="#{controlProyecto.nuevaProyectos.pryCliente.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'CLIENTES')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('CLIENTES', controlProyecto.nuevaProyectos.pryCliente.nombre,1)}" process="@this" update="nuevaClienteP"/>
@@ -564,7 +564,7 @@
                             <p:watermark for="nuevaClienteP" value="#{msg['cliente']}" />
 
                             <strong><h:outputText value="#{msg['plataformaN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaPlataformaP" value="#{controlProyecto.nuevaProyectos.pryPlataforma.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaPlataformaP" value="#{controlProyecto.nuevaProyectos.pryPlataforma.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'PLATAFORMAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('PLATAFORMAS', controlProyecto.nuevaProyectos.pryPlataforma.descripcion,1)}" process="@this" update="nuevaPlataformaP"/>
@@ -573,13 +573,13 @@
                             <p:watermark for="nuevaPlataformaP" value="#{msg['plataforma']}" />
 
                             <strong><h:outputText value="#{msg['montoN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaMontoP" value="#{controlProyecto.nuevaProyectos.monto}"  style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="nuevaMontoP" value="#{controlProyecto.nuevaProyectos.monto}"  style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" update="nuevaMontoP"/>
                             </p:inputText>
                             <p:watermark for="nuevaMontoP" value="#{msg['monto']}" />
 
                             <strong><h:outputText value="#{msg['tipomonedaN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaMonedaP" value="#{controlProyecto.nuevaProyectos.tipomoneda.nombre}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaMonedaP" value="#{controlProyecto.nuevaProyectos.tipomoneda.nombre}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,3,1)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'MONEDAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('MONEDAS', controlProyecto.nuevaProyectos.tipomoneda.nombre,1)}" process="@this" update="nuevaMonedaP"/>
@@ -604,14 +604,14 @@
 
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style="position: absolute; top: 345px ; left: 50px;" /></strong>
-                            <p:inputTextarea id="nuevaDescripcionP" maxlength="200" value="#{controlProyecto.nuevaProyectos.descripcionproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();" >
+                            <p:inputTextarea id="nuevaDescripcionP" maxlength="200" value="#{controlProyecto.nuevaProyectos.descripcionproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" update="nuevaDescripcionP"/>
                             </p:inputTextarea>
                             <p:watermark for="nuevaDescripcionP" value="#{msg['descripciondelproyecto']}" />
 
                             <p:commandButton id="limpiarNP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 400px;" actionListener="#{controlProyecto.limpiarNuevaP()}" update="nuevaP" process="@this"/>
                             <p:commandButton id="agregarNP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style=" position: absolute; left: 165px; top: 400px;" actionListener="#{controlProyecto.agregarNuevaP()}" process="@this"/>
-                            <p:commandButton id="cancelarNP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style=" position: absolute; left: 270px; top: 400px;" actionListener="#{controlProyecto.limpiarNuevaP()}" update="nuevaP" onclick="NuevoRegistroP.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarNP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style=" position: absolute; left: 270px; top: 400px;" actionListener="#{controlProyecto.limpiarNuevaP()}" update="nuevaP" onclick="PF('NuevoRegistroP').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -622,7 +622,7 @@
                         <p:panel id="duplicarP" style="border: none;">
 
                             <strong><h:outputText value="#{msg['empresaN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEmpresaP" value="#{controlProyecto.duplicarProyecto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarEmpresaP" value="#{controlProyecto.duplicarProyecto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,0,2)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'EMPRESAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('EMPRESAS', controlProyecto.duplicarProyecto.empresa.nombre,2)}" process="@this" update="duplicarEmpresaP"/>
@@ -631,19 +631,19 @@
                             <p:watermark for="duplicarEmpresaP" value="#{msg['empresa']}" />
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarCodigoP" maxlength="20" value="#{controlProyecto.duplicarProyecto.codigo}"  style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="duplicarCodigoP" maxlength="20" value="#{controlProyecto.duplicarProyecto.codigo}"  style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" update="duplicarCodigoP"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigoP" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['nombreN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarProyectoP" maxlength="50" value="#{controlProyecto.duplicarProyecto.nombreproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="duplicarProyectoP" maxlength="50" value="#{controlProyecto.duplicarProyecto.nombreproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" update="duplicarProyectoP"/>
                             </p:inputText>
                             <p:watermark for="duplicarProyectoP" value="#{msg['nombreproyecto']}" />
 
                             <strong><h:outputText value="#{msg['clienteN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarClienteP" value="#{controlProyecto.duplicarProyecto.pryCliente.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarClienteP" value="#{controlProyecto.duplicarProyecto.pryCliente.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,1,2)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'CLIENTES')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('CLIENTES', controlProyecto.duplicarProyecto.pryCliente.nombre,2)}" process="@this" update="duplicarClienteP"/>
@@ -652,7 +652,7 @@
                             <p:watermark for="duplicarClienteP" value="#{msg['cliente']}" />
 
                             <strong><h:outputText value="#{msg['plataformaN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarPlataformaP" value="#{controlProyecto.duplicarProyecto.pryPlataforma.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarPlataformaP" value="#{controlProyecto.duplicarProyecto.pryPlataforma.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,2,2)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'PLATAFORMAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('PLATAFORMAS', controlProyecto.duplicarProyecto.pryPlataforma.descripcion,2)}" process="@this" update="duplicarPlataformaP"/>
@@ -661,13 +661,13 @@
                             <p:watermark for="duplicarPlataformaP" value="#{msg['plataforma']}" />
 
                             <strong><h:outputText value="#{msg['montoN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMontoP" value="#{controlProyecto.duplicarProyecto.monto}"  style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="duplicarMontoP" value="#{controlProyecto.duplicarProyecto.monto}"  style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" update="duplicarMontoP"/>
                             </p:inputText>
                             <p:watermark for="duplicarMontoP" value="#{msg['monto']}" />
 
                             <strong><h:outputText value="#{msg['tipomonedaN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMonedaP" value="#{controlProyecto.duplicarProyecto.tipomoneda.nombre}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarMonedaP" value="#{controlProyecto.duplicarProyecto.tipomoneda.nombre}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,3,2)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'MONEDAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('MONEDAS', controlProyecto.duplicarProyecto.tipomoneda.nombre,2)}" process="@this" update="duplicarMonedaP"/>
@@ -690,14 +690,14 @@
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style="position: absolute; top: 345px ; left: 50px;" /></strong>
-                            <p:inputTextarea id="duplicarDescripcionP" maxlength="200" value="#{controlProyecto.duplicarProyecto.descripcionproyecto}"  style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();" >
+                            <p:inputTextarea id="duplicarDescripcionP" maxlength="200" value="#{controlProyecto.duplicarProyecto.descripcionproyecto}"  style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" update="duplicarDescripcionP"/>
                             </p:inputTextarea>
                             <p:watermark for="duplicarDescripcionP" value="#{msg['descripciondelproyecto']}" />
 
                             <p:commandButton id="limpiarDP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 400px;" actionListener="#{controlProyecto.limpiarduplicarP()}" update="duplicarP" process="@this"/>
                             <p:commandButton id="agregarDP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 165px; top: 400px;" actionListener="#{controlProyecto.confirmarDuplicarP()}" process="@this"/>
-                            <p:commandButton id="cancelarDP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 270px; top: 400px;" actionListener="#{controlProyecto.limpiarduplicarP()}" update="duplicarP" onclick="DuplicarRegistroP.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 270px; top: 400px;" actionListener="#{controlProyecto.limpiarduplicarP()}" update="duplicarP" onclick="PF('DuplicarRegistroP').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 

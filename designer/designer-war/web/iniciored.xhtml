@@ -49,13 +49,15 @@
                             style="font-weight: bold; text-transform: uppercase;"/>
                <h:outputLabel/>
                <p:commandButton id="btnLogin" value="#{controlInicioRed.txtBoton}" actionListener="#{controlInicioRed.ingresar()}"
-                                onclick="validarMensaje()" oncomplete="PF('estadoSesion').hide()"
+                                onclick="PF('validarMensaje()" oncomplete="PFPF('estadoSesion').hide()"
                                 styleClass="cssBotonIngreso" process="@this"/> 
-               <p:commandButton id="btnCambioClave" value="Cambio de Clave" disabled="#{controlInicioRed.cambioClave}" update=":formularioDialogos:cambiarClave" oncomplete="cambiarClave.show();" styleClass="cssBotonIngreso" />
+               
+               <p:commandButton id="btnCambioClave" value="Cambio de Clave" disabled="#{controlInicioRed.cambioClave}"
+                                update=":formularioDialogos:cambiarClave" oncomplete="PF('cambiarClave').show();" styleClass="cssBotonIngreso" />
+               
                <p:commandButton id="btnCandadoLogin" value="" 
                                 style="position: absolute; top: 40px; left: 80px; width: 110px; height: 110px; 
-                                background-image: url(Imagenes/Iconos/#{controlInicioRed.candadoLogin}); background-repeat: no-repeat; background-size: 100% 100%; border: none;" 
-                                />
+                                background-image: url(Imagenes/Iconos/#{controlInicioRed.candadoLogin}); background-repeat: no-repeat; background-size: 100% 100%; border: none;"/>
             </h:panelGrid> 
             <p:focus for="usuario"/>
          </p:panel>
@@ -114,10 +116,10 @@
                   </a>
                </ui:repeat>  
             </p:imageSwitch>
-            <p:commandButton type="button" onclick="informacion.previous();" 
+            <p:commandButton type="button" onclick="PF('informacion.previous();" 
                              style="position: relative; top: -30px; left: 5px; width: 25px; height: 25px; z-index: 20"  
                              icon="ui-icon-circle-triangle-w"/>  
-            <p:commandButton type="button" onclick="informacion.next();" 
+            <p:commandButton type="button" onclick="PF('informacion.next();" 
                              style="position: relative; top: -30px; left: 5px; width: 25px; height: 25px; z-index: 20"
                              icon="ui-icon-circle-triangle-e"/>
          </fieldset>
@@ -198,7 +200,7 @@
             <p:outputLabel for="Rclave" value="Repetir nueva clave: " style="font-weight: bold"/>
             <p:password id="Rclave" value="#{controlInicioRed.rclave}" style="text-transform: uppercase"/>
             <p:commandButton value="Aceptar" icon="ui-icon-check" actionListener="#{controlInicioRed.cambiarClave()}" />
-            <p:commandButton value="Cancelar" icon="ui-icon-close" onclick="cambiarClave.hide();" actionListener="#{controlInicioRed.cancelarCambioClave()}" process="@this" />
+            <p:commandButton value="Cancelar" icon="ui-icon-close" onclick="PF('cambiarClave').hide();" actionListener="#{controlInicioRed.cancelarCambioClave()}" process="@this" />
          </p:dialog>
 
          <p:dialog id="errorCambioClave" header="ATENCI&Oacute;N" widgetVar="errorCambioClave"  resizable="false" draggable="false" modal="true" height="60" width="300px;" 

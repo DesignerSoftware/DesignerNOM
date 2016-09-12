@@ -48,7 +48,7 @@
                                 <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  oncomplete="nuevoRegistroMotivoCambiosCargos.show()" update=":formularioDialogos:nuevoMotivoCambioCargo" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  oncomplete="PF('nuevoRegistroMotivoCambiosCargos').show()" update=":formularioDialogos:nuevoMotivoCambioCargo" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlMotivosCambiosCargos.borrarMotivosCambiosCargos()}" process="@this"/>  
@@ -63,7 +63,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlMotivosCambiosCargos.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlMotivosCambiosCargos.cancelarModificacion()}" process="@this" oncomplete="PF('window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -71,7 +71,7 @@
                                 <p:tooltip  for="salir" value="Salir"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
-                        <p:commandButton style=" position: absolute; left: 680px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=""  onclick="confirmarGuardar.show();" disabled="#{controlMotivosCambiosCargos.guardado}"  update="datosMotivoCambioCargo"  process="@this"   />
+                        <p:commandButton style=" position: absolute; left: 680px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=""  onclick="PF('confirmarGuardar').show();" disabled="#{controlMotivosCambiosCargos.guardado}"  update="datosMotivoCambioCargo"  process="@this"   />
                         <p:commandButton style=" position: absolute; left: 770px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" action="atrasmotivocambiocargo" id="ATRAS" value="" actionListener="#{controlMotivosCambiosCargos.salir()}"   />
                         
                         <fieldset style="position: absolute;top: 77px;left: 10px;height: 380px;width: 830px; border-radius: 10px; text-align: left">
@@ -117,39 +117,39 @@
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="confirmarGuardar.hide();" action="atrasmotivocambiocargo" actionListener="#{controlMotivosCambiosCargos.guardarMotivosCambiosCargos()}" 
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="atrasmotivocambiocargo" actionListener="#{controlMotivosCambiosCargos.guardarMotivosCambiosCargos()}" 
                                              style="position: absolute; top: 50px; left: 130px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="confirmarGuardar.hide();" action="atrasmotivocambiocargo" actionListener="#{controlMotivosCambiosCargos.cancelarModificacion()}" 
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="atrasmotivocambiocargo" actionListener="#{controlMotivosCambiosCargos.cancelarModificacion()}" 
                                              style="position: absolute; top: 50px; left: 195px;" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 265px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 265px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
                     </p:panel>
 
                     <p:dialog id="validacionDuplicarMotivoCambioCargo" header="#{msg['atencion']}" widgetVar="validacionDuplicarMotivoCambioCargo"  resizable="false" draggable="false" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="#{controlMotivosCambiosCargos.mensajeValidacion}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionDuplicarMotivoCambioCargo.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarMotivoCambioCargo').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
                     
                     <p:dialog id="validacionModificar" header="#{msg['error']}" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 25px; top: 20px;"  />
                         <h:outputText value=" #{controlMotivosCambiosCargos.mensajeValidacion}" style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 55px; left: 200px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 55px; left: 200px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
                     <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 25px; top: 20px;"  />
                         <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionBorrar.hide();" style="position: absolute; top: 55px; left: 300px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 55px; left: 300px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
                     <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="95" width="310" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="60" height="70" style="position: absolute; left: 20px; top: 15px;"  />
                         <h:outputText value="Se han borrado #{controlMotivosCambiosCargos.registrosBorrados}  Registros" style="position: absolute; left: 100px; top: 20px; width: 190px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="mostrarBorrados.hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
                     <p:dialog id="validacionNuevoMotivoCambioCargo" header="#{msg['atencion']}" widgetVar="validacionNuevoMotivoCambioCargo"  resizable="false" draggable="false" modal="true" height="95" width="420" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="60" height="70" style="position: absolute; left: 20px; top: 15px;"  />
                         <h:outputText value="#{controlMotivosCambiosCargos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionNuevoMotivoCambioCargo.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevoMotivoCambioCargo').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlMotivosCambiosCargos.activarCtrlF11()}"/> 
 
@@ -161,17 +161,17 @@
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosCambiosCargos.secRegistro, 'MotivosCambiosCargos', 'motivoscambioscargos')}" 
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosCambiosCargos.secRegistro, 'MotivosCambiosCargos', 'motivoscambioscargos')}" 
                                          style="position: absolute; top: 63px; left: 180px;" action="rastro" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 250px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 250px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('MotivosCambiosCargos', 'motivoscambioscargos')}"
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('MotivosCambiosCargos', 'motivoscambioscargos')}"
                                          style="position: absolute; top: 60px; left: 180px;" action="rastro" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" style="" closable="true">  
@@ -187,9 +187,9 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosCambiosCargos.secRegistro, 'MotivosCambiosCargos', 'motivoscambioscargos')}" 
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosCambiosCargos.secRegistro, 'MotivosCambiosCargos', 'motivoscambioscargos')}" 
                                          style="position: absolute; top: 65px; left: 180px;" action="rastro" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 65px; left: 250px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 250px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="" closable="true">  
@@ -233,7 +233,7 @@
                             <p:watermark for="nuevoNombre" value="Descripción" />
                             <p:commandButton id="limpiar" value="Limpiar" style=" position: absolute; left: 10px; top: 120px;" icon="ui-icon-trash"  actionListener="#{controlMotivosCambiosCargos.limpiarNuevoMotivoCambioCargo()}" update="nuevoMotivoCambioCargo" process="@this"/>
                             <p:commandButton id="agregarTE" value="Agregar" style=" position: absolute; left: 110px; top: 120px;" icon="ui-icon-circle-check" actionListener="#{controlMotivosCambiosCargos.agregarNuevoMotivoCambioCargo()}" process="@this" />
-                            <p:commandButton id="cancelarTE" value="Cancelar" style=" position: absolute; left: 210px; top: 120px;" icon="ui-icon-circle-close" update="nuevoMotivoCambioCargo" onclick="nuevoRegistroMotivoCambiosCargos.hide();"  actionListener="#{controlMotivosCambiosCargos.limpiarNuevoMotivoCambioCargo()}"  process="@this"/>
+                            <p:commandButton id="cancelarTE" value="Cancelar" style=" position: absolute; left: 210px; top: 120px;" icon="ui-icon-circle-close" update="nuevoMotivoCambioCargo" onclick="PF('nuevoRegistroMotivoCambiosCargos').hide();"  actionListener="#{controlMotivosCambiosCargos.limpiarNuevoMotivoCambioCargo()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -256,7 +256,7 @@
                             <p:watermark for="duplicarNombre" value="Descripción" />
                             <p:commandButton id="limpiarD" value="Limpiar" style=" position: absolute; left: 10px; top: 120px;" icon="ui-icon-trash"  actionListener="#{controlMotivosCambiosCargos.limpiarduplicarMotivosCambiosCargos()}" update="duplicarMotivosCambiosCargos"  process="@this"/>
                             <p:commandButton id="duplicarVFP" value="Agregar" style=" position: absolute; left: 110px; top: 120px;" icon="ui-icon-circle-check" actionListener="#{controlMotivosCambiosCargos.confirmarDuplicar()}"  process="@this" />
-                            <p:commandButton id="cancelarDuplicarVFP" value="Cancelar" style=" position: absolute; left: 210px; top: 120px;" icon="ui-icon-circle-close" update="duplicarMotivosCambiosCargos" onclick="duplicarRegistroMotivosCambiosCargos.hide();" actionListener="#{controlMotivosCambiosCargos.limpiarduplicarMotivosCambiosCargos()}"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicarVFP" value="Cancelar" style=" position: absolute; left: 210px; top: 120px;" icon="ui-icon-circle-close" update="duplicarMotivosCambiosCargos" onclick="PF('duplicarRegistroMotivosCambiosCargos').hide();" actionListener="#{controlMotivosCambiosCargos.limpiarduplicarMotivosCambiosCargos()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
                 </h:form>

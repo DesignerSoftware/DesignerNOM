@@ -52,7 +52,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="NuevoRegistroPagina.show()" update=":formularioDialogos:NuevoRegistroPagina" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroPagina').show()" update=":formularioDialogos:NuevoRegistroPagina" process="@this"/> 
                                 <p:tooltip for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlTercero.validarBorradoRegistro()}" process="@this"/>  
@@ -68,7 +68,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTercero.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTercero.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -460,7 +460,7 @@
                             <h:outputText id="infoRegistroTerceroSucursal" value="#{msg['infoRegistro']} #{controlTercero.infoRegistroTerceroSucursal}" style="position: relative; left: 10px; top: 0px; font-weight: bold"/>
                         </fieldset>
                         <p:commandButton id="ACEPTAR" style="position: absolute; left: 683px; top: 505px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                         value="" onclick="confirmarGuardarSalida.show();" update=":form:datosTerceros" disabled="#{controlTercero.guardado}" process="@this" />
+                                         value="" onclick="PF('confirmarGuardarSalida').show();" update=":form:datosTerceros" disabled="#{controlTercero.guardado}" process="@this" />
                         <p:commandButton id="ATRAS" style="position: absolute; left: 775px; top: 505px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
                                          value="" actionListener="#{controlTercero.salir()}" action="#{controlTercero.valorPaginaAnterior()}" process="@this" />
                     </p:panel>
@@ -609,22 +609,22 @@
 
                     <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rastrospara']}" resizable="false" draggable="false" modal="true" height="115" width="350" >
                         <h:outputText value="#{msg['verificarRastrosTablas']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['terceros']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 100px; top: 50px; width: 200px; height: 30px;" actionListener="#{controlTercero.verificarRastroTercerosHist()}" process="@this" />
-                        <p:commandButton value="#{msg['sucursales']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 100px; top: 85px; width: 200px; height: 30px;" actionListener="#{controlTercero.verificarRastroTercerosSucursalesHist()}" process="@this"/>
+                        <p:commandButton value="#{msg['terceros']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 100px; top: 50px; width: 200px; height: 30px;" actionListener="#{controlTercero.verificarRastroTercerosHist()}" process="@this" />
+                        <p:commandButton value="#{msg['sucursales']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 100px; top: 85px; width: 200px; height: 30px;" actionListener="#{controlTercero.verificarRastroTercerosSucursalesHist()}" process="@this"/>
                        </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlTercero.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTercero.backUp, controlTercero.nombreTablaRastro , 'terceroRastro')}" style="position: absolute; top: 63px; left: 200px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastro.hide();" actionListener="#{controlTercero.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTercero.backUp, controlTercero.nombreTablaRastro , 'terceroRastro')}" style="position: absolute; top: 63px; left: 200px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" actionListener="#{controlTercero.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlTercero.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlTercero.nombreTablaRastro , 'terceroRastro')}" style="position: absolute; top: 60px; left: 200px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlTercero.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlTercero.nombreTablaRastro , 'terceroRastro')}" style="position: absolute; top: 60px; left: 200px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlTercero.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -640,8 +640,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTercero.backUp, controlTercero.nombreTablaRastro , 'terceroRastro')}" style="position: absolute; top: 70px; left: 190px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 70px; left: 260px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTercero.backUp, controlTercero.nombreTablaRastro , 'terceroRastro')}" style="position: absolute; top: 70px; left: 190px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 260px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -662,23 +662,23 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlTercero.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 171px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlTercero.cancelarModificacion()}" style="position: absolute; top: 50px; left: 235px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTercero.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 171px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTercero.cancelarModificacion()}" style="position: absolute; top: 50px; left: 235px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['precaucion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlTercero.guardadoGeneral()}" action="#{controlTercero.valorPaginaAnterior}" style="position: absolute; top: 50px; left: 171px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlTercero.salir()}" action="#{controlTercero.valorPaginaAnterior}" style="position: absolute; top: 50px; left: 235px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlTercero.guardadoGeneral()}" action="#{controlTercero.valorPaginaAnterior}" style="position: absolute; top: 50px; left: 171px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlTercero.salir()}" action="#{controlTercero.valorPaginaAnterior}" style="position: absolute; top: 50px; left: 235px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="errorBorradoTercero" header="#{msg['precaucion']}" widgetVar="errorBorradoTercero"  resizable="false" draggable="false" modal="true" height="95" width="400" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['errorBorradoTercero']}" style="position: absolute; left: 100px; top: 20px; width: 270px;text-align: center" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="errorBorradoTercero.hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorBorradoTercero').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorDatosNullSucursal" header="#{msg['error']}" widgetVar="errorDatosNullSucursal"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -704,19 +704,19 @@
       <!--           <p:dialog id="NuevoRegistroPagina" header="#{msg['nrpi']}" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="false" modal="true" height="160" width="400" style="padding: 0px">  
                       <center><strong><h:outputText value="#{msg['seleccione']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <h:outputText value="#{msg['terceros']}" style="position: absolute; top: 47px;left: 60px"/>
-                        <p:commandButton id="NuevoVigenciaSueldo" icon="ui-icon-circle-check" style="position: absolute; top: 45px;left: 300px; height: 25px; width: 40px;" oncomplete="NuevoRegistroTercero.show()" update=":formularioDialogos:nuevaT" onclick="NuevoRegistroPagina.hide();" process="@this"/>
+                        <p:commandButton id="NuevoVigenciaSueldo" icon="ui-icon-circle-check" style="position: absolute; top: 45px;left: 300px; height: 25px; width: 40px;" oncomplete="PF('NuevoRegistroTercero').show()" update=":formularioDialogos:nuevaT" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
 
                         <h:outputText value="#{msg['sss']}" style="position: absolute; top: 92px;left: 60px"/>
-                        <p:commandButton id="NuevoVigenciaAfiliacion" icon="ui-icon-circle-check" style="position: absolute; top: 90px;left: 300px; height: 25px; width: 40px;" oncomplete="NuevoRegistroTerceroSucursal.show()" update=":formularioDialogos:nuevaTS" onclick="NuevoRegistroPagina.hide();" process="@this"/>
+                        <p:commandButton id="NuevoVigenciaAfiliacion" icon="ui-icon-circle-check" style="position: absolute; top: 90px;left: 300px; height: 25px; width: 40px;" oncomplete="PF('NuevoRegistroTerceroSucursal').show()" update=":formularioDialogos:nuevaTS" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
 
-                        <p:commandButton id="CancelarNuevosRegistros" onclick="NuevoRegistroPagina.hide();"  process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 125px;left: 300px"/>
+                        <p:commandButton id="CancelarNuevosRegistros" onclick="PF('NuevoRegistroPagina').hide();"  process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 125px;left: 300px"/>
                     </p:dialog>
                     -->                     
                     <p:dialog id="NuevoRegistroPagina" header="#{msg['nrpi']}" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="false" modal="true" height="150" width="400" style=" padding: 0px">  
                         <center><strong><h:outputText value="#{msg['seleccione']}" style="font-size: 14px; color: blue; position: relative; top: 5px;" /></strong></center> 
-                        <p:commandButton value="#{msg['terceros']}" id="NuevoTercero" style="position: absolute; left: 100px; top: 40px; width: 200px; height: 30px;" oncomplete="NuevoRegistroTercero.show()" update=":formularioDialogos:nuevaT" onclick="NuevoRegistroPagina.hide();" process="@this"/>
-                        <p:commandButton value="#{msg['sss']}" id="NuevoTerceroSucursal" style="position: absolute; left: 100px; top: 75px; width: 200px; height: 30px;" oncomplete="NuevoRegistroTerceroSucursal.show()" update=":formularioDialogos:nuevaTS" onclick="NuevoRegistroPagina.hide();" process="@this"/>
-                        <p:commandButton id="CancelarNuevosRegistros" onclick="NuevoRegistroPagina.hide();" icon="ui-icon-close"  process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 120px;left: 275px"/>
+                        <p:commandButton value="#{msg['terceros']}" id="NuevoTercero" style="position: absolute; left: 100px; top: 40px; width: 200px; height: 30px;" oncomplete="PF('NuevoRegistroTercero').show()" update=":formularioDialogos:nuevaT" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
+                        <p:commandButton value="#{msg['sss']}" id="NuevoTerceroSucursal" style="position: absolute; left: 100px; top: 75px; width: 200px; height: 30px;" oncomplete="PF('NuevoRegistroTerceroSucursal').show()" update=":formularioDialogos:nuevaTS" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
+                        <p:commandButton id="CancelarNuevosRegistros" onclick="PF('NuevoRegistroPagina').hide();" icon="ui-icon-close"  process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 120px;left: 275px"/>
                     </p:dialog>
 
                     <p:dialog id="NuevoRegistroTercero" header="#{msg['nuevoregistrotercero']}" widgetVar="NuevoRegistroTercero" closable="false" resizable="false"  draggable="false" modal="true" height="330" width="730" style="padding: 0px">  
@@ -765,7 +765,7 @@
                             <p:watermark for="nuevaCSCT" value="#{msg['codigoscWM']}" />
 
                             <strong><h:outputText value="#{msg['consolidadorNT']}" style="position: absolute; top: 75px; left: 360px;" /></strong>
-                            <p:inputText id="nuevaTerceroCT" value="#{controlTercero.nuevoTercero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="nuevaTerceroCT" value="#{controlTercero.nuevoTercero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(1, 'TERCEROCONSOLIDADOR',0)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('TERCEROCONSOLIDADOR', controlTercero.nuevoTercero.terceroconsolidador.nombre, 1)}" />
@@ -779,7 +779,7 @@
                             <p:watermark for="nuevaTerceroCNITT" value="#{msg['nitconsolidadorWM']}" />
 
                             <strong><h:outputText value="#{msg['ciudadNT']}" style="position: absolute; top: 135px; left: 360px;" /></strong>
-                            <p:inputText id="nuevaCiudadT" value="#{controlTercero.nuevoTercero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaCiudadT" value="#{controlTercero.nuevoTercero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,1,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(1, 'CIUDAD',0)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('CIUDAD', controlTercero.nuevoTercero.ciudad.nombre, 1)}" update="nuevaCiudadT"/>
@@ -816,7 +816,7 @@
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarNT" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 290px;" actionListener="#{controlTercero.limpiarNuevoTercero()}" update="nuevaT" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="agregarNT" value="#{msg['agregar']}" style="position: absolute; left: 500px; top: 290px;"  process="@this" actionListener="#{controlTercero.agregarNuevoTercero()}"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNT" value="#{msg['cancelar']}" style="position: absolute; left: 610px; top: 290px;" actionListener="#{controlTercero.limpiarNuevoTercero()}" update="nuevaT" onclick="NuevoRegistroTercero.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNT" value="#{msg['cancelar']}" style="position: absolute; left: 610px; top: 290px;" actionListener="#{controlTercero.limpiarNuevoTercero()}" update="nuevaT" onclick="PF('NuevoRegistroTercero').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -867,7 +867,7 @@
                             <p:watermark for="duplicarTCSCT" value="#{msg['codigoscWM']}" />
 
                             <strong><h:outputText value="#{msg['consolidadorNT']}" style="position: absolute; top: 75px; left: 360px;" /></strong>
-                            <p:inputText id="duplicarTTerceroCT" value="#{controlTercero.duplicarTecero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="duplicarTTerceroCT" value="#{controlTercero.duplicarTecero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(2, 'TERCEROCONSOLIDADOR',0)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('TERCEROCONSOLIDADOR', controlTercero.duplicarTecero.terceroconsolidador.nombre, 2)}" />
@@ -881,7 +881,7 @@
                             <p:watermark for="duplicarTTerceroCNITT" value="#{msg['nitconsolidadorWM']}" />
 
                             <strong><h:outputText value="#{msg['ciudadNT']}" style="position: absolute; top: 135px; left: 360px;" /></strong>
-                            <p:inputText id="duplicarTCiudadT" value="#{controlTercero.duplicarTecero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarTCiudadT" value="#{controlTercero.duplicarTecero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,1,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(2, 'CIUDAD',0)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('CIUDAD', controlTercero.duplicarTecero.ciudad.nombre, 2)}" update="duplicarTCiudadT"/>
@@ -918,7 +918,7 @@
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarDT" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 300px;" actionListener="#{controlTercero.limpiarDuplicarTercero()}" update="nuevaT" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="agregarDT" value="#{msg['agregar']}" style="position: absolute; left: 500px; top: 290px;"  process="@this" actionListener="#{controlTercero.confirmarDuplicar()}"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDT" value="#{msg['cancelar']}" style="position: absolute; left: 610px; top: 290px;" actionListener="#{controlTercero.limpiarDuplicarTercero()}" update="nuevaT" onclick="DuplicarRegistroTercero.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDT" value="#{msg['cancelar']}" style="position: absolute; left: 610px; top: 290px;" actionListener="#{controlTercero.limpiarDuplicarTercero()}" update="nuevaT" onclick="PF('DuplicarRegistroTercero').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -945,7 +945,7 @@
                             <p:watermark for="nuevaObservacionTS" value="#{msg['observacionWM']}" />
 
                             <strong><h:outputText value="#{msg['ciudadNS']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCiudadTS" value="#{controlTercero.nuevoTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaCiudadTS" value="#{controlTercero.nuevoTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(1, 'CIUDAD',1)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTerceroSucursal('CIUDAD', controlTercero.nuevoTerceroSucursal.ciudad.nombre, 1)}" update="nuevaCiudadTS" process="@this"/>
@@ -955,7 +955,7 @@
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarNTS" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 200px;" actionListener="#{controlTercero.limpiarNuevoTerceroSucursal()}" update="nuevaTS" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="agregarNTS" value="#{msg['agregar']}" style=" position: absolute; left: 170px; top: 200px;"  process="@this" actionListener="#{controlTercero.agregarNuevoTerceroSucursal()}"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNTS" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 200px;" actionListener="#{controlTercero.limpiarNuevoTerceroSucursal()}" update="nuevaTS" onclick="NuevoRegistroTerceroSucursal.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNTS" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 200px;" actionListener="#{controlTercero.limpiarNuevoTerceroSucursal()}" update="nuevaTS" onclick="PF('NuevoRegistroTerceroSucursal').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -982,7 +982,7 @@
                             <p:watermark for="duplicarObservacionTS" value="#{msg['observacionWM']}" />
 
                             <strong><h:outputText value="#{msg['ciudadNS']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarCiudadTS" value="#{controlTercero.duplicarTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarCiudadTS" value="#{controlTercero.duplicarTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(2, 'CIUDAD',1)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTerceroSucursal('CIUDAD', controlTercero.duplicarTerceroSucursal.ciudad.nombre, 1)}" update="duplicarCiudadTS" process="@this"/>
@@ -992,7 +992,7 @@
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarDTS" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 200px;" actionListener="#{controlTercero.limpiarDuplicarTerceroSucursal()}" update="nuevaTS" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="agregarDTS" value="#{msg['agregar']}" style="position: absolute; left: 170px; top: 200px;"  process="@this" actionListener="#{controlTercero.confirmarDuplicarTS()}"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDTS" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 200px;" actionListener="#{controlTercero.limpiarDuplicarTerceroSucursal()}" update="nuevaTS" onclick="DuplicarRegistroTerceroSucursal.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDTS" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 200px;" actionListener="#{controlTercero.limpiarDuplicarTerceroSucursal()}" update="nuevaTS" onclick="PF('DuplicarRegistroTerceroSucursal').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -1005,7 +1005,7 @@
 
                             <p:ajax event="filter" listener="#{controlTercero.eventoFiltrarEmpresa()}"/>
                             <p:ajax event="rowSelect" listener="#{controlTercero.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
-                            <p:ajax event="rowDblselect" listener="#{controlTercero.actualizarEmpresa()}" update=":formularioDialogos:EmpresasDialogo" process="@this" onstart="lovEmpresas.clearFilters()"/>
+                            <p:ajax event="rowDblselect" listener="#{controlTercero.actualizarEmpresa()}" update=":formularioDialogos:EmpresasDialogo" process="@this" onstart="PF('lovEmpresas').clearFilters()"/>
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
@@ -1030,7 +1030,7 @@
                         <p:commandButton id="aceptarE" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlTercero.aceptar}" actionListener="#{controlTercero.actualizarEmpresa()}" icon="ui-icon-check" update="aceptarE" process="@this">
                             <p:resetInput target=":formularioDialogos:lovEmpresas:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasE" style="position: relative; left: 230px;" value="#{msg['atras']}" onclick="EmpresasDialogo.hide(), lovEmpresas.clearFilters();" actionListener="#{controlTercero.cancelarCambioEmpresa()}" icon="ui-icon-arrowreturnthick-1-w" update="lovEmpresas" process="@this">
+                        <p:commandButton id="atrasE" style="position: relative; left: 230px;" value="#{msg['atras']}" onclick="PF('EmpresasDialogo').hide(), ('lovEmpresas').clearFilters();" actionListener="#{controlTercero.cancelarCambioEmpresa()}" icon="ui-icon-arrowreturnthick-1-w" update="lovEmpresas" process="@this">
                             <p:resetInput target=":formularioDialogos:lovEmpresas:globalFilter"/>
                         </p:commandButton>
                     </p:dialog>

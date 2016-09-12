@@ -132,7 +132,7 @@
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="NuevoTipoFormula.show()" update=":formularioDialogos:nuevoTipoFormula" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="PF('NuevoTipoFormula').show()" update=":formularioDialogos:nuevoTipoFormula" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlTipoFormula.borrarTipoFormula()}" process="@this"/>  
@@ -150,7 +150,7 @@
                         <p:remoteCommand name="dirigirFormula" actionListener="#{controlFormula.recibirDatosTiposFormulas(controlTipoFormula.secuenciaTiposFormulas,controlTipoFormula.tiposFormulasRegistro)}" action="formula" process="@this"/>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/proceso.png); background-size: 100% 100%; background-repeat: no-repeat;position: absolute; width: 28px; height: 28px; left: 800px; top: 430px;" id="FORMULAS" value="" process="@this" actionListener="#{controlTipoFormula.guardarVariables(controlTipoFormula.tiposFormulasRegistro.secuencia)}" />
                         <p:tooltip  for="FORMULAS" value="#{msg['dirigirFormula']}" />
-                        <p:commandButton style="position: absolute; left: 700px; top: 470px;" icon="ui-icon-check" id="ACEPTAR" disabled="#{controlTipoFormula.cambiosPagina}" value="#{msg['aceptar']}" onclick="confirmarGuardar.show();" update=":form:datosTiposFormulas" process="@this" />
+                        <p:commandButton style="position: absolute; left: 700px; top: 470px;" icon="ui-icon-check" id="ACEPTAR" disabled="#{controlTipoFormula.cambiosPagina}" value="#{msg['aceptar']}" onclick="PF('confirmarGuardar').show();" update=":form:datosTiposFormulas" process="@this" />
                         <p:commandButton style="position: absolute; left: 783px; top: 470px;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}" actionListener="#{controlTipoFormula.salir()}" action="operando" process="@this" />
 
                     </p:panel>
@@ -166,31 +166,31 @@
                         <p:calendar pattern="dd/MM/yyyy"   value="#{controlTipoFormula.editarTiposFormulas.fechainicial}" id="editarFechaInicial"  styleClass="ui-datepicker, myClass"  
                                       navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
                         </p:calendar>
-                        <p:commandButton id="cancelarFechasIniciales" value="#{msg['atras']}" onclick="editarFechasIniciales.hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
+                        <p:commandButton id="cancelarFechasIniciales" value="#{msg['atras']}" onclick="PF('editarFechasIniciales').hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarFechasFinales" header="#{msg['editarFechasFinales']}" widgetVar="editarFechasFinales" resizable="false" draggable="false" modal="true" height="93" width="240" >  
                         <p:calendar pattern="dd/MM/yyyy"   value="#{controlTipoFormula.editarTiposFormulas.fechafinal}" id="editarFechaFinal"  styleClass="ui-datepicker, myClass"  
                                       navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
-                        </p:calendar><p:commandButton id="cancelarFechasFinales" value="#{msg['atras']}" onclick="editarFechasFinales.hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
+                        </p:calendar><p:commandButton id="cancelarFechasFinales" value="#{msg['atras']}" onclick="PF('editarFechasFinales').hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarFormulas" header="#{msg['editarFormulas']}" widgetVar="editarFormulas" resizable="false" draggable="false" modal="true" height="93" width="240" >  
                         <p:inputTextarea value="#{controlTipoFormula.editarTiposFormulas.formula.nombrecorto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                        <p:commandButton id="cancelarFormulas" value="#{msg['atras']}" onclick="editarFormulas.hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
+                        <p:commandButton id="cancelarFormulas" value="#{msg['atras']}" onclick="PF('editarFormulas').hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarEstados" header="#{msg['editarEstados']}" widgetVar="editarEstados" resizable="false" draggable="false" modal="true" height="93" width="240" >  
                         <p:inputTextarea value="#{controlTipoFormula.editarTiposFormulas.formula.estado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                        <p:commandButton id="cancelarEstado" value="#{msg['atras']}" onclick="editarEstados.hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
+                        <p:commandButton id="cancelarEstado" value="#{msg['atras']}" onclick="PF('editarEstados').hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlTipoFormula.guardarCambiosTiposFormulas()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoFormula.guardarCambiosTiposFormulas()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <!-- L.O.V FORMULA-->
@@ -259,7 +259,7 @@
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['formulaN']}" style=" position: absolute; top: 145px;" /></strong>
-                            <p:inputText id="nuevaFormula" value="#{controlTipoFormula.nuevoTipoFormula.formula.nombrecorto}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaFormula" value="#{controlTipoFormula.nuevoTipoFormula.formula.nombrecorto}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlTipoFormula.valoresBackupAutocompletar(1, 'FORMULA')}" />
                                 <p:ajax event="change" listener="#{controlTipoFormula.autocompletarNuevoyDuplicado('FORMULA', controlTipoFormula.nuevoTipoFormula.formula.nombrecorto, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlTipoFormula.asignarIndex(indice, 0, 1)}" />
@@ -267,13 +267,13 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 311px; top: 145px;  " id="btnNuevaFormula" actionListener="#{controlTipoFormula.asignarIndex(indice, 0, 1)}" icon="ui-icon-search" process="@this" />
 
                             <strong><h:outputText value="#{msg['estadoN']}" style=" position: absolute; top: 185px;" /></strong>
-                            <p:inputText readonly="true" id="nuevoEstado" value="#{controlTipoFormula.nuevoTipoFormula.formula.estado}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="select();">
+                            <p:inputText readonly="true" id="nuevoEstado" value="#{controlTipoFormula.nuevoTipoFormula.formula.estado}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <p:commandButton id="limpiar" value="#{msg['limpiar']}" style=" position: absolute; left: 50px; top: 300px;" actionListener="#{controlTipoFormula.limpiarNuevoTiposFormulas()}" update="nuevoTipoFormula" process="@this"/>
                             <p:commandButton id="agregarN" value="#{msg['agregar']}" style=" position: absolute; left: 250px; top: 300px;"  actionListener="#{controlTipoFormula.agregarNuevoTipoFormula()}" process="@this"/>
-                            <p:commandButton id="cancelarN" value="#{msg['cancelar']}" style=" position: absolute; left: 320px; top: 300px;" actionListener="#{controlTipoFormula.limpiarNuevoTiposFormulas()}" update="nuevoTipoFormula" onclick="NuevoTipoFormula.hide();" process="@this"/>
+                            <p:commandButton id="cancelarN" value="#{msg['cancelar']}" style=" position: absolute; left: 320px; top: 300px;" actionListener="#{controlTipoFormula.limpiarNuevoTiposFormulas()}" update="nuevoTipoFormula" onclick="PF('NuevoTipoFormula').hide();" process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -300,7 +300,7 @@
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['formulaN']}" style=" position: absolute; top: 145px;" /></strong>
-                            <p:inputText id="duplicarFormula" value="#{controlTipoFormula.duplicarTipoFormula.formula.nombrecorto}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarFormula" value="#{controlTipoFormula.duplicarTipoFormula.formula.nombrecorto}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlTipoFormula.valoresBackupAutocompletar(2, 'FORMULA')}" />
                                 <p:ajax event="change" listener="#{controlTipoFormula.autocompletarNuevoyDuplicado('FORMULA', controlTipoFormula.duplicarTipoFormula.formula.nombrecorto, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlTipoFormula.asignarIndex(indice, 0, 2)}" />
@@ -308,26 +308,26 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 311px; top: 145px;  " id="btnDuplicarFormula" actionListener="#{controlTipoFormula.asignarIndex(indice, 0, 2)}" icon="ui-icon-search" process="@this" />
 
                             <strong><h:outputText value="#{msg['estadoN']}" style=" position: absolute; top: 185px;" /></strong>
-                            <p:inputText readonly="true" id="duplicarEstado" value="#{controlTipoFormula.duplicarTipoFormula.formula.estado}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="select();">
+                            <p:inputText readonly="true" id="duplicarEstado" value="#{controlTipoFormula.duplicarTipoFormula.formula.estado}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <p:commandButton id="limpiarD" value="#{msg['limpiar']}" style=" position: absolute; left: 50px; top: 300px;" actionListener="#{controlTipoFormula.limpiarduplicarTiposFormulas()}" update="duplicarTipoFormula" process="@this"/>
                             <p:commandButton id="agregarD" value="#{msg['agregar']}" style=" position: absolute; left: 250px; top: 300px;"  actionListener="#{controlTipoFormula.confirmarDuplicar()}" process="@this"/>
-                            <p:commandButton id="cancelarD" value="#{msg['cancelar']}" style=" position: absolute; left: 320px; top: 300px;" actionListener="#{controlTipoFormula.limpiarduplicarTiposFormulas()}" update="duplicarTipoFormula" onclick="DuplicarTipoFormula.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarD" value="#{msg['cancelar']}" style=" position: absolute; left: 320px; top: 300px;" actionListener="#{controlTipoFormula.limpiarduplicarTiposFormulas()}" update="duplicarTipoFormula" onclick="PF('DuplicarTipoFormula').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevoTipoFormula" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoFormula"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevo']}  #{controlTipoFormula.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevoTipoFormula.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevoTipoFormula').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="95" width="400" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorFechas.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <!-- DIALOGOS RASTROS -->
@@ -335,15 +335,15 @@
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoFormula.secRegistro, 'TiposFormulas', 'tiposformulas')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoFormula.secRegistro, 'TiposFormulas', 'tiposformulas')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('TiposFormulas', 'tiposformulas')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposFormulas', 'tiposformulas')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -359,8 +359,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoFormula.secRegistro, 'TiposFormulas', 'tiposformulas')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoFormula.secRegistro, 'TiposFormulas', 'tiposformulas')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  

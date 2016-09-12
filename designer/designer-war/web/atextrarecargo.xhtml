@@ -18,7 +18,7 @@
                     
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
 
-                        <p:commandButton style="position: absolute; left: 683px; top: 480px;" id="ACEPTAR" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.cambiosPagina}" icon="ui-icon-check" onclick="confirmarGuardar.show();" update=":form:datosExtraRecargo" process="@this" />
+                        <p:commandButton style="position: absolute; left: 683px; top: 480px;" id="ACEPTAR" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.cambiosPagina}" icon="ui-icon-check" onclick="PF('confirmarGuardar').show();" update=":form:datosExtraRecargo" process="@this" />
                         <p:commandButton style="position: absolute; left: 775px; top: 480px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlATExtraRecargo.salir()}" action="#{controlATExtraRecargo.redirigir()}" process="@this" />
 
 
@@ -429,29 +429,29 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATExtraRecargo.guardarGeneral()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATExtraRecargo.salir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATExtraRecargo.guardarGeneral()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATExtraRecargo.salir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="false" modal="true" height="95" width="430px;"  >
                         <h:outputText value="#{msg['seleccione']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['extrarecargo']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 30px; top: 50px;" actionListener="#{controlATExtraRecargo.verificarRastroExtraRecargo()}" process="@this" />
-                        <p:commandButton value="#{msg['detalleextrarecargo']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 200px; top: 50px;" actionListener="#{controlATExtraRecargo.verificarRastroDetalleExtraRecargo()}" process="@this"/>
+                        <p:commandButton value="#{msg['extrarecargo']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 30px; top: 50px;" actionListener="#{controlATExtraRecargo.verificarRastroExtraRecargo()}" process="@this" />
+                        <p:commandButton value="#{msg['detalleextrarecargo']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 200px; top: 50px;" actionListener="#{controlATExtraRecargo.verificarRastroDetalleExtraRecargo()}" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlATExtraRecargo.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATExtraRecargo.backUp, controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlATExtraRecargo.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATExtraRecargo.backUp, controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlATExtraRecargo.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlATExtraRecargo.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlATExtraRecargo.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlATExtraRecargo.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -467,8 +467,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATExtraRecargo.backUp, controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATExtraRecargo.backUp, controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -697,8 +697,8 @@
 
                     <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="false" modal="true" height="95" width="430px;"  >
                         <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['recargosextras']}" onclick="verificarNuevoRegistro.hide();" style="position: absolute; left: 30px; top: 50px;" oncomplete="NuevoRegistroExtraRecargo.show()" update=":formularioDialogos:nuevoExtra"  process="@this" />
-                        <p:commandButton value="#{msg['detallesrecargosextras']}" onclick="verificarNuevoRegistro.hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="NuevoRegistroDetalleExtraRecargo.show()" update=":formularioDialogos:nuevoDetalleExtra"  process="@this"/>
+                        <p:commandButton value="#{msg['recargosextras']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 30px; top: 50px;" oncomplete="PF('NuevoRegistroExtraRecargo').show()" update=":formularioDialogos:nuevoExtra"  process="@this" />
+                        <p:commandButton value="#{msg['detallesrecargosextras']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="PF('NuevoRegistroDetalleExtraRecargo').show()" update=":formularioDialogos:nuevoDetalleExtra"  process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="NuevoRegistroExtraRecargo" header="#{msg['nuevoregistroER']}" widgetVar="NuevoRegistroExtraRecargo" closable="false" resizable="false"  draggable="false" modal="true" height="330" width="400" style="padding: 0px">  
@@ -718,7 +718,7 @@
                             <p:watermark value="#{msg['descripcionWM']}" for="nuevoExtraDescripcion"/>
 
                             <strong><h:outputText value="*#{msg['tipodiaNER']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoExtraTipoDia" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipodia.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;" onclick="select();">
+                            <p:inputText id="nuevoExtraTipoDia" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipodia.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,0,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'DIAS',0)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoExtraRecargo('DIAS', controlATExtraRecargo.nuevoExtraRecargo.tipodia.descripcion, 1)}" />
@@ -726,7 +726,7 @@
                             <p:watermark value="#{msg['tipodiaWM']}" for="nuevoExtraTipoDia"/>
 
                             <strong><h:outputText value="*#{msg['tipojornadaNER']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoExtraTipoJornada" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipojornada.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="select();">
+                            <p:inputText id="nuevoExtraTipoJornada" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipojornada.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'JORNADA',0)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoExtraRecargo('JORNADA', controlATExtraRecargo.nuevoExtraRecargo.tipojornada.descripcion, 1)}" />
@@ -734,7 +734,7 @@
                             <p:watermark value="#{msg['tipojornadaWM']}" for="nuevoExtraTipoJornada"/>
 
                             <strong><h:outputText value="*#{msg['legislacionlaboralNER']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoExtraLegislacion" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipolegislacion.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px;" onclick="select();">
+                            <p:inputText id="nuevoExtraLegislacion" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipolegislacion.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px;" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,2,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'LEGISLACION',0)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoExtraRecargo('LEGISLACION', controlATExtraRecargo.nuevoExtraRecargo.tipolegislacion.descripcion, 1)}" />
@@ -753,7 +753,7 @@
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarNER" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 290px;" actionListener="#{controlATExtraRecargo.limpiarNuevaExtraRecargo()}" update="nuevoExtra" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="aceptarNER" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 290px;"  actionListener="#{controlATExtraRecargo.agregarNuevoExtraRecargo()}" process="@this"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNER" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 290px;" actionListener="#{controlATExtraRecargo.limpiarNuevaExtraRecargo()}" update="nuevoExtra" onclick="NuevoRegistroExtraRecargo.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNER" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 290px;" actionListener="#{controlATExtraRecargo.limpiarNuevaExtraRecargo()}" update="nuevoExtra" onclick="PF('NuevoRegistroExtraRecargo').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -811,7 +811,7 @@
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarDER" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 290px;" actionListener="#{controlATExtraRecargo.limpiarDuplicarExtraRecargo()}" update="duplicarExtra" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="agregarDER" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 290px;"  actionListener="#{controlATExtraRecargo.confirmarDuplicarExtraRecargo()}" process="@this"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDER" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 290px;" actionListener="#{controlATExtraRecargo.limpiarDuplicarExtraRecargo()}" update="duplicarExtra" onclick="DuplicarRegistroExtraRecargo.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDER" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 290px;" actionListener="#{controlATExtraRecargo.limpiarDuplicarExtraRecargo()}" update="duplicarExtra" onclick="PF('DuplicarRegistroExtraRecargo').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -892,7 +892,7 @@
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarNDER" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 380px;" actionListener="#{controlATExtraRecargo.limpiarNuevaDetalleExtraRecargo()}" update="nuevoDetalleExtra" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="aceptarNDER" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 380px;"  actionListener="#{controlATExtraRecargo.agregarNuevoDetalleExtraRecargo()}" process="@this"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNDER" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 380px;" actionListener="#{controlATExtraRecargo.limpiarNuevaDetalleExtraRecargo()}" update="nuevoDetalleExtra" onclick="NuevoRegistroDetalleExtraRecargo.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNDER" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 380px;" actionListener="#{controlATExtraRecargo.limpiarNuevaDetalleExtraRecargo()}" update="nuevoDetalleExtra" onclick="PF('NuevoRegistroDetalleExtraRecargo').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -915,7 +915,7 @@
                             <p:watermark value="#{msg['horafinalWM']}" for="duplicarDetalleHF"/>
 
                             <strong><h:outputText value="#{msg['conceptoNDER']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDetalleConcepto" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;" onclick="select();">
+                            <p:inputText id="duplicarDetalleConcepto" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,0,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(2, 'CONCEPTO',1)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoDetalleExtraRecargo('CONCEPTO', controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.descripcion, 2)}" />
@@ -923,7 +923,7 @@
                             <p:watermark value="#{msg['conceptoWM']}" for="duplicarDetalleConcepto"/>
 
                             <strong><h:outputText value="#{msg['empresaNDER']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarExtraEmpresa" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="select();">
+                            <p:inputText id="duplicarExtraEmpresa" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(2, 'EMPRESA',1)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoDetalleExtraRecargo('EMPRESA', controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.empresa.nombre, 2)}" />
@@ -950,7 +950,7 @@
                             </p:selectBooleanCheckbox>
 
                             <strong><h:outputText value="#{msg['mincantminutosNDER']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDetalleMinuto" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.minimominutospagar}" style="width: 122px; position: absolute; left: 200px; top: 250px;" onclick="select();">
+                            <p:inputText id="duplicarDetalleMinuto" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.minimominutospagar}" style="width: 122px; position: absolute; left: 200px; top: 250px;" onclick="PF('select();">
                                 <p:ajax event="change" update="duplicarDetalleMinuto"/>
                             </p:inputText>
                             <p:watermark value="#{msg['mincantminutosWM']}" for="duplicarDetalleMinuto"/>
@@ -974,7 +974,7 @@
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarDDER" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 380px;" actionListener="#{controlATExtraRecargo.limpiarDuplicarDetalleExtraRecargo()}" update="duplicarDetalleExtra" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="aceptarDDER" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 380px;"  actionListener="#{controlATExtraRecargo.confirmarDuplicarDetalleExtraCargo()}" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDDER" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 380px;" actionListener="#{controlATExtraRecargo.limpiarDuplicarDetalleExtraRecargo()}" update="duplicarDetalleExtra" onclick="DuplicarRegistroDetalleExtraRecargo.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDDER" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 380px;" actionListener="#{controlATExtraRecargo.limpiarDuplicarDetalleExtraRecargo()}" update="duplicarDetalleExtra" onclick="PF('DuplicarRegistroDetalleExtraRecargo').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 

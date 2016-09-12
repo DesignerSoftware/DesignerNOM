@@ -86,7 +86,7 @@
                                 </p:column>
 
                                 <p:column headerText="..." width="26" exportable="false">  
-                                    <p:commandButton id="selectButton" update=":form:display" oncomplete="datosDialog.show()" icon="ui-icon-search" title="View">  
+                                    <p:commandButton id="selectButton" update=":form:display" oncomplete="PF('datosDialog').show()" icon="ui-icon-search" title="View">  
                                         <f:setPropertyActionListener value="#{info}" target="#{ctrlVigenciasCargos.vigenciaSeleccionada}" />  
                                     </p:commandButton>  
                                 </p:column>  

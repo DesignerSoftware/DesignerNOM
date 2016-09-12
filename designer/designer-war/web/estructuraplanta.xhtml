@@ -20,7 +20,7 @@
 
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
 
-                        <p:commandButton style="position: absolute; left: 683px; top: 502px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" onclick="confirmarGuardarSalida.show();" disabled="#{controlEstructuraPlanta.cambiosPagina}" process="@this" />
+                        <p:commandButton style="position: absolute; left: 683px; top: 502px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlEstructuraPlanta.cambiosPagina}" process="@this" />
                         <p:commandButton style="position: absolute; left: 773px; top: 502px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlEstructuraPlanta.salir()}" action="#{controlEstructuraPlanta.valorPaginaAnterior()}" process="@this" />
 
                         <p:toolbar  styleClass="cssToolbar">  
@@ -62,7 +62,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" 
-                                                 update=":formularioDialogos:verificarNuevoRegistro" oncomplete="verificarNuevoRegistro.show()" process="@this"/> 
+                                                 update=":formularioDialogos:verificarNuevoRegistro" oncomplete="PF('verificarNuevoRegistro').show()" process="@this"/> 
                                 <p:tooltip for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" 
@@ -81,7 +81,7 @@
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
-                                                 actionListener="#{controlEstructuraPlanta.cancelarModificacionGeneral()}" oncomplete="window.location.reload()" process="@this"/>  
+                                                 actionListener="#{controlEstructuraPlanta.cancelarModificacionGeneral()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
@@ -127,7 +127,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigo}"  readonly="true"  onselect="posicionOrganigrama([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" onclick="select();" id="editarCodigoOrganigrama" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText value="#{info.codigo}"  readonly="true"  onselect="posicionOrganigrama([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" onclick="PF('select();" id="editarCodigoOrganigrama" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndice(info, 1)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -145,7 +145,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.empresa.nombre}" onclick="select();" onselect="posicionOrganigrama([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);" id="editarEmpresaOrganigrama" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText value="#{info.empresa.nombre}" onclick="PF('select();" onselect="posicionOrganigrama([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);" id="editarEmpresaOrganigrama" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.modificarOrganigrama(info, 'EMPRESA', info.empresa.nombre)}" />
                                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndexTabla(info)}"/>
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndice(info,2)}"/> 
@@ -165,7 +165,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.empresa.nit}" onclick="select();"  readonly="true"  onselect="posicionOrganigrama([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);" id="editarNITOrganigrama" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText value="#{info.empresa.nit}" onclick="PF('select();"  readonly="true"  onselect="posicionOrganigrama([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);" id="editarNITOrganigrama" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndice(info,2)}" process="@this"/> 
                                             </p:inputText>
                                         </f:facet>   
@@ -183,7 +183,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.estado}" onclick="select();"  readonly="true"  onselect="posicionOrganigrama([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);" id="editarEstadoOrganigrama" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText value="#{info.estado}" onclick="PF('select();"  readonly="true"  onselect="posicionOrganigrama([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);" id="editarEstadoOrganigrama" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndice(info,2)}" process="@this"/> 
                                             </p:inputText>
                                         </f:facet>   
@@ -221,7 +221,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoE.codigo}" onclick="select();"  id="editarCodigoEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText value="#{infoE.codigo}" onclick="PF('select();"  id="editarCodigoEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.procesoModificacionEstructura(infoE)}" process="@this" update="editarCodigoEstructura"/>
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndiceEstructura(infoE,0)}" process="@this"/> 
                                             </p:inputText>
@@ -239,7 +239,7 @@
                                             <h:outputText  value="#{infoE.nombre}"  style="text-transform: uppercase"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoE.nombre}" onclick="select();"  id="editarEstructuraEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText value="#{infoE.nombre}" onclick="PF('select();"  id="editarEstructuraEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.procesoModificacionEstructura(infoE)}" process="@this" update="editarEstructuraEstructura"/>
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndiceEstructura(infoE,1)}" process="@this"/> 
                                             </p:inputText>
@@ -262,7 +262,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input"> 
-                                            <p:inputText value="#{infoE.cantidadCargosControlar}" onclick="select();"  readonly="true"  onselect="posicionEstructura([{name: 'n', value: '2'}, {name: 't', value: '#{indiceE}'}]);" 
+                                            <p:inputText value="#{infoE.cantidadCargosControlar}" onclick="PF('select();"  readonly="true"  onselect="posicionEstructura([{name: 'n', value: '2'}, {name: 't', value: '#{indiceE}'}]);" 
                                                          ondblclick="dispararDialogo([{name: 'n', value: '2'}, {name: 't', value: '#{indiceE}'}]);" id="editarCantidadControlarEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                             </p:inputText>
                                         </f:facet>   
@@ -284,7 +284,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoE.cantidadCargosEmplActivos}" onclick="select();" readonly="true"  onselect="posicionEstructura([{name: 'n', value: '3'}, {name: 't', value: '#{indiceE}'}]);" 
+                                            <p:inputText value="#{infoE.cantidadCargosEmplActivos}" onclick="PF('select();" readonly="true"  onselect="posicionEstructura([{name: 'n', value: '3'}, {name: 't', value: '#{indiceE}'}]);" 
                                                          id="editarCantidadActivosEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                             </p:inputText>
                                         </f:facet>   
@@ -301,7 +301,7 @@
                                             <h:outputText  value="#{infoE.centrocosto.codigoNombre}" style="text-transform: uppercase"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoE.centrocosto.codigoNombre}" onclick="select();" id="editarCentroCostoEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText value="#{infoE.centrocosto.codigoNombre}" onclick="PF('select();" id="editarCentroCostoEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.modificarEstructura(infoE, 'CENTROCOSTO', infoE.centrocosto.codigoNombre)}" process="@this" update="editarCentroCostoEstructura"/>
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndiceEstructura(infoE,4)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndex(infoE,0,0)}" process="@this" update="editarCentroCostoEstructura"/>
@@ -320,7 +320,7 @@
                                             <h:outputText  value="#{infoE.estructurapadre.nombre}" style="text-transform: uppercase"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoE.estructurapadre.nombre}" onclick="select();"  id="editarEstructuraPadreEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText value="#{infoE.estructurapadre.nombre}" onclick="PF('select();"  id="editarEstructuraPadreEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.modificarEstructura(infoE, 'PADRE', infoE.estructurapadre.nombre)}" process="@this" update="editarEstructuraPadreEstructura"/>
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndiceEstructura(infoE,5)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndex(infoE,1,0)}" process="@this" update="editarEstructuraPadreEstructura"/>
@@ -441,30 +441,30 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEstructuraPlanta.guardarGeneral()}" 
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEstructuraPlanta.guardarGeneral()}" 
                                          style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEstructuraPlanta.cancelarModificacionGeneral()}" 
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEstructuraPlanta.cancelarModificacionGeneral()}" 
                                          style="position: absolute; top: 50px; left: 219px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" 
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" 
                                          style="position: absolute; top: 50px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlEstructuraPlanta.guardarYSalir()}" action="#{controlEstructuraPlanta.valorPaginaAnterior()}" 
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlEstructuraPlanta.guardarYSalir()}" action="#{controlEstructuraPlanta.valorPaginaAnterior()}" 
                                          style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlEstructuraPlanta.cancelarYSalir()}" action="#{controlEstructuraPlanta.valorPaginaAnterior()}" 
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlEstructuraPlanta.cancelarYSalir()}" action="#{controlEstructuraPlanta.valorPaginaAnterior()}" 
                                          style="position: absolute; top: 50px; left: 219px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" 
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" 
                                          style="position: absolute; top: 50px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="verificarRastrosTablasH" widgetVar="verificarRastrosTablasH" header="#{msg['rpter']}" resizable="false" draggable="false" modal="true" height="130" width="380px;" >
                         <h:outputText value="#{msg['seleccioneH']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['organigramas']}" onclick="verificarRastrosTablasH.hide()" 
+                        <p:commandButton value="#{msg['organigramas']}" onclick="PF('verificarRastrosTablasH').hide()" 
                                          style="position: absolute; left: 90px; top: 50px; width: 200px; height: 28px;" actionListener="#{controlEstructuraPlanta.verificarRastroOrganigramaH()}" process="@this" />
-                        <p:commandButton value="#{msg['estructura']}" onclick="verificarRastrosTablasH.hide()" 
+                        <p:commandButton value="#{msg['estructura']}" onclick="PF('verificarRastrosTablasH').hide()" 
                                          style="position: absolute; left: 90px; top: 90px; width: 200px; height: 28px;" actionListener="#{controlEstructuraPlanta.verificarRastroEstructuraH()}" process="@this"/>
                     </p:dialog>
 
@@ -472,20 +472,20 @@
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlEstructuraPlanta.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" oncomplete="#{controlEstructuraPlanta.anularLOV()}" icon="ui-icon-check"
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" oncomplete="PF('#{controlEstructuraPlanta.anularLOV()}" icon="ui-icon-check"
                                          actionListener="#{controlRastro.recibirDatosTabla(controlEstructuraPlanta.backUp, controlEstructuraPlanta.nombreTablaRastro , 'rastroEstructuraPlanta')}"
                                          style="position: absolute; top: 63px; left: 190px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlEstructuraPlanta.limpiarMSNRastros()}" icon="ui-icon-close"
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlEstructuraPlanta.limpiarMSNRastros()}" icon="ui-icon-close"
                                          style="position: absolute; top: 63px; left: 251px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlEstructuraPlanta.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlEstructuraPlanta.nombreTablaRastro , 'rastroEstructuraPlanta')}"
-                                         oncomplete="#{controlEstructuraPlanta.anularLOV()}" action="rastro" process="@this" icon="ui-icon-check"
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlEstructuraPlanta.nombreTablaRastro , 'rastroEstructuraPlanta')}"
+                                         oncomplete="PF('#{controlEstructuraPlanta.anularLOV()}" action="rastro" process="@this" icon="ui-icon-check"
                                          style="position: absolute; top: 63px; left: 190px;"  />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlEstructuraPlanta.limpiarMSNRastros()}" icon="ui-icon-close"
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlEstructuraPlanta.limpiarMSNRastros()}" icon="ui-icon-close"
                                          style="position: absolute; top: 63px; left: 251px;" process="@this" />
                     </p:dialog>
 
@@ -502,10 +502,10 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="errorTablaConRastro.hide();" 
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" 
                                          actionListener="#{controlRastro.recibirDatosTabla(controlEstructuraPlanta.backUp, controlEstructuraPlanta.nombreTablaRastro , 'rastroEstructuraPlanta')}" 
                                          style="position: absolute; top: 66px; left: 190px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="errorTablaConRastro.hide();" 
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" 
                                          style="position: absolute; top: 66px; left: 251px;" process="@this" />
                     </p:dialog>
 
@@ -542,19 +542,19 @@
                     <p:dialog id="validacioNuevoOrganigrama" header="#{msg['atencion']}" widgetVar="validacioNuevoOrganigrama"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevo']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="validacioNuevoOrganigrama.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacioNuevoOrganigrama').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validacionCodigoRepetido" header="#{msg['atencion']}" widgetVar="validacionCodigoRepetido"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionCodigoRepetido']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="validacionCodigoRepetido.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionCodigoRepetido').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validacionFechaRepetida" header="#{msg['atencion']}" widgetVar="validacionFechaRepetida"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionFechaRepetida']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="validacionFechaRepetida.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionFechaRepetida').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                 </h:form>
@@ -564,15 +564,15 @@
                     <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevo']}" resizable="false" draggable="false" modal="true" height="130" width="380px;" >
                         <h:outputText value="#{msg['seleccionarTabla']}" style="position: absolute; left: 10px; top: 20px; color: blue; font-weight: bold; width: 360px; text-align: center;"/>
                         <p:commandButton value="#{msg['organigramas']}" style="position: absolute; left: 90px; top: 50px; width: 200px; height: 28px;" 
-                                         oncomplete="NuevoRegistroOrganigramas.show()" onclick="verificarNuevoRegistro.hide();" process="@this"/>
+                                         oncomplete="PF('NuevoRegistroOrganigramas').show()" onclick="PF('verificarNuevoRegistro').hide();" process="@this"/>
                         <p:commandButton value="#{msg['estructura']}" style="position: absolute; left: 90px; top: 90px; width: 200px; height: 28px;"
-                                         actionListener="#{controlEstructuraPlanta.verificarNuevaExtructura()}" onclick="verificarNuevoRegistro.hide();" process="@this"/>
+                                         actionListener="#{controlEstructuraPlanta.verificarNuevaExtructura()}" onclick="PF('verificarNuevoRegistro').hide();" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevaExtructura" header="#{msg['atencion']}" widgetVar="validacionNuevaExtructura" resizable="false" draggable="false" modal="true" height="110" width="470"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['validacionNuevoEx']}" style="position: absolute; left: 100px; top: 20px; width: 350px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="validacionNuevaExtructura.hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionNuevaExtructura').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="DialogNuevaEstructura" header="#{msg['nuevoregistroE']}" widgetVar="DialogNuevaEstructura" closable="false" resizable="false"  draggable="false" modal="true" height="290" width="400" style="padding: 0px">  
@@ -580,28 +580,28 @@
                         <p:panel id="nuevoEstructura" widgetVar="nuevoEstructura" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codifoNE']}" style="position: absolute; top: 65px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoEstructuraCodigo" onclick="select();" value="#{controlEstructuraPlanta.nuevoEstructura.codigo}" 
+                            <p:inputText id="nuevoEstructuraCodigo" onclick="PF('select();" value="#{controlEstructuraPlanta.nuevoEstructura.codigo}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 60px;text-transform: uppercase">
                                 <p:ajax event="change" update="nuevoEstructuraCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="nuevoEstructuraCodigo"/>
 
                             <strong><h:outputText value="*#{msg['estructuraNE']}" style="position: absolute; top: 95px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoEstructuraEstructura" onclick="select();" value="#{controlEstructuraPlanta.nuevoEstructura.nombre}" 
+                            <p:inputText id="nuevoEstructuraEstructura" onclick="PF('select();" value="#{controlEstructuraPlanta.nuevoEstructura.nombre}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 90px;text-transform: uppercase">
                                 <p:ajax event="change" update="nuevoEstructuraEstructura"/>
                             </p:inputText>
                             <p:watermark value="#{msg['estructura']}" for="nuevoEstructuraEstructura"/>
 
                             <strong><h:outputText value="#{msg['cantidadCargosControlar']}" style="position: absolute; top: 125px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoEstructuraCantidadCargosControlar" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.nuevoEstructura.cantidadCargosControlar}" 
+                            <p:inputText id="nuevoEstructuraCantidadCargosControlar" onclick="PF('select();" readonly="true" value="#{controlEstructuraPlanta.nuevoEstructura.cantidadCargosControlar}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 120px;text-transform: uppercase">
                                 <p:ajax event="change" update="nuevoEstructuraCantidadCargosControlar"/>
                             </p:inputText>
                             <p:watermark value="#{msg['infoCantidadCargosControlar']}" for="nuevoEstructuraCantidadCargosControlar"/>
 
                             <strong><h:outputText value="#{msg['cantidadCargosControlarActivos']}" style="position: absolute; top: 155px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoEstructuraCantidadCargosActivos" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.nuevoEstructura.cantidadCargosEmplActivos}"
+                            <p:inputText id="nuevoEstructuraCantidadCargosActivos" onclick="PF('select();" readonly="true" value="#{controlEstructuraPlanta.nuevoEstructura.cantidadCargosEmplActivos}"
                                          style="width: 122px; position: absolute; left: 200px; top: 150px;text-transform: uppercase">
                                 <p:ajax event="change" update="nuevoEstructuraCantidadCargosActivos"/>
                             </p:inputText>
@@ -609,7 +609,7 @@
 
 
                             <strong><h:outputText value="#{msg['centroCostoNE']}" style="position: absolute; top: 185px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoEstructuraCentroCosto" onclick="select();" value="#{controlEstructuraPlanta.nuevoEstructura.centrocosto.nombre}" style="width: 122px; position: absolute; left: 200px; top: 180px;text-transform: uppercase">
+                            <p:inputText id="nuevoEstructuraCentroCosto" onclick="PF('select();" value="#{controlEstructuraPlanta.nuevoEstructura.centrocosto.nombre}" style="width: 122px; position: absolute; left: 200px; top: 180px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndex(0,1)}" process="@this" update="nuevoEstructuraCentroCosto"/>
                                 <p:ajax event="click" listener="#{controlEstructuraPlanta.valoresBackupAutocompletarGeneral(1, 'CENTROCOSTO')}" />
                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.autocompletarNuevoyDuplicadoEstructura('CENTROCOSTO', controlEstructuraPlanta.nuevoEstructura.centrocosto.nombre, 1)}" />
@@ -619,7 +619,7 @@
                                              value="" id="btnNuevoCentroCostoEstructura" process="@this" actionListener="#{controlEstructuraPlanta.asignarIndex(0,1)}"/>   
 
                             <strong><h:outputText value="#{msg['estructuraPadreNE']}" style="position: absolute; top: 215px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoEstructuraEstructuraPadre" onclick="select();" value="#{controlEstructuraPlanta.nuevoEstructura.estructurapadre.nombre}" style="width: 122px; position: absolute; left: 200px; top: 210px;text-transform: uppercase">
+                            <p:inputText id="nuevoEstructuraEstructuraPadre" onclick="PF('select();" value="#{controlEstructuraPlanta.nuevoEstructura.estructurapadre.nombre}" style="width: 122px; position: absolute; left: 200px; top: 210px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndex(1,1)}" process="@this" update="nuevoEstructuraCentroCosto"/>
                                 <p:ajax event="click" listener="#{controlEstructuraPlanta.valoresBackupAutocompletarGeneral(1, 'PADRE')}" />
                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.autocompletarNuevoyDuplicadoEstructura('PADRE', controlEstructuraPlanta.nuevoEstructura.estructurapadre.nombre, 1)}" />
@@ -631,7 +631,7 @@
 
                             <p:commandButton id="limpiarNE" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 260px;" actionListener="#{controlEstructuraPlanta.limpiarNuevaEstructura()}" update="nuevoEstructura" process="@this"/>
                             <p:commandButton id="aceptarNE" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 180px; top: 260px;"  actionListener="#{controlEstructuraPlanta.agregarNuevoEstructura()}" process="@this"  />
-                            <p:commandButton id="cancelarNE" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 260px;" actionListener="#{controlEstructuraPlanta.limpiarNuevaEstructura()}" update="nuevoEstructura" onclick="DialogNuevaEstructura.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarNE" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 260px;" actionListener="#{controlEstructuraPlanta.limpiarNuevaEstructura()}" update="nuevoEstructura" onclick="PF('DialogNuevaEstructura').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -640,35 +640,35 @@
                         <p:panel id="duplicarEstructura" widgetVar="duplicarEstructura" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codifoNE']}" style="position: absolute; top: 65px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEstructuraCodigo" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.codigo}" 
+                            <p:inputText id="duplicarEstructuraCodigo" onclick="PF('select();" value="#{controlEstructuraPlanta.duplicarEstructura.codigo}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 60px;text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarEstructuraCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="duplicarEstructuraCodigo"/>
 
                             <strong><h:outputText value="*#{msg['estructuraNE']}" style="position: absolute; top: 95px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEstructuraEstructura" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.nombre}" 
+                            <p:inputText id="duplicarEstructuraEstructura" onclick="PF('select();" value="#{controlEstructuraPlanta.duplicarEstructura.nombre}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 90px;text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarEstructuraEstructura"/>
                             </p:inputText>
                             <p:watermark value="#{msg['estructura']}" for="duplicarEstructuraEstructura"/>
 
                             <strong><h:outputText value="#{msg['cantidadCargosControlar']}" style="position: absolute; top: 125px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEstructuraCantidadCargosControlar" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.duplicarEstructura.cantidadCargosControlar}" 
+                            <p:inputText id="duplicarEstructuraCantidadCargosControlar" onclick="PF('select();" readonly="true" value="#{controlEstructuraPlanta.duplicarEstructura.cantidadCargosControlar}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 120px;text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarEstructuraCantidadCargosControlar"/>
                             </p:inputText>
                             <p:watermark value="#{msg['infoCantidadCargosControlar']}" for="duplicarEstructuraCantidadCargosControlar"/>
 
                             <strong><h:outputText value="#{msg['cantidadCargosControlarActivos']}" style="position: absolute; top: 155px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEstructuraCantidadCargosActivos" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.duplicarEstructura.cantidadCargosEmplActivos}" 
+                            <p:inputText id="duplicarEstructuraCantidadCargosActivos" onclick="PF('select();" readonly="true" value="#{controlEstructuraPlanta.duplicarEstructura.cantidadCargosEmplActivos}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 150px;text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarEstructuraCantidadCargosActivos"/>
                             </p:inputText>
                             <p:watermark value="#{msg['infoCantidadCargosActivos']}" for="duplicarEstructuraCantidadCargosActivos"/>
 
                             <strong><h:outputText value="#{msg['centroCostoNE']}" style="position: absolute; top: 185px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEstructuraCentroCosto" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.centrocosto.nombre}" 
+                            <p:inputText id="duplicarEstructuraCentroCosto" onclick="PF('select();" value="#{controlEstructuraPlanta.duplicarEstructura.centrocosto.nombre}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 180px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndex(0,2)}" process="@this" update="duplicarEstructuraCentroCosto"/>
                                 <p:ajax event="click" listener="#{controlEstructuraPlanta.valoresBackupAutocompletarGeneral(2, 'CENTROCOSTO')}" />
@@ -679,7 +679,7 @@
                                              value="" id="btnDuplicarCentroCostoEstructura" process="@this"  actionListener="#{controlEstructuraPlanta.asignarIndex(0,2)}"/>   
 
                             <strong><h:outputText value="#{msg['estructuraPadreNE']}" style="position: absolute; top: 215px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEstructuraEstructuraPadre" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.estructurapadre.nombre}" 
+                            <p:inputText id="duplicarEstructuraEstructuraPadre" onclick="PF('select();" value="#{controlEstructuraPlanta.duplicarEstructura.estructurapadre.nombre}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 210px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndex(1,2)}" process="@this" update="duplicarEstructuraCentroCosto"/>
                                 <p:ajax event="click" listener="#{controlEstructuraPlanta.valoresBackupAutocompletarGeneral(2, 'PADRE')}" />
@@ -691,7 +691,7 @@
 
                             <p:commandButton id="limpiarDE" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 260px;" actionListener="#{controlEstructuraPlanta.limpiarDuplicarEstructura()}" update="duplicarEstructura" process="@this"/>
                             <p:commandButton id="aceptarDE" value="#{msg['agregar']}"  icon="ui-icon-circle-check" style="position: absolute; left: 180px; top: 260px;"  actionListener="#{controlEstructuraPlanta.confirmarDuplicarEstructura()}" process="@this"/>
-                            <p:commandButton id="cancelarDE" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 260px;" actionListener="#{controlEstructuraPlanta.limpiarDuplicarEstructura()}" update="duplicarEstructura" onclick="DialogDuplicarEstructura.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDE" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 260px;" actionListener="#{controlEstructuraPlanta.limpiarDuplicarEstructura()}" update="duplicarEstructura" onclick="PF('DialogDuplicarEstructura').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -711,13 +711,13 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="nuevoCodigo" value="#{controlEstructuraPlanta.nuevoOrganigrama.codigo}" style="width: 122px; position: absolute; left: 120px; top: 100px; text-transform: uppercase" maxlength="4" onclick="select();">
+                            <p:inputText id="nuevoCodigo" value="#{controlEstructuraPlanta.nuevoOrganigrama.codigo}" style="width: 122px; position: absolute; left: 120px; top: 100px; text-transform: uppercase" maxlength="4" onclick="PF('select();">
                                 <p:ajax event="change" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 135px;" /></strong>
-                            <p:inputText id="nuevaEmpresa" value="#{controlEstructuraPlanta.nuevoOrganigrama.empresa.nombre}" style="width: 122px; position: absolute; left: 120px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaEmpresa" value="#{controlEstructuraPlanta.nuevoOrganigrama.empresa.nombre}" style="width: 122px; position: absolute; left: 120px; top: 130px; text-transform: uppercase" onclick="PF('select();">
 <!--                                <p:ajax event="click" listener="#/{controlEstructuraPlanta.valoresBackupAutocompletar(1)}" />-->
                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.autocompletarNuevoyDuplicado(controlEstructuraPlanta.nuevoOrganigrama.empresa.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndexDialogos(1)}" />
@@ -727,7 +727,7 @@
                                              id="btnNuevaEmpresa" process="@this" value="" actionListener="#{controlEstructuraPlanta.asignarIndexDialogos(1)}"/>
 
                             <strong><h:outputText value="*#{msg['nitN']}" style="position: absolute; top: 165px;" /></strong>
-                            <p:inputText id="nuevoNit" readonly="true" value="#{controlEstructuraPlanta.nuevoOrganigrama.empresa.nit}" style="width: 122px; position: absolute; left: 120px; top: 160px; text-transform: uppercase" onclick="select();">                                
+                            <p:inputText id="nuevoNit" readonly="true" value="#{controlEstructuraPlanta.nuevoOrganigrama.empresa.nit}" style="width: 122px; position: absolute; left: 120px; top: 160px; text-transform: uppercase" onclick="PF('select();">                                
                                 <p:ajax event="change" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevoNit" value="#{msg['nit']}" />
@@ -741,7 +741,7 @@
 
                             <p:commandButton icon="ui-icon-trash" id="limpiar" value="#{msg['limpiar']}" style="position: absolute; left: -20px; top: 245px;" actionListener="#{controlEstructuraPlanta.limpiarNuevoOrganigrama()}" update="nuevoOrganigrama" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="agregarOrganigrama" value="#{msg['agregar']}" style="position: absolute; left: 100px; top: 245px;"  process="@this" actionListener="#{controlEstructuraPlanta.agregarNuevoOrganigrama()}"/>
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarOrganigrama" value="#{msg['cancelar']}" style="position: absolute; left: 200px; top: 245px;" actionListener="#{controlEstructuraPlanta.limpiarNuevoOrganigrama()}" update="nuevoOrganigrama" onclick="NuevoRegistroOrganigramas.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarOrganigrama" value="#{msg['cancelar']}" style="position: absolute; left: 200px; top: 245px;" actionListener="#{controlEstructuraPlanta.limpiarNuevoOrganigrama()}" update="nuevoOrganigrama" onclick="PF('NuevoRegistroOrganigramas').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -761,13 +761,13 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="duplicarCodigo" value="#{controlEstructuraPlanta.duplicarOrganigrama.codigo}" style="width: 122px; position: absolute; left: 120px; top: 100px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarCodigo" value="#{controlEstructuraPlanta.duplicarOrganigrama.codigo}" style="width: 122px; position: absolute; left: 120px; top: 100px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 135px;" /></strong>
-                            <p:inputText id="duplicarEmpresa" value="#{controlEstructuraPlanta.duplicarOrganigrama.empresa.nombre}" style="width: 122px; position: absolute; left: 120px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarEmpresa" value="#{controlEstructuraPlanta.duplicarOrganigrama.empresa.nombre}" style="width: 122px; position: absolute; left: 120px; top: 130px; text-transform: uppercase" onclick="PF('select();">
 <!--                                <p:ajax event="click" listener="#/{controlEstructuraPlanta.valoresBackupAutocompletar(2)}" />-->
                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.autocompletarNuevoyDuplicado(controlEstructuraPlanta.nuevoOrganigrama.empresa.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndexDialogos(2)}" />
@@ -777,7 +777,7 @@
                                              id="btnDuplicarEmpresa" process="@this" value="" actionListener="#{controlEstructuraPlanta.asignarIndexDialogos(2)}"/>
 
                             <strong><h:outputText value="*#{msg['nitN']}" style="position: absolute; top: 165px;" /></strong>
-                            <p:inputText id="duplicarNit" readonly="true" value="#{controlEstructuraPlanta.duplicarOrganigrama.empresa.nit}" style="width: 122px; position: absolute; left: 120px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarNit" readonly="true" value="#{controlEstructuraPlanta.duplicarOrganigrama.empresa.nit}" style="width: 122px; position: absolute; left: 120px; top: 160px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNit" value="#{msg['nit']}" />
@@ -792,7 +792,7 @@
                             <p:commandButton icon="ui-icon-trash" id="limpiarDuplicadoOrganigrama" value="#{msg['limpiar']}" style="position: absolute; left: -20px; top: 245px;" actionListener="#{controlEstructuraPlanta.limpiarduplicarVTC()}" update="duplicarOrganigrama" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="agregarDuplicadoOrganigrama" value="#{msg['agregar']}" style="position: absolute; left: 100px; top: 245px;"  process="@this" actionListener="#{controlEstructuraPlanta.confirmarDuplicar()}" />
                             <p:commandButton icon="ui-icon-circle-close" id="cancelarDuplicadoOrganigrama" value="#{msg['cancelar']}" style="position: absolute; left: 200px; top: 245px;" actionListener="#{controlEstructuraPlanta.limpiarduplicarVTC()}" 
-                                             update="duplicarOrganigrama" onclick="DuplicarRegistroOrganigramas.hide();"  process="@this"/>
+                                             update="duplicarOrganigrama" onclick="PF('DuplicarRegistroOrganigramas').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog> 
                     <!-- editar organigrama -->

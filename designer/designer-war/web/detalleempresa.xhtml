@@ -51,7 +51,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="NuevoRegistroDetalleEmpresa.show()" update=":formularioDialogos:nuevaDetalleEmpresa"  process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="PF('NuevoRegistroDetalleEmpresa').show()" update=":formularioDialogos:nuevaDetalleEmpresa"  process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlDetalleEmpresa.validarBorradoDetalleEmpresa()}" process="@this"/>  
@@ -878,7 +878,7 @@
                             <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasR" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioRepresentante()}" process="@this"/>
                         </p:dialog>
 
-                        <p:commandButton style="position: absolute; left: 683px; top: 480px;" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="confirmarGuardarSalida.show();" update=":form:datosDetalleEmpresa"  disabled="#{controlDetalleEmpresa.cambiosPagina}" process="@this" />
+                        <p:commandButton style="position: absolute; left: 683px; top: 480px;" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarGuardarSalida').show();" update=":form:datosDetalleEmpresa"  disabled="#{controlDetalleEmpresa.cambiosPagina}" process="@this" />
                         <p:commandButton style="position: absolute; left: 775px; top: 480px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlDetalleEmpresa.salir()}" action="#{controlDetalleEmpresa.regresarAPaginaAnterior()}" process="@this" />
                         <h:outputText id="informacionRegistro" value="#{controlDetalleEmpresa.infoRegistro}" style="position: absolute; left: 15px; top: 485px; font-weight: bold"/>
 
@@ -887,31 +887,31 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlDetalleEmpresa.guardadoGeneral()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlDetalleEmpresa.salir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDetalleEmpresa.guardadoGeneral()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDetalleEmpresa.salir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
                     
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlDetalleEmpresa.guardadoGeneral()}" action="#{controlDetalleEmpresa.regresarAPaginaAnterior()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlDetalleEmpresa.salir()}" action="#{controlDetalleEmpresa.regresarAPaginaAnterior()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlDetalleEmpresa.guardadoGeneral()}" action="#{controlDetalleEmpresa.regresarAPaginaAnterior()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlDetalleEmpresa.salir()}" action="#{controlDetalleEmpresa.regresarAPaginaAnterior()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
                     
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleEmpresa.backUpSecRegistro, 'DetallesEmpresas', 'rastroDetalleEmp')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleEmpresa.backUpSecRegistro, 'DetallesEmpresas', 'rastroDetalleEmp')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('DetallesEmpresas', 'rastroDetalleEmp')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('DetallesEmpresas', 'rastroDetalleEmp')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -927,8 +927,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleEmpresa.backUpSecRegistro, 'Proyectos', 'rastroDetalleEmp')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleEmpresa.backUpSecRegistro, 'Proyectos', 'rastroDetalleEmp')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -950,13 +950,13 @@
                     <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="errorFechas.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorDatosNull" header="#{msg['atencion']}" widgetVar="errorDatosNull"  resizable="false" draggable="false" modal="true" height="110" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNull']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="errorDatosNull.hide();" style="position: absolute; top: 75px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('errorDatosNull').hide();" style="position: absolute; top: 75px; left: 300px;" process="@this" />
                     </p:dialog>
 
                 </h:form>
@@ -973,7 +973,7 @@
                                 <div  style="width: 470px; height: 250px">
 
                                     <strong><h:outputText value="#{msg['empresaN']}*" style="position: absolute; top: 15px; left: 25px;" /></strong>
-                                    <p:inputText id="nuevaEmpresaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.empresa.nombre}" style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="nuevaEmpresaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.empresa.nombre}" style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,0,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'EMPRESA')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('EMPRESA', controlDetalleEmpresa.nuevaDetalleEmpresa.empresa.nombre,1)}" process="@this" update="nuevaEmpresaDetalle"/>
@@ -982,19 +982,19 @@
                                     <p:watermark for="nuevaEmpresaDetalle" value="#{msg['empresa']}" />
 
                                     <strong><h:outputText value="#{msg['tipoEmpresaN']}*" style="position: absolute; top: 45px; left: 25px; " /></strong>
-                                    <p:inputText id="nuevaTipoEmpresaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.tipo}" style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="nuevaTipoEmpresaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.tipo}" style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="nuevaTipoEmpresaDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaTipoEmpresaDetalle" value="#{msg['tipoEmpresa']}" />
 
                                     <strong><h:outputText value="#{msg['direccionN']}*" style="position: absolute; top: 75px; left: 25px; " /></strong>
-                                    <p:inputText id="nuevaDireccionDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.direccion}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="nuevaDireccionDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.direccion}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="nuevaDireccionDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaDireccionDetalle" value="#{msg['direccion']}" />
 
                                     <strong><h:outputText value="#{msg['ciudadN']}*" style="position: absolute; top: 105px; left: 25px; " /></strong>
-                                    <p:inputText id="nuevaCiudadDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.ciudad.nombre}" style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="nuevaCiudadDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.ciudad.nombre}" style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,1,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'CIUDAD')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CIUDAD', controlDetalleEmpresa.nuevaDetalleEmpresa.ciudad.nombre,1)}" process="@this" update="nuevaCiudadDetalle"/>
@@ -1003,25 +1003,25 @@
                                     <p:watermark for="nuevaCiudadDetalle" value="#{msg['ciudad']}" />
 
                                     <strong><h:outputText value="#{msg['telefonoN']}*" style="position: absolute; top: 135px; left: 25px; " /></strong>
-                                    <p:inputText id="nuevaTelefonoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.telefono}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="nuevaTelefonoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.telefono}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="nuevaTelefonoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaTelefonoDetalle" value="#{msg['telefono']}" />
 
                                     <strong><h:outputText value="#{msg['faxN']}*" style="position: absolute; top: 165px; left: 25px; " /></strong>
-                                    <p:inputText id="nuevaFaxDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.fax}"  style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="nuevaFaxDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.fax}"  style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="nuevaFaxDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaFaxDetalle" value="#{msg['fax']}" />
 
                                     <strong><h:outputText value="#{msg['tipoNitN']}" style="position: absolute; top: 195px; left: 25px;" /></strong>
-                                    <p:inputText id="nuevaTipoNitDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.tiponit}"  style="width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="nuevaTipoNitDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.tiponit}"  style="width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="nuevaTipoNitDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaTipoNitDetalle" value="#{msg['tipoNit']}" />
 
                                     <strong><h:outputText value="#{msg['digitoVerificacionN']}" style="position: absolute; top: 225px; left: 25px;" /></strong>
-                                    <p:inputText id="nuevaDigitoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.digitoverificacion}"  style="width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="nuevaDigitoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.digitoverificacion}"  style="width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="nuevaDigitoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaDigitoDetalle" value="#{msg['digitoVer']}" />
@@ -1101,19 +1101,19 @@
                                 <div style="width: 470px; height: 310px">
 
                                     <strong><h:outputText value="#{msg['nombreRepresentanteN']}*" style="position: absolute; top: 15px; left: 25px; " /></strong>
-                                    <p:inputText id="nuevaNombreRepresentanteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.nombrerepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="nuevaNombreRepresentanteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.nombrerepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="nuevaNombreRepresentanteDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaNombreRepresentanteDetalle" value="#{msg['nombreRepre']}" />
 
                                     <strong><h:outputText value="#{msg['documentoRepresentanteN']}*" style="position: absolute; top: 45px; left: 25px; " /></strong>
-                                    <p:inputText id="nuevaDocumentoRepresentanteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.documentorepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="nuevaDocumentoRepresentanteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.documentorepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="nuevaDocumentoRepresentanteDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaDocumentoRepresentanteDetalle" value="#{msg['documentoRepre']}" />
 
                                     <strong><h:outputText value="#{msg['ciudadDocumentoN']}" style="position: absolute; top: 75px; left: 25px;" /></strong>
-                                    <p:inputText id="nuevaCiudadDocumentoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.ciudaddocumentorepresentante.nombre}" style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="nuevaCiudadDocumentoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.ciudaddocumentorepresentante.nombre}" style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,2,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'CIUDADDOCUMENTO')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CIUDADDOCUMENTO', controlDetalleEmpresa.nuevaDetalleEmpresa.ciudaddocumentorepresentante.nombre,1)}" process="@this" update="nuevaCiudadDocumentoDetalle"/>
@@ -1122,19 +1122,19 @@
                                     <p:watermark for="nuevaCiudadDocumentoDetalle" value="#{msg['ciudadDoc']}" />
 
                                     <strong><h:outputText value="#{msg['arquitectoN']}" style="position: absolute; top: 105px; left: 25px;" /></strong>
-                                    <p:inputText id="nuevaArquitectoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="nuevaArquitectoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="nuevaArquitectoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaArquitectoDetalle" value="#{msg['arquitecto']}" />
 
                                     <strong><h:outputText value="#{msg['cargoArquitectoN']}" style="position: absolute; top: 135px; left: 25px;" /></strong>
-                                    <p:inputText id="nuevaCargoArquitectoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="nuevaCargoArquitectoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="nuevaCargoArquitectoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaCargoArquitectoDetalle" value="#{msg['cargoArquitecto']}" />
 
                                     <strong><h:outputText value="#{msg['gerenteN']}" style="position: absolute; top: 165px; left: 25px;" /></strong>
-                                    <p:inputText id="nuevaGerenteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.gerentegeneral.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="nuevaGerenteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.gerentegeneral.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,3,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'GERENTE')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('GERENTE', controlDetalleEmpresa.nuevaDetalleEmpresa.gerentegeneral.persona.nombreCompleto,1)}" process="@this" update="nuevaGerenteDetalle"/>
@@ -1143,7 +1143,7 @@
                                     <p:watermark for="nuevaGerenteDetalle" value="#{msg['gerenteGeneral']}" />
 
                                     <strong><h:outputText value="#{msg['subGerenteN']}" style="position: absolute; top: 195px; left: 25px;" /></strong>
-                                    <p:inputText id="nuevaSubGerenteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.subgerente.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="nuevaSubGerenteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.subgerente.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,6,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'SUBGERENTE')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('SUBGERENTE', controlDetalleEmpresa.nuevaDetalleEmpresa.subgerente.persona.nombreCompleto,1)}" process="@this" update="nuevaSubGerenteDetalle"/>
@@ -1152,7 +1152,7 @@
                                     <p:watermark for="nuevaSubGerenteDetalle" value="#{msg['subGerente']}" />
 
                                     <strong><h:outputText value="#{msg['representanteN']}" style="position: absolute; top: 225px; left: 25px;" /></strong>
-                                    <p:inputText id="nuevaRepresentanteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.representantecir.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="nuevaRepresentanteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.representantecir.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,7,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'REPRESENTANTE')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('REPRESENTANTE', controlDetalleEmpresa.nuevaDetalleEmpresa.representantecir.persona.nombreCompleto,1)}" process="@this" update="nuevaRepresentanteDetalle"/>
@@ -1161,7 +1161,7 @@
                                     <p:watermark for="nuevaRepresentanteDetalle" value="#{msg['representante']}" />
 
                                     <strong><h:outputText value="#{msg['personaFirmaN']}" style="position: absolute; top: 255px; left: 25px;" /></strong>
-                                    <p:inputText id="nuevaPersonaFirmaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.personafirmaconstancia.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 250px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="nuevaPersonaFirmaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.personafirmaconstancia.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 250px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,4,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'PERSONA')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('PERSONA', controlDetalleEmpresa.nuevaDetalleEmpresa.personafirmaconstancia.nombreCompleto,1)}" process="@this" update="nuevaPersonaFirmaDetalle"/>
@@ -1170,7 +1170,7 @@
                                     <p:watermark for="nuevaPersonaFirmaDetalle" value="#{msg['personaFirma']}" />
 
                                     <strong><h:outputText value="#{msg['cargoFirmaN']}" style="position: absolute; top: 285px; left: 25px;" /></strong>
-                                    <p:inputText id="nuevaCargoFirmaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.cargofirmaconstancia.nombre}" style="width: 122px; position: absolute; left: 230px; top: 280px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="nuevaCargoFirmaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.cargofirmaconstancia.nombre}" style="width: 122px; position: absolute; left: 230px; top: 280px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,5,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'CARGO')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CARGO', controlDetalleEmpresa.nuevaDetalleEmpresa.cargofirmaconstancia.nombre,1)}" process="@this" update="nuevaCargoFirmaDetalle"/>
@@ -1185,7 +1185,7 @@
                                 <div style="width: 470px; height: 190px">
 
                                     <strong><h:outputText value="#{msg['emailN']}" style="position: absolute; top: 15px; left: 25px;" /></strong>
-                                    <p:inputText id="nuevaEmailDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.email}"  style="width: 122px; position: absolute; left: 230px; top: 10px; " onclick="select();" >
+                                    <p:inputText id="nuevaEmailDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.email}"  style="width: 122px; position: absolute; left: 230px; top: 10px; " onclick="PF('select();" >
                                         <p:ajax event="change" update="nuevaEmailDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaEmailDetalle" value="#{msg['email']}" />
@@ -1198,19 +1198,19 @@
                                     </p:selectOneMenu>
 
                                     <strong><h:outputText value="#{msg['ciiuN']}" style="position: absolute; top: 75px; left: 25px;" /></strong>
-                                    <p:inputText id="nuevaCIIUDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.ciiu}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="nuevaCIIUDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.ciiu}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="nuevaCIIUDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaCIIUDetalle" value="CIIU" />
 
                                     <strong><h:outputText value="#{msg['actEconomicaN']}" style="position: absolute; top: 105px; left: 25px;" /></strong>
-                                    <p:inputText id="nuevaActividadEconomicaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.actividadeconomica}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="nuevaActividadEconomicaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.actividadeconomica}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="nuevaActividadEconomicaDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaActividadEconomicaDetalle" value="#{msg['actividadEconomica']}" />
                                     
                                     <strong><h:outputText value="#{msg['planillaN']}" style="position: absolute; top: 135px; left: 25px;" /></strong>
-                                    <p:inputText id="nuevaPlanillaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.pilaultimaplanilla}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="nuevaPlanillaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.pilaultimaplanilla}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="nuevaPlanillaDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaPlanillaDetalle" value="#{msg['planilla']}" />
@@ -1282,7 +1282,7 @@
 
                         <p:commandButton icon="ui-icon-trash" id="limpiarNDE" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 585px;" actionListener="#{controlDetalleEmpresa.limpiarNuevaDetalleEmpresa()}" update="nuevaDetalleEmpresa" process="@this"/>
                         <p:commandButton icon="ui-icon-circle-check" id="agregarNDE" value="#{msg['agregar']}" style="position: absolute; left: 310px; top: 585px;" actionListener="#{controlDetalleEmpresa.agregarNuevaDetalleEmpresa()}" process="@this"/>
-                        <p:commandButton icon="ui-icon-circle-close" id="cancelarNDE" value="#{msg['cancelar']}" style="position: absolute; left: 400px; top: 585px;" actionListener="#{controlDetalleEmpresa.cancelarNuevaDetalleEmpresa()}" update="nuevaDetalleEmpresa" onclick="NuevoRegistroDetalleEmpresa.hide();"  process="@this"/>
+                        <p:commandButton icon="ui-icon-circle-close" id="cancelarNDE" value="#{msg['cancelar']}" style="position: absolute; left: 400px; top: 585px;" actionListener="#{controlDetalleEmpresa.cancelarNuevaDetalleEmpresa()}" update="nuevaDetalleEmpresa" onclick="PF('NuevoRegistroDetalleEmpresa').hide();"  process="@this"/>
 
                     </p:dialog>
 
@@ -1296,7 +1296,7 @@
                                 <div style="width: 470px; height: 250px">
 
                                     <strong><h:outputText value="#{msg['empresaN']}*" style="position: absolute; top: 15px; left: 25px;" /></strong>
-                                    <p:inputText id="duplicarEmpresaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.empresa.nombre}" style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="duplicarEmpresaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.empresa.nombre}" style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,0,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'EMPRESA')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('EMPRESA', controlDetalleEmpresa.duplicarDetalleEmpresa.empresa.nombre,2)}" process="@this" update="duplicarEmpresaDetalle"/>
@@ -1305,19 +1305,19 @@
                                     <p:watermark for="duplicarEmpresaDetalle" value="#{msg['empresa']}" />
 
                                     <strong><h:outputText value="#{msg['tipoEmpresaN']}*" style="position: absolute; top: 45px; left: 25px; " /></strong>
-                                    <p:inputText id="duplicarTipoEmpresaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.tipo}" style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="duplicarTipoEmpresaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.tipo}" style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="duplicarTipoEmpresaDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarTipoEmpresaDetalle" value="#{msg['tipoEmpresa']}" />
 
                                     <strong><h:outputText value="#{msg['direccionN']}*" style="position: absolute; top: 75px; left: 25px; " /></strong>
-                                    <p:inputText id="duplicarDireccionDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.direccion}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="duplicarDireccionDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.direccion}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="duplicarDireccionDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarDireccionDetalle" value="#{msg['direccion']}" />
 
                                     <strong><h:outputText value="#{msg['ciudadN']}*" style="position: absolute; top: 105px; left: 25px; " /></strong>
-                                    <p:inputText id="duplicarCiudadDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.ciudad.nombre}" style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="duplicarCiudadDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.ciudad.nombre}" style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,1,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'CIUDAD')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CIUDAD', controlDetalleEmpresa.duplicarDetalleEmpresa.ciudad.nombre,1)}" process="@this" update="duplicarCiudadDetalle"/>
@@ -1326,25 +1326,25 @@
                                     <p:watermark for="duplicarCiudadDetalle" value="#{msg['ciudad']}" />
 
                                     <strong><h:outputText value="#{msg['telefonoN']}*" style="position: absolute; top: 135px; left: 25px; " /></strong>
-                                    <p:inputText id="duplicarTelefonoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.telefono}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="duplicarTelefonoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.telefono}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="duplicarTelefonoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarTelefonoDetalle" value="#{msg['telefono']}" />
 
                                     <strong><h:outputText value="#{msg['faxN']}*" style="position: absolute; top: 165px; left: 25px; " /></strong>
-                                    <p:inputText id="duplicarFaxDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.fax}"  style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="duplicarFaxDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.fax}"  style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="duplicarFaxDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarFaxDetalle" value="#{msg['fax']}" />
 
                                     <strong><h:outputText value="#{msg['tipoNitN']}" style="position: absolute; top: 195px; left: 25px;" /></strong>
-                                    <p:inputText id="duplicarTipoNitDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.tiponit}"  style=" width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="duplicarTipoNitDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.tiponit}"  style=" width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="duplicarTipoNitDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarTipoNitDetalle" value="#{msg['tipoNit']}" />
 
                                     <strong><h:outputText value="#{msg['digitoVerificacionN']}" style="position: absolute; top: 225px; left: 25px;" /></strong>
-                                    <p:inputText id="duplicarDigitoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.digitoverificacion}"  style=" width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="duplicarDigitoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.digitoverificacion}"  style=" width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="duplicarDigitoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarDigitoDetalle" value="#{msg['digitoVer']}" />
@@ -1424,19 +1424,19 @@
                                 <div style="width: 470px; height: 310px">
 
                                     <strong><h:outputText value="#{msg['nombreRepresentanteN']}*" style="position: absolute; top: 15px; left: 25px; " /></strong>
-                                    <p:inputText id="duplicarNombreRepresentanteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.nombrerepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="duplicarNombreRepresentanteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.nombrerepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="duplicarNombreRepresentanteDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarNombreRepresentanteDetalle" value="#{msg['nombreRepre']}" />
 
                                     <strong><h:outputText value="#{msg['documentoRepresentanteN']}*" style="position: absolute; top: 45px; left: 25px; " /></strong>
-                                    <p:inputText id="duplicarDocumentoRepresentanteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.documentorepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="duplicarDocumentoRepresentanteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.documentorepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="duplicarDocumentoRepresentanteDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarDocumentoRepresentanteDetalle" value="#{msg['documentoRepre']}" />
 
                                     <strong><h:outputText value="#{msg['ciudadDocumentoN']}" style="position: absolute; top: 75px; left: 25px;" /></strong>
-                                    <p:inputText id="duplicarCiudadDocumentoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.ciudaddocumentorepresentante.nombre}" style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="duplicarCiudadDocumentoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.ciudaddocumentorepresentante.nombre}" style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,2,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'CIUDADDOCUMENTO')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CIUDADDOCUMENTO', controlDetalleEmpresa.duplicarDetalleEmpresa.ciudaddocumentorepresentante.nombre,2)}" process="@this" update="duplicarCiudadDocumentoDetalle"/>
@@ -1445,19 +1445,19 @@
                                     <p:watermark for="duplicarCiudadDocumentoDetalle" value="#{msg['ciudadDoc']}" />
 
                                     <strong><h:outputText value="#{msg['arquitectoN']}" style="position: absolute; top: 105px; left: 25px;" /></strong>
-                                    <p:inputText id="duplicarArquitectoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="duplicarArquitectoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="duplicarArquitectoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarArquitectoDetalle" value="#{msg['arquitecto']}" />
 
                                     <strong><h:outputText value="#{msg['cargoArquitectoN']}" style="position: absolute; top: 135px; left: 25px;" /></strong>
-                                    <p:inputText id="duplicarCargoArquitectoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="duplicarCargoArquitectoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="duplicarCargoArquitectoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarCargoArquitectoDetalle" value="#{msg['cargoArquitecto']}" />
 
                                     <strong><h:outputText value="#{msg['gerenteN']}" style="position: absolute; top: 165px; left: 25px;" /></strong>
-                                    <p:inputText id="duplicarGerenteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.gerentegeneral.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="duplicarGerenteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.gerentegeneral.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,3,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'GERENTE')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('GERENTE', controlDetalleEmpresa.duplicarDetalleEmpresa.gerentegeneral.persona.nombreCompleto,2)}" process="@this" update="duplicarGerenteDetalle"/>
@@ -1466,7 +1466,7 @@
                                     <p:watermark for="duplicarGerenteDetalle" value="#{msg['gerenteGeneral']}" />
 
                                     <strong><h:outputText value="#{msg['subGerenteN']}" style="position: absolute; top: 195px; left: 25px;" /></strong>
-                                    <p:inputText id="duplicarSubGerenteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.subgerente.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="duplicarSubGerenteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.subgerente.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,6,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'SUBGERENTE')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('SUBGERENTE', controlDetalleEmpresa.duplicarDetalleEmpresa.subgerente.persona.nombreCompleto,2)}" process="@this" update="duplicarSubGerenteDetalle"/>
@@ -1475,7 +1475,7 @@
                                     <p:watermark for="duplicarSubGerenteDetalle" value="#{msg['subGerente']}" />
 
                                     <strong><h:outputText value="#{msg['representanteN']}" style="position: absolute; top: 225px; left: 25px;" /></strong>
-                                    <p:inputText id="duplicarRepresentanteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.representantecir.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="duplicarRepresentanteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.representantecir.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,7,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'REPRESENTANTE')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('REPRESENTANTE', controlDetalleEmpresa.duplicarDetalleEmpresa.representantecir.persona.nombreCompleto,2)}" process="@this" update="duplicarRepresentanteDetalle"/>
@@ -1484,7 +1484,7 @@
                                     <p:watermark for="duplicarRepresentanteDetalle" value="#{msg['representante']}" />
 
                                     <strong><h:outputText value="#{msg['personaFirmaN']}" style="position: absolute; top: 255px; left: 25px;" /></strong>
-                                    <p:inputText id="duplicarPersonaFirmaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.personafirmaconstancia.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 250px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="duplicarPersonaFirmaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.personafirmaconstancia.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 250px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,4,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'PERSONA')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('PERSONA', controlDetalleEmpresa.duplicarDetalleEmpresa.personafirmaconstancia.nombreCompleto,2)}" process="@this" update="duplicarPersonaFirmaDetalle"/>
@@ -1493,7 +1493,7 @@
                                     <p:watermark for="duplicarPersonaFirmaDetalle" value="#{msg['personaFirma']}" />
 
                                     <strong><h:outputText value="#{msg['cargoFirmaN']}" style="position: absolute; top: 285px; left: 25px;" /></strong>
-                                    <p:inputText id="duplicarCargoFirmaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.cargofirmaconstancia.nombre}" style="width: 122px; position: absolute; left: 230px; top: 280px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText id="duplicarCargoFirmaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.cargofirmaconstancia.nombre}" style="width: 122px; position: absolute; left: 230px; top: 280px; text-transform: uppercase" onclick="PF('select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,5,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'CARGO')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CARGO', controlDetalleEmpresa.duplicarDetalleEmpresa.cargofirmaconstancia.nombre,2)}" process="@this" update="duplicarCargoFirmaDetalle"/>
@@ -1508,7 +1508,7 @@
                                 <div style="width: 470px; height: 190px">
 
                                     <strong><h:outputText value="#{msg['emailN']}" style="position: absolute; top: 15px; left: 25px;" /></strong>
-                                    <p:inputText id="duplicarEmailDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.email}"  style="width: 122px; position: absolute; left: 230px; top: 10px;" onclick="select();" >
+                                    <p:inputText id="duplicarEmailDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.email}"  style="width: 122px; position: absolute; left: 230px; top: 10px;" onclick="PF('select();" >
                                         <p:ajax event="change" update="duplicarEmailDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarEmailDetalle" value="#{msg['email']}" />
@@ -1521,19 +1521,19 @@
                                     </p:selectOneMenu>
 
                                     <strong><h:outputText value="#{msg['ciiuN']}" style="position: absolute; top: 75px; left: 25px;" /></strong>
-                                    <p:inputText id="duplicarCIIUDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.ciiu}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="duplicarCIIUDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.ciiu}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="duplicarCIIUDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarCIIUDetalle" value="CIIU" />
 
                                     <strong><h:outputText value="#{msg['actEconomicaN']}" style="position: absolute; top: 105px; left: 25px;" /></strong>
-                                    <p:inputText id="duplicarActividadEconomicaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.actividadeconomica}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="duplicarActividadEconomicaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.actividadeconomica}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="duplicarActividadEconomicaDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarActividadEconomicaDetalle" value="#{msg['actividadEconomica']}" />
                                     
                                     <strong><h:outputText value="#{msg['planillaN']}" style="position: absolute; top: 135px; left: 25px;" /></strong>
-                                    <p:inputText id="duplicarPlanillaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.pilaultimaplanilla}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText id="duplicarPlanillaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.pilaultimaplanilla}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="PF('select();" >
                                         <p:ajax event="change" update="duplicarPlanillaDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarPlanillaDetalle" value="#{msg['planilla']}" />
@@ -1605,7 +1605,7 @@
                         
                             <p:commandButton icon="ui-icon-trash" id="limpiarDDE" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 585px;" actionListener="#{controlDetalleEmpresa.limpiarDuplicadoDetalleEmpresa()}" update="duplicarDetalleEmpresa" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="agregarDDE" value="#{msg['agregar']}" style="position: absolute; left: 310px; top: 585px;" actionListener="#{controlDetalleEmpresa.confirmarDuplicarDetalleEmpresa()}" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDDE" value="#{msg['cancelar']}" style="position: absolute; left: 400px; top: 585px;" actionListener="#{controlDetalleEmpresa.cancelarDuplicadoDetalleEmpresa()}" update="duplicarDetalleEmpresa" onclick="DuplicarRegistroDetalleEmpresa.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDDE" value="#{msg['cancelar']}" style="position: absolute; left: 400px; top: 585px;" actionListener="#{controlDetalleEmpresa.cancelarDuplicadoDetalleEmpresa()}" update="duplicarDetalleEmpresa" onclick="PF('DuplicarRegistroDetalleEmpresa').hide();"  process="@this"/>
                     </p:dialog>
 
                     <!-- ////// ////// ////// -->

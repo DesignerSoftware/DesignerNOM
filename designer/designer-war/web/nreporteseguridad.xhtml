@@ -66,7 +66,7 @@
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png);" 
-                                                 id="refrescar" value="" actionListener="#{controlNReportesSeguridad.cancelarModificaciones()}" oncomplete="window.location.reload()" process="@this"/>  
+                                                 id="refrescar" value="" actionListener="#{controlNReportesSeguridad.cancelarModificaciones()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                                 <p:separator style="position: relative; top: -9px"/> 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);" 
@@ -161,23 +161,23 @@
 
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" process="@this" 
-                                         oncomplete="EnvioCorreoDialogo.show()" actionListener="#{controlNReportesSeguridad.defaultPropiedadesParametrosReporte()}"/>
+                                         oncomplete="PF('EnvioCorreoDialogo').show()" actionListener="#{controlNReportesSeguridad.defaultPropiedadesParametrosReporte()}"/>
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
 
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlNReportesSeguridad.guardarYSalir()}" action="nomina" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlNReportesSeguridad.cancelarYSalir()}" action="nomina" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReportesSeguridad.guardarYSalir()}" action="nomina" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReportesSeguridad.cancelarYSalir()}" action="nomina" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
 
                         <p:dialog id="confirmarGuardarSinSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSinSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSinSalida.hide();" actionListener="#{controlNReportesSeguridad.guardarCambios()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSinSalida.hide();" actionListener="#{controlNReportesSeguridad.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSinSalida.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlNReportesSeguridad.guardarCambios()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlNReportesSeguridad.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSinSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
 
                         <p:hotkey bind="ctrl+f11" actionListener="#{controlNReportesSeguridad.activarCtrlF11()}" process="@this"/> 
@@ -241,10 +241,10 @@
 
                             </fieldset>
                             <p:commandButton icon="ui-icon-extlink" id="registroEnvio" style="position: absolute; left: 15px; top: 288px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); 
-                                             background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" value="Registros E" onclick="EnvioCorreoDialogo.hide()"  process="@this"/>
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" value="Registros E" onclick="PF('EnvioCorreoDialogo').hide()"  process="@this"/>
                             <p:tooltip for="registroEnvio" value="#{msg['registrodeenvios']}" />
 
-                            <p:commandButton id="atras" style="position: absolute; left: 360px; top: 290px;" value="" onclick="EnvioCorreoDialogo.hide()"  process="@this"/>
+                            <p:commandButton id="atras" style="position: absolute; left: 360px; top: 290px;" value="" onclick="PF('EnvioCorreoDialogo').hide()"  process="@this"/>
 
                         </p:dialog>
 
@@ -461,7 +461,7 @@
                                 <div align="left">
                                     <h:outputText value="#{msg['empleadodesde']}:" style=""/>
                                     <p:inputText id="empleadoDesdeParametro" value="#{controlNReportesSeguridad.parametroDeInforme.codigoempleadodesde}"  
-                                                 style="width: 80px; vertical-align: middle;" onclick="select();">
+                                                 style="width: 80px; vertical-align: middle;" onclick="PF('select();">
                                         <p:ajax event="click" listener="#{controlNReportesSeguridad.posicionCelda(2)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReportesSeguridad.autocompletarGeneral('DESDE', controlNReportesSeguridad.parametroDeInforme.codigoempleadodesde)}" 
                                                 event="change"  update="empleadoDesdeParametro" process="@this"/>
@@ -472,7 +472,7 @@
                                 <div align="left">
                                     <h:outputText value="#{msg['tercero']}:" style=""/>
                                     <p:inputText id="terceroParametro" value="#{controlNReportesSeguridad.parametroDeInforme.tercero.nombre}"  
-                                                 style="vertical-align: middle; width: 150px;" onclick="select();">
+                                                 style="vertical-align: middle; width: 150px;" onclick="PF('select();">
                                         <p:ajax event="click" listener="#{controlNReportesSeguridad.posicionCelda(4)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReportesSeguridad.autocompletarGeneral('TERCERO', controlNReportesSeguridad.parametroDeInforme.tercero.nombre)}" 
                                                 event="change" update="terceroParametro" process="@this"/>
@@ -506,7 +506,7 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['hasta']}:" style="max-width: 66px;"/>
                                     <p:inputText id="empleadoHastaParametro" value="#{controlNReportesSeguridad.parametroDeInforme.codigoempleadohasta}" 
-                                                 style="vertical-align: middle; width: 80px;" onclick="select();">
+                                                 style="vertical-align: middle; width: 80px;" onclick="PF('select();">
                                         <p:ajax event="click" listener="#{controlNReportesSeguridad.posicionCelda(3)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReportesSeguridad.autocompletarGeneral('HASTA',controlNReportesSeguridad.parametroDeInforme.codigoempleadohasta)}"
                                                 event="change" update="empleadoHastaParametro" />
@@ -517,7 +517,7 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['empresa']}:" style=""/>
                                     <p:inputText id="empresaParametro" value="#{controlNReportesSeguridad.parametroDeInforme.empresa.nombre}"  
-                                                 style="vertical-align: middle; width: 135px;" onclick="select();">
+                                                 style="vertical-align: middle; width: 135px;" onclick="PF('select();">
                                         <p:ajax event="click" listener="#{controlNReportesSeguridad.posicionCelda(5)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReportesSeguridad.autocompletarGeneral('EMPRESA', controlNReportesSeguridad.parametroDeInforme.empresa.nombre)}" 
                                                 event="change" update="empresaParametro" process="@this"/>
@@ -527,7 +527,7 @@
                                 <div align="right">
                                     <h:outputText value="Sucursal:" style=""/>
                                     <p:inputText id="sucursalParametro" maxlength="30" value="#{controlNReportesSeguridad.parametroDeInforme.sucursalPila.descripcion}"  
-                                                 style="vertical-align: middle; width: 180px;" onclick="select();">
+                                                 style="vertical-align: middle; width: 180px;" onclick="PF('select();">
                                         <p:ajax event="click" listener="#{controlNReportesSeguridad.posicionCelda(7)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReportesSeguridad.autocompletarGeneral('SUCURSAL', controlNReportesSeguridad.parametroDeInforme.sucursalPila.descripcion)}" 
                                                 event="change" update="sucursalParametro" process="@this"/>
@@ -601,25 +601,25 @@
 
                     <p:dialog id="reporteAGenerar" header="#{msg['reporteAGenerar']}" widgetVar="reporteAGenerar" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
                         <h:outputText value="#{controlNReportesSeguridad.reporteGenerar}" style="overflow: auto; width: 360px; height: 60px"/>
-                        <p:commandButton id="cancelarReporteSeleccionado" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" onclick="reporteAGenerar.hide();" actionListener="#{controlNReportesSeguridad.cancelarGenerarReporte()}" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                        <p:commandButton id="cancelarReporteSeleccionado" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" onclick="PF('reporteAGenerar').hide();" actionListener="#{controlNReportesSeguridad.cancelarGenerarReporte()}" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="requisitosReporte" header="#{msg['requisitosReporte']}" widgetVar="requisitosReporte" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
                         <h:outputText value="#{controlNReportesSeguridad.requisitosReporte}" style="overflow: auto; width: 360px; height: 60px"/>
-                        <p:commandButton id="cancelarRequisitoReporte" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" onclick="requisitosReporte.hide();" actionListener="#{controlNReportesSeguridad.cancelarRequisitosReporte()}" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                        <p:commandButton id="cancelarRequisitoReporte" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" onclick="PF('requisitosReporte').hide();" actionListener="#{controlNReportesSeguridad.cancelarRequisitosReporte()}" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="false" modal="true" height="90" width="355" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
                         <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="generandoReporte.hide();" actionListener="#{controlNReportesSeguridad.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlNReportesSeguridad.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="false" modal="true" height="90" width="330" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/descargar.gif" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['mensajeExitoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
-                        <p:commandButton value="#{msg['descargar']}" icon="ui-icon-download" actionListener="#{controlNReportesSeguridad.exportarReporte()}" style="position: absolute; top: 50px; left: 100px;" process="@this" ajax="false" onclick="descargarReporte.hide();"/>
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="descargarReporte.hide();" style="position: absolute; top: 50px; left: 212px;" process="@this" />
+                        <p:commandButton value="#{msg['descargar']}" icon="ui-icon-download" actionListener="#{controlNReportesSeguridad.exportarReporte()}" style="position: absolute; top: 50px; left: 100px;" process="@this" ajax="false" onclick="PF('descargarReporte').hide();"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this" />
                     </p:dialog> 
 
                     <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="false" modal="true" height="90" width="350" style="font-size: 12px">  

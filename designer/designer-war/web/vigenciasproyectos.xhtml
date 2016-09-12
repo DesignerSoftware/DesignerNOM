@@ -172,7 +172,7 @@
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="NuevoRegistroVigenciaProyecto.show()" update=":formularioDialogos:nuevaVigenciaProyecto" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="PF('NuevoRegistroVigenciaProyecto').show()" update=":formularioDialogos:nuevaVigenciaProyecto" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" /> 
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlVigenciasProyectos.borrarVigenciasProyectos()}" process="@this"/>  
@@ -187,7 +187,7 @@
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <p:commandButton style="position: absolute; left: 688px; top: 482px;" icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}" onclick="confirmarGuardar.show();" update=":form:datosVigenciasProyectosPersona" process="@this" disabled="#{controlVigenciasProyectos.guardado}"/>
+                        <p:commandButton style="position: absolute; left: 688px; top: 482px;" icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciasProyectosPersona" process="@this" disabled="#{controlVigenciasProyectos.guardado}"/>
                         <p:commandButton style="position: absolute;  left: 15px; top: 482px; " icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}" actionListener="#{controlVigenciasProyectos.cancelarModificacion()}" process="@this" />
                         <p:commandButton style="position: absolute; left: 785px; top: 482px;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}" actionListener="#{controlVigenciasProyectos.salir()}" action="individual" process="@this" />
 
@@ -233,15 +233,15 @@
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasProyectos.secRegistro, 'VigenciasProyectos', 'vigenciasproyectos')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasProyectos.secRegistro, 'VigenciasProyectos', 'vigenciasproyectos')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('VigenciasProyectos', 'vigenciasproyectos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasProyectos', 'vigenciasproyectos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -257,8 +257,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasProyectos.secRegistro, 'VigenciasProyectos', 'vigenciasproyectos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasProyectos.secRegistro, 'VigenciasProyectos', 'vigenciasproyectos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -426,7 +426,7 @@
                             </div>
    
                             <strong><h:outputText value="#{msg['proyectoN']}" style=" position: absolute; top: 150px;" /></strong>
-                            <p:inputText id="nuevoProyecto" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.proyecto.nombreproyecto}" style=" width: 122px; position: absolute; left: 160px; top: 145px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoProyecto" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.proyecto.nombreproyecto}" style=" width: 122px; position: absolute; left: 160px; top: 145px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(1, 'PROYECTO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('PROYECTO', controlVigenciasProyectos.nuevaVigenciaProyectos.proyecto.nombreproyecto, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(indice, 0, 1)}" />
@@ -435,7 +435,7 @@
 
 
                             <strong><h:outputText value="#{msg['rolN']}" style=" position: absolute; top: 190px;" /></strong>
-                            <p:inputText id="nuevoPryRol" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.pryRol.descripcion}" style=" width: 122px; position: absolute; left: 160px; top: 185px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoPryRol" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.pryRol.descripcion}" style=" width: 122px; position: absolute; left: 160px; top: 185px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(1, 'PRYROL')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('PRYROL', controlVigenciasProyectos.nuevaVigenciaProyectos.pryRol.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(indice, 1, 1)}" />
@@ -444,7 +444,7 @@
 
 
                             <strong><h:outputText value="#{msg['cargoN']}" style=" position: absolute; top: 230px;" /></strong>
-                            <p:inputText id="nuevoCargo" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.pryCargoproyecto.nombre}" style=" width: 122px; position: absolute; left: 160px; top: 225px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoCargo" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.pryCargoproyecto.nombre}" style=" width: 122px; position: absolute; left: 160px; top: 225px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(1, 'CARGO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('CARGO', controlVigenciasProyectos.nuevaVigenciaProyectos.pryCargoproyecto.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(indice, 2, 1)}" />
@@ -452,14 +452,14 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 290px; top: 225px;  " id="btnNuevoCargo" actionListener="#{controlVigenciasProyectos.asignarIndex(indice, 2, 1)}" icon="ui-icon-search" process="@this" />
 
                             <strong><h:outputText value="#{msg['personasN']}" style=" position: absolute; top: 270px;" /></strong>
-                            <p:inputText id="nuevaCantidadPersonas" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.cantidadpersonaacargo}" style="width: 122px; position: absolute; left: 160px; top: 265px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaCantidadPersonas" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.cantidadpersonaacargo}" style="width: 122px; position: absolute; left: 160px; top: 265px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
 
                             <p:commandButton id="limpiar" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 300px;" icon="ui-icon-trash" actionListener="#{controlVigenciasProyectos.limpiarNuevaVigenciaProyecto()}" update="nuevaVigenciaProyecto" process="@this"/>
                             <p:commandButton id="agregarVP" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 300px;"  icon="ui-icon-circle-check" actionListener="#{controlVigenciasProyectos.agregarNuevaVigenciaProyecto()}" process="@this"/>
-                            <p:commandButton id="cancelarVP" value="#{msg['cancelar']}" style=" position: absolute; left: 230px; top: 300px;" icon="ui-icon-circle-close" actionListener="#{controlVigenciasProyectos.limpiarNuevaVigenciaProyecto()}" update="nuevaVigenciaProyecto" onclick="NuevoRegistroVigenciaProyecto.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarVP" value="#{msg['cancelar']}" style=" position: absolute; left: 230px; top: 300px;" icon="ui-icon-circle-close" actionListener="#{controlVigenciasProyectos.limpiarNuevaVigenciaProyecto()}" update="nuevaVigenciaProyecto" onclick="PF('NuevoRegistroVigenciaProyecto').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
                     
@@ -488,7 +488,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['proyectoN']}" style=" position: absolute; top: 150px;" /></strong>
-                            <p:inputText id="duplicarProyecto" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.proyecto.nombreproyecto}" style=" width: 122px; position: absolute; left: 160px; top: 145px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarProyecto" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.proyecto.nombreproyecto}" style=" width: 122px; position: absolute; left: 160px; top: 145px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(2, 'PROYECTO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('PROYECTO', controlVigenciasProyectos.nuevaVigenciaProyectos.proyecto.nombreproyecto, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(indice, 0, 2)}" />
@@ -497,7 +497,7 @@
 
 
                             <strong><h:outputText value="#{msg['rolN']}" style=" position: absolute; top: 190px;" /></strong>
-                            <p:inputText id="duplicarPryRol" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.pryRol.descripcion}" style=" width: 122px; position: absolute; left: 160px; top: 185px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarPryRol" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.pryRol.descripcion}" style=" width: 122px; position: absolute; left: 160px; top: 185px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(2, 'PRYROL')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('PRYROL', controlVigenciasProyectos.nuevaVigenciaProyectos.pryRol.descripcion, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(indice, 1, 2)}" />
@@ -506,7 +506,7 @@
 
 
                             <strong><h:outputText value="#{msg['cargoN']}" style=" position: absolute; top: 230px;" /></strong>
-                            <p:inputText id="duplicarCargo" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.pryCargoproyecto.nombre}" style=" width: 122px; position: absolute; left: 160px; top: 225px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarCargo" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.pryCargoproyecto.nombre}" style=" width: 122px; position: absolute; left: 160px; top: 225px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(2, 'CARGO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('CARGO', controlVigenciasProyectos.nuevaVigenciaProyectos.pryCargoproyecto.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(indice, 2, 2)}" />
@@ -514,28 +514,28 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 290px; top: 225px;  " id="btnDuplicarCargo" actionListener="#{controlVigenciasProyectos.asignarIndex(indice, 2, 1)}" icon="ui-icon-search" process="@this" />
 
                             <strong><h:outputText value="#{msg['personasN']}" style=" position: absolute; top: 270px;" /></strong>
-                            <p:inputText id="duplicarCantidadPersonas" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.cantidadpersonaacargo}" style="width: 122px; position: absolute; left: 160px; top: 265px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarCantidadPersonas" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.cantidadpersonaacargo}" style="width: 122px; position: absolute; left: 160px; top: 265px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <p:commandButton id="limpiarDuplicadoVigenciaProyecto" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 300px;" icon="ui-icon-trash" actionListener="#{controlVigenciasProyectos.limpiarduplicarVigenciaProyectos()}" update="duplicarVigenciaProyecto" process="@this"/>
                             <p:commandButton id="agregarDuplicadoVigenciaProyecto" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 300px;"  icon="ui-icon-circle-check"  process="@this" actionListener="#{controlVigenciasProyectos.confirmarDuplicar()}" />
-                            <p:commandButton id="cancelarDuplicadoVigenciaProyecto" value="#{msg['cancelar']}" style=" position: absolute; left: 230px; top: 300px;" icon="ui-icon-circle-close" actionListener="#{controlVigenciasProyectos.limpiarduplicarVigenciaProyectos()}" update="duplicarVigenciaProyecto" onclick="DuplicarRegistroVigenciaProyecto.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicadoVigenciaProyecto" value="#{msg['cancelar']}" style=" position: absolute; left: 230px; top: 300px;" icon="ui-icon-circle-close" actionListener="#{controlVigenciasProyectos.limpiarduplicarVigenciaProyectos()}" update="duplicarVigenciaProyecto" onclick="PF('DuplicarRegistroVigenciaProyecto').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevaVigenciaProyecto" header="#{msg['atencion']}" widgetVar="validacionNuevaVigenciaProyecto"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevo']} #{controlVigenciasProyectos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevaVigenciaProyecto.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevaVigenciaProyecto').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlVigenciasProyectos.guardarCambiosVigenciasProyectos()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciasProyectos.guardarCambiosVigenciasProyectos()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                 </h:form>

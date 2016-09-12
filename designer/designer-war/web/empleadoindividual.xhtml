@@ -76,7 +76,7 @@
 
                         <div id="seca" style="position: absolute; left: 10px; top: 80px;">
                             <p:graphicImage id="btnFoto" value="#{controlEmpleadoIndividual.fotoEmpleado}" height="120" width="105" 
-                                            alt="Foto empleado" onclick="subirFoto.show();"
+                                            alt="Foto empleado" onclick="PF('subirFoto').show();"
                                             style="position: relative; top: 0px; left: 0px;"/>
                             <p:commandButton value="#{msg['tallas']}" process="@this" action="adelanteVigenciaTalla" 
                                              actionListener="#{controlVigenciasTallas.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" 
@@ -97,7 +97,7 @@
                                 <!-- <p:tooltip for="apellidosNombres" value="#{msg['primerapellidoTT']}"/> -->
                                 <p:inputText id="primerApellido" value="#{controlEmpleadoIndividual.persona.primerapellido}" 
                                              style="position: absolute; left: 150px; width: 160px; text-transform: uppercase; height: 12px;" 
-                                             onclick="select();">
+                                             onclick="PF('select();">
                                     <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                                 </p:inputText>
@@ -106,7 +106,7 @@
                                               style="position: absolute; left: 10px; top: 29px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                                 <p:inputText id="primerNombre" value="#{controlEmpleadoIndividual.persona.nombre}" 
                                              style="position: absolute; left: 150px; top: 24px; width: 160px; text-transform: uppercase; height: 12px;" 
-                                             onclick="select();">
+                                             onclick="PF('select();">
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                                     <p:ajax event="click"  listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                 </p:inputText>
@@ -115,8 +115,8 @@
                                               style="position: absolute; left: 10px; top: 53px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
                                 <p:inputText id="tipo" value="#{controlEmpleadoIndividual.persona.tipodocumento.nombrecorto}" 
                                              style="position: absolute; left: 150px; top: 48px; width: 38px; text-transform: uppercase; height: 12px;" 
-                                             onclick="select();" maxlength="3">
-                                    <p:ajax event="dblclick" onstart="TiposDocumentosDialogo.show()"/>
+                                             onclick="PF('select();" maxlength="3">
+                                    <p:ajax event="dblclick" onstart="PF('TiposDocumentosDialogo').show()"/>
                                     <p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('TIPODOCUMENTO')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('TIPODOCUMENTO', controlEmpleadoIndividual.persona.tipodocumento.nombrecorto)}"/>
                                 </p:inputText>
@@ -126,7 +126,7 @@
                                 <p:tooltip for="txtDigito" value="#{msg['digitoveriftp']}"/>
                                 <p:inputText id="digitoverificacion" value="#{controlEmpleadoIndividual.persona.digitoverificaciondocumento}" 
                                              style="position: absolute; left: 150px; top: 72px; width: 38px; text-transform: uppercase; height: 12px;" 
-                                             onclick="select();" maxlength="1">
+                                             onclick="PF('select();" maxlength="1">
                                     <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                                 </p:inputText>
@@ -159,7 +159,7 @@
                                               style="position: absolute; left: 10px; top: 149px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
                                 <p:inputText id="lugarNacimiento" value="#{controlEmpleadoIndividual.persona.ciudadnacimiento.nombre}" 
                                              style="position: absolute; left: 150px; top: 144px; width: 120px; text-transform: uppercase; height: 12px;" 
-                                             onclick="select();">
+                                             onclick="PF('select();">
                                     <p:ajax event="dblclick" listener="#{controlEmpleadoIndividual.dialogoCiudad(1)}"/>
                                     <p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('CIUDADNACIMIENTO')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('CIUDAD', controlEmpleadoIndividual.persona.ciudadnacimiento.nombre)}"/>
@@ -171,7 +171,7 @@
                                 <p:tooltip for="txtcertjudicial" value="#{msg['certjudicialtp']}"/>
                                 <p:inputText id="certificadoJudicial" value="#{controlEmpleadoIndividual.persona.certificadojudicial}" 
                                              style="position: absolute; left: 150px; top: 168px; width: 120px; height: 12px;" 
-                                             onclick="select();">
+                                             onclick="PF('select();">
                                     <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                                 </p:inputText>
@@ -180,7 +180,7 @@
                                               style="position: absolute; left: 10px; top: 197px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
                                 <p:inputText id="libretaMilitar" value="#{controlEmpleadoIndividual.persona.numerolibretamilitar}" 
                                              style="position: absolute; left: 150px; top: 192px; width: 120px; height: 12px;" 
-                                             onclick="select();">
+                                             onclick="PF('select();">
                                     <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                                 </p:inputText>
@@ -190,7 +190,7 @@
                                               style="position: absolute; left: 10px; top: 221px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
                                 <p:inputText value="#{controlEmpleadoIndividual.persona.claselibretamilitar}" 
                                              style="position: absolute; left: 150px; top: 216px; width: 38px; text-transform: uppercase; height: 12px;" 
-                                             onclick="select();" maxlength="1">
+                                             onclick="PF('select();" maxlength="1">
                                     <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                                 </p:inputText>
@@ -208,7 +208,7 @@
                                               style="position: absolute; left: 10px; top: 269px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                                 <p:inputText id="placa" value="#{controlEmpleadoIndividual.persona.placavehiculo}" disabled="#{controlEmpleadoIndividual.estadoVP}"
                                              style="position: absolute; left: 150px; top: 264px; width: 70px; text-transform: uppercase; height: 12px;"
-                                             onclick="select();" maxlength="10">
+                                             onclick="PF('select();" maxlength="10">
                                     <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                                 </p:inputText>
@@ -217,7 +217,7 @@
                                               style="position: absolute; left: 10px; top: 293px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                                 <p:inputText id="ruta" value="#{controlEmpleadoIndividual.empleado.rutatransporte}" 
                                              style="position: absolute; left: 150px; top: 288px; width: 65px; height: 12px;" 
-                                             onclick="select();" maxlength="6">
+                                             onclick="PF('select();" maxlength="6">
                                     <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Empleados')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('E')}" update="@this"/>
                                 </p:inputText>
@@ -226,8 +226,8 @@
                                               style="position: absolute; left: 10px; top: 317px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                                 <p:inputText id="cargoPostulado" value="#{controlEmpleadoIndividual.hojaDeVidaPersona.cargo.nombre}" 
                                              style="position: absolute; left: 150px; top: 312px; width: 160px; text-transform: uppercase; height: 12px;" 
-                                             onclick="select();">
-                                    <p:ajax event="dblclick" onstart="CargosDialogo.show()"/>
+                                             onclick="PF('select();">
+                                    <p:ajax event="dblclick" onstart="PF('CargosDialogo').show()"/>
                                     <p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('CARGOPOSTULADO')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('CARGOPOSTULADO', controlEmpleadoIndividual.hojaDeVidaPersona.cargo.nombre)}"/>
                                 </p:inputText>
@@ -239,7 +239,7 @@
                                               style="position: absolute; left: 370px; top: 5px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                                 <p:inputText id="segundoApellido" value="#{controlEmpleadoIndividual.persona.segundoapellido}" 
                                              style="position: absolute; left: 510px; top: 0px; width: 160px; text-transform: uppercase; height: 12px;" 
-                                             onclick="select();">
+                                             onclick="PF('select();">
                                     <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                                 </p:inputText>
@@ -249,7 +249,7 @@
                                               style="position: absolute; left: 370px; top: 29px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                                 <p:inputText id="segundoNombre" value="#{controlEmpleadoIndividual.persona.segundonombre}" 
                                              style="position: absolute; left: 510px; top: 24px; width: 120px; text-transform: uppercase; height: 12px;" 
-                                             onclick="select();">
+                                             onclick="PF('select();">
                                     <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                                 </p:inputText>
@@ -259,7 +259,7 @@
                                               style="position: absolute; left: 370px; top: 53px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
                                 <p:inputText id="Identificacion" value="#{controlEmpleadoIndividual.persona.numerodocumento}" 
                                              style="position: absolute; left: 510px; top: 48px; width: 120px; text-transform: uppercase; height: 12px;" 
-                                             onclick="select();">
+                                             onclick="PF('select();">
                                     <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                                 </p:inputText>
@@ -269,7 +269,7 @@
                                               style="position: absolute; left: 370px; top: 77px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                                 <p:inputText id="lugarExpedicion" value="#{controlEmpleadoIndividual.persona.ciudaddocumento.nombre}"
                                              style="position: absolute; left: 510px; top: 72px; width: 120px; text-transform: uppercase; height: 12px;" 
-                                             onclick="select();">
+                                             onclick="PF('select();">
                                     <p:ajax event="dblclick" listener="#{controlEmpleadoIndividual.dialogoCiudad(0)}"/>
                                     <p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('CIUDADDOCUMENTO')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('CIUDAD', controlEmpleadoIndividual.persona.ciudaddocumento.nombre)}"/>
@@ -280,7 +280,7 @@
                                               style="position: absolute; left: 370px; top: 101px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
                                 <p:inputText value="#{controlEmpleadoIndividual.persona.email}" id="email" 
                                              style="position: absolute; left: 510px; top: 96px; width: 160px; height: 12px;" 
-                                             onclick="select();">
+                                             onclick="PF('select();">
                                     <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                                 </p:inputText>
@@ -290,7 +290,7 @@
                                               style="position: absolute; left: 370px; top: 125px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                                 <p:inputText value="#{controlEmpleadoIndividual.persona.edad}" 
                                              style="position: absolute; left: 510px; top: 120px; width: 38px; text-transform: uppercase; height: 12px;" 
-                                             onclick="select();" readonly="true" maxlength="3"/>
+                                             onclick="PF('select();" readonly="true" maxlength="3"/>
                                 <br/>
                                 <h:outputText value="#{msg['fechanacimiento']}" 
                                               style="position: absolute; left: 370px; top: 149px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
@@ -329,7 +329,7 @@
                                               style="position: absolute; left: 370px; top: 221px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                                 <p:inputText value="#{controlEmpleadoIndividual.persona.distritomilitar}" 
                                              style="position: absolute; left: 510px; top: 216px; width: 38px; height: 12px;" 
-                                             onclick="select();" maxlength="2">
+                                             onclick="PF('select();" maxlength="2">
                                     <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                                 </p:inputText>
@@ -348,7 +348,7 @@
                                               style="position: absolute; left: 370px; top: 269px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                                 <p:inputText id="parqueo" value="#{controlEmpleadoIndividual.empleado.parqueadero}" 
                                              style="position: absolute; left: 510px; top: 264px; width: 38px; height: 12px;" 
-                                             onclick="select();" maxlength="6">
+                                             onclick="PF('select();" maxlength="6">
                                     <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Empleados')}"/>
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('E')}" update="@this"/>
                                 </p:inputText>
@@ -554,7 +554,7 @@
                                          actionListener="#{controlNReportePersonal.iniciarPagina()}"/>
 
                         <p:commandButton id="ATRAS" style="position: absolute; left: 760px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nomina" process="@this" />
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 660px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" disabled="#{controlEmpleadoIndividual.guardado}" value="" onclick="confirmarGuardar.show()" process="@this" />
+                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 660px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" disabled="#{controlEmpleadoIndividual.guardado}" value="" onclick="PF('confirmarGuardar').show()" process="@this" />
 
                     </p:panel>
                     <!-- ********************************************************************** -->
@@ -566,9 +566,9 @@
                             <h:outputText value="#{msg['cambiosRealizados']}" style="position: relative; left: 0px; top: 20px; width: 250px; font-weight:bold;" />
                         </div>
                         <div style="position: absolute; left: 50%; transform: translate(-50%, 0%);">
-                            <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEmpleadoIndividual.guardarCambios()}" action="nomina" style="position: relative; top: 0px; left: 0px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nomina" style="position: relative; top: 0px; left: 0px;" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: relative; top: 0px; left: 97px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmpleadoIndividual.guardarCambios()}" action="nomina" style="position: relative; top: 0px; left: 0px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nomina" style="position: relative; top: 0px; left: 0px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: relative; top: 0px; left: 97px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </div>
                     </p:dialog>
                 </h:form>
@@ -684,8 +684,8 @@
                             <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['confirmarRastro']}" style="position: relative; left: 10px; top: 10px; width: 250px; font-weight:bold;" />
                         </div>
                         <div style="position: relative; top: -30px;">
-                            <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmpleadoIndividual.secRastro, controlEmpleadoIndividual.nombreTabla, 'hojaVida')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="rastro" process="@this" />
-                            <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: relative; top: 0px; left: 0px; width: 60px;" process="@this" />
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmpleadoIndividual.secRastro, controlEmpleadoIndividual.nombreTabla, 'hojaVida')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="rastro" process="@this" />
+                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: relative; top: 0px; left: 0px; width: 60px;" process="@this" />
                         </div>
                     </p:dialog>
                     <!-- ********************************************************************** -->
@@ -698,8 +698,8 @@
                             <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['confirmarRastroHistorico']}" style="position: relative; left: 10px; top: 10px; width: 250px; font-weight:bold;" />
                         </div>
                         <div style="position: relative; top: -30px;">
-                            <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlEmpleadoIndividual.nombreTabla, 'hojaVida')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="rastro" process="@this" />
-                            <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: relative; top: 0px; left: 0px; width: 60px;" process="@this" />
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlEmpleadoIndividual.nombreTabla, 'hojaVida')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="rastro" process="@this" />
+                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: relative; top: 0px; left: 0px; width: 60px;" process="@this" />
                         </div>
                     </p:dialog>
                     <!-- ********************************************************************** -->
@@ -732,8 +732,8 @@
                             <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['errorTablaConRastro']}" style="position: relative; left: 10px; top: 10px; width: 250px; font-weight:bold;" />
                         </div>
                         <div style="position: relative; top: -30px;">
-                            <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmpleadoIndividual.secRastro, controlEmpleadoIndividual.nombreTabla, 'hojaVida')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="rastro" process="@this" />
-                            <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: relative; top: 0px; left: 0px; width: 60px;" process="@this" />
+                            <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmpleadoIndividual.secRastro, controlEmpleadoIndividual.nombreTabla, 'hojaVida')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="rastro" process="@this" />
+                            <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: relative; top: 0px; left: 0px; width: 60px;" process="@this" />
                         </div>
                     </p:dialog>
                     <!-- ********************************************************************** -->

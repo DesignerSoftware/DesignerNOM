@@ -1626,7 +1626,7 @@ public class ControlTiposTrabajadores implements Serializable {
             tablaTT = (DataTable) c.getViewRoot().findComponent("form:datosTTrabajadores");
             tablaTT.setSelection(tipoTrabajadorSeleccionado);
         } else {
-            PrimefacesContextUI.ejecutar("PF('datosTTrabajadores.unselectAllRows()");
+            PrimefacesContextUI.ejecutar("PF('datosTTrabajadores').unselectAllRows()");
         }
     }
 

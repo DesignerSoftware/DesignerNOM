@@ -91,7 +91,7 @@
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " onclick="botones.show();"  process="@this" disabled="true" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " onclick="PF('botones').show();"  process="@this" disabled="true" />
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) "  actionListener="#{controlEmplIbcs.editarCelda()}" process="@this"/>
@@ -99,7 +99,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " onclick="botones.show();" process="@this" disabled="true"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " onclick="PF('botones').show();" process="@this" disabled="true"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) "  actionListener="#{controlEmplIbcs.activarCtrlF11()}" process="@this"/>
@@ -119,13 +119,13 @@
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " onclick="botones.show();" process="@this" disabled="true"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " onclick="PF('botones').show();" process="@this" disabled="true"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " onclick="botones.show();" process="@this" disabled="true"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " onclick="PF('botones').show();" process="@this" disabled="true"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " onclick="botones.show();"  process="@this" disabled="true"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " onclick="PF('botones').show();"  process="@this" disabled="true"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -146,13 +146,13 @@
                     <p:dialog id="botones" header="#{msg['atencion']}" widgetVar="botones"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['botones']}" style="position: absolute; left: 100px; top: 30px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="botones.hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('botones').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="repeticiones" header="#{msg['atencion']}" widgetVar="repeticiones"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['repeticiones']}" style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="repeticiones.hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('repeticiones').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
                     </p:dialog>
                 </h:form>
 
@@ -171,7 +171,7 @@
                         <h:outputText value="#{msg['valorN']}" style=" position: absolute;left: 15px ; top: 125px "  />
                         <p:inputTextarea value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.valor}" style="overflow: auto; width: 160px; height: 40px;position: absolute;left: 110px; top: 120px;" readonly="true"/>
 
-                        <p:commandButton id="cancelareditDialogoIbcs" value="#{msg['atras']}" onclick="dialogoIbcs.hide();" style="position: absolute; top: 190px; left: 225px; " process="@this" />
+                        <p:commandButton id="cancelareditDialogoIbcs" value="#{msg['atras']}" onclick="PF('dialogoIbcs').hide();" style="position: absolute; top: 190px; left: 225px; " process="@this" />
 
                     </p:dialog>
                     <p:dialog id="editFechaInicial" header="#{msg['editFechaInicial']}" widgetVar="editFechaInicial" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  

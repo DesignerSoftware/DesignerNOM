@@ -166,7 +166,7 @@ public class ControlTiposEntidades implements Serializable {
                 grupoAsociadoAutoCompletar = tipoEntidadSeleccionada.getGrupo().getNombre();
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('datosTipoEntidad.selectRow(" + te + ", false); datosTipoEntidad.unselectAllRows()");
+            PrimefacesContextUI.ejecutar("PF('datosTipoEntidad.selectRow(" + te + ", false); datosTipoEntidad').unselectAllRows()");
         }
         PrimefacesContextUI.actualizar("form:listaValores");
     }

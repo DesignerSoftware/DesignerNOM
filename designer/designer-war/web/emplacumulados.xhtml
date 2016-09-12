@@ -17,7 +17,7 @@
                         <p:toolbar styleClass="cssToolbar">   
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton disabled="true" id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" onclick="botones.show();"  process="@this" />
+                                <p:commandButton disabled="true" id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" onclick="PF('botones').show();"  process="@this" />
                                 <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}" />
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"  actionListener="#{controlEmplAcumulados.editarCelda()}" process="@this"/>
@@ -25,7 +25,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton  disabled="true" id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" onclick="botones.show();" process="@this"/>
+                                <p:commandButton  disabled="true" id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" onclick="PF('botones').show();" process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"  actionListener="#{controlEmplAcumulados.activarCtrlF11()}" process="@this"/>
@@ -45,13 +45,13 @@
                                 <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton disabled="true" id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " onclick="botones.show();" process="@this"/> 
+                                <p:commandButton disabled="true" id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " onclick="PF('botones').show();" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton disabled="true" id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" onclick="botones.show();" process="@this"/>  
+                                <p:commandButton disabled="true" id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" onclick="PF('botones').show();" process="@this"/>  
                                 <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton  disabled="true" id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" onclick="botones.show();"  process="@this"/>  
+                                <p:commandButton  disabled="true" id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" onclick="PF('botones').show();"  process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/> 
@@ -62,7 +62,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlEmplAcumulados.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlEmplAcumulados.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Refrescar"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -477,13 +477,13 @@
                     <p:dialog id="botones" header="#{msg['atencion']}" widgetVar="botones"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['botones']}" style="position: absolute; left: 100px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="botones.hide();" style="position: absolute; top: 60px; left: 210px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('botones').hide();" style="position: absolute; top: 60px; left: 210px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="repeticiones" header="#{msg['atencion']}" widgetVar="repeticiones"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['repeticiones']}" style="position: absolute; left: 100px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="repeticiones.hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('repeticiones').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
                 </h:form>
 

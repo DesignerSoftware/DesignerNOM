@@ -345,10 +345,10 @@
 
                         <p:commandButton style="position: absolute; left: 15px; top: 480px;  " id="BUSCAR" value="#{msg['buscarEmpl']}"  actionListener="#{controlATCuadrilla.actionBtnBuscarEmpleados()}" disabled="#{controlATCuadrilla.activarBtnBuscar}" process="@this" />
                         <p:commandButton style="position: absolute; left: 150px; top: 480px;  " id="TODOS" value="#{msg['mostrarTodos']}" actionListener="#{controlATCuadrilla.mostrarTodos()}" disabled="#{controlATCuadrilla.activarBtnMostrar}" process="@this" />
-                        <p:commandButton style="position: absolute; left: 270px; top: 480px;  " id="BORRAR" value="#{msg['borrarProgramacion']}" onclick="mensajeBorrarProgramacion.show()" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 270px; top: 480px;  " id="BORRAR" value="#{msg['borrarProgramacion']}" onclick="PF('mensajeBorrarProgramacion').show()" process="@this"/>
 
 
-                        <p:commandButton style="position: absolute; left: 683px; top: 480px;  " id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="confirmarGuardarSalida.show();" update=":form:datosCuadrilla" process="@this" disabled="#{controlATCuadrilla.guardado}"/>
+                        <p:commandButton style="position: absolute; left: 683px; top: 480px;  " id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('confirmarGuardarSalida').show();" update=":form:datosCuadrilla" process="@this" disabled="#{controlATCuadrilla.guardado}"/>
                         <p:commandButton style="position: absolute; left: 775px; top: 480px;  " id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlATCuadrilla.salir()}" action="#{controlATCuadrilla.redirigir()}" process="@this" />
 
                     </p:panel>
@@ -356,17 +356,17 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATCuadrilla.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATCuadrilla.cancelarModificacion()}"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATCuadrilla.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATCuadrilla.cancelarModificacion()}"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlATCuadrilla.guardarSalir()}" action="#{controlATCuadrilla.redirigir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlATCuadrilla.cancelarSalir()}" action="#{controlATCuadrilla.redirigir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlATCuadrilla.guardarSalir()}" action="#{controlATCuadrilla.redirigir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlATCuadrilla.cancelarSalir()}" action="#{controlATCuadrilla.redirigir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
 
@@ -378,15 +378,15 @@
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'Cuadrilla', 'rastroATCuadrilla')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'Cuadrilla', 'rastroATCuadrilla')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Cuadrilla', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Cuadrilla', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -397,8 +397,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'Cuadrilla', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'Cuadrilla', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
 
@@ -411,15 +411,15 @@
                     <p:dialog id="confirmarRastro_T" header="#{msg['atencion']}" widgetVar="confirmarRastro_T"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro_T']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro_T.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'TurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro_T.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro_T').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'TurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro_T').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico_T" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico_T"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico_T.hide();" actionListener="#{controlRastro.historicosTabla('TurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico_T.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico_T').hide();" actionListener="#{controlRastro.historicosTabla('TurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico_T').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB_T" header="#{msg['atencion']}" widgetVar="errorObjetosDB_T"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -430,8 +430,8 @@
                     <p:dialog id="errorTablaConRastro_T" header="#{msg['atencion']}" widgetVar="errorTablaConRastro_T"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro_T.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'TurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro_T.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro_T').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'TurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro_T').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
 
@@ -445,15 +445,15 @@
                     <p:dialog id="confirmarRastro_D" header="#{msg['atencion']}" widgetVar="confirmarRastro_D"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro_D']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro_D.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'DetallesTurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro_D.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro_D').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'DetallesTurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro_D').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico_D" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico_D"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico_D']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico_D.hide();" actionListener="#{controlRastro.historicosTabla('DetallesTurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico_D.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico_D').hide();" actionListener="#{controlRastro.historicosTabla('DetallesTurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico_D').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB_D" header="#{msg['atencion']}" widgetVar="errorObjetosDB_D"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -464,8 +464,8 @@
                     <p:dialog id="errorTablaConRastro_D" header="#{msg['atencion']}" widgetVar="errorTablaConRastro_D"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro_D.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'DetallesTurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro_D.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro_D').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'DetallesTurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro_D').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
 
@@ -530,8 +530,8 @@
                     <p:dialog id="mensajeBorrarProgramacion" header="#{msg['atencion']}" widgetVar="mensajeBorrarProgramacion"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['mensajeBorrarProgramacion']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="mensajeBorrarProgramacion.hide();" actionListener="#{controlATCuadrilla.borrarProgramacionCompleta()}" style="position: absolute; top: 63px; left: 230px;" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="mensajeBorrarProgramacion.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('mensajeBorrarProgramacion').hide();" actionListener="#{controlATCuadrilla.borrarProgramacionCompleta()}" style="position: absolute; top: 63px; left: 230px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('mensajeBorrarProgramacion').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlATCuadrilla.activarCtrlF11()}"/> 
@@ -617,15 +617,15 @@
                     <p:dialog id="NuevoRegistroPagina" header="#{msg['nuevoregistroparaingreso']}" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="false" modal="true" height="215" width="400" style=" padding: 0px">  
                         <center><strong><h:outputText value="#{msg['seleccione']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
                         <h:outputText value="#{msg['tablaC']}" style="font-size: 14px; position: absolute; top: 47px;left: 60px"/>
-                        <p:commandButton id="NuevoVigenciaLocalizacion" icon="ui-icon-circle-check" style="position: absolute; top: 45px;left: 300px; height: 25px; width: 40px;" oncomplete="NuevoRegistroCuadrilla.show()" update=":formularioDialogos:nuevaCuadrilla" onclick="NuevoRegistroPagina.hide();" process="@this"/>
+                        <p:commandButton id="NuevoVigenciaLocalizacion" icon="ui-icon-circle-check" style="position: absolute; top: 45px;left: 300px; height: 25px; width: 40px;" oncomplete="PF('NuevoRegistroCuadrilla').show()" update=":formularioDialogos:nuevaCuadrilla" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
 
                         <h:outputText value="#{msg['tablaTR']}" style="font-size: 14px; position: absolute; top: 92px;left: 60px"/>
-                        <p:commandButton id="NuevoVigenciaProrrateo" icon="ui-icon-circle-check" style="position: absolute; top: 90px;left: 300px; height: 25px; width: 40px;" oncomplete="NuevoRegistroTurno.show()" update=":formularioDialogos:nuevaTurno" onclick="NuevoRegistroPagina.hide();" process="@this"/>
+                        <p:commandButton id="NuevoVigenciaProrrateo" icon="ui-icon-circle-check" style="position: absolute; top: 90px;left: 300px; height: 25px; width: 40px;" oncomplete="PF('NuevoRegistroTurno').show()" update=":formularioDialogos:nuevaTurno" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
 
                         <h:outputText value="#{msg['tablaD']}" style="font-size: 14px; position: absolute; top: 137px;left: 60px"/>
-                        <p:commandButton id="NuevoVigenciaProrrateoProyecto" icon="ui-icon-circle-check" style="position: absolute; top: 135px;left: 300px; height: 25px; width: 40px;" oncomplete="NuevoRegistroDetalle.show()" update=":formularioDialogos:nuevaDetalle" onclick="NuevoRegistroPagina.hide();" process="@this"/>
+                        <p:commandButton id="NuevoVigenciaProrrateoProyecto" icon="ui-icon-circle-check" style="position: absolute; top: 135px;left: 300px; height: 25px; width: 40px;" oncomplete="PF('NuevoRegistroDetalle').show()" update=":formularioDialogos:nuevaDetalle" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
 
-                        <p:commandButton id="CancelarNuevosRegistros" onclick="NuevoRegistroPagina.hide();"  process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 185px;left: 280px"/>
+                        <p:commandButton id="CancelarNuevosRegistros" onclick="PF('NuevoRegistroPagina').hide();"  process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 185px;left: 280px"/>
                     </p:dialog>
 
 
@@ -675,7 +675,7 @@
 
                             <p:commandButton id="limpiarC" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 260px;" icon="ui-icon-trash" actionListener="#{controlATCuadrilla.limpiarNuevaCuadrilla()}" update="nuevaCuadrilla" process="@this"/>
                             <p:commandButton id="agregarC" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 260px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlATCuadrilla.agregarNuevaCuadrilla()}"   />
-                            <p:commandButton id="cancelarC" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 260px;" icon="ui-icon-circle-close" actionListener="#{controlATCuadrilla.limpiarNuevaCuadrilla()}" update="nuevaCuadrilla" onclick="NuevoRegistroCuadrilla.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarC" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 260px;" icon="ui-icon-circle-close" actionListener="#{controlATCuadrilla.limpiarNuevaCuadrilla()}" update="nuevaCuadrilla" onclick="PF('NuevoRegistroCuadrilla').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -725,7 +725,7 @@
 
                             <p:commandButton id="limpiarDuplicadoC" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 260px;" icon="ui-icon-trash" actionListener="#{controlATCuadrilla.limpiarDuplicarCuadrilla()}" update="duplicarCuadrilla" process="@this"/>
                             <p:commandButton id="agregarDuplicadoC" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 260px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlATCuadrilla.confirmarDuplicarCuadrilla()}"   />
-                            <p:commandButton id="cancelarDuplicadoC" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 260px;" icon="ui-icon-circle-close" actionListener="#{controlATCuadrilla.limpiarDuplicarCuadrilla()}" update="duplicarCuadrilla" onclick="DuplicarRegistroCuadrilla.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicadoC" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 260px;" icon="ui-icon-circle-close" actionListener="#{controlATCuadrilla.limpiarDuplicarCuadrilla()}" update="duplicarCuadrilla" onclick="PF('DuplicarRegistroCuadrilla').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -782,7 +782,7 @@
 
                             <p:commandButton id="limpiarTR" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 300px;" icon="ui-icon-trash" actionListener="#{controlATCuadrilla.limpiarNuevaTurno()}" update="nuevaTurno" process="@this"/>
                             <p:commandButton id="agregarTR" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 300px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlATCuadrilla.agregarNuevaTurno()}"   />
-                            <p:commandButton id="cancelarTR" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 300px;" icon="ui-icon-circle-close" actionListener="#{controlATCuadrilla.limpiarNuevaTurno()}" update="nuevaTurno" onclick="NuevoRegistroTurno.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarTR" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 300px;" icon="ui-icon-circle-close" actionListener="#{controlATCuadrilla.limpiarNuevaTurno()}" update="nuevaTurno" onclick="PF('NuevoRegistroTurno').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -839,7 +839,7 @@
 
                             <p:commandButton id="limpiarDuplicarTR" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 300px;" icon="ui-icon-trash" actionListener="#{controlATCuadrilla.limpiarDuplicarTurno()}" update="duplicarTurno" process="@this"/>
                             <p:commandButton id="agregarDuplicarTR" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 300px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlATCuadrilla.confirmarDuplicarTurno()}"   />
-                            <p:commandButton id="cancelarDuplicarTR" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 300px;" icon="ui-icon-circle-close" actionListener="#{controlATCuadrilla.limpiarDuplicarTurno()}" update="duplicarTurno" onclick="DuplicarRegistroTurno.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicarTR" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 300px;" icon="ui-icon-circle-close" actionListener="#{controlATCuadrilla.limpiarDuplicarTurno()}" update="duplicarTurno" onclick="PF('DuplicarRegistroTurno').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -875,7 +875,7 @@
 
                             <p:commandButton id="limpiarDTRC" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 180px;" icon="ui-icon-trash" actionListener="#{controlATCuadrilla.limpiarNuevaDetalle()}" update="nuevaDetalle" process="@this"/>
                             <p:commandButton id="agregarDTRC" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 180px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlATCuadrilla.agregarNuevaDetalle()}"   />
-                            <p:commandButton id="cancelarDTRC" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 180px;" icon="ui-icon-circle-close" actionListener="#{controlATCuadrilla.limpiarNuevaDetalle()}" update="nuevaDetalle" onclick="NuevoRegistroDetalle.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDTRC" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 180px;" icon="ui-icon-circle-close" actionListener="#{controlATCuadrilla.limpiarNuevaDetalle()}" update="nuevaDetalle" onclick="PF('NuevoRegistroDetalle').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -911,7 +911,7 @@
 
                             <p:commandButton id="limpiarDuplicarDTRC" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 180px;" icon="ui-icon-trash" actionListener="#{controlATCuadrilla.limpiarDuplicarDetalle()}" update="duplicarDetalle" process="@this"/>
                             <p:commandButton id="agregarDuplicarDTRC" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 180px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlATCuadrilla.confirmarDuplicarDetalle()}"   />
-                            <p:commandButton id="cancelarDuplicarDTRC" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 180px;" icon="ui-icon-circle-close" actionListener="#{controlATCuadrilla.limpiarDuplicarDetalle()}" update="duplicarDetalle" onclick="DuplicarRegistroDetalle.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicarDTRC" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 180px;" icon="ui-icon-circle-close" actionListener="#{controlATCuadrilla.limpiarDuplicarDetalle()}" update="duplicarDetalle" onclick="PF('DuplicarRegistroDetalle').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 

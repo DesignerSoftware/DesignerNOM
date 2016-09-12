@@ -104,7 +104,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.codigo}" onclick="select();" id="editarCodigoProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText value="#{info.codigo}" onclick="PF('select();" id="editarCodigoProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(indice)}" update="editarCodigoProceso" process="@this"/>
                                     <p:ajax event="select" listener="#{controlProceso.cambiarIndice(indice, 0)}"  process="@this"/>
                                  </p:inputText>
@@ -120,7 +120,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.descripcion}" style="text-transform: uppercase" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.descripcion}" maxlength="30" onclick="select();" id="editarDescripcionProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText value="#{info.descripcion}" maxlength="30" onclick="PF('select();" id="editarDescripcionProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(indice)}" update="editarDescripcionProceso" process="@this"/>
                                     <p:ajax event="select" listener="#{controlProceso.cambiarIndice(indice, 1)}" process="@this"/>
                                  </p:inputText>
@@ -139,7 +139,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.tipopago.descripcion}" onclick="select();"  id="editarTipoPagoProceso" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText value="#{info.tipopago.descripcion}" onclick="PF('select();"  id="editarTipoPagoProceso" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlProceso.modificarProceso(indice, 'TIPOPAGO', info.tipopago.descripcion)}" process="@this" update="editarTipoPagoProceso"/>
                                     <p:ajax event="select" listener="#{controlProceso.cambiarIndice(indice,2)}" process="@this"/> 
                                     <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indice,0,0,0)}" process="@this" update="editarTipoPagoProceso"/>
@@ -156,7 +156,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.comentarios}" style="text-transform: uppercase" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.comentarios}" maxlength="500" onclick="select();" id="editarComentarioProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText value="#{info.comentarios}" maxlength="500" onclick="PF('select();" id="editarComentarioProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(indice)}" update="editarComentarioProceso" process="@this"/>
                                     <p:ajax event="select" listener="#{controlProceso.cambiarIndice(indice, 3)}" process="@this"/>
                                  </p:inputText>
@@ -176,7 +176,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.numerocierrerequerido}" style="text-transform: uppercase" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.numerocierrerequerido}" onclick="select();" id="editarNumeroProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText value="#{info.numerocierrerequerido}" onclick="PF('select();" id="editarNumeroProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(indice)}" update="editarNumeroProceso" process="@this"/>
                                     <p:ajax event="select" listener="#{controlProceso.cambiarIndice(indice, 4)}" process="@this"/>
                                  </p:inputText>
@@ -261,7 +261,7 @@
                   </fieldset> 
                   
                   <p:commandButton style="position: absolute; left: 20px; top: 480px;" id="OPERANDOGC" value="#{msg['operandoGC']}" process="@this" />
-                  <p:commandButton style="position: absolute; left: 683px; top: 480px;" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="confirmarGuardarSalida.show();" disabled="#{controlProceso.cambiosPagina}" process="@this" />
+                  <p:commandButton style="position: absolute; left: 683px; top: 480px;" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlProceso.cambiosPagina}" process="@this" />
                   <p:commandButton style="position: absolute; left: 775px; top: 480px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlProceso.salir()}" action="#{controlProceso.valorPaginaAnterior()}" process="@this" />
 
                   <fieldset style="position: absolute; left: 10px; top: 240px; width: 415px; height: 155px; border-radius: 10px; ">
@@ -282,7 +282,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{infoFP.formula.nombrelargo}" onclick="select();"  id="editarFormulaFormulaProceso" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText value="#{infoFP.formula.nombrelargo}" onclick="PF('select();"  id="editarFormulaFormulaProceso" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlProceso.modificarFormulaProceso(indiceFP, 'FORMULA', infoFP.formula.nombrelargo)}" process="@this" update="editarFormulaFormulaProceso"/>
                                     <p:ajax event="select" listener="#{controlProceso.cambiarIndiceFormulaProceso(indiceFP,0)}" process="@this"/> 
                                     <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indiceFP,0,0,1)}" process="@this" update="editarFormulaFormulaProceso"/>
@@ -325,7 +325,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{infoOL.operando.descripcion}" onclick="select();"  id="editarOperandoOperando" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText value="#{infoOL.operando.descripcion}" onclick="PF('select();"  id="editarOperandoOperando" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlProceso.modificarOperandoLog(indiceOL, 'OPERANDO', indiceOL.grupotipoentidad.nombre)}" process="@this" update="editarOperandoOperando"/>
                                     <p:ajax event="select" listener="#{controlProceso.cambiarIndiceOperandoLog(indiceOL,0)}" process="@this"/> 
                                     <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indiceOL,0,0,2)}" process="@this" update="editarOperandoOperando"/>
@@ -341,7 +341,7 @@
                                  <h:outputText value="#{infoOL.operando.codigo}" style="text-transform: uppercase"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText readonly="true" onclick="select();" onselect="posicionOperando([{name: 'n', value: '1'}, {name: 't', value: '#{indiceOL}'}]);" value="#{infoOL.operando.codigo}"  id="editarOperandoDescripcion" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"/> 
+                                 <p:inputText readonly="true" onclick="PF('select();" onselect="posicionOperando([{name: 'n', value: '1'}, {name: 't', value: '#{indiceOL}'}]);" value="#{infoOL.operando.codigo}"  id="editarOperandoDescripcion" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"/> 
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
@@ -353,21 +353,21 @@
                      <legend style="color: blue"><strong>#{msg['procesoClonar']}</strong></legend>
 
                      <h:outputText style="position: absolute; top: 15px; left: 30px;" value="#{msg['nuevoClonado']}"/>
-                     <p:inputText id="CodigoNuevoClonado" value="#{controlProceso.procesoNuevoClonado.codigo}" onclick="select();" style="position: absolute; top: 35px; left: 10px; width: 65px">
+                     <p:inputText id="CodigoNuevoClonado" value="#{controlProceso.procesoNuevoClonado.codigo}" onclick="PF('select();" style="position: absolute; top: 35px; left: 10px; width: 65px">
                         <p:ajax event="change" update="CodigoNuevoClonado" process="@this"/>
                      </p:inputText>
-                     <p:inputText id="DescripcionNuevoClonado" value="#{controlProceso.procesoNuevoClonado.descripcion}" onclick="select();" style="position: absolute; top: 35px; left: 90px; width: 285px;text-transform: uppercase">
+                     <p:inputText id="DescripcionNuevoClonado" value="#{controlProceso.procesoNuevoClonado.descripcion}" onclick="PF('select();" style="position: absolute; top: 35px; left: 90px; width: 285px;text-transform: uppercase">
                         <p:ajax event="change" update="DescripcionNuevoClonado" process="@this"/>
                      </p:inputText>
 
 
                      <h:outputText style="position: absolute; top: 15px; left: 420px;" value="#{msg['baseClonado']}"/>
-                     <p:inputText id="CodigoBaseClonado" value="#{controlProceso.procesoBaseClonado.codigo}" onclick="select();" style="position: absolute; top: 35px; left: 400px; width: 65px">
+                     <p:inputText id="CodigoBaseClonado" value="#{controlProceso.procesoBaseClonado.codigo}" onclick="PF('select();" style="position: absolute; top: 35px; left: 400px; width: 65px">
                         <p:ajax event="change" update="CodigoBaseClonado" process="@this" listener="#{controlProceso.autoCompletarSeleccionarProcesoClonado(controlProceso.procesoBaseClonado.codigo,0)}"/>
                         <p:ajax event="select" process="@this" listener="#{controlProceso.posicionProcesoClonado()}"/>
                         <p:ajax event="dblclick" process="@this" listener="#{controlProceso.dispararDialogoClonarProceso()}"/>
                      </p:inputText>
-                     <p:inputText id="DescripcionBaseClonado" onclick="select();" value="#{controlProceso.procesoBaseClonado.descripcion}" style="position: absolute; top: 35px; left: 480px; width: 285px;text-transform: uppercase">
+                     <p:inputText id="DescripcionBaseClonado" onclick="PF('select();" value="#{controlProceso.procesoBaseClonado.descripcion}" style="position: absolute; top: 35px; left: 480px; width: 285px;text-transform: uppercase">
                         <p:ajax event="change" update="DescripcionBaseClonado"  process="@this" listener="#{controlProceso.autoCompletarSeleccionarProcesoClonado(controlProceso.procesoBaseClonado.descripcion,1)}"/>
                         <p:ajax event="select" process="@this" listener="#{controlProceso.posicionProcesoClonado()}"/>
                         <p:ajax event="dblclick" process="@this" listener="#{controlProceso.dispararDialogoClonarProceso()}"/>
@@ -382,38 +382,38 @@
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                  <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlProceso.guardarGeneral()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                  <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlProceso.cancelarModificacionGeneral()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                  <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlProceso.guardarGeneral()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlProceso.cancelarModificacionGeneral()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>
 
                <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                  <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlProceso.guardarYSalir()}" action="#{controlProceso.valorPaginaAnterior()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                  <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlProceso.cancelarYSalir()}" action="#{controlProceso.valorPaginaAnterior()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                  <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlProceso.guardarYSalir()}" action="#{controlProceso.valorPaginaAnterior()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlProceso.cancelarYSalir()}" action="#{controlProceso.valorPaginaAnterior()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>
 
                <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="false" modal="true" height="90" width="430px;"  >
                   <h:outputText value="#{msg['seleccione']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                  <p:commandButton value="#{msg['proceso']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 20px; top: 50px;" actionListener="#{controlProceso.verificarRastroProceso()}" process="@this" />
-                  <p:commandButton value="#{msg['formulaProceso']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 220px; top: 50px;" actionListener="#{controlProceso.verificarRastroFormulaProceso()}" process="@this"/>
-                  <p:commandButton value="#{msg['operando']}s" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 310px; top: 50px;" actionListener="#{controlProceso.verificarRastroOperandoLog()}" process="@this"/>
+                  <p:commandButton value="#{msg['proceso']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 20px; top: 50px;" actionListener="#{controlProceso.verificarRastroProceso()}" process="@this" />
+                  <p:commandButton value="#{msg['formulaProceso']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 220px; top: 50px;" actionListener="#{controlProceso.verificarRastroFormulaProceso()}" process="@this"/>
+                  <p:commandButton value="#{msg['operando']}s" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 310px; top: 50px;" actionListener="#{controlProceso.verificarRastroOperandoLog()}" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlProceso.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProceso.backUp, controlProceso.nombreTablaRastro , 'rastroProceso')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlProceso.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProceso.backUp, controlProceso.nombreTablaRastro , 'rastroProceso')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlProceso.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlProceso.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlProceso.nombreTablaRastro , 'rastroProceso')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlProceso.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlProceso.nombreTablaRastro , 'rastroProceso')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlProceso.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -429,8 +429,8 @@
                <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProceso.backUp, controlProceso.nombreTablaRastro , 'rastroProceso')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProceso.backUp, controlProceso.nombreTablaRastro , 'rastroProceso')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -624,9 +624,9 @@
 
                <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="false" modal="true" height="90" width="430px;"  >
                   <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                  <p:commandButton value="#{msg['proceso']}" onclick="verificarNuevoRegistro.hide();" style="position: absolute; left: 10px; top: 50px;" oncomplete="NuevoRegistroProceso.show()" update=":formularioDialogos:nuevoProceso"  process="@this" />
-                  <p:commandButton value="#{msg['formulaProceso']}" onclick="verificarNuevoRegistro.hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="NuevoRegistroFormulaProceso.show()" update=":formularioDialogos:nuevoFormulaProceso" process="@this"/>
-                  <p:commandButton value="#{msg['operando']}s" onclick="verificarNuevoRegistro.hide();" style="position: absolute; left: 310px; top: 50px;" oncomplete="NuevoRegistroOperandoLog.show()" update=":formularioDialogos:nuevoOperandoLog" process="@this"/>
+                  <p:commandButton value="#{msg['proceso']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 10px; top: 50px;" oncomplete="PF('NuevoRegistroProceso').show()" update=":formularioDialogos:nuevoProceso"  process="@this" />
+                  <p:commandButton value="#{msg['formulaProceso']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="PF('NuevoRegistroFormulaProceso').show()" update=":formularioDialogos:nuevoFormulaProceso" process="@this"/>
+                  <p:commandButton value="#{msg['operando']}s" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 310px; top: 50px;" oncomplete="PF('NuevoRegistroOperandoLog').show()" update=":formularioDialogos:nuevoOperandoLog" process="@this"/>
                </p:dialog>
 
                <p:dialog id="NuevoRegistroProceso" header="#{msg['nuevoregistroP']}" widgetVar="NuevoRegistroProceso" closable="false" resizable="false"  draggable="false" modal="true" height="410" width="400" style="padding: 0px">  
@@ -634,19 +634,19 @@
                   <p:panel id="nuevoProceso" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['codigoNP']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoProcesoCodigo" onclick="select();" value="#{controlProceso.nuevoProceso.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                     <p:inputText id="nuevoProcesoCodigo" onclick="PF('select();" value="#{controlProceso.nuevoProceso.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                         <p:ajax event="change" update="nuevoProcesoCodigo"/>
                      </p:inputText>
                      <p:watermark value="#{msg['codigo']}" for="nuevoProcesoCodigo"/>
 
                      <strong><h:outputText value="*#{msg['descripcionNP']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoProcesoDescripcion" maxlength="30" onclick="select();" value="#{controlProceso.nuevoProceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                     <p:inputText id="nuevoProcesoDescripcion" maxlength="30" onclick="PF('select();" value="#{controlProceso.nuevoProceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
                         <p:ajax event="change" update="nuevoProcesoDescripcion"/>
                      </p:inputText>
                      <p:watermark value="#{msg['descripcion']}" for="nuevoProcesoDescripcion"/>
 
                      <strong><h:outputText value="*#{msg['tipoPagoNP']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoProcesoTipoPago" onclick="select();" value="#{controlProceso.nuevoProceso.tipopago.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
+                     <p:inputText id="nuevoProcesoTipoPago" onclick="PF('select();" value="#{controlProceso.nuevoProceso.tipopago.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
                         <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indice,0,1,0)}" process="@this" update="nuevoProcesoTipoPago"/>
                         <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(1, 'TIPOPAGO')}" />
                         <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoProceso('TIPOPAGO', controlProceso.nuevoProceso.tipopago.descripcion, 1)}" />
@@ -655,13 +655,13 @@
                      <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 130px;  " id="btnNuevoProcesoTipoPago" icon="ui-icon-search" process="@this"  actionListener="#{controlProceso.asignarIndex(indice,0,1,0)}"/>   
 
                      <strong><h:outputText value="#{msg['comentarioNP']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoProcesoComentario" onclick="select();" maxlength="500" value="#{controlProceso.nuevoProceso.comentarios}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
+                     <p:inputText id="nuevoProcesoComentario" onclick="PF('select();" maxlength="500" value="#{controlProceso.nuevoProceso.comentarios}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
                         <p:ajax event="change" update="nuevoProcesoComentario"/>
                      </p:inputText>
                      <p:watermark value="#{msg['comentario']}" for="nuevoProcesoComentario"/>
 
                      <strong><h:outputText value="#{msg['numeroProcesosNP']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoProcesoNumero" onclick="select();" value="#{controlProceso.nuevoProceso.numerocierrerequerido}" style="width: 122px; position: absolute; left: 200px; top: 190px;text-transform: uppercase">
+                     <p:inputText id="nuevoProcesoNumero" onclick="PF('select();" value="#{controlProceso.nuevoProceso.numerocierrerequerido}" style="width: 122px; position: absolute; left: 200px; top: 190px;text-transform: uppercase">
                         <p:ajax event="change" update="nuevoProcesoNumero"/>
                      </p:inputText>
                      <p:watermark value="#{msg['numeroProcesosNPInfo']}" for="nuevoProcesoNumero"/>
@@ -694,7 +694,7 @@
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarNP" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 380px;" actionListener="#{controlProceso.limpiarNuevaProceso()}" update="nuevoProceso" process="@this"/>
                      <p:commandButton icon="ui-icon-circle-check" id="aceptarNP" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 380px;"  actionListener="#{controlProceso.agregarNuevoProceso()}" process="@this"  />
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarNP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 380px;" actionListener="#{controlProceso.limpiarNuevaProceso()}" update="nuevoProceso" onclick="NuevoRegistroProceso.hide();"  process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarNP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 380px;" actionListener="#{controlProceso.limpiarNuevaProceso()}" update="nuevoProceso" onclick="PF('NuevoRegistroProceso').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
@@ -705,19 +705,19 @@
                   <p:panel id="duplicarProceso" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['codigoNP']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarProcesoCodigo" onclick="select();" value="#{controlProceso.duplicarProceso.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                     <p:inputText id="duplicarProcesoCodigo" onclick="PF('select();" value="#{controlProceso.duplicarProceso.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                         <p:ajax event="change" update="duplicarProcesoCodigo"/>
                      </p:inputText>
                      <p:watermark value="#{msg['codigo']}" for="duplicarProcesoCodigo"/>
 
                      <strong><h:outputText value="*#{msg['descripcionNP']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarProcesoDescripcion" maxlength="30" onclick="select();" value="#{controlProceso.duplicarProceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                     <p:inputText id="duplicarProcesoDescripcion" maxlength="30" onclick="PF('select();" value="#{controlProceso.duplicarProceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
                         <p:ajax event="change" update="duplicarProcesoDescripcion"/>
                      </p:inputText>
                      <p:watermark value="#{msg['descripcion']}" for="duplicarProcesoDescripcion"/>
 
                      <strong><h:outputText value="*#{msg['tipoPagoNP']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarProcesoTipoPago" onclick="select();" value="#{controlProceso.duplicarProceso.tipopago.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
+                     <p:inputText id="duplicarProcesoTipoPago" onclick="PF('select();" value="#{controlProceso.duplicarProceso.tipopago.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
                         <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indice,0,2,0)}" process="@this" update="duplicarProcesoTipoPago"/>
                         <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(2, 'TIPOPAGO')}" />
                         <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoProceso('TIPOPAGO', controlProceso.duplicarProceso.tipopago.descripcion, 2)}" />
@@ -726,13 +726,13 @@
                      <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 130px;  " id="btnDuplicarProcesoTipoPago" icon="ui-icon-search" process="@this"  actionListener="#{controlProceso.asignarIndex(indice,0,2,0)}"/>   
 
                      <strong><h:outputText value="#{msg['comentarioNP']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarProcesoComentario" onclick="select();" maxlength="500" value="#{controlProceso.duplicarProceso.comentarios}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
+                     <p:inputText id="duplicarProcesoComentario" onclick="PF('select();" maxlength="500" value="#{controlProceso.duplicarProceso.comentarios}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
                         <p:ajax event="change" update="duplicarProcesoComentario"/>
                      </p:inputText>
                      <p:watermark value="#{msg['comentario']}" for="duplicarProcesoComentario"/>
 
                      <strong><h:outputText value="#{msg['numeroProcesosNP']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarProcesoNumero" onclick="select();" value="#{controlProceso.duplicarProceso.numerocierrerequerido}" style="width: 122px; position: absolute; left: 200px; top: 190px;text-transform: uppercase">
+                     <p:inputText id="duplicarProcesoNumero" onclick="PF('select();" value="#{controlProceso.duplicarProceso.numerocierrerequerido}" style="width: 122px; position: absolute; left: 200px; top: 190px;text-transform: uppercase">
                         <p:ajax event="change" update="duplicarProcesoNumero"/>
                      </p:inputText>
                      <p:watermark value="#{msg['numeroProcesosNPInfo']}" for="duplicarProcesoNumero"/>
@@ -764,7 +764,7 @@
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarDP" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 380px;" actionListener="#{controlProceso.limpiarDuplicarProceso()}" update="duplicarProceso" process="@this"/>
                      <p:commandButton icon="ui-icon-circle-check" id="agregarDP" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 380px;"  actionListener="#{controlProceso.confirmarDuplicarProceso()}" process="@this"  />
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 380px;" actionListener="#{controlProceso.limpiarDuplicarProceso()}" update="duplicarProceso" onclick="DuplicarRegistroProceso.hide();"  process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 380px;" actionListener="#{controlProceso.limpiarDuplicarProceso()}" update="duplicarProceso" onclick="PF('DuplicarRegistroProceso').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
@@ -773,7 +773,7 @@
                   <p:panel id="nuevoFormulaProceso" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['formulaNFP']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoFormulaProcesoFormula" onclick="select();" value="#{controlProceso.nuevoFormulaProceso.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
+                     <p:inputText id="nuevoFormulaProcesoFormula" onclick="PF('select();" value="#{controlProceso.nuevoFormulaProceso.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
                         <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indiceFP,0,1,1)}" process="@this" update="nuevoFormulaProcesoFormula"/>
                         <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(1, 'FORMULA')}" />
                         <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoFormulaProceso('FORMULA', controlProceso.nuevoFormulaProceso.formula.nombrelargo, 1)}" />
@@ -788,7 +788,7 @@
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarNFP" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlProceso.limpiarNuevaFormulaProceso()}" update="nuevoFormulaProceso" process="@this"/>
                      <p:commandButton icon="ui-icon-circle-check" id="aceptarNFP" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 140px;"  actionListener="#{controlProceso.agregarNuevoFormulaProceso()}" process="@this"  />
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarNFP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlProceso.limpiarNuevaFormulaProceso()}" update="nuevoFormulaProceso" onclick="NuevoRegistroFormulaProceso.hide();"  process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarNFP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlProceso.limpiarNuevaFormulaProceso()}" update="nuevoFormulaProceso" onclick="PF('NuevoRegistroFormulaProceso').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
@@ -797,7 +797,7 @@
                   <p:panel id="duplicaFormulaProceso" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['formulaNFP']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarFormulaProcesoFormula" onclick="select();" value="#{controlProceso.duplicarFormulaProceso.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
+                     <p:inputText id="duplicarFormulaProcesoFormula" onclick="PF('select();" value="#{controlProceso.duplicarFormulaProceso.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
                         <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indiceFP,0,2,1)}" process="@this" update="duplicarFormulaProcesoFormula"/>
                         <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(2, 'FORMULA')}" />
                         <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoFormulaProceso('FORMULA', controlProceso.duplicarFormulaProceso.formula.nombrelargo, 2)}" />
@@ -812,7 +812,7 @@
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarDFP" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlProceso.limpiarDuplicarFormulaProceso()}" update="duplicaFormulaProceso" process="@this"/>
                      <p:commandButton icon="ui-icon-circle-check" id="aceptarDFP" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 140px;"  actionListener="#{controlProceso.confirmarDuplicarFormulaProceso()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDFP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlProceso.limpiarDuplicarFormulaProceso()}" update="duplicaFormulaProceso" onclick="DuplicarRegistroFormulaProceso.hide();"  process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDFP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlProceso.limpiarDuplicarFormulaProceso()}" update="duplicaFormulaProceso" onclick="PF('DuplicarRegistroFormulaProceso').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
@@ -822,7 +822,7 @@
                   <p:panel id="nuevoOperandoLog" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['operandoOL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoOperandoLogOperando" onclick="select();" value="#{controlProceso.nuevoOperandoLog.operando.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
+                     <p:inputText id="nuevoOperandoLogOperando" onclick="PF('select();" value="#{controlProceso.nuevoOperandoLog.operando.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
                         <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indiceOL,0,1,2)}" process="@this" update="nuevoOperandoLogOperando"/>
                         <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(1, 'OPERANDO')}" />
                         <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoOperandoLog('OPERANDO', controlProceso.nuevoOperandoLog.operando.descripcion, 1)}" />
@@ -831,12 +831,12 @@
                      <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 70px;  " id="btnNuevoOperandoLogOperando" icon="ui-icon-search" process="@this"  actionListener="#{controlProceso.asignarIndex(indiceOL,0,1,2)}"/>   
 
                      <strong><h:outputText value="#{msg['descripcionOL']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoOperandoLogDescripcion" readonly="true" onclick="select();" value="#{controlProceso.nuevoOperandoLog.operando.codigo}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase"/>
+                     <p:inputText id="nuevoOperandoLogDescripcion" readonly="true" onclick="PF('select();" value="#{controlProceso.nuevoOperandoLog.operando.codigo}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase"/>
                      <p:watermark value="#{msg['descripcion']}" for="nuevoOperandoLogDescripcion"/>
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarNOL" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlProceso.limpiarNuevaOperandoLog()}" update="nuevoOperandoLog" process="@this"/>
                      <p:commandButton icon="ui-icon-circle-check" id="aceptarNOL" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 140px;"  actionListener="#{controlProceso.agregarNuevoOperandoLog()}" process="@this"  />
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarNOL" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlProceso.limpiarNuevaOperandoLog()}" update="nuevoOperandoLog" onclick="NuevoRegistroOperandoLog.hide();"  process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarNOL" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlProceso.limpiarNuevaOperandoLog()}" update="nuevoOperandoLog" onclick="PF('NuevoRegistroOperandoLog').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
@@ -845,7 +845,7 @@
                   <p:panel id="duplicarOperandoLog" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['operandoOL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarOperandoLogOperando" onclick="select();" value="#{controlProceso.duplicarOperandoLog.operando.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
+                     <p:inputText id="duplicarOperandoLogOperando" onclick="PF('select();" value="#{controlProceso.duplicarOperandoLog.operando.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
                         <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indiceOL,0,2,2)}" process="@this" update="duplicarOperandoLogOperando"/>
                         <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(2, 'OPERANDO')}" />
                         <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoOperandoLog('OPERANDO', controlProceso.duplicarOperandoLog.operando.descripcion, 2)}" />
@@ -854,12 +854,12 @@
                      <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 70px;  " id="btnDuplicarOperandoLogOperando" icon="ui-icon-search" process="@this"  actionListener="#{controlProceso.asignarIndex(indiceOL,0,2,2)}"/>   
 
                      <strong><h:outputText value="#{msg['descripcionOL']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarOperandoLogDescripcion" readonly="true" onclick="select();" value="#{controlProceso.duplicarOperandoLog.operando.codigo}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase"/>
+                     <p:inputText id="duplicarOperandoLogDescripcion" readonly="true" onclick="PF('select();" value="#{controlProceso.duplicarOperandoLog.operando.codigo}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase"/>
                      <p:watermark value="#{msg['descripcion']}" for="duplicarOperandoLogDescripcion"/>
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarDOL" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlProceso.limpiarDuplicarOperandoLog()}" update="duplicarOperandoLog" process="@this"/>
                      <p:commandButton icon="ui-icon-circle-check" id="aceptarDOL" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 140px;"  actionListener="#{controlProceso.confirmarDuplicarOperandoLog()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDOL" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlProceso.limpiarDuplicarOperandoLog()}" update="duplicarOperandoLog" onclick="DuplicarRegistroOperandoLog.hide();"  process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDOL" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlProceso.limpiarDuplicarOperandoLog()}" update="duplicarOperandoLog" onclick="PF('DuplicarRegistroOperandoLog').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 

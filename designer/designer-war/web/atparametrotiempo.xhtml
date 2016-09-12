@@ -84,7 +84,7 @@
                             <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/logoArrobaDesigner.png); width: 50px; height: 50px; top: 55px; left: 5px; background-repeat: no-repeat; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;" />
 
                             <strong><h:outputText value="#{msg['cuadrilla']}" style="position: absolute; top: 40px; left: 70px;"/></strong>
-                            <p:inputText onclick="select();" value="#{controlATParametroTiempo.parametroTiempoUsuarioBD.cuadrilla.descripcion}" id="editarCuadrillaParametro" style="position: absolute; top: 35px; left: 150px; width: 200px; text-transform: uppercase" >
+                            <p:inputText onclick="PF('select();" value="#{controlATParametroTiempo.parametroTiempoUsuarioBD.cuadrilla.descripcion}" id="editarCuadrillaParametro" style="position: absolute; top: 35px; left: 150px; width: 200px; text-transform: uppercase" >
                                 <p:ajax event="change" listener="#{controlATParametroTiempo.modificarParametroTiempo(0, 'CUADRILLA', controlATParametroTiempo.parametroTiempoUsuarioBD.cuadrilla.descripcion)}" process="@this" update="editarCuadrillaParametro"/>
                                 <p:ajax event="dblclick" listener="#{controlATParametroTiempo.asignarIndex(0, 0)}"/>
                                 <p:ajax event="select" listener="#{controlATParametroTiempo.cambiarIndiceParametro(0)}" />
@@ -110,7 +110,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['tiempoFechaDesde']}" style="position: absolute; top: 115px; left: 70px;"/></strong>
-                            <p:inputMask id="editarTiempoFechaDesdeParametro"   onclick="select();" style="position: absolute; top: 110px; left: 230px; " mask="99:99" value="#{controlATParametroTiempo.fechaDesdeTiempo}">
+                            <p:inputMask id="editarTiempoFechaDesdeParametro"   onclick="PF('select();" style="position: absolute; top: 110px; left: 230px; " mask="99:99" value="#{controlATParametroTiempo.fechaDesdeTiempo}">
                                 <p:ajax event="change"  listener="#{controlATParametroTiempo.pruebaMask(controlATParametroTiempo.fechaDesdeTiempo, 1)}" process="@this" update="@this"/>
                                 <p:ajax event="select" listener="#{controlATParametroTiempo.cambiarIndiceParametro(6)}" />
                             </p:inputMask>
@@ -127,20 +127,20 @@
                             </div>
                             
                             <strong><h:outputText value="#{msg['tiempoFechaHasta']}" style="position: absolute; top: 65px; left: 500px;"/></strong>
-                            <p:inputMask id="editarTiempoFechaHastaParametro"   onclick="select();" style="position: absolute; top: 60px; left: 670px; " mask="99:99" value="#{controlATParametroTiempo.fechaHastaTiempo}">
+                            <p:inputMask id="editarTiempoFechaHastaParametro"   onclick="PF('select();" style="position: absolute; top: 60px; left: 670px; " mask="99:99" value="#{controlATParametroTiempo.fechaHastaTiempo}">
                                 <p:ajax event="change"  listener="#{controlATParametroTiempo.pruebaMask(controlATParametroTiempo.fechaHastaTiempo, 2)}" process="@this" update="@this"/>
                                 <p:ajax event="select" listener="#{controlATParametroTiempo.cambiarIndiceParametro(7)}" />
                             </p:inputMask>		
 
                             <strong><h:outputText value="#{msg['codEmplDesde']}" style="position: absolute; top: 90px; left: 500px;"/></strong>
-                            <p:inputText onclick="select();" value="#{controlATParametroTiempo.parametroTiempoUsuarioBD.codigoempleadodesde}" id="editarEmplDesdeParametro" style="position: absolute; top: 85px; left: 670px;" >
+                            <p:inputText onclick="PF('select();" value="#{controlATParametroTiempo.parametroTiempoUsuarioBD.codigoempleadodesde}" id="editarEmplDesdeParametro" style="position: absolute; top: 85px; left: 670px;" >
                                 <p:ajax event="change" listener="#{controlATParametroTiempo.modificarParametroTiempo(4, 'EMPLDESDE', ccontrolATParametroTiempo.parametroTiempoUsuarioBD.codigoempleadodesde)}" process="@this" update="editarCuadrillaParametro"/>
                                 <p:ajax event="dblclick" listener="#{controlATParametroTiempo.asignarIndex(4, 1)}"/>
                                 <p:ajax event="select" listener="#{controlATParametroTiempo.cambiarIndiceParametro(4)}" />
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['codEmplHasta']}" style="position: absolute; top: 115px; left: 500px;"/></strong>
-                            <p:inputText onclick="select();" value="#{controlATParametroTiempo.parametroTiempoUsuarioBD.codigoempleadohasta}" id="editarEmplHastaParametro" style="position: absolute; top: 110px; left: 670px;" >
+                            <p:inputText onclick="PF('select();" value="#{controlATParametroTiempo.parametroTiempoUsuarioBD.codigoempleadohasta}" id="editarEmplHastaParametro" style="position: absolute; top: 110px; left: 670px;" >
                                 <p:ajax event="change" listener="#{controlATParametroTiempo.modificarParametroTiempo(5, 'EMPLHASTA', controlATParametroTiempo.parametroTiempoUsuarioBD.codigoempleadohasta)}" process="@this" update="editarCuadrillaParametro"/>
                                 <p:ajax event="dblclick" listener="#{controlATParametroTiempo.asignarIndex(5, 2)}"/>
                                 <p:ajax event="select" listener="#{controlATParametroTiempo.cambiarIndiceParametro(5)}" />
@@ -151,11 +151,11 @@
                         <fieldset style="position: absolute;top: 240px;left: 10px;height: 120px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style=" color: blue;text-align:left"><strong>#{msg['procesos']}</strong></legend>
 
-                            <p:commandButton style="position: absolute; left: 90px; width: 180px; top:30px;" process="@this" onclick="mensajeProgramarTurno.show()" value="#{msg['programarTurno']}" />
-                            <p:commandButton style="position: absolute; left: 90px; width: 180px; top:80px;" process="@this" onclick="mensajeDesprogramarTurno.show()" value="#{msg['desprogramarTurno']}" />
+                            <p:commandButton style="position: absolute; left: 90px; width: 180px; top:30px;" process="@this" onclick="PF('mensajeProgramarTurno').show()" value="#{msg['programarTurno']}" />
+                            <p:commandButton style="position: absolute; left: 90px; width: 180px; top:80px;" process="@this" onclick="PF('mensajeDesprogramarTurno').show()" value="#{msg['desprogramarTurno']}" />
 
-                            <p:commandButton style="position: absolute; left: 325px; width: 180px; top:30px;" process="@this" onclick="mensajeSimularMarcacion.show()" value="#{msg['simularMarcacion']}" />
-                            <p:commandButton style="position: absolute; left: 325px; width: 180px; top:80px;" process="@this" onclick="mensajeEliminarSimulacion.show()" value="#{msg['elimiarSimulacion']}" />
+                            <p:commandButton style="position: absolute; left: 325px; width: 180px; top:30px;" process="@this" onclick="PF('mensajeSimularMarcacion').show()" value="#{msg['simularMarcacion']}" />
+                            <p:commandButton style="position: absolute; left: 325px; width: 180px; top:80px;" process="@this" onclick="PF('mensajeEliminarSimulacion').show()" value="#{msg['elimiarSimulacion']}" />
 
                             <p:commandButton style="position: absolute; left: 560px; width: 180px; top:30px;" process="@this" actionListener="#{controlATParametroTiempo.actionBtnLiquidarTiempos()}" value="#{msg['liquidarTiempo']}" />
                             <p:commandButton style="position: absolute; left: 560px; width: 180px; top:80px;" process="@this" actionListener="#{controlATParametroTiempo.actionBtnDesliquidarTiempos()}" value="#{msg['desliquidar']}" />
@@ -180,7 +180,7 @@
                         </fieldset> 
 
 
-                        <p:commandButton style="position: absolute; left: 683px; top: 480px;" id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlATParametroTiempo.guardado}" onclick="confirmarGuardar.show()" process="@this" />
+                        <p:commandButton style="position: absolute; left: 683px; top: 480px;" id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlATParametroTiempo.guardado}" onclick="PF('confirmarGuardar').show()" process="@this" />
                         <p:commandButton style="position: absolute; left: 775px; top: 480px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick"  action="#{controlATParametroTiempo.redirigir()}" process="@this" />
 
                     </p:panel>
@@ -188,23 +188,23 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATParametroTiempo.guardarCambios()}" action="#{controlATParametroTiempo.redirigir()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATParametroTiempo.cancelarModificaciones()}" action="#{controlATParametroTiempo.redirigir()}" style="position: absolute; top: 60px; left: 255px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATParametroTiempo.guardarCambios()}" action="#{controlATParametroTiempo.redirigir()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATParametroTiempo.cancelarModificaciones()}" action="#{controlATParametroTiempo.redirigir()}" style="position: absolute; top: 60px; left: 255px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATParametroTiempo.secRegistro, 'ParametrosTiempos', 'rastroATParametroTiempo')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATParametroTiempo.secRegistro, 'ParametrosTiempos', 'rastroATParametroTiempo')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('ParametrosTiempos', 'rastroATParametroTiempo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('ParametrosTiempos', 'rastroATParametroTiempo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -220,8 +220,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATParametroTiempo.secRegistro, 'ParametrosTiempos', 'rastroATParametroTiempo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATParametroTiempo.secRegistro, 'ParametrosTiempos', 'rastroATParametroTiempo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -265,36 +265,36 @@
                     <p:dialog id="mensajeProgramarTurno" header="#{msg['atencion']}" widgetVar="mensajeProgramarTurno"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"  />
                         <h:outputText value="#{msg['mensajeProgramarTurno']}" style="position: absolute; left: 100px; top: 10px; width: 280px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="mensajeProgramarTurno.hide();" actionListener="#{controlATParametroTiempo.actionBtnProgramarTurno()}" style="position: absolute; top: 55px; left: 215px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="mensajeProgramarTurno.hide();" style="position: absolute; top: 55px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('mensajeProgramarTurno').hide();" actionListener="#{controlATParametroTiempo.actionBtnProgramarTurno()}" style="position: absolute; top: 55px; left: 215px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('mensajeProgramarTurno').hide();" style="position: absolute; top: 55px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="mensajeDesprogramarTurno" header="#{msg['atencion']}" widgetVar="mensajeDesprogramarTurno"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"  />
                         <h:outputText value="#{msg['mensajeDesprogramarTurno']}" style="position: absolute; left: 100px; top: 10px; width: 280px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="mensajeDesprogramarTurno.hide();" actionListener="#{controlATParametroTiempo.actionBtnDesprogramarTurno()}" style="position: absolute; top: 55px; left: 215px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="mensajeDesprogramarTurno.hide();" style="position: absolute; top: 55px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('mensajeDesprogramarTurno').hide();" actionListener="#{controlATParametroTiempo.actionBtnDesprogramarTurno()}" style="position: absolute; top: 55px; left: 215px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('mensajeDesprogramarTurno').hide();" style="position: absolute; top: 55px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="mensajeSimularMarcacion" header="#{msg['atencion']}" widgetVar="mensajeSimularMarcacion"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"  />
                         <h:outputText value="#{msg['mensajeSimularMarcacion']}" style="position: absolute; left: 100px; top: 10px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="mensajeSimularMarcacion.hide();" actionListener="#{controlATParametroTiempo.actionBtnSimularMarcacion()}" style="position: absolute; top: 55px; left: 215px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="mensajeSimularMarcacion.hide();" style="position: absolute; top: 55px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('mensajeSimularMarcacion').hide();" actionListener="#{controlATParametroTiempo.actionBtnSimularMarcacion()}" style="position: absolute; top: 55px; left: 215px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('mensajeSimularMarcacion').hide();" style="position: absolute; top: 55px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="mensajeEliminarSimulacion" header="#{msg['atencion']}" widgetVar="mensajeEliminarSimulacion"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"  />
                         <h:outputText value="#{msg['mensajeEliminarSimulacion']}" style="position: absolute; left: 100px; top: 10px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="mensajeEliminarSimulacion.hide();" actionListener="#{controlATParametroTiempo.actionBtnEliminarSimulacion()}" style="position: absolute; top: 55px; left: 215px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="mensajeEliminarSimulacion.hide();" style="position: absolute; top: 55px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('mensajeEliminarSimulacion').hide();" actionListener="#{controlATParametroTiempo.actionBtnEliminarSimulacion()}" style="position: absolute; top: 55px; left: 215px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('mensajeEliminarSimulacion').hide();" style="position: absolute; top: 55px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="mensajeLiquidarTiempos" header="#{msg['atencion']}" widgetVar="mensajeLiquidarTiempos"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"  />
                         <h:outputText value="#{controlATParametroTiempo.mensajeBtnLiquidarTiempos}" style="position: absolute; left: 100px; top: 10px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="mensajeLiquidarTiempos.hide();" actionListener="#{controlATParametroTiempo.actionFinalizarLiquidarTiempos()}" style="position: absolute; top: 55px; left: 215px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="mensajeLiquidarTiempos.hide();" style="position: absolute; top: 55px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('mensajeLiquidarTiempos').hide();" actionListener="#{controlATParametroTiempo.actionFinalizarLiquidarTiempos()}" style="position: absolute; top: 55px; left: 215px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('mensajeLiquidarTiempos').hide();" style="position: absolute; top: 55px; left: 300px;" process="@this" />
                     </p:dialog>
 
                 </h:form>

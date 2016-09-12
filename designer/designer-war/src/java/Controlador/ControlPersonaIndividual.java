@@ -4176,7 +4176,7 @@ public class ControlPersonaIndividual implements Serializable {
         PrimefacesContextUI.actualizar("form:ciudadModTelefono");
         context.reset("formLovs:formDTelefono:formCiudadTel:lovCiudadTelefono:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovCiudadTelefono').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lovCiudadTelefono.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovCiudadTelefono').unselectAllRows()");
 
         PrimefacesContextUI.actualizar("formLovs:formDTelefono:formCiudadTel:CiudadTelefonoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDTelefono:formCiudadTel:lovCiudadTelefono");
@@ -4192,7 +4192,7 @@ public class ControlPersonaIndividual implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formLovs:formDTelefono:formCiudadTel:lovCiudadTelefono:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovCiudadTelefono').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lovCiudadTelefono.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovCiudadTelefono').unselectAllRows()");
         PrimefacesContextUI.ejecutar("PF('CiudadTelefonoDialogo').hide()");
     }
 
@@ -4207,7 +4207,7 @@ public class ControlPersonaIndividual implements Serializable {
         PrimefacesContextUI.actualizar("form:tipoTelefonoModTelefono");
         context.reset("formLovs:formDTelefono:formTel:lovTipoTelefonoTelefono:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovTipoTelefonoTelefono').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lovTipoTelefonoTelefono.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoTelefonoTelefono').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDTelefono:formTel:TipoTelefonoTelefonoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDTelefono:formTel:lovTipoTelefonoTelefono");
         PrimefacesContextUI.actualizar("formLovs:formDTelefono:formTel:aceptarTTT");
@@ -4224,7 +4224,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTipoTelefonoTelefono').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTipoTelefonoTelefono.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoTelefonoTelefono').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('TipoTelefonoTelefonoDialogo').hide()");
     }
@@ -4242,7 +4242,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovCiudadDireccion').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovCiudadDireccion.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovCiudadDireccion').unselectAllRows()");
 
         PrimefacesContextUI.actualizar("formLovs:formDDireccion:CiudadDireccionDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDDireccion:lovCiudadDireccion");
@@ -4261,7 +4261,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovCiudadDireccion').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovCiudadDireccion.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovCiudadDireccion').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('CiudadDireccionDialogo').hide()");
     }
@@ -4279,7 +4279,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovEstadoCivilEstadoCivil').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovEstadoCivilEstadoCivil.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovEstadoCivilEstadoCivil').unselectAllRows()");
 
         PrimefacesContextUI.actualizar("formLovs:formDEstadoCivil:EstadoCivilEstadoCivilDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDEstadoCivil:lovEstadoCivilEstadoCivil");
@@ -4298,7 +4298,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovEstadoCivilEstadoCivil').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovEstadoCivilEstadoCivil.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovEstadoCivilEstadoCivil').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('EstadoCivilEstadoCivilDialogo').hide()");
     }
@@ -4318,7 +4318,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDAfiliacion:lovTerceroAfiliacion");
         PrimefacesContextUI.actualizar("formLovs:formDAfiliacion:aceptarTSA");
@@ -4337,7 +4337,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('TerceroAfiliacionDialogo').hide()");
     }
@@ -4357,7 +4357,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDAfiliacion:lovTerceroAfiliacion");
         PrimefacesContextUI.actualizar("formLovs:formDAfiliacion:aceptarTSA");
@@ -4375,7 +4375,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('TerceroAfiliacionDialogo').hide()");
     }
@@ -4395,7 +4395,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDAfiliacion:lovTerceroAfiliacion");
         PrimefacesContextUI.actualizar("formLovs:formDAfiliacion:aceptarTSA");
@@ -4415,7 +4415,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('TerceroAfiliacionDialogo').hide()");
     }
@@ -4436,7 +4436,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDAfiliacion:lovTerceroAfiliacion");
         context.reset("formLovs:formDAfiliacion:lovTerceroAfiliacion:globalFilter");
@@ -4455,7 +4455,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('TerceroAfiliacionDialogo').hide()");
     }
@@ -4475,7 +4475,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').unselectAllRows()");
 
         PrimefacesContextUI.actualizar("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDAfiliacion:lovTerceroAfiliacion");
@@ -4494,7 +4494,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTerceroAfiliacion').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('TerceroAfiliacionDialogo').hide()");
     }
@@ -4512,7 +4512,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovJornadaJornadaLaboral').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovJornadaJornadaLaboral.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovJornadaJornadaLaboral').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDJornadaLaboral:JornadaJornadaLaboralDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDJornadaLaboral:lovJornadaJornadaLaboral");
         PrimefacesContextUI.actualizar("formLovs:formDJornadaLaboral:aceptarJLJL");
@@ -4530,7 +4530,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovJornadaJornadaLaboral').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovJornadaJornadaLaboral.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovJornadaJornadaLaboral').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('JornadaJornadaLaboralDialogo').hide()");
     }
@@ -4548,7 +4548,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovMetodoPagoFormaPago').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovMetodoPagoFormaPago.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovMetodoPagoFormaPago').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDFormaPago:formMetodo:MetodoPagoFormaPagoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDFormaPago:formMetodo:lovMetodoPagoFormaPago");
         PrimefacesContextUI.actualizar("formLovs:formDFormaPago:formMetodo:aceptarMPFP");
@@ -4566,7 +4566,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovMetodoPagoFormaPago').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovMetodoPagoFormaPago.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovMetodoPagoFormaPago').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('MetodoPagoFormaPagoDialogo').hide()");
     }
@@ -4584,7 +4584,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovSucursalPagoFormaPago').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovSucursalPagoFormaPago.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovSucursalPagoFormaPago').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDFormaPago:formSucursal:SucursalFormaPagoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDFormaPago:formSucursal:lovSucursalPagoFormaPago");
         PrimefacesContextUI.actualizar("formLovs:formDFormaPago:formSucursal:aceptarSFP");
@@ -4602,7 +4602,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovSucursalPagoFormaPago').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovSucursalPagoFormaPago.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovSucursalPagoFormaPago').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('SucursalFormaPagoDialogo').hide()");
     }
@@ -4621,7 +4621,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovPeriodicidadFormaPago').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovPeriodicidadFormaPago.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovPeriodicidadFormaPago').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDFormaPago:formPeriodicidad:PeriodicidadFormaPagoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDFormaPago:formPeriodicidad:lovPeriodicidadFormaPago");
         PrimefacesContextUI.actualizar("formLovs:formDFormaPago:formPeriodicidad:aceptarPFP");
@@ -4639,7 +4639,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovPeriodicidadFormaPago').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovPeriodicidadFormaPago.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovPeriodicidadFormaPago').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('PeriodicidadFormaPagoDialogo').hide()");
     }
@@ -4657,7 +4657,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovUbicacionUbicacionGeografica').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovUbicacionUbicacionGeografica.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovUbicacionUbicacionGeografica').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDUbicacion:UbicacionUbicacionGeograficaDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDUbicacion:lovUbicacionUbicacionGeografica");
         PrimefacesContextUI.actualizar("formLovs:formDUbicacion:aceptarUGUG");
@@ -4675,7 +4675,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovUbicacionUbicacionGeografica').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovUbicacionUbicacionGeografica.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovUbicacionUbicacionGeografica').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('UbicacionUbicacionGeograficaDialogo').hide()");
     }
@@ -4692,7 +4692,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovContratoLegislacionLaboral').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovContratoLegislacionLaboral.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovContratoLegislacionLaboral').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDLegislacionLaboral:ContratoLegislacionLaboralDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDLegislacionLaboral:lovContratoLegislacionLaboral");
         PrimefacesContextUI.actualizar("formLovs:formDLegislacionLaboral:lovContratoLegislacionLaboral");
@@ -4712,7 +4712,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovContratoLegislacionLaboral').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovContratoLegislacionLaboral.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovContratoLegislacionLaboral').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('ContratoLegislacionLaboralDialogo').hide()");
     }
@@ -4730,7 +4730,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovNormaLaboralNormaLaboral').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovNormaLaboralNormaLaboral.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovNormaLaboralNormaLaboral').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDNormaLaboral:NormaLaboralNormaLaboralDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDNormaLaboral:lovNormaLaboralNormaLaboral");
         PrimefacesContextUI.actualizar("formLovs:formDNormaLaboral:lovNormaLaboralNormaLaboral");
@@ -4750,7 +4750,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovNormaLaboralNormaLaboral').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovNormaLaboralNormaLaboral.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovNormaLaboralNormaLaboral').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('NormaLaboralNormaLaboralDialogo').hide()");
     }
@@ -4769,7 +4769,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovMotivoContratoTipoContrato').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovMotivoContratoTipoContrato.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovMotivoContratoTipoContrato').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDTipoContrato:formTipoContrat:MotivoContratoTipoContratoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDTipoContrato:formTipoContrat:lovMotivoContratoTipoContrato");
         PrimefacesContextUI.actualizar("formLovs:formDTipoContrato:formTipoContrat:lovMotivoContratoTipoContrato");
@@ -4788,7 +4788,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovMotivoContratoTipoContrato').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovMotivoContratoTipoContrato.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovMotivoContratoTipoContrato').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('MotivoContratoTipoContratoDialogo').hide()");
     }
@@ -4806,7 +4806,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTipoContratoTipoContrato').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTipoContratoTipoContrato.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoContratoTipoContrato').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDTipoContrato:formTipoContrato:TipoContratoTipoContratoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDTipoContrato:formTipoContrato:lovTipoContratoTipoContrato");
         PrimefacesContextUI.actualizar("formLovs:formDTipoContrato:formTipoContrato:lovTipoContratoTipoContrato");
@@ -4826,7 +4826,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTipoContratoTipoContrato').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTipoContratoTipoContrato.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoContratoTipoContrato').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('TipoContratoTipoContratoDialogo').hide()");
     }
@@ -4844,7 +4844,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovMotivoCambioSueldoSueldo').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovMotivoCambioSueldoSueldo.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovMotivoCambioSueldoSueldo').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDSueldo:formMotivoSu:MotivoCambioSueldoSueldoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDSueldo:formMotivoSu:lovMotivoCambioSueldoSueldo");
         PrimefacesContextUI.actualizar("formLovs:formDSueldo:formMotivoSu:aceptarMCSS");
@@ -4862,7 +4862,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovMotivoCambioSueldoSueldo').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovMotivoCambioSueldoSueldo.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovMotivoCambioSueldoSueldo').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('MotivoCambioSueldoSueldoDialogo').hide()");
     }
@@ -4880,7 +4880,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTipoSueldoSueldo').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTipoSueldoSueldo.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoSueldoSueldo').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDSueldo:formTipoSueldo:TipoSueldoSueldoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDSueldo:formTipoSueldo:lovTipoSueldoSueldo");
         PrimefacesContextUI.actualizar("formLovs:formDSueldo:formTipoSueldo:lovTipoSueldoSueldo");
@@ -4898,7 +4898,7 @@ public class ControlPersonaIndividual implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formLovs:formDSueldo:formTipoSueldo:lovTipoSueldoSueldo:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovTipoSueldoSueldo').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lovTipoSueldoSueldo.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoSueldoSueldo').unselectAllRows()");
         PrimefacesContextUI.ejecutar("PF('TipoSueldoSueldoDialogo').hide()");
     }
 
@@ -4913,7 +4913,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         context.reset("formLovs:formDTipoSalario:lovReformaLaboralTipoSalario:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovReformaLaboralTipoSalario').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lovReformaLaboralTipoSalario.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovReformaLaboralTipoSalario').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDTipoSalario:ReformaLaboralTipoSalarioDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDTipoSalario:lovReformaLaboralTipoSalario");
         PrimefacesContextUI.actualizar("formLovs:formDTipoSalario:aceptarRLTS");
@@ -4932,7 +4932,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovReformaLaboralTipoSalario').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovReformaLaboralTipoSalario.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovReformaLaboralTipoSalario').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('ReformaLaboralTipoSalarioDialogo').hide()");
     }
@@ -4972,7 +4972,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTipoTrabajadorTipoTrabajador').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTipoTrabajadorTipoTrabajador.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoTrabajadorTipoTrabajador').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDTipoTrabajador:lovTipoTrabajadorTipoTrabajador");
         PrimefacesContextUI.actualizar("formLovs:formDTipoTrabajador:aceptarTTTT");
 
@@ -4990,7 +4990,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovTipoTrabajadorTipoTrabajador').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovTipoTrabajadorTipoTrabajador.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoTrabajadorTipoTrabajador').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('TipoTrabajadorTipoTrabajadorDialogo').hide()");
     }
@@ -5008,7 +5008,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovEstructuraCentroCosto').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovEstructuraCentroCosto.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovEstructuraCentroCosto').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDCentroCosto:formEstrucCC:EstructuraCentroCostoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDCentroCosto:formEstrucCC:lovEstructuraCentroCosto");
         PrimefacesContextUI.actualizar("formLovs:formDCentroCosto:formEstrucCC:aceptarECC");
@@ -5026,7 +5026,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovEstructuraCentroCosto').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovEstructuraCentroCosto.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovEstructuraCentroCosto').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('EstructuraCentroCostoDialogo').hide()");
     }
@@ -5044,7 +5044,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovMotivoLocalizacionCentroCosto').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovMotivoLocalizacionCentroCosto.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovMotivoLocalizacionCentroCosto').unselectAllRows()");
 
         PrimefacesContextUI.actualizar("formLovs:formDCentroCosto:formCentroC:MotivoLocalizacionCentroCostoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDCentroCosto:formCentroC:lovMotivoLocalizacionCentroCosto");
@@ -5063,7 +5063,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovMotivoLocalizacionCentroCosto').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovMotivoLocalizacionCentroCosto.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovMotivoLocalizacionCentroCosto').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('MotivoLocalizacionCentroCostoDialogo').hide()");
     }
@@ -5082,7 +5082,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovCargoCargoDesempeñado').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovCargoCargoDesempeñado.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovCargoCargoDesempeñado').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDCargoDesempenado:formCargo:CargoCargoDesempeñadoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDCargoDesempenado:formCargo:lovCargoCargoDesempeñado");
         PrimefacesContextUI.actualizar("formLovs:formDCargoDesempenado:formCargo:aceptarCCD");
@@ -5100,7 +5100,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovCargoCargoDesempeñado').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovCargoCargoDesempeñado.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovCargoCargoDesempeñado').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('CargoCargoDesempeñadoDialogo').hide()");
     }
@@ -5119,7 +5119,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovMotivoCambioCargoCargoDesempeñado').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovMotivoCambioCargoCargoDesempeñado.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovMotivoCambioCargoCargoDesempeñado').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDCargoDesempenado:formMotcargo:MotivoCambioCargoCargoDesempeñadoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDCargoDesempenado:formMotcargo:lovMotivoCambioCargoCargoDesempeñado");
         PrimefacesContextUI.actualizar("formLovs:formDCargoDesempenado:formMotcargo:aceptarMCCCD");
@@ -5137,7 +5137,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovMotivoCambioCargoCargoDesempeñado').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovMotivoCambioCargoCargoDesempeñado.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovMotivoCambioCargoCargoDesempeñado').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('MotivoCambioCargoCargoDesempeñadoDialogo').hide()");
     }
@@ -5154,7 +5154,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovEstructuraCargoDesempeñado').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovEstructuraCargoDesempeñado.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovEstructuraCargoDesempeñado').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDCargoDesempenado:formEstruCargo:EstructuraCargoDesempeñadoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDCargoDesempenado:formEstruCargo:lovEstructuraCargoDesempeñado");
         PrimefacesContextUI.actualizar("formLovs:formDCargoDesempenado:formEstruCargo:aceptarECD");
@@ -5172,7 +5172,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovEstructuraCargoDesempeñado').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovEstructuraCargoDesempeñado.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovEstructuraCargoDesempeñado').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('EstructuraCargoDesempeñadoDialogo').hide()");
     }
@@ -5190,7 +5190,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovPapelCargoDesempeñado').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovPapelCargoDesempeñado.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovPapelCargoDesempeñado').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDCargoDesempenado:formPapelD:PapelCargoDesempeñadoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDCargoDesempenado:formPapelD:lovPapelCargoDesempeñado");
         PrimefacesContextUI.actualizar("formLovs:formDCargoDesempenado:formPapelD:aceptarPCD");
@@ -5208,7 +5208,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovPapelCargoDesempeñado').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovPapelCargoDesempeñado.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovPapelCargoDesempeñado').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('PapelCargoDesempeñadoDialogo').hide()");
     }
@@ -5227,7 +5227,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovEmpleadoJefeCargoDesempeñado').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovEmpleadoJefeCargoDesempeñado.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpleadoJefeCargoDesempeñado').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDCargoDesempenado:formjefe:EmpleadoJefeCargoDesempeñadoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDCargoDesempenado:formjefe:lovEmpleadoJefeCargoDesempeñado");
         PrimefacesContextUI.actualizar("formLovs:formDCargoDesempenado:formjefe:aceptarEJCD");
@@ -5244,7 +5244,7 @@ public class ControlPersonaIndividual implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formLovs:formDCargoDesempenado:formjefe:lovEmpleadoJefeCargoDesempeñado:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovEmpleadoJefeCargoDesempeñado').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lovEmpleadoJefeCargoDesempeñado.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpleadoJefeCargoDesempeñado').unselectAllRows()");
         PrimefacesContextUI.ejecutar("PF('EmpleadoJefeCargoDesempeñadoDialogo').hide()");
     }
 
@@ -5271,7 +5271,7 @@ public class ControlPersonaIndividual implements Serializable {
             aceptar = true;
             context.reset("primerForm:formEmpresa:lovEmpresaInformacionPersonalVisible:globalFilter");
             PrimefacesContextUI.ejecutar("PF('lovEmpresaInformacionPersonalVisible').clearFilters()");
-            PrimefacesContextUI.ejecutar("PF('lovEmpresaInformacionPersonalVisible.unselectAllRows()");
+            PrimefacesContextUI.ejecutar("PF('lovEmpresaInformacionPersonalVisible').unselectAllRows()");
             context.reset("primerForm:formEmpresa:EmpresaInformacionPersonalDialogoVisible");
         } else {
             filtrarLovEmpresas = null;
@@ -5281,7 +5281,7 @@ public class ControlPersonaIndividual implements Serializable {
 
             PrimefacesContextUI.ejecutar("PF('lovEmpresaInformacionPersonalVisible').clearFilters()");
 
-            PrimefacesContextUI.ejecutar("PF('lovEmpresaInformacionPersonalVisible.unselectAllRows()");
+            PrimefacesContextUI.ejecutar("PF('lovEmpresaInformacionPersonalVisible').unselectAllRows()");
 
             PrimefacesContextUI.ejecutar("PF('EmpresaInformacionPersonalDialogoVisible').hide()");
         }
@@ -5303,7 +5303,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovEmpresaInformacionPersonal').clearFilters()");
         PrimefacesContextUI.actualizar("formLovs:formDInformacionPersonal:formEmpresa:aceptarEIP");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresaInformacionPersonal.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresaInformacionPersonal').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDInformacionPersonal:formEmpresa:EmpresaInformacionPersonalDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDInformacionPersonal:formEmpresa:lovEmpresaInformacionPersonal");
 
@@ -5318,7 +5318,7 @@ public class ControlPersonaIndividual implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formLovs:formDInformacionPersonal:formEmpresa:lovEmpresaInformacionPersonal:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovEmpresaInformacionPersonal').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresaInformacionPersonal.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovEmpresaInformacionPersonal').unselectAllRows()");
         PrimefacesContextUI.ejecutar("PF('EmpresaInformacionPersonalDialogo').hide()");
     }
 
@@ -5334,7 +5334,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         context.reset("formLovs:formDInformacionPersonal:infoP_tipoD:lovTipoDocumentoInformacionPersonal:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovTipoDocumentoInformacionPersonal').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lovTipoDocumentoInformacionPersonal.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoDocumentoInformacionPersonal').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDInformacionPersonal:infoP_tipoD:TipoDocumentoInformacionPersonalDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDInformacionPersonal:infoP_tipoD:lovTipoDocumentoInformacionPersonal");
         PrimefacesContextUI.ejecutar("PF('TipoDocumentoInformacionPersonalDialogo').hide()");
@@ -5348,7 +5348,7 @@ public class ControlPersonaIndividual implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formLovs:formDInformacionPersonal:infoP_tipoD:lovTipoDocumentoInformacionPersonal:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovTipoDocumentoInformacionPersonal').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lovTipoDocumentoInformacionPersonal.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoDocumentoInformacionPersonal').unselectAllRows()");
         PrimefacesContextUI.ejecutar("PF('TipoDocumentoInformacionPersonalDialogo').hide()");
     }
 
@@ -5363,7 +5363,7 @@ public class ControlPersonaIndividual implements Serializable {
         PrimefacesContextUI.actualizar("form:ciudadDocumentoModPersonal");
         context.reset("formLovs:formDInformacionPersonal:infoP_ciudadD:lovCiudadDocumentoInformacionPersonal:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovCiudadDocumentoInformacionPersonal').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lovCiudadDocumentoInformacionPersonal.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovCiudadDocumentoInformacionPersonal').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDInformacionPersonal:infoP_ciudadD:CiudadDocumentoInformacionPersonalDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDInformacionPersonal:infoP_ciudadD:lovCiudadDocumentoInformacionPersonal");
         PrimefacesContextUI.ejecutar("PF('CiudadDocumentoInformacionPersonalDialogo').hide()");
@@ -5380,7 +5380,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovCiudadDocumentoInformacionPersonal').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovCiudadDocumentoInformacionPersonal.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovCiudadDocumentoInformacionPersonal').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('CiudadDocumentoInformacionPersonalDialogo').hide()");
     }
@@ -5399,7 +5399,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovCiudadNacimientoInformacionPersonal').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovCiudadNacimientoInformacionPersonal.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovCiudadNacimientoInformacionPersonal').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDInformacionPersonal:infoP_ciudadN:CiudadNacimientoInformacionPersonalDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDInformacionPersonal:infoP_ciudadN:lovCiudadNacimientoInformacionPersonal");
 
@@ -5417,7 +5417,7 @@ public class ControlPersonaIndividual implements Serializable {
 
         PrimefacesContextUI.ejecutar("PF('lovCiudadNacimientoInformacionPersonal').clearFilters()");
 
-        PrimefacesContextUI.ejecutar("PF('lovCiudadNacimientoInformacionPersonal.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovCiudadNacimientoInformacionPersonal').unselectAllRows()");
 
         PrimefacesContextUI.ejecutar("PF('CiudadNacimientoInformacionPersonalDialogo').hide()");
     }
@@ -6350,35 +6350,35 @@ public class ControlPersonaIndividual implements Serializable {
 
         context.reset("formLovs:formDTipoSalario:lovReformaLaboralTipoSalario:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovReformaLaboralTipoSalario').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lovReformaLaboralTipoSalario.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovReformaLaboralTipoSalario').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDTipoSalario:ReformaLaboralTipoSalarioDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDTipoSalario:lovReformaLaboralTipoSalario");
         PrimefacesContextUI.actualizar("formLovs:formDTipoSalario:aceptarRLTS");
 
         context.reset("formLovs:formDSueldo:formTipoSueldo:lovTipoSueldoSueldo:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovTipoSueldoSueldo').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lovTipoSueldoSueldo.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoSueldoSueldo').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDSueldo:formTipoSueldo:TipoSueldoSueldoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDSueldo:formTipoSueldo:lovTipoSueldoSueldo");
         PrimefacesContextUI.actualizar("formLovs:formDSueldo:formTipoSueldo:aceptarTSS");
 
         context.reset("formLovs:formDTipoContrato:formTipoContrato:lovTipoContratoTipoContrato:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovTipoContratoTipoContrato').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lovTipoContratoTipoContrato.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovTipoContratoTipoContrato').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDTipoContrato:formTipoContrato:TipoContratoTipoContratoDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDTipoContrato:formTipoContrato:lovTipoContratoTipoContrato");
         PrimefacesContextUI.actualizar("formLovs:formDTipoContrato:formTipoContrato:aceptarTCTC");
 
         context.reset("formLovs:formDNormaLaboral:lovNormaLaboralNormaLaboral:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovNormaLaboralNormaLaboral').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lovNormaLaboralNormaLaboral.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovNormaLaboralNormaLaboral').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDNormaLaboral:NormaLaboralNormaLaboralDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDNormaLaboral:lovNormaLaboralNormaLaboral");
         PrimefacesContextUI.actualizar("formLovs:formDNormaLaboral:aceptarNLNL");
 
         context.reset("formLovs:formDLegislacionLaboral:lovContratoLegislacionLaboral:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovContratoLegislacionLaboral').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lovContratoLegislacionLaboral.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('lovContratoLegislacionLaboral').unselectAllRows()");
         PrimefacesContextUI.actualizar("formLovs:formDLegislacionLaboral:ContratoLegislacionLaboralDialogo");
         PrimefacesContextUI.actualizar("formLovs:formDLegislacionLaboral:lovContratoLegislacionLaboral");
         PrimefacesContextUI.actualizar("formLovs:formDLegislacionLaboral:aceptarCLL");

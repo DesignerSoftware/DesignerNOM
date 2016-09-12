@@ -16,7 +16,7 @@
                     <p:growl id="growl" showDetail="true"/>
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
 
-                        <p:commandButton style="position: absolute; left: 683px; top: 482px;" disabled="#{controlEscalafonSalarial.cambiosPagina}" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="confirmarGuardar.show();" update=":form:datosEscalafonSalarial" process="@this" />
+                        <p:commandButton style="position: absolute; left: 683px; top: 482px;" disabled="#{controlEscalafonSalarial.cambiosPagina}" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarGuardar').show();" update=":form:datosEscalafonSalarial" process="@this" />
                         <p:commandButton style="position: absolute; left: 775px; top: 482px;" icon="ui-icon-closethick" id="ATRAS" value="#{msg['cancelar']}" actionListener="#{controlEscalafonSalarial.salir()}" action="nomina" process="@this" />
 
 
@@ -193,37 +193,37 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEscalafonSalarial.guardarGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEscalafonSalarial.cancelarModificacionGeneral()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEscalafonSalarial.guardarGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEscalafonSalarial.cancelarModificacionGeneral()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlEscalafonSalarial.guardarYSalir()}" action="procesoretorno" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlEscalafonSalarial.cancelarYSalir()}" action="procesoretorno" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlEscalafonSalarial.guardarYSalir()}" action="procesoretorno" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlEscalafonSalarial.cancelarYSalir()}" action="procesoretorno" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="false" modal="true" height="95" width="430px;"  >
                         <h:outputText value="#{msg['seleccione']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['escalafonSalarial']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 30px; top: 50px;" actionListener="#{controlEscalafonSalarial.verificarRastroEscalafonSalarial()}" process="@this" />
-                        <p:commandButton value="#{msg['grupoSalarial']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 200px; top: 50px;" actionListener="#{controlEscalafonSalarial.verificarRastroGrupoSalarial()}" process="@this"/>
+                        <p:commandButton value="#{msg['escalafonSalarial']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 30px; top: 50px;" actionListener="#{controlEscalafonSalarial.verificarRastroEscalafonSalarial()}" process="@this" />
+                        <p:commandButton value="#{msg['grupoSalarial']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 200px; top: 50px;" actionListener="#{controlEscalafonSalarial.verificarRastroGrupoSalarial()}" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlEscalafonSalarial.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEscalafonSalarial.backUp, controlEscalafonSalarial.nombreTablaRastro , 'rastroEscalafonSalarial')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlEscalafonSalarial.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEscalafonSalarial.backUp, controlEscalafonSalarial.nombreTablaRastro , 'rastroEscalafonSalarial')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlEscalafonSalarial.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlEscalafonSalarial.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlEscalafonSalarial.nombreTablaRastro , 'rastroEscalafonSalarial')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlEscalafonSalarial.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlEscalafonSalarial.nombreTablaRastro , 'rastroEscalafonSalarial')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlEscalafonSalarial.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -239,8 +239,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEscalafonSalarial.backUp, controlEscalafonSalarial.nombreTablaRastro , 'rastroEscalafonSalarial')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEscalafonSalarial.backUp, controlEscalafonSalarial.nombreTablaRastro , 'rastroEscalafonSalarial')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -323,8 +323,8 @@
 
                     <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="false" modal="true" height="95" width="350px;"  >
                         <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['escalafonSalarial']}" onclick="verificarNuevoRegistro.hide();" style="position: absolute; left: 30px; top: 50px;" oncomplete="NuevoRegistroEscalafonSalarial.show()" update=":formularioDialogos:nuevoEscalafonSalarial"  process="@this" />
-                        <p:commandButton value="#{msg['grupoSalarial']}" disabled="#{controlEscalafonSalarial.disabledNuevoGrupoSalarial}" onclick="verificarNuevoRegistro.hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="NuevoRegistroGrupoSalarial.show()" update=":formularioDialogos:nuevoGrupoSalarial"  process="@this"/>
+                        <p:commandButton value="#{msg['escalafonSalarial']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 30px; top: 50px;" oncomplete="PF('NuevoRegistroEscalafonSalarial').show()" update=":formularioDialogos:nuevoEscalafonSalarial"  process="@this" />
+                        <p:commandButton value="#{msg['grupoSalarial']}" disabled="#{controlEscalafonSalarial.disabledNuevoGrupoSalarial}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="PF('NuevoRegistroGrupoSalarial').show()" update=":formularioDialogos:nuevoGrupoSalarial"  process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="NuevoRegistroEscalafonSalarial" header="#{msg['nuevoregistroES']}" widgetVar="NuevoRegistroEscalafonSalarial" closable="false" resizable="false"  draggable="false" modal="true" height="195" width="400" style="padding: 0px">  
@@ -344,7 +344,7 @@
                             <p:watermark value="#{msg['descripcion']}" for="nuevoEscalafonSalarialDescripcion"/>
 
                             <strong><h:outputText value="*#{msg['tipotrabajadorNES']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlEscalafonSalarial.asignarIndex(indice,0,1)}"/> 
                                 <p:ajax event="click" listener="#{controlEscalafonSalarial.valoresBackupAutocompletarGeneral(1, 'TIPOTRABAJADOR')}" /> 
                                 <p:ajax event="change" listener="#{controlEscalafonSalarial.autocompletarNuevoyDuplicadoEscalafonSalarial('TIPOTRABAJADOR', controlEscalafonSalarial.nuevoEscalafonSalarial.tipotrabajador.nombre, 1)}" />
@@ -354,7 +354,7 @@
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarNES" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 170px;" actionListener="#{controlEscalafonSalarial.limpiarNuevaEscalafonSalarial()}" update="nuevoEscalafonSalarial" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="aceptarNES" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 170px;"  actionListener="#{controlEscalafonSalarial.agregarNuevoEscalafonSalarial()}" process="@this"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNES" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 170px;" actionListener="#{controlEscalafonSalarial.limpiarNuevaEscalafonSalarial()}" update="nuevoEscalafonSalarial" onclick="NuevoRegistroEscalafonSalarial.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNES" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 170px;" actionListener="#{controlEscalafonSalarial.limpiarNuevaEscalafonSalarial()}" update="nuevoEscalafonSalarial" onclick="PF('NuevoRegistroEscalafonSalarial').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -377,7 +377,7 @@
                             <p:watermark value="#{msg['descripcion']}" for="duplicarEscalafonSalarialDescripcion"/>
 
                             <strong><h:outputText value="*#{msg['tipotrabajadorNES']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlEscalafonSalarial.asignarIndex(indice,0,2)}"/> 
                                 <p:ajax event="click" listener="#{controlEscalafonSalarial.valoresBackupAutocompletarGeneral(2, 'TIPOTRABAJADOR')}" /> 
                                 <p:ajax event="change" listener="#{controlEscalafonSalarial.autocompletarNuevoyDuplicadoEscalafonSalarial('TIPOTRABAJADOR', controlEscalafonSalarial.duplicarEscalafonSalarial.tipotrabajador.nombre, 2)}" />
@@ -388,7 +388,7 @@
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarDES" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 170px;" actionListener="#{controlEscalafonSalarial.limpiarDuplicarEscalafonSalarial()}" update="duplicarEscalafonSalarial" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="agregarDES" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 170px;"  actionListener="#{controlEscalafonSalarial.confirmarDuplicarEscalafonSalarial()}" process="@this"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDES" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 170px;" actionListener="#{controlEscalafonSalarial.limpiarDuplicarEscalafonSalarial()}" update="duplicarEscalafonSalarial" onclick="DuplicarRegistroEscalafonSalarial.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDES" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 170px;" actionListener="#{controlEscalafonSalarial.limpiarDuplicarEscalafonSalarial()}" update="duplicarEscalafonSalarial" onclick="PF('DuplicarRegistroEscalafonSalarial').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -411,7 +411,7 @@
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarNGS" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlEscalafonSalarial.limpiarNuevaGrupoSalarial()}" update="nuevoGrupoSalarial" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="aceptarNGS" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 140px;"  actionListener="#{controlEscalafonSalarial.agregarNuevoGrupoSalarial()}" process="@this"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNGS" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlEscalafonSalarial.limpiarNuevaGrupoSalarial()}" update="nuevoGrupoSalarial" onclick="NuevoRegistroGrupoSalarial.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNGS" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlEscalafonSalarial.limpiarNuevaGrupoSalarial()}" update="nuevoGrupoSalarial" onclick="PF('NuevoRegistroGrupoSalarial').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -434,7 +434,7 @@
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarDGS" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlEscalafonSalarial.limpiarDuplicarGrupoSalarial()}" update="DuplicarRegistroGrupoSalarial" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="aceptarDGS" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 140px;"  actionListener="#{controlEscalafonSalarial.confirmarDuplicarGrupoSalarial()}" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDGS" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlEscalafonSalarial.limpiarDuplicarGrupoSalarial()}" update="DuplicarRegistroGrupoSalarial" onclick="DuplicarRegistroGrupoSalarial.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDGS" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlEscalafonSalarial.limpiarDuplicarGrupoSalarial()}" update="DuplicarRegistroGrupoSalarial" onclick="PF('DuplicarRegistroGrupoSalarial').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 

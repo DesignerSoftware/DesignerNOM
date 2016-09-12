@@ -75,7 +75,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" actionListener="#{controlVigenciaLocalizacion.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"
+                                <p:commandButton id="refrescar" value="" actionListener="#{controlVigenciaLocalizacion.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"
                                                  style="background-image: url(Imagenes/Iconos/refrescar.png);"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
@@ -196,7 +196,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 115%;" id="fooMotivo" action="motivolocalizacion" onclick="#{controlMotivosLocalizaciones.recibirPag('motivolocalizacion')}" value=""/>
+                                        <p:commandButton style="width: 115%;" id="fooMotivo" action="motivolocalizacion" onclick="PF('#{controlMotivosLocalizaciones.recibirPag('motivolocalizacion')}" value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -483,7 +483,7 @@
                         </fieldset>
                         
                         <p:commandButton style="position: absolute; left: 683px; top: 500px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/aceptar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; " id="ACEPTAR" value="" onclick="confirmarGuardar.show();" update=":form:datosVLEmpleado" process="@this" disabled="#{controlVigenciaLocalizacion.guardado}" />
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; " id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVLEmpleado" process="@this" disabled="#{controlVigenciaLocalizacion.guardado}" />
                         <p:commandButton style="position: absolute; left: 775px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlVigenciaLocalizacion.salir()}" action="nomina" process="@this" />
 
@@ -576,7 +576,7 @@
                                 
                                 <p:ajax event="filter" listener="#{controlVigenciaLocalizacion.eventoFiltrarProyecto()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaLocalizacion.activarAceptar()}" update=":form:aceptarP"/>
-                                <p:ajax event="rowDblselect" listener="#{controlVigenciaLocalizacion.actualizarProyecto()}" oncomplete="ProyectosDialogo.hide()" update=":form:ProyectosDialogo" process="@this" />
+                                <p:ajax event="rowDblselect" listener="#{controlVigenciaLocalizacion.actualizarProyecto()}" oncomplete="PF('ProyectosDialogo').hide()" update=":form:ProyectosDialogo" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovProyectos.filter();" value="#{filtrado}" style="width:200px; position: relative; left: -60px;" />  
@@ -602,8 +602,8 @@
                             </p:dataTable>
 
                             <h:outputText id="infoRegistroProyecto" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroProyecto}" style="position: absolute; left: 20px; top: 315px; font-weight: bold"/>
-                            <p:commandButton id="aceptarP" icon="ui-icon-check" style="position: relative; left: 410px; top:15px;" value="#{msg['aceptar']}" disabled="#{controlVigenciaLocalizacion.aceptar}"  actionListener="#{controlVigenciaLocalizacion.actualizarProyecto()}" oncomplete="ProyectosDialogo.hide()" process="@this" />
-                            <p:commandButton id="atrasP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 410px;top:15px " value="#{msg['atras']}" actionListener="#{controlVigenciaLocalizacion.cancelarCambioProyecto()}" oncomplete="ProyectosDialogo.hide()" process="@this"  />
+                            <p:commandButton id="aceptarP" icon="ui-icon-check" style="position: relative; left: 410px; top:15px;" value="#{msg['aceptar']}" disabled="#{controlVigenciaLocalizacion.aceptar}"  actionListener="#{controlVigenciaLocalizacion.actualizarProyecto()}" oncomplete="PF('ProyectosDialogo').hide()" process="@this" />
+                            <p:commandButton id="atrasP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 410px;top:15px " value="#{msg['atras']}" actionListener="#{controlVigenciaLocalizacion.cancelarCambioProyecto()}" oncomplete="PF('ProyectosDialogo').hide()" process="@this"  />
                         </p:dialog>
 
                         <!-- DIALOGO L.O.V ESTATICO CENTRO COSTO VIGENCIA PRORRATEO -->
@@ -651,38 +651,38 @@
                     <p:dialog id="validarNuevoFechas" header="#{msg['atencion']}" widgetVar="validarNuevoFechas"  resizable="false" draggable="false" modal="true" height="110" width="470"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevo']} #{controlVigenciaLocalizacion.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 350px;" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="validarNuevoFechas.hide();" style="position: absolute; top: 75px; left: 340px;" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('validarNuevoFechas').hide();" style="position: absolute; top: 75px; left: 340px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validarPorcentajes" header="#{msg['atencion']}" widgetVar="validarPorcentajes"  resizable="false" draggable="false" modal="true" height="110" width="470"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['errorPorcentaje']}" style="position: absolute; left: 100px; top: 20px; width: 350px;" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="validarPorcentajes.hide();" style="position: absolute; top: 75px; left: 340px;" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('validarPorcentajes').hide();" style="position: absolute; top: 75px; left: 340px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="font-size: 14px; position: absolute; left: 100px; top: 20px; width: 270px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlVigenciaLocalizacion.guardarYSalir()}" action="nomina" style="position: absolute; top: 60px; left: 149px;" process="@this"/>
-                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlVigenciaLocalizacion.cancelarYSalir()}" action="nomina" style="position: absolute; top: 60px; left: 212px;" process="@this"/>
-                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 280px;" process="@this"   />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciaLocalizacion.guardarYSalir()}" action="nomina" style="position: absolute; top: 60px; left: 149px;" process="@this"/>
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciaLocalizacion.cancelarYSalir()}" action="nomina" style="position: absolute; top: 60px; left: 212px;" process="@this"/>
+                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 280px;" process="@this"   />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSinSalir" header="#{msg['atencion']}" widgetVar="confirmarGuardarSinSalir"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="font-size: 14px; position: absolute; left: 100px; top: 20px; width: 270px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarGuardarSinSalir.hide();" actionListener="#{controlVigenciaLocalizacion.guardadoGeneral()}" style="position: absolute; top: 60px; left: 149px;" process="@this"  />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSinSalir.hide();" actionListener="#{controlVigenciaLocalizacion.cancelarModificacion()}" style="position: absolute; top: 60px; left: 212px;" process="@this" icon="ui-icon-close" oncomplete="window.location.reload()" />
-                        <p:commandButton  icon="ui-icon-close" value="#{msg['cancelar']}" onclick="confirmarGuardarSinSalir.hide();" style="position: absolute; top: 60px; left: 280px;" process="@this"   />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalir').hide();" actionListener="#{controlVigenciaLocalizacion.guardadoGeneral()}" style="position: absolute; top: 60px; left: 149px;" process="@this"  />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalir').hide();" actionListener="#{controlVigenciaLocalizacion.cancelarModificacion()}" style="position: absolute; top: 60px; left: 212px;" process="@this" icon="ui-icon-close" oncomplete="PF('window.location.reload()" />
+                        <p:commandButton  icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSinSalir').hide();" style="position: absolute; top: 60px; left: 280px;" process="@this"   />
                     </p:dialog>
 
                     <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rastros']}" resizable="false" draggable="false" modal="true" height="170" width="350px;"  >
                         <h:outputText value="#{msg['seleccionar']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['vl']}" onclick="verificarRastrosTablas.hide();" 
+                        <p:commandButton value="#{msg['vl']}" onclick="PF('verificarRastrosTablas').hide();" 
                                          style="position: absolute; left: 75px; top: 60px; width: 200px; height: 27px;"  actionListener="#{controlVigenciaLocalizacion.verificarRastroVigenciaLocalizacionHist()}" process="@this" />
-                        <p:commandButton value="#{msg['vp']}" onclick="verificarRastrosTablas.hide();" 
+                        <p:commandButton value="#{msg['vp']}" onclick="PF('verificarRastrosTablas').hide();" 
                                          style="position: absolute; left: 75px; top: 90px; width: 200px; height: 27px;" actionListener="#{controlVigenciaLocalizacion.verificarRastroVigenciaProrrateoCCHist()}" process="@this"/>
-                        <p:commandButton value="#{msg['vpp']}" onclick="verificarRastrosTablas.hide();" 
+                        <p:commandButton value="#{msg['vpp']}" onclick="PF('verificarRastrosTablas').hide();" 
                                          style="position: absolute; left: 75px; top: 120px; width: 200px; height: 27px;" actionListener="#{controlVigenciaLocalizacion.verificarRastroVigenciaProrrateoProyectoHist()}" process="@this"/>
                     </p:dialog>
 
@@ -690,9 +690,9 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlVigenciaLocalizacion.msnConfirmarRastro}" id="msnConfirmarRastro" 
                                       style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaLocalizacion.backUp, controlVigenciaLocalizacion.nombreTablaRastro , 'vigenciasLocalizaciones')}" 
-                                         style="position: absolute; top: 67px; left: 200px;" action="rastro" oncomplete="#{controlVigenciaLocalizacion.anularLOV()}" process="@this" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlVigenciaLocalizacion.limpiarMSNRastros()}" 
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaLocalizacion.backUp, controlVigenciaLocalizacion.nombreTablaRastro , 'vigenciasLocalizaciones')}" 
+                                         style="position: absolute; top: 67px; left: 200px;" action="rastro" oncomplete="PF('#{controlVigenciaLocalizacion.anularLOV()}" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlVigenciaLocalizacion.limpiarMSNRastros()}" 
                                          style="position: absolute; top: 67px; left: 262px;" process="@this" />
                     </p:dialog>
 
@@ -700,9 +700,9 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlVigenciaLocalizacion.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" 
                                       style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlVigenciaLocalizacion.nombreTablaRastro , 'vigenciasLocalizaciones')}" 
-                                         style="position: absolute; top: 65px; left: 200px;" action="rastro" oncomplete="#{controlVigenciaLocalizacion.anularLOV()}" process="@this" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlVigenciaLocalizacion.limpiarMSNRastros()}" 
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlVigenciaLocalizacion.nombreTablaRastro , 'vigenciasLocalizaciones')}" 
+                                         style="position: absolute; top: 65px; left: 200px;" action="rastro" oncomplete="PF('#{controlVigenciaLocalizacion.anularLOV()}" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlVigenciaLocalizacion.limpiarMSNRastros()}" 
                                          style="position: absolute; top: 65px; left: 262px;" process="@this" />
                     </p:dialog>
 
@@ -719,9 +719,9 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaLocalizacion.backUp, controlVigenciaLocalizacion.nombreTablaRastro , 'vigenciasLocalizaciones')}" 
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaLocalizacion.backUp, controlVigenciaLocalizacion.nombreTablaRastro , 'vigenciasLocalizaciones')}" 
                                          style="position: absolute; top: 65px; left: 200px;" action="rastro" process="@this" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 65px; left: 262px;" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 262px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -752,13 +752,13 @@
                         <h:outputText value="#{msg['seleccione']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
 
                         <p:commandButton value="#{msg['vl']}" style="position: absolute; left: 75px; top: 60px; width: 200px; height: 27px;"  
-                                         actionListener="#{controlVigenciaLocalizacion.validarCualTabla(1)}" onclick="NuevoRegistroPagina.hide();" process="@this" />
+                                         actionListener="#{controlVigenciaLocalizacion.validarCualTabla(1)}" onclick="PF('NuevoRegistroPagina').hide();" process="@this" />
 
                         <p:commandButton value="#{msg['vp']}" style="position: absolute; left: 75px; top: 90px; width: 200px; height: 27px;" 
-                                         actionListener="#{controlVigenciaLocalizacion.validarCualTabla(2)}" onclick="NuevoRegistroPagina.hide();" process="@this" />
+                                         actionListener="#{controlVigenciaLocalizacion.validarCualTabla(2)}" onclick="PF('NuevoRegistroPagina').hide();" process="@this" />
 
                         <p:commandButton value="#{msg['vpp']}" style="position: absolute; left: 75px; top: 120px; width: 200px; height: 27px;" 
-                                         actionListener="#{controlVigenciaLocalizacion.validarCualTabla(3)}" onclick="NuevoRegistroPagina.hide();" process="@this" />
+                                         actionListener="#{controlVigenciaLocalizacion.validarCualTabla(3)}" onclick="PF('NuevoRegistroPagina').hide();" process="@this" />
                     </p:dialog>
 
 
@@ -778,7 +778,7 @@
 
                             <strong><h:outputText value="*#{msg['centrocostoVL']}" style=" position: absolute; top: 95px; left: 50px;" /></strong>
                             <p:inputText id="nuevaCentroCosto" value="#{controlVigenciaLocalizacion.nuevaVigencia.localizacion.centrocosto.codigoNombre}"
-                                         style=" width: 110px; position: absolute; left: 160px; top: 90px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 110px; position: absolute; left: 160px; top: 90px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndex(null,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletar(1, 'CENTROCOSTO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicado('CENTROCOSTO', controlVigenciaLocalizacion.nuevaVigencia.localizacion.centrocosto.codigoNombre,1)}" />
@@ -794,7 +794,7 @@
 
                             <strong><h:outputText value="*#{msg['motivoVL']}" style=" position: absolute; top: 155px; left: 50px;" /></strong>
                             <p:inputText id="nuevaMotivo" value="#{controlVigenciaLocalizacion.nuevaVigencia.motivo.descripcion}"
-                                         style=" width: 110px; position: absolute; left: 160px; top: 150px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 110px; position: absolute; left: 160px; top: 150px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndex(null,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletar(1, 'MOTIVOLOCALIZACION')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicado('MOTIVOLOCALIZACION', controlVigenciaLocalizacion.nuevaVigencia.motivo.descripcion,1)}" update="nuevaMotivo"/>
@@ -805,7 +805,7 @@
 
                             <strong><h:outputText value="#{msg['proyectoVL']}" style=" position: absolute; top: 185px; left: 50px;" /></strong>
                             <p:inputText maxlength="50" id="nuevaProyecto" value="#{controlVigenciaLocalizacion.nuevaVigencia.proyecto.nombreproyecto}"
-                                         style=" width: 110px; position: absolute; left: 160px; top: 180px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 110px; position: absolute; left: 160px; top: 180px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndex(null,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletar(1, 'PROYECTO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicado('PROYECTO', controlVigenciaLocalizacion.nuevaVigencia.proyecto.nombreproyecto,1)}" update="nuevaProyecto"/>
@@ -815,8 +815,8 @@
                             <p:watermark for="nuevaProyecto" value="#{msg['proyecto']}" />
 
                             <p:commandButton id="limpiar" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 230px;" actionListener="#{controlVigenciaLocalizacion.limpiarNuevaVL()}" update="nuevaVL" process="@this" icon="ui-icon-trash"/>
-                            <p:commandButton id="agregarVL" value="#{msg['agregar']}" style=" position: absolute; left: 133px; top: 230px;"  process="@this" actionListener="#{controlVigenciaLocalizacion.agregarNuevaVL()}" onclick="NuevoRegistroVL.hide();" icon="ui-icon-circle-check"/>
-                            <p:commandButton id="cancelarVL" value="#{msg['cancelar']}" style=" position: absolute; left: 233px; top: 230px;" actionListener="#{controlVigenciaLocalizacion.limpiarNuevaVL()}" update="nuevaVL" onclick="NuevoRegistroVL.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                            <p:commandButton id="agregarVL" value="#{msg['agregar']}" style=" position: absolute; left: 133px; top: 230px;"  process="@this" actionListener="#{controlVigenciaLocalizacion.agregarNuevaVL()}" onclick="PF('NuevoRegistroVL').hide();" icon="ui-icon-circle-check"/>
+                            <p:commandButton id="cancelarVL" value="#{msg['cancelar']}" style=" position: absolute; left: 233px; top: 230px;" actionListener="#{controlVigenciaLocalizacion.limpiarNuevaVL()}" update="nuevaVL" onclick="PF('NuevoRegistroVL').hide();"  process="@this" icon="ui-icon-circle-close"/>
                         </p:panel>
                     </p:dialog>
 
@@ -874,7 +874,7 @@
 
                             <p:commandButton id="limpiarDuplicadoVL" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 230px;" actionListener="#{controlVigenciaLocalizacion.limpiarduplicarVL()}" update="duplicarVL" process="@this" icon="ui-icon-trash"/>
                             <p:commandButton id="agregarDuplicadoVL" value="#{msg['agregar']}" style=" position: absolute; left: 133px; top: 230px;"  process="@this" actionListener="#{controlVigenciaLocalizacion.confirmarDuplicar()}"  icon="ui-icon-circle-check"/>
-                            <p:commandButton id="cancelarDuplicadoVL" value="#{msg['cancelar']}" style=" position: absolute; left: 233px; top: 230px;" actionListener="#{controlVigenciaLocalizacion.limpiarduplicarVL()}" update="duplicarVL" onclick="DuplicarRegistroVL.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                            <p:commandButton id="cancelarDuplicadoVL" value="#{msg['cancelar']}" style=" position: absolute; left: 233px; top: 230px;" actionListener="#{controlVigenciaLocalizacion.limpiarduplicarVL()}" update="duplicarVL" onclick="PF('DuplicarRegistroVL').hide();"  process="@this" icon="ui-icon-circle-close"/>
                         </p:panel>
                     </p:dialog>
 
@@ -885,7 +885,7 @@
                         <p:panel id="nuevaVP" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['centrocostoVP']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCentroCostoVP" value="#{controlVigenciaLocalizacion.nuevaVigenciaP.centrocosto.nombre}" style=" width: 110px; position: absolute; left: 170px; top: 70px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaCentroCostoVP" value="#{controlVigenciaLocalizacion.nuevaVigenciaP.centrocosto.nombre}" style=" width: 110px; position: absolute; left: 170px; top: 70px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndexVP(null,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletarVP(1, 'CENTROCOSTO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicadoVP('CENTROCOSTO', controlVigenciaLocalizacion.nuevaVigenciaP.centrocosto.nombre,1)}" update="nuevaCentroCostoVP"/>
@@ -912,14 +912,14 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['porcentajeVP']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaPorcentajeVP" binding="#{vPPorcentajeAux3}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 170px;" onclick="select();"> 
+                            <p:inputText id="nuevaPorcentajeVP" binding="#{vPPorcentajeAux3}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 170px;" onclick="PF('select();"> 
                                 <pe:keyFilter for="nuevaPorcentajeVP" mask="num"/>
                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentajes(1, 1, vPPorcentajeAux3.value, 0)}" update="nuevaPorcentajeVP" process="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaPorcentajeVP" value="#{msg['p']}" />
 
                             <strong><h:outputText value="#{msg['proyectoVP']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText maxlength="50" id="nuevaProyectoVP" value="#{controlVigenciaLocalizacion.nuevaVigenciaP.proyecto.nombreproyecto}" style=" width: 110px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText maxlength="50" id="nuevaProyectoVP" value="#{controlVigenciaLocalizacion.nuevaVigenciaP.proyecto.nombreproyecto}" style=" width: 110px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndexVP(null,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletarVP(1, 'PROYECTO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicadoVP('PROYECTO', controlVigenciaLocalizacion.nuevaVigenciaP.proyecto.nombreproyecto, 1)}" update="nuevaProyectoVP"/>
@@ -938,7 +938,7 @@
 
                             <p:commandButton id="limpiarVP" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 265px;" actionListener="#{controlVigenciaLocalizacion.limpiarNuevaVP()}" update="nuevaVP" process="@this" icon="ui-icon-trash"/>
                             <p:commandButton id="agregarVP" value="#{msg['agregar']}" style=" position: absolute; left: 145px; top: 265px;" actionListener="#{controlVigenciaLocalizacion.agregarNuevaVP()}" process="@this"   icon="ui-icon-circle-check"/>
-                            <p:commandButton id="cancelarVP" value="#{msg['cancelar']}" style=" position: absolute; left: 245px; top: 265px;" actionListener="#{controlVigenciaLocalizacion.limpiarNuevaVP()}" update="nuevaVP" onclick="NuevoRegistroVP.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                            <p:commandButton id="cancelarVP" value="#{msg['cancelar']}" style=" position: absolute; left: 245px; top: 265px;" actionListener="#{controlVigenciaLocalizacion.limpiarNuevaVP()}" update="nuevaVP" onclick="PF('NuevoRegistroVP').hide();"  process="@this" icon="ui-icon-circle-close"/>
                         </p:panel>
                     </p:dialog>
 
@@ -949,7 +949,7 @@
                         <p:panel id="duplicadoVP" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['centrocostoVP']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="duplicadoCentroCostoVP" value="#{controlVigenciaLocalizacion.duplicarVP.centrocosto.nombre}" style=" width: 110px; position: absolute; left: 170px; top: 70px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="duplicadoCentroCostoVP" value="#{controlVigenciaLocalizacion.duplicarVP.centrocosto.nombre}" style=" width: 110px; position: absolute; left: 170px; top: 70px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndexVP(null,0,2)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletarVP(2, 'CENTROCOSTO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicadoVP('CENTROCOSTO', controlVigenciaLocalizacion.duplicarVP.centrocosto.nombre,2)}" update="duplicadoCentroCostoVP"/>
@@ -976,14 +976,14 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['porcentajeVP']}" style=" position: absolute; top: 165px; left: 50px;"/></strong>
-                            <p:inputText id="duplicadoPorcentajeVP" maxlength="4" binding="#{vPPorcentajeAux4}" style=" width: 110px; position: absolute; top: 160px; left: 170px;" onclick="select();" >
+                            <p:inputText id="duplicadoPorcentajeVP" maxlength="4" binding="#{vPPorcentajeAux4}" style=" width: 110px; position: absolute; top: 160px; left: 170px;" onclick="PF('select();" >
                                 <pe:keyFilter for="duplicadoPorcentajeVP" mask="num"/>
                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentajes(2, 1, vPPorcentajeAux4.value, 0)}" update="duplicadoPorcentajeVP" process="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicadoPorcentajeVP" value="#{msg['p']}" />
 
                             <strong><h:outputText value="#{msg['proyectoVP']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText maxlength="50" id="duplicadoProyectoVP" value="#{controlVigenciaLocalizacion.duplicarVP.proyecto.nombreproyecto}" style=" width: 110px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText maxlength="50" id="duplicadoProyectoVP" value="#{controlVigenciaLocalizacion.duplicarVP.proyecto.nombreproyecto}" style=" width: 110px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndexVP(null,1,2)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletarVP(2, 'PROYECTO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicadoVP('PROYECTO', controlVigenciaLocalizacion.duplicarVP.proyecto.nombreproyecto, 2)}" update="duplicadoProyectoVP"/>
@@ -1002,7 +1002,7 @@
 
                             <p:commandButton id="limpiarDuplicadoVP" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 265px;" actionListener="#{controlVigenciaLocalizacion.limpiarduplicarVP()}" update="duplicadoVP" process="@this" icon="ui-icon-trash"/>
                             <p:commandButton id="agregarDuplicadoVP" value="#{msg['agregar']}" style=" position: absolute; left: 145px; top: 265px;" actionListener="#{controlVigenciaLocalizacion.confirmarDuplicarVP()}" process="@this"  icon="ui-icon-circle-check"/>
-                            <p:commandButton id="cancelarDuplicadoVP" value="#{msg['cancelar']}" style=" position: absolute; left: 245px; top: 265px;" actionListener="#{controlVigenciaLocalizacion.limpiarduplicarVP()}" update="duplicadoVP" onclick="DuplicadoRegistroVP.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                            <p:commandButton id="cancelarDuplicadoVP" value="#{msg['cancelar']}" style=" position: absolute; left: 245px; top: 265px;" actionListener="#{controlVigenciaLocalizacion.limpiarduplicarVP()}" update="duplicadoVP" onclick="PF('DuplicadoRegistroVP').hide();"  process="@this" icon="ui-icon-circle-close"/>
                         </p:panel>
                     </p:dialog>
 
@@ -1014,7 +1014,7 @@
 
                             <strong><h:outputText value="*#{msg['proyectoVPP']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
                             <p:inputText maxlength="50" id="nuevaProyectoVPP" value="#{controlVigenciaLocalizacion.nuevaVigenciaPP.proyecto.nombreproyecto}" 
-                                         style=" width: 110px; position: absolute; left: 160px; top: 70px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 110px; position: absolute; left: 160px; top: 70px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndexVPP(null,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletarVPP(1, 'PROYECTO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicadoVPP('PROYECTO', controlVigenciaLocalizacion.duplicarVPP.proyecto.nombreproyecto,1)}" update="nuevaProyectoVPP"/>
@@ -1040,7 +1040,7 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['porcentajeVPP']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaPorcentajeVPP" binding="#{vPPorcentajeAux5}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 160px;" onclick="select();"> 
+                            <p:inputText id="nuevaPorcentajeVPP" binding="#{vPPorcentajeAux5}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 160px;" onclick="PF('select();"> 
                                 <pe:keyFilter for="nuevaPorcentajeVPP" mask="num"/>
                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentajes(1, 2, vPPorcentajeAux5.value, 0)}" process="@this"/>
                             </p:inputText>
@@ -1048,7 +1048,7 @@
 
                             <p:commandButton id="limpiarVPP" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 210px;" actionListener="#{controlVigenciaLocalizacion.limpiarNuevaVPP()}" update="nuevaVPP" process="@this" icon="ui-icon-trash"/>
                             <p:commandButton id="agregarVPP" value="#{msg['agregar']}" style=" position: absolute; left: 135px; top: 210px;" actionListener="#{controlVigenciaLocalizacion.agregarNuevaVPP()}"  process="@this"  icon="ui-icon-circle-check"/>
-                            <p:commandButton id="cancelarVPP" value="#{msg['cancelar']}" style=" position: absolute; left: 235px; top: 210px;" actionListener="#{controlVigenciaLocalizacion.limpiarNuevaVPP()}" update="nuevaVPP" onclick="NuevoRegistroVPP.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                            <p:commandButton id="cancelarVPP" value="#{msg['cancelar']}" style=" position: absolute; left: 235px; top: 210px;" actionListener="#{controlVigenciaLocalizacion.limpiarNuevaVPP()}" update="nuevaVPP" onclick="PF('NuevoRegistroVPP').hide();"  process="@this" icon="ui-icon-circle-close"/>
                         </p:panel>
                     </p:dialog>
 
@@ -1060,7 +1060,7 @@
 
                             <strong><h:outputText value="*#{msg['proyectoVPP']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
                             <p:inputText maxlength="50" id="duplicarProyectoVPP" value="#{controlVigenciaLocalizacion.duplicarVPP.proyecto.nombreproyecto}" 
-                                         style=" width: 110px; position: absolute; left: 160px; top: 70px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 110px; position: absolute; left: 160px; top: 70px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndexVPP(null,0,2)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletarVPP(2, 'PROYECTO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicadoVPP('PROYECTO', controlVigenciaLocalizacion.duplicarVPP.proyecto.nombreproyecto,2)}" update="duplicarProyectoVPP"/>
@@ -1087,7 +1087,7 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['porcentajeVPP']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarPorcentajeVPP" binding="#{vPPorcentajeAux6}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 160px;" onclick="select();"> 
+                            <p:inputText id="duplicarPorcentajeVPP" binding="#{vPPorcentajeAux6}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 160px;" onclick="PF('select();"> 
                                 <pe:keyFilter for="duplicarPorcentajeVPP" mask="num"/>
                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentajes(2, 2, vPPorcentajeAux6.value, 0)}" process="@this"/>
                             </p:inputText>
@@ -1095,7 +1095,7 @@
 
                             <p:commandButton id="limpiarDuplicarVPP" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 210px;" actionListener="#{controlVigenciaLocalizacion.limpiarduplicarVPP()}" update="duplicarVPP" process="@this" icon="ui-icon-trash"/>
                             <p:commandButton id="agregarDuplicarVPP" value="#{msg['agregar']}" style=" position: absolute; left: 135px; top: 210px;" actionListener="#{controlVigenciaLocalizacion.confirmarDuplicarVPP()}"  process="@this" icon="ui-icon-circle-check"/>
-                            <p:commandButton id="cancelarDuplicarVPP" value="#{msg['cancelar']}" style=" position: absolute; left: 235px; top: 210px;" actionListener="#{controlVigenciaLocalizacion.limpiarduplicarVPP()}" update="duplicarVPP" onclick="DuplicarRegistroVPP.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                            <p:commandButton id="cancelarDuplicarVPP" value="#{msg['cancelar']}" style=" position: absolute; left: 235px; top: 210px;" actionListener="#{controlVigenciaLocalizacion.limpiarduplicarVPP()}" update="duplicarVPP" onclick="PF('DuplicarRegistroVPP').hide();"  process="@this" icon="ui-icon-circle-close"/>
                         </p:panel>
                     </p:dialog>
 
@@ -1177,29 +1177,29 @@
                     <p:dialog id="guardarCambiosVigenciaProrrateo" header="#{msg['atencion']}" widgetVar="guardarCambiosVigenciaProrrateo"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['guardarCambiosVigenciaProrrateo']}" style="font-size: 14px; position: absolute; left: 110px; top: 20px; width: 270px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="guardarCambiosVigenciaProrrateo.hide();" style="position: absolute; top: 63px; left: 149px;" actionListener="#{controlVigenciaLocalizacion.guardarCambiosVP()}" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="guardarCambiosVigenciaProrrateo.hide();"   style="position: absolute; top: 63px; left: 212px;" actionListener="#{controlVigenciaLocalizacion.cancelarModificacionVP()}" process="@this" icon="ui-icon-close" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="guardarCambiosVigenciaProrrateo.hide();" style="position: absolute; top: 63px; left: 280px;" process="@this"   />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('guardarCambiosVigenciaProrrateo').hide();" style="position: absolute; top: 63px; left: 149px;" actionListener="#{controlVigenciaLocalizacion.guardarCambiosVP()}" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('guardarCambiosVigenciaProrrateo').hide();"   style="position: absolute; top: 63px; left: 212px;" actionListener="#{controlVigenciaLocalizacion.cancelarModificacionVP()}" process="@this" icon="ui-icon-close" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('guardarCambiosVigenciaProrrateo').hide();" style="position: absolute; top: 63px; left: 280px;" process="@this"   />
                     </p:dialog>
 
                     <p:dialog id="guardarCambiosVigenciaProrrateoProyecto" header="#{msg['atencion']}" widgetVar="guardarCambiosVigenciaProrrateoProyecto"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['guardarCambiosVigenciaProrrateoProyecto']}" style="font-size: 14px; position: absolute; left: 100px; top: 20px; width: 270px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="guardarCambiosVigenciaProrrateoProyecto.hide();" style="position: absolute; top: 63px; left: 149px;" actionListener="#{controlVigenciaLocalizacion.guardarCambiosVPP()}" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="guardarCambiosVigenciaProrrateoProyecto.hide();"   style="position: absolute; top: 63px; left: 212px;" actionListener="#{controlVigenciaLocalizacion.cancelarModificacionVPP()}" process="@this" icon="ui-icon-close" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="guardarCambiosVigenciaProrrateoProyecto.hide();" style="position: absolute; top: 63px; left: 280px;" process="@this"   />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('guardarCambiosVigenciaProrrateoProyecto').hide();" style="position: absolute; top: 63px; left: 149px;" actionListener="#{controlVigenciaLocalizacion.guardarCambiosVPP()}" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('guardarCambiosVigenciaProrrateoProyecto').hide();"   style="position: absolute; top: 63px; left: 212px;" actionListener="#{controlVigenciaLocalizacion.cancelarModificacionVPP()}" process="@this" icon="ui-icon-close" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('guardarCambiosVigenciaProrrateoProyecto').hide();" style="position: absolute; top: 63px; left: 280px;" process="@this"   />
                     </p:dialog>
 
                     <p:dialog id="negacionNuevoRegistroVPP" header="#{msg['atencion']}" widgetVar="negacionNuevoRegistroVPP"  resizable="false" draggable="false" modal="true" height="110" width="450"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['negacionNuevoRegistroVPP']}" style="font-size: 14px;position: absolute; left: 100px; top: 10px; width: 330px;" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="negacionNuevoRegistroVPP.hide();" style="position: absolute; top: 80px; left: 300px;" process="@this"  />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('negacionNuevoRegistroVPP').hide();" style="position: absolute; top: 80px; left: 300px;" process="@this"  />
                     </p:dialog>
 
                     <p:dialog id="negacionBorradoVL" header="#{msg['atencion']}" widgetVar="negacionBorradoVL"  resizable="false" draggable="false" modal="true" height="110" width="470"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['negacionBorradoVL']}" style="font-size: 14px; position: absolute; left: 100px; top: 20px; width: 350px;" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="negacionBorradoVL.hide();" style="position: absolute; top: 80px; left: 320px;" process="@this"  />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('negacionBorradoVL').hide();" style="position: absolute; top: 80px; left: 320px;" process="@this"  />
                     </p:dialog>
 
                     <p:dialog id="errorFechaVL" header="#{msg['atencion']}" widgetVar="errorFechaVL"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  

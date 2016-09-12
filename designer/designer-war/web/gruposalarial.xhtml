@@ -180,7 +180,7 @@
                             </p:dataTable>  
                         </fieldset> 
 
-                        <p:commandButton style="position: absolute; left: 683px; top: 475px;" id="ACEPTAR" value="#{msg['aceptar']}" disabled="#{controlGrupoSalarial.cambiosPagina}" icon="ui-icon-check" onclick="confirmarGuardar.show();" update=":form:datosGrupoSalarial" process="@this" />
+                        <p:commandButton style="position: absolute; left: 683px; top: 475px;" id="ACEPTAR" value="#{msg['aceptar']}" disabled="#{controlGrupoSalarial.cambiosPagina}" icon="ui-icon-check" onclick="PF('confirmarGuardar').show();" update=":form:datosGrupoSalarial" process="@this" />
                         <p:commandButton style="position: absolute; left: 775px; top: 475px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlGrupoSalarial.salir()}" action="#{controlGrupoSalarial.redirigir()}" process="@this" />
 
                     </p:panel>
@@ -188,37 +188,37 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlGrupoSalarial.guardarGeneral()}" action="#{controlGrupoSalarial.redirigir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlGrupoSalarial.salir()}" action="#{controlGrupoSalarial.redirigir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlGrupoSalarial.guardarGeneral()}" action="#{controlGrupoSalarial.redirigir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlGrupoSalarial.salir()}" action="#{controlGrupoSalarial.redirigir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSinSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSinSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSinSalida.hide();" actionListener="#{controlGrupoSalarial.guardarGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSinSalida.hide();" actionListener="#{controlGrupoSalarial.cancelarModificacionGeneral()}"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSinSalida.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlGrupoSalarial.guardarGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlGrupoSalarial.cancelarModificacionGeneral()}"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSinSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rastros']}" resizable="false" draggable="false" modal="true" height="95" width="430px;"  >
                         <h:outputText value="#{msg['verificarRastroTablas']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['titulo']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 30px; top: 50px;" actionListener="#{controlGrupoSalarial.verificarRastroGrupoSalarial()}" process="@this" />
-                        <p:commandButton value="#{msg['vigencia']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 200px; top: 50px;" actionListener="#{controlGrupoSalarial.verificarRastroVigenciaGrupoSalarial()}" process="@this"/>
+                        <p:commandButton value="#{msg['titulo']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 30px; top: 50px;" actionListener="#{controlGrupoSalarial.verificarRastroGrupoSalarial()}" process="@this" />
+                        <p:commandButton value="#{msg['vigencia']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 200px; top: 50px;" actionListener="#{controlGrupoSalarial.verificarRastroVigenciaGrupoSalarial()}" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlGrupoSalarial.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGrupoSalarial.backUp, controlGrupoSalarial.nombreTablaRastro , 'rastroGrupoSalarial')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlGrupoSalarial.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGrupoSalarial.backUp, controlGrupoSalarial.nombreTablaRastro , 'rastroGrupoSalarial')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlGrupoSalarial.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlGrupoSalarial.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlGrupoSalarial.nombreTablaRastro , 'vigenciasLocalizaciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlGrupoSalarial.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlGrupoSalarial.nombreTablaRastro , 'vigenciasLocalizaciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlGrupoSalarial.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
@@ -234,8 +234,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGrupoSalarial.backUp, controlGrupoSalarial.nombreTablaRastro , 'vigenciasLocalizaciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGrupoSalarial.backUp, controlGrupoSalarial.nombreTablaRastro , 'vigenciasLocalizaciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -274,8 +274,8 @@
 
                     <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="false" modal="true" height="95" width="430px;" >
                         <h:outputText value="#{msg['seleccione']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['titulo']}" onclick="verificarNuevoRegistro.hide();" style="position: absolute; left: 30px; top: 50px;" oncomplete="NuevoRegistroGrupoSalarial.show()" update=":formularioDialogos:nuevoGrupo"  process="@this" />
-                        <p:commandButton value="#{msg['vigencia']}" onclick="verificarNuevoRegistro.hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="NuevoRegistroVigenciaGrupoSalarial.show()" update=":formularioDialogos:nuevoVigenciaGrupo"  process="@this"/>
+                        <p:commandButton value="#{msg['titulo']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 30px; top: 50px;" oncomplete="PF('NuevoRegistroGrupoSalarial').show()" update=":formularioDialogos:nuevoGrupo"  process="@this" />
+                        <p:commandButton value="#{msg['vigencia']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="PF('NuevoRegistroVigenciaGrupoSalarial').show()" update=":formularioDialogos:nuevoVigenciaGrupo"  process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="NuevoRegistroGrupoSalarial" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroGrupoSalarial" closable="false" resizable="false"  draggable="false" modal="true" height="200" width="400" style="padding: 0px">  
@@ -303,7 +303,7 @@
 
                             <p:commandButton id="limpiarNG" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 165px;" actionListener="#{controlGrupoSalarial.limpiarNuevaGrupoSalarial()}" update="nuevoGrupo" process="@this"/>
                             <p:commandButton id="aceptarNG" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 165px;"  process="@this" actionListener="#{controlGrupoSalarial.agregarNuevoGrupoSalarial()}"  />
-                            <p:commandButton id="cancelarNG" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 165px;" actionListener="#{controlGrupoSalarial.limpiarNuevaGrupoSalarial()}" update="nuevoGrupo" onclick="NuevoRegistroGrupoSalarial.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarNG" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 165px;" actionListener="#{controlGrupoSalarial.limpiarNuevaGrupoSalarial()}" update="nuevoGrupo" onclick="PF('NuevoRegistroGrupoSalarial').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -333,7 +333,7 @@
 
                             <p:commandButton id="limpiarDG" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 165px;" actionListener="#{controlGrupoSalarial.limpiarDuplicarGrupoSalarial()}" update="duplicarGrupo" process="@this"/>
                             <p:commandButton id="agregarDG" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 165px;"  process="@this" actionListener="#{controlGrupoSalarial.confirmarDuplicarGrupoSalarial()}" />
-                            <p:commandButton id="cancelarDG" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 165px;" actionListener="#{controlGrupoSalarial.limpiarDuplicarGrupoSalarial()}" update="duplicarGrupo" onclick="DuplicarRegistroGrupoSalarial.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDG" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 165px;" actionListener="#{controlGrupoSalarial.limpiarDuplicarGrupoSalarial()}" update="duplicarGrupo" onclick="PF('DuplicarRegistroGrupoSalarial').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -359,7 +359,7 @@
 
                             <p:commandButton id="limpiarNVG" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 135px;" actionListener="#{controlGrupoSalarial.limpiarNuevaVigenciaGrupoSalarial()}" update="nuevoVigenciaGrupo" process="@this"/>
                             <p:commandButton id="aceptarNVG" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 135px;"  process="@this" actionListener="#{controlGrupoSalarial.agregarNuevoVigenciaGrupoSalarial()}"  />
-                            <p:commandButton id="cancelarNVG" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 135px;" actionListener="#{controlGrupoSalarial.limpiarNuevaVigenciaGrupoSalarial()}" update="nuevoVigenciaGrupo" onclick="NuevoRegistroVigenciaGrupoSalarial.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarNVG" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 135px;" actionListener="#{controlGrupoSalarial.limpiarNuevaVigenciaGrupoSalarial()}" update="nuevoVigenciaGrupo" onclick="PF('NuevoRegistroVigenciaGrupoSalarial').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -385,7 +385,7 @@
 
                             <p:commandButton id="limpiarDVG" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 135px;" actionListener="#{controlGrupoSalarial.limpiarDuplicarVigenciaGrupoSalarial()}" update="duplicarVigenciaGrupo" process="@this"/>
                             <p:commandButton id="aceptarDVG" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 135px;"  process="@this" actionListener="#{controlGrupoSalarial.confirmarDuplicarVigenciaGrupoSalarial()}"   />
-                            <p:commandButton id="cancelarDVG" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 135px;" actionListener="#{controlGrupoSalarial.limpiarDuplicarVigenciaGrupoSalarial()}" update="duplicarVigenciaGrupo" onclick="DuplicarRegistroVigenciaGrupoSalarial.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDVG" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 135px;" actionListener="#{controlGrupoSalarial.limpiarDuplicarVigenciaGrupoSalarial()}" update="duplicarVigenciaGrupo" onclick="PF('DuplicarRegistroVigenciaGrupoSalarial').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 

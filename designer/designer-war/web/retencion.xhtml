@@ -250,7 +250,7 @@
                             </p:toolbarGroup>
                         </p:toolbar>
 
-                        <p:commandButton style="position: absolute; left: 722px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}"  disabled="#{controlRetencion.cambiosPagina}" onclick="confirmarGuardar.show();" update=":form:datosVigenciasRetenciones" process="@this" />
+                        <p:commandButton style="position: absolute; left: 722px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}"  disabled="#{controlRetencion.cambiosPagina}" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciasRetenciones" process="@this" />
                         <p:commandButton style="position: absolute; left: 15px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}" actionListener="#{controlRetencion.cancelarModificacion()}" process="@this" />
                         <p:commandButton style="position: absolute; left: 805px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}"  actionListener="#{controlRetencion.salir()}" action="individual" process="@this" /> 
 
@@ -267,7 +267,7 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 285px; height: 138px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 19px;" /></strong>
-                                <p:inputText maxlength="4" id="nuevoCodigo" value="#{controlRetencion.nuevoVigenciasRetenciones.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
+                                <p:inputText maxlength="4" id="nuevoCodigo" value="#{controlRetencion.nuevoVigenciasRetenciones.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="PF('select();">
                                     <p:ajax event="change" update="nuevoCodigo" />
                                 </p:inputText>
 
@@ -280,13 +280,13 @@
                                 </div>
 
                                 <strong><h:outputText value="#{msg['uvtN']}"  style="font-size: 12px; position: absolute; top: 99px;" /></strong>
-                                <p:inputText id="nuevoUvt" value="#{controlRetencion.nuevoVigenciasRetenciones.uvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
+                                <p:inputText id="nuevoUvt" value="#{controlRetencion.nuevoVigenciasRetenciones.uvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="PF('select();">
                                     <p:ajax event="change" update="nuevoUvt"/>
                                 </p:inputText>
 
                                 <p:commandButton id="limpiarVR" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 20px; top: 180px;" actionListener="#{controlRetencion.limpiarNuevoVigencia()}" update="nuevoVigencia" process="@this"/>
                                 <p:commandButton id="agregarVR" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 130px; top: 180px;"  process="@this" actionListener="#{controlRetencion.agregarNuevoVigencia()}"/>
-                                <p:commandButton id="cancelarVR" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 200px; top: 180px;" actionListener="#{controlRetencion.limpiarNuevoVigencia()}" update="nuevoVigencia" onclick="NuevoRegistroVigenciasRetenciones.hide();"  process="@this"/>
+                                <p:commandButton id="cancelarVR" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 200px; top: 180px;" actionListener="#{controlRetencion.limpiarNuevoVigencia()}" update="nuevoVigencia" onclick="PF('NuevoRegistroVigenciasRetenciones').hide();"  process="@this"/>
                             </fieldset>
                         </p:panel>
                     </p:dialog>
@@ -304,7 +304,7 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 285px; height: 138px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText maxlength="4" id="duplicarCodigo" value="#{controlRetencion.duplicarVigenciasRetenciones.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
+                                <p:inputText maxlength="4" id="duplicarCodigo" value="#{controlRetencion.duplicarVigenciasRetenciones.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="PF('select();">
                                     <p:ajax event="change" update="duplicarCodigo" />
                                 </p:inputText>
 
@@ -317,13 +317,13 @@
                                 </div>
 
                                 <strong><h:outputText value="#{msg['uvtN']}"  style="font-size: 12px; position: absolute; top: 97px;" /></strong>
-                                <p:inputText id="duplicarUvt" value="#{controlRetencion.duplicarVigenciasRetenciones.uvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
+                                <p:inputText id="duplicarUvt" value="#{controlRetencion.duplicarVigenciasRetenciones.uvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="PF('select();">
                                     <p:ajax event="change" update="duplicarUvt"/>
                                 </p:inputText>
 
                                 <p:commandButton id="limpiarVRD" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 20px; top: 180px;" actionListener="#{controlRetencion.limpiarduplicarVigencia()}" update="duplicarVigenciaRetencion" process="@this"/>
                                 <p:commandButton id="agregarVRD" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 130px; top: 180px;"  process="@this" actionListener="#{controlRetencion.confirmarDuplicar()}"/>
-                                <p:commandButton id="cancelarVRD" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 200px; top: 180px;" actionListener="#{controlRetencion.limpiarduplicarVigencia()}" update="duplicarVigenciaRetencion" onclick="DuplicarRegistroVigenciasRetenciones.hide();"  process="@this"/>
+                                <p:commandButton id="cancelarVRD" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 200px; top: 180px;" actionListener="#{controlRetencion.limpiarduplicarVigencia()}" update="duplicarVigenciaRetencion" onclick="PF('DuplicarRegistroVigenciasRetenciones').hide();"  process="@this"/>
                             </fieldset>
                         </p:panel>
                     </p:dialog>
@@ -337,33 +337,33 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 295px; height: 218px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['valorminimoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText id="nuevoValorMinimo" value="#{controlRetencion.nuevoRetencion.valorminimo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
+                                <p:inputText id="nuevoValorMinimo" value="#{controlRetencion.nuevoRetencion.valorminimo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="PF('select();">
                                     <p:ajax event="change" update="nuevoValorMinimo" />
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['valormaximoN']}"  style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                                <p:inputText id="nuevoValorMaximo" value="#{controlRetencion.nuevoRetencion.valormaximo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="select();">
+                                <p:inputText id="nuevoValorMaximo" value="#{controlRetencion.nuevoRetencion.valormaximo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="PF('select();">
                                     <p:ajax event="change" update="nuevoValorMaximo"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['porcentajeN']}"  style="font-size: 12px; position: absolute; top: 97px;" /></strong>
-                                <p:inputText id="nuevoPorcentaje" value="#{controlRetencion.nuevoRetencion.porcentaje}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
+                                <p:inputText id="nuevoPorcentaje" value="#{controlRetencion.nuevoRetencion.porcentaje}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="PF('select();">
                                     <p:ajax event="change" update="nuevoPorcentaje"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['valorN']}"  style="font-size: 12px; position: absolute; top: 137px;" /></strong>
-                                <p:inputText id="nuevoValor" value="#{controlRetencion.nuevoRetencion.valor}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 135px; text-transform: uppercase" onclick="select();">
+                                <p:inputText id="nuevoValor" value="#{controlRetencion.nuevoRetencion.valor}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 135px; text-transform: uppercase" onclick="PF('select();">
                                     <p:ajax event="change" update="nuevoValor"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['adicionauvtN']}"  style="font-size: 12px; position: absolute; top: 177px;" /></strong>
-                                <p:inputText id="nuevoAdiciona" value="#{controlRetencion.nuevoRetencion.adicionauvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 177px; text-transform: uppercase" onclick="select();">
+                                <p:inputText id="nuevoAdiciona" value="#{controlRetencion.nuevoRetencion.adicionauvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 177px; text-transform: uppercase" onclick="PF('select();">
                                     <p:ajax event="change" update="nuevoAdiciona"/>
                                 </p:inputText>
 
                                 <p:commandButton id="limpiarR" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 20px; top: 250px;" actionListener="#{controlRetencion.limpiarNuevoRetencion()}" update="nuevoRetencion" process="@this"/>
                                 <p:commandButton id="agregarR" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 150px; top: 250px;"  process="@this" actionListener="#{controlRetencion.agregarNuevoRetencion()}" />
-                                <p:commandButton id="cancelarR" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 220px; top: 250px;" actionListener="#{controlRetencion.limpiarNuevoRetencion()}" update="nuevoRetencion" onclick="NuevoRegistroRetenciones.hide();"  process="@this"/>
+                                <p:commandButton id="cancelarR" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 220px; top: 250px;" actionListener="#{controlRetencion.limpiarNuevoRetencion()}" update="nuevoRetencion" onclick="PF('NuevoRegistroRetenciones').hide();"  process="@this"/>
                             </fieldset>
                         </p:panel>
                     </p:dialog>
@@ -377,33 +377,33 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 295px; height: 218px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['valorminimoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText id="duplicarValorMinimo" value="#{controlRetencion.duplicarRetencion.valorminimo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
+                                <p:inputText id="duplicarValorMinimo" value="#{controlRetencion.duplicarRetencion.valorminimo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="PF('select();">
                                     <p:ajax event="change" update="duplicarValorMinimo" />
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['valormaximoN']}" style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                                <p:inputText id="duplicarValorMaximo" value="#{controlRetencion.duplicarRetencion.valormaximo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="select();">
+                                <p:inputText id="duplicarValorMaximo" value="#{controlRetencion.duplicarRetencion.valormaximo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="PF('select();">
                                     <p:ajax event="change" update="duplicarValorMaximo"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['porcentajeN']}"  style="font-size: 12px; position: absolute; top: 97px;" /></strong>
-                                <p:inputText id="duplicarPorcentaje" value="#{controlRetencion.duplicarRetencion.porcentaje}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
+                                <p:inputText id="duplicarPorcentaje" value="#{controlRetencion.duplicarRetencion.porcentaje}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="PF('select();">
                                     <p:ajax event="change" update="duplicarPorcentaje"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['valorN']}"  style="font-size: 12px; position: absolute; top: 137px;" /></strong>
-                                <p:inputText id="duplicarValor" value="#{controlRetencion.duplicarRetencion.valor}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 135px; text-transform: uppercase" onclick="select();">
+                                <p:inputText id="duplicarValor" value="#{controlRetencion.duplicarRetencion.valor}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 135px; text-transform: uppercase" onclick="PF('select();">
                                     <p:ajax event="change" update="duplicarValor"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['adicionauvtN']}"  style="font-size: 12px; position: absolute; top: 177px;" /></strong>
-                                <p:inputText id="duplicarAdiciona" value="#{controlRetencion.duplicarRetencion.adicionauvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 175px; text-transform: uppercase" onclick="select();">
+                                <p:inputText id="duplicarAdiciona" value="#{controlRetencion.duplicarRetencion.adicionauvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 175px; text-transform: uppercase" onclick="PF('select();">
                                     <p:ajax event="change" update="duplicarAdiciona"/>
                                 </p:inputText>
 
                                 <p:commandButton id="limpiarRD" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 20px; top: 250px;" actionListener="#{controlRetencion.limpiarNuevoRetencion()}" update="duplicarRetencion" process="@this"/>
-                                <p:commandButton id="agregarRD" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 150px; top: 250px;"  process="@this" actionListener="#{controlRetencion.confirmarDuplicarD()}" onclick="DuplicarRegistroRetencion.hide();"/>
-                                <p:commandButton id="cancelarRD" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 220px; top: 250px;" actionListener="#{controlRetencion.limpiarNuevoRetencion()}" update="duplicarRetencion" onclick="DuplicarRegistroRetencion.hide();"  process="@this"/>
+                                <p:commandButton id="agregarRD" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 150px; top: 250px;"  process="@this" actionListener="#{controlRetencion.confirmarDuplicarD()}" onclick="PF('DuplicarRegistroRetencion').hide();"/>
+                                <p:commandButton id="cancelarRD" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 220px; top: 250px;" actionListener="#{controlRetencion.limpiarNuevoRetencion()}" update="duplicarRetencion" onclick="PF('DuplicarRegistroRetencion').hide();"  process="@this"/>
                             </fieldset>
                         </p:panel>
                     </p:dialog>
@@ -411,37 +411,37 @@
                     <p:dialog id="validacionNuevo" header="#{msg['atencion']}" widgetVar="validacionNuevo"  resizable="false" draggable="false" modal="true" height="105" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevo']}  #{controlRetencion.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevo.hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevo').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="codigos" header="#{msg['atencion']}" widgetVar="codigos"  resizable="false" draggable="false" modal="true" height="105" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['codigos']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="codigos.hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('codigos').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="valores" header="#{msg['atencion']}" widgetVar="valores"  resizable="false" draggable="false" modal="true" height="105" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['valores']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="valores.hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('valores').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="valores2" header="#{msg['atencion']}" widgetVar="valores2"  resizable="false" draggable="false" modal="true" height="105" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['valores2']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="valores2.hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('valores2').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="valores3" header="#{msg['atencion']}" widgetVar="valores3"  resizable="false" draggable="false" modal="true" height="105" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['valores3']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="valores3.hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('valores3').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="registro" header="#{msg['atencion']}" widgetVar="registro"  resizable="false" draggable="false" modal="true" height="105" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['registro']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="registro.hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('registro').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <!-- DIALOGOS EDITAR
@@ -450,55 +450,55 @@
                     <p:dialog id="editarCodigoVR" header="#{msg['editarCodigoVR']}" widgetVar="editarCodigoVR" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px; padding: 0px">  
                         <p:inputText value="#{controlRetencion.editarVigenciasRetenciones.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                         </p:inputText>
-                        <p:commandButton id="cancelarCodigoVR" value="#{msg['atras']}" onclick="editarCodigoVR.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                        <p:commandButton id="cancelarCodigoVR" value="#{msg['atras']}" onclick="PF('editarCodigoVR').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarFechaVigenciaVR" header="#{msg['editarFechaVigenciaVR']}" widgetVar="editarFechaVigenciaVR" resizable="false" draggable="false" modal="true" height="93" width="270" style="font-size: 12px;" >  
                         <p:inputText value="#{controlRetencion.editarVigenciasRetenciones.fechavigencia}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputText>
-                        <p:commandButton id="cancelarFechaVigencia" value="#{msg['atras']}" onclick="editarFechaVigenciaVR.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                        <p:commandButton id="cancelarFechaVigencia" value="#{msg['atras']}" onclick="PF('editarFechaVigenciaVR').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog> 
 
                     <p:dialog id="editarUvtVR" header="#{msg['editarUvtVR']}" widgetVar="editarUvtVR" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px; padding: 0px">  
                         <p:inputText value="#{controlRetencion.editarVigenciasRetenciones.uvt}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                         </p:inputText>
-                        <p:commandButton id="cancelarUvtVR" value="#{msg['atras']}" onclick="editarUvtVR.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                        <p:commandButton id="cancelarUvtVR" value="#{msg['atras']}" onclick="PF('editarUvtVR').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <!-- Editar Retenciones-->
 
                     <p:dialog id="editarValorMinimoR" header="#{msg['editarValorMinimoR']}" widgetVar="editarValorMinimoR" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px; padding: 0px">  
                         <p:inputText value="#{controlRetencion.editarRetenciones.valorminimo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                        <p:commandButton id="cancelarPagosD" value="#{msg['atras']}" onclick="editarValorMinimoR.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                        <p:commandButton id="cancelarPagosD" value="#{msg['atras']}" onclick="PF('editarValorMinimoR').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarValorMaximoR" header="#{msg['editarValorMaximoR']}" widgetVar="editarValorMaximoR" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlRetencion.editarRetenciones.valormaximo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                        <p:commandButton id="cancelarIkaD" value="#{msg['atras']}" onclick="editarValorMaximoR.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                        <p:commandButton id="cancelarIkaD" value="#{msg['atras']}" onclick="PF('editarValorMaximoR').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarPorcentajeR" header="#{msg['editarPorcentajeR']}" widgetVar="editarPorcentajeR" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlRetencion.editarRetenciones.porcentaje}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                        <p:commandButton id="cancelarPorcentajeR" value="#{msg['atras']}" onclick="editarPorcentajeR.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                        <p:commandButton id="cancelarPorcentajeR" value="#{msg['atras']}" onclick="PF('editarPorcentajeR').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarValorR" header="#{msg['editarValorR']}" widgetVar="editarValorR" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlRetencion.editarRetenciones.valor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                        <p:commandButton id="cancelarValorR" value="#{msg['atras']}" onclick="editarValorR.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                        <p:commandButton id="cancelarValorR" value="#{msg['atras']}" onclick="PF('editarValorR').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarAdicionaR" header="#{msg['editarAdicionaR']}" widgetVar="editarAdicionaR" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlRetencion.editarRetenciones.adicionauvt}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                        <p:commandButton id="cancelarSaldoD" value="Atras" onclick="editarAdicionaR.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                        <p:commandButton id="cancelarSaldoD" value="Atras" onclick="PF('editarAdicionaR').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlRetencion.guardarTodo()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlRetencion.guardarTodo()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <!-- DIALOGOS Rastro Vigencias Retenciones -->
@@ -506,15 +506,15 @@
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencion.secRegistro, 'VigenciasRetenciones', 'vigenciasretenciones')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencion.secRegistro, 'VigenciasRetenciones', 'vigenciasretenciones')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('VigenciasRetenciones', 'vigenciasretenciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasRetenciones', 'vigenciasretenciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
@@ -530,8 +530,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencion.secRegistro, 'VigenciasRetenciones', 'vigenciasretenciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencion.secRegistro, 'VigenciasRetenciones', 'vigenciasretenciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
@@ -556,8 +556,8 @@
                     <p:dialog id="confirmarRastroNF" header="#{msg['atencion']}" widgetVar="confirmarRastroNF"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencion.secRegistro, 'Retenciones', 'retenciones')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencion.secRegistro, 'Retenciones', 'retenciones')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
 
                     </p:dialog>
 
@@ -565,8 +565,8 @@
                     <p:dialog id="confirmarRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="confirmarRastroHistoricoNF"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Retenciones', 'retenciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Retenciones', 'retenciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="errorRastroHistoricoNF"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
@@ -582,8 +582,8 @@
                     <p:dialog id="errorTablaConRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaConRastroNF"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencion.secRegistro, 'Retenciones', 'retenciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencion.secRegistro, 'Retenciones', 'retenciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaSinRastroNF"  resizable="false" draggable="false" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
@@ -605,8 +605,8 @@
                     <p:dialog id="elegirTabla" header="#{msg['atencion']}" widgetVar="elegirTabla"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['elegirTabla']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['vigenciasRetenciones']}" onclick="elegirTabla.hide();" actionListener="#{controlRetencion.dialogoVigencias()}" style="position: absolute; top: 60px; left: 20px;" process="@this" />
-                        <p:commandButton value="#{msg['retencion']}" onclick="elegirTabla.hide();" actionListener="#{controlRetencion.dialogoRetenciones()}" style="position: absolute; top: 60px; left: 220px;" process="@this" />
+                        <p:commandButton value="#{msg['vigenciasRetenciones']}" onclick="PF('elegirTabla').hide();" actionListener="#{controlRetencion.dialogoVigencias()}" style="position: absolute; top: 60px; left: 20px;" process="@this" />
+                        <p:commandButton value="#{msg['retencion']}" onclick="PF('elegirTabla').hide();" actionListener="#{controlRetencion.dialogoRetenciones()}" style="position: absolute; top: 60px; left: 220px;" process="@this" />
                     </p:dialog>
                 </h:form>
 

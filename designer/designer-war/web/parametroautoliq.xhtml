@@ -26,7 +26,7 @@
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; " actionListener="#{controlParametroAutoliq.editarCelda()}" process="@this"
-                                                 onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"
+                                                 onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                                  />
                                 <p:tooltip  for="editar" value="#{msg['editar']}" />
 
@@ -36,7 +36,7 @@
                                 <p:tooltip for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlParametroAutoliq.activarCtrlF11()}" process="@this"
-                                                 onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"
+                                                 onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                                  />
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
@@ -72,7 +72,7 @@
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlParametroAutoliq.cancelarModificacion()}" process="@this"
-                                                 oncomplete="window.location.reload(),operacionEnProceso.show()" onclick="operacionEnProceso.show()"
+                                                 oncomplete="PF('window.location.reload(),operacionEnProceso').show()" onclick="PF('operacionEnProceso').show()"
                                                  /> 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
@@ -105,7 +105,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoPA.ano}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoPA.ano}" readonly="true" id="editarAno" style="border-radius: 0px; width: 98.5%;" onselect="operacionEnProceso.show();
+                                            <p:inputText value="#{infoPA.ano}" readonly="true" id="editarAno" style="border-radius: 0px; width: 98.5%;" onselect="operacionEnProceso').show();
                                                     posicionParametro([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);"  /> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -142,7 +142,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoPA.tipotrabajador.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onselect="operacionEnProceso.show()" value="#{infoPA.tipotrabajador.nombre}" id="editarTipoTrabajador" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText onselect="operacionEnProceso').show()" value="#{infoPA.tipotrabajador.nombre}" id="editarTipoTrabajador" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarParametroAutoliq(infoPA, 'TIPOTRABAJADOR', info.tipotrabajador.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndice(infoPA, 2)}"  process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA, 0, 1)}"/>
@@ -159,7 +159,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoPA.empresa.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  value="#{infoPA.empresa.nombre}" readonly="true" id="editarEmpresa" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"   onselect="operacionEnProceso.show();
+                                            <p:inputText  value="#{infoPA.empresa.nombre}" readonly="true" id="editarEmpresa" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"   onselect="operacionEnProceso').show();
                                                     posicionParametro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);" /> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1328,11 +1328,11 @@
                                          value="#{msg['novAuto']}" process="@this" icon="ui-icon-extlink" />
                         <p:tooltip value="#{msg['btn2']}" for="novedadauto"/>
 
-<!--                        <p:commandButton id="incaPag"  style="position: absolute; left: 110px; top: 460px;"   value="#{msg['incaPag']}" action="odiscabeceras" actionListener="#{controlOdiCabecera.recibirPag('odicabecera')}" oncomplete="#{controlOdiCabecera.recibirParametros(controlParametroAutoliq.parametroTablaSeleccionado.ano,controlParametroAutoliq.parametroTablaSeleccionado.mes,controlParametroAutoliq.parametroTablaSeleccionado.empresa.secuencia)}" process="@this"/>
+<!--                        <p:commandButton id="incaPag"  style="position: absolute; left: 110px; top: 460px;"   value="#{msg['incaPag']}" action="odiscabeceras" actionListener="#{controlOdiCabecera.recibirPag('odicabecera')}" oncomplete="PF('#{controlOdiCabecera.recibirParametros(controlParametroAutoliq.parametroTablaSeleccionado.ano,controlParametroAutoliq.parametroTablaSeleccionado.mes,controlParametroAutoliq.parametroTablaSeleccionado.empresa.secuencia)}" process="@this"/>
                         <p:tooltip value="#{msg['btn3']}" for="incaPag"/>-->
 
                         <p:commandButton id="eliminarToda" style="position: absolute; left: 155px; top: 450px;height: 30px; width: 180px; background-image: url(Imagenes/Iconos/botonL.png); color: white;
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  icon="ui-icon-extlink"  value="#{msg['eliminarToda']}" onclick="confirmarBorrarTodoAuto.show()" process="@this" />
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  icon="ui-icon-extlink"  value="#{msg['eliminarToda']}" onclick="PF('confirmarBorrarTodoAuto').show()" process="@this" />
                         <p:tooltip value="#{msg['btn4']}" for="eliminarToda"/>
 
                         <p:commandButton id="procesoLiq" style="position: absolute; left: 355px; top: 450px;height: 30px; width: 140px; background-image: url(Imagenes/Iconos/boton.png); color: white;
@@ -1350,9 +1350,9 @@
                         <p:commandButton id="buscar" style="position: absolute; left: 20px; top: 490px;  width: 150px; height: 30px; background-image: url(Imagenes/Iconos/buscardbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" actionListener="#{controlParametroAutoliq.dispararDialogoBuscar()}"  value=" " process="@this" />
                         <p:tooltip value="#{msg['btn1']}" for="buscar"/>
 
-                        <p:commandButton id="mostrarTodos" style="position: absolute; left: 200px; top: 490px;  width: 150px; height: 30px; background-image: url(Imagenes/Iconos/todosdbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; " onclick="operacionEnProceso.show()" actionListener="#{controlParametroAutoliq.mostrarTodosAporteEntidad()}" value="" process="@this" />
+                        <p:commandButton id="mostrarTodos" style="position: absolute; left: 200px; top: 490px;  width: 150px; height: 30px; background-image: url(Imagenes/Iconos/todosdbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; " onclick="PF('operacionEnProceso').show()" actionListener="#{controlParametroAutoliq.mostrarTodosAporteEntidad()}" value="" process="@this" />
 
-                        <p:commandButton style="position: relative; left: 675px; top: 490px; position: absolute; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" disabled="#{controlParametroAutoliq.guardado}" id="ACEPTAR" value=" " onclick="confirmarGuardarSalida.show();" process="@this" />
+                        <p:commandButton style="position: relative; left: 675px; top: 490px; position: absolute; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" disabled="#{controlParametroAutoliq.guardado}" id="ACEPTAR" value=" " onclick="PF('confirmarGuardarSalida').show();" process="@this" />
                         <p:commandButton style="position: absolute; left: 775px; top: 490px; position: absolute; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlParametroAutoliq.salir()}" action="#{controlParametroAutoliq.redirigir()}" process="@this" />
 
                         <p:remoteCommand name="posicionAporteEntidad" actionListener="#{controlParametroAutoliq.posicionAporteEntidad()}"/>
@@ -1609,45 +1609,45 @@
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlParametroAutoliq.guardarYSalir()}" action="#{controlParametroAutoliq.redirigir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlParametroAutoliq.cancelarYSalir()}" action="#{controlParametroAutoliq.redirigir()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlParametroAutoliq.guardarYSalir()}" action="#{controlParametroAutoliq.redirigir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlParametroAutoliq.cancelarYSalir()}" action="#{controlParametroAutoliq.redirigir()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlParametroAutoliq.guardadoGeneral()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlParametroAutoliq.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlParametroAutoliq.guardadoGeneral()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlParametroAutoliq.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroAporte"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroAporte']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroAporte.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistroAporte, 'AportesEntidades', 'parametroAutoliqRastro')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroAporte.hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroAporte').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistroAporte, 'AportesEntidades', 'parametroAutoliqRastro')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroAporte').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistoricoAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoAporte"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistoricoAporte']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroHistoricoAporte.hide();" actionListener="#{controlRastro.historicosTabla('AportesEntidades', 'parametroAutoliqRastro')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroHistoricoAporte.hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistoricoAporte').hide();" actionListener="#{controlRastro.historicosTabla('AportesEntidades', 'parametroAutoliqRastro')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistoricoAporte').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
@@ -1663,8 +1663,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -1700,32 +1700,32 @@
                     <p:dialog id="confirmarBorrarTodoAuto" header="#{msg['informacion']}" widgetVar="confirmarBorrarTodoAuto"  resizable="false" draggable="false" modal="true" height="85" width="290"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarBorrarTodoAuto']}" style="position: absolute; left: 60px; top: 15px; width: 200px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="confirmarBorrarTodoAuto.hide();
-                                operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" actionListener="#{controlParametroAutoliq.borrarAporteEntidadProcesoAutomatico()}" style="position: absolute; top: 50px; left: 70px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarBorrarTodoAuto.hide();" style="position: absolute; top: 50px; left: 170px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('confirmarBorrarTodoAuto').hide();
+                                operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlParametroAutoliq.borrarAporteEntidadProcesoAutomatico()}" style="position: absolute; top: 50px; left: 70px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarBorrarTodoAuto').hide();" style="position: absolute; top: 50px; left: 170px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="errorProcesoLiquidacionFechas" header="#{msg['atencion']}" widgetVar="errorProcesoLiquidacionFechas"  resizable="false" draggable="false" modal="true" height="105" width="435" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['errorProcesoLiquidacionFechas']}" style="position: absolute; left: 120px; top: 10px; width: 280px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorProcesoLiquidacionFechas.hide();" actionListener="#{controlParametroAutoliq.cambiarFechasParametros()}" style="position: absolute; top: 70px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="errorProcesoLiquidacionFechas.hide();" style="position: absolute; top: 70px; left: 307px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorProcesoLiquidacionFechas').hide();" actionListener="#{controlParametroAutoliq.cambiarFechasParametros()}" style="position: absolute; top: 70px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('errorProcesoLiquidacionFechas').hide();" style="position: absolute; top: 70px; left: 307px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="procesoLiquidacionOK" header="#{msg['atencion']}" widgetVar="procesoLiquidacionOK"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['procesoLiquidacionOK']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="procesoLiquidacionOK.hide();
-                                operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" actionListener="#{controlParametroAutoliq.procesoLiquidacionOK()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="procesoLiquidacionOK.hide();" style="position: absolute; top: 50px; left: 307px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('procesoLiquidacionOK').hide();
+                                operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlParametroAutoliq.procesoLiquidacionOK()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('procesoLiquidacionOK').hide();" style="position: absolute; top: 50px; left: 307px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="acumularDiferenciaOK" header="#{msg['atencion']}" widgetVar="acumularDiferenciaOK"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['acumularDiferenciaOK']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="acumularDiferenciaOK.hide();
-                                operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()" actionListener="#{controlParametroAutoliq.acumularDiferenciaOK()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="acumularDiferenciaOK.hide();" style="position: absolute; top: 50px; left: 307px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('acumularDiferenciaOK').hide();
+                                operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlParametroAutoliq.acumularDiferenciaOK()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('acumularDiferenciaOK').hide();" style="position: absolute; top: 50px; left: 307px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="errorAcumularDiferencia" header="#{msg['atencion']}" widgetVar="errorAcumularDiferencia"  resizable="false" draggable="false" modal="true" height="85" width="355"  closable="true">  
@@ -1787,7 +1787,7 @@
 
                             <p:commandButton id="limpiarPA" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 195px;" icon="ui-icon-trash"  actionListener="#{controlParametroAutoliq.limpiarNuevaParametroAutoliq()}" update="nuevaParametro" process="@this"/>
                             <p:commandButton id="agregarPA" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 195px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlParametroAutoliq.agregarNuevaParametroAutoliq()}"  />
-                            <p:commandButton id="cancelarPA" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 195px;" icon="ui-icon-circle-close" actionListener="#{controlParametroAutoliq.limpiarNuevaParametroAutoliq()}" update="nuevaParametro" onclick="NuevoRegistroParametro.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarPA" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 195px;" icon="ui-icon-circle-close" actionListener="#{controlParametroAutoliq.limpiarNuevaParametroAutoliq()}" update="nuevaParametro" onclick="PF('NuevoRegistroParametro').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -1841,7 +1841,7 @@
 
                             <p:commandButton id="limpiarDuplicadoPA" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 195px;" icon="ui-icon-trash"  actionListener="#{controlParametroAutoliq.limpiarDuplicarParametroAutoliq()}" update="duplicarParametro" process="@this"/>
                             <p:commandButton id="agregarDuplicadoPA" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 195px;" icon="ui-icon-circle-check"  process="@this" actionListener="#{controlParametroAutoliq.confirmarDuplicarParametroAutoliq()}" />
-                            <p:commandButton id="cancelarDuplicadoPA" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 195px;" icon="ui-icon-circle-close" actionListener="#{controlParametroAutoliq.limpiarDuplicarParametroAutoliq()}" update="duplicarParametro" onclick="DuplicarRegistroParametro.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicadoPA" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 195px;" icon="ui-icon-circle-close" actionListener="#{controlParametroAutoliq.limpiarDuplicarParametroAutoliq()}" update="duplicarParametro" onclick="PF('DuplicarRegistroParametro').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -1856,12 +1856,12 @@
 
                             <strong><h:outputText value="Año" style=" position: absolute; top: 25px; left: 40px;"/></strong>
                             <p:inputText id="nuevoanioaporte" value="#{controlParametroAutoliq.nuevoAporteEntidad.ano}" readonly="true"
-                                         style=" width: 122px; position: absolute; left: 200px; top: 20px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 20px; text-transform: uppercase" onclick="PF('select();" >
                             </p:inputText>
 
                             <strong><h:outputText value="Mes" style=" position: absolute; top: 55px; left: 40px;"/></strong>
                             <p:inputText id="nuevomesaporte" value="#{controlParametroAutoliq.nuevoAporteEntidad.mes}" readonly="true"
-                                         style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase" onclick="PF('select();" >
                             </p:inputText>
 
                             <strong><h:outputText value="Código Empleado" style=" position: absolute; top: 85px; left: 40px;"/></strong>
@@ -1876,7 +1876,7 @@
 
                             <strong><h:outputText value="Nombre Empleado" style=" position: absolute; top: 115px; left: 40px"/></strong>
                             <p:inputText id="nuevoNomEmpl" value="#{controlParametroAutoliq.nuevoAporteEntidad.empleado.persona.nombreCompleto}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 110px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 110px; text-transform: uppercase" onclick="PF('select();">
                                 <!--                                <p:ajax event="change" listener="#/{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.persona.nombreCompleto)}"/>
                                                                 <p:ajax event="dblclick" listener="#/{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}"/>
                                                                 <p:ajax event="click" listener="#/{controlParametroAutoliq.valoresBackupAutocompletar(1, 'EMPLEADO')}" />-->
@@ -1886,7 +1886,7 @@
 
                             <strong><h:outputText value="NIT Tercero" style=" position: absolute; top: 145px; left: 40px"/></strong>
                             <p:inputText id="nuevoNitTercero" value="#{controlParametroAutoliq.nuevoAporteEntidad.terceroRegistro.nit}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TERCERO', infoAE.terceroRegistro.nit)}"/>
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 2)}"/>
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'TERCERO')}" />
@@ -1896,12 +1896,12 @@
 
                             <strong><h:outputText value="Nombre Tercero" style=" position: absolute; top: 175px; left: 40px;"/></strong>
                             <p:inputText id="nuevonombretercero" value="#{controlParametroAutoliq.nuevoAporteEntidad.terceroRegistro.nombre}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 170px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 170px; text-transform: uppercase" onclick="PF('select();" >
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Entidad" style=" position: absolute; top: 205px; left: 40px"/></strong>
                             <p:inputText id="nuevotipoentidad" value="#{controlParametroAutoliq.nuevoAporteEntidad.tipoentidad.nombre}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 200px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 200px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TIPOENTIDAD', infoAE.tipoentidad.nombre)}"/>
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 3)}"/>
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'APORTE')}" />
@@ -1911,67 +1911,67 @@
 
                             <strong><h:outputText value="Aporte Empleado" style=" position: absolute; top: 235px; left: 40px;"/></strong>
                             <p:inputText id="nuevoaporteemp" value="#{controlParametroAutoliq.nuevoAporteEntidad.cotizacion1}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 230px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 230px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevoaporteemp"/>
                             </p:inputText>
 
                             <strong><h:outputText value="Aporte Empleador" style=" position: absolute; top: 265px; left: 40px;"/></strong>
                             <p:inputText id="nuevoaporteempleador" value="#{controlParametroAutoliq.nuevoAporteEntidad.cotizacion2}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 260px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 260px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevoaporteempleador"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Ajuste Patronal" style=" position: absolute; top: 295px; left: 40px;"/></strong>
                             <p:inputText id="nuevoajustep" value="#{controlParametroAutoliq.nuevoAporteEntidad.cotizacion5}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevoajustep"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Solidaridad" style=" position: absolute; top: 325px; left: 40px;"/></strong>
                             <p:inputText id="nuevosolidaridad" value="#{controlParametroAutoliq.nuevoAporteEntidad.novedad3}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 320px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 320px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevosolidaridad"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Subsistencia" style=" position: absolute; top: 355px; left: 40px;"/></strong>
                             <p:inputText id="nuevosubs" value="#{controlParametroAutoliq.nuevoAporteEntidad.novedad4}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 350px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 350px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevosubs"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Sub. Pensionados" style=" position: absolute; top: 385px; left: 40px;"/></strong>
                             <p:inputText id="nuevosubsp" value="#{controlParametroAutoliq.nuevoAporteEntidad.novedad5}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 380px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 380px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevosubsp"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Salario Básico" style=" position: absolute; top: 415px; left: 40px;"/></strong>
                             <p:inputText id="nuevosalbasico" value="#{controlParametroAutoliq.nuevoAporteEntidad.salariobasico}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 410px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 410px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevosalbasico"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="IBC" style=" position: absolute; top: 445px; left: 40px;"/></strong>
                             <p:inputText id="nuevoibc" value="#{controlParametroAutoliq.nuevoAporteEntidad.ibc}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 440px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 440px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevoibc"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="IBC Ref." style=" position: absolute; top: 475px; left: 40px;"/></strong>
                             <p:inputText id="nuevoibcref" value="#{controlParametroAutoliq.nuevoAporteEntidad.ibcreferencia}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 470px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 470px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevoibcref"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Días Cotizados" style=" position: absolute; top: 505px; left: 40px;"/></strong>
                             <p:inputText id="nuevodiascot" value="#{controlParametroAutoliq.nuevoAporteEntidad.diascotizados}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 500px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 500px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevodiascot"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Aportante" style=" position: absolute; top: 535px; left: 40px;"/></strong>
                             <p:inputText id="nuevotipoapor" value="#{controlParametroAutoliq.nuevoAporteEntidad.tipoaportante}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 530px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 530px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevotipoapor"/>    
                             </p:inputText>
 
@@ -2058,13 +2058,13 @@
 
                             <strong><h:outputText value="Tarifa EPS" style=" position: absolute; top: 750px; left: 40px"/></strong>
                             <p:inputText id="nuevotarifaeps" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifaeps}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 745px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 745px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevotarifaeps"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa AFP" style=" position: absolute; top: 780px; left: 40px"/></strong>
                             <p:inputText id="nuevotarifaafp" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifaafp}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 775px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 775px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevotarifaafp"/>    
                             </p:inputText>
 
@@ -2072,98 +2072,98 @@
 
                             <strong><h:outputText value="Tarifa CTT" style=" position: absolute; top: 25px; left: 450px"/></strong>
                             <p:inputText id="nuevotarifactt" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifactt}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 20px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 20px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevotarifactt"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Código CTT" style=" position: absolute; top: 55px; left: 450px"/></strong>
                             <p:inputText id="nuevocodigoctt" value="#{controlParametroAutoliq.nuevoAporteEntidad.codigoctt}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 50px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 50px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevocodigoctt"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor AVPE" style=" position: absolute; top: 85px; left: 450px"/></strong>
                             <p:inputText id="nuevovaloravpe" value="#{controlParametroAutoliq.nuevoAporteEntidad.avpevalor}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 80px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 80px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovaloravpe"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor AVPP" style=" position: absolute; top: 115px; left: 450px"/></strong>
                             <p:inputText id="nuevovaloravpp" value="#{controlParametroAutoliq.nuevoAporteEntidad.avppvalor}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 110px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 110px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovaloravpe"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="RETCONTA" style=" position: absolute; top: 145px; left: 450px"/></strong>
                             <p:inputText id="nuevovaloretconta" value="#{controlParametroAutoliq.nuevoAporteEntidad.retcontavpvalor}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 140px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 140px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovaloretconta"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Código NEPS" style=" position: absolute; top: 175px; left: 450px"/></strong>
                             <p:inputText id="nuevovalorneps" value="#{controlParametroAutoliq.nuevoAporteEntidad.codigoneps}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 170px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 170px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalorneps"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Código NAFP" style=" position: absolute; top: 205px; left: 450px"/></strong>
                             <p:inputText id="nuevovalornafp" value="#{controlParametroAutoliq.nuevoAporteEntidad.codigonafp}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 200px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 200px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalornafp"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor EG" style=" position: absolute; top: 235px; left: 450px"/></strong>
                             <p:inputText id="nuevovaloreg" value="#{controlParametroAutoliq.nuevoAporteEntidad.egvalor}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 230px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 230px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovaloreg"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Auto. EG" style=" position: absolute; top: 265px; left: 450px"/></strong>
                             <p:inputText id="nuevovalorautoeg" value="#{controlParametroAutoliq.nuevoAporteEntidad.egautorizacion}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 260px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 260px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalorautoeg"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor Maternidad" style=" position: absolute; top: 295px; left: 450px"/></strong>
                             <p:inputText id="nuevovalorma" value="#{controlParametroAutoliq.nuevoAporteEntidad.maternidadvalor}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 290px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 290px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalorma"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Auto. Maternidad" style=" position: absolute; top: 325px; left: 450px"/></strong>
                             <p:inputText id="nuevovalorautoma" value="#{controlParametroAutoliq.nuevoAporteEntidad.maternidadautorizacion}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 320px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 320px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalorautoma"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor UPC" style=" position: absolute; top: 355px; left: 450px"/></strong>
                             <p:inputText id="nuevovalorupc" value="#{controlParametroAutoliq.nuevoAporteEntidad.upcvalor}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 350px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 350px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalorupc"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Empleado" style=" position: absolute; top: 385px; left: 450px"/></strong>
                             <p:inputText id="nuevovalortipoemp" value="#{controlParametroAutoliq.nuevoAporteEntidad.tipo}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 380px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 380px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalortipoemp"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Pensionado" style=" position: absolute; top: 415px; left: 450px"/></strong>
                             <p:inputText id="nuevovalortipopensionado" value="#{controlParametroAutoliq.nuevoAporteEntidad.tipopensionado}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 410px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 410px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalortipopensionado"/>    
                             </p:inputText>
 
 
                             <strong><h:outputText value="Pensión Compartida" style=" position: absolute; top: 445px; left: 450px"/></strong>
                             <p:inputText id="nuevopensioncompartida" value="#{controlParametroAutoliq.nuevoAporteEntidad.pensioncompartida}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 440px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 440px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevopensioncompartida"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Extranjero" style=" position: absolute; top: 475px; left: 450px"/></strong>
                             <p:inputText id="nuevoextranjero" value="#{controlParametroAutoliq.nuevoAporteEntidad.extranjero}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 470px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 470px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevoextranjero"/>    
                             </p:inputText>
 
@@ -2193,35 +2193,35 @@
 
                             <strong><h:outputText value="Tarifa Caja" style=" position: absolute; top: 565px; left: 450px"/></strong>
                             <p:inputText id="nuevotarifacaja" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifacaja}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 560px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 560px; text-transform: uppercase" onclick="PF('select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa SENA" style=" position: absolute; top: 595px; left: 450px"/></strong>
                             <p:inputText id="nuevotarifasena" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifasena}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 590px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 590px; text-transform: uppercase" onclick="PF('select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa ICBF" style=" position: absolute; top: 625px; left: 450px"/></strong>
                             <p:inputText id="nuevotarifaicbf" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifaicbf}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 620px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 620px; text-transform: uppercase" onclick="PF('select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa ESAP" style=" position: absolute; top: 655px; left: 450px"/></strong>
                             <p:inputText id="nuevotarifaesap" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifaesap}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 650px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 650px; text-transform: uppercase" onclick="PF('select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa MEN" style=" position: absolute; top: 685px; left: 450px"/></strong>
                             <p:inputText id="nuevotarifamen" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifamen}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 680px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 680px; text-transform: uppercase" onclick="PF('select();">
                             </p:inputText>
 
                         </p:scrollPanel>
                         <p:commandButton id="limpiar" value="#{msg['limpiar']}" style=" position: absolute; left: 40px; top: 415px; width: 128px;" icon="ui-icon-trash" actionListener="#{controlParametroAutoliq.limpiarNuevoAporteEntidad()}" update="nuevoApEntidad" process="@this"/>
                         <p:commandButton id="agregarNE" value="#{msg['agregar']}" style=" position: absolute; left: 550px; top: 415px;" icon="ui-icon-check"
-                                         onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"
+                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                          actionListener="#{controlParametroAutoliq.agregarNuevoAporteEntidad()}" process="@this"/>
-                        <p:commandButton id="cancelarNE" value="#{msg['cancelar']}" style=" position: absolute; left: 650px; top: 415px;" icon="ui-icon-close" actionListener="#{controlParametroAutoliq.limpiarNuevoAporteEntidad()}" update="nuevoApEntidad" onclick="nuevoAporteEntidad.hide();"  process="@this"/>
+                        <p:commandButton id="cancelarNE" value="#{msg['cancelar']}" style=" position: absolute; left: 650px; top: 415px;" icon="ui-icon-close" actionListener="#{controlParametroAutoliq.limpiarNuevoAporteEntidad()}" update="nuevoApEntidad" onclick="PF('nuevoAporteEntidad').hide();"  process="@this"/>
                     </p:dialog>
 
 
@@ -2235,12 +2235,12 @@
 
                             <strong><h:outputText value="Año" style=" position: absolute; top: 25px; left: 40px;"/></strong>
                             <p:inputText id="duplicaranioaporte" value="#{controlParametroAutoliq.duplicarAporteEntidad.ano}" readonly="true"
-                                         style=" width: 122px; position: absolute; left: 200px; top: 20px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 20px; text-transform: uppercase" onclick="PF('select();" >
                             </p:inputText>
 
                             <strong><h:outputText value="Mes" style=" position: absolute; top: 55px; left: 40px;"/></strong>
                             <p:inputText id="duplicarmesaporte" value="#{controlParametroAutoliq.duplicarAporteEntidad.mes}" readonly="true"
-                                         style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase" onclick="PF('select();" >
                             </p:inputText>
 
                             <strong><h:outputText value="Código Empleado" style=" position: absolute; top: 85px; left: 40px;"/></strong>
@@ -2255,12 +2255,12 @@
 
                             <strong><h:outputText value="Nombre Empleado" style=" position: absolute; top: 115px; left: 40px"/></strong>
                             <p:inputText id="duplicarNomEmpl" value="#{controlParametroAutoliq.duplicarAporteEntidad.empleado.persona.nombreCompleto}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 110px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 110px; text-transform: uppercase" onclick="PF('select();">
                             </p:inputText>
 
                             <strong><h:outputText value="NIT Tercero" style=" position: absolute; top: 145px; left: 40px"/></strong>
                             <p:inputText id="duplicarNitTercero" value="#{controlParametroAutoliq.duplicarAporteEntidad.terceroRegistro.nit}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TERCERO', infoAE.terceroRegistro.nit)}"/>
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 2)}"/>
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(2, 'TERCERO')}" />
@@ -2270,12 +2270,12 @@
 
                             <strong><h:outputText value="Nombre Tercero" style=" position: absolute; top: 175px; left: 40px;"/></strong>
                             <p:inputText id="duplicarnombretercero" value="#{controlParametroAutoliq.duplicarAporteEntidad.terceroRegistro.nombre}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 170px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 170px; text-transform: uppercase" onclick="PF('select();" >
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Entidad" style=" position: absolute; top: 205px; left: 40px"/></strong>
                             <p:inputText id="duplicartipoentidad" value="#{controlParametroAutoliq.duplicarAporteEntidad.tipoentidad.nombre}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 200px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 200px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TIPOENTIDAD', infoAE.tipoentidad.nombre)}"/>
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 3)}"/>
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(2, 'APORTE')}" />
@@ -2285,67 +2285,67 @@
 
                             <strong><h:outputText value="Aporte Empleado" style=" position: absolute; top: 235px; left: 40px;"/></strong>
                             <p:inputText id="duplicaraporteemp" value="#{controlParametroAutoliq.duplicarAporteEntidad.cotizacion1}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 230px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 230px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicaraporteemp"/>
                             </p:inputText>
 
                             <strong><h:outputText value="Aporte Empleador" style=" position: absolute; top: 265px; left: 40px;"/></strong>
                             <p:inputText id="duplicaraporteempleador" value="#{controlParametroAutoliq.duplicarAporteEntidad.cotizacion2}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 260px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 260px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicaraporteempleador"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Ajuste Patronal" style=" position: absolute; top: 295px; left: 40px;"/></strong>
                             <p:inputText id="duplicarajustep" value="#{controlParametroAutoliq.duplicarAporteEntidad.cotizacion5}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarajustep"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Solidaridad" style=" position: absolute; top: 325px; left: 40px;"/></strong>
                             <p:inputText id="duplicarsolidaridad" value="#{controlParametroAutoliq.duplicarAporteEntidad.novedad3}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 320px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 320px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarsolidaridad"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Subsistencia" style=" position: absolute; top: 355px; left: 40px;"/></strong>
                             <p:inputText id="duplicarsubs" value="#{controlParametroAutoliq.duplicarAporteEntidad.novedad4}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 350px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 350px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarsubs"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Sub. Pensionados" style=" position: absolute; top: 385px; left: 40px;"/></strong>
                             <p:inputText id="duplicarsubsp" value="#{controlParametroAutoliq.duplicarAporteEntidad.novedad5}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 380px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 380px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarsubsp"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Salario Básico" style=" position: absolute; top: 415px; left: 40px;"/></strong>
                             <p:inputText id="duplicarsalbasico" value="#{controlParametroAutoliq.duplicarAporteEntidad.salariobasico}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 410px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 410px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarsalbasico"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="IBC" style=" position: absolute; top: 445px; left: 40px;"/></strong>
                             <p:inputText id="duplicaribc" value="#{controlParametroAutoliq.duplicarAporteEntidad.ibc}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 440px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 440px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicaribc"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="IBC Ref." style=" position: absolute; top: 475px; left: 40px;"/></strong>
                             <p:inputText id="duplicaribcref" value="#{controlParametroAutoliq.duplicarAporteEntidad.ibcreferencia}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 470px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 470px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicaribcref"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Días Cotizados" style=" position: absolute; top: 505px; left: 40px;"/></strong>
                             <p:inputText id="duplicardiascot" value="#{controlParametroAutoliq.duplicarAporteEntidad.diascotizados}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 500px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 500px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicardiascot"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Aportante" style=" position: absolute; top: 535px; left: 40px;"/></strong>
                             <p:inputText id="duplicartipoapor" value="#{controlParametroAutoliq.duplicarAporteEntidad.tipoaportante}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 530px; text-transform: uppercase" onclick="select();" >
+                                         style=" width: 122px; position: absolute; left: 200px; top: 530px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicartipoapor"/>    
                             </p:inputText>
 
@@ -2432,13 +2432,13 @@
 
                             <strong><h:outputText value="Tarifa EPS" style=" position: absolute; top: 750px; left: 40px"/></strong>
                             <p:inputText id="duplicartarifaeps" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifaeps}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 745px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 745px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicartarifaeps"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa AFP" style=" position: absolute; top: 780px; left: 40px"/></strong>
                             <p:inputText id="duplicartarifaafp" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifaafp}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 775px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 775px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicartarifaafp"/>    
                             </p:inputText>
 
@@ -2446,98 +2446,98 @@
 
                             <strong><h:outputText value="Tarifa CTT" style=" position: absolute; top: 25px; left: 450px"/></strong>
                             <p:inputText id="duplicartarifactt" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifactt}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 20px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 20px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicartarifactt"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Código CTT" style=" position: absolute; top: 55px; left: 450px"/></strong>
                             <p:inputText id="duplicarcodigoctt" value="#{controlParametroAutoliq.duplicarAporteEntidad.codigoctt}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 50px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 50px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarcodigoctt"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor AVPE" style=" position: absolute; top: 85px; left: 450px"/></strong>
                             <p:inputText id="duplicarvaloravpe" value="#{controlParametroAutoliq.duplicarAporteEntidad.avpevalor}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 80px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 80px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvaloravpe"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor AVPP" style=" position: absolute; top: 115px; left: 450px"/></strong>
                             <p:inputText id="duplicarvaloravpp" value="#{controlParametroAutoliq.duplicarAporteEntidad.avppvalor}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 110px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 110px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvaloravpe"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="RETCONTA" style=" position: absolute; top: 145px; left: 450px"/></strong>
                             <p:inputText id="duplicarvaloretconta" value="#{controlParametroAutoliq.duplicarAporteEntidad.retcontavpvalor}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 140px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 140px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvaloretconta"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Código NEPS" style=" position: absolute; top: 175px; left: 450px"/></strong>
                             <p:inputText id="duplicarvalorneps" value="#{controlParametroAutoliq.duplicarAporteEntidad.codigoneps}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 170px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 170px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalorneps"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Código NAFP" style=" position: absolute; top: 205px; left: 450px"/></strong>
                             <p:inputText id="duplicarvalornafp" value="#{controlParametroAutoliq.duplicarAporteEntidad.codigonafp}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 200px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 200px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalornafp"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor EG" style=" position: absolute; top: 235px; left: 450px"/></strong>
                             <p:inputText id="duplicarvaloreg" value="#{controlParametroAutoliq.duplicarAporteEntidad.egvalor}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 230px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 230px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvaloreg"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Auto. EG" style=" position: absolute; top: 265px; left: 450px"/></strong>
                             <p:inputText id="duplicarvalorautoeg" value="#{controlParametroAutoliq.duplicarAporteEntidad.egautorizacion}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 260px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 260px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalorautoeg"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor Maternidad" style=" position: absolute; top: 295px; left: 450px"/></strong>
                             <p:inputText id="duplicarvalorma" value="#{controlParametroAutoliq.duplicarAporteEntidad.maternidadvalor}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 290px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 290px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalorma"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Auto. Maternidad" style=" position: absolute; top: 325px; left: 450px"/></strong>
                             <p:inputText id="duplicarvalorautoma" value="#{controlParametroAutoliq.duplicarAporteEntidad.maternidadautorizacion}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 320px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 320px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalorautoma"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor UPC" style=" position: absolute; top: 355px; left: 450px"/></strong>
                             <p:inputText id="duplicarvalorupc" value="#{controlParametroAutoliq.duplicarAporteEntidad.upcvalor}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 350px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 350px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalorupc"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Empleado" style=" position: absolute; top: 385px; left: 450px"/></strong>
                             <p:inputText id="duplicarvalortipoemp" value="#{controlParametroAutoliq.duplicarAporteEntidad.tipo}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 380px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 380px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalortipoemp"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Pensionado" style=" position: absolute; top: 415px; left: 450px"/></strong>
                             <p:inputText id="duplicarvalortipopensionado" value="#{controlParametroAutoliq.duplicarAporteEntidad.tipopensionado}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 410px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 410px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalortipopensionado"/>    
                             </p:inputText>
 
 
                             <strong><h:outputText value="Pensión Compartida" style=" position: absolute; top: 445px; left: 450px"/></strong>
                             <p:inputText id="duplicarpensioncompartida" value="#{controlParametroAutoliq.duplicarAporteEntidad.pensioncompartida}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 440px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 440px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarpensioncompartida"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Extranjero" style=" position: absolute; top: 475px; left: 450px"/></strong>
                             <p:inputText id="duplicarextranjero" value="#{controlParametroAutoliq.duplicarAporteEntidad.extranjero}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 470px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 470px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarextranjero"/>    
                             </p:inputText>
 
@@ -2567,43 +2567,43 @@
 
                             <strong><h:outputText value="Tarifa Caja" style=" position: absolute; top: 565px; left: 450px"/></strong>
                             <p:inputText id="duplicartarifacaja" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifacaja}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 560px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 560px; text-transform: uppercase" onclick="PF('select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa SENA" style=" position: absolute; top: 595px; left: 450px"/></strong>
                             <p:inputText id="duplicartarifasena" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifasena}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 590px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 590px; text-transform: uppercase" onclick="PF('select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa ICBF" style=" position: absolute; top: 625px; left: 450px"/></strong>
                             <p:inputText id="duplicartarifaicbf" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifaicbf}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 620px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 620px; text-transform: uppercase" onclick="PF('select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa ESAP" style=" position: absolute; top: 655px; left: 450px"/></strong>
                             <p:inputText id="duplicartarifaesap" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifaesap}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 650px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 650px; text-transform: uppercase" onclick="PF('select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa MEN" style=" position: absolute; top: 685px; left: 450px"/></strong>
                             <p:inputText id="duplicartarifamen" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifamen}" 
-                                         style=" width: 122px; position: absolute; left: 600px; top: 680px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 600px; top: 680px; text-transform: uppercase" onclick="PF('select();">
                             </p:inputText>
 
                         </p:scrollPanel>
                         <p:commandButton id="limpiarDuplicar" value="#{msg['limpiar']}" style=" position: absolute; left: 40px; top: 415px; width: 128px;" icon="ui-icon-trash" actionListener="#{controlParametroAutoliq.limpiarDuplicarAporteEntidad()}" update="duplicarApEntidad" process="@this"/>
                         <p:commandButton id="aceptarDuplicar" value="#{msg['agregar']}" style=" position: absolute; left: 550px; top: 415px;" icon="ui-icon-check"
-                                         onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"
+                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                          actionListener="#{controlParametroAutoliq.confirmarDuplicarAporteEntidad()}" process="@this"/>
-                        <p:commandButton id="cancelarDuplicar" value="#{msg['cancelar']}" style=" position: absolute; left: 650px; top: 415px;" icon="ui-icon-close" actionListener="#{controlParametroAutoliq.limpiarDuplicarAporteEntidad()}" update="duplicarApEntidad" onclick="duplicarAporteEntidad.hide();"  process="@this"/>
+                        <p:commandButton id="cancelarDuplicar" value="#{msg['cancelar']}" style=" position: absolute; left: 650px; top: 415px;" icon="ui-icon-close" actionListener="#{controlParametroAutoliq.limpiarDuplicarAporteEntidad()}" update="duplicarApEntidad" onclick="PF('duplicarAporteEntidad').hide();"  process="@this"/>
                     </p:dialog>
 
 
                     <p:dialog id="seleccionarTablaNewReg" header="Nuevo Registro" widgetVar="seleccionarTablaNewReg"  resizable="false" draggable="false" modal="true" height="180" width="365"  closable="false">  
                         <h:outputText value="Seleccione la tabla en la cual quiere insertar el nuevo Registro" style="color: blue; position: absolute; left: 15px; top: 10px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Parámetros" style="position: absolute; left: 90px; top: 55px; font-weight:bold; width: 180px; text-align: center" process="@this"  actionListener="#{controlParametroAutoliq.mostrarDialogoNuevoParametro()}" onclick="seleccionarTablaNewReg.hide()" />
-                        <p:commandButton value="Aportes Entidades" style="position: absolute; left: 90px; top: 85px; font-weight:bold; width: 180px; text-align: center" process="@this" actionListener="#{controlParametroAutoliq.mostrarDialogoNuevoAporte()}" onclick="seleccionarTablaNewReg.hide()" />
-                        <p:commandButton value="#{msg['salir']}" icon="ui-icon-closethick" style="position: absolute; top: 150px; left: 250px;" onclick="seleccionarTablaNewReg.hide()"  />
+                        <p:commandButton value="Parámetros" style="position: absolute; left: 90px; top: 55px; font-weight:bold; width: 180px; text-align: center" process="@this"  actionListener="#{controlParametroAutoliq.mostrarDialogoNuevoParametro()}" onclick="PF('seleccionarTablaNewReg').hide()" />
+                        <p:commandButton value="Aportes Entidades" style="position: absolute; left: 90px; top: 85px; font-weight:bold; width: 180px; text-align: center" process="@this" actionListener="#{controlParametroAutoliq.mostrarDialogoNuevoAporte()}" onclick="PF('seleccionarTablaNewReg').hide()" />
+                        <p:commandButton value="#{msg['salir']}" icon="ui-icon-closethick" style="position: absolute; top: 150px; left: 250px;" onclick="PF('seleccionarTablaNewReg').hide()"  />
                     </p:dialog>
 
                     <p:dialog id="editarAnoD" header="#{msg['editarAnoD']}" widgetVar="editarAnoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  

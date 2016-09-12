@@ -54,7 +54,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
-                                                 oncomplete="NuevoRegistroCiudad.show()" update=":formularioDialogos:nuevaCiudad" process="@this"/> 
+                                                 oncomplete="PF('NuevoRegistroCiudad').show()" update=":formularioDialogos:nuevaCiudad" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
@@ -72,7 +72,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
-                                                 actionListener="#{controlCiudades.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                                                 actionListener="#{controlCiudades.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -176,7 +176,7 @@
                         </fieldset>
 
                         <p:commandButton style="position: absolute; left: 680px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"
-                                         id="ACEPTAR" value="" onclick="confirmarGuardar.show();" disabled="#{controlCiudades.guardado}" update=":form:datosCiudades" process="@this" />
+                                         id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" disabled="#{controlCiudades.guardado}" update=":form:datosCiudades" process="@this" />
                         <p:commandButton style="position: absolute; left: 770px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
                                          value="" actionListener="#{controlCiudades.salir()}" action="#{controlCiudades.redirigir()}" process="@this" />
                     </p:panel>
@@ -190,17 +190,17 @@
 
                         <p:panel id="nuevaCiudad" style="border: none;">
                             <strong><h:outputText value="*#{msg['codigoN']}" style=" position: absolute; top: 65px;" /></strong>
-                            <p:inputText maxlength="4" id="nuevoCodigo" value="#{controlCiudades.nuevaCiudad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 60px; text-transform: uppercase" onclick="select();">
+                            <p:inputText maxlength="4" id="nuevoCodigo" value="#{controlCiudades.nuevaCiudad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 60px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="nuevoNombreCiudad" value="#{controlCiudades.nuevaCiudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoNombreCiudad" value="#{controlCiudades.nuevaCiudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['departamentooN']}" style=" position: absolute; top: 145px;" /></strong>
-                            <p:inputText id="nuevoDepartamento" value="#{controlCiudades.nuevaCiudad.departamento.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoDepartamento" value="#{controlCiudades.nuevaCiudad.departamento.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlCiudades.valoresBackupAutocompletar(1)}" />
                                 <p:ajax event="change" listener="#{controlCiudades.autocompletarNuevoyDuplicado(controlCiudades.nuevaCiudad.departamento.nombre,1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlCiudades.llamarLovDepartamento(1)}" />
@@ -209,14 +209,14 @@
                                              id="btnNuevoDepartamento" value="" process="@this" actionListener="#{controlCiudades.llamarLovDepartamento(1)}"/>
 
                             <strong><h:outputText value="#{msg['codigoalternativoN']}" style=" position: absolute; top: 185px;" /></strong>
-                            <p:inputText id="nuevoCodigoAlternativo" value="#{controlCiudades.nuevaCiudad.codigoalternativo}" style=" width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoCodigoAlternativo" value="#{controlCiudades.nuevaCiudad.codigoalternativo}" style=" width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigoAlternativo" value="#{msg['codigoalternativo']}" />
 
                             <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 250px;" actionListener="#{controlCiudades.limpiarNuevaCiudad()}" update="nuevaCiudad" process="@this"/>
                             <p:commandButton id="agregarC" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 170px; top: 250px;" actionListener="#{controlCiudades.agregarNuevaCiudad()}" process="@this"/>
-                            <p:commandButton id="cancelarC" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 270px; top: 250px;" actionListener="#{controlCiudades.limpiarNuevaCiudad()}" update="nuevaCiudad" onclick="NuevoRegistroCiudad.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarC" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 270px; top: 250px;" actionListener="#{controlCiudades.limpiarNuevaCiudad()}" update="nuevaCiudad" onclick="PF('NuevoRegistroCiudad').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -229,17 +229,17 @@
                         <p:panel id="duplicarCiudad" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigo']}" style=" position: absolute; top: 65px;" /></strong>
-                            <p:inputText maxlength="4" id="duplicarCodigo" value="#{controlCiudades.duplicarCiudad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 60px; text-transform: uppercase" onclick="select();">
+                            <p:inputText maxlength="4" id="duplicarCodigo" value="#{controlCiudades.duplicarCiudad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 60px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="duplicarCodigo"/>
                             </p:inputText>
 
                             <strong><h:outputText value="*#{msg['nombre']}" style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="duplicarNombre" value="#{controlCiudades.duplicarCiudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarNombre" value="#{controlCiudades.duplicarCiudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="duplicarNombre"/>
                             </p:inputText>
 
                             <strong><h:outputText value="*#{msg['departamento']}" style=" position: absolute; top: 145px;" /></strong>
-                            <p:inputText id="duplicarDepartamento" value="#{controlCiudades.duplicarCiudad.departamento.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarDepartamento" value="#{controlCiudades.duplicarCiudad.departamento.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlCiudades.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlCiudades.autocompletarNuevoyDuplicado(controlCiudades.duplicarCiudad.departamento.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlCiudades.llamarLovDepartamento(2)}" />
@@ -248,37 +248,37 @@
                                              id="btnDuplicarDepartamento" process="@this" value="" actionListener="#{controlCiudades.llamarLovDepartamento(2)}"/>
 
                             <strong><h:outputText value="#{msg['codigoalternativo']}"  style=" position: absolute; top: 185px;" /></strong>
-                            <p:inputText id="duplicarCodigoAlternativo" value="#{controlCiudades.duplicarCiudad.codigoalternativo}" style=" width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarCodigoAlternativo" value="#{controlCiudades.duplicarCiudad.codigoalternativo}" style=" width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="duplicarCodigoAlternativo"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigoAlternativo" value="#{msg['codigoalternativo']}" />
 
                             <p:commandButton id="limpiarDuplicadoCiudad" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 250px;" actionListener="#{controlCiudades.limpiarduplicarCiudad()}" update="duplicarCiudad" process="@this"/>
                             <p:commandButton id="agregarDuplicadoCiudad" icon="ui-icon-check" value="#{msg['agregar']}" style=" position: absolute; left: 170px; top: 250px;"  process="@this" actionListener="#{controlCiudades.confirmarDuplicar()}"  />
-                            <p:commandButton id="cancelarDuplicadoCiudad" icon="ui-icon-close" value="#{msg['cancelar']}" style=" position: absolute; left: 270px; top: 250px;" actionListener="#{controlCiudades.limpiarduplicarCiudad()}" update="duplicarCiudad" onclick="DuplicarRegistroCiudad.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicadoCiudad" icon="ui-icon-close" value="#{msg['cancelar']}" style=" position: absolute; left: 270px; top: 250px;" actionListener="#{controlCiudades.limpiarduplicarCiudad()}" update="duplicarCiudad" onclick="PF('DuplicarRegistroCiudad').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevaCiudad" header="#{msg['atencion']}" widgetVar="validacionNuevaCiudad"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevo']}" style="position: absolute; left: 100px; top: 20px; width: 280px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="validacionNuevaCiudad.hide();" style="position: absolute; top: 65px; left: 285px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevaCiudad').hide();" style="position: absolute; top: 65px; left: 285px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validacionBorradoCiudad" header="#{msg['atencion']}" widgetVar="validacionBorradoCiudad" resizable="false" draggable="false" modal="true" height="95" width="400" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['validacionBorrado']}" style="position: absolute; left: 100px; top: 20px; width: 280px;"/>
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="validacionBorradoCiudad.hide();" style="position: absolute; top: 65px; left: 285px;" process="@this"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionBorradoCiudad').hide();" style="position: absolute; top: 65px; left: 285px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar" resizable="false" draggable="false" modal="true" height="95" width="380" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 280px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlCiudades.guardarCambiosCiudad()}" action="#{controlCiudades.redirigir()}" 
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCiudades.guardarCambiosCiudad()}" action="#{controlCiudades.redirigir()}" 
                                          style="position: absolute; top: 60px; left: 125px;" process="@this" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlCiudades.cancelarModificacion()}" action="#{controlCiudades.redirigir()}"
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCiudades.cancelarModificacion()}" action="#{controlCiudades.redirigir()}"
                                          style="position: absolute; top: 60px; left: 185px;" process="@this" />
-                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" 
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" 
                                          style="position: absolute; top: 60px; left: 250px;" process="@this" />
                     </p:dialog>
 
@@ -323,7 +323,7 @@
                     <p:dialog id="existe" header="#{msg['atencion']}" widgetVar="existe"  resizable="false" draggable="false" modal="true" height="95" width="400" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"  />
                         <h:outputText value="#{msg['existe']}" style="position: absolute; left: 100px; top: 15px; width: 280px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="existe.hide();" icon="ui-icon-check" style="position: absolute; top: 65px; left: 280px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('existe').hide();" icon="ui-icon-check" style="position: absolute; top: 65px; left: 280px;" process="@this" />
                     </p:dialog>
 
                     <!-- DIALOGOS RASTROS -->
@@ -331,17 +331,17 @@
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCiudades.ciudadSeleccionada.secuencia , 'Ciudades', 'ciudades')}" 
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCiudades.ciudadSeleccionada.secuencia , 'Ciudades', 'ciudades')}" 
                                          style="position: absolute; top: 63px; left: 210px;" action="rastro" process="@this" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Ciudades', 'ciudades')}"
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Ciudades', 'ciudades')}"
                                          style="position: absolute; top: 60px; left: 210px;" action="rastro" process="@this" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -357,9 +357,9 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="55" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCiudades.secRegistro, 'Ciudades', 'ciudades')}"
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCiudades.secRegistro, 'Ciudades', 'ciudades')}"
                                          style="position: absolute; top: 65px; left: 205px;" action="rastro" process="@this" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 65px; left: 265px;" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 265px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  

@@ -63,7 +63,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" oncomplete="window.location.reload()" actionListener="#{controlEmplVigenciaAfiliacion3.cancelarModificacionVA()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" oncomplete="PF('window.location.reload()" actionListener="#{controlEmplVigenciaAfiliacion3.cancelarModificacionVA()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
@@ -182,7 +182,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.tercerosucursal.tercero.nit}" style="width: 100px; "/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText readonly="true"  value="#{info.tercerosucursal.tercero.nit}" id="editarNITTerceroVA" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"
-                                                         onclick="select();" onselect="posicionNit([{name: 'n', value: '4'}, {name: 't', value: '#{indiceVA}'}]);"> 
+                                                         onclick="PF('select();" onselect="posicionNit([{name: 'n', value: '4'}, {name: 't', value: '#{indiceVA}'}]);"> 
 
                                             </p:inputText>
                                         </f:facet>  
@@ -347,44 +347,44 @@
                         </p:dialog>
                         
                         <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplVigenciaAfiliacion3.infoRegistro}" style="position: absolute; left: 20px; top: 465px; font-weight: bold"/>
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="confirmarGuardar.show();" update=":form:datosVAVigencia" process="@this" disabled="#{controlEmplVigenciaAfiliacion3.guardado}"/>
+                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosVAVigencia" process="@this" disabled="#{controlEmplVigenciaAfiliacion3.guardado}"/>
                         <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlEmplVigenciaAfiliacion3.salir()}" action="nomina" process="@this" />
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEmplVigenciaAfiliacion3.guardadoGeneral()}" action="#{controlTercero.valorPaginaAnterior()}" 
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigenciaAfiliacion3.guardadoGeneral()}" action="#{controlTercero.valorPaginaAnterior()}" 
                                          style="position: absolute; top: 45px; left: 180px;" process="@this"/>
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEmplVigenciaAfiliacion3.cancelarModificacionVA()}" 
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigenciaAfiliacion3.cancelarModificacionVA()}" 
                                          style="position: absolute; top: 45px; left: 245px;" process="@this" icon="ui-icon-close" action="#{controlTercero.valorPaginaAnterior()}" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" icon="ui-icon-arrowreturnthick-1-w"
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" icon="ui-icon-arrowreturnthick-1-w"
                                          style="position: absolute; top: 45px; left: 315px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSinSalir" header="#{msg['precaucion']}" widgetVar="confirmarGuardarSinSalir"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarGuardarSinSalir.hide();" actionListener="#{controlEmplVigenciaAfiliacion3.guardadoGeneral()}" action="nomina" 
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalir').hide();" actionListener="#{controlEmplVigenciaAfiliacion3.guardadoGeneral()}" action="nomina" 
                                          style="position: absolute; top: 45px; left: 180px;" process="@this"/>
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSinSalir.hide();" actionListener="#{controlEmplVigenciaAfiliacion3.cancelarModificacionVA()}" 
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalir').hide();" actionListener="#{controlEmplVigenciaAfiliacion3.cancelarModificacionVA()}" 
                                          style="position: absolute; top: 45px; left: 245px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSinSalir.hide();" icon="ui-icon-arrowreturnthick-1-w" 
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSinSalir').hide();" icon="ui-icon-arrowreturnthick-1-w" 
                                          style="position: absolute; top: 45px; left: 315px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaAfiliacion3.vigenciaSeleccionada.secuencia, 'VigenciasAfiliaciones', 'afiliaciones3')}" oncomplete="#{controlEmplVigenciaAfiliacion3.anularLOV()}" style="position: absolute; top: 60px; left: 180px;" action="rastro" process="@this"/>
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 60px; left: 245px;" icon="ui-icon-close" process="@this" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaAfiliacion3.vigenciaSeleccionada.secuencia, 'VigenciasAfiliaciones', 'afiliaciones3')}" oncomplete="PF('#{controlEmplVigenciaAfiliacion3.anularLOV()}" style="position: absolute; top: 60px; left: 180px;" action="rastro" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 60px; left: 245px;" icon="ui-icon-close" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('VigenciasAfiliaciones', 'afiliaciones3')}" style="position: absolute; top: 60px; left: 180px;" action="rastro" oncomplete="#{controlEmplVigenciaAfiliacion3.anularLOV()}" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 245px;" icon="ui-icon-close" process="@this" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasAfiliaciones', 'afiliaciones3')}" style="position: absolute; top: 60px; left: 180px;" action="rastro" oncomplete="PF('#{controlEmplVigenciaAfiliacion3.anularLOV()}" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 245px;" icon="ui-icon-close" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -400,9 +400,9 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaAfiliacion3.vigenciaSeleccionada.secuencia, 'VigenciasAfiliaciones', 'vigenciaAfiliacion')}" 
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaAfiliacion3.vigenciaSeleccionada.secuencia, 'VigenciasAfiliaciones', 'vigenciaAfiliacion')}" 
                                          style="position: absolute; top: 60px; left: 180px;" action="rastro" process="@this" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 245px;" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 245px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -450,7 +450,7 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['tipoentidadN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaTipoEntidadVA" value="#{controlEmplVigenciaAfiliacion3.nuevaVigenciaA.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaTipoEntidadVA" value="#{controlEmplVigenciaAfiliacion3.nuevaVigenciaA.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaAfiliacion3.asignarIndex(0,1)}"/>
                                 <p:ajax event="click" listener="#{controlEmplVigenciaAfiliacion3.valoresBackupAutocompletarVA(1, 'TIPOENTIDAD')}" />
                                 <p:ajax event="change" listener="#{controlEmplVigenciaAfiliacion3.autocompletarNuevoyDuplicadoVA('TIPOENTIDAD', controlEmplVigenciaAfiliacion3.nuevaVigenciaA.tipoentidad.nombre,1)}" process="@this" update="nuevaTipoEntidadVA"/>
@@ -460,7 +460,7 @@
 
 
                             <strong><h:outputText value="*#{msg['terceroN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText maxlength="30" id="nuevaTerceroVA" value="#{controlEmplVigenciaAfiliacion3.nuevaVigenciaA.tercerosucursal.tercero.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText maxlength="30" id="nuevaTerceroVA" value="#{controlEmplVigenciaAfiliacion3.nuevaVigenciaA.tercerosucursal.tercero.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaAfiliacion3.asignarIndex(1,1)}"/>
                                 <p:ajax event="click" listener="#{controlEmplVigenciaAfiliacion3.valoresBackupAutocompletarVA(1, 'TERCERO')}" />
                                 <p:ajax event="change" listener="#{controlEmplVigenciaAfiliacion3.autocompletarNuevoyDuplicadoVA('TERCERO', controlEmplVigenciaAfiliacion3.nuevaVigenciaA.tercerosucursal.tercero.nombre, 1)}" process="@this" update="nuevaTerceroVA"/>
@@ -469,18 +469,18 @@
                             <p:watermark for="nuevaTerceroVA" value="Tercero" />
 
                             <strong><h:outputText value="*#{msg['terceronitN']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaNITTerceroVA" value="#{controlEmplVigenciaAfiliacion3.nuevaVigenciaA.tercerosucursal.tercero.nit}" readonly="true" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="nuevaNITTerceroVA" value="#{controlEmplVigenciaAfiliacion3.nuevaVigenciaA.tercerosucursal.tercero.nit}" readonly="true" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="PF('select();" >
                             </p:inputText>
                             <p:watermark for="nuevaNITTerceroVA" value="#{msg['terceronit']}" />
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCodigoVA" value="#{controlEmplVigenciaAfiliacion3.nuevaVigenciaA.codigo}"  style=" width: 122px; position: absolute; left: 170px; top: 220px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="nuevaCodigoVA" value="#{controlEmplVigenciaAfiliacion3.nuevaVigenciaA.codigo}"  style=" width: 122px; position: absolute; left: 170px; top: 220px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" update="nuevaCodigoVA"/>
                             </p:inputText>
                             <p:watermark for="nuevaCodigoVA" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['estadoN']}" style=" position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText maxlength="30" id="nuevaEstadoAfiliacionVA" value="#{controlEmplVigenciaAfiliacion3.nuevaVigenciaA.estadoafiliacion.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 250px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText maxlength="30" id="nuevaEstadoAfiliacionVA" value="#{controlEmplVigenciaAfiliacion3.nuevaVigenciaA.estadoafiliacion.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 250px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaAfiliacion3.asignarIndex(2,1)}"/>
                                 <p:ajax event="click" listener="#{controlEmplVigenciaAfiliacion3.valoresBackupAutocompletarVA(1, 'ESTADOAFILIACION')}" />
                                 <p:ajax event="change" process="@this" listener="#{controlEmplVigenciaAfiliacion3.autocompletarNuevoyDuplicadoVA('ESTADOAFILIACION', controlEmplVigenciaAfiliacion3.nuevaVigenciaA.estadoafiliacion.nombre, 1)}" update="nuevaEstadoAfiliacionVA"/>
@@ -489,7 +489,7 @@
                             <p:watermark for="nuevaEstadoAfiliacionVA" value="#{msg['estado']}" />
 
                             <strong><h:outputText value="#{msg['observacionesN']}" style=" position: absolute; top: 285px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaObservacionVA" value="#{controlEmplVigenciaAfiliacion3.nuevaVigenciaA.observacion}" style=" width: 122px; position: absolute; left: 170px; top: 280px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="nuevaObservacionVA" value="#{controlEmplVigenciaAfiliacion3.nuevaVigenciaA.observacion}" style=" width: 122px; position: absolute; left: 170px; top: 280px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" update="nuevaObservacionVA" process="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaObservacionVA" value="#{msg['observaciones']}" />
@@ -498,9 +498,9 @@
 
                             <p:commandButton id="limpiarVA" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 315px;" actionListener="#{controlEmplVigenciaAfiliacion3.limpiarNuevaVA()}" update="nuevaVA" process="@this" icon="ui-icon-trash"/>
                             <p:commandButton id="agregarVA" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 315px;" actionListener="#{controlEmplVigenciaAfiliacion3.agregarNuevaVA()}" process="@this" icon="ui-icon-circle-check"/>
-                            <p:commandButton id="cancelarVA" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 315px;" actionListener="#{controlEmplVigenciaAfiliacion3.limpiarNuevaVA()}" update="nuevaVA" onclick="NuevoRegistroVA.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                            <p:commandButton id="cancelarVA" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 315px;" actionListener="#{controlEmplVigenciaAfiliacion3.limpiarNuevaVA()}" update="nuevaVA" onclick="PF('NuevoRegistroVA').hide();"  process="@this" icon="ui-icon-circle-close"/>
                         <!--     <p:commandButton id="agregarVA" value="#{msg['agregar']}" style=" position: absolute; left: 160px; top: 315px; background-image: url(Imagenes/Iconos/botonC.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 100px; height: 30px; color: white;" actionListener="#{controlEmplVigenciaAfiliacion3.agregarNuevaVA()}" process="@this" icon="ui-icon-check"/>
-                            <p:commandButton id="cancelarVA" value="#{msg['cancelar']}" style=" position: absolute; left: 270px; top: 315px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 180px; height: 30px; color: white;" actionListener="#{controlEmplVigenciaAfiliacion3.limpiarNuevaVA()}" update="nuevaVA" onclick="NuevoRegistroVA.hide();"  process="@this" icon="ui-icon-close"/>-->
+                            <p:commandButton id="cancelarVA" value="#{msg['cancelar']}" style=" position: absolute; left: 270px; top: 315px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 180px; height: 30px; color: white;" actionListener="#{controlEmplVigenciaAfiliacion3.limpiarNuevaVA()}" update="nuevaVA" onclick="PF('NuevoRegistroVA').hide();"  process="@this" icon="ui-icon-close"/>-->
 
                         </p:panel>
                     </p:dialog>
@@ -526,7 +526,7 @@
                                 </p:calendar>
                             </div>
                             <strong><h:outputText value="*#{msg['tipoentidadN']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTipoEntidadVA" value="#{controlEmplVigenciaAfiliacion3.duplicarVA.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarTipoEntidadVA" value="#{controlEmplVigenciaAfiliacion3.duplicarVA.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaAfiliacion3.asignarIndex(0,2)}"/>
                                 <p:ajax event="click" listener="#{controlEmplVigenciaAfiliacion3.valoresBackupAutocompletarVA(2, 'TIPOENTIDAD')}" />
                                 <p:ajax event="change" listener="#{controlEmplVigenciaAfiliacion3.autocompletarNuevoyDuplicadoVA('TIPOENTIDAD', controlEmplVigenciaAfiliacion3.duplicarVA.tipoentidad.nombre,2)}" update="duplicarTipoEntidadVA"/>
@@ -535,7 +535,7 @@
                             <p:watermark for="duplicarTipoEntidadVA" value="#{msg['tipoentidad']}" />
 
                             <strong><h:outputText value="*#{msg['terceroN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText maxlength="30" id="duplicarTerceroVA" value="#{controlEmplVigenciaAfiliacion3.duplicarVA.tercerosucursal.tercero.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText maxlength="30" id="duplicarTerceroVA" value="#{controlEmplVigenciaAfiliacion3.duplicarVA.tercerosucursal.tercero.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaAfiliacion3.asignarIndex(1,2)}"/>
                                 <p:ajax event="click" listener="#{controlEmplVigenciaAfiliacion3.valoresBackupAutocompletarVA(2,'TERCERO')}" />
                                 <p:ajax event="change" listener="#{controlEmplVigenciaAfiliacion3.autocompletarNuevoyDuplicadoVA('TERCERO', controlEmplVigenciaAfiliacion3.duplicarVA.tercerosucursal.tercero.nombre,2)}" update="duplicarTerceroVA"/>
@@ -544,18 +544,18 @@
                             <p:watermark for="duplicarTerceroVA" value="#{msg['tercero']}" />
 
                             <strong><h:outputText value="*#{msg['terceronitN']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarNITTerceroVA" value="#{controlEmplVigenciaAfiliacion3.duplicarVA.tercerosucursal.tercero.nit}" readonly="true" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="duplicarNITTerceroVA" value="#{controlEmplVigenciaAfiliacion3.duplicarVA.tercerosucursal.tercero.nit}" readonly="true" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="PF('select();" >
                             </p:inputText>
                             <p:watermark for="duplicarNITTerceroVA" value="#{msg['terceronit']}" />
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarCodigoVA" value="#{controlEmplVigenciaAfiliacion3.duplicarVA.codigo}"  style=" width: 122px; position: absolute; left: 170px; top: 220px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="duplicarCodigoVA" value="#{controlEmplVigenciaAfiliacion3.duplicarVA.codigo}"  style=" width: 122px; position: absolute; left: 170px; top: 220px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="change" update="duplicarCodigoVA"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigoVA" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['estadoN']}" style=" position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText maxlength="30" id="duplicarEstadoAfiliacionVA" value="#{controlEmplVigenciaAfiliacion3.duplicarVA.estadoafiliacion.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 250px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText maxlength="30" id="duplicarEstadoAfiliacionVA" value="#{controlEmplVigenciaAfiliacion3.duplicarVA.estadoafiliacion.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 250px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaAfiliacion3.asignarIndex(2,2)}"/>
                                 <p:ajax event="click" listener="#{controlEmplVigenciaAfiliacion3.valoresBackupAutocompletarVA(2, 'ESTADOAFILIACION')}" />
                                 <p:ajax event="change" process="@this" listener="#{controlEmplVigenciaAfiliacion3.autocompletarNuevoyDuplicadoVA('ESTADOAFILIACION', controlEmplVigenciaAfiliacion3.duplicarVA.estadoafiliacion.nombre, 2)}" update="duplicarEstadoAfiliacionVA"/>
@@ -564,14 +564,14 @@
                             <p:watermark for="duplicarEstadoAfiliacionVA" value="#{msg['estado']}" />
 
                             <strong><h:outputText value="#{msg['observacionesN']}" style=" position: absolute; top: 285px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarObservacionVA" value="#{controlEmplVigenciaAfiliacion3.duplicarVA.observacion}" style=" width: 122px; position: absolute; left: 170px; top: 280px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="duplicarObservacionVA" value="#{controlEmplVigenciaAfiliacion3.duplicarVA.observacion}" style=" width: 122px; position: absolute; left: 170px; top: 280px; text-transform: uppercase" onclick="PF('select();" >
                             </p:inputText>
                             <p:watermark for="duplicarObservacionVA" value="#{msg['observaciones']}" />
 
 
                             <p:commandButton id="limpiarDuplicadoVA" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 315px;" actionListener="#{controlEmplVigenciaAfiliacion3.limpiarduplicarVA()}" update="duplicadoVA" process="@this" icon="ui-icon-trash"/>
                             <p:commandButton id="agregarDuplicadoVA" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 315px;" actionListener="#{controlEmplVigenciaAfiliacion3.confirmarDuplicarVA()}" process="@this" icon="ui-icon-circle-check"/>
-                            <p:commandButton id="cancelarDuplicadoVA" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 315px;" actionListener="#{controlEmplVigenciaAfiliacion3.cancelarDuplicadoVA()}" update="duplicadoVA" onclick="DuplicadoRegistroVA.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                            <p:commandButton id="cancelarDuplicadoVA" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 315px;" actionListener="#{controlEmplVigenciaAfiliacion3.cancelarDuplicadoVA()}" update="duplicadoVA" onclick="PF('DuplicadoRegistroVA').hide();"  process="@this" icon="ui-icon-circle-close"/>
                         </p:panel>
                     </p:dialog>
 
@@ -617,37 +617,37 @@
                     <p:dialog id="errorIngresoRegistro" header="#{msg['precaucion']}" widgetVar="errorIngresoRegistro"  resizable="false" draggable="false" modal="true" height="110" width="420"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="50" height="50" style="position: absolute; left: 30px; top: 20px;"  />
                         <h:outputText value="#{msg['errorIngresoRegistro']}" style="position: absolute; left: 100px; top: 20px; width: 260px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorIngresoRegistro.hide();" style="position: absolute; top: 80px; left: 280px;" icon="ui-icon-circle-check" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorIngresoRegistro').hide();" style="position: absolute; top: 80px; left: 280px;" icon="ui-icon-circle-check" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorFechasRegistro" header="#{msg['precaucion']}" widgetVar="errorFechasRegistro"  resizable="false" draggable="false" modal="true" height="110" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 20px;"  />
                         <h:outputText value="#{msg['errorFechasRegistro']}" style="position: absolute; left: 100px; top: 20px; width: 260px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorFechasRegistro.hide();" style="position: absolute; top: 70px; left: 255px;" icon="ui-icon-circle-check" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechasRegistro').hide();" style="position: absolute; top: 70px; left: 255px;" icon="ui-icon-circle-check" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorExistenciaTipoEntidad" header="#{msg['error']}" widgetVar="errorExistenciaTipoEntidad"  resizable="false" draggable="false" modal="true" height="110" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 20px;"  />
                         <h:outputText value="#{msg['errorExistenciaTipoEntidad']}" style="position: absolute; left: 100px; top: 20px; width: 260px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorExistenciaTipoEntidad.hide();" style="position: absolute; top: 70px; left: 255px;" icon="ui-icon-circle-check" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorExistenciaTipoEntidad').hide();" style="position: absolute; top: 70px; left: 255px;" icon="ui-icon-circle-check" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTerceroSucursal" header="#{msg['error']}" widgetVar="errorTerceroSucursal"  resizable="false" draggable="false" modal="true" height="100" width="320"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 20px;"  />
                         <h:outputText value="#{msg['errorTerceroSucursal']}" style="position: absolute; left: 100px; top: 20px; width: 200px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorTerceroSucursal.hide();" style="position: absolute; top: 65px; left: 180px;" icon="ui-icon-circle-check" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorTerceroSucursal').hide();" style="position: absolute; top: 65px; left: 180px;" icon="ui-icon-circle-check" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorFechaMenorContratacion" header="#{msg['error']}" widgetVar="errorFechaMenorContratacion"  resizable="false" draggable="false" modal="true" height="110" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 20px;"  />
                         <h:outputText value="#{msg['errorFechaMenorContratacion']}" style="position: absolute; left: 100px; top: 20px; width: 260px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorFechaMenorContratacion.hide();" style="position: absolute; top: 80px; left: 255px;" icon="ui-icon-circle-check" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechaMenorContratacion').hide();" style="position: absolute; top: 80px; left: 255px;" icon="ui-icon-circle-check" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorFechaInicialRegistro" header="#{msg['precaucion']}" widgetVar="errorFechaInicialRegistro"  resizable="false" draggable="false" modal="true" height="110" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="50" height="50" style="position: absolute; left: 30px; top: 20px;"  />
                         <h:outputText value="#{msg['errorFechaInicialRegistro']}" style="position: absolute; left: 100px; top: 20px; width: 260px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorFechaInicialRegistro.hide();" style="position: absolute; top: 70px; left: 255px;" icon="ui-icon-circle-check" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechaInicialRegistro').hide();" style="position: absolute; top: 70px; left: 255px;" icon="ui-icon-circle-check" process="@this" />
                     </p:dialog>
                 </h:form>
 

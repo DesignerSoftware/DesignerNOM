@@ -124,7 +124,7 @@
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
 
                                 <p:separator /> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "  oncomplete="nuevoRegistroEvalEmpresas.show()" update=":formularioDialogos:nuevaaEvalEmpresa" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "  oncomplete="PF('nuevoRegistroEvalEmpresas').show()" update=":formularioDialogos:nuevaaEvalEmpresa" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="Nueva Entrevista" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) "  actionListener="#{controlHvEntrevistas.borrandoHvEntrevistas()}" process="@this"/>  
@@ -154,40 +154,40 @@
                         <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="confirmarGuardar.hide();" actionListener="#{controlHvEntrevistas.guardarHvEntrevistas()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" action="hvEntrevistaAtras" />
-                            <p:commandButton value="No" onclick="confirmarGuardar.hide();" actionListener="#{controlHvEntrevistas.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" action="hvEntrevistaAtras" />
-                            <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlHvEntrevistas.guardarHvEntrevistas()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" action="hvEntrevistaAtras" />
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlHvEntrevistas.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" action="hvEntrevistaAtras" />
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
                     </p:panel>
 
                     <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="Necesita : #{controlHvEntrevistas.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="77" width="330" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value=" #{controlHvEntrevistas.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="77" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionBorrar.hide();" style="position: absolute; top: 40px; left: 300px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="87" width="280" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Se han borrado #{controlHvEntrevistas.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="mostrarBorrados.hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="false" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="Para agregar es necesario adicionar: #{controlHvEntrevistas.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionNuevaCentroCosto.hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlHvEntrevistas.activarCtrlF11()}"/> 
                 </h:form>
@@ -197,15 +197,15 @@
                     <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'HVENTREVISTAS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHvEntrevistas.secRegistro,'HvEntrevistas', 'hventrevista')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHvEntrevistas.secRegistro,'HvEntrevistas', 'hventrevista')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla HVENTREVISTAS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('HvEntrevistas', 'hventrevista')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('HvEntrevistas', 'hventrevista')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" style="" closable="true">  
@@ -221,8 +221,8 @@
                     <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHvEntrevistas.secRegistro,'HvEntrevistas', 'hventrevista')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHvEntrevistas.secRegistro,'HvEntrevistas', 'hventrevista')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="" closable="true">  
@@ -246,20 +246,20 @@
                         <p:inputText value="#{controlHvEntrevistas.editarHvEntrevista.fecha}" style="position: absolute; top: 20px;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputText>
-                        <p:commandButton id="cancelarFecha" value="Atras" onclick="editarFecha.hide();" style="position: absolute; top: 17px; left: 170px; " process="@this" />
+                        <p:commandButton id="cancelarFecha" value="Atras" onclick="PF('editarFecha').hide();" style="position: absolute; top: 17px; left: 170px; " process="@this" />
                     </p:dialog>
 
                     <p:dialog id="editNombre" header="Descripción" widgetVar="editNombre" resizable="false" draggable="false" modal="true" height="93" width="240" style="text-transform: uppercase">  
                         <p:inputTextarea value="#{controlHvEntrevistas.editarHvEntrevista.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                        <p:commandButton id="cancelarNombre" value="Atras" onclick="editNombre.hide();" style="position: absolute; top: 60px; left: 170px; " process="@this"/>
+                        <p:commandButton id="cancelarNombre" value="Atras" onclick="PF('editNombre').hide();" style="position: absolute; top: 60px; left: 170px; " process="@this"/>
                     </p:dialog>
                     <p:dialog id="editDescripcionCompetencia" header="Descripción Competencia" widgetVar="editDescripcionCompetencia" resizable="false" draggable="false" modal="true" height="93" width="260" style="text-transform: uppercase">  
                         <p:inputTextarea value="#{controlHvEntrevistas.editarHvEntrevista.tipo}" style="overflow: auto; width: 225px; height: 40px;" readonly="true"/>
-                        <p:commandButton id="cancelarDescripcionCompetencia" value="Atras" onclick="editDescripcionCompetencia.hide();" style="position: absolute; top: 60px; left: 185px; " process="@this"/>
+                        <p:commandButton id="cancelarDescripcionCompetencia" value="Atras" onclick="PF('editDescripcionCompetencia').hide();" style="position: absolute; top: 60px; left: 185px; " process="@this"/>
                     </p:dialog>
                     <p:dialog id="editPuntaje" header="Puntaje" widgetVar="editPuntaje" resizable="false" draggable="false" modal="true" height="93" width="260" style="text-transform: uppercase">  
                         <p:inputTextarea value="#{controlHvEntrevistas.editarHvEntrevista.puntaje}" style="overflow: auto; width: 225px; height: 40px;" readonly="true"/>
-                        <p:commandButton id="cancelarPuntaje" value="Atras" onclick="editPuntaje.hide();" style="position: absolute; top: 60px; left: 185px; " process="@this"/>
+                        <p:commandButton id="cancelarPuntaje" value="Atras" onclick="PF('editPuntaje').hide();" style="position: absolute; top: 60px; left: 185px; " process="@this"/>
                     </p:dialog>
 
 
@@ -298,7 +298,7 @@
                             <p:watermark for="nuevoPuntaje" value="Puntaje" />
                             <p:commandButton id="limpiar"  icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 180px;"  actionListener="#{controlHvEntrevistas.limpiarNuevoHvEntrevistas()}" update="nuevaaEvalEmpresa" process="@this"/>
                             <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 130px; top: 180px;" actionListener="#{controlHvEntrevistas.agregarNuevoHvEntrevistas()}" process="@this" />
-                            <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 220px; top: 180px;"  update="nuevaaEvalEmpresa" onclick="nuevoRegistroEvalEmpresas.hide();"  actionListener="#{controlHvEntrevistas.limpiarNuevoHvEntrevistas()}"  process="@this"/>
+                            <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 220px; top: 180px;"  update="nuevaaEvalEmpresa" onclick="PF('nuevoRegistroEvalEmpresas').hide();"  actionListener="#{controlHvEntrevistas.limpiarNuevoHvEntrevistas()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -338,7 +338,7 @@
 
                             <p:commandButton id="limpiarD" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 20px; top: 180px;"  actionListener="#{controlHvEntrevistas.limpiarDuplicarHvEntrevistas()}" update="duplicarEvC"  process="@this"/>
                             <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 130px; top: 180px;" actionListener="#{controlHvEntrevistas.confirmarDuplicar()}"  process="@this" />
-                            <p:commandButton id="cancelarDuplicarVFP" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 220px; top: 180px;"  update="duplicarEvC" onclick="duplicarRegistroEvalCompetencias.hide();" actionListener="#{controlHvEntrevistas.limpiarDuplicarHvEntrevistas()}"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicarVFP" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 220px; top: 180px;"  update="duplicarEvC" onclick="PF('duplicarRegistroEvalCompetencias').hide();" actionListener="#{controlHvEntrevistas.limpiarDuplicarHvEntrevistas()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
                 </h:form>

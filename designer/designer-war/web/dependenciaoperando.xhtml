@@ -115,7 +115,7 @@
                         <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}" />
 
                         <p:separator style="position: relative; top: -10px;"/> 
-                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="NuevoDependenciaOperando.show()" update=":formularioDialogos:nuevoDependenciaOperando" process="@this"/> 
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="PF('NuevoDependenciaOperando').show()" update=":formularioDialogos:nuevoDependenciaOperando" process="@this"/> 
                         <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}" />
 
                         <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlDependenciaOperando.borrarDependenciaOperando()}" process="@this"/>  
@@ -129,7 +129,7 @@
                         <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
                      </p:toolbarGroup>
                   </p:toolbar>
-                  <p:commandButton style="position: absolute; left: 700px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-check" id="ACEPTAR" disabled="#{controlDependenciaOperando.cambiosPagina}" value="#{msg['aceptar']}" onclick="confirmarGuardar.show();" update=":form:datosDependenciasOperandos" process="@this" />
+                  <p:commandButton style="position: absolute; left: 700px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-check" id="ACEPTAR" disabled="#{controlDependenciaOperando.cambiosPagina}" value="#{msg['aceptar']}" onclick="PF('confirmarGuardar').show();" update=":form:datosDependenciasOperandos" process="@this" />
                   <p:commandButton style="position: absolute; left: 783px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}" actionListener="#{controlDependenciaOperando.salir()}" action="tipobloque" process="@this" />
 
                </p:panel>
@@ -142,20 +142,20 @@
 
                <p:dialog id="editarCodigos" header="#{msg['editarCodigos']}" widgetVar="editarCodigos" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
                   <p:inputTextarea value="#{controlDependenciaOperando.editarDependenciasOperandos.operando.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                  <p:commandButton id="cancelarCodigo" value="#{msg['atras']}" onclick="editarCodigos.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                  <p:commandButton id="cancelarCodigo" value="#{msg['atras']}" onclick="PF('editarCodigos').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="editarConsecutivos" header="#{msg['editarConsecutivo']}" widgetVar="editarConsecutivo" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
                   <p:inputTextarea value="#{controlDependenciaOperando.editarDependenciasOperandos.consecutivo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                  <p:commandButton id="cancelarConsecutivo" value="#{msg['atras']}" onclick="editarConsecutivo.hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                  <p:commandButton id="cancelarConsecutivo" value="#{msg['atras']}" onclick="PF('editarConsecutivo').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                  <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlDependenciaOperando.guardarCambiosDependenciasOperandos()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
-                  <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDependenciaOperando.guardarCambiosDependenciasOperandos()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                </p:dialog>
 
                <!-- L.O.V OPERANDOS-->
@@ -211,7 +211,7 @@
                   <p:panel id="nuevoDependenciaOperando" style="border: none;">
 
                      <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 65px;" /></strong>
-                     <p:inputText id="nuevoCodigo" value="#{controlDependenciaOperando.nuevoDependenciaOperando.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="select();">
+                     <p:inputText id="nuevoCodigo" value="#{controlDependenciaOperando.nuevoDependenciaOperando.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="PF('select();">
                         <p:ajax event="click" listener="#{controlDependenciaOperando.valoresBackupAutocompletar(1, 'OPERANDO')}" />
                         <p:ajax event="change" listener="#{controlDependenciaOperando.autocompletarNuevoyDuplicado('OPERANDO', controlDependenciaOperando.nuevoDependenciaOperando.codigo, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlDependenciaOperando.asignarIndex(indice, 0, 1)}" />
@@ -230,7 +230,7 @@
 
                      <p:commandButton id="limpiar" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 50px; top: 300px;" actionListener="#{controlDependenciaOperando.limpiarNuevoDependenciasOperandos()}" update="nuevoDependenciaOperando" process="@this"/>
                      <p:commandButton id="agregarN" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 250px; top: 300px;"  actionListener="#{controlDependenciaOperando.agregarNuevoDependenciaOperando()}" process="@this"/>
-                     <p:commandButton id="cancelarN" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 320px; top: 300px;" actionListener="#{controlDependenciaOperando.limpiarNuevoDependenciasOperandos()}" update="nuevoDependenciaOperando" onclick="NuevoDependenciaOperando.hide();" process="@this"/>
+                     <p:commandButton id="cancelarN" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 320px; top: 300px;" actionListener="#{controlDependenciaOperando.limpiarNuevoDependenciasOperandos()}" update="nuevoDependenciaOperando" onclick="PF('NuevoDependenciaOperando').hide();" process="@this"/>
                   </p:panel>
                </p:dialog>
 
@@ -243,7 +243,7 @@
                   <p:panel id="duplicarDependenciaOperando" style="border: none;">
 
                      <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 65px;" /></strong>
-                     <p:inputText id="duplicarCodigo" value="#{controlDependenciaOperando.duplicarDependenciaOperando.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="select();">
+                     <p:inputText id="duplicarCodigo" value="#{controlDependenciaOperando.duplicarDependenciaOperando.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="PF('select();">
                         <p:ajax event="click" listener="#{controlDependenciaOperando.valoresBackupAutocompletar(2, 'OPERANDO')}" />
                         <p:ajax event="change" listener="#{controlDependenciaOperando.autocompletarNuevoyDuplicado('OPERANDO', controlDependenciaOperando.duplicarDependenciaOperando.codigo, 2)}" />
                         <p:ajax event="dblclick" listener="#{controlDependenciaOperando.asignarIndex(indice, 0, 2)}" />
@@ -262,14 +262,14 @@
 
                      <p:commandButton id="limpiarD" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 50px; top: 300px;" actionListener="#{controlDependenciaOperando.limpiarduplicarDependenciasOperandos()}" update="duplicarDependenciaOperando" process="@this"/>
                      <p:commandButton id="agregarD" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 250px; top: 300px;"  actionListener="#{controlDependenciaOperando.confirmarDuplicar()}" process="@this"/>
-                     <p:commandButton id="cancelarD" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 320px; top: 300px;" actionListener="#{controlDependenciaOperando.limpiarduplicarDependenciasOperandos()}" update="duplicarDependenciaOperando" onclick="DuplicarDependenciaOperando.hide();"  process="@this"/>
+                     <p:commandButton id="cancelarD" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 320px; top: 300px;" actionListener="#{controlDependenciaOperando.limpiarduplicarDependenciasOperandos()}" update="duplicarDependenciaOperando" onclick="PF('DuplicarDependenciaOperando').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
                <p:dialog id="validacionNuevoDependenciaOperando" header="#{msg['atencion']}" widgetVar="validacionNuevoDependenciaOperando"  resizable="false" draggable="false" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="Necesita: #{controlDependenciaOperando.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                  <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevoDependenciaOperando.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevoDependenciaOperando').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                </p:dialog>
 
                <!-- DIALOGOS RASTROS -->
@@ -277,15 +277,15 @@
                <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDependenciaOperando.secRegistro, 'DependenciasOperandos', 'dependenciasoperandos')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDependenciaOperando.secRegistro, 'DependenciasOperandos', 'dependenciasoperandos')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('DependenciasOperandos', 'dependenciasoperandos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('DependenciasOperandos', 'dependenciasoperandos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
@@ -301,8 +301,8 @@
                <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDependenciaOperando.secRegistro, 'DependenciasOperandos', 'dependenciasoperandos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDependenciaOperando.secRegistro, 'DependenciasOperandos', 'dependenciasoperandos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  

@@ -31,7 +31,7 @@
                                 <p:separator />
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);" 
-                                                 id="listaValores" value="" onclick="botonDesactivado.show()" process="@this"/>
+                                                 id="listaValores" value="" onclick="PF('botonDesactivado').show()" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png);" 
@@ -74,7 +74,7 @@
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png)"
-                                                 id="refrescar" value="" oncomplete="window.location.reload()" actionListener="#{controlNovedadesVacaciones.cancelarModificacion()}" process="@this"/>  
+                                                 id="refrescar" value="" oncomplete="PF('window.location.reload()" actionListener="#{controlNovedadesVacaciones.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -325,7 +325,7 @@
                         </fieldset>
 
                         <p:commandButton style="position: absolute; left: 675px; top: 480px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; 
-                                         background-repeat: no-repeat; border: none;" value="" disabled="#{controlNovedadesVacaciones.guardado}" onclick="confirmarGuardar.show();" update=":form:datosNovedadesEmpleado" process="@this" />
+                                         background-repeat: no-repeat; border: none;" value="" disabled="#{controlNovedadesVacaciones.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosNovedadesEmpleado" process="@this" />
                         <p:commandButton style="position: absolute; left: 765px; top: 480px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlNovedadesVacaciones.salir()}" action="#{controlNovedadesVacaciones.volverPagAnterior()}"/>
 
@@ -351,16 +351,16 @@
 
                             <strong><h:outputText value="Período: " style=" position: absolute; top: 105px;" /></strong>
                             <p:inputText id="nuevoPeriodo" value="#{controlNovedadesVacaciones.nuevaNovedad.vacacion.periodo}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();">
                                 <!-- Evento Click, sí es nulo el campo Que aparezca la lista de valores de Periodo -->
                                 <p:ajax event="dblclick" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}" />
-                            <!--<p:ajax event="dblclick"  listener="formularioDialogos:periodosDialogo.show()" />-->
+                            <!--<p:ajax event="dblclick"  listener="formularioDialogos:periodosDialogo').show()" />-->
                             <p:ajax event="change" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}" />
                             </p:inputText>
 
                             <strong><h:outputText value="*Días: " style=" position: absolute; top: 145px;" /></strong>
                             <p:inputText readonly="true" id="nuevoDias" value="#{controlNovedadesVacaciones.nuevaNovedad.vacacion.diaspendientes}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.diasMayor(controlNovedadesVacaciones.nuevaNovedad.dias)}" />
                             </p:inputText>
                             <pe:keyFilter for="nuevoDias" mask="num"/>
@@ -400,7 +400,7 @@
 
                             <strong><h:outputText value="Dias Aplazados" style=" position: absolute; top: 345px;" /></strong>
                             <p:inputText id="nuevoDiasAplazados" value="#{controlNovedadesVacaciones.nuevaNovedad.vacadiasaplazados}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <pe:keyFilter for="nuevoDiasAplazados" mask="num"/>
@@ -408,7 +408,7 @@
                             <p:commandButton id="limpiar" value="Limpiar" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 390px; width: 100px; height: 30px;" actionListener="#{controlNovedadesVacaciones.limpiarNuevaNovedad()}" update="nuevaNovedad" process="@this"/>
                             <p:commandButton id="agregarNE" icon="ui-icon-check" value="#{msg['aceptar']}" style=" position: absolute; left: 200px; top: 390px; height: 30px; width: 90px;" 
                                              actionListener="#{controlNovedadesVacaciones.agregarNuevaNovedadVacaciones()}" process="@this"/>
-                            <p:commandButton id="cancelarNE" value="#{msg['cancelar']}" icon="ui-icon-close" style=" position: absolute; left: 295px; top: 390px; height: 30px; width: 90px;" actionListener="#{controlNovedadesVacaciones.limpiarNuevaNovedad()}" update="nuevaNovedad" onclick="nuevanovedadVacaciones.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarNE" value="#{msg['cancelar']}" icon="ui-icon-close" style=" position: absolute; left: 295px; top: 390px; height: 30px; width: 90px;" actionListener="#{controlNovedadesVacaciones.limpiarNuevaNovedad()}" update="nuevaNovedad" onclick="PF('nuevanovedadVacaciones').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -429,7 +429,7 @@
 
                             <strong><h:outputText value="Período: " style=" position: absolute; top: 105px;" /></strong>
                             <p:inputText id="duplicarPeriodo" value="#{controlNovedadesVacaciones.duplicarNovedad.vacacion.periodo}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();">
                                 <!-- Evento Click, sí es nulo el campo Que aparezca la lista de valores de Periodo -->
                                 <p:ajax event="click" listener="#{controlNovedadesVacaciones.lovPeriodo(secuenciaEmpleado,2)}" />
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.lovPeriodo(secuenciaEmpleado,2)}" />
@@ -437,7 +437,7 @@
 
                             <strong><h:outputText value="*Días: " style=" position: absolute; top: 145px;" /></strong>
                             <p:inputText readonly="true" id="duplicarDias" value="#{controlNovedadesVacaciones.duplicarNovedad.vacacion.diaspendientes}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.diasMayor(controlNovedadesVacaciones.duplicarNovedad.dias)}" />
                             </p:inputText>
 
@@ -476,7 +476,7 @@
 
                             <strong><h:outputText value="Dias Aplazados" style=" position: absolute; top: 345px;" /></strong>
                             <p:inputText id="duplicarDiasAplazados" value="#{controlNovedadesVacaciones.duplicarNovedad.vacadiasaplazados}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -484,16 +484,16 @@
                                              actionListener="#{controlNovedadesVacaciones.limpiarduplicarNovedades()}" update="duplicarNovedad" process="@this"/>
                             <p:commandButton id="agregarDN" icon="ui-icon-check" value="#{msg['aceptar']}" style=" position: absolute; left: 200px; top: 390px; height: 30px; width: 90px;"  actionListener="#{controlNovedadesVacaciones.confirmarDuplicar()}" process="@this"/>
                             <p:commandButton id="cancelarDN" icon="ui-icon-close" value="#{msg['cancelar']}" style=" position: absolute; left: 295px; top: 390px; height: 30px; width: 90px;" actionListener="#{controlNovedadesVacaciones.limpiarduplicarNovedades()}" 
-                                         update="duplicarNovedad" onclick="duplicarregistroNovedad.hide();"  process="@this"/>
+                                         update="duplicarNovedad" onclick="PF('duplicarregistroNovedad').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="confirmarGuardar.hide();" actionListener="#{controlNovedadesVacaciones.guardarCambiosNovedades()}" style="position: absolute; top: 50px; left: 125px;" process="@this" />
-                        <p:commandButton value="No" icon="ui-icon-close" onclick="confirmarGuardar.hide();" actionListener="#{controlNovedadesVacaciones.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" />
-                        <p:commandButton  icon="ui-icon-arrowreturnthick-1-w" value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNovedadesVacaciones.guardarCambiosNovedades()}" style="position: absolute; top: 50px; left: 125px;" process="@this" />
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNovedadesVacaciones.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" />
+                        <p:commandButton  icon="ui-icon-arrowreturnthick-1-w" value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" />
                     </p:dialog>
 
                     <!-- DIALOGOS EDITAR -->
@@ -541,39 +541,39 @@
                     <p:dialog id="dias" header="#{msg['atencion']}" widgetVar="dias"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['dias']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="Aceptar"   onclick="dias.hide();" actionListener="#{controlNovedadesVacaciones.agregarPeriodo(secuenciaEmpleado)}" style="position: absolute; top: 60px; left: 200px;" process="@this" />
-                        <p:commandButton value="Cancelar" onclick="dias.hide();" style="position: absolute; top: 60px; left: 280px;" process="@this" />
+                        <p:commandButton value="Aceptar"   onclick="PF('dias').hide();" actionListener="#{controlNovedadesVacaciones.agregarPeriodo(secuenciaEmpleado)}" style="position: absolute; top: 60px; left: 200px;" process="@this" />
+                        <p:commandButton value="Cancelar" onclick="PF('dias').hide();" style="position: absolute; top: 60px; left: 280px;" process="@this" />
                     </p:dialog>
                     <!-- Validaciones campo de fecha inicial disfrute --> 
 
                     <p:dialog id="botonDesactivado" header="#{msg['atencion']}" widgetVar="botonDesactivado"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['botonlov']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="botonDesactivado.hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('botonDesactivado').hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validacion1" header="#{msg['atencion']}" widgetVar="validacion1"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;" />
                         <h:outputText value="#{msg['validacion']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="validacion1.hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacion1').hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="diasMayor" header="#{msg['atencion']}" widgetVar="diasMayor"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['diasmayor']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="diasMayor.hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('diasMayor').hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="proceso" header="#{msg['atencion']}" widgetVar="proceso"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['proceso']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="proceso.hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('proceso').hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validacionNuevaNovedadEmpleado" header="#{msg['atencion']}" widgetVar="validacionNuevaNovedadEmpleado"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="Para agregar una nueva novedad es necesario adicionar: #{controlNovedadesVacaciones.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 300px;" />
-                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="validacionNuevaNovedadEmpleado.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionNuevaNovedadEmpleado').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <!-- L.O.V Empleado-->
@@ -668,15 +668,15 @@
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesEmpleados.novedadSeleccionada.getSecuencia(), 'Novedades', 'novedadvacaciones')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" icon="ui-icon-close" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesEmpleados.novedadSeleccionada.getSecuencia(), 'Novedades', 'novedadvacaciones')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Novedades', 'novedadempleado')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" icon="ui-icon-check" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Novedades', 'novedadempleado')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -692,8 +692,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesEmpleados.novedadSeleccionada.getSecuencia(), 'Novedades', 'novedadvacaciones')}" style="position: absolute; top: 65px; left: 175px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" icon="ui-icon-close" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesEmpleados.novedadSeleccionada.getSecuencia(), 'Novedades', 'novedadvacaciones')}" style="position: absolute; top: 65px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  

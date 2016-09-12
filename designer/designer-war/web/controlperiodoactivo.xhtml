@@ -131,7 +131,7 @@
 
 
                         <h:outputText id="informacionRegistro" value="#{controlPeriodosActivos.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
-                        <p:commandButton style=" position: absolute; left: 688px; top: 475px;  " icon="ui-icon-check" id="ACEPTAR" value="Aceptar" disabled="#{controlPeriodosActivos.guardado}" onclick="confirmarGuardar.show();" update=":form:datosEmpresas" process="@this" />
+                        <p:commandButton style=" position: absolute; left: 688px; top: 475px;  " icon="ui-icon-check" id="ACEPTAR" value="Aceptar" disabled="#{controlPeriodosActivos.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosEmpresas" process="@this" />
                         <p:commandButton style=" position: absolute; left: 785px; top: 475px;  " icon="ui-icon-closethick" id="ATRAS" action="atrascontrolperiodoactivo" value="Atras" actionListener="#{controlPeriodosActivos.salir()}"  process="@this" />
 
                     </p:panel>
@@ -140,7 +140,7 @@
                     <p:dialog id="validacionModificar" header="ATENCION...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 25px; top: 20px;"  />
                         <h:outputText value=" #{controlPeriodosActivos.mensajeValidacion}" style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 55px; left: 250px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 55px; left: 250px;" process="@this" />
                     </p:dialog>
 
 
@@ -149,23 +149,23 @@
                     <p:dialog id="modificacionFechas1" header="ATENCION...!" widgetVar="modificacionFechas1"  resizable="false" draggable="false" modal="true" height="130" width="450" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 25px; top: 20px;"  />
                         <h:outputText value="¡Esta modificando el control de periodo activo con un MES-AÑO que no corresponde al sistema. Esta modificación que esta realizando implica desajustes muy serios en la funcionalidad del aplicativo!" style="position: absolute; left: 100px; top: 23px; width: 350px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="modificacionFechas1.hide();" style="position: absolute; top: 90px; left: 350px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('modificacionFechas1').hide();" style="position: absolute; top: 90px; left: 350px;" process="@this" />
                     </p:dialog>
 
 
                     <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="Si" onclick="confirmarGuardar.hide();" action="atrascontrolperiodoactivo" actionListener="#{controlPeriodosActivos.guardarCambiosCentroCosto()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="confirmarGuardar.hide();" action="atrascontrolperiodoactivo" actionListener="#{controlPeriodosActivos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="atrascontrolperiodoactivo" actionListener="#{controlPeriodosActivos.guardarCambiosCentroCosto()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="atrascontrolperiodoactivo" actionListener="#{controlPeriodosActivos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarCambioEmpresa" header="ATENCION...!" widgetVar="confirmarCambioEmpresa"  resizable="false" draggable="false" modal="true" height="85" width="425" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="Aceptar" onclick="confirmarCambioEmpresa.hide();" actionListener="#{controlPeriodosActivos.guardarCambiosCentroCosto()}" style="position: absolute; top: 60px; left: 215px;" icon="ui-icon-check"  process="@this" />
-                        <p:commandButton value="Cancelar" onclick="confirmarCambioEmpresa.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Aceptar" onclick="PF('confirmarCambioEmpresa').hide();" actionListener="#{controlPeriodosActivos.guardarCambiosCentroCosto()}" style="position: absolute; top: 60px; left: 215px;" icon="ui-icon-check"  process="@this" />
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarCambioEmpresa').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlPeriodosActivos.activarCtrlF11()}"/> 
                     <p:hotkey bind="alt+p" actionListener="#{controlPeriodosActivos.lovEmpresas()}"/> 
@@ -176,15 +176,15 @@
                     <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'EMPRESAS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPeriodosActivos.secRegistro, 'Empresas', 'controlperiodoactivo')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPeriodosActivos.secRegistro, 'Empresas', 'controlperiodoactivo')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla EMPRESAS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Empresas', 'controlperiodoactivo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Empresas', 'controlperiodoactivo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" style="" closable="true">  
@@ -200,8 +200,8 @@
                     <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPeriodosActivos.secRegistro, 'Empresas', 'controlperiodoactivo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPeriodosActivos.secRegistro, 'Empresas', 'controlperiodoactivo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="" closable="true">  

@@ -187,7 +187,7 @@ public class ControlVigenciasViajeros implements Serializable {
 
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('datosViajeros.selectRow(" + vViajeros + ", false); datosViajeros.unselectAllRows()");
+            PrimefacesContextUI.ejecutar("PF('datosViajeros.selectRow(" + vViajeros + ", false); datosViajeros').unselectAllRows()");
         }
         PrimefacesContextUI.actualizar("form:listaValores");
     }

@@ -101,7 +101,7 @@
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="NuevoRegistroTipoTelefono.show()" update=":formularioDialogos:nuevoTipoTelefono" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroTipoTelefono').show()" update=":formularioDialogos:nuevoTipoTelefono" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlTiposTelefonos.borrarTiposTelefonos()}" process="@this"/>  
@@ -117,7 +117,7 @@
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
-                                                 oncomplete="window.location.reload()" actionListener="#{controlTiposTelefonos.cancelarModificacion()}" process="@this" />  
+                                                 oncomplete="PF('window.location.reload()" actionListener="#{controlTiposTelefonos.cancelarModificacion()}" process="@this" />  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -128,7 +128,7 @@
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <p:commandButton style=" position: absolute; left: 675px; top: 462px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" disabled="#{controlTiposTelefonos.guardado}" value=" " onclick="confirmarGuardar.show();" update=":form:datosTiposTelefonos" process="@this" />
+                        <p:commandButton style=" position: absolute; left: 675px; top: 462px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" disabled="#{controlTiposTelefonos.guardado}" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosTiposTelefonos" process="@this" />
                         <p:commandButton style=" position: absolute; left: 765px; top: 462px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" " actionListener="#{controlTiposTelefonos.salir()}" action="#{controlTiposTelefonos.redirigir()}" process="@this" />
 
                     </p:panel>
@@ -141,7 +141,7 @@
                     <p:dialog id="sobrepasaCaracteres" header="#{msg['error']}" widgetVar="sobrepasaCaracteres"  resizable="false" draggable="false" modal="true" height="100" width="400px;"  closable ="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="El límite de Caracteres para el nombre del tipo de teléfono es 20" style="position: absolute; left: 70px; top: 25px; width: 300px; font-weight:bold;" />
-                        <p:commandButton value="Aceptar" onclick="sobrepasaCaracteres.hide();" icon="ui-icon-circle-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('sobrepasaCaracteres').hide();" icon="ui-icon-circle-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
                     </p:dialog>
 
                     <!-- Ya Existe Codigo -->
@@ -149,13 +149,13 @@
                     <p:dialog id="existeCodigo" header="#{msg['error']}" widgetVar="existeCodigo"  resizable="false" draggable="false" modal="true" height="100" width="400px;"  closable ="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="El código digitado ya está en uso. Por favor, ingrese otro código." style="position: absolute; left: 70px; top: 20px; width: 300px; font-weight:bold;" />
-                        <p:commandButton value="Aceptar" onclick="existeCodigo.hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('existeCodigo').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
                     </p:dialog>
                     
                     <p:dialog id="existeNombre" header="#{msg['error']}" widgetVar="existeNombre"  resizable="false" draggable="false" modal="true" height="100" width="400px;"  closable ="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="El nombre digitado ya está en uso. Por favor, ingrese otro nombre." style="position: absolute; left: 70px; top: 20px; width: 300px; font-weight:bold;" />
-                        <p:commandButton value="Aceptar" onclick="existeNombre.hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('existeNombre').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
                     </p:dialog>
 
 
@@ -166,18 +166,18 @@
 
                         <p:panel id="nuevoTipoTelefono" style="border: none;">
                             <strong><h:outputText value="Código: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText id="nuevoCodigo" value="#{controlTiposTelefonos.nuevoTipoTelefono.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 120px; top: 59px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoCodigo" value="#{controlTiposTelefonos.nuevoTipoTelefono.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 120px; top: 59px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="Nombre: " style=" position: absolute; top: 98px;" /></strong>
-                            <p:inputText id="nuevoNombreTipoTelefono" value="#{controlTiposTelefonos.nuevoTipoTelefono.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 120px; top: 89px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoNombreTipoTelefono" value="#{controlTiposTelefonos.nuevoTipoTelefono.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 120px; top: 89px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <p:commandButton id="limpiar" value="Limpiar" style=" position: absolute; left: 10px; top: 145px;" icon="ui-icon-trash" actionListener="#{controlTiposTelefonos.limpiarNuevoTipoTelefono()}" update="nuevoTipoTelefono" process="@this"/>
                             <p:commandButton id="agregarTT" value="Agregar" style=" position: absolute; left: 110px; top: 145px;" icon="ui-icon-circle-check" actionListener="#{controlTiposTelefonos.agregarNuevoTipoTelefono()}" process="@this"/>
-                            <p:commandButton id="cancelarTT" value="Cancelar" style=" position: absolute; left: 210px; top: 145px;" icon="ui-icon-circle-close" actionListener="#{controlTiposTelefonos.limpiarNuevoTipoTelefono()}" update="nuevoTipoTelefono" onclick="NuevoRegistroTipoTelefono.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarTT" value="Cancelar" style=" position: absolute; left: 210px; top: 145px;" icon="ui-icon-circle-close" actionListener="#{controlTiposTelefonos.limpiarNuevoTipoTelefono()}" update="nuevoTipoTelefono" onclick="PF('NuevoRegistroTipoTelefono').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -190,35 +190,35 @@
                         <p:panel id="duplicarTipoTelefono" style="border: none;">
 
                             <strong><h:outputText value="Codigo: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText id="duplicarCodigo" value="#{controlTiposTelefonos.duplicarTipoTelefono.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 120px; top: 59px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarCodigo" value="#{controlTiposTelefonos.duplicarTipoTelefono.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 120px; top: 59px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="duplicarTipoTelefono"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Codigo" />
 
                             <strong><h:outputText value="Nombre: " style=" position: absolute; top: 98px;" /></strong>
-                            <p:inputText id="duplicarNombre" value="#{controlTiposTelefonos.duplicarTipoTelefono.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 120px; top: 89px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarNombre" value="#{controlTiposTelefonos.duplicarTipoTelefono.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 120px; top: 89px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="duplicarTipoTelefono"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Nombre" />
 
                             <p:commandButton id="limpiarDuplicadoTipoTelefono" value="Limpiar" style=" position: absolute; left: 10px; top: 145px;" icon="ui-icon-trash" actionListener="#{controlTiposTelefonos.limpiarduplicarTipoTelefono()}" update="duplicarTipoTelefono" process="@this"/>
                             <p:commandButton id="agregarDuplicadoTipoTelefono" value="Agregar" style=" position: absolute; left: 110px; top: 145px;"  icon="ui-icon-circle-check" process="@this" actionListener="#{controlTiposTelefonos.confirmarDuplicar()}" />
-                            <p:commandButton id="cancelarDuplicadoTipoTelefono" value="Cancelar" style=" position: absolute; left: 210px; top: 145px;" icon="ui-icon-circle-close" actionListener="#{controlTiposTelefonos.limpiarduplicarTipoTelefono()}" update="duplicarTipoTelefono" onclick="DuplicarRegistroTipoTelefono.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicadoTipoTelefono" value="Cancelar" style=" position: absolute; left: 210px; top: 145px;" icon="ui-icon-circle-close" actionListener="#{controlTiposTelefonos.limpiarduplicarTipoTelefono()}" update="duplicarTipoTelefono" onclick="PF('DuplicarRegistroTipoTelefono').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevoTipoTelefono" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoTelefono"  resizable="false" draggable="false" modal="true" height="95" width="440" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="Para agregar un nuevo tipo de Telefono es necesario adicionar: #{controlTiposTelefonos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="Aceptar" onclick="validacionNuevoTipoTelefono.hide();" icon="ui-icon-circle-check" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevoTipoTelefono').hide();" icon="ui-icon-circle-check" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="Si" onclick="confirmarGuardar.hide();" actionListener="#{controlTiposTelefonos.guardarCambiosTipoTelefono()}" action="nomina" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="confirmarGuardar.hide();" actionListener="#{controlTiposTelefonos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposTelefonos.guardarCambiosTipoTelefono()}" action="nomina" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposTelefonos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <!-- DIALOGOS RASTROS -->
@@ -226,15 +226,15 @@
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 7px; width: 180px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposTelefonos.tipoTelefonoSeleccionado.getSecuencia(), 'TiposTelefonos', 'tipostelefonos')}" style="position: absolute; top: 65px; left: 205px;" action="rastro" process="@this" icon="ui-icon-circle-check" />
-                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" icon="ui-icon-circle-close"  />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposTelefonos.tipoTelefonoSeleccionado.getSecuencia(), 'TiposTelefonos', 'tipostelefonos')}" style="position: absolute; top: 65px; left: 205px;" action="rastro" process="@this" icon="ui-icon-circle-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" icon="ui-icon-circle-close"  />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('TiposTelefonos', 'tipostelefonos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposTelefonos', 'tipostelefonos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -250,8 +250,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposTelefonos.tipoTelefonoSeleccionado.getSecuencia(), 'TiposTelefonos', 'tipostelefonos')}" style="position: absolute; top: 70px; left: 170px;" action="rastro" process="@this" icon="ui-icon-circle-check" />
-                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 70px; left: 235px;" process="@this" icon="ui-icon-circle-close" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposTelefonos.tipoTelefonoSeleccionado.getSecuencia(), 'TiposTelefonos', 'tipostelefonos')}" style="position: absolute; top: 70px; left: 170px;" action="rastro" process="@this" icon="ui-icon-circle-check" />
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 235px;" process="@this" icon="ui-icon-circle-close" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  

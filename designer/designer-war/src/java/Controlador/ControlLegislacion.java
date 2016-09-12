@@ -979,7 +979,7 @@ public class ControlLegislacion implements Serializable {
             tablaT = (DataTable) c.getViewRoot().findComponent("form:datosContratos");
             tablaT.setSelection(contratoSeleccionado);
         } else {
-            PrimefacesContextUI.ejecutar("PF('datosContratos.unselectAllRows()");
+            PrimefacesContextUI.ejecutar("PF('datosContratos').unselectAllRows()");
         }
     }
 

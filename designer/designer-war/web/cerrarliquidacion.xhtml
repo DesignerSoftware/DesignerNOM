@@ -86,7 +86,7 @@
 
                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlCerrarLiquidacion.infoRegistro}" style="position: absolute; left: 15px; top: 380px; font-weight: bold"/>
                         </fieldset>
-                        <p:commandButton value=""  style="position: absolute; top: 485px; left: 660px;  height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" onclick="confirmarCerrar.show();"/>
+                        <p:commandButton value=""  style="position: absolute; top: 485px; left: 660px;  height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" onclick="PF('confirmarCerrar').show();"/>
                         <p:commandButton value="" style="position: absolute; top: 485px; left: 755px;  height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" actionListener="#{controlCerrarLiquidacion.salir()}" action="nomina" process="@this"/>
 
                         <p:toolbar styleClass="cssToolbar">
@@ -157,36 +157,36 @@
                     <p:dialog id="confirmarCerrar" header="#{msg['atencion']}" widgetVar="confirmarCerrar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarCerrar']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarCerrar.hide();operacionEnProceso.show()" actionListener="#{controlCerrarLiquidacion.confirmarCierreLiquidacion()}" style="position: absolute; top: 55px; left: 155px;" oncomplete="operacionEnProceso.hide();liquidacionRealizada.show()" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarCerrar.hide();" actionListener="#{controlCerrarLiquidacion.salir()}" action="nomina" style="position: absolute; top: 55px; left: 220px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarCerrar.hide();" style="position: absolute; top: 55px; left: 290px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarCerrar').hide();operacionEnProceso').show()" actionListener="#{controlCerrarLiquidacion.confirmarCierreLiquidacion()}" style="position: absolute; top: 55px; left: 155px;" oncomplete="PF('operacionEnProceso').hide();liquidacionRealizada').show()" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarCerrar').hide();" actionListener="#{controlCerrarLiquidacion.salir()}" action="nomina" style="position: absolute; top: 55px; left: 220px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarCerrar').hide();" style="position: absolute; top: 55px; left: 290px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="liquidacionRealizada" header="#{msg['informacion']}" widgetVar="liquidacionRealizada"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['liquidacioncerrada']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="liquidacionRealizada.hide();" actionListener="#{controlCerrarLiquidacion.confirmarCierreLiquidacion()}" action="nomina" style="position: absolute; top: 55px; left: 155px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('liquidacionRealizada').hide();" actionListener="#{controlCerrarLiquidacion.confirmarCierreLiquidacion()}" action="nomina" style="position: absolute; top: 55px; left: 155px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
 
                     <p:dialog id="confirmarCerrarConteoFallo" header="#{msg['atencion']}" widgetVar="confirmarCerrarConteoFallo"  resizable="false" draggable="false" modal="true" height="145" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 30px;"  />
                         <h:outputText value="#{msg['confirmarCerrarConteoFallo']}" style="position: absolute; left: 100px; top: 20px; width: 280px; text-align: justify" />
                         <h:outputText value="#{msg['deseacontinuar']}" style="position: absolute; left: 180px; top: 80px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="confirmarCerrarConteoFallo.hide();" actionListener="#{controlCerrarLiquidacion.cerrarLiquidacion()}" style="position: absolute; top: 110px; left: 190px;" process="@this" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="confirmarCerrarConteoFallo.hide();" style="position: absolute; top: 110px; left: 290px;" process="@this" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('confirmarCerrarConteoFallo').hide();" actionListener="#{controlCerrarLiquidacion.cerrarLiquidacion()}" style="position: absolute; top: 110px; left: 190px;" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('confirmarCerrarConteoFallo').hide();" style="position: absolute; top: 110px; left: 290px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarBorrarComprobante" header="#{msg['atencion']}" widgetVar="confirmarBorrarComprobante"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarBorrarComprobante1']} #{controlCerrarLiquidacion.parametroEstructura.proceso.descripcion}#{msg['confirmarBorrarComprobante2']}" style="position: absolute; left: 100px; top: 20px; width: 280px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="confirmarBorrarComprobante.hide();" actionListener="#{controlCerrarLiquidacion.abrirLiquidacion()}" style="position: absolute; top: 60px; left: 190px;" process="@this" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="confirmarBorrarComprobante.hide();" style="position: absolute; top: 60px; left: 290px;" process="@this" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('confirmarBorrarComprobante').hide();" actionListener="#{controlCerrarLiquidacion.abrirLiquidacion()}" style="position: absolute; top: 60px; left: 190px;" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('confirmarBorrarComprobante').hide();" style="position: absolute; top: 60px; left: 290px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorComprobante" header="#{msg['atencion']}" widgetVar="errorComprobante"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['errorComprobante']}" style="position: absolute; left: 100px; top: 20px; width: 280px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="errorComprobante.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('errorComprobante').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  

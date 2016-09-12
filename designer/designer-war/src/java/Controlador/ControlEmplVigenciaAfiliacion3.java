@@ -1303,7 +1303,7 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
                 activarLOV = true;
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('datosVCEmpleado.selectRow(" + va + ", false); datosVCEmpleado.unselectAllRows()");
+            PrimefacesContextUI.ejecutar("PF('datosVCEmpleado.selectRow(" + va + ", false); datosVCEmpleado').unselectAllRows()");
         }
         PrimefacesContextUI.actualizar("form:listaValores");
     }

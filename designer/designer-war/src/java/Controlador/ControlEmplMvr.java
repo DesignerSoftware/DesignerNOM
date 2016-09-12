@@ -679,7 +679,7 @@ public class ControlEmplMvr implements Serializable {
             PrimefacesContextUI.actualizar("form:listaValores");
         }
         otroCertificadoSeleccionado = null;
-        PrimefacesContextUI.ejecutar("PF('datosOCEmpleado.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('datosOCEmpleado').unselectAllRows()");
         PrimefacesContextUI.actualizar("form:datosOCEmpleado");
     }
 
@@ -728,7 +728,7 @@ public class ControlEmplMvr implements Serializable {
             }
         }
         mvrSeleccionado = null;
-        PrimefacesContextUI.ejecutar("PF('datosMvrEmpleado.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('datosMvrEmpleado').unselectAllRows()");
         PrimefacesContextUI.actualizar("form:datosMvrEmpleado");
     }
 

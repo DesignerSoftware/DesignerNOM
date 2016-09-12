@@ -46,7 +46,7 @@
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="NuevoRegistroVU.show()" update=":formularioDialogos:nuevaVU" process="@this"/> 
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroVU').show()" update=":formularioDialogos:nuevaVU" process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
                         <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlVigenciasUbicaciones.borrarVU()}" process="@this"/>  
@@ -60,7 +60,7 @@
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlVigenciasUbicaciones.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlVigenciasUbicaciones.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
@@ -191,38 +191,38 @@
                   <p:dialog id="validacionNuevaVigencia" header="#{msg['precaucion']}" widgetVar="validacioNuevaVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                      <h:outputText value="#{msg['validacioNuevaVigencia']} #{controlVigenciasUbicaciones.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                     <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="validacioNuevaVigencia.hide();" style="position: absolute; top: 55px; left: 290px;" process="@this" />
+                     <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacioNuevaVigencia').hide();" style="position: absolute; top: 55px; left: 290px;" process="@this" />
                   </p:dialog>
                   <p:hotkey bind="ctrl+f11" actionListener="#{controlVigenciasUbicaciones.activarCtrlF11()}"/> 
 
                   <p:dialog id="fechas" header="#{msg['precaucion']}" widgetVar="fechas"  resizable="false" draggable="false" modal="true" height="110" width="440" style="" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 20px;"  />
                      <h:outputText value="#{msg['fechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                     <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="fechas.hide();" style="position: absolute; top: 70px; left: 290px;" process="@this" />
+                     <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('fechas').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this" />
                   </p:dialog>
 
                   <p:dialog id="validacionModificarVigenciaFechas" header="#{msg['precaucion']}" widgetVar="validacioModificarVigenciaFechas"  resizable="false" draggable="false" modal="true" height="95" width="400" style="" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                      <h:outputText value="#{msg['validacioModificarVigenciaFechas']} #{controlVigenciasUbicaciones.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                     <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="validacioModificarVigenciaFechas.hide();" style="position: absolute; top: 60px; left: 290px;" process="@this" />
+                     <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacioModificarVigenciaFechas').hide();" style="position: absolute; top: 60px; left: 290px;" process="@this" />
                   </p:dialog>
 
                   <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                      <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                     <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlVigenciasUbicaciones.guardarCambiosVU()}" action="nomina" style="position: absolute; top: 50px; left: 165px;" process="@this" icon="ui-icon-check" />
-                     <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlVigenciasUbicaciones.salir()}" style="position: absolute; top: 50px; left: 233px;" process="@this" icon="ui-icon-close" />
-                     <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                     <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciasUbicaciones.guardarCambiosVU()}" action="nomina" style="position: absolute; top: 50px; left: 165px;" process="@this" icon="ui-icon-check" />
+                     <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciasUbicaciones.salir()}" style="position: absolute; top: 50px; left: 233px;" process="@this" icon="ui-icon-close" />
+                     <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                   </p:dialog>
 
                   <p:dialog id="validacionNuevo" header="#{msg['precaucion']}" widgetVar="validacionNuevo"  resizable="false" draggable="false" modal="true" height="95" width="450"  closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
                      <h:outputText value="#{msg['validacionNuevo']}#{controlVigenciasUbicaciones.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                     <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="validacionNuevo.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                     <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacionNuevo').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                   </p:dialog>
 
                   <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']}  #{controlVigenciasUbicaciones.infoRegistro}" style="position: absolute; left: 20px; top: 470px; font-weight: bold;"/>
-                  <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="confirmarGuardar.show();" update=":form:datosVUEmpleado" process="@this" disabled="#{controlVigenciasUbicaciones.guardado}"/>
+                  <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosVUEmpleado" process="@this" disabled="#{controlVigenciasUbicaciones.guardado}"/>
                   <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlVigenciasUbicaciones.salir()}" action="nomina" process="@this" />
 
                </p:panel>
@@ -235,15 +235,15 @@
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="100" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasUbicaciones.vigenciaSeleccionada.secuencia, 'VigenciasUbicaciones', 'emplubicaciongeografica')}" style="position: absolute; top: 65px; left: 190px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="confirmarRastro.hide();" style="position: absolute; top: 65px; left: 265px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasUbicaciones.vigenciaSeleccionada.secuencia, 'VigenciasUbicaciones', 'emplubicaciongeografica')}" style="position: absolute; top: 65px; left: 190px;" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 265px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 15px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('VigenciasUbicaciones', 'emplubicaciongeografica')}" style="position: absolute; top: 60px; left: 200px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 265px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasUbicaciones', 'emplubicaciongeografica')}" style="position: absolute; top: 60px; left: 200px;" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 265px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -259,8 +259,8 @@
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 20px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasUbicaciones.vigenciaSeleccionada.secuencia, 'VigenciasUbicaciones', 'emplubicaciongeografica')}" style="position: absolute; top: 68px; left: 195px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="errorTablaConRastro.hide();" style="position: absolute; top: 68px; left: 265px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasUbicaciones.vigenciaSeleccionada.secuencia, 'VigenciasUbicaciones', 'emplubicaciongeografica')}" style="position: absolute; top: 68px; left: 195px;" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 68px; left: 265px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -281,13 +281,13 @@
                <p:dialog id="validacionFechaDuplicada" header="#{msg['precaucion']}" widgetVar="validacionFechaDuplicada"  resizable="false" draggable="false" modal="true" height="95" width="440"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
                   <h:outputText value="#{msg['fechaDuplicada']} #{controlVigenciasUbicaciones.mensajeValidacion}" style="position: absolute; left: 110px; top: 20px; width: 300px;" />
-                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="validacionFechaDuplicada.hide();" style="position: absolute; top: 60px; left: 300px;"  process="@this" />
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacionFechaDuplicada').hide();" style="position: absolute; top: 60px; left: 300px;"  process="@this" />
                </p:dialog>
 
                <p:dialog id="validacionFechaVacia" header="#{msg['precaucion']}" widgetVar="validacionFechaVacia"  resizable="false" draggable="false" modal="true" height="95" width="320"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
                   <h:outputText value="#{msg['fechaVacia']}" style="position: absolute; left: 110px; top: 20px; width: 200px;" />
-                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="validacionFechaVacia.hide();" style="position: absolute; top: 60px; left: 200px;"  process="@this" />
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacionFechaVacia').hide();" style="position: absolute; top: 60px; left: 200px;"  process="@this" />
                </p:dialog>
 
                <p:dialog id="NuevoRegistroVU" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroVU" closable="false" resizable="false"  draggable="false" modal="true" height="240" width="320" style=" padding: 0px">  
@@ -304,7 +304,7 @@
                      </div>
 
                      <strong><h:outputText value="*#{msg['descripcionN']}" style=" position: absolute; top: 118px;" /></strong>
-                     <p:inputText id="nuevaDescripcion" value="#{controlVigenciasUbicaciones.nuevaVigencia.ubicacion.descripcion}" style=" width: 122px; position: absolute; left: 130px; top: 115px; text-transform: uppercase" onclick="select();">
+                     <p:inputText id="nuevaDescripcion" value="#{controlVigenciasUbicaciones.nuevaVigencia.ubicacion.descripcion}" style=" width: 122px; position: absolute; left: 130px; top: 115px; text-transform: uppercase" onclick="PF('select();">
                         <p:ajax event="click" listener="#{controlVigenciasUbicaciones.valoresBackupAutocompletar(1, 'UBICACION')}" />
                         <p:ajax event="change" listener="#{controlVigenciasUbicaciones.autocompletarNuevoyDuplicado('UBICACION', controlVigenciasUbicaciones.nuevaVigencia.ubicacion.descripcion, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlVigenciasUbicaciones.asignarIndex(info, 1)}" />
@@ -318,7 +318,7 @@
 
                      <p:commandButton id="limpiar" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 200px;" icon="ui-icon-trash" actionListener="#{controlVigenciasUbicaciones.limpiarNuevaVU()}" update="nuevaVU" process="@this"/>
                      <p:commandButton id="agregarVU" value="#{msg['agregar']}" style=" position: absolute; left: 120px; top: 200px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlVigenciasUbicaciones.agregarNuevaVU()}"/>
-                     <p:commandButton id="cancelarVU" value="#{msg['cancelar']}" style=" position: absolute; left: 210px; top: 200px;" icon="ui-icon-circle-close" actionListener="#{controlVigenciasUbicaciones.limpiarNuevaVU()}" update="nuevaVU" onclick="NuevoRegistroVU.hide();"  process="@this"/>
+                     <p:commandButton id="cancelarVU" value="#{msg['cancelar']}" style=" position: absolute; left: 210px; top: 200px;" icon="ui-icon-circle-close" actionListener="#{controlVigenciasUbicaciones.limpiarNuevaVU()}" update="nuevaVU" onclick="PF('NuevoRegistroVU').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
@@ -350,7 +350,7 @@
 
                      <p:commandButton id="limpiarDuplicadoVU" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 200px;" icon="ui-icon-trash" actionListener="#{controlVigenciasUbicaciones.limpiarduplicarVU()}" update="duplicarVU" process="@this"/>
                      <p:commandButton id="agregarDuplicadoVU" value="#{msg['agregar']}" style=" position: absolute; left: 120px; top: 200px;" icon="ui-icon-circle-check" actionListener="#{controlVigenciasUbicaciones.confirmarDuplicar()}" process="@this"/>
-                     <p:commandButton id="cancelarDuplicadoVU" value="#{msg['cancelar']}" style=" position: absolute; left: 210px; top: 200px;" icon="ui-icon-circle-close" actionListener="#{controlVigenciasUbicaciones.limpiarduplicarVU()}" update="duplicarVU" onclick="DuplicarRegistroVU.hide();"  process="@this"/>
+                     <p:commandButton id="cancelarDuplicadoVU" value="#{msg['cancelar']}" style=" position: absolute; left: 210px; top: 200px;" icon="ui-icon-circle-close" actionListener="#{controlVigenciasUbicaciones.limpiarduplicarVU()}" update="duplicarVU" onclick="PF('DuplicarRegistroVU').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 

@@ -45,7 +45,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="NuevoRegistroUsuarioVista.show()" update=":formularioDialogos:nuevaUsuarioVista" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="PF('NuevoRegistroUsuarioVista').show()" update=":formularioDialogos:nuevaUsuarioVista" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
                                 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlUsuariosVistas.borrarUsuarioVista()}" process="@this"/>  
@@ -248,7 +248,7 @@
 
                         </fieldset>
 
-                        <p:commandButton style="position: absolute; left: 683px; top: 470px;" icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}" onclick="confirmarGuardar.show();" disabled="#{controlUsuariosVistas.guardado}" update=":form:datosUsuariosVistas" process="@this" />
+                        <p:commandButton style="position: absolute; left: 683px; top: 470px;" icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}" onclick="PF('confirmarGuardar').show();" disabled="#{controlUsuariosVistas.guardado}" update=":form:datosUsuariosVistas" process="@this" />
                         <p:commandButton style="position: absolute; left: 775px; top: 470px;" icon="ui-icon-closethick" id="ATRAS" value="#{msg['cancelar']}" actionListener="#{controlUsuariosVistas.salir()}" action="#{controlUsuariosVistas.redirigir()}" process="@this" />
 
                     </p:panel>
@@ -262,23 +262,23 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['cambio']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />                                   
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlUsuariosVistas.guardarCambiosUsuarioVista()}" action="nomina" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlUsuariosVistas.cancelarModificacion()}" style="position: absolute; top: 50px; left: 270px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlUsuariosVistas.guardarCambiosUsuarioVista()}" action="nomina" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlUsuariosVistas.cancelarModificacion()}" style="position: absolute; top: 50px; left: 270px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
                                   
                     <!--VALIDACION CAMPO VACIO-->
                     <p:dialog id="validacionVacio" header="#{msg['atencion']}" widgetVar="validacionVacio"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionVacio']}" style="position: absolute; left: 100px; top: 10px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionVacio.hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionVacio').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog> 
                     
                     <!--DIALOGO VALIDACION NUEVA USUARIO VISTAS-->
                     <p:dialog id="validacionNuevaUsuarioVista" header="#{msg['atencion']}" widgetVar="validacionNuevaUsuarioVista"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevo']} #{controlUsuariosVistas.mensajeValidacion}" style="position: absolute; left: 100px; top: 10px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="validacionNuevaUsuarioVista.hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevaUsuarioVista').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
                     
                     
@@ -291,17 +291,17 @@
                         <p:panel id="nuevaUsuarioVista" style="border: none;">                           
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 65px;" /></strong>
-                            <p:inputText id="nuevoDescripcion" value="#{controlUsuariosVistas.nuevaUsuariosVistas.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoDescripcion" value="#{controlUsuariosVistas.nuevaUsuariosVistas.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['nombrevistaN']}" style=" position: absolute; top: 95px;" /></strong>
-                            <p:inputText id="nuevoNombreVista" value="#{controlUsuariosVistas.nuevaUsuariosVistas.nombrevista}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoNombreVista" value="#{controlUsuariosVistas.nuevaUsuariosVistas.nombrevista}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
                             <strong><h:outputText value="#{msg['objetodbN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText id="nuevoObjetoDB" value="#{controlUsuariosVistas.nuevaUsuariosVistas.objetodb.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoObjetoDB" value="#{controlUsuariosVistas.nuevaUsuariosVistas.objetodb.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlUsuariosVistas.valoresBackupAutocompletarObjetosDB(1)}" />
                                 <p:ajax event="change" listener="#{controlUsuariosVistas.autocompletarNuevoyDuplicadoObjetoDB(controlUsuariosVistas.nuevaUsuariosVistas.objetodb.nombre,1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlUsuariosVistas.llamarLovObjetosDB(1)}" />
@@ -309,7 +309,7 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 317px; top: 120px;  " id="btnNuevoObjetoDB" icon="ui-icon-search" process="@this"  actionListener="#{controlUsuariosVistas.llamarLovObjetosDB(1)}"/>
 
                             <strong><h:outputText value="#{msg['aliasN']}" style=" position: absolute; top: 155px;" /></strong>
-                            <p:inputText id="nuevoAlias" value="#{controlUsuariosVistas.nuevaUsuariosVistas.alias}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoAlias" value="#{controlUsuariosVistas.nuevaUsuariosVistas.alias}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
@@ -321,23 +321,23 @@
                             </p:selectOneMenu>
                                                         
                             <strong><h:outputText value="#{msg['estructurajoinN']}" style=" position: absolute; top: 215px;" /></strong>
-                            <p:inputText id="nuevoEstructuraJOIN" value="#{controlUsuariosVistas.nuevaUsuariosVistas.estructurajoin}" style=" width: 122px; position: absolute; left: 185px; top: 210px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoEstructuraJOIN" value="#{controlUsuariosVistas.nuevaUsuariosVistas.estructurajoin}" style=" width: 122px; position: absolute; left: 185px; top: 210px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
                             <strong><h:outputText value="#{msg['condicionN']}" style=" position: absolute; top: 245px;" /></strong>
-                            <p:inputText id="nuevoCondicion" value="#{controlUsuariosVistas.nuevaUsuariosVistas.condicion}" style=" width: 122px; position: absolute; left: 185px; top: 240px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoCondicion" value="#{controlUsuariosVistas.nuevaUsuariosVistas.condicion}" style=" width: 122px; position: absolute; left: 185px; top: 240px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
                             <strong><h:outputText value="#{msg['hintprincipalN']}" style=" position: absolute; top: 275px;" /></strong>
-                            <p:inputText id="nuevoHINTPrincipal" value="#{controlUsuariosVistas.nuevaUsuariosVistas.hintprincipal}" style=" width: 122px; position: absolute; left: 185px; top: 270px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoHINTPrincipal" value="#{controlUsuariosVistas.nuevaUsuariosVistas.hintprincipal}" style=" width: 122px; position: absolute; left: 185px; top: 270px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 305px;" actionListener="#{controlUsuariosVistas.limpiarNuevaUsuarioVista()}" update="nuevaUsuarioVista" process="@this"/>
                             <p:commandButton id="agregarU" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 170px; top: 305px;"  actionListener="#{controlUsuariosVistas.agregarNuevaUsuarioVista()}" process="@this"/>
-                            <p:commandButton id="cancelarU" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 305px;" actionListener="#{controlUsuariosVistas.limpiarNuevaUsuarioVista()}" update="nuevaUsuarioVista" onclick="NuevoRegistroUsuarioVista.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarU" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 305px;" actionListener="#{controlUsuariosVistas.limpiarNuevaUsuarioVista()}" update="nuevaUsuarioVista" onclick="PF('NuevoRegistroUsuarioVista').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -350,17 +350,17 @@
                         <p:panel id="duplicarUsuarioVista" style="border: none;">
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 65px;" /></strong>
-                            <p:inputText id="duplicadoDescripcion" value="#{controlUsuariosVistas.duplicarUsuariosVistas.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicadoDescripcion" value="#{controlUsuariosVistas.duplicarUsuariosVistas.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['nombrevistaN']}" style=" position: absolute; top: 95px;" /></strong>
-                            <p:inputText id="duplicadoNombreVista" value="#{controlUsuariosVistas.duplicarUsuariosVistas.nombrevista}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicadoNombreVista" value="#{controlUsuariosVistas.duplicarUsuariosVistas.nombrevista}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
                             <strong><h:outputText value="#{msg['objetodbN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText id="duplicadoObjetoDB" value="#{controlUsuariosVistas.duplicarUsuariosVistas.objetodb.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicadoObjetoDB" value="#{controlUsuariosVistas.duplicarUsuariosVistas.objetodb.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlUsuariosVistas.valoresBackupAutocompletarObjetosDB(2)}" />
                                 <p:ajax event="change" listener="#{controlUsuariosVistas.autocompletarNuevoyDuplicadoObjetoDB(controlUsuariosVistas.duplicarUsuariosVistas.objetodb.nombre,2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlUsuariosVistas.llamarLovObjetosDB(2)}" />
@@ -368,7 +368,7 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 317px; top: 120px;  " id="btnDuplicadoObjetoDB" icon="ui-icon-search" process="@this"  actionListener="#{controlUsuariosVistas.llamarLovObjetosDB(2)}"/>
 
                             <strong><h:outputText value="#{msg['aliasN']}" style=" position: absolute; top: 155px;" /></strong>
-                            <p:inputText id="duplicadoAlias" value="#{controlUsuariosVistas.duplicarUsuariosVistas.alias}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicadoAlias" value="#{controlUsuariosVistas.duplicarUsuariosVistas.alias}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
@@ -380,23 +380,23 @@
                             </p:selectOneMenu>
                                                         
                             <strong><h:outputText value="#{msg['estructurajoinN']}" style=" position: absolute; top: 215px;" /></strong>
-                            <p:inputText id="duplicadoEstructuraJOIN" value="#{controlUsuariosVistas.duplicarUsuariosVistas.estructurajoin}" style=" width: 122px; position: absolute; left: 185px; top: 210px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicadoEstructuraJOIN" value="#{controlUsuariosVistas.duplicarUsuariosVistas.estructurajoin}" style=" width: 122px; position: absolute; left: 185px; top: 210px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
                             <strong><h:outputText value="#{msg['condicionN']}" style=" position: absolute; top: 245px;" /></strong>
-                            <p:inputText id="duplicadoCondicion" value="#{controlUsuariosVistas.duplicarUsuariosVistas.condicion}" style=" width: 122px; position: absolute; left: 185px; top: 240px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicadoCondicion" value="#{controlUsuariosVistas.duplicarUsuariosVistas.condicion}" style=" width: 122px; position: absolute; left: 185px; top: 240px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
                             <strong><h:outputText value="#{msg['hintprincipalN']}" style=" position: absolute; top: 275px;" /></strong>
-                            <p:inputText id="duplicadoHINTPrincipal" value="#{controlUsuariosVistas.duplicarUsuariosVistas.hintprincipal}" style=" width: 122px; position: absolute; left: 185px; top: 270px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicadoHINTPrincipal" value="#{controlUsuariosVistas.duplicarUsuariosVistas.hintprincipal}" style=" width: 122px; position: absolute; left: 185px; top: 270px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <p:commandButton id="limpiarDuplicadoUsuarioVista" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 305px;" actionListener="#{controlUsuariosVistas.limpiarDuplicarUsuarioVista()}" update="duplicarUsuarioVista" process="@this"/>
                             <p:commandButton id="agregarDuplicadoUsuarioVista" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 170px; top: 305px;"  process="@this" actionListener="#{controlUsuariosVistas.confirmarDuplicar()}"  />
-                            <p:commandButton id="cancelarDuplicadoUsuarioVista" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 305px;" actionListener="#{controlUsuariosVistas.limpiarDuplicarUsuarioVista()}" update="duplicarUsuarioVista" onclick="DuplicarRegistroUsuarioVistas.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicadoUsuarioVista" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 305px;" actionListener="#{controlUsuariosVistas.limpiarDuplicarUsuarioVista()}" update="duplicarUsuarioVista" onclick="PF('DuplicarRegistroUsuarioVistas').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>      
                     
@@ -441,15 +441,15 @@
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuariosVistas.secRegistro, 'UsuariosVistas', 'usuariovista')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuariosVistas.secRegistro, 'UsuariosVistas', 'usuariovista')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('UsuariosVistas', 'usuariovista')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('UsuariosVistas', 'usuariovista')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -465,8 +465,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuariosVistas.secRegistro, 'UsuariosVistas', 'usuariovista')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuariosVistas.secRegistro, 'UsuariosVistas', 'usuariovista')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -506,8 +506,8 @@
                         <p:inputTextarea id="idEditarStrJoin" value="#{controlUsuariosVistas.editarUsuariosVistas.estructurajoin}" style="overflow: auto; width: 500px; height: 180px;" >
                             <p:ajax event="change" process="@this" update="@this"/>
                         </p:inputTextarea>    
-                        <p:commandButton id="aceptarEJ" value="#{msg['aceptar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 170px; top: 200px;" onclick="editarEstructuraJOIN.hide();" actionListener="#{controlUsuariosVistas.entreAqui(controlUsuariosVistas.editarUsuariosVistas.estructurajoin)}"  process="@this" />
-                        <p:commandButton id="cancelarEJ" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 200px;" onclick="editarEstructuraJOIN.hide();"  process="@this">
+                        <p:commandButton id="aceptarEJ" value="#{msg['aceptar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 170px; top: 200px;" onclick="PF('editarEstructuraJOIN').hide();" actionListener="#{controlUsuariosVistas.entreAqui(controlUsuariosVistas.editarUsuariosVistas.estructurajoin)}"  process="@this" />
+                        <p:commandButton id="cancelarEJ" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 200px;" onclick="PF('editarEstructuraJOIN').hide();"  process="@this">
                         </p:commandButton>
                     </p:dialog>
                     
@@ -515,16 +515,16 @@
                         <p:inputTextarea id="idEditarCondi" value="#{controlUsuariosVistas.editarUsuariosVistas.condicion}" style="overflow: auto; width: 500px; height: 180px;" >
                             <p:ajax event="change" process="@this" update="@this"/>
                         </p:inputTextarea>
-                        <p:commandButton id="aceptarCON" value="#{msg['aceptar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 170px; top: 200px;" onclick="editarCondicion.hide();" actionListener="#{controlUsuariosVistas.entreAqui(controlUsuariosVistas.editarUsuariosVistas.condicion)}"  process="@this" />
-                        <p:commandButton id="cancelarCON" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 200px;" onclick="editarCondicion.hide();"  process="@this">
+                        <p:commandButton id="aceptarCON" value="#{msg['aceptar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 170px; top: 200px;" onclick="PF('editarCondicion').hide();" actionListener="#{controlUsuariosVistas.entreAqui(controlUsuariosVistas.editarUsuariosVistas.condicion)}"  process="@this" />
+                        <p:commandButton id="cancelarCON" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 200px;" onclick="PF('editarCondicion').hide();"  process="@this">
                         </p:commandButton>
                     </p:dialog>
                     <p:dialog id="editarHINTPrincipal" header="#{msg['hintprincipale']}" widgetVar="editarHINTPrincipal" resizable="false" draggable="false" modal="true" height="240" width="540" >  
                         <p:inputTextarea value="#{controlUsuariosVistas.editarUsuariosVistas.hintprincipal}" style="overflow: auto; width: 500px; height: 180px;" >
                             <p:ajax event="change" process="@this" update="@this"/>
                         </p:inputTextarea>
-                        <p:commandButton id="aceptarHINT" value="#{msg['aceptar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 170px; top: 200px;" onclick="editarHINTPrincipal.hide();" actionListener="#{controlUsuariosVistas.entreAqui(controlUsuariosVistas.editarUsuariosVistas.hintprincipal)}"  process="@this" />
-                        <p:commandButton id="cancelarHINT" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 200px;" onclick="editarHINTPrincipal.hide();"  process="@this">
+                        <p:commandButton id="aceptarHINT" value="#{msg['aceptar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 170px; top: 200px;" onclick="PF('editarHINTPrincipal').hide();" actionListener="#{controlUsuariosVistas.entreAqui(controlUsuariosVistas.editarUsuariosVistas.hintprincipal)}"  process="@this" />
+                        <p:commandButton id="cancelarHINT" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 200px;" onclick="PF('editarHINTPrincipal').hide();"  process="@this">
                         </p:commandButton>
                     </p:dialog>
                 </h:form>

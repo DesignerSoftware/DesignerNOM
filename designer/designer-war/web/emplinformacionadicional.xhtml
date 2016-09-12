@@ -47,7 +47,7 @@
                                 <p:tooltip for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border:none; width: 25px; height: 25px " oncomplete="NuevoRegistroInfoAd.show()" update=":formularioDialogos:nuevaInfoAd" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border:none; width: 25px; height: 25px " oncomplete="PF('NuevoRegistroInfoAd').show()" update=":formularioDialogos:nuevaInfoAd" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border:none; width: 25px; height: 25px " actionListener="#{controlEmplInformacionAdicional.borrarInfoAd()}" process="@this"/>  
@@ -61,7 +61,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border:none; width: 25px; height: 25px " actionListener="#{controlEmplInformacionAdicional.cancelarModificacion()}"
-                                                 oncomplete="window.location.reload()"   process="@this"/>  
+                                                 oncomplete="PF('window.location.reload()"   process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border:none; width: 25px; height: 25px " actionListener="#{controlEmplInformacionAdicional.salir()}" action="individualEmpl" process="@this"/>  
@@ -69,7 +69,7 @@
 
                             </p:toolbarGroup>  
                         </p:toolbar> 
-                        <p:commandButton style=" position: absolute; left: 675px; top: 495px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=" " onclick="confirmarGuardar.show();" disabled="#{controlEmplInformacionAdicional.guardado}" update=":form:datosInfoAdEmpleado" process="@this" />
+                        <p:commandButton style=" position: absolute; left: 675px; top: 495px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=" " onclick="PF('confirmarGuardar').show();" disabled="#{controlEmplInformacionAdicional.guardado}" update=":form:datosInfoAdEmpleado" process="@this" />
                         <p:commandButton style=" position: absolute; left: 765px; top: 495px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" " actionListener="#{controlEmplInformacionAdicional.salir()}" action="individualEmpl" process="@this" />
 
                         <fieldset style="position: absolute; top: 70px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
@@ -150,7 +150,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooGrupos" action="grupoinfadicional"  onclick="#{controlGruposInfAdicionales.recibirPag('grupoinfadicional')}" value=" "/>
+                                        <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooGrupos" action="grupoinfadicional"  onclick="PF('#{controlGruposInfAdicionales.recibirPag('grupoinfadicional')}" value=" "/>
                                     </f:facet>
                                 </p:column>
 
@@ -256,7 +256,7 @@
                                          filteredValue="#{controlEmplInformacionAdicional.filtrarListGruposInfAdicional}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="filter" listener="#{controlEmplInformacionAdicional.eventoFiltrarGrupo()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlEmplInformacionAdicional.activarAceptar()}" update=":form:aceptarG"/>
-                                <p:ajax event="rowDblselect" listener="#{controlEmplInformacionAdicional.actualizarGrupo()}" process="@this" onstart="lovGrupo.clearFilters()"/>
+                                <p:ajax event="rowDblselect" listener="#{controlEmplInformacionAdicional.actualizarGrupo()}" process="@this" onstart="PF('lovGrupo').clearFilters()"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarG']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovGrupo.filter();" style="width:150px; position: relative; left: 5px;" />  
@@ -271,10 +271,10 @@
 
                             <h:outputText id="infoRegistroGrupo" value="#{msg['infoRegistros']} #{controlEmplInformacionAdicional.infoRegistroGrupo}" style="position: relative; left: 15px; top: -5px; font-weight: bold"/>
 
-                            <p:commandButton id="aceptarG" icon="ui-icon-check"  style="position: relative; left: 125px;" value="#{msg['aceptar']}" disabled="#{controlEmplInformacionAdicional.aceptar}" onclick="GrupoDialogo.hide(), lovGrupo.clearFilters();" actionListener="#{controlEmplInformacionAdicional.actualizarGrupo()}" update="lovGrupo, aceptarG, datosInfoAdEmpleado" process="@this">
+                            <p:commandButton id="aceptarG" icon="ui-icon-check"  style="position: relative; left: 125px;" value="#{msg['aceptar']}" disabled="#{controlEmplInformacionAdicional.aceptar}" onclick="PF('GrupoDialogo').hide(), ('lovGrupo').clearFilters();" actionListener="#{controlEmplInformacionAdicional.actualizarGrupo()}" update="lovGrupo, aceptarG, datosInfoAdEmpleado" process="@this">
                                 <p:resetInput target=":form:lovGrupo:globalFilter"/>
                             </p:commandButton>
-                            <p:commandButton id="atrasG" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 135px;" value="#{msg['atras']}" onclick="GrupoDialogo.hide(), lovGrupo.clearFilters();" actionListener="#{controlEmplInformacionAdicional.cancelarCambioGrupo()}" update="lovGrupo" process="@this">
+                            <p:commandButton id="atrasG" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 135px;" value="#{msg['atras']}" onclick="PF('GrupoDialogo').hide(), ('lovGrupo').clearFilters();" actionListener="#{controlEmplInformacionAdicional.cancelarCambioGrupo()}" update="lovGrupo" process="@this">
                                 <p:resetInput target=":form:lovGrupo:globalFilter"/>
                             </p:commandButton>
                         </p:dialog>
@@ -287,23 +287,23 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEmplInformacionAdicional.guardarCambiosInfoAd()}" action="individualEmpl"  style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEmplInformacionAdicional.salir()}" action="individualEmpl"  style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplInformacionAdicional.guardarCambiosInfoAd()}" action="individualEmpl"  style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplInformacionAdicional.salir()}" action="individualEmpl"  style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplInformacionAdicional.backUpSecRegistro, 'InformacionesAdicionales', 'infoAdicionalRastro')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplInformacionAdicional.backUpSecRegistro, 'InformacionesAdicionales', 'infoAdicionalRastro')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('InformacionesAdicionales', 'infoAdicionalRastro')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('InformacionesAdicionales', 'infoAdicionalRastro')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
@@ -319,8 +319,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplInformacionAdicional.backUpSecRegistro, 'InformacionesAdicionales', 'infoAdicionalRastro')}" style="position: absolute; top: 68px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 68px; left: 240px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplInformacionAdicional.backUpSecRegistro, 'InformacionesAdicionales', 'infoAdicionalRastro')}" style="position: absolute; top: 68px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 68px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -423,7 +423,7 @@
 
                             <p:commandButton id="limpiarNIA" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 50px; top: 345px;" actionListener="#{controlEmplInformacionAdicional.limpiarNuevaInfoAd()}" update="nuevaInfoAd" process="@this"/>
                             <p:commandButton id="agregarNIA" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 150px; top: 345px;"  process="@this" actionListener="#{controlEmplInformacionAdicional.agregarNuevaInfoAd()}"   />
-                            <p:commandButton id="cancelarNIA" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 250px; top: 345px;" actionListener="#{controlEmplInformacionAdicional.limpiarNuevaInfoAd()}" update="nuevaInfoAd" onclick="NuevoRegistroInfoAd.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarNIA" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 250px; top: 345px;" actionListener="#{controlEmplInformacionAdicional.limpiarNuevaInfoAd()}" update="nuevaInfoAd" onclick="PF('NuevoRegistroInfoAd').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -497,7 +497,7 @@
 
                             <p:commandButton id="limpiarDIA" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 50px; top: 335px;" actionListener="#{controlEmplInformacionAdicional.limpiarduplicarInfoAd()}" update="duplicarInfoAd" process="@this"/>
                             <p:commandButton id="agregarDIA" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 150px; top: 335px;"  process="@this" actionListener="#{controlEmplInformacionAdicional.confirmarDuplicar()}" />
-                            <p:commandButton id="cancelarDIA" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 250px; top: 335px;" actionListener="#{controlEmplInformacionAdicional.limpiarduplicarInfoAd()}" update="duplicarInfoAd" onclick="DuplicarRegistroInfoAd.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDIA" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 250px; top: 335px;" actionListener="#{controlEmplInformacionAdicional.limpiarduplicarInfoAd()}" update="duplicarInfoAd" onclick="PF('DuplicarRegistroInfoAd').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 

@@ -20,7 +20,7 @@
                             <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
-                                                 actionListener="#{controlEmplMvr.guardadoGeneral()}" process="@this" oncomplete="window.location.reload()"/>
+                                                 actionListener="#{controlEmplMvr.guardadoGeneral()}" process="@this" oncomplete="PF('window.location.reload()"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" 
@@ -56,7 +56,7 @@
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" 
-                                                 oncomplete="NuevoRegistroPagina.show()" update=":formularioDialogos:nuevoRegistroPanel" process="@this"/> 
+                                                 oncomplete="PF('NuevoRegistroPagina').show()" update=":formularioDialogos:nuevoRegistroPanel" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" 
@@ -76,7 +76,7 @@
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png)" 
-                                                 actionListener="#{controlEmplMvr.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
+                                                 actionListener="#{controlEmplMvr.cancelarModificacion()}" process="@this" oncomplete="PF('window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
@@ -301,7 +301,7 @@
                                         <f:facet name="input">
                                             <p:inputText value="#{info.estado}" id="editarEstadoOC" style=" border-radius: 0px; width: 95%;text-transform: uppercase; height: 12px;" onselect="">
                                                 <!--  onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#/{indiceOC}'}]);" -->
-                                                <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,3)}" oncomplete="datosMvrEmpleado.unselectAllRows()" /> 
+                                                <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,3)}" oncomplete="PF('datosMvrEmpleado').unselectAllRows()" /> 
                                                 <p:ajax event="change" listener="#{controlEmplMvr.modificarEstado()}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -353,7 +353,7 @@
                         </fieldset>
 
                         <p:commandButton style="position: absolute; left: 683px; top: 500px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/aceptar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; " id="ACEPTAR" value="" onclick="confirmarGuardar.show();" process="@this" disabled="#{controlEmplMvr.guardado}" />
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; " id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" process="@this" disabled="#{controlEmplMvr.guardado}" />
                         <p:commandButton style="position: absolute; left: 773px; top: 500px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/cancelar.png); 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none; " id="ATRAS" value="" actionListener="#{controlEmplMvr.salir()}" action="nomina" process="@this" />
 
@@ -367,7 +367,7 @@
                                 <p:ajax event="filter" listener="#{controlEmplMvr.eventoFiltrarM()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlEmplMvr.activarAceptar()}" update=":form:aceptarM"/>
                                 <p:ajax event="rowDblselect" listener="#{controlEmplMvr.actualizarMotivo()}" immediate="true"
-                                        oncomplete="lovMotivo.unselectAllRows(), lovMotivo.clearFilters()" update=":form:MotivoDialogo"/>
+                                        oncomplete="PF('lovMotivo').unselectAllRows(), lovMotivo').clearFilters()" update=":form:MotivoDialogo"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovMotivo.filter();" value="#{filtrado}" style="width:160px; position: relative; left: 5px;" />  
@@ -389,10 +389,10 @@
                             <h:outputText id="infoRegistroMotivoMVR" value="#{msg['infoRegistro']} #{controlEmplMvr.infoRegistroMotivoMVR}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
 
                             <p:commandButton id="aceptarM" icon="ui-icon-check" style="position: relative; left: 168px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlEmplMvr.aceptar}" actionListener="#{controlEmplMvr.actualizarMotivo()}" 
-                                             oncomplete="MotivoDialogo.hide(), lovMotivo.unselectAllRows(), lovMotivo.clearFilters()" update=":form:MotivoDialogo" process="@this"/>
+                                             oncomplete="PF('MotivoDialogo').hide(), PF('lovMotivo').unselectAllRows(), PF('lovMotivo').clearFilters()" update=":form:MotivoDialogo" process="@this"/>
 
                             <p:commandButton id="atrasM" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 170px; top: 15px;" value="#{msg['atras']}" actionListener="#{controlEmplMvr.cancelarCambioMotivo()}" 
-                                             oncomplete="MotivoDialogo.hide(), lovMotivo.unselectAllRows(), lovMotivo.clearFilters()" update=":form:MotivoDialogo" process="@this"/>
+                                             oncomplete="PF('MotivoDialogo').hide(), PF('lovMotivo').unselectAllRows(), PF('lovMotivo').clearFilters()" update=":form:MotivoDialogo" process="@this"/>
                         </p:dialog>
 
                         <!-- DIALOGO L.O.V CERTIFICADOS-->
@@ -405,7 +405,7 @@
                                 <p:ajax event="filter" listener="#{controlEmplMvr.eventoFiltrarC()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlEmplMvr.activarAceptar()}" update=":form:aceptarTC"/>
                                 <p:ajax event="rowDblselect" listener="#{controlEmplMvr.actualizarTipo()}" process="@this" 
-                                        oncomplete="CertificadosDialogo.hide(), lovCertificado.clearFilters()" update=":form:CertificadosDialogo"/>
+                                        oncomplete="PF('CertificadosDialogo').hide(), ('lovCertificado').clearFilters()" update=":form:CertificadosDialogo"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovCertificado.filter();" value="#{filtrado}" style="width:170px; position: relative; left: 40px;" />  
@@ -426,40 +426,40 @@
 
                             <h:outputText id="infoRegistroCertificado" value="#{msg['infoRegistro']} #{controlEmplMvr.infoRegistroCertificado}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
                             <p:commandButton id="aceptarTC" icon="ui-icon-check" style="position: relative; left: 168px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlEmplMvr.aceptar}"  actionListener="#{controlEmplMvr.actualizarTipo()}" 
-                                             oncomplete="CertificadosDialogo.hide(), lovCertificado.clearFilters()" update=":form:CertificadosDialogo" process="@this"/>
+                                             oncomplete="PF('CertificadosDialogo').hide(), ('lovCertificado').clearFilters()" update=":form:CertificadosDialogo" process="@this"/>
                             <p:commandButton id="atrasTC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 170px; top: 15px;" value="#{msg['atras']}" actionListener="#{controlEmplMvr.cancelarCambioTipo()}" 
-                                             oncomplete="CertificadosDialogo.hide(), lovCertificado.clearFilters()" update=":form:CertificadosDialogo" process="@this"/>
+                                             oncomplete="PF('CertificadosDialogo').hide(), PF('lovCertificado').clearFilters()" update=":form:CertificadosDialogo" process="@this"/>
                         </p:dialog>
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEmplMvr.guardadoGeneral()}" action="nomina" style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlEmplMvr.salir()}" action="nomina" style="position: absolute; top: 50px; left: 218px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplMvr.guardadoGeneral()}" action="nomina" style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplMvr.salir()}" action="nomina" style="position: absolute; top: 50px; left: 218px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rastros']}" resizable="false" draggable="false" modal="true" height="130" width="380px;"  >
                         <h:outputText value="#{msg['verificarRastrosTablas']}" style="width: 90%; text-align: center; position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['mvr']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 90px; top: 50px; width: 200px; height: 30px;" actionListener="#{controlEmplMvr.verificarRastroMvrHist()}" process="@this" />
-                        <p:commandButton value="#{msg['otros']}" onclick="verificarRastrosTablas.hide();" style="position: absolute; left: 90px; top: 90px; width: 200px; height: 30px;" actionListener="#{controlEmplMvr.verificarRastroOCHist()}" process="@this"/>
+                        <p:commandButton value="#{msg['mvr']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 90px; top: 50px; width: 200px; height: 30px;" actionListener="#{controlEmplMvr.verificarRastroMvrHist()}" process="@this" />
+                        <p:commandButton value="#{msg['otros']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 90px; top: 90px; width: 200px; height: 30px;" actionListener="#{controlEmplMvr.verificarRastroOCHist()}" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlEmplMvr.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplMvr.backUp, controlEmplMvr.nombreTablaRastro , 'mvrRastro')}" 
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplMvr.backUp, controlEmplMvr.nombreTablaRastro , 'mvrRastro')}" 
                                          style="position: absolute; top: 63px; left: 205px;" action="rastro" process="@this" /> 
-                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlEmplMvr.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 267px;" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlEmplMvr.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 267px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlEmplMvr.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlEmplMvr.nombreTablaRastro , 'mvrRastro')}" 
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlEmplMvr.nombreTablaRastro , 'mvrRastro')}" 
                                          style="position: absolute; top: 63px; left: 205px;" action="rastro" process="@this" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlEmplMvr.limpiarMSNRastros()}" 
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlEmplMvr.limpiarMSNRastros()}" 
                                          style="position: absolute; top: 63px; left: 267px;" process="@this" />
                     </p:dialog>
 
@@ -476,9 +476,9 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplMvr.backUp, controlEmplMvr.nombreTablaRastro , 'mvrRastro')}" 
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplMvr.backUp, controlEmplMvr.nombreTablaRastro , 'mvrRastro')}" 
                                          style="position: absolute; top: 68px; left: 205px;" action="rastro" process="@this" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 68px; left: 267px;" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 68px; left: 267px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" closable="true">  
@@ -519,14 +519,14 @@
                     <p:dialog id="errorEstado" header="#{msg['atencion']}" widgetVar="errorEstado"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['errorEstado']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;"/>
-                        <p:commandButton value="#{msg['aceptar']}" onclick="errorEstado.hide();" actionListener="#{controlEmplMvr.modificarEstado()}"
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorEstado').hide();" actionListener="#{controlEmplMvr.modificarEstado()}"
                                          update=":form:datosOCEmpleado" style="position: absolute; top: 50px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
                     <p:dialog id="errorFechasDuplicadas" header="#{msg['atencion']}" widgetVar="errorFechasDuplicadas"  resizable="false" draggable="false" modal="true" height="110" width="470"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechasDup']}" style="position: absolute; left: 100px; top: 20px; width: 350px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="errorFechasDuplicadas.hide();" style="position: absolute; top: 70px; left: 330px;" process="@this" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('errorFechasDuplicadas').hide();" style="position: absolute; top: 70px; left: 330px;" process="@this" />
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplMvr.activarCtrlF11()}"/> 
                 </h:form>
@@ -538,12 +538,12 @@
                             <center><strong><h:outputText value="#{msg['seleccionar']}" style="font-size: 14px; color: blue; position: relative; top: 0px;" /></strong></center> 
 
                             <p:commandButton value="#{msg['mvrs']}" id="NuevoMvrs" style="position: absolute; left: 100px; top: 50px; width: 200px; height: 30px;" 
-                                             oncomplete="NuevoRegistroMVRS.show()" update=":formularioDialogos:nuevaMVRS" onclick="NuevoRegistroPagina.hide();" process="@this"/>
+                                             oncomplete="PF('NuevoRegistroMVRS').show()" update=":formularioDialogos:nuevaMVRS" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
 
                             <p:commandButton value="#{msg['otros']}" id="NuevoOtrosC" style="position: absolute; left: 100px; top: 85px; width: 200px; height: 30px;" 
-                                             oncomplete="NuevoRegistroOC.show()" update=":formularioDialogos:nuevaOC"  onclick="NuevoRegistroPagina.hide();" process="@this"/>
+                                             oncomplete="PF('NuevoRegistroOC').show()" update=":formularioDialogos:nuevaOC"  onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
 
-                            <p:commandButton id="CancelarNuevosRegistros" onclick="NuevoRegistroPagina.hide();" icon="ui-icon-close"  process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 130px;left: 275px"/>
+                            <p:commandButton id="CancelarNuevosRegistros" onclick="PF('NuevoRegistroPagina').hide();" icon="ui-icon-close"  process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 130px;left: 275px"/>
 
                         </p:panel>
                     </p:dialog>
@@ -577,7 +577,7 @@
                             <p:watermark for="nuevaValorMMVRS" value="#{msg['valor']}" />
 
                             <strong><h:outputText value="*#{msg['motivoMVRS']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaMotivoMVRS" value="#{controlEmplMvr.nuevaMvrs.motivo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="nuevaMotivoMVRS" value="#{controlEmplMvr.nuevaMvrs.motivo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarMvr(1, 'MOTIVO')}" />
                                 <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoMvr('MOTIVO', controlEmplMvr.nuevaMvrs.motivo.nombre, 1)}" />
@@ -595,7 +595,7 @@
 
                             <p:commandButton id="limpiarNM" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 255px;" actionListener="#{controlEmplMvr.limpiarNuevaMvr()}" update="nuevaMVRS" process="@this" icon="ui-icon-trash"/>
                             <p:commandButton id="agregarNM" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 255px;"  process="@this" actionListener="#{controlEmplMvr.agregarNuevaMvr()}"  icon="ui-icon-circle-check"/>
-                            <p:commandButton id="cancelarNM" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 255px;" actionListener="#{controlEmplMvr.limpiarNuevaMvr()}" update="nuevaMVRS" onclick="NuevoRegistroMVRS.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                            <p:commandButton id="cancelarNM" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 255px;" actionListener="#{controlEmplMvr.limpiarNuevaMvr()}" update="nuevaMVRS" onclick="PF('NuevoRegistroMVRS').hide();"  process="@this" icon="ui-icon-circle-close"/>
                         </p:panel>
                     </p:dialog>
 
@@ -630,7 +630,7 @@
                             <p:watermark for="duplicarValorMMVRS" value="#{msg['valor']}" />
 
                             <strong><h:outputText value="*#{msg['motivoMVRS']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMotivoMVRS" value="#{controlEmplMvr.duplicarMvrs.motivo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText id="duplicarMotivoMVRS" value="#{controlEmplMvr.duplicarMvrs.motivo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarMvr(2, 'MOTIVO')}" />
                                 <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoMvr('MOTIVO', controlEmplMvr.duplicarMvrs.motivo.nombre, 2)}" />
@@ -648,7 +648,7 @@
 
                             <p:commandButton id="limpiarDM" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 253px;" actionListener="#{controlEmplMvr.limpiarduplicarMvr()}" update="duplicarMVRS" process="@this" icon="ui-icon-trash"/>
                             <p:commandButton id="agregarDM" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 253px;"  process="@this" actionListener="#{controlEmplMvr.confirmarDuplicar()}"  icon="ui-icon-circle-check"/>
-                            <p:commandButton id="cancelarDM" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 253px;" actionListener="#{controlEmplMvr.limpiarduplicarMvr()}" update="duplicarMVRS" onclick="DuplicarRegistroMVRS.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                            <p:commandButton id="cancelarDM" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 253px;" actionListener="#{controlEmplMvr.limpiarduplicarMvr()}" update="duplicarMVRS" onclick="PF('DuplicarRegistroMVRS').hide();"  process="@this" icon="ui-icon-circle-close"/>
                         </p:panel>
                     </p:dialog>
 
@@ -688,7 +688,7 @@
                             <p:watermark for="nuevaEstadoOC" value="#{msg['estado']}" />
 
                             <strong><h:outputText value="*#{msg['certificadoOC']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText maxlength="50" id="nuevaCertificadoOC" value="#{controlEmplMvr.nuevaOtroCertificado.tipocertificado.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText maxlength="50" id="nuevaCertificadoOC" value="#{controlEmplMvr.nuevaOtroCertificado.tipocertificado.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarOtrosCertificados(1, 'CERTIFICADOS')}" />
                                 <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoOtrosCertificados('CERTIFICADOS', controlEmplMvr.nuevaOtroCertificado.tipocertificado.descripcion, 1)}" />
@@ -706,7 +706,7 @@
 
                             <p:commandButton id="limpiarNOC" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 270px;" actionListener="#{controlEmplMvr.limpiarNuevaOtroC()}" update="nuevaOC" process="@this" icon="ui-icon-trash"/>
                             <p:commandButton id="agregarNOC" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 270px;"  process="@this" actionListener="#{controlEmplMvr.agregarNuevaOtroC()}"  icon="ui-icon-circle-check"/>
-                            <p:commandButton id="cancelarNOC" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 270px;" actionListener="#{controlEmplMvr.limpiarNuevaOtroC()}" update="nuevaOC" onclick="NuevoRegistroOC.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                            <p:commandButton id="cancelarNOC" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 270px;" actionListener="#{controlEmplMvr.limpiarNuevaOtroC()}" update="nuevaOC" onclick="PF('NuevoRegistroOC').hide();"  process="@this" icon="ui-icon-circle-close"/>
                         </p:panel>
                     </p:dialog>
 
@@ -747,7 +747,7 @@
                             <p:watermark for="duplicarEstadoOC" value="#{msg['estado']}" />
 
                             <strong><h:outputText value="*#{msg['certificadoOC']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText maxlength="50" id="duplicarCertificadoOC" value="#{controlEmplMvr.duplicarOtrosCertificados.tipocertificado.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText maxlength="50" id="duplicarCertificadoOC" value="#{controlEmplMvr.duplicarOtrosCertificados.tipocertificado.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="PF('select();" >
                                 <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarOtrosCertificados(2, 'CERTIFICADOS')}" />
                                 <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoOtrosCertificados('CERTIFICADOS', controlEmplMvr.duplicarOtrosCertificados.tipocertificado.descripcion, 2)}" />
@@ -765,7 +765,7 @@
 
                             <p:commandButton id="limpiarDOC" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 270px;" actionListener="#{controlEmplMvr.limpiarduplicarOtroC()}" update="duplicarOC" process="@this" icon="ui-icon-trash"/>
                             <p:commandButton id="agregarDOC" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 270px;"  process="@this" actionListener="#{controlEmplMvr.confirmarDuplicarOtroC()}" icon="ui-icon-circle-check"/>
-                            <p:commandButton id="cancelarDOC" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 270px;" actionListener="#{controlEmplMvr.limpiarduplicarOtroC()}" update="duplicarOC" onclick="DuplicarRegistroOC.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                            <p:commandButton id="cancelarDOC" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 270px;" actionListener="#{controlEmplMvr.limpiarduplicarOtroC()}" update="duplicarOC" onclick="PF('DuplicarRegistroOC').hide();"  process="@this" icon="ui-icon-circle-close"/>
                         </p:panel>
                     </p:dialog>
 

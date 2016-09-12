@@ -43,7 +43,7 @@
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  oncomplete="nuevoRegistroTipoEntidad.show()" update=":formularioDialogos:nuevoTipoEntidad" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  oncomplete="PF('nuevoRegistroTipoEntidad').show()" update=":formularioDialogos:nuevoTipoEntidad" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="Nuevo Registro" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlTiposEntidades.verificarBorrado() }" process="@this"/>  
@@ -59,7 +59,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTiposEntidades.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTiposEntidades.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
@@ -126,7 +126,7 @@
 
                         </fieldset>
 
-                        <p:commandButton style=" position: absolute; left: 688px; top: 475px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;  font-family: Arial, Helvetica, sans-serif;" id="ACEPTAR" value=""  onclick="confirmarGuardar.show();" disabled="#{controlTiposEntidades.guardado}" update="datosTipoEntidad"  process="@this"   />
+                        <p:commandButton style=" position: absolute; left: 688px; top: 475px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;  font-family: Arial, Helvetica, sans-serif;" id="ACEPTAR" value=""  onclick="PF('confirmarGuardar').show();" disabled="#{controlTiposEntidades.guardado}" update="datosTipoEntidad"  process="@this"   />
                         <p:commandButton style=" position: absolute; left: 778px; top: 475px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; font-family: Arial, Helvetica, sans-serif;" id="ATRAS" action="#{controlTiposEntidades.redirigirPaginaAnterior()}" value=""/>
                     </p:panel>
 
@@ -170,39 +170,39 @@
                     <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="Si" onclick="confirmarGuardar.hide();" action="#{controlTiposEntidades.redirigirPaginaAnterior()}" actionListener="#{controlTiposEntidades.guardarCambiosTiposEntidades()}" style="position: absolute; top: 50px; left: 170px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="confirmarGuardar.hide();" action="#{controlTiposEntidades.redirigirPaginaAnterior()}" actionListener="#{controlTiposEntidades.cancelarModificacion()}" style="position: absolute; top: 50px; left: 235px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="#{controlTiposEntidades.redirigirPaginaAnterior()}" actionListener="#{controlTiposEntidades.guardarCambiosTiposEntidades()}" style="position: absolute; top: 50px; left: 170px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="#{controlTiposEntidades.redirigirPaginaAnterior()}" actionListener="#{controlTiposEntidades.cancelarModificacion()}" style="position: absolute; top: 50px; left: 235px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
 
                     <p:dialog id="validacionNuevaVigencia" header="¡Precaución!" widgetVar="validacioNuevaVigencia"  resizable="false" draggable="false" modal="true" height="77" width="420" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Para agregar es necesario adicionar: #{controlTiposEntidades.mensajeValidacion}" style="position: absolute; left: 100px; top: 15px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="validacioNuevaVigencia.hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" />
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacioNuevaVigencia').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" />
                     </p:dialog>
                     <p:dialog id="validacionDuplicarVigencia" header="¡Precaución!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="Necesita : #{controlTiposEntidades.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width:280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 60px; left: 285px;" process="@this" />
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 60px; left: 285px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validacionModificar" header="¡Error!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="77" width="340" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value=" #{controlTiposEntidades.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="validacionModificar.hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validacionBorrar" header="¡Error!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="77" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="validacionBorrar.hide();" style="position: absolute; top: 45px; left: 285px;" process="@this" />
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 45px; left: 285px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="mostrarBorrados" header="¡Precaución!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="87" width="290" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Se han borrado #{controlTiposEntidades.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="mostrarBorrados.hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
                     </p:dialog>
 
                 </h:form>
@@ -212,15 +212,15 @@
                     <p:dialog id="confirmarRastro" header="Información" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'TIPOSENTIDADES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposEntidades.tipoEntidadSeleccionada.secuencia, 'TiposCentrosCostos', 'tipocentrocosto')}" style="position: absolute; top: 63px; left: 195px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" icon="ui-icon-close" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 260px;" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposEntidades.tipoEntidadSeleccionada.secuencia, 'TiposCentrosCostos', 'tipocentrocosto')}" style="position: absolute; top: 63px; left: 195px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 260px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="Información" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla TIPOSENTIDADES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('TiposEntidades', 'TipoEntidad')}" style="position: absolute; top: 60px; left: 195px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" icon="ui-icon-close" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 260px;" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposEntidades', 'TipoEntidad')}" style="position: absolute; top: 60px; left: 195px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="¡Error!" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" style="" closable="true">  
@@ -236,8 +236,8 @@
                     <p:dialog id="errorTablaConRastro" header="Información" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposEntidades.tipoEntidadSeleccionada.secuencia, 'TiposEntidades', 'TipoEntidad')}" style="position: absolute; top: 65px; left: 195px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" icon="ui-icon-close" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 65px; left: 260px;" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposEntidades.tipoEntidadSeleccionada.secuencia, 'TiposEntidades', 'TipoEntidad')}" style="position: absolute; top: 65px; left: 195px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 260px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="¡Error!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="" closable="true">  
@@ -284,7 +284,7 @@
                             <p:watermark for="nuevoNombre" value="Nombre" />
 
                             <strong><h:outputText value="*Grupo Asociado: " style="left: 10px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="nuevoGrupoAsociado" value="#{controlTiposEntidades.nuevoTipoEntidad.grupo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevoGrupoAsociado" value="#{controlTiposEntidades.nuevoTipoEntidad.grupo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlTiposEntidades.valoresBackupAutocompletar(1, 'GRUPOSTIPOSENTIDADES')}" />
                                 <p:ajax event="change" listener="#{controlTiposEntidades.autocompletarNuevoyDuplicado('GRUPOSTIPOSENTIDADES', controlTiposEntidades.nuevoTipoEntidad.grupo.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlTiposEntidades.asignarVariableGrupoTipoEntidadNueva(0)}" />
@@ -296,7 +296,7 @@
 
                             <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style="  ;position: absolute; left: 10px; top: 150px;"  actionListener="#{controlTiposEntidades.limpiarNuevoTipoEntidad()}" update="nuevoTipoEntidad" process="@this"/>
                             <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style="position: absolute; left: 125px; top: 150px;" actionListener="#{controlTiposEntidades.agregarNuevoTipoEntidad()}" process="@this" />
-                            <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style="position: absolute; left: 225px; top: 150px;"  update="nuevoTipoEntidad" onclick="nuevoRegistroTipoEntidad.hide();"  actionListener="#{controlTiposEntidades.limpiarNuevoTipoEntidad()}"  process="@this"/>
+                            <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style="position: absolute; left: 225px; top: 150px;"  update="nuevoTipoEntidad" onclick="PF('nuevoRegistroTipoEntidad').hide();"  actionListener="#{controlTiposEntidades.limpiarNuevoTipoEntidad()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -318,7 +318,7 @@
 
 
                             <strong><h:outputText value="*Grupo Asociado: " style="left: 10px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="duplicarGrupoTipoEntidad" value="#{controlTiposEntidades.duplicarTipoEntidad.grupo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarGrupoTipoEntidad" value="#{controlTiposEntidades.duplicarTipoEntidad.grupo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlTiposEntidades.valoresBackupAutocompletar(2, 'GRUPOSTIPOSENTIDADES')}" />
                                 <p:ajax event="change" listener="#{controlTiposEntidades.autocompletarNuevoyDuplicado('GRUPOSTIPOSENTIDADES', controlTiposEntidades.duplicarTipoEntidad.grupo.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlTiposEntidades.asignarVariableGrupoTipoEntidadNueva(1)}" />
@@ -329,7 +329,7 @@
 
                             <p:commandButton id="limpiarD" value="Limpiar" icon="ui-icon-trash" style="  ;position: absolute; left: 10px; top: 150px;"  actionListener="#{controlTiposEntidades.limpiarduplicarTiposEntidades()}" update="duplicarTiposEntidades"  process="@this"/>
                             <p:commandButton id="duplicarVFP" value="Agregar" icon="ui-icon-circle-check" style="position: absolute; left: 125px; top: 150px;" actionListener="#{controlTiposEntidades.confirmarDuplicar()}"  process="@this" />
-                            <p:commandButton id="cancelarDuplicarVFP" value="Cancelar" icon="ui-icon-circle-close" style="position: absolute; left: 225px; top: 150px;"  update="duplicarTiposEntidades" onclick="duplicarRegistroTiposEntidades.hide();" actionListener="#{controlTiposEntidades.limpiarduplicarTiposEntidades()}"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicarVFP" value="Cancelar" icon="ui-icon-circle-close" style="position: absolute; left: 225px; top: 150px;"  update="duplicarTiposEntidades" onclick="PF('duplicarRegistroTiposEntidades').hide();" actionListener="#{controlTiposEntidades.limpiarduplicarTiposEntidades()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
                 </h:form>

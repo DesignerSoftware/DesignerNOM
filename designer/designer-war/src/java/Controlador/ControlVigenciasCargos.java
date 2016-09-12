@@ -1105,7 +1105,7 @@ public class ControlVigenciasCargos implements Serializable {
                 nombreCompleto = vigenciaSeleccionada.getEmpleadojefe().getPersona().getNombreCompleto();
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('datosVCEmpleado.selectRow(" + vCargos + ", false); datosVCEmpleado.unselectAllRows()");
+            PrimefacesContextUI.ejecutar("PF('datosVCEmpleado.selectRow(" + vCargos + ", false); datosVCEmpleado').unselectAllRows()");
         }
         PrimefacesContextUI.actualizar("form:listaValores");
     }

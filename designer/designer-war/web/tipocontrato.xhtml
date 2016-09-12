@@ -55,7 +55,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" 
-                                                 onclick="verificarNuevoRegistro.show()" process="@this"/> 
+                                                 onclick="PF('verificarNuevoRegistro').show()" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" 
@@ -73,7 +73,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/> 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
-                                                 actionListener="#{controlTipoContrato.cancelarModificacionGeneral()}" oncomplete="window.location.reload()" process="@this"/>  
+                                                 actionListener="#{controlTipoContrato.cancelarModificacionGeneral()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
@@ -99,7 +99,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigo}" onclick="select();" id="editarCodigoTipoContrato" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText value="#{info.codigo}" onclick="PF('select();" id="editarCodigoTipoContrato" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlTipoContrato.procesoModificacionTipoContrato(info)}" update="editarCodigoTipoContrato" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlTipoContrato.cambiarIndice(info, 0)}"  process="@this"/>
                                             </p:inputText>
@@ -115,7 +115,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombre}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.nombre}" maxlength="30" onclick="select();" id="editarNombreTipoContrato" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText value="#{info.nombre}" maxlength="30" onclick="PF('select();" id="editarNombreTipoContrato" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlTipoContrato.procesoModificacionTipoContrato(info)}" update="editarNombreTipoContrato" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlTipoContrato.cambiarIndice(info, 1)}" process="@this"/>
                                             </p:inputText>
@@ -131,7 +131,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.duracionperiodoprueba}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.duracionperiodoprueba}" onclick="select();" id="editarPeriodoTipoContrato" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText value="#{info.duracionperiodoprueba}" onclick="PF('select();" id="editarPeriodoTipoContrato" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlTipoContrato.modificarTipoContrato(info)}" update="editarPeriodoTipoContrato" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlTipoContrato.cambiarIndice(info, 2)}" process="@this"/>
                                             </p:inputText>
@@ -261,12 +261,12 @@
                             <h:outputText value="#{msg['codigo']}" style="display: inline-block; position: relative; top : 5px; left: 20px"/> 
                             <h:outputText value="#{msg['nombreNClonarTC']}" style="display: inline-block; position: relative; top : 5px; left: 70px"/>
 
-                            <p:inputText onclick="select();" id="codigoTipoCClonar" value="#{controlTipoContrato.codigoTipoCClonar}" 
+                            <p:inputText onclick="PF('select();" id="codigoTipoCClonar" value="#{controlTipoContrato.codigoTipoCClonar}" 
                                          style="display: block; position: relative; top : 11px; left: 10px;width: 75px;text-transform: uppercase">
                                 <pe:keyFilter for="codigoTipoCClonarBase" mask="num"/>
                                 <p:ajax event="change" update="codigoTipoCClonar" process="@this"/>
                             </p:inputText>
-                            <p:inputText onclick="select();" id="nombreTipoCClonar" maxlength="30" value="#{controlTipoContrato.nombreTipoCClonar}" 
+                            <p:inputText onclick="PF('select();" id="nombreTipoCClonar" maxlength="30" value="#{controlTipoContrato.nombreTipoCClonar}" 
                                          style="display: inline-block; position: relative; top : -13px; left: 100px; width: 220px;text-transform: uppercase">
                                 <p:ajax event="change" update="nombreTipoCClonar" process="@this"/>
                             </p:inputText>
@@ -274,14 +274,14 @@
                             <h:outputText value="#{msg['codigo']}" style="display: block; position: relative; top : 0px; left: 20px"/> 
                             <h:outputText value="#{msg['nombreBClonarTC']}" style="display: inline-block; position: relative; top : -15px; left: 105px"/> 
 
-                            <p:inputText onclick="select();" id="codigoTipoCClonarBase" value="#{controlTipoContrato.tipoContratoAClonar.codigo}"
+                            <p:inputText onclick="PF('select();" id="codigoTipoCClonarBase" value="#{controlTipoContrato.tipoContratoAClonar.codigo}"
                                          style="display: block; position: relative; top : -14px; left: 10px;width: 75px">
                                 <pe:keyFilter for="codigoTipoCClonarBase" mask="num"/>
                                 <p:ajax event="change" update="codigoTipoCClonarBase" process="@this" listener="#{controlTipoContrato.autoCompletarSeleccionarTipoContratoClonar(controlTipoContrato.tipoContratoAClonar.codigo,0)}"/>
                                 <p:ajax event="select" process="@this" listener="#{controlTipoContrato.posicionTipoContratoClonar()}"/>
                                 <p:ajax event="dblclick" process="@this" listener="#{controlTipoContrato.dispararDialogoClonarTipoContrato()}"/>
                             </p:inputText>
-                            <p:inputText onclick="select();" id="nombreTipoCClonarBase" value="#{controlTipoContrato.tipoContratoAClonar.nombre}" 
+                            <p:inputText onclick="PF('select();" id="nombreTipoCClonarBase" value="#{controlTipoContrato.tipoContratoAClonar.nombre}" 
                                          style="display: inline-block; position: relative; top : -38px; left: 100px; width: 220px;text-transform: uppercase">
                                 <p:ajax event="change" update="nombreTipoCClonarBase" process="@this" listener="#{controlTipoContrato.autoCompletarSeleccionarTipoContratoClonar(controlTipoContrato.tipoContratoAClonar.nombre,1)}"/>
                                 <p:ajax event="select" process="@this" listener="#{controlTipoContrato.posicionTipoContratoClonar()}"/>
@@ -293,16 +293,16 @@
                             <p:tooltip for="BtnClonar" value="#{msg['clonar']}"/>
                         </fieldset> 
 
-                        <p:commandButton style="position: absolute; left: 683px; top: 482px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" onclick="confirmarGuardarSalida.show();" disabled="#{controlTipoContrato.cambiosPagina}" process="@this" />
+                        <p:commandButton style="position: absolute; left: 683px; top: 482px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlTipoContrato.cambiosPagina}" process="@this" />
                         <p:commandButton style="position: absolute; left: 775px;  top: 482px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" action="#{controlTipoContrato.redirigir()}" actionListener="#{controlTipoContrato.salir()}" process="@this" />
                     </p:panel>
 
                     <p:dialog id="verificarRastrosTablasH" widgetVar="verificarRastrosTablasH" header="#{msg['rastrosH']}" resizable="false" draggable="false" modal="true" height="130" width="380px">
                         <h:outputText value="#{msg['verificarRastrosTablasH']}" style="width: 90%; text-align: center; position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['tipoContrato']}" oncomplete="verificarRastrosTablas.hide()" process="@this"
+                        <p:commandButton value="#{msg['tipoContrato']}" oncomplete="PF('verificarRastrosTablas').hide()" process="@this"
                                          style="position: absolute; left: 90px; top: 50px; width: 200px; height: 30px;" 
                                          actionListener="#{controlTipoContrato.verificarRastroTipoContratoH()}"/>
-                        <p:commandButton value="#{msg['diasLaborales']}" oncomplete="verificarRastrosTablas.hide()" process="@this"
+                        <p:commandButton value="#{msg['diasLaborales']}" oncomplete="PF('verificarRastrosTablas').hide()" process="@this"
                                          style="position: absolute; left: 90px; top: 90px; width: 200px; height: 30px;" 
                                          actionListener="#{controlTipoContrato.verificarRastroDiaLaborableH()}"/>
                     </p:dialog>
@@ -310,38 +310,38 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlTipoContrato.guardarGeneral()}"  
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoContrato.guardarGeneral()}"  
                                          style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlTipoContrato.cancelarModificacionGeneral()}"
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoContrato.cancelarModificacionGeneral()}"
                                          style="position: absolute; top: 50px; left: 218px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 285px;" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 285px;" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlTipoContrato.guardarYSalir()}"
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlTipoContrato.guardarYSalir()}"
                                          action="#{controlTipoContrato.redirigir()}" style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlTipoContrato.cancelarYSalir()}"
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlTipoContrato.cancelarYSalir()}"
                                          action="#{controlTipoContrato.redirigir()}" style="position: absolute; top: 50px; left: 218px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 285px;" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 285px;" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlTipoContrato.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoContrato.backUp, controlTipoContrato.nombreTablaRastro , 'rastroTipoContra')}" 
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoContrato.backUp, controlTipoContrato.nombreTablaRastro , 'rastroTipoContra')}" 
                                          style="position: absolute; top: 63px; left: 210px;" action="rastro" process="@this" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="confirmarRastro.hide();" actionListener="#{controlTipoContrato.limpiarMSNRastros()}" 
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlTipoContrato.limpiarMSNRastros()}" 
                                          style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{controlTipoContrato.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla(controlTipoContrato.nombreTablaRastro , 'rastroTipoContra')}" 
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlTipoContrato.nombreTablaRastro , 'rastroTipoContra')}" 
                                          icon="ui-icon-check" style="position: absolute; top: 60px; left: 210px;" action="rastro" process="@this"/>
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlTipoContrato.limpiarMSNRastros()}" 
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlTipoContrato.limpiarMSNRastros()}" 
                                          icon="ui-icon-close" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
@@ -358,9 +358,9 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center"/>
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoContrato.backUp, controlTipoContrato.nombreTablaRastro , 'rastroTipoContra')}" 
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoContrato.backUp, controlTipoContrato.nombreTablaRastro , 'rastroTipoContra')}" 
                                          icon="ui-icon-check" style="position: absolute; top: 65px; left: 210px;" action="rastro" process="@this" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" closable="true">  
@@ -412,8 +412,8 @@
                     <p:dialog id="continuarOperacionClonado" header="#{msg['atencion']}" widgetVar="continuarOperacionClonado"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['continuarOperacionClonado']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" actionListener="#{controlTipoContrato.clonarTipoContrato()}" onclick="continuarOperacionClonado.hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
-                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="continuarOperacionClonado.hide();" style="position: absolute; top: 60px; left: 260px;" process="@this" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" actionListener="#{controlTipoContrato.clonarTipoContrato()}" onclick="PF('continuarOperacionClonado').hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('continuarOperacionClonado').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog header="#{msg['tiposdiasTD']}" widgetVar="TipoDiaDialogo" draggable="false" resizable="false" closable="false" id="TipoDiaDialogo"  
@@ -491,9 +491,9 @@
 
                     <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="false" modal="true" height="130" width="380px;"  >
                         <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px; color: blue; font-weight: bold; width: 340px; text-align: center;"/>
-                        <p:commandButton value="#{msg['tipoContrato']}" onclick="verificarNuevoRegistro.hide();" style="position: absolute; left: 90px; top: 50px; width: 200px; height: 30px;" 
-                                         oncomplete="NuevoRegistroTipoContrato.show()" update=":formularioDialogos:nuevoTipoContrato"  process="@this" />
-                        <p:commandButton value="#{msg['diasLaborales']}" onclick="verificarNuevoRegistro.hide();" style="position: absolute; left: 90px; top: 90px; width: 200px; height: 30px;" 
+                        <p:commandButton value="#{msg['tipoContrato']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 90px; top: 50px; width: 200px; height: 30px;" 
+                                         oncomplete="PF('NuevoRegistroTipoContrato').show()" update=":formularioDialogos:nuevoTipoContrato"  process="@this" />
+                        <p:commandButton value="#{msg['diasLaborales']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 90px; top: 90px; width: 200px; height: 30px;" 
                                          actionListener="#{controlTipoContrato.validarNuevoRegistroDias()}" update=":formularioDialogos:nuevoDiaLaborable"  process="@this"/>
                     </p:dialog>
 
@@ -502,14 +502,14 @@
                         <p:panel id="nuevoTipoContrato" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigoNTC']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoTipoContratoCodigo" onclick="select();" maxlength="30" value="#{controlTipoContrato.nuevoTipoContrato.codigo}" 
+                            <p:inputText id="nuevoTipoContratoCodigo" onclick="PF('select();" maxlength="30" value="#{controlTipoContrato.nuevoTipoContrato.codigo}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 55px;">
                                 <p:ajax event="change" update="nuevoTipoContratoCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="nuevoTipoContratoCodigo"/>
 
                             <strong><h:outputText value="*#{msg['nombreNTC']}" style="position: absolute; top: 90px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoTipoContratoNombre" maxlength="30" onclick="select();" value="#{controlTipoContrato.nuevoTipoContrato.nombre}"
+                            <p:inputText id="nuevoTipoContratoNombre" maxlength="30" onclick="PF('select();" value="#{controlTipoContrato.nuevoTipoContrato.nombre}"
                                          style="width: 122px; position: absolute; left: 200px; top: 85px;">
                                 <p:ajax event="change" update="nuevoTipoContratoNombre"/>
                             </p:inputText>
@@ -517,7 +517,7 @@
 
                             <strong><h:outputText value="#{msg['periodoNTC']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
                             <p:inputText id="nuevoTipoContratoPeriodo" value="#{controlTipoContrato.nuevoTipoContrato.duracionperiodoprueba}" 
-                                         style="width: 122px; position: absolute; left: 200px; top: 115px;" onclick="select();">
+                                         style="width: 122px; position: absolute; left: 200px; top: 115px;" onclick="PF('select();">
                                 <p:ajax event="change" update="nuevoTipoContratoPeriodo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['periodoPrueba']}" for="nuevoTipoContratoPeriodo"/>
@@ -537,7 +537,7 @@
 
                             <p:commandButton id="limpiarNTC" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 225px;" actionListener="#{controlTipoContrato.limpiarNuevaTipoContrato()}" update="nuevoTipoContrato" process="@this"/>
                             <p:commandButton id="aceptarNTC" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 182px; top: 225px;"  actionListener="#{controlTipoContrato.agregarNuevoTipoContrato()}" process="@this"  />
-                            <p:commandButton id="cancelarNTC" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 225px;" actionListener="#{controlTipoContrato.limpiarNuevaTipoContrato()}" update="nuevoTipoContrato" onclick="NuevoRegistroTipoContrato.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarNTC" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 225px;" actionListener="#{controlTipoContrato.limpiarNuevaTipoContrato()}" update="nuevoTipoContrato" onclick="PF('NuevoRegistroTipoContrato').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -548,21 +548,21 @@
                         <p:panel id="duplicarTipoContrato" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigoNTC']}"  style="position: absolute; top: 60px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTipoContratoCodigo" onclick="select();"  maxlength="30" value="#{controlTipoContrato.duplicarTipoContrato.codigo}" 
+                            <p:inputText id="duplicarTipoContratoCodigo" onclick="PF('select();"  maxlength="30" value="#{controlTipoContrato.duplicarTipoContrato.codigo}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 55px;">
                                 <p:ajax event="change" update="duplicarTipoContratoCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="duplicarTipoContratoCodigo"/>
 
                             <strong><h:outputText value="*#{msg['nombreNTC']}" style="position: absolute; top: 90px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTipoContratoNombre" maxlength="30" onclick="select();" value="#{controlTipoContrato.duplicarTipoContrato.nombre}" 
+                            <p:inputText id="duplicarTipoContratoNombre" maxlength="30" onclick="PF('select();" value="#{controlTipoContrato.duplicarTipoContrato.nombre}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 85px;">
                                 <p:ajax event="change" update="duplicarTipoContratoNombre"/>
                             </p:inputText>
                             <p:watermark value="#{msg['nombre']}" for="duplicarTipoContratoNombre"/>
 
                             <strong><h:outputText value="#{msg['periodoNTC']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTipoContratoPeriodo" onclick="select();" value="#{controlTipoContrato.duplicarTipoContrato.duracionperiodoprueba}" 
+                            <p:inputText id="duplicarTipoContratoPeriodo" onclick="PF('select();" value="#{controlTipoContrato.duplicarTipoContrato.duracionperiodoprueba}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 115px;">
                                 <p:ajax event="change" update="duplicarTipoContratoPeriodo"/>
                             </p:inputText>
@@ -583,7 +583,7 @@
 
                             <p:commandButton id="limpiarDTC" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 225px;" actionListener="#{controlTipoContrato.limpiarDuplicarTipoContrato()}" update="duplicarTipoContrato" process="@this"/>
                             <p:commandButton id="agregarDTC" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 182px; top: 225px;"  actionListener="#{controlTipoContrato.confirmarDuplicarTipoContrato()}" process="@this"  />
-                            <p:commandButton id="cancelarDTC" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 225px;" actionListener="#{controlTipoContrato.limpiarDuplicarTipoContrato()}" update="duplicarTipoContrato" onclick="DuplicarRegistroTipoContrato.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDTC" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 225px;" actionListener="#{controlTipoContrato.limpiarDuplicarTipoContrato()}" update="duplicarTipoContrato" onclick="PF('DuplicarRegistroTipoContrato').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -592,7 +592,7 @@
                         <p:panel id="nuevoDiaLaborable" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['tipoDiaNDL']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoDiaLabTipoDia" onclick="select();" value="#{controlTipoContrato.nuevoDiaLaborable.tipodia.descripcion}" 
+                            <p:inputText id="nuevoDiaLabTipoDia" onclick="PF('select();" value="#{controlTipoContrato.nuevoDiaLaborable.tipodia.descripcion}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 55px;">
                                 <p:ajax event="dblclick" listener="#{controlTipoContrato.asignarIndex(infoD,0,1)}" process="@this" update="nuevoDiaLabTipoDia"/>
                                 <p:ajax event="click" listener="#{controlTipoContrato.valoresBackupAutocompletarGeneral(1, 'DIAS')}" />
@@ -618,7 +618,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value=" H.L.:" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoHLDiaLab" onclick="select();" value="#{controlTipoContrato.nuevoDiaLaborable.horaslaborables}" 
+                            <p:inputText id="nuevoHLDiaLab" onclick="PF('select();" value="#{controlTipoContrato.nuevoDiaLaborable.horaslaborables}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 115px;">
                                 <p:ajax event="change" update="nuevoHLDiaLab" />
                             </p:inputText>
@@ -626,7 +626,7 @@
 
                             <p:commandButton id="limpiarNDL" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 165px;" actionListener="#{controlTipoContrato.limpiarNuevaDiaLaborable()}" update="nuevoDiaLaborable" process="@this"/>
                             <p:commandButton id="aceptarNDL" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 182px; top: 165px;"  actionListener="#{controlTipoContrato.agregarNuevoDiaLaborable()}" process="@this"  />
-                            <p:commandButton id="cancelarNDL" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 165px;" actionListener="#{controlTipoContrato.limpiarNuevaDiaLaborable()}" update="nuevoDiaLaborable" onclick="NuevoRegistroDiaLaboral.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarNDL" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 165px;" actionListener="#{controlTipoContrato.limpiarNuevaDiaLaborable()}" update="nuevoDiaLaborable" onclick="PF('NuevoRegistroDiaLaboral').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -636,7 +636,7 @@
 
 
                             <strong><h:outputText value="*#{msg['tipoDiaNDL']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDiaLabTipoDia" onclick="select();" value="#{controlTipoContrato.duplicarDiaLaborable.tipodia.descripcion}" 
+                            <p:inputText id="duplicarDiaLabTipoDia" onclick="PF('select();" value="#{controlTipoContrato.duplicarDiaLaborable.tipodia.descripcion}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 55px;">
                                 <p:ajax event="dblclick" listener="#{controlTipoContrato.asignarIndex(infoD,0,2)}" process="@this" update="duplicarDiaLabTipoDia"/>
                                 <p:ajax event="click" listener="#{controlTipoContrato.valoresBackupAutocompletarGeneral(2, 'DIAS')}" />
@@ -662,7 +662,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value=" H.L.:" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarHLDiaLab" onclick="select();" value="#{controlTipoContrato.duplicarDiaLaborable.horaslaborables}"
+                            <p:inputText id="duplicarHLDiaLab" onclick="PF('select();" value="#{controlTipoContrato.duplicarDiaLaborable.horaslaborables}"
                                          style="width: 122px; position: absolute; left: 200px; top: 115px;">
                                 <p:ajax event="change" update="duplicarHLDiaLab" />
                             </p:inputText>
@@ -671,7 +671,7 @@
 
                             <p:commandButton id="limpiarDDL" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 165px;" actionListener="#{controlTipoContrato.limpiarDuplicarDiaLaborable()}" update="duplicarDiaLaborable" process="@this"/>
                             <p:commandButton id="aceptarDDL" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 182px; top: 165px;"  actionListener="#{controlTipoContrato.confirmarDuplicarDiaLaborable()}" process="@this"/>
-                            <p:commandButton id="cancelarDDL" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 165px;" actionListener="#{controlTipoContrato.limpiarDuplicarDiaLaborable()}" update="duplicarDiaLaborable" onclick="DuplicarRegistroDiaLaborable.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDDL" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 165px;" actionListener="#{controlTipoContrato.limpiarDuplicarDiaLaborable()}" update="duplicarDiaLaborable" onclick="PF('DuplicarRegistroDiaLaborable').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 

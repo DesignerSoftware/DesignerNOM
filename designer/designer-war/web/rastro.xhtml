@@ -149,7 +149,7 @@
                                      filteredValue="#{controlRastro.filtradoListaLOVRastros}" emptyMessage="#{msg['lovvacio']}"
                                      liveScroll="true" scrollRows="20">              
                             <p:ajax event="rowSelect" listener="#{controlRastro.activarAceptar()}" update=":form:aceptarF"/>
-                            <p:ajax event="rowDblselect" listener="#{controlRastro.seleccionarFecha()}" process="@this" onstart="lovFecha.clearFilters()"/>
+                            <p:ajax event="rowDblselect" listener="#{controlRastro.seleccionarFecha()}" process="@this" onstart="PF('lovFecha').clearFilters()"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                 <p:inputText id="globalFilter" onkeyup="lovFecha.filter();" style="width:100px; position: relative; left: -40px;" />  
@@ -172,7 +172,7 @@
                         <p:commandButton id="aceptarF" style="position: relative; left: 200px;" value="#{msg['aceptar']}" disabled="#{controlRastro.aceptar}" actionListener="#{controlRastro.seleccionarFecha()}" update="aceptarF" process="@this">
                             <p:resetInput target=":form:lovFecha:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasF" style="position: relative; left: 200px;" value="#{msg['atras']}" onclick="fechaDialogo.hide(), lovFecha.clearFilters();" actionListener="#{controlRastro.cancelarSeleccionFecha()}" update="lovFecha" process="@this">
+                        <p:commandButton id="atrasF" style="position: relative; left: 200px;" value="#{msg['atras']}" onclick="PF('fechaDialogo').hide(), ('lovFecha').clearFilters();" actionListener="#{controlRastro.cancelarSeleccionFecha()}" update="lovFecha" process="@this">
                             <p:resetInput target=":form:lovFecha:globalFilter"/>
                         </p:commandButton>
                     </p:dialog>
@@ -203,21 +203,21 @@
                             </p:column>
                         </p:dataTable>
 
-                        <p:commandButton id="volverVR" onclick="valorRastroDialogo.hide();" style="position: relative; left: 460px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['volver']}" process="@this"/>
+                        <p:commandButton id="volverVR" onclick="PF('valorRastroDialogo').hide();" style="position: relative; left: 460px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['volver']}" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarEliminados" header="#{msg['atencion']}" widgetVar="confirmarEliminados"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarEliminados1']} #{controlRastro.nombreTablaRastro} #{msg['confirmarEliminados2']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarEliminados.hide();" actionListener="#{controlRastro.seguirDialogos()}" style="position: absolute; top: 60px; left: 230px;" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarEliminados.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarEliminados').hide();" actionListener="#{controlRastro.seguirDialogos()}" style="position: absolute; top: 60px; left: 230px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarEliminados').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarEliminadosEmpleado" header="#{msg['atencion']}" widgetVar="confirmarEliminadosEmpleado"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarEliminadosEmpleado']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarEliminadosEmpleado.hide();" actionListener="#{controlRastro.historicosTablaEliminadosEmpleado()}" style="position: absolute; top: 60px; left: 230px;" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarEliminadosEmpleado.hide();" actionListener="#{controlRastro.historicosTablaEliminados()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarEliminadosEmpleado').hide();" actionListener="#{controlRastro.historicosTablaEliminadosEmpleado()}" style="position: absolute; top: 60px; left: 230px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarEliminadosEmpleado').hide();" actionListener="#{controlRastro.historicosTablaEliminados()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorValorRastro" header="#{msg['atencion']}" widgetVar="errorValorRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  

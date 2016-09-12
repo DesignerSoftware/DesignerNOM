@@ -46,7 +46,7 @@
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; " oncomplete="NuevoRegistroVTT.show()" update=":formularioDialogos:nuevaVTT" process="@this"/> 
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; " oncomplete="PF('NuevoRegistroVTT').show()" update=":formularioDialogos:nuevaVTT" process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
                         <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none; " actionListener="#{controlVigenciaTipoTrabajador.borrarVTT()}" process="@this"/>  
@@ -60,7 +60,7 @@
 
                         <p:separator style="position: relative; top: -9px"/> 
 
-                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlVigenciaTipoTrabajador.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlVigenciaTipoTrabajador.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/> 
@@ -150,7 +150,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.tipotrabajador.tipocotizante.descripcion}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText onclick="select()" value="#{info.tipotrabajador.tipocotizante.descripcion}" id="editarTipoCotizante" style=" border-radius: 0px; width: 97.5%;text-transform: uppercase; height: 12px;" readonly="true"
+                                 <p:inputText onclick="PF('select()" value="#{info.tipotrabajador.tipocotizante.descripcion}" id="editarTipoCotizante" style=" border-radius: 0px; width: 97.5%;text-transform: uppercase; height: 12px;" readonly="true"
                                               onselect="posicionTabla([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
                                  </p:inputText>
                               </f:facet>  
@@ -171,7 +171,7 @@
                      <h:outputText value="#{msg['fechainicioP']}:" style="position: absolute; left: 5px; top: 28px; font-size: 11px;"/>
                      <div id="posicionFechaInicialDialogo" style="position: absolute; left: 5px; top: 43px; height: 10px">
                         <p:calendar pattern="dd/MM/yyyy" id="fechaPensionInicio" value="#{controlVigenciaTipoTrabajador.pensionVigencia.fechainiciopension}">
-                           <!-- onclick="peguelo1();"-->
+                           <!-- onclick="PF('peguelo1();"-->
                            <p:ajax event="dateSelect" listener="#{controlVigenciaTipoTrabajador.banderaCambiosPensionados()}" update="fechaPensionInicio" process="@this" immediate="true" />
                            <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.banderaCambiosPensionados()}" update="fechaPensionInicio" process="@this" immediate="true"/>
                         </p:calendar>
@@ -182,7 +182,7 @@
                      <h:outputText value="#{msg['fechafinalP']}:" style="position: absolute; left: 118px; top: 28px; font-size: 11px;"/>
                      <div id="posicionFechaFinalDialogo" style="position: absolute; left: 118px; top: 43px; height: 10px">
                         <p:calendar pattern="dd/MM/yyyy" id="fechaPensionFinal" value="#{controlVigenciaTipoTrabajador.pensionVigencia.fechafinalpension}">
-                           <!-- onclick="peguelo2();"-->
+                           <!-- onclick="PF('peguelo2();"-->
                            <p:ajax event="dateSelect" listener="#{controlVigenciaTipoTrabajador.banderaCambiosPensionados()}" update="fechaPensionFinal" process="@this" immediate="true" />
                            <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.banderaCambiosPensionados()}" update="fechaPensionFinal" process="@this" immediate="true"/>
                         </p:calendar>
@@ -190,18 +190,18 @@
                      </div>
 
                      <h:outputText value="#{msg['porc']}:" style="position: absolute; left: 230px; top: 28px; font-size: 11px;"/>
-                     <p:inputText onclick="select();" id="porcentajePension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.porcentaje}" style="position: absolute; left: 230px; top: 43px; width: 40px; height: 10px">
+                     <p:inputText onclick="PF('select();" id="porcentajePension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.porcentaje}" style="position: absolute; left: 230px; top: 43px; width: 40px; height: 10px">
                         <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.cambiosPension()}" update="porcentajePension"/>
                         <p:ajax event="click" listener="#{controlVigenciaTipoTrabajador.validarRegistroSeleccionadoPensionado()}"  process="@this"/>
                      </p:inputText>
 
                      <h:outputText value="#{msg['resolucionP']}:" style="position: absolute; left: 303px; top: 28px; font-size: 11px;"/>
-                     <p:inputText onclick="select();" id="resolucionPension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.resolucionpension}" style="position: absolute; left: 303px; top: 43px; width: 95px; height: 10px">
+                     <p:inputText onclick="PF('select();" id="resolucionPension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.resolucionpension}" style="position: absolute; left: 303px; top: 43px; width: 95px; height: 10px">
                         <p:ajax event="click" listener="#{controlVigenciaTipoTrabajador.validarRegistroSeleccionadoPensionado()}"  process="@this"/>
                      </p:inputText>
 
                      <h:outputText value="#{msg['claseP']}:" style="position: absolute; left: 5px; top: 67px; font-size: 11px;"/>
-                     <p:inputText onclick="select();" id="clasePension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.clase.descripcion}" style="position: absolute; left: 5px; top: 82px; width: 175px; height: 10px">
+                     <p:inputText onclick="PF('select();" id="clasePension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.clase.descripcion}" style="position: absolute; left: 5px; top: 82px; width: 175px; height: 10px">
                         <p:ajax event="click" listener="#{controlVigenciaTipoTrabajador.validarRegistroSeleccionadoPensionado()}"  process="@this"/>
                         <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.cambiosPension()}" update="clasePension"/>
                         <!--<p:ajax event="dblclick" listener="# {controlVigenciaTipoTrabajador.asignarIndexClasePensionados(info, 0, 0)}"/>-->
@@ -212,7 +212,7 @@
                      <!--   <p:commandButton value="" process="@this" icon="ui-icon-search" action="clasepension" style="position: absolute; left: 190px; top: 85px; height: 23px; width: 23px"/>-->
 
                      <h:outputText value="#{msg['tipoP']}:" style="position: absolute; left: 230px; top: 67px; font-size: 11px;"/>
-                     <p:inputText onclick="select();" id="tipoPensionado" value="#{controlVigenciaTipoTrabajador.pensionVigencia.tipopensionado.descripcion}" style="position: absolute; left: 230px; top: 82px; width: 120px; height: 10px; border: none;">
+                     <p:inputText onclick="PF('select();" id="tipoPensionado" value="#{controlVigenciaTipoTrabajador.pensionVigencia.tipopensionado.descripcion}" style="position: absolute; left: 230px; top: 82px; width: 120px; height: 10px; border: none;">
                        <!-- <p:ajax event="click" listener="#{controlVigenciaTipoTrabajador.validarRegistroSeleccionadoPensionado()}"  process="@this"/>-->
                         <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.cambiosPension()}" update="tipoPensionado"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciaTipoTrabajador.asignarIndex(info, 1, 0, 1)}" immediate="true"/>
@@ -222,7 +222,7 @@
                      <!--      <p:commandButton value="" process="@this" action="tipopensionado" icon="ui-icon-search" style="position: absolute; left: 361px; top: 85px; height: 23px; width: 23px"/>-->
 
                      <h:outputText value="#{msg['nombreP']}:" style="position: absolute; left: 5px; top: 110px; font-size: 11px;"/>
-                     <p:inputText onclick="select();" id="causaBiente" value="#{controlVigenciaTipoTrabajador.pensionVigencia.causabiente.persona.nombre}" style="position: absolute; left: 5px; top: 126px; width: 270px; height: 10px; border: none;">
+                     <p:inputText onclick="PF('select();" id="causaBiente" value="#{controlVigenciaTipoTrabajador.pensionVigencia.causabiente.persona.nombre}" style="position: absolute; left: 5px; top: 126px; width: 270px; height: 10px; border: none;">
                         <!-- <p:ajax event="click" listener="#{controlVigenciaTipoTrabajador.validarRegistroSeleccionadoPensionado()}" immediate="true" process="@this"/>-->
                         <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.cambiosPension()}" update="causaBiente" process="@this"/>
                         <!--    <p:ajax event="dblclick" listener="# {controlVigenciaTipoTrabajador.asignarIndexClasePensionados(info, 0, 2)}"/>-->
@@ -231,7 +231,7 @@
                     <!-- <p:commandButton value="" process="@this" icon="ui-icon-search" actionListener="#{controlVigenciaTipoTrabajador.listaValoresBoton()}" style="position: absolute; left: 286px; top: 129px; height: 23px; width: 23px"/>-->
 
                      <h:outputText value="#{msg['nombretutorP']}:" style="position: absolute; left: 5px; top: 150px; font-size: 11px;"/>
-                     <p:inputText onclick="select();" id="tutorPension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.tutor.nombreCompleto}" style="position: absolute; left: 5px; top: 165px; width: 270px; height: 10px; border: none;">
+                     <p:inputText onclick="PF('select();" id="tutorPension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.tutor.nombreCompleto}" style="position: absolute; left: 5px; top: 165px; width: 270px; height: 10px; border: none;">
                         <p:ajax event="dblclick" listener="#{controlVigenciaTipoTrabajador.asignarIndex(info, 3, 0, 1)}"  process="@this"/>    
                         <!-- <p:ajax event="dblclick" listener="# {controlVigenciaTipoTrabajador.asignarIndexClasePensionados(info, 0, 3)}"/>    
                         <p:ajax event="click" listener="#{controlVigenciaTipoTrabajador.validarRegistroSeleccionadoPensionado()}"  process="@this"/>-->
@@ -274,7 +274,7 @@
                      <p:commandButton value="#{msg['limpiar']}" id="LimpiarRetirado" style="position: absolute; left: 20px; top: 160px; height: 30px; width: 120px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" actionListener="#{controlVigenciaTipoTrabajador.limpiarRetiro()}" update="panelRetiradosInput" process="@this" icon="ui-icon-trash"/>
                   </p:panel>
 
-                  <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 503px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="confirmarGuardar.show();" process="@this" disabled="#{controlVigenciaTipoTrabajador.cambiosPagina}"/>
+                  <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 503px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="PF('confirmarGuardar').show();" process="@this" disabled="#{controlVigenciaTipoTrabajador.cambiosPagina}"/>
                   <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 503px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlVigenciaTipoTrabajador.salir()}" action="nomina" process="@this" />
 
                </p:panel>
@@ -282,22 +282,22 @@
                <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                  <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlVigenciaTipoTrabajador.guardarGeneral()}" action="nomina" style="position: absolute; top: 50px; left: 170px;" process="@this" icon="ui-icon-check" />
-                  <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlVigenciaTipoTrabajador.cancelarModificacion}" style="position: absolute; top: 50px; left: 235px;" process="@this" icon="ui-icon-close" />
-                  <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciaTipoTrabajador.guardarGeneral()}" action="nomina" style="position: absolute; top: 50px; left: 170px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciaTipoTrabajador.cancelarModificacion}" style="position: absolute; top: 50px; left: 235px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="360"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 270px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaTipoTrabajador.vigenciaSeleccionada.secuencia, 'VigenciasTiposTrabajadores', 'vigenciasTiposTrabajadores')}" style="position: absolute; top: 70px; left: 200px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastro.hide();" style="position: absolute; top: 70px; left: 270px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaTipoTrabajador.vigenciaSeleccionada.secuencia, 'VigenciasTiposTrabajadores', 'vigenciasTiposTrabajadores')}" style="position: absolute; top: 70px; left: 200px;" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('VigenciasTiposTrabajadores', 'vigenciasTiposTrabajadores')}" style="position: absolute; top: 60px; left: 200px;" action="rastro" oncomplete="#{controlVigenciaTipoTrabajador.anularLOV()}" process="@this" />
-                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasTiposTrabajadores', 'vigenciasTiposTrabajadores')}" style="position: absolute; top: 60px; left: 200px;" action="rastro" oncomplete="PF('#{controlVigenciaTipoTrabajador.anularLOV()}" process="@this" />
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -313,8 +313,8 @@
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="98" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaTipoTrabajador.vigenciaSeleccionada.secuencia, 'VigenciasTiposTrabajadores', 'vigenciaTipoTrabajador')}" style="position: absolute; top: 65px; left: 200px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaTipoTrabajador.vigenciaSeleccionada.secuencia, 'VigenciasTiposTrabajadores', 'vigenciaTipoTrabajador')}" style="position: absolute; top: 65px; left: 200px;" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -355,7 +355,7 @@
                <p:dialog id="validacionFechas" header="#{msg['precaucion']}" widgetVar="validacionFechas"  resizable="false" draggable="false" modal="true" height="95" width="450"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
                   <h:outputText value="#{msg['validacionFechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                  <p:commandButton value="#{msg['aceptar']}"  icon="ui-icon-check" onclick="validacionFechas.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                  <p:commandButton value="#{msg['aceptar']}"  icon="ui-icon-check" onclick="PF('validacionFechas').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                </p:dialog>
 
                <p:hotkey bind="ctrl+f11" actionListener="#{controlVigenciaTipoTrabajador.activarCtrlF11()}"/> 
@@ -608,7 +608,7 @@
 
                      <p:commandButton id="limpiar" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 150px;" actionListener="#{controlVigenciaTipoTrabajador.limpiarNuevaVTT()}" update="nuevaVTT" process="@this" icon="ui-icon-trash"/>
                      <p:commandButton id="agregarVTT" value="#{msg['agregar']}" style=" position: absolute; left: 145px; top: 150px;"  process="@this" actionListener="#{controlVigenciaTipoTrabajador.agregarNuevaVTT()}"   icon="ui-icon-circle-check"/>
-                     <p:commandButton id="cancelarVTT" value="#{msg['cancelar']}" style=" position: absolute; left: 245px; top: 150px;" actionListener="#{controlVigenciaTipoTrabajador.limpiarNuevaVTT()}" update="nuevaVTT" onclick="NuevoRegistroVTT.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                     <p:commandButton id="cancelarVTT" value="#{msg['cancelar']}" style=" position: absolute; left: 245px; top: 150px;" actionListener="#{controlVigenciaTipoTrabajador.limpiarNuevaVTT()}" update="nuevaVTT" onclick="PF('NuevoRegistroVTT').hide();"  process="@this" icon="ui-icon-circle-close"/>
 
                   </p:panel>
                </p:dialog>
@@ -640,7 +640,7 @@
 
                      <p:commandButton id="limpiarDuplicadoVTT" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 150px;" actionListener="#{controlVigenciaTipoTrabajador.limpiarduplicarVTT()}" update="duplicarVTT" process="@this" icon="ui-icon-trash"/>
                      <p:commandButton id="agregarDuplicadoVTT" value="#{msg['agregar']}" style=" position: absolute; left: 145px; top: 150px;"  process="@this" actionListener="#{controlVigenciaTipoTrabajador.confirmarDuplicar()}" icon="ui-icon-circle-check"  />
-                     <p:commandButton id="cancelarDuplicadoVTT" value="#{msg['cancelar']}" style=" position: absolute; left: 245px; top: 150px;" actionListener="#{controlVigenciaTipoTrabajador.limpiarduplicarVTT()}" update="duplicarVTT" onclick="DuplicarRegistroVTT.hide();"  process="@this" icon="ui-icon-circle-close"/>
+                     <p:commandButton id="cancelarDuplicadoVTT" value="#{msg['cancelar']}" style=" position: absolute; left: 245px; top: 150px;" actionListener="#{controlVigenciaTipoTrabajador.limpiarduplicarVTT()}" update="duplicarVTT" onclick="PF('DuplicarRegistroVTT').hide();"  process="@this" icon="ui-icon-circle-close"/>
                   </p:panel>
                </p:dialog>
 
@@ -661,46 +661,46 @@
                <p:dialog id="guardarCambiosRetiros" header="#{msg['precaucion']}" widgetVar="guardarCambiosRetiros"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                  <p:commandButton value="#{msg['si']}" onclick="guardarCambiosRetiros.hide();" actionListener="#{controlVigenciaTipoTrabajador.guardarDatosRetiros()}" style="position: absolute; top: 50px; left: 177px;" process="@this" icon="ui-icon-check" />
-                  <p:commandButton value="#{msg['no']}" onclick="guardarCambiosRetiros.hide();" actionListener="#{controlVigenciaTipoTrabajador.cancelarDatosRetiros()}" style="position: absolute; top: 50px; left: 243px;" process="@this" icon="ui-icon-close" />
-                  <p:commandButton value="#{msg['cancelar']}" onclick="guardarCambiosRetiros.hide();" style="position: absolute; top: 50px; left: 315px;;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('guardarCambiosRetiros').hide();" actionListener="#{controlVigenciaTipoTrabajador.guardarDatosRetiros()}" style="position: absolute; top: 50px; left: 177px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('guardarCambiosRetiros').hide();" actionListener="#{controlVigenciaTipoTrabajador.cancelarDatosRetiros()}" style="position: absolute; top: 50px; left: 243px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('guardarCambiosRetiros').hide();" style="position: absolute; top: 50px; left: 315px;;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>
 
 
                <p:dialog id="informacionEliminarExtrabajador" header="#{msg['precaucion']}" widgetVar="informacionEliminarExtrabajador"  resizable="false" draggable="false" modal="true" height="100" width="450"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['informacionEliminarExtrabajador']}" style="position: absolute; left: 100px; top: 20px; width: 340px;" />
-                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="informacionEliminarExtrabajador.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('informacionEliminarExtrabajador').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="guardarNuevoRegistroRetiro" header="#{msg['precaucion']}" widgetVar="guardarNuevoRegistroRetiro"  resizable="false" draggable="false" modal="true" height="105" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="70" style="position: absolute; left: 30px; top: 20px;"  />
                   <h:outputText value="#{msg['guardarNuevoRegistroRetiro']}" style="position: absolute; left: 120px; top: 10px; width: 270px; font-weight:bold;" />
-                  <p:commandButton value="#{msg['si']}" onclick="guardarNuevoRegistroRetiro.hide();" actionListener="#{controlVigenciaTipoTrabajador.guardarNuevoRegistroRetiro()}" style="position: absolute; top: 70px; left: 177px;" process="@this" icon="ui-icon-check" />
-                  <p:commandButton value="#{msg['no']}" onclick="guardarNuevoRegistroRetiro.hide();" actionListener="#{controlVigenciaTipoTrabajador.cancelarModificacion()}" style="position: absolute; top: 70px; left: 243px;" process="@this" icon="ui-icon-close" />
-                  <p:commandButton value="#{msg['cancelar']}" onclick="guardarNuevoRegistroRetiro.hide();" style="position: absolute; top: 70px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('guardarNuevoRegistroRetiro').hide();" actionListener="#{controlVigenciaTipoTrabajador.guardarNuevoRegistroRetiro()}" style="position: absolute; top: 70px; left: 177px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('guardarNuevoRegistroRetiro').hide();" actionListener="#{controlVigenciaTipoTrabajador.cancelarModificacion()}" style="position: absolute; top: 70px; left: 243px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('guardarNuevoRegistroRetiro').hide();" style="position: absolute; top: 70px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>
 
                <p:dialog id="guardarNuevoRegistroPensionado" header="#{msg['precaucion']}" widgetVar="guardarNuevoRegistroPensionado"  resizable="false" draggable="false" modal="true" height="105" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 20px;"  />
                   <h:outputText value="#{msg['guardarNuevoRegistroPensionado']}" style="position: absolute; left: 120px; top: 10px; width: 270px; font-weight:bold;" />
-                  <p:commandButton value="#{msg['si']}" onclick="guardarNuevoRegistroPensionado.hide();" actionListener="#{controlVigenciaTipoTrabajador.guardarNuevoRegistroPension()}" style="position: absolute; top: 70px; left: 177px;" process="@this" icon="ui-icon-check" />
-                  <p:commandButton value="#{msg['no']}" onclick="guardarNuevoRegistroPensionado.hide();" actionListener="#{controlVigenciaTipoTrabajador.cancelarModificacion()}" style="position: absolute; top: 70px; left: 243px;" process="@this" icon="ui-icon-close" />
-                  <p:commandButton value="#{msg['cancelar']}" onclick="guardarNuevoRegistroPensionado.hide();" style="position: absolute; top: 70px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('guardarNuevoRegistroPensionado').hide();" actionListener="#{controlVigenciaTipoTrabajador.guardarNuevoRegistroPension()}" style="position: absolute; top: 70px; left: 177px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('guardarNuevoRegistroPensionado').hide();" actionListener="#{controlVigenciaTipoTrabajador.cancelarModificacion()}" style="position: absolute; top: 70px; left: 243px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('guardarNuevoRegistroPensionado').hide();" style="position: absolute; top: 70px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>
 
                <p:dialog id="guardarCambiosPensionados" header="#{msg['precaucion']}" widgetVar="guardarCambiosPensionados"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['guardarCambiosPensionados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                  <p:commandButton value="#{msg['si']}"  onclick="guardarCambiosPensionados.hide();" actionListener="#{controlVigenciaTipoTrabajador.guardarDatosPensiones()}" style="position: absolute; top: 50px; left: 177px;" process="@this" icon="ui-icon-check" />
-                  <p:commandButton value="#{msg['no']}"  onclick="guardarCambiosPensionados.hide();" actionListener="#{controlVigenciaTipoTrabajador.cancelarDatosPension()}" style="position: absolute; top: 50px; left: 243px;" process="@this" icon="ui-icon-close" />
-                  <p:commandButton value="#{msg['cancelar']}" onclick="guardarCambiosPensionados.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                  <p:commandButton value="#{msg['si']}"  onclick="PF('guardarCambiosPensionados').hide();" actionListener="#{controlVigenciaTipoTrabajador.guardarDatosPensiones()}" style="position: absolute; top: 50px; left: 177px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="#{msg['no']}"  onclick="PF('guardarCambiosPensionados').hide();" actionListener="#{controlVigenciaTipoTrabajador.cancelarDatosPension()}" style="position: absolute; top: 50px; left: 243px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('guardarCambiosPensionados').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>
 
                <p:dialog id="informacionEliminarPensionado" header="#{msg['precaucion']}" widgetVar="informacionEliminarPensionado"  resizable="false" draggable="false" modal="true" height="100" width="450"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['informacionEliminarPensionado']}" style="position: absolute; left: 100px; top: 20px; width: 340px;" />
-                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="informacionEliminarPensionado.hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('informacionEliminarPensionado').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                </p:dialog>
             </h:form>
 

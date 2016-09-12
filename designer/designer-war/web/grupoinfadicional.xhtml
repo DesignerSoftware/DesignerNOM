@@ -46,7 +46,7 @@
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
 
                         <p:separator style="position: relative; top: -9px"/> 
-                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; "  oncomplete="nuevoRegistroGruposInfAdicionales.show()" update=":formularioDialogos:nuevaTipoempresa" process="@this"/> 
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; "  oncomplete="PF('nuevoRegistroGruposInfAdicionales').show()" update=":formularioDialogos:nuevaTipoempresa" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="#{msg['nuevo']}" />
 
                         <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none; "  actionListener="#{controlGruposInfAdicionales.borrandoGruposInfAdicionales()}" process="@this"/>  
@@ -59,7 +59,7 @@
                         <p:tooltip style="" for="rastro" value="Rastro"/>
                         <p:separator style="position: relative; top: -9px"/> 
 
-                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlGruposInfAdicionales.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlGruposInfAdicionales.cancelarModificacion()}" process="@this" oncomplete="PF('window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                         <p:separator style="position: relative; top: -9px"/> 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " actionListener="#{controlGruposInfAdicionales.salir()}" action="atrasgrupoinfadicional"  process="@this"/>  
@@ -121,9 +121,9 @@
                   <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                      <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                     <p:commandButton value="Si" onclick="confirmarGuardar.hide();" action="atrasgrupoinfadicional" actionListener="#{controlGruposInfAdicionales.guardarGruposInfAdicionales()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                     <p:commandButton value="No" onclick="confirmarGuardar.hide();" action="atrasgrupoinfadicional" actionListener="#{controlGruposInfAdicionales.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
-                     <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                     <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="atrasgrupoinfadicional" actionListener="#{controlGruposInfAdicionales.guardarGruposInfAdicionales()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
+                     <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="atrasgrupoinfadicional" actionListener="#{controlGruposInfAdicionales.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
+                     <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                   </p:dialog>
 
                </p:panel>
@@ -133,31 +133,31 @@
                <p:dialog id="validacionDuplicarVigencia" header="#{msg['atencion']}" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                   <h:outputText value="#{controlGruposInfAdicionales.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 50px; left: 270px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 270px;" process="@this" icon="ui-icon-check" />
                </p:dialog>
 
                <p:dialog id="validacionModificar" header="#{msg['error']}" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="77" width="330" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value=" #{controlGruposInfAdicionales.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 40px; left: 200px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 200px;" process="@this" icon="ui-icon-check" />
                </p:dialog>
 
                <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="77" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['validacionBorrar']}" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="validacionBorrar.hide();" style="position: absolute; top: 40px; left: 270px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 270px;" process="@this" icon="ui-icon-check" />
                </p:dialog>
 
                <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="87" width="280" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="Se han borrado #{controlGruposInfAdicionales.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="mostrarBorrados.hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" icon="ui-icon-check" />
                </p:dialog>
 
                <p:dialog id="validacionNuevoGrupoInfAd" header="#{msg['atencion']}" widgetVar="validacionNuevoGrupoInfAd"  resizable="false" draggable="false" modal="true" height="95" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                   <h:outputText value=" #{controlGruposInfAdicionales.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="validacionNuevoGrupoInfAd.hide();" style="position: absolute; top: 50px; left: 270px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="Aceptar" onclick="PF('validacionNuevoGrupoInfAd').hide();" style="position: absolute; top: 50px; left: 270px;" process="@this" icon="ui-icon-check" />
                </p:dialog>
                <p:hotkey bind="ctrl+f11" actionListener="#{controlGruposInfAdicionales.activarCtrlF11()}"/> 
             </h:form>
@@ -167,15 +167,15 @@
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGruposInfAdicionales.grupoInfAdSeleccionado.getSecuencia(), 'GruposInfAdicionales','grupoinfadicional')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
-                  <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGruposInfAdicionales.grupoInfAdSeleccionado.getSecuencia(), 'GruposInfAdicionales','grupoinfadicional')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close" />
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('GruposInfAdicionales','grupoinfadicional')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
-                  <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('GruposInfAdicionales','grupoinfadicional')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close" />
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" style="" closable="true">  
@@ -191,8 +191,8 @@
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGruposInfAdicionales.grupoInfAdSeleccionado.getSecuencia(), 'GruposInfAdicionales','grupoinfadicional')}" style="position: absolute; top: 65px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
-                  <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGruposInfAdicionales.grupoInfAdSeleccionado.getSecuencia(), 'GruposInfAdicionales','grupoinfadicional')}" style="position: absolute; top: 65px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close" />
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="" closable="true">  
@@ -244,7 +244,7 @@
                      <p:watermark for="nuevoEstado" value="Estado" />
                      <p:commandButton icon="ui-icon-trash" id="limpiar" value="Limpiar" style=" position: absolute; left: 10px; top: 150px;"  actionListener="#{controlGruposInfAdicionales.limpiarNuevoGruposInfAdicionales()}" update="nuevaTipoempresa" process="@this"/>
                      <p:commandButton icon="ui-icon-circle-check" id="agregarTE" value="Agregar" style=" position: absolute; left: 110px; top: 150px;" actionListener="#{controlGruposInfAdicionales.agregarNuevoGruposInfAdicionales()}" process="@this" />
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarTE" value="Cancelar" style=" position: absolute; left: 210px; top: 150px;"  update="nuevaTipoempresa" onclick="nuevoRegistroGruposInfAdicionales.hide();"  actionListener="#{controlGruposInfAdicionales.limpiarNuevoGruposInfAdicionales()}"  process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarTE" value="Cancelar" style=" position: absolute; left: 210px; top: 150px;"  update="nuevaTipoempresa" onclick="PF('nuevoRegistroGruposInfAdicionales').hide();"  actionListener="#{controlGruposInfAdicionales.limpiarNuevoGruposInfAdicionales()}"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
@@ -272,7 +272,7 @@
                      <p:watermark for="duplicarEstado" value="Estado" />
                      <p:commandButton icon="ui-icon-trash" id="limpiarD" value="Limpiar" style=" position: absolute; left: 10px; top: 150px;"  actionListener="#{controlGruposInfAdicionales.limpiarDuplicarGruposInfAdicionales() }" update="duplicarTE"  process="@this"/>
                      <p:commandButton icon="ui-icon-circle-check" id="duplicarVFP" value="Agregar" style=" position: absolute; left: 110px; top: 150px;" actionListener="#{controlGruposInfAdicionales.confirmarDuplicar()}"  process="@this" />
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDuplicarVFP" value="Cancelar" style=" position: absolute; left: 210px; top: 150px;"  update="duplicarTE" onclick="duplicarRegistroGruposInfAdicionales.hide();" actionListener="#{controlGruposInfAdicionales.limpiarDuplicarGruposInfAdicionales()}"  process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDuplicarVFP" value="Cancelar" style=" position: absolute; left: 210px; top: 150px;"  update="duplicarTE" onclick="PF('duplicarRegistroGruposInfAdicionales').hide();" actionListener="#{controlGruposInfAdicionales.limpiarDuplicarGruposInfAdicionales()}"  process="@this"/>
                   </p:panel>
                </p:dialog>
             </h:form>

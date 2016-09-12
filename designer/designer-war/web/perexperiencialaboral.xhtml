@@ -52,7 +52,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border : none; " oncomplete="NuevoRegistro.show()" update=":formularioDialogos:nuevaEP"  process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border : none; " oncomplete="PF('NuevoRegistro').show()" update=":formularioDialogos:nuevaEP"  process="@this"/> 
                                 <p:tooltip for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border : none; " actionListener="#{controlPerExperienciaLaboral.validarBorradoExperiencia()}" process="@this"/>  
@@ -78,7 +78,7 @@
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <p:commandButton style=" position: absolute; left: 675px; top: 485px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=" " onclick="confirmarGuardar.show();" disabled="#{controlPerExperienciaLaboral.guardado}" update=":form:datosExperiencia" process="@this" />
+                        <p:commandButton style=" position: absolute; left: 675px; top: 485px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=" " onclick="PF('confirmarGuardar').show();" disabled="#{controlPerExperienciaLaboral.guardado}" update=":form:datosExperiencia" process="@this" />
                         <p:commandButton style=" position: absolute; left: 765px; top: 485px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" " actionListener="#{controlPerExperienciaLaboral.salir()}" action="personaIndi" process="@this" />
 
                         <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
@@ -319,23 +319,23 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlPerExperienciaLaboral.guardadoGeneral()}" action="personaIndi" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlPerExperienciaLaboral.salir()}" action="personaIndi" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlPerExperienciaLaboral.guardadoGeneral()}" action="personaIndi" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlPerExperienciaLaboral.salir()}" action="personaIndi" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>    
                     
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerExperienciaLaboral.backUpSecRegistro, 'HvExperienciasLaborales', 'experienciasLabRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerExperienciaLaboral.backUpSecRegistro, 'HvExperienciasLaborales', 'experienciasLabRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('HvExperienciasLaborales', 'experienciasLabRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('HvExperienciasLaborales', 'experienciasLabRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -351,8 +351,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerExperienciaLaboral.backUpSecRegistro, 'HvExperienciasLaborales', 'experienciasLabRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerExperienciaLaboral.backUpSecRegistro, 'HvExperienciasLaborales', 'experienciasLabRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
@@ -378,13 +378,13 @@
                     <p:dialog id="errorIngresoReg"  header="#{msg['atencion']}" widgetVar="errorIngresoReg" resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorIngresoReg']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                        <p:commandButton value="OK" onclick="errorIngresoReg.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="OK" onclick="PF('errorIngresoReg').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorFechasIngresoReg"  header="#{msg['atencion']}" widgetVar="errorFechasIngresoReg" resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechasIngresoReg']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                        <p:commandButton value="OK" onclick="errorFechasIngresoReg.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="OK" onclick="PF('errorFechasIngresoReg').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
                     
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlPerExperienciaLaboral.activarCtrlF11()}"/> 
@@ -399,7 +399,7 @@
                         <p:panel id="nuevaEP" style="border: none;">
 
                             <strong><h:outputText value="#{msg['empresaN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaEmpresaEP" maxlength="50" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.empresa}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaEmpresaEP" maxlength="50" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.empresa}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" process="@this" update="nuevaEmpresaEP"/>
                             </p:inputText>
                             <p:watermark for="nuevaEmpresaEP" value="#{msg['empresa']}" />
@@ -422,25 +422,25 @@
                             </form>
 
                             <strong><h:outputText value="#{msg['cargoDesempenadoN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCargoEP" maxlength="50" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.cargo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaCargoEP" maxlength="50" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.cargo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" process="@this" update="nuevaCargoEP"/>
                             </p:inputText>
                             <p:watermark for="nuevaCargoEP" value="#{msg['cargoDesempenado']}" />
 
                             <strong><h:outputText value="#{msg['jefeInmediatoN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaJefeEP" maxlength="100" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.jefeinmediato}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaJefeEP" maxlength="100" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.jefeinmediato}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" process="@this" update="nuevaJefeEP"/>
                             </p:inputText>
                             <p:watermark for="nuevaJefeEP" value="#{msg['jefeInmediato']}" />
 
                             <strong><h:outputText value="#{msg['telefonoN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaTelefonoEP" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.telefono}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaTelefonoEP" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.telefono}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" process="@this" update="nuevaTelefonoEP"/>
                             </p:inputText>
                             <p:watermark for="nuevaTelefonoEP" value="#{msg['telefono']}" />
 
                             <strong><h:outputText value="*#{msg['sectorEconomicoN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaSectorEP" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.sectoreconomico.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaSectorEP" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.sectoreconomico.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlPerExperienciaLaboral.asignarIndex(info,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlPerExperienciaLaboral.valoresBackupAutocompletarExperiencia(1, 'SECTORES')}" />
                                 <p:ajax event="change" listener="#{controlPerExperienciaLaboral.autocompletarNuevoyDuplicadoExperiencia('SECTORES', controlPerExperienciaLaboral.nuevaExperienciaLaboral.sectoreconomico.descripcion,1)}" process="@this" update="nuevaSectorEP"/>
@@ -449,7 +449,7 @@
                             <p:watermark for="nuevaSectorEP" value="#{msg['sectorEconomico']}" />
 
                             <strong><h:outputText value="#{msg['motivoRetiroN']}" style="position: absolute; top: 285px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaMotivoEP" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.motivoretiro.nombre}" style="width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaMotivoEP" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.motivoretiro.nombre}" style="width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlPerExperienciaLaboral.asignarIndex(info,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlPerExperienciaLaboral.valoresBackupAutocompletarExperiencia(1, 'MOTIVOS')}" />
                                 <p:ajax event="change" listener="#{controlPerExperienciaLaboral.autocompletarNuevoyDuplicadoExperiencia('MOTIVOS', controlPerExperienciaLaboral.nuevaExperienciaLaboral.motivoretiro.nombre,1)}" process="@this" update="nuevaMotivoEP"/>
@@ -458,14 +458,14 @@
                             <p:watermark for="nuevaMotivoEP" value="#{msg['motivoRetiro']}" />
 
                             <strong><h:outputText value="#{msg['logroAlcanzadoN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
-                            <p:inputTextarea id="nuevaLogroEP" maxlength="4000" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.alcance}" style="width: 140px; position: absolute; left: 200px; top: 310px; text-transform: uppercase" onclick="select();">
+                            <p:inputTextarea id="nuevaLogroEP" maxlength="4000" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.alcance}" style="width: 140px; position: absolute; left: 200px; top: 310px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" process="@this" update="nuevaLogroEP"/>
                             </p:inputTextarea>
                             <p:watermark for="nuevaLogroEP" value="#{msg['logroAlcanzado']}" />
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarN" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 385px;" actionListener="#{controlPerExperienciaLaboral.limpiarNuevaE()}" update="nuevaEP" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="agregarN" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 385px;" actionListener="#{controlPerExperienciaLaboral.agregarNuevaE()}" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarN" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 385px;" actionListener="#{controlPerExperienciaLaboral.limpiarNuevaE()}" update="nuevaEP" onclick="NuevoRegistro.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarN" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 385px;" actionListener="#{controlPerExperienciaLaboral.limpiarNuevaE()}" update="nuevaEP" onclick="PF('NuevoRegistro').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -476,7 +476,7 @@
                         <p:panel id="duplicarEP" style="border: none;">
 
                             <strong><h:outputText value="#{msg['empresaN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEmpresaEP" maxlength="50" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.empresa}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarEmpresaEP" maxlength="50" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.empresa}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" process="@this" update="duplicarEmpresaEP"/>
                             </p:inputText>
                             <p:watermark for="duplicarEmpresaEP" value="#{msg['empresa']}" />
@@ -498,25 +498,25 @@
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['cargoDesempenadoN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarCargoEP" maxlength="50" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.cargo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarCargoEP" maxlength="50" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.cargo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" process="@this" update="duplicarCargoEP"/>
                             </p:inputText>
                             <p:watermark for="duplicarCargoEP" value="#{msg['cargoDesempenado']}" />
 
                             <strong><h:outputText value="#{msg['jefeInmediatoN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarJefeEP" maxlength="100" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.jefeinmediato}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarJefeEP" maxlength="100" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.jefeinmediato}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" process="@this" update="duplicarJefeEP"/>
                             </p:inputText>
                             <p:watermark for="duplicarJefeEP" value="#{msg['jefeInmediato']}" />
 
                             <strong><h:outputText value="#{msg['telefonoN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTelefonoEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.telefono}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarTelefonoEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.telefono}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" process="@this" update="duplicarTelefonoEP"/>
                             </p:inputText>
                             <p:watermark for="duplicarTelefonoEP" value="#{msg['telefono']}" />
 
                             <strong><h:outputText value="*#{msg['sectorEconomicoN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarSectorEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.sectoreconomico.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarSectorEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.sectoreconomico.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlPerExperienciaLaboral.asignarIndex(info,1,2)}"/>
                                 <p:ajax event="click" listener="#{controlPerExperienciaLaboral.valoresBackupAutocompletarExperiencia(2, 'SECTORES')}" />
                                 <p:ajax event="change" listener="#{controlPerExperienciaLaboral.autocompletarNuevoyDuplicadoExperiencia('SECTORES', controlPerExperienciaLaboral.duplicarExperienciaLaboral.sectoreconomico.descripcion,2)}" process="@this" update="duplicarSectorEP"/>
@@ -525,7 +525,7 @@
                             <p:watermark for="duplicarSectorEP" value="#{msg['sectorEconomico']}" />
 
                             <strong><h:outputText value="#{msg['motivoRetiroN']}" style=" position: absolute; top: 285px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMotivoEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.motivoretiro.nombre}" style="width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarMotivoEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.motivoretiro.nombre}" style="width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="dblclick" listener="#{controlPerExperienciaLaboral.asignarIndex(info,2,2)}"/>
                                 <p:ajax event="click" listener="#{controlPerExperienciaLaboral.valoresBackupAutocompletarExperiencia(2, 'MOTIVOS')}" />
                                 <p:ajax event="change" listener="#{controlPerExperienciaLaboral.autocompletarNuevoyDuplicadoExperiencia('MOTIVOS', controlPerExperienciaLaboral.duplicarExperienciaLaboral.motivoretiro.nombre,2)}" process="@this" update="duplicarMotivoEP"/>
@@ -534,7 +534,7 @@
                             <p:watermark for="duplicarMotivoEP" value="#{msg['motivoRetiro']}" />
 
                             <strong><h:outputText value="#{msg['logroAlcanzadoN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
-                            <p:inputTextarea id="duplicarLogroEP" maxlength="4000" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.alcance}" styleClass="textarea" style="width: 140px; position: absolute; left: 200px; top: 310px; text-transform: uppercase" onclick="select();">
+                            <p:inputTextarea id="duplicarLogroEP" maxlength="4000" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.alcance}" styleClass="textarea" style="width: 140px; position: absolute; left: 200px; top: 310px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" process="@this" update="duplicarLogroEP"/>
                             </p:inputTextarea>
                             <p:watermark for="duplicarLogroEP" value="#{msg['logroAlcanzado']}" />
@@ -542,7 +542,7 @@
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarD" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 385px;" actionListener="#{controlPerExperienciaLaboral.limpiarduplicarE()}" update="duplicarEP" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-check" id="agregarD" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 385px;" actionListener="#{controlPerExperienciaLaboral.confirmarDuplicarE()}" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarD" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 385px;" actionListener="#{controlPerExperienciaLaboral.limpiarduplicarE()}" update="duplicarEP" onclick="DuplicarRegistro.hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarD" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 385px;" actionListener="#{controlPerExperienciaLaboral.limpiarduplicarE()}" update="duplicarEP" onclick="PF('DuplicarRegistro').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -554,7 +554,7 @@
 
                     <p:dialog id="editarFechaInicialD" header="#{msg['editarFechaInicialD']}" widgetVar="editarFechaInicialD" resizable="false" draggable="false" modal="true" height="93" width="240">  
                         <p:inputTextarea value="#{controlPerExperienciaLaboral.editarExperienciaLaboral.strFechaDesde}" style="overflow: auto; width: 200px; height: 40px;text-transform: uppercase" readonly="true"/>
-                        <p:commandButton id="cancelarFechaIni" value="#{msg['atras']}" onclick="editarFechaInicialD.hide();" style="position: absolute; top: 60px; left: 148px;" process="@this"/>
+                        <p:commandButton id="cancelarFechaIni" value="#{msg['atras']}" onclick="PF('editarFechaInicialD').hide();" style="position: absolute; top: 60px; left: 148px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarFechaFinalD" header="#{msg['editarFechaFinalD']}" widgetVar="editarFechaFinalD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  

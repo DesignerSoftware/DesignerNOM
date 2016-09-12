@@ -1361,7 +1361,7 @@ public class ControlParametrosConjuntos implements Serializable {
     public void cambiarSeleccionDefault() {
         seleccionPorcentajes = false;
         estadisticaLBSeleccionada = null;
-//        PrimefacesContextUI.ejecutar("PF('tablaEstadisticasLB.unselectAllRows()");
+//        PrimefacesContextUI.ejecutar("PF('tablaEstadisticasLB').unselectAllRows()");
 //        PrimefacesContextUI.actualizar("form:tablaEstadisticasLB");
         System.out.println("Termino cambiarSeleccionDefault() :");
         System.out.println("estadisticaSeleccionada : " + estadisticaSeleccionada);
@@ -1371,7 +1371,7 @@ public class ControlParametrosConjuntos implements Serializable {
     public void cambiarSeleccionLBDefault() {
         seleccionPorcentajes = false;
         estadisticaSeleccionada = null;
-//        PrimefacesContextUI.ejecutar("PF('tablaEstadisticas.unselectAllRows()");
+//        PrimefacesContextUI.ejecutar("PF('tablaEstadisticas').unselectAllRows()");
 //        PrimefacesContextUI.actualizar("form:tablaEstadisticas");
         System.out.println("Termino cambiarSeleccionLBDefault() :");
         System.out.println("estadisticaSeleccionada : " + estadisticaSeleccionada);
@@ -2191,7 +2191,7 @@ public class ControlParametrosConjuntos implements Serializable {
         PrimefacesContextUI.actualizar("form:conceptosDialogo");
         PrimefacesContextUI.actualizar("form:LOVConceptos");
         PrimefacesContextUI.ejecutar("PF('LOVConceptos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('LOVConceptos.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('LOVConceptos').unselectAllRows()");
         PrimefacesContextUI.ejecutar("PF('operacionEnProceso').hide()");
         PrimefacesContextUI.ejecutar("PF('conceptosDialogo').show()");
     }
@@ -2219,7 +2219,7 @@ public class ControlParametrosConjuntos implements Serializable {
         PrimefacesContextUI.actualizar("form:conceptosDialogo");
         PrimefacesContextUI.actualizar("form:LOVConceptos");
         PrimefacesContextUI.ejecutar("PF('LOVConceptos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('LOVConceptos.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('LOVConceptos').unselectAllRows()");
         PrimefacesContextUI.ejecutar("PF('operacionEnProceso').hide()");
         PrimefacesContextUI.ejecutar("PF('conceptosDialogo').hide()");
     }

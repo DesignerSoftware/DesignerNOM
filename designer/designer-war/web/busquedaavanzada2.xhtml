@@ -41,7 +41,7 @@
                                         <p:tab id="tabDatosCargo" title="#{msg['tabDatosCargo']}">
                                             <div style="height: 65px;">
                                                 <h:outputText value="#{msg['cargo']}" style="position: absolute; left: 10px; top: 40px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 35px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 35px;text-transform: uppercase;width: 170px"
                                                              id="parametroCargoModCargo" value="#{controlBusquedaAvanzada2.vigenciaCargoBA.cargo.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosCargo('CARGO', controlBusquedaAvanzada2.vigenciaCargoBA.cargo.nombre)}" process="@this" update="parametroCargoModCargo"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCargo(0)}" process="@this"/>
@@ -50,7 +50,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['estructura']}" style="position: absolute; left: 10px; top: 65px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 60px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 60px;text-transform: uppercase;width: 170px"
                                                              id="parametroEstructuraModCargo" value="#{controlBusquedaAvanzada2.vigenciaCargoBA.estructura.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosCargo('ESTRUCTURA', controlBusquedaAvanzada2.vigenciaCargoBA.estructura.nombre)}" process="@this" update="parametroEstructuraModCargo"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCargo(1)}" process="@this"/>
@@ -58,7 +58,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['empleadoJefe']}" style="position: absolute; left: 10px; top: 90px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 85px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 85px;text-transform: uppercase;width: 170px"
                                                              id="parametroJefeModCargo" value="#{controlBusquedaAvanzada2.vigenciaCargoBA.empleadojefe.persona.nombreCompleto}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosCargo('JEFE', controlBusquedaAvanzada2.vigenciaCargoBA.empleadojefe.persona.nombreCompleto)}" process="@this" update="parametroJefeModCargo"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCargo(2)}" process="@this"/>
@@ -66,7 +66,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['motivoCargo']}" style="position: absolute; left: 300px; top: 40px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 410px; top: 35px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 410px; top: 35px;text-transform: uppercase;width: 170px"
                                                              id="parametroMotivoModCargo" value="#{controlBusquedaAvanzada2.vigenciaCargoBA.motivocambiocargo.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosCargo('MOTIVO', controlBusquedaAvanzada2.vigenciaCargoBA.motivocambiocargo.nombre)}" process="@this" update="parametroMotivoModCargo"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCargo(3)}" process="@this"/>
@@ -75,13 +75,13 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['centroCosto']}" style="position: absolute; left: 300px; top: 65px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 410px; top: 60px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 410px; top: 60px;text-transform: uppercase;width: 170px"
                                                              id="parametroCentroCostoModCargo" value="#{controlBusquedaAvanzada2.vigenciaCargoBA.estructura.nombre}"
                                                              readonly="true" onselect="posicionModuloCargo([{name: 'n', value: '4'}]);"/>
 
 
                                                 <h:outputText value="#{msg['papel']}" style="position: absolute; left: 300px; top: 90px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 410px; top: 85px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 410px; top: 85px;text-transform: uppercase;width: 170px"
                                                              id="parametroPapelModCargo" value="#{controlBusquedaAvanzada2.vigenciaCargoBA.papel.descripcion}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosCargo('PAPEL', controlBusquedaAvanzada2.vigenciaCargoBA.papel.descripcion)}" process="@this" update="parametroPapelModCargo"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCargo(5)}" process="@this"/>
@@ -142,7 +142,7 @@
                                         <p:tab id="tabDatosCentroCosto" title="#{msg['tabDatosCentroCosto']}">
                                             <div style="height: 55px;">
                                                 <h:outputText value="#{msg['localizacion']}" style="position: absolute; left: 10px; top: 60px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 55px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 55px;text-transform: uppercase;width: 170px"
                                                              id="parametroLocalizacionModCentroCosto" value="#{controlBusquedaAvanzada2.vigenciaLocalizacionBA.localizacion.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosCentroCosto('LOCALIZACION', controlBusquedaAvanzada2.vigenciaLocalizacionBA.localizacion.nombre)}" process="@this" update="parametroLocalizacionModCentroCosto"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCentroCosto(0)}" process="@this"/>
@@ -150,7 +150,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['motivoLocalizacion']}" style="position: absolute; left: 300px; top: 60px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 430px; top: 55px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 430px; top: 55px;text-transform: uppercase;width: 170px"
                                                              id="parametroMotivoModCentroCosto" value="#{controlBusquedaAvanzada2.vigenciaLocalizacionBA.motivo.descripcion}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosCentroCosto('MOTIVO', controlBusquedaAvanzada2.vigenciaLocalizacionBA.motivo.descripcion)}" process="@this" update="parametroMotivoModCentroCosto"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCentroCosto(1)}" process="@this"/>
@@ -211,7 +211,7 @@
                                             <div style="height: 65px;">
 
                                                 <h:outputText value="#{msg['tipoSueldo']}" style="position: absolute; left: 10px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 45px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 45px;text-transform: uppercase;width: 170px"
                                                              id="parametroTipoSueldoModSueldo" value="#{controlBusquedaAvanzada2.vigenciaSueldoBA.tiposueldo.descripcion}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosSueldo('TIPOSUELDO', controlBusquedaAvanzada2.vigenciaSueldoBA.tiposueldo.descripcion)}" process="@this" update="parametroTipoSueldoModSueldo"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceSueldo(0)}" process="@this"/>
@@ -220,7 +220,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['motivoSueldo']}" style="position: absolute; left: 10px; top: 75px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 70px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 70px;text-transform: uppercase;width: 170px"
                                                              id="parametroMotivoModSueldo" value="#{controlBusquedaAvanzada2.vigenciaSueldoBA.motivocambiosueldo.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosSueldo('MOTIVO', controlBusquedaAvanzada2.vigenciaSueldoBA.motivocambiosueldo.nombre)}" process="@this" update="parametroMotivoModSueldo"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceSueldo(1)}" process="@this"/>
@@ -229,7 +229,7 @@
 
 
                                                 <h:outputText value="#{msg['sueldoMinimo']}" style="position: absolute; left: 300px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 410px; top: 45px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 410px; top: 45px;text-transform: uppercase;width: 170px"
                                                              id="parametroSueldoMinimoModSueldo" value="#{controlBusquedaAvanzada2.sueldoMinSueldo}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarSueldosModuloSueldo()}" process="@this" update="parametroSueldoMinimoModSueldo"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceSueldo(2)}" process="@this"/>
@@ -237,7 +237,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['sueldoMaximo']}" style="position: absolute; left: 300px; top: 75px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 410px; top: 70px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 410px; top: 70px;text-transform: uppercase;width: 170px"
                                                              id="parametroSueldoMaximoModSueldo" value="#{controlBusquedaAvanzada2.sueldoMaxSueldo}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarSueldosModuloSueldo()}" process="@this" update="parametroSueldoMaximoModSueldo"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceSueldo(3)}" process="@this"/>
@@ -297,7 +297,7 @@
                                         <p:tab id="tabDatosFechaContrato" title="#{msg['tabDatosFechaContrato']}">
                                             <div style="height: 65px;">
                                                 <h:outputText value="#{msg['tipoContrato']}" style="position: absolute; left: 10px; top: 60px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 55px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 55px;text-transform: uppercase;width: 170px"
                                                              id="parametroTipoContratoModFechaContrato" value="#{controlBusquedaAvanzada2.vigenciaTipoContratoBA.tipocontrato.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosFechaContrato('TIPOCONTRATO', controlBusquedaAvanzada2.vigenciaTipoContratoBA.tipocontrato.nombre)}" process="@this" update="parametroTipoContratoModFechaContrato"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceFechaContrato(0)}" process="@this"/>
@@ -305,7 +305,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['motivoContrato']}" style="position: absolute; left: 300px; top: 60px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 430px; top: 55px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 430px; top: 55px;text-transform: uppercase;width: 170px"
                                                              id="parametroMotivoModFechaContrato" value="#{controlBusquedaAvanzada2.vigenciaTipoContratoBA.motivocontrato.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosFechaContrato('MOTIVO', controlBusquedaAvanzada2.vigenciaTipoContratoBA.motivocontrato.nombre)}" process="@this" update="parametroMotivoModFechaContrato"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceFechaContrato(1)}" process="@this"/>
@@ -365,7 +365,7 @@
                                         <p:tab id="tabDatosTipoTrabajador" title="#{msg['tabDatosTipoTrabajador']}">
                                             <div style="height: 45px;">
                                                 <h:outputText value="#{msg['tipoTrabajador']}" style="position: absolute; left: 55px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 10px; top: 65px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 10px; top: 65px;text-transform: uppercase;width: 170px"
                                                              id="parametroTipoTrabajadorModTipoTrabajador" value="#{controlBusquedaAvanzada2.vigenciaTipoTrabajadorBA.tipotrabajador.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosTipoTrabajador('TIPOTRABAJADOR', controlBusquedaAvanzada2.vigenciaTipoTrabajadorBA.tipotrabajador.nombre)}" process="@this" update="parametroTipoTrabajadorModTipoTrabajador"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceTipoTrabajador(0)}" process="@this"/>
@@ -425,7 +425,7 @@
                                         <p:tab id="tabDatosTipoSalario" title="#{msg['tabDatosTipoSalario']}">
                                             <div style="height: 45px;">
                                                 <h:outputText value="#{msg['reformaLaboral']}" style="position: absolute; left: 55px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 10px; top: 65px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 10px; top: 65px;text-transform: uppercase;width: 170px"
                                                              id="parametroReformaLaboralModTipoSalario" value="#{controlBusquedaAvanzada2.vigenciaReformaLaboralBA.reformalaboral.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosTipoSalario('REFORMA', controlBusquedaAvanzada2.vigenciaReformaLaboralBA.reformalaboral.nombre)}" process="@this" update="parametroReformaLaboralModTipoSalario"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceTipoSalario(0)}" process="@this"/>
@@ -485,7 +485,7 @@
                                         <p:tab id="tabDatosLegislacionLaboral" title="#{msg['tabDatosLegislacionLaboral']}">
                                             <div style="height: 55px;">
                                                 <h:outputText value="#{msg['legislacion']}" style="position: absolute; left: 10px; top: 70px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 65px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 65px;text-transform: uppercase;width: 170px"
                                                              id="parametroLegislacionModLegislacionLaboral" value="#{controlBusquedaAvanzada2.vigenciaContratoBA.contrato.descripcion}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosLegislacionLaboral('CONTRATO', controlBusquedaAvanzada2.vigenciaContratoBA.contrato.descripcion)}" process="@this" update="parametroLegislacionModLegislacionLaboral"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceLegislacionLaboral(0)}" process="@this"/>
@@ -574,7 +574,7 @@
                                         <p:tab id="tabDatosUbicacion" title="#{msg['tabDatosUbicacion']}">
                                             <div style="height: 55px;">
                                                 <h:outputText value="#{msg['ubicacion']}" style="position: absolute; left: 10px; top: 60px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 55px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 55px;text-transform: uppercase;width: 170px"
                                                              id="parametroUbicacionModUbicacion" value="#{controlBusquedaAvanzada2.vigenciaUbicacionBA.ubicacion.descripcion}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosUbicacion('UBICACION', controlBusquedaAvanzada2.vigenciaUbicacionBA.ubicacion.descripcion)}" process="@this" update="parametroUbicacionModUbicacion"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceUbicacion(0)}" process="@this"/>
@@ -582,7 +582,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['ciudad']}" style="position: absolute; left: 300px; top: 60px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 410px; top: 55px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 410px; top: 55px;text-transform: uppercase;width: 170px"
                                                              id="parametroCiudadModUbicacion" value="#{controlBusquedaAvanzada2.vigenciaUbicacionBA.ubicacion.ciudad.nombre}"
                                                              readonly="true" onselect="posicionModuloUbicacion([{name: 'n', value: '1'}]);"/>
 
@@ -640,7 +640,7 @@
                                         <p:tab id="tabDatosAfiliacion" title="#{msg['tabDatosAfiliacion']}">
                                             <div style="height: 55px;">
                                                 <h:outputText value="#{msg['tercero']}" style="position: absolute; left: 10px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 45px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 45px;text-transform: uppercase;width: 170px"
                                                              id="parametroTerceroModAfiliacion" value="#{controlBusquedaAvanzada2.vigenciaAfiliacionBA.tercerosucursal.descripcion}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosAfiliacion('TERCERO', controlBusquedaAvanzada2.vigenciaAfiliacionBA.tercerosucursal.descripcion)}" process="@this" update="parametroTerceroModAfiliacion"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceAfiliacion(0)}" process="@this"/>
@@ -648,7 +648,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['tipoEntidad']}" style="position: absolute; left: 10px; top: 80px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 75px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 75px;text-transform: uppercase;width: 170px"
                                                              id="parametroTipoEntidadModAfiliacion" value="#{controlBusquedaAvanzada2.vigenciaAfiliacionBA.tipoentidad.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosAfiliacion('TERCERO', controlBusquedaAvanzada2.vigenciaAfiliacionBA.tipoentidad.nombre)}" process="@this" update="parametroTipoEntidadModAfiliacion"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceAfiliacion(1)}" process="@this"/>
@@ -656,7 +656,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['estado']}" style="position: absolute; left: 300px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 410px; top: 45px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 410px; top: 45px;text-transform: uppercase;width: 170px"
                                                              id="parametroEstadoModAfiliacion" value="#{controlBusquedaAvanzada2.vigenciaAfiliacionBA.estadoafiliacion.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosAfiliacion('ESTADO', controlBusquedaAvanzada2.vigenciaAfiliacionBA.estadoafiliacion.nombre)}" process="@this" update="parametroEstadoModAfiliacion"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceAfiliacion(2)}" process="@this"/>
@@ -717,7 +717,7 @@
                                         <p:tab id="tabDatosFormaPago" title="#{msg['tabDatosFormaPago']}">
                                             <div style="height: 60px;">
                                                 <h:outputText value="#{msg['formaPago']}" style="position: absolute; left: 10px; top: 60px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 55px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 55px;text-transform: uppercase;width: 170px"
                                                              id="parametroFormaPagoModFormaPago" value="#{controlBusquedaAvanzada2.vigenciaFormaPagoBA.formapago.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosFormaPago('PERIODICIDAD', controlBusquedaAvanzada2.vigenciaFormaPagoBA.formapago.nombre)}" process="@this" update="parametroFormaPagoModFormaPago"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceFormaPago(0)}" process="@this"/>
@@ -725,7 +725,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['sucursal']}" style="position: absolute; left: 300px; top: 60px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 410px; top: 55px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 410px; top: 55px;text-transform: uppercase;width: 170px"
                                                              id="parametroSucursalModFormaPago" value="#{controlBusquedaAvanzada2.vigenciaFormaPagoBA.sucursal.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosFormaPago('SUCURSAL', controlBusquedaAvanzada2.vigenciaFormaPagoBA.sucursal.nombre)}" process="@this" update="parametroSucursalModFormaPago"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceFormaPago(1)}" process="@this"/>
@@ -787,7 +787,7 @@
                                             <div style="height: 65px;">
 
                                                 <h:outputText value="#{msg['motivo']}" style="position: absolute; left: 10px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 45px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 45px;text-transform: uppercase;width: 170px"
                                                              id="parametroMotivoModMvrs" value="#{controlBusquedaAvanzada2.mvrsBA.motivo.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosMvrs('MOTIVO', controlBusquedaAvanzada2.mvrsBA.motivo.nombre)}" process="@this" update="parametroMotivoModMvrs"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceMvrs(0)}" process="@this"/>
@@ -796,7 +796,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['sueldoMinimo']}" style="position: absolute; left: 300px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 410px; top: 45px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 410px; top: 45px;text-transform: uppercase;width: 170px"
                                                              id="parametroSueldoMinimoModMvrs" value="#{controlBusquedaAvanzada2.sueldoMinMvrs}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarSueldosModuloMvrs()}" process="@this" update="parametroSueldoMinimoModMvrs"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceMvrs(1)}" process="@this"/>
@@ -804,7 +804,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['sueldoMaximo']}" style="position: absolute; left: 300px; top: 75px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 410px; top: 70px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 410px; top: 70px;text-transform: uppercase;width: 170px"
                                                              id="parametroSueldoMaximoModMvrs" value="#{controlBusquedaAvanzada2.sueldoMaxMvrs}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarSueldosModuloMvrs()}" process="@this" update="parametroSueldoMaximoModMvrs"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceMvrs(2)}" process="@this"/>
@@ -864,14 +864,14 @@
                                         <p:tab id="tabDatosSets" title="#{msg['tabDatosSets']}">
                                             <div style="height: 55px;">
                                                 <h:outputText value="#{msg['promedioMinimo']}" style="position: absolute; left: 32px; top: 40px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 10px; top: 55px;text-transform: uppercase;width: 140px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 10px; top: 55px;text-transform: uppercase;width: 140px"
                                                              id="parametroPromedioMinModSets" value="#{controlBusquedaAvanzada2.promedioMinimoSets}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarPromediosModuloSets()}" process="@this" update="parametroPromedioMinModSets"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceSets(0)}" process="@this"/>
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['promedioMaximo']}" style="position: absolute; left: 227px; top: 40px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 210px; top: 55px;text-transform: uppercase;width: 140px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 210px; top: 55px;text-transform: uppercase;width: 140px"
                                                              id="parametroPromedioMaxModSets" value="#{controlBusquedaAvanzada2.promedioMaximoSets}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarPromediosModuloSets()}" process="@this" update="parametroPromedioMinModSets"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceSets(1)}" process="@this"/>
@@ -968,7 +968,7 @@
                                         <p:tab id="tabDatosNormaLaboral" title="#{msg['tabDatosNormaLaboral']}">
                                             <div style="height: 45px;">
                                                 <h:outputText value="#{msg['normaLaboral']}" style="position: absolute; left: 35px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 10px; top: 65px;text-transform: uppercase;width: 130px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 10px; top: 65px;text-transform: uppercase;width: 130px"
                                                              id="parametroNormaLaboralModNormaLaboral" value="#{controlBusquedaAvanzada2.vigenciaNormaEmpleadoBA.normalaboral.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosNormaLaboral('NORMA', controlBusquedaAvanzada2.vigenciaNormaEmpleadoBA.normalaboral.nombre)}" process="@this" update="parametroNormaLaboralModNormaLaboral"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceNormaLaboral(0)}" process="@this"/>
@@ -1106,7 +1106,7 @@
                                         <p:tab id="tabDatosJornadaLaboral" title="#{msg['tabDatosJornadaLaboral']}">
                                             <div style="height: 45px;">
                                                 <h:outputText value="#{msg['jornadaLaboral']}" style="position: absolute; left: 35px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 10px; top: 65px;text-transform: uppercase;width: 130px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 10px; top: 65px;text-transform: uppercase;width: 130px"
                                                              id="parametroJornadaModJornadaLaboral" value="#{controlBusquedaAvanzada2.vigenciaJornadaBA.jornadatrabajo.descripcion}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosJornadaLaboral('JORNADA', controlBusquedaAvanzada2.vigenciaJornadaBA.jornadatrabajo.descripcion)}" process="@this" update="parametroJornadaModJornadaLaboral"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceJornadaLaboral(0)}" process="@this"/>
@@ -1159,7 +1159,7 @@
                                         <p:tab id="tabDatosFechaRetiro" title="#{msg['tabDatosFechaRetiro']}">
                                             <div style="height: 45px;">
                                                 <h:outputText value="#{msg['motivoRetiro']}" style="position: absolute; left: 35px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 10px; top: 65px;text-transform: uppercase;width: 130px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 10px; top: 65px;text-transform: uppercase;width: 130px"
                                                              id="parametroMotivoModFechaRetiro" value="#{controlBusquedaAvanzada2.motivoRetiroBA.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosFechaRetiro('MOTIVO', controlBusquedaAvanzada2.motivoRetiroBA.nombre)}" process="@this" update="parametroMotivoModFechaRetiro"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceFechaRetiro(0)}" process="@this"/>
@@ -1221,7 +1221,7 @@
                                             <div style="height: 65px;">
                                                 
                                                 <h:outputText value="#{msg['ciudadNacimiento']}" style="position: absolute; left: 10px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 140px; top: 45px;text-transform: uppercase;width: 140px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 140px; top: 45px;text-transform: uppercase;width: 140px"
                                                              id="parametroCiudadNacimientoModDatosPersonales" value="#{controlBusquedaAvanzada2.empleadoBA.persona.ciudadnacimiento.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosDatosPersonales('NACIMIENTO', controlBusquedaAvanzada2.empleadoBA.persona.ciudadnacimiento.nombre)}" process="@this" update="parametroCiudadNacimientoModDatosPersonales"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceDatosPersonales(2)}" process="@this"/>
@@ -1229,7 +1229,7 @@
                                                 </p:inputText>
                                                 
                                                 <h:outputText value="#{msg['ciudadDocumento']}" style="position: absolute; left: 10px; top: 85px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 140px; top: 80px;text-transform: uppercase;width: 140px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 140px; top: 80px;text-transform: uppercase;width: 140px"
                                                              id="parametroCiudadDocumentoModDatosPersonales" value="#{controlBusquedaAvanzada2.empleadoBA.persona.ciudaddocumento.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosDatosPersonales('ESTRUCTURA', controlBusquedaAvanzada2.empleadoBA.persona.ciudaddocumento.nombre)}" process="@this" update="parametroCiudadDocumentoModDatosPersonales"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceDatosPersonales(1)}" process="@this"/>
@@ -1237,7 +1237,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['numeroDocumento']}" style="position: absolute;  left: 300px; top: 50px; color: #14388B;font-weight: bold"/>
-                                                <p:inputText maxlength="15" onclick="select();" style="position: absolute; left: 440px; top: 45px;width: 140px;height: 13px;"
+                                                <p:inputText maxlength="15" onclick="PF('select();" style="position: absolute; left: 440px; top: 45px;width: 140px;height: 13px;"
                                                              id="parametroNDocModDatosPersonales" value="#{controlBusquedaAvanzada2.empleadoBA.persona.strNumeroDocumento}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametroNumeroDocumentoModDatosPersonales(controlBusquedaAvanzada2.empleadoBA.persona.strNumeroDocumento)}" process="@this" update="parametroNDocModDatosPersonales"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceDatosPersonales(0)}" process="@this"/>
@@ -1339,7 +1339,7 @@
                                         <p:tab id="tabDatosEstadoCivil" title="#{msg['tabDatosEstadoCivil']}">
                                             <div style="height: 45px;">
                                                 <h:outputText value="#{msg['estadoCivil']}" style="position: absolute; left: 90px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 30px; top: 65px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 30px; top: 65px;text-transform: uppercase;width: 170px"
                                                              id="parametroEstadoCivilModEstadoCivil" value="#{controlBusquedaAvanzada2.estadoCivilBA.descripcion}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosEstadoCivil('REFORMA', controlBusquedaAvanzada2.estadoCivilBA.descripcion)}" process="@this" update="parametroEstadoCivilModEstadoCivil"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceEstadoCivil(0)}" process="@this"/>
@@ -1400,7 +1400,7 @@
                                         <p:tab id="tabDatosIdioma" title="#{msg['tabDatosIdioma']}">
                                             <div style="height: 55px;">
                                                 <h:outputText value="#{msg['idioma']}" style="position: absolute; left: 10px; top: 70px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 65px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 65px;text-transform: uppercase;width: 170px"
                                                              id="parametroIdiomaModIdioma" value="#{controlBusquedaAvanzada2.idiomaPersonaBA.idioma.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosIdioma('IDIOMA', idiomaPersonaBA.idioma.nombre)}" process="@this" update="parametroIdiomaModIdioma"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceIdioma(0)}" process="@this"/>
@@ -1413,14 +1413,14 @@
                                                     <legend style="font-size: 12px; color: blue"><strong>#{msg['conversacion']}</strong></legend>
 
                                                     <h:outputText value="% #{msg['desde']}" style="position: absolute; left: 10px; top: 15px;color: #14388B;font-weight: bold"/>
-                                                    <p:inputText onclick="select();" style="position: absolute; top: 10px; left: 70px; width: 30px; "
+                                                    <p:inputText onclick="PF('select();" style="position: absolute; top: 10px; left: 70px; width: 30px; "
                                                              id="parametroConversacionDesdeModIdioma" value="#{controlBusquedaAvanzada2.conversacionDesde}">
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarConversacionModuloIdioma()}" process="@this" update="parametroConversacionDesdeModIdioma"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceIdioma(1)}" process="@this"/>
                                                    </p:inputText>
 
                                                     <h:outputText value="% #{msg['hasta']}" style="position: absolute; left: 10px; top: 40px;color: #14388B;font-weight: bold"/>
-                                                    <p:inputText onclick="select();" style="position: absolute; top: 35px; left: 70px; width: 30px; "
+                                                    <p:inputText onclick="PF('select();" style="position: absolute; top: 35px; left: 70px; width: 30px; "
                                                              id="parametroConversacionHastaModIdioma" value="#{controlBusquedaAvanzada2.conversacionHasta}">
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarConversacionModuloIdioma()}" process="@this" update="parametroConversacionHastaModIdioma"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceIdioma(2)}" process="@this"/>
@@ -1433,14 +1433,14 @@
                                                     <legend style="font-size: 12px; color: blue"><strong>#{msg['lectura']}</strong></legend>
 
                                                     <h:outputText value="% #{msg['desde']}" style="position: absolute; left: 10px; top: 15px;color: #14388B;font-weight: bold"/>
-                                                    <p:inputText onclick="select();" style="position: absolute; top: 10px; left: 70px; width: 30px; "
+                                                    <p:inputText onclick="PF('select();" style="position: absolute; top: 10px; left: 70px; width: 30px; "
                                                              id="parametroLecturaDesdeModIdioma" value="#{controlBusquedaAvanzada2.lecturaDesde}">
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarLecturaModuloIdioma()}" process="@this" update="parametroLecturaDesdeModIdioma"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceIdioma(3)}" process="@this"/>
                                                    </p:inputText>
 
                                                     <h:outputText value="% #{msg['hasta']}" style="position: absolute; left: 10px; top: 40px;color: #14388B;font-weight: bold"/>
-                                                    <p:inputText onclick="select();" style="position: absolute; top: 35px; left: 70px; width: 30px; "
+                                                    <p:inputText onclick="PF('select();" style="position: absolute; top: 35px; left: 70px; width: 30px; "
                                                              id="parametroLecturaHastaModIdioma" value="#{controlBusquedaAvanzada2.lecturaHasta}">
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarLecturaModuloIdioma()}" process="@this" update="parametroLecturaHastaModIdioma"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceIdioma(4)}" process="@this"/>
@@ -1452,14 +1452,14 @@
                                                     <legend style="font-size: 12px; color: blue"><strong>#{msg['escritura']}</strong></legend>
 
                                                     <h:outputText value="% #{msg['desde']}" style="position: absolute; left: 10px; top: 15px;color: #14388B;font-weight: bold"/>
-                                                    <p:inputText onclick="select();" style="position: absolute; top: 10px; left: 70px; width: 30px; "
+                                                    <p:inputText onclick="PF('select();" style="position: absolute; top: 10px; left: 70px; width: 30px; "
                                                              id="parametroEscrituraDesdeModIdioma" value="#{controlBusquedaAvanzada2.escrituraDesde}">
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarEscrituraModuloIdioma()}" process="@this" update="parametroEscrituraDesdeModIdioma"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceIdioma(3)}" process="@this"/>
                                                    </p:inputText>
 
                                                     <h:outputText value="% #{msg['hasta']}" style="position: absolute; left: 10px; top: 40px;color: #14388B;font-weight: bold"/>
-                                                    <p:inputText onclick="select();" style="position: absolute; top: 35px; left: 70px; width: 30px; "
+                                                    <p:inputText onclick="PF('select();" style="position: absolute; top: 35px; left: 70px; width: 30px; "
                                                              id="parametroEscrituraHastaModIdioma" value="#{controlBusquedaAvanzada2.escrituraHasta}">
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarEscrituraModuloIdioma()}" process="@this" update="parametroEscrituraHastaModIdioma"/>
                                                         <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceIdioma(4)}" process="@this"/>
@@ -1494,7 +1494,7 @@
                                         <p:tab id="tabDatosCenso" title="#{msg['tabDatosCenso']}">
                                             <div style="height: 65px;">
                                                 <h:outputText value="#{msg['tipoIndicador']}" style="position: absolute; left: 10px; top: 60px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 55px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 55px;text-transform: uppercase;width: 170px"
                                                              id="parametroTipoIndicadorModCenso" value="#{controlBusquedaAvanzada2.vigenciaIndicadorBA.tipoindicador.descripcion}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosCenso('TIPOINDICADOR', controlBusquedaAvanzada2.vigenciaIndicadorBA.tipoindicador.descripcion)}" process="@this" update="parametroTipoIndicadorModCenso"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCenso(0)}" process="@this"/>
@@ -1502,7 +1502,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['indicador']}" style="position: absolute; left: 300px; top: 60px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 430px; top: 55px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 430px; top: 55px;text-transform: uppercase;width: 170px"
                                                              id="parametroIndicadorModCenso" value="#{controlBusquedaAvanzada2.vigenciaIndicadorBA.indicador.descripcion}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosCenso('INDICADOR', controlBusquedaAvanzada2.vigenciaIndicadorBA.indicador.descripcion)}" process="@this" update="parametroIndicadorModCenso"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCenso(1)}" process="@this"/>
@@ -1563,7 +1563,7 @@
                                         <p:tab id="tabDatosEducacionFormal" title="#{msg['tabDatosEducacionFormal']}">
                                             <div style="height: 55px;">
                                                 <h:outputText value="#{msg['profesion']}" style="position: absolute; left: 10px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 45px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 45px;text-transform: uppercase;width: 170px"
                                                              id="parametroProfesionModEducacionFormal" value="#{controlBusquedaAvanzada2.vigenciaFormalBA.profesion.descripcion}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosEducacionFormal('PROFESION', controlBusquedaAvanzada2.vigenciaFormalBA.profesion.descripcion)}" process="@this" update="parametroProfesionModEducacionFormal"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceEducacionFormal(0)}" process="@this"/>
@@ -1571,7 +1571,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['institucion']}" style="position: absolute; left: 10px; top: 80px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 75px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 75px;text-transform: uppercase;width: 170px"
                                                              id="parametroInstitucionModEducacionFormal" value="#{controlBusquedaAvanzada2.vigenciaFormalBA.institucion.descripcion}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosEducacionFormal('INSTITUCION', controlBusquedaAvanzada2.vigenciaFormalBA.institucion.descripcion)}" process="@this" update="parametroInstitucionModEducacionFormal"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceEducacionFormal(1)}" process="@this"/>
@@ -1640,7 +1640,7 @@
                                         <p:tab id="tabDatosEducacionNoFormal" title="#{msg['tabDatosEducacionNoFormal']}">
                                             <div style="height: 55px;">
                                                 <h:outputText value="#{msg['curso']}" style="position: absolute; left: 10px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 45px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 45px;text-transform: uppercase;width: 170px"
                                                              id="parametroCursoModEducacionNoFormal" value="#{controlBusquedaAvanzada2.vigenciaNoFormalBA.curso.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosEducacionNoFormal('CURSO', controlBusquedaAvanzada2.vigenciaNoFormalBA.curso.nombre)}" process="@this" update="parametroCursoModEducacionNoFormal"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceEducacionNoFormal(0)}" process="@this"/>
@@ -1648,7 +1648,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['institucion']}" style="position: absolute; left: 10px; top: 80px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 75px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 75px;text-transform: uppercase;width: 170px"
                                                              id="parametroInstitucionModEducacionNoFormal" value="#{controlBusquedaAvanzada2.vigenciaNoFormalBA.institucion.descripcion}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosEducacionNoFormal('INSTITUCION', controlBusquedaAvanzada2.vigenciaNoFormalBA.institucion.descripcion)}" process="@this" update="parametroInstitucionModEducacionNoFormal"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceEducacionNoFormal(1)}" process="@this"/>
@@ -1717,7 +1717,7 @@
                                             <div style="height: 65px;">
 
                                                 <h:outputText value="#{msg['sectorEconomico']}" style="position: absolute; left: 10px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 45px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 45px;text-transform: uppercase;width: 170px"
                                                              id="parametroSectorEconomicoModExperienciaLaboral" value="#{controlBusquedaAvanzada2.hvExperienciaLaboralBA.sectoreconomico.descripcion}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosExperienciaLaboral('SECTOR', controlBusquedaAvanzada2.hvExperienciaLaboralBA.sectoreconomico.descripcion)}" process="@this" update="parametroSectorEconomicoModExperienciaLaboral"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceExperienciaLaboral(0)}" process="@this"/>
@@ -1726,7 +1726,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['motivoRetiro']}" style="position: absolute; left: 10px; top: 85px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 80px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 80px;text-transform: uppercase;width: 170px"
                                                              id="parametroMotivoRetiroModExperienciaLaboral" value="#{controlBusquedaAvanzada2.hvExperienciaLaboralBA.motivoretiro.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosExperienciaLaboral('MOTIVO', controlBusquedaAvanzada2.hvExperienciaLaboralBA.motivoretiro.nombre)}" process="@this" update="parametroMotivoRetiroModExperienciaLaboral"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceExperienciaLaboral(1)}" process="@this"/>
@@ -1735,14 +1735,14 @@
 
 
                                                 <h:outputText value="#{msg['cargo']}" style="position: absolute; left: 300px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 410px; top: 45px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 410px; top: 45px;text-transform: uppercase;width: 170px"
                                                              id="parametroCargoModExperienciaLaboral" value="#{controlBusquedaAvanzada2.cargoExperienciaLaboral}">
                                                     <p:ajax event="change" process="@this" update="parametroCargoModExperienciaLaboral"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceExperienciaLaboral(2)}" process="@this"/>
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['empresa']}" style="position: absolute; left: 300px; top: 85px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 410px; top: 80px;text-transform: uppercase;width: 170px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 410px; top: 80px;text-transform: uppercase;width: 170px"
                                                              id="parametroEmpresaModExperienciaLaboral" value="#{controlBusquedaAvanzada2.empresaExperienciaLaboral}">
                                                     <p:ajax event="change" process="@this" update="parametroEmpresaModExperienciaLaboral"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceExperienciaLaboral(3)}" process="@this"/>
@@ -1794,7 +1794,7 @@
                                         <p:tab id="tabDatosProyecto" title="#{msg['tabDatosProyecto']}">
                                             <div style="height: 55px;">
                                                 <h:outputText value="#{msg['proyecto']}" style="position: absolute; left: 10px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 90px; top: 45px;text-transform: uppercase;width: 140px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 90px; top: 45px;text-transform: uppercase;width: 140px"
                                                              id="parametroProyectoModProyecto" value="#{controlBusquedaAvanzada2.vigenciaProyectoBA.proyecto.nombreproyecto}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosProyecto('PROYECTO', controlBusquedaAvanzada2.vigenciaProyectoBA.proyecto.nombreproyecto)}" process="@this" update="parametroProyectoModProyecto"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceProyecto(0)}" process="@this"/>
@@ -1802,7 +1802,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['rol']}" style="position: absolute; left: 10px; top: 80px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 90px; top: 75px;text-transform: uppercase;width: 140px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 90px; top: 75px;text-transform: uppercase;width: 140px"
                                                              id="parametroRolModProyecto" value="#{controlBusquedaAvanzada2.vigenciaProyectoBA.pryRol.descripcion}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosProyecto('ROL', controlBusquedaAvanzada2.vigenciaProyectoBA.pryRol.descripcion)}" process="@this" update="parametroRolModProyecto"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceProyecto(1)}" process="@this"/>
@@ -1851,7 +1851,7 @@
                                         <p:tab id="tabDatosCargoPostularse" title="#{msg['tabDatosCargoPostularse']}">
                                             <div style="height: 45px;">
                                                 <h:outputText value="#{msg['cargo']}" style="position: absolute; left: 155px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="select();" style="position: absolute; left: 40px; top: 65px;text-transform: uppercase;width: 250px"
+                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 40px; top: 65px;text-transform: uppercase;width: 250px"
                                                              id="parametroCargoModCargoPostularse" value="#{controlBusquedaAvanzada2.vigenciaCargoPersonalBA.cargo.nombre}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada2.modificarParametrosCargoPostularse('CARGO', controlBusquedaAvanzada2.vigenciaCargoPersonalBA.cargo.nombre)}" process="@this" update="parametroCargoModCargoPostularse"/>
                                                     <p:ajax event="select" listener="#{controlBusquedaAvanzada2.cambiarIndiceCargoPostularse(0)}" process="@this"/>
@@ -1893,7 +1893,7 @@
                                     <f:facet name="header">
                                         #{column.header}
                                     </f:facet>
-                                    <h:outputLabel value="#{busqueda[column.property]}" onclick="posicionTablaBusquedaAvanzada([{name: 'n', value: '#{colIndex}'}, {name: 't', value: '#{indice}'}]);"/>
+                                    <h:outputLabel value="#{busqueda[column.property]}" onclick="PF('posicionTablaBusquedaAvanzada([{name: 'n', value: '#{colIndex}'}, {name: 't', value: '#{indice}'}]);"/>
 
                                 </p:columns>
 
@@ -1934,7 +1934,7 @@
                                      selection="#{controlBusquedaAvanzada2.cargoSeleccionado}" selectionMode="single" widgetVar="lovCargoCargoPostularse" scrollable="true" scrollWidth="505" scrollHeight="250"
                                      filteredValue="#{controlBusquedaAvanzada2.filtrarLovCargos}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada2.activarAceptar()}" update=":form:aceptarCCP"/>
-                            <p:ajax event="rowDblselect" listener="#{controlBusquedaAvanzada2.actualizarParametroCargoCargoPostularse()}"  process="@this" onstart="" />
+                            <p:ajax event="rowDblselect" listener="#{controlBusquedaAvanzada2.actualizarParametroCargoCargoPostularse()}"  process="@this" onstart="PF('" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarCCP']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                 <p:inputText id="globalFilter" onkeyup="lovCargoCargoPostularse.filter();" style="width:150px; position: relative; left: -50px;" />  

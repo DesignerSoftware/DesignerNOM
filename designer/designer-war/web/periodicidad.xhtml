@@ -243,7 +243,7 @@
                         <h:outputText id="informacionRegistro" value="#{controlPeriodicidades.infoRegistro}" style="position: absolute; left: 15px; top: 442px; font-weight: bold"/>
                         <p:commandButton style="position: absolute; left: 10px; top: 470px; height: 30px; width: 168px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;"  icon="ui-icon-search" id="BUSCARCENTROCOSTO" value="Buscar Periodicidad" actionListener="#{controlPeriodicidades.llamadoDialogoBuscarPeriodicidades()}" process="@this" />
                         <p:commandButton style="position: absolute; left: 190px; top: 470px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosbd.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="MOSTRARTODOS" value="" disabled="#{controlPeriodicidades.mostrarTodos}" actionListener="#{controlPeriodicidades.cancelarModificacion()}" process="@this"/>
-                        <p:commandButton style=" position: absolute; left: 688px; top: 470px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" disabled="#{controlPeriodicidades.guardado}" onclick="confirmarGuardar.show();" update=":form:datosPeriodicidades" process="@this" />
+                        <p:commandButton style=" position: absolute; left: 688px; top: 470px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" disabled="#{controlPeriodicidades.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosPeriodicidades" process="@this" />
                         <p:commandButton style=" position: absolute; left: 785px; top: 470px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS"  value="" actionListener="#{controlPeriodicidades.refrescar()}" action="#{controlPeriodicidades.redirigir()}" process="@this" />
 
                     </p:panel>
@@ -251,39 +251,39 @@
                     <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="Si" onclick="confirmarGuardar.hide();" action="#{controlPeriodicidades.redirigir()}" actionListener="#{controlPeriodicidades.guardarCambiosPeriodicidad()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="confirmarGuardar.hide();" action="#{controlPeriodicidades.redirigir()}" actionListener="#{controlPeriodicidades.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="Cancelar" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="#{controlPeriodicidades.redirigir()}" actionListener="#{controlPeriodicidades.guardarCambiosPeriodicidad()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="#{controlPeriodicidades.redirigir()}" actionListener="#{controlPeriodicidades.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="Necesita : #{controlPeriodicidades.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionDuplicarVigencia.hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="77" width="330" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value=" #{controlPeriodicidades.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionModificar.hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="77" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionBorrar.hide();" style="position: absolute; top: 40px; left: 300px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="87" width="280" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Se han borrado #{controlPeriodicidades.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="mostrarBorrados.hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validacionNuevaUnidad" header="ATENCIÓN...!" widgetVar="validacionNuevaUnidad"  resizable="false" draggable="false" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="Para agregar es necesario adicionar: #{controlPeriodicidades.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="validacionNuevaUnidad.hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaUnidad').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlPeriodicidades.activarCtrlF11()}"/> 
                 </h:form>
@@ -293,15 +293,15 @@
                     <p:dialog id="confirmarRastro" header="ATENCIÓN...!" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'PERIODICIDADES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPeriodicidades.secRegistro, 'Periodicidades', 'periodicidad')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPeriodicidades.secRegistro, 'Periodicidades', 'periodicidad')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN...!" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla PERIODICIDADES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Periodicidades', 'periodicidad')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Periodicidades', 'periodicidad')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="ATENCIÓN...!" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" style="" closable="true">  
@@ -317,8 +317,8 @@
                     <p:dialog id="errorTablaConRastro" header="ATENCIÓN...!" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPeriodicidades.secRegistro, 'Periodicidades', 'periodicidad')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPeriodicidades.secRegistro, 'Periodicidades', 'periodicidad')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="ATENCIÓN...!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="" closable="true">  
@@ -398,7 +398,7 @@
 
                             <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute;left: 10px; top: 240px;" actionListener="#{controlPeriodicidades.limpiarNuevoPeriodicidades()}" update="nuevaPeriodicidads" process="@this"/>
                             <p:commandButton id="agregarCC" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 175px; top: 240px;"  process="@this" actionListener="#{controlPeriodicidades.agregarNuevoPeriodicidades()}"  />
-                            <p:commandButton id="cancelarCC" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 265px; top: 240px;" actionListener="#{controlPeriodicidades.limpiarNuevoPeriodicidades()}" update="nuevaPeriodicidads" onclick="nuevoRegistroPeriodicidades.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarCC" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 265px; top: 240px;" actionListener="#{controlPeriodicidades.limpiarNuevoPeriodicidades()}" update="nuevaPeriodicidads" onclick="PF('nuevoRegistroPeriodicidades').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -455,7 +455,7 @@
                             <p:watermark for="duplicarNombreUnidads" value="Nombre" />
                             <!--2-->
                             <strong><h:outputText value="*Codigo Unidad :" style="left: 15px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="duplicarCodigoUnidades" value="#{controlPeriodicidades.duplicarPeriodicidad.unidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarCodigoUnidades" value="#{controlPeriodicidades.duplicarPeriodicidad.unidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADCODIGO')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADCODIGO', controlPeriodicidades.duplicarPeriodicidad.unidad.codigo , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />
@@ -464,7 +464,7 @@
                             <p:watermark for="duplicarCodigoUnidades" value="Codigo Unidad" />
 
                             <strong><h:outputText value="*Nombre Unidad :" style="left: 15px; position: absolute; top: 150px;" /></strong>
-                            <p:inputText id="duplicarTipoUnidads" value="#{controlPeriodicidades.duplicarPeriodicidad.unidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 145px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarTipoUnidads" value="#{controlPeriodicidades.duplicarPeriodicidad.unidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 145px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADNOMBRE')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADNOMBRE', controlPeriodicidades.duplicarPeriodicidad.unidad.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />
@@ -473,7 +473,7 @@
                             <p:watermark for="duplicarTipoUnidads" value="Nombre Unidad" />
 
                             <strong><h:outputText value="*Codigo Unidad Base:" style="left: 15px; position: absolute; top: 180px;" /></strong>
-                            <p:inputText id="duplicarCodigoUnidadesBase" value="#{controlPeriodicidades.duplicarPeriodicidad.unidadbase.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 175px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarCodigoUnidadesBase" value="#{controlPeriodicidades.duplicarPeriodicidad.unidadbase.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 175px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADBASECODIGO')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADBASECODIGO', controlPeriodicidades.duplicarPeriodicidad.unidadbase.codigo  , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />
@@ -482,7 +482,7 @@
                             <p:watermark for="duplicarCodigoUnidadesBase" value="Codigo Unidad Base" />
 
                             <strong><h:outputText value="*Descripcion Unidad Base:" style="left: 15px; position: absolute; top: 210px;" /></strong>
-                            <p:inputText id="duplicarDescripcionUnidadesBase" value="#{controlPeriodicidades.duplicarPeriodicidad.unidadbase.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 205px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarDescripcionUnidadesBase" value="#{controlPeriodicidades.duplicarPeriodicidad.unidadbase.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 205px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADBASENOMBRE')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADBASENOMBRE', controlPeriodicidades.duplicarPeriodicidad.unidadbase.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />
@@ -493,7 +493,7 @@
 
                             <p:commandButton id="limpiarDuplicadoCC" icon="ui-icon-trash" value="Limpiar" style=" position: absolute;left: 10px; top: 240px;" actionListener="#{controlPeriodicidades.limpiarDuplicarPeriodicidades()}" update="duplicarUnidads" process="@this"/>
                             <p:commandButton id="agregarDuplicadoCC" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 175px; top: 240px;" process="@this" actionListener="#{controlPeriodicidades.confirmarDuplicar()}"/>
-                            <p:commandButton id="cancelarDuplicadoCC" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 265px; top: 240px;" actionListener="#{controlPeriodicidades.limpiarDuplicarPeriodicidades()}" update="duplicarUnidads" onclick="DuplicarRegistroPeriodicidades.hide();" process="@this"/>
+                            <p:commandButton id="cancelarDuplicadoCC" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 265px; top: 240px;" actionListener="#{controlPeriodicidades.limpiarDuplicarPeriodicidades()}" update="duplicarUnidads" onclick="PF('DuplicarRegistroPeriodicidades').hide();" process="@this"/>
                         </p:panel>
                     </p:dialog>
 

@@ -24,7 +24,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);  border: none "  process="@this"  oncomplete="buscarEmpleadoDialogo.show();" 
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);  border: none "  process="@this"  oncomplete="PF('buscarEmpleadoDialogo').show();" 
                                                  update=":formularioDialogos:buscarEmpleadoDialogo"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
@@ -62,7 +62,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar"  value="" style="background-image: url(Imagenes/Iconos/refrescar.png);  border: none " actionListener="#{controlComprobantes.refrescar()}"  process="@this" oncomplete="window.location.reload()"/>  
+                                <p:commandButton id="refrescar"  value="" style="background-image: url(Imagenes/Iconos/refrescar.png);  border: none " actionListener="#{controlComprobantes.refrescar()}"  process="@this" oncomplete="PF('window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -93,7 +93,7 @@
                                 </div>
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
-                                                 width: 90px; height: 30px; position: relative; left: 640px; top: -35px; text-align: center; padding: 0px;" id="buscarEmpleado" value=" "  process="@this" oncomplete="buscarEmpleadoDialogo.show();" 
+                                                 width: 90px; height: 30px; position: relative; left: 640px; top: -35px; text-align: center; padding: 0px;" id="buscarEmpleado" value=" "  process="@this" oncomplete="PF('buscarEmpleadoDialogo').show();" 
                                                  update=":formularioDialogos:buscarEmpleadoDialogo" />
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; text-align: center; padding: 0px; 
                                                  width: 90px; height: 30px; position: relative; left: 640px; top: -35px;" disabled="#{controlComprobantes.mostrarTodos}" id="mostrarTodos" value=" " 
@@ -102,10 +102,10 @@
                                 <div>
                                     <h:outputText id="informacionComprobante"  value="#{controlComprobantes.infoRegistroComprobante}" style="position: absolute; left: 480px; top: 57px; color: #14388B; font-weight: bold;"/>
                                     <p:commandButton id="btnArriba" styleClass="cssBotonesEmpleado" style="background-image: url(Imagenes/Iconos/rgatras.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: relative; left: 550px; top: -65px; width: 28px; height: 28px; text-align: center;"  
-                                                     onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"
+                                                     onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                                      value="" actionListener="#{controlComprobantes.anteriorEmpleado()}" disabled="#{controlComprobantes.estadoBtnArriba}" process="@this" />
                                     <p:commandButton id="btnAbajo" styleClass="cssBotonesEmpleado" style="background-image: url(Imagenes/Iconos/rgsiguiente.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: relative; left: 550px; top: -65px; width: 28px; height: 28px; text-align: center;"
-                                                     onclick="operacionEnProceso.show()" oncomplete="operacionEnProceso.hide()"
+                                                     onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                                      value=""  actionListener="#{controlComprobantes.siguienteEmpleado()}" disabled="#{controlComprobantes.estadoBtnAbajo}" process="@this" />
 
                                 </div>
@@ -743,8 +743,8 @@
 
                     <p:dialog id="parcialesConcepto" header="#{msg['parciales']}" widgetVar="parcialesConcepto"  resizable="false" draggable="false" modal="true" height="182" width="345"  closable="false">  
                         <p:inputTextarea value="#{controlComprobantes.parcialesSolucionNodos}" style="position: absolute; left: 10px; top: 10px; width: 300px; height: 125px; font-weight:bold; overflow: auto" readonly="true" />
-                        <p:commandButton value="#{msg['aceptar']}" style="position: absolute; top: 148px; left: 225px;" icon="ui-icon-check" onclick="parcialesConcepto.hide();
-                                confirmacionFormatoExtendido.show();"/>
+                        <p:commandButton value="#{msg['aceptar']}" style="position: absolute; top: 148px; left: 225px;" icon="ui-icon-check" onclick="PF('parcialesConcepto').hide();
+                                confirmacionFormatoExtendido').show();"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -756,8 +756,8 @@
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="#{msg['formato']}" style="position: absolute; left: 100px; top: 10px; width: 300px; font-weight:bold;" />
                         <h:outputText value="#{msg['aclaracion']}" style="position: absolute; left: 103px; top: 30px; width: 280px; font-weight:bold; text-align: justify" />
-                        <p:commandButton value="Si" style="position: absolute; top: 85px; left: 260px;" icon="ui-icon-check" actionListener="#{controlComprobantes.verDetallesFormula()}" onclick="confirmacionFormatoExtendido.hide();"/>
-                        <p:commandButton value="No" style="position: absolute; top: 85px; left: 325px;" icon="ui-icon-close" onclick="confirmacionFormatoExtendido.hide();"/>
+                        <p:commandButton value="Si" style="position: absolute; top: 85px; left: 260px;" icon="ui-icon-check" actionListener="#{controlComprobantes.verDetallesFormula()}" onclick="PF('confirmacionFormatoExtendido').hide();"/>
+                        <p:commandButton value="No" style="position: absolute; top: 85px; left: 325px;" icon="ui-icon-close" onclick="PF('confirmacionFormatoExtendido').hide();"/>
                     </p:dialog>
 
                     <p:dialog id="detallesFormulas" header="#{msg['atencion']}" widgetVar="detallesFormulas"  resizable="false" draggable="false" modal="true" height="220" width="505"  closable="false">  
@@ -781,7 +781,7 @@
                                 </p:column> 
                             </p:dataTable>
                         </fieldset>
-                        <p:commandButton value="#{msg['aceptar']}" style="position: absolute; top: 200px; left: 392px;" icon="ui-icon-check" onclick="detallesFormulas.hide();"/>
+                        <p:commandButton value="#{msg['aceptar']}" style="position: absolute; top: 200px; left: 392px;" icon="ui-icon-check" onclick="PF('detallesFormulas').hide();"/>
                     </p:dialog>
 
                     <!--formularios editar nodo empleado     -->

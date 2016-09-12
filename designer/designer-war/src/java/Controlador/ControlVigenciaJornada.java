@@ -686,8 +686,8 @@ public class ControlVigenciaJornada implements Serializable {
         }
         vigenciaTiempoSeleccionada = null;
         vigenciaDineroSeleccionada = null;
-        PrimefacesContextUI.ejecutar("PF('datosVigenciaCT.unselectAllRows()");
-        PrimefacesContextUI.ejecutar("PF('datosVigenciaCD.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('datosVigenciaCT').unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('datosVigenciaCD').unselectAllRows()");
         PrimefacesContextUI.actualizar("form:datosVigenciaCT");
         PrimefacesContextUI.actualizar("form:datosVigenciaCD");
         contarRegistrosVD();
@@ -734,7 +734,7 @@ public class ControlVigenciaJornada implements Serializable {
             tipoListaVCD = 0;
         }
         vigenciaDineroSeleccionada = null;
-        PrimefacesContextUI.ejecutar("PF('datosVigenciaCD.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('datosVigenciaCD').unselectAllRows()");
         PrimefacesContextUI.actualizar("form:datosVigenciaCD");
         activarLOV = true;
         PrimefacesContextUI.actualizar("form:listaValores");
@@ -780,7 +780,7 @@ public class ControlVigenciaJornada implements Serializable {
             tipoListaVCT = 0;
         }
         vigenciaTiempoSeleccionada = null;
-        PrimefacesContextUI.ejecutar("PF('datosVigenciaCT.unselectAllRows()");
+        PrimefacesContextUI.ejecutar("PF('datosVigenciaCT').unselectAllRows()");
         PrimefacesContextUI.actualizar("form:datosVigenciaCT");
         activarLOV = true;
         PrimefacesContextUI.actualizar("form:listaValores");

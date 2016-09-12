@@ -93,7 +93,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="select();" value="#{info.codigoempleadoSTR}" id="editarCodigoEmpleado" 
+                                            <p:inputText onclick="PF('select();" value="#{info.codigoempleadoSTR}" id="editarCodigoEmpleado" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionEmpleado([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);"> 
                                             </p:inputText>
@@ -106,7 +106,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.persona.nombreCompleto}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="select();" value="#{info.persona.nombreCompleto}" id="editarNombreEmpleadoEmpleado" 
+                                            <p:inputText onclick="PF('select();" value="#{info.persona.nombreCompleto}" id="editarNombreEmpleadoEmpleado" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionEmpleado([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);"> 
                                             </p:inputText>
@@ -311,7 +311,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="select();" value="#{infoD.conceptodescripcion}" id="editarConceptoDetalle" 
+                                            <p:inputText onclick="PF('select();" value="#{infoD.conceptodescripcion}" id="editarConceptoDetalle" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '0'}, {name: 't', value: '#{indiceD}'}]);"> 
                                             </p:inputText>
@@ -326,7 +326,7 @@
                                             <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="select();" value="#{infoD.fechapago}" id="editarFechaPagoDetalle" 
+                                            <p:inputText onclick="PF('select();" value="#{infoD.fechapago}" id="editarFechaPagoDetalle" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '1'}, {name: 't', value: '#{indiceD}'}]);"> 
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -343,7 +343,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="select();" value="#{infoD.horas}" id="editarHorasDetalle" 
+                                            <p:inputText onclick="PF('select();" value="#{infoD.horas}" id="editarHorasDetalle" 
                                                          style=" border-radius: 0px; width: 99%;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '2'}, {name: 't', value: '#{indiceD}'}]);"> 
                                             </p:inputText>
@@ -359,7 +359,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="select();" value="#{infoD.minutos}" id="editarMinutosDetalle" 
+                                            <p:inputText onclick="PF('select();" value="#{infoD.minutos}" id="editarMinutosDetalle" 
                                                          style=" border-radius: 0px; width: 99%;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '3'}, {name: 't', value: '#{indiceD}'}]);"> 
                                             </p:inputText>
@@ -375,7 +375,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="select();" value="#{infoD.aprobado}" id="editarApobadoDetalle" 
+                                            <p:inputText onclick="PF('select();" value="#{infoD.aprobado}" id="editarApobadoDetalle" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '4'}, {name: 't', value: '#{indiceD}'}]);"> 
                                             </p:inputText>
@@ -391,7 +391,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="select();" value="#{infoD.descripcion}" id="editarDescripcionDetalle" 
+                                            <p:inputText onclick="PF('select();" value="#{infoD.descripcion}" id="editarDescripcionDetalle" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '5'}, {name: 't', value: '#{indiceD}'}]);"> 
                                             </p:inputText>
@@ -407,7 +407,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="select();" value="#{infoD.opcion}" id="editarOpcionDetalle" 
+                                            <p:inputText onclick="PF('select();" value="#{infoD.opcion}" id="editarOpcionDetalle" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '6'}, {name: 't', value: '#{indiceD}'}]);"> 
                                             </p:inputText>
@@ -434,7 +434,7 @@
                         <p:commandButton style="position: absolute; left: 10px; top: 480px;  " id="CARGUEHEPLANO" value="#{msg['carguePlanoHE']}" process="@this" />
                         <p:commandButton style="position: absolute; left: 290px; top: 480px;  " id="INTERFASE" value="#{msg['interfase']}" process="@this" />
                         
-                        <p:commandButton style="position: absolute; left: 683px; top: 480px;  " id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="confirmarGuardarSalida.show();" update=":form:datosEmpleado" process="@this" disabled="#{controlATHoraExtra.guardado}"/>
+                        <p:commandButton style="position: absolute; left: 683px; top: 480px;  " id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('confirmarGuardarSalida').show();" update=":form:datosEmpleado" process="@this" disabled="#{controlATHoraExtra.guardado}"/>
                         <p:commandButton style="position: absolute; left: 775px; top: 480px;  " id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlATHoraExtra.salir()}" action="#{controlATHoraExtra.redirigir()}" process="@this" />
 
                     </p:panel>
@@ -442,17 +442,17 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATHoraExtra.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardar.hide();" actionListener="#{controlATHoraExtra.cancelarModificacion()}"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardar.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATHoraExtra.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATHoraExtra.cancelarModificacion()}"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlATHoraExtra.guardarSalir()}" action="#{controlATHoraExtra.redirigir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarGuardarSalida.hide();" actionListener="#{controlATHoraExtra.cancelarSalir()}" action="#{controlATHoraExtra.redirigir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="confirmarGuardarSalida.hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlATHoraExtra.guardarSalir()}" action="#{controlATHoraExtra.redirigir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlATHoraExtra.cancelarSalir()}" action="#{controlATHoraExtra.redirigir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
 
@@ -464,15 +464,15 @@
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'Empleados', 'rastroATHoraExtra')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'Empleados', 'rastroATHoraExtra')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico.hide();" actionListener="#{controlRastro.historicosTabla('Empleados', 'rastroATHoraExtra')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Empleados', 'rastroATHoraExtra')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -483,8 +483,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'Empleados', 'rastroATHoraExtra')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'Empleados', 'rastroATHoraExtra')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     
@@ -495,15 +495,15 @@
                     <p:dialog id="confirmarRastro_HE" header="#{msg['atencion']}" widgetVar="confirmarRastro_HE"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro_HE']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastro_HE.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'TurnosEmpleados', 'rastroATHoraExtra')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastro_HE.hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro_HE').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'TurnosEmpleados', 'rastroATHoraExtra')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro_HE').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico_HE" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico_HE"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico_HE']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="confirmarRastroHistorico_HE.hide();" actionListener="#{controlRastro.historicosTabla('TurnosEmpleados', 'rastroATHoraExtra')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="confirmarRastroHistorico_HE.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico_HE').hide();" actionListener="#{controlRastro.historicosTabla('TurnosEmpleados', 'rastroATHoraExtra')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico_HE').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB_HE" header="#{msg['atencion']}" widgetVar="errorObjetosDB_HE"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
@@ -514,8 +514,8 @@
                     <p:dialog id="errorTablaConRastro_HE" header="#{msg['atencion']}" widgetVar="errorTablaConRastro_HE"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro_HE']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="errorTablaConRastro_HE.hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'TurnosEmpleados', 'rastroATHoraExtra')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="errorTablaConRastro_HE.hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro_HE').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'TurnosEmpleados', 'rastroATHoraExtra')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro_HE').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <!-- -->
@@ -694,7 +694,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['motivoTurnoN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaMotivoTurnoHoraExtra" value="#{controlATHoraExtra.nuevaTurno.motivoturno.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaMotivoTurnoHoraExtra" value="#{controlATHoraExtra.nuevaTurno.motivoturno.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlATHoraExtra.valoresBackupAutocompletar(1, 'MOTIVO')}" />
                                 <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('MOTIVO', controlATHoraExtra.nuevaTurno.motivoturno.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 0 , 1)}" />
@@ -721,7 +721,7 @@
                             </p:selectBooleanCheckbox> 
                             
                             <strong><h:outputText value="#{msg['estructuraAprobacionN']}" style=" position: absolute; top: 285px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaEstructuraHoraExtra" value="#{controlATHoraExtra.nuevaTurno.estructuraaprueba.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="nuevaEstructuraHoraExtra" value="#{controlATHoraExtra.nuevaTurno.estructuraaprueba.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlATHoraExtra.valoresBackupAutocompletar(1, 'ESTRUCTURA')}" />
                                 <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('ESTRUCTURA', controlATHoraExtra.nuevaTurno.estructuraaprueba.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 1 , 1)}" />
@@ -737,7 +737,7 @@
                             
                             <p:commandButton id="limpiarTE" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 350px;" icon="ui-icon-trash" actionListener="#{controlATHoraExtra.limpiarNuevaHoraExtra()}" update="nuevaTurno" process="@this"/>
                             <p:commandButton id="agregarTE" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 350px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlATHoraExtra.agregarNuevaExtra()}"   />
-                            <p:commandButton id="cancelarTE" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 350px;" icon="ui-icon-circle-close" actionListener="#{controlATHoraExtra.limpiarNuevaHoraExtra()}" update="nuevaTurno" onclick="NuevoRegistroTurno.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarTE" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 350px;" icon="ui-icon-circle-close" actionListener="#{controlATHoraExtra.limpiarNuevaHoraExtra()}" update="nuevaTurno" onclick="PF('NuevoRegistroTurno').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -769,7 +769,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['motivoTurnoN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMotivoTurnoHoraExtra" value="#{controlATHoraExtra.duplicarTurno.motivoturno.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarMotivoTurnoHoraExtra" value="#{controlATHoraExtra.duplicarTurno.motivoturno.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlATHoraExtra.valoresBackupAutocompletar(2, 'MOTIVO')}" />
                                 <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('MOTIVO', controlATHoraExtra.duplicarTurno.motivoturno.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 0 , 2)}" />
@@ -796,7 +796,7 @@
                             </p:selectBooleanCheckbox> 
                             
                             <strong><h:outputText value="#{msg['estructuraAprobacionN']}" style=" position: absolute; top: 285px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEstructuraHoraExtra" value="#{controlATHoraExtra.duplicarTurno.estructuraaprueba.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="select();">
+                            <p:inputText id="duplicarEstructuraHoraExtra" value="#{controlATHoraExtra.duplicarTurno.estructuraaprueba.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="click" listener="#{controlATHoraExtra.valoresBackupAutocompletar(2, 'ESTRUCTURA')}" />
                                 <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('ESTRUCTURA', controlATHoraExtra.duplicarTurno.estructuraaprueba.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 1 , 2)}" />
@@ -812,7 +812,7 @@
                             
                             <p:commandButton id="limpiarDuplicarTE" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 350px;" icon="ui-icon-trash" actionListener="#{controlATHoraExtra.limpiarDuplicarHoraExtra()}" update="duplicarTurno" process="@this"/>
                             <p:commandButton id="agregarDuplicarTE" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 350px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlATHoraExtra.confirmarDuplicarHoraExtra()}"   />
-                            <p:commandButton id="cancelarDuplicarTE" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 350px;" icon="ui-icon-circle-close" actionListener="#{controlATHoraExtra.limpiarDuplicarHoraExtra()}" update="duplicarTurno" onclick="DuplicarRegistroTurno.hide();"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicarTE" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 350px;" icon="ui-icon-circle-close" actionListener="#{controlATHoraExtra.limpiarDuplicarHoraExtra()}" update="duplicarTurno" onclick="PF('DuplicarRegistroTurno').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
                     
