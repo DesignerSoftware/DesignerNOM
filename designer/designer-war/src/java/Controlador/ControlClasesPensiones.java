@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.ClasesPensiones;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -113,7 +113,7 @@ public class ControlClasesPensiones implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarClasesPensiones.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlClasesPensiones eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -185,7 +185,7 @@ public class ControlClasesPensiones implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosClasesPensiones:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosClasesPensiones");
+            RequestContext.getCurrentInstance().update("form:datosClasesPensiones");
             bandera = 0;
             filtrarClasesPensiones = null;
             tipoLista = 0;
@@ -208,9 +208,9 @@ public class ControlClasesPensiones implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listClasesPensiones.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosClasesPensiones");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosClasesPensiones");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -221,7 +221,7 @@ public class ControlClasesPensiones implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosClasesPensiones:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosClasesPensiones");
+            RequestContext.getCurrentInstance().update("form:datosClasesPensiones");
             bandera = 0;
             filtrarClasesPensiones = null;
             tipoLista = 0;
@@ -238,8 +238,8 @@ public class ControlClasesPensiones implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosClasesPensiones");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosClasesPensiones");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -250,7 +250,7 @@ public class ControlClasesPensiones implements Serializable {
             codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosClasesPensiones:descripcion");
             descripcion.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosClasesPensiones");
+            RequestContext.getCurrentInstance().update("form:datosClasesPensiones");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -260,7 +260,7 @@ public class ControlClasesPensiones implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosClasesPensiones:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosClasesPensiones");
+            RequestContext.getCurrentInstance().update("form:datosClasesPensiones");
             bandera = 0;
             filtrarClasesPensiones = null;
             tipoLista = 0;
@@ -324,7 +324,7 @@ public class ControlClasesPensiones implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -369,7 +369,7 @@ public class ControlClasesPensiones implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -423,7 +423,7 @@ public class ControlClasesPensiones implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -470,7 +470,7 @@ public class ControlClasesPensiones implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -478,8 +478,8 @@ public class ControlClasesPensiones implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosClasesPensiones");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosClasesPensiones");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -519,9 +519,9 @@ public class ControlClasesPensiones implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosClasesPensiones");
+            RequestContext.getCurrentInstance().update("form:datosClasesPensiones");
             infoRegistro = "Cantidad de registros: " + listClasesPensiones.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             index = -1;
             secRegistro = null;
@@ -529,7 +529,7 @@ public class ControlClasesPensiones implements Serializable {
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -552,7 +552,7 @@ public class ControlClasesPensiones implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
                 contarRetiradosClasePension = new BigInteger("-1");
@@ -567,7 +567,7 @@ public class ControlClasesPensiones implements Serializable {
 
         if (!borrarClasesPensiones.isEmpty() || !crearClasesPensiones.isEmpty() || !modificarClasesPensiones.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -582,7 +582,7 @@ public class ControlClasesPensiones implements Serializable {
                 administrarClasesPensiones.borrarClasesPensiones(borrarClasesPensiones);
                 //mostrarBorrados
                 registrosBorrados = borrarClasesPensiones.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarClasesPensiones.clear();
             }
@@ -596,15 +596,15 @@ public class ControlClasesPensiones implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listClasesPensiones = null;
-            PrimefacesContextUI.actualizar("form:datosClasesPensiones");
+            RequestContext.getCurrentInstance().update("form:datosClasesPensiones");
             k = 0;
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -620,11 +620,11 @@ public class ControlClasesPensiones implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -689,7 +689,7 @@ public class ControlClasesPensiones implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosClasesPensiones:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosClasesPensiones");
+                RequestContext.getCurrentInstance().update("form:datosClasesPensiones");
                 bandera = 0;
                 filtrarClasesPensiones = null;
                 tipoLista = 0;
@@ -704,13 +704,13 @@ public class ControlClasesPensiones implements Serializable {
 
             listClasesPensiones.add(nuevoClasesPensiones);
             nuevoClasesPensiones = new ClasesPensiones();
-            PrimefacesContextUI.actualizar("form:datosClasesPensiones");
+            RequestContext.getCurrentInstance().update("form:datosClasesPensiones");
             infoRegistro = "Cantidad de registros: " + listClasesPensiones.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroClasesPensiones').hide()");
@@ -718,7 +718,7 @@ public class ControlClasesPensiones implements Serializable {
             secRegistro = null;
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -752,7 +752,7 @@ public class ControlClasesPensiones implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroClasesPensiones').show()");
             index = -1;
             secRegistro = null;
@@ -810,15 +810,15 @@ public class ControlClasesPensiones implements Serializable {
             }
             listClasesPensiones.add(duplicarClasesPensiones);
             crearClasesPensiones.add(duplicarClasesPensiones);
-            PrimefacesContextUI.actualizar("form:datosClasesPensiones");
+            RequestContext.getCurrentInstance().update("form:datosClasesPensiones");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             infoRegistro = "Cantidad de registros: " + listClasesPensiones.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -827,7 +827,7 @@ public class ControlClasesPensiones implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosClasesPensiones:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosClasesPensiones");
+                RequestContext.getCurrentInstance().update("form:datosClasesPensiones");
                 bandera = 0;
                 filtrarClasesPensiones = null;
                 tipoLista = 0;
@@ -837,7 +837,7 @@ public class ControlClasesPensiones implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }

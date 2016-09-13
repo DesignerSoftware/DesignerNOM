@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Cuadrillas;
 import Entidades.DetallesTurnosRotativos;
 import Entidades.Empleados;
@@ -27,7 +28,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -206,7 +206,7 @@ public class ControlATCuadrilla implements Serializable {
                 if (guardado == true) {
                     guardado = false;
                     cambiosCuadrilla = true;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
             indexCuadrilla = -1;
@@ -222,13 +222,13 @@ public class ControlATCuadrilla implements Serializable {
                 if (guardado == true) {
                     guardado = false;
                     cambiosCuadrilla = true;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
             indexCuadrilla = -1;
             secRegistro = null;
         }
-        PrimefacesContextUI.actualizar("form:datosCuadrilla");
+        RequestContext.getCurrentInstance().update("form:datosCuadrilla");
     }
 
     public void modificarTurno(int indice) {
@@ -246,7 +246,7 @@ public class ControlATCuadrilla implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         cambiosTurno = true;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 indexTurno = -1;
@@ -261,7 +261,7 @@ public class ControlATCuadrilla implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         cambiosTurno = true;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 indexTurno = -1;
@@ -287,7 +287,7 @@ public class ControlATCuadrilla implements Serializable {
             }
             PrimefacesContextUI.ejecutar("PF('errorNullTurno').show()");
         }
-        PrimefacesContextUI.actualizar("form:datosTurno");
+        RequestContext.getCurrentInstance().update("form:datosTurno");
     }
 
     public void modificarDetalle(int indice) {
@@ -305,7 +305,7 @@ public class ControlATCuadrilla implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         cambiosDetalle = true;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 indexDetalle = -1;
@@ -320,7 +320,7 @@ public class ControlATCuadrilla implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         cambiosDetalle = true;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 indexDetalle = -1;
@@ -338,7 +338,7 @@ public class ControlATCuadrilla implements Serializable {
             }
             PrimefacesContextUI.ejecutar("PF('errorNullDetalle').show()");
         }
-        PrimefacesContextUI.actualizar("form:datosDetalle");
+        RequestContext.getCurrentInstance().update("form:datosDetalle");
     }
 
     public void modificarDetalle(int indice, String confirmarCambio, String valorConfirmar) {
@@ -368,7 +368,7 @@ public class ControlATCuadrilla implements Serializable {
                 getLovEmpleados();
             } else {
                 permitirIndexDetalle = false;
-                PrimefacesContextUI.actualizar("formEmpleado:EmpleadoDialogo");
+                RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
                 PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -395,7 +395,7 @@ public class ControlATCuadrilla implements Serializable {
                 getLovEmpleados();
             } else {
                 permitirIndexDetalle = false;
-                PrimefacesContextUI.actualizar("formEmpleado:EmpleadoDialogo");
+                RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
                 PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').show()");
                 PrimefacesContextUI.ejecutar("EmpleadoDialogo').show()");
                 tipoActualizacion = 0;
@@ -413,7 +413,7 @@ public class ControlATCuadrilla implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         cambiosDetalle = true;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 indexDetalle = -1;
@@ -428,14 +428,14 @@ public class ControlATCuadrilla implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         cambiosDetalle = true;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 indexDetalle = -1;
                 secRegistro = null;
             }
         }
-        PrimefacesContextUI.actualizar("form:datosDetalle");
+        RequestContext.getCurrentInstance().update("form:datosDetalle");
     }
 
     public void modificarParametrosObligatoriosCuadrilla(int indice) {
@@ -455,7 +455,7 @@ public class ControlATCuadrilla implements Serializable {
             secRegistro = null;
             PrimefacesContextUI.ejecutar("PF('errorNullCuadrillas').show()");
         }
-        PrimefacesContextUI.actualizar("form:datosCuadrilla");
+        RequestContext.getCurrentInstance().update("form:datosCuadrilla");
     }
 
     public boolean validarFechasRegistroTurno(int i) {
@@ -516,7 +516,7 @@ public class ControlATCuadrilla implements Serializable {
                     filtrarListaTurnosRotativos.get(i).setFechasemilla(auxTurnoFecha);
 
                 }
-                PrimefacesContextUI.actualizar("form:datosTurno");
+                RequestContext.getCurrentInstance().update("form:datosTurno");
                 PrimefacesContextUI.ejecutar("PF('errorFechaTurno').show()");
             }
         } else {
@@ -526,7 +526,7 @@ public class ControlATCuadrilla implements Serializable {
                 filtrarListaTurnosRotativos.get(i).setFechasemilla(auxTurnoFecha);
 
             }
-            PrimefacesContextUI.actualizar("form:datosTurno");
+            RequestContext.getCurrentInstance().update("form:datosTurno");
             PrimefacesContextUI.ejecutar("PF('errorNullTurno').show()");
         }
     }
@@ -574,7 +574,7 @@ public class ControlATCuadrilla implements Serializable {
                 turnoMinFinal = (Column) c.getViewRoot().findComponent("form:datosTurno:turnoMinFinal");
                 turnoMinFinal.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaTurno = "80";
-                PrimefacesContextUI.actualizar("form:datosTurno");
+                RequestContext.getCurrentInstance().update("form:datosTurno");
                 banderaTurno = 0;
                 filtrarListaTurnosRotativos = null;
                 tipoListaTurno = 0;
@@ -590,14 +590,14 @@ public class ControlATCuadrilla implements Serializable {
                 detalleEmpleado = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleEmpleado");
                 detalleEmpleado.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaDetalle = "80";
-                PrimefacesContextUI.actualizar("form:datosDetalle");
+                RequestContext.getCurrentInstance().update("form:datosDetalle");
                 banderaDetalle = 0;
                 filtrarListaDetallesTurnosRotativos = null;
                 tipoListaDetalle = 0;
             }
 
-            PrimefacesContextUI.actualizar("form:datosTurno");
-            PrimefacesContextUI.actualizar("form:datosDetalle");
+            RequestContext.getCurrentInstance().update("form:datosTurno");
+            RequestContext.getCurrentInstance().update("form:datosDetalle");
         } else {
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
@@ -648,13 +648,13 @@ public class ControlATCuadrilla implements Serializable {
                 detalleEmpleado = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleEmpleado");
                 detalleEmpleado.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaDetalle = "80";
-                PrimefacesContextUI.actualizar("form:datosDetalle");
+                RequestContext.getCurrentInstance().update("form:datosDetalle");
                 banderaDetalle = 0;
                 filtrarListaDetallesTurnosRotativos = null;
                 tipoListaDetalle = 0;
             }
 
-            PrimefacesContextUI.actualizar("form:datosDetalle");
+            RequestContext.getCurrentInstance().update("form:datosDetalle");
         } else {
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
@@ -714,21 +714,21 @@ public class ControlATCuadrilla implements Serializable {
             }
             listaCuadrillas = null;
             getListaCuadrillas();
-            PrimefacesContextUI.actualizar("form:datosCuadrilla");
+            RequestContext.getCurrentInstance().update("form:datosCuadrilla");
             guardado = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             k = 0;
             indexCuadrilla = -1;
             secRegistro = null;
             cambiosCuadrilla = false;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Cuadrillas con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosCuadrillas Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el guardado de Cuadrillas");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
 
@@ -753,21 +753,21 @@ public class ControlATCuadrilla implements Serializable {
             } else {
                 listaTurnosRotativos = administrarATCuadrilla.obtenerTurnosRotativos(filtrarListaCuadrillas.get(indexCuadrillaAux).getSecuencia());
             }
-            PrimefacesContextUI.actualizar("form:datosTurno");
+            RequestContext.getCurrentInstance().update("form:datosTurno");
             guardado = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             k = 0;
             indexTurno = -1;
             secRegistro = null;
             cambiosTurno = false;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Turnos Rotativos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosTurnos Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el guardado de Turnos Rotativos");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
 
@@ -796,21 +796,21 @@ public class ControlATCuadrilla implements Serializable {
             } else {
                 listaDetallesTurnosRotativos = administrarATCuadrilla.obtenerDetallesTurnosRotativos(filtrarListaTurnosRotativos.get(indexTurnoAux).getSecuencia());
             }
-            PrimefacesContextUI.actualizar("form:datosDetalle");
+            RequestContext.getCurrentInstance().update("form:datosDetalle");
             guardado = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             k = 0;
             indexDetalle = -1;
             secRegistro = null;
             cambiosDetalle = false;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Detalles Turnos Rotativos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosDetalles Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el guardado de Detalles Turnos Rotativos");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
     //CANCELAR MODIFICACIONES
@@ -828,7 +828,7 @@ public class ControlATCuadrilla implements Serializable {
             cuadrillaModulo = (Column) c.getViewRoot().findComponent("form:datosCuadrilla:cuadrillaModulo");
             cuadrillaModulo.setFilterStyle("display: none; visibility: hidden;");
             altoTablaCuadrilla = "70";
-            PrimefacesContextUI.actualizar("form:datosCuadrilla");
+            RequestContext.getCurrentInstance().update("form:datosCuadrilla");
             banderaCuadrilla = 0;
             filtrarListaCuadrillas = null;
             tipoListaCuadrilla = 0;
@@ -851,7 +851,7 @@ public class ControlATCuadrilla implements Serializable {
             turnoMinFinal = (Column) c.getViewRoot().findComponent("form:datosTurno:turnoMinFinal");
             turnoMinFinal.setFilterStyle("display: none; visibility: hidden;");
             altoTablaTurno = "80";
-            PrimefacesContextUI.actualizar("form:datosTurno");
+            RequestContext.getCurrentInstance().update("form:datosTurno");
             banderaTurno = 0;
             filtrarListaTurnosRotativos = null;
             tipoListaTurno = 0;
@@ -867,7 +867,7 @@ public class ControlATCuadrilla implements Serializable {
             detalleEmpleado = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleEmpleado");
             detalleEmpleado.setFilterStyle("display: none; visibility: hidden;");
             altoTablaDetalle = "80";
-            PrimefacesContextUI.actualizar("form:datosDetalle");
+            RequestContext.getCurrentInstance().update("form:datosDetalle");
             banderaDetalle = 0;
             filtrarListaDetallesTurnosRotativos = null;
             tipoListaDetalle = 0;
@@ -904,12 +904,12 @@ public class ControlATCuadrilla implements Serializable {
         activarBtnBuscar = false;
         activarBtnMostrar = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosCuadrilla");
-        PrimefacesContextUI.actualizar("form:datosTurno");
-        PrimefacesContextUI.actualizar("form:datosDetalle");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("form:BUSCAR");
-        PrimefacesContextUI.actualizar("form:TODOS");
+        RequestContext.getCurrentInstance().update("form:datosCuadrilla");
+        RequestContext.getCurrentInstance().update("form:datosTurno");
+        RequestContext.getCurrentInstance().update("form:datosDetalle");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:BUSCAR");
+        RequestContext.getCurrentInstance().update("form:TODOS");
 
     }
 
@@ -924,19 +924,19 @@ public class ControlATCuadrilla implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaCuadrilla == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCuadrillaCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCuadrillaCodigo");
                 PrimefacesContextUI.ejecutar("PF('editarCuadrillaCodigo').show()");
                 cualCeldaCuadrilla = -1;
             } else if (cualCeldaCuadrilla == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCuadrillaDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCuadrillaDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editarCuadrillaDescripcion').show()");
                 cualCeldaCuadrilla = -1;
             } else if (cualCeldaCuadrilla == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCuadrillaModulo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCuadrillaModulo");
                 PrimefacesContextUI.ejecutar("PF('editarCuadrillaModulo').show()");
                 cualCeldaCuadrilla = -1;
             } else if (cualCeldaCuadrilla == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCuadrillaDias");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCuadrillaDias");
                 PrimefacesContextUI.ejecutar("PF('editarCuadrillaDias').show()");
                 cualCeldaCuadrilla = -1;
             }
@@ -952,31 +952,31 @@ public class ControlATCuadrilla implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaTurno == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTurnoCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTurnoCodigo");
                 PrimefacesContextUI.ejecutar("PF('editarTurnoCodigo').show()");
                 cualCeldaTurno = -1;
             } else if (cualCeldaTurno == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTurnoDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTurnoDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editarTurnoDescripcion').show()");
                 cualCeldaTurno = -1;
             } else if (cualCeldaTurno == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTurnoFechaSemilla");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTurnoFechaSemilla");
                 PrimefacesContextUI.ejecutar("PF('editarTurnoFechaSemilla').show()");
                 cualCeldaTurno = -1;
             } else if (cualCeldaTurno == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTurnoHoraInicial");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTurnoHoraInicial");
                 PrimefacesContextUI.ejecutar("PF('editarTurnoHoraInicial').show()");
                 cualCeldaTurno = -1;
             } else if (cualCeldaTurno == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTurnoHoraFinal");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTurnoHoraFinal");
                 PrimefacesContextUI.ejecutar("PF('editarTurnoHoraFinal').show()");
                 cualCeldaTurno = -1;
             } else if (cualCeldaTurno == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTurnoMinInicial");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTurnoMinInicial");
                 PrimefacesContextUI.ejecutar("PF('editarTurnoMinInicial').show()");
                 cualCeldaTurno = -1;
             } else if (cualCeldaTurno == 6) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTurnoMinFinal");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTurnoMinFinal");
                 PrimefacesContextUI.ejecutar("PF('editarTurnoMinFinal').show()");
                 cualCeldaTurno = -1;
             }
@@ -992,15 +992,15 @@ public class ControlATCuadrilla implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaDetalle == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDetalleOrden");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDetalleOrden");
                 PrimefacesContextUI.ejecutar("PF('editarDetalleOrden').show()");
                 cualCeldaDetalle = -1;
             } else if (cualCeldaDetalle == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDetalleCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDetalleCodigo");
                 PrimefacesContextUI.ejecutar("PF('editarDetalleCodigo').show()");
                 cualCeldaDetalle = -1;
             } else if (cualCeldaDetalle == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDetalleEmpleado");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDetalleEmpleado");
                 PrimefacesContextUI.ejecutar("PF('editarDetalleEmpleado').show()");
                 cualCeldaDetalle = -1;
             }
@@ -1159,7 +1159,7 @@ public class ControlATCuadrilla implements Serializable {
                 if (tam == 0) {
                     PrimefacesContextUI.ejecutar("PF('NuevoRegistroPagina').show()");
                 } else {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCuadrilla");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCuadrilla");
                     PrimefacesContextUI.ejecutar("PF('NuevoRegistroCuadrilla').show()");
                 }
             } else {
@@ -1175,7 +1175,7 @@ public class ControlATCuadrilla implements Serializable {
                 if (tam == 0) {
                     PrimefacesContextUI.ejecutar("PF('NuevoRegistroPagina').show()");
                 } else {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaTurno");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTurno");
                     PrimefacesContextUI.ejecutar("PF('NuevoRegistroTurno').show()");
                 }
             } else {
@@ -1183,7 +1183,7 @@ public class ControlATCuadrilla implements Serializable {
             }
         }
         if (indexDetalle >= 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaDetalle");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalle");
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroDetalle').show()");
         }
     }
@@ -1203,7 +1203,7 @@ public class ControlATCuadrilla implements Serializable {
                 cuadrillaModulo = (Column) c.getViewRoot().findComponent("form:datosCuadrilla:cuadrillaModulo");
                 cuadrillaModulo.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaCuadrilla = "70";
-                PrimefacesContextUI.actualizar("form:datosCuadrilla");
+                RequestContext.getCurrentInstance().update("form:datosCuadrilla");
                 banderaCuadrilla = 0;
                 filtrarListaCuadrillas = null;
                 tipoListaCuadrilla = 0;
@@ -1218,11 +1218,11 @@ public class ControlATCuadrilla implements Serializable {
             listaCuadrillas.add(nuevaCuadrilla);
             nuevaCuadrilla = new Cuadrillas();
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosCuadrilla");
+            RequestContext.getCurrentInstance().update("form:datosCuadrilla");
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroCuadrilla').hide()");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             cambiosCuadrilla = true;
             indexCuadrilla = -1;
@@ -1263,7 +1263,7 @@ public class ControlATCuadrilla implements Serializable {
                     turnoMinFinal = (Column) c.getViewRoot().findComponent("form:datosTurno:turnoMinFinal");
                     turnoMinFinal.setFilterStyle("display: none; visibility: hidden;");
                     altoTablaTurno = "80";
-                    PrimefacesContextUI.actualizar("form:datosTurno");
+                    RequestContext.getCurrentInstance().update("form:datosTurno");
                     banderaTurno = 0;
                     filtrarListaTurnosRotativos = null;
                     tipoListaTurno = 0;
@@ -1279,11 +1279,11 @@ public class ControlATCuadrilla implements Serializable {
                 listTurnosRotativosCrear.add(nuevaTurnoRotativo);
                 listaTurnosRotativos.add(nuevaTurnoRotativo);
                 nuevaTurnoRotativo = new Turnosrotativos();
-                PrimefacesContextUI.actualizar("form:datosTurno");
+                RequestContext.getCurrentInstance().update("form:datosTurno");
                 PrimefacesContextUI.ejecutar("PF('NuevoRegistroTurno').hide()");
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 cambiosTurno = true;
                 indexTurno = -1;
@@ -1316,7 +1316,7 @@ public class ControlATCuadrilla implements Serializable {
                 detalleEmpleado = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleEmpleado");
                 detalleEmpleado.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaDetalle = "80";
-                PrimefacesContextUI.actualizar("form:datosDetalle");
+                RequestContext.getCurrentInstance().update("form:datosDetalle");
                 banderaDetalle = 0;
                 filtrarListaDetallesTurnosRotativos = null;
                 tipoListaDetalle = 0;
@@ -1336,11 +1336,11 @@ public class ControlATCuadrilla implements Serializable {
             nuevaDetalle.setEmpleado(new Empleados());
             nuevaDetalle.getEmpleado().setPersona(new Personas());
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosDetalle");
+            RequestContext.getCurrentInstance().update("form:datosDetalle");
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroDetalle').hide()");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             cambiosDetalle = true;
             indexDetalle = -1;
@@ -1391,7 +1391,7 @@ public class ControlATCuadrilla implements Serializable {
         }
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:duplicarCuadrilla");
+        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCuadrilla");
         PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCuadrilla').show()");
         indexCuadrilla = -1;
         secRegistro = null;
@@ -1418,7 +1418,7 @@ public class ControlATCuadrilla implements Serializable {
         }
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:duplicarTurno");
+        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTurno");
         PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTurno').show()");
         indexTurno = -1;
         secRegistro = null;
@@ -1434,7 +1434,7 @@ public class ControlATCuadrilla implements Serializable {
         }
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:duplicarDetalle");
+        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalle");
         PrimefacesContextUI.ejecutar("PF('DuplicarRegistroDetalle').show()");
         indexDetalle = -1;
         secRegistro = null;
@@ -1449,13 +1449,13 @@ public class ControlATCuadrilla implements Serializable {
             listaCuadrillas.add(duplicarCuadrilla);
             listCuadrillasCrear.add(duplicarCuadrilla);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosCuadrilla");
+            RequestContext.getCurrentInstance().update("form:datosCuadrilla");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCuadrilla').hide()");
             indexCuadrilla = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (banderaCuadrilla == 1) {
                 //CERRAR FILTRADO
@@ -1469,7 +1469,7 @@ public class ControlATCuadrilla implements Serializable {
                 cuadrillaModulo = (Column) c.getViewRoot().findComponent("form:datosCuadrilla:cuadrillaModulo");
                 cuadrillaModulo.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaCuadrilla = "70";
-                PrimefacesContextUI.actualizar("form:datosCuadrilla");
+                RequestContext.getCurrentInstance().update("form:datosCuadrilla");
                 banderaCuadrilla = 0;
                 filtrarListaCuadrillas = null;
                 tipoListaCuadrilla = 0;
@@ -1502,13 +1502,13 @@ public class ControlATCuadrilla implements Serializable {
                 }
                 listaTurnosRotativos.add(duplicarTurnoRotativo);
                 listTurnosRotativosCrear.add(duplicarTurnoRotativo);
-                PrimefacesContextUI.actualizar("form:datosTurno");
+                RequestContext.getCurrentInstance().update("form:datosTurno");
                 PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTurno').hide()");
                 indexTurno = -1;
                 secRegistro = null;
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 if (banderaTurno == 1) {
                     //CERRAR FILTRADO
@@ -1528,7 +1528,7 @@ public class ControlATCuadrilla implements Serializable {
                     turnoMinFinal = (Column) c.getViewRoot().findComponent("form:datosTurno:turnoMinFinal");
                     turnoMinFinal.setFilterStyle("display: none; visibility: hidden;");
                     altoTablaTurno = "80";
-                    PrimefacesContextUI.actualizar("form:datosTurno");
+                    RequestContext.getCurrentInstance().update("form:datosTurno");
                     banderaTurno = 0;
                     filtrarListaTurnosRotativos = null;
                     tipoListaTurno = 0;
@@ -1562,13 +1562,13 @@ public class ControlATCuadrilla implements Serializable {
             listaDetallesTurnosRotativos.add(duplicarDetalle);
             listDetallesTurnosRotativosCrear.add(duplicarDetalle);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosDetalle");
+            RequestContext.getCurrentInstance().update("form:datosDetalle");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroDetalle').hide()");
             indexDetalle = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (banderaDetalle == 1) {
                 //CERRAR FILTRADO
@@ -1580,7 +1580,7 @@ public class ControlATCuadrilla implements Serializable {
                 detalleEmpleado = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleEmpleado");
                 detalleEmpleado.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaDetalle = "80";
-                PrimefacesContextUI.actualizar("form:datosDetalle");
+                RequestContext.getCurrentInstance().update("form:datosDetalle");
                 banderaDetalle = 0;
                 filtrarListaDetallesTurnosRotativos = null;
                 tipoListaDetalle = 0;
@@ -1638,25 +1638,25 @@ public class ControlATCuadrilla implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaDetalle.setEmpleado(lovEmpleados.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCodigoDetalle");
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaEmpleadoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCodigoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpleadoDetalle");
                 } else if (tipoNuevo == 2) {
                     duplicarDetalle.setEmpleado(lovEmpleados.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCodigoDetalle");
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarEmpleadoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmpleadoDetalle");
                 }
                 lovEmpleados.clear();
                 getLovEmpleados();
             } else {
-                PrimefacesContextUI.actualizar("formEmpleado:EmpleadoDialogo");
+                RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
                 PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCodigoDetalle");
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaEmpleadoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCodigoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpleadoDetalle");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCodigoDetalle");
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarEmpleadoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmpleadoDetalle");
                 }
             }
         }
@@ -1675,25 +1675,25 @@ public class ControlATCuadrilla implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaDetalle.setEmpleado(lovEmpleados.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCodigoDetalle");
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaEmpleadoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCodigoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpleadoDetalle");
                 } else if (tipoNuevo == 2) {
                     duplicarDetalle.setEmpleado(lovEmpleados.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCodigoDetalle");
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarEmpleadoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmpleadoDetalle");
                 }
                 lovEmpleados.clear();
                 getLovEmpleados();
             } else {
-                PrimefacesContextUI.actualizar("formEmpleado:EmpleadoDialogo");
+                RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
                 PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCodigoDetalle");
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaEmpleadoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCodigoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpleadoDetalle");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCodigoDetalle");
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarEmpleadoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoDetalle");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmpleadoDetalle");
                 }
             }
         }
@@ -1758,14 +1758,14 @@ public class ControlATCuadrilla implements Serializable {
                 filtrarListaCuadrillas.remove(indexCuadrilla);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosCuadrilla");
+            RequestContext.getCurrentInstance().update("form:datosCuadrilla");
 
             indexCuadrilla = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             cambiosCuadrilla = true;
         }
@@ -1801,14 +1801,14 @@ public class ControlATCuadrilla implements Serializable {
                 filtrarListaTurnosRotativos.remove(indexTurno);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosTurno");
+            RequestContext.getCurrentInstance().update("form:datosTurno");
 
             indexTurno = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             cambiosTurno = true;
         }
@@ -1844,14 +1844,14 @@ public class ControlATCuadrilla implements Serializable {
                 filtrarListaDetallesTurnosRotativos.remove(indexDetalle);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosDetalle");
+            RequestContext.getCurrentInstance().update("form:datosDetalle");
 
             indexDetalle = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             cambiosDetalle = true;
         }
@@ -1871,7 +1871,7 @@ public class ControlATCuadrilla implements Serializable {
                 cuadrillaModulo = (Column) c.getViewRoot().findComponent("form:datosCuadrilla:cuadrillaModulo");
                 cuadrillaModulo.setFilterStyle("width: 85%;");
                 altoTablaCuadrilla = "50";
-                PrimefacesContextUI.actualizar("form:datosCuadrilla");
+                RequestContext.getCurrentInstance().update("form:datosCuadrilla");
                 banderaCuadrilla = 1;
             } else if (banderaCuadrilla == 1) {
                 //CERRAR FILTRADO
@@ -1884,7 +1884,7 @@ public class ControlATCuadrilla implements Serializable {
                 cuadrillaModulo = (Column) c.getViewRoot().findComponent("form:datosCuadrilla:cuadrillaModulo");
                 cuadrillaModulo.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaCuadrilla = "70";
-                PrimefacesContextUI.actualizar("form:datosCuadrilla");
+                RequestContext.getCurrentInstance().update("form:datosCuadrilla");
                 banderaCuadrilla = 0;
                 filtrarListaCuadrillas = null;
                 tipoListaCuadrilla = 0;
@@ -1907,7 +1907,7 @@ public class ControlATCuadrilla implements Serializable {
                 turnoMinFinal = (Column) c.getViewRoot().findComponent("form:datosTurno:turnoMinFinal");
                 turnoMinFinal.setFilterStyle("width: 85%;");
                 altoTablaTurno = "60";
-                PrimefacesContextUI.actualizar("form:datosTurno");
+                RequestContext.getCurrentInstance().update("form:datosTurno");
                 banderaTurno = 1;
             } else if (banderaTurno == 1) {
                 //CERRAR FILTRADO
@@ -1926,7 +1926,7 @@ public class ControlATCuadrilla implements Serializable {
                 turnoMinFinal = (Column) c.getViewRoot().findComponent("form:datosTurno:turnoMinFinal");
                 turnoMinFinal.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaTurno = "80";
-                PrimefacesContextUI.actualizar("form:datosTurno");
+                RequestContext.getCurrentInstance().update("form:datosTurno");
                 banderaTurno = 0;
                 filtrarListaTurnosRotativos = null;
                 tipoListaTurno = 0;
@@ -1941,7 +1941,7 @@ public class ControlATCuadrilla implements Serializable {
                 detalleEmpleado = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleEmpleado");
                 detalleEmpleado.setFilterStyle("width: 85%;");
                 altoTablaDetalle = "60";
-                PrimefacesContextUI.actualizar("form:datosDetalle");
+                RequestContext.getCurrentInstance().update("form:datosDetalle");
                 banderaDetalle = 1;
             } else if (banderaDetalle == 1) {
                 //CERRAR FILTRADO
@@ -1952,7 +1952,7 @@ public class ControlATCuadrilla implements Serializable {
                 detalleEmpleado = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleEmpleado");
                 detalleEmpleado.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaDetalle = "80";
-                PrimefacesContextUI.actualizar("form:datosDetalle");
+                RequestContext.getCurrentInstance().update("form:datosDetalle");
                 banderaDetalle = 0;
                 filtrarListaDetallesTurnosRotativos = null;
                 tipoListaDetalle = 0;
@@ -1975,7 +1975,7 @@ public class ControlATCuadrilla implements Serializable {
             cuadrillaModulo = (Column) c.getViewRoot().findComponent("form:datosCuadrilla:cuadrillaModulo");
             cuadrillaModulo.setFilterStyle("display: none; visibility: hidden;");
             altoTablaCuadrilla = "70";
-            PrimefacesContextUI.actualizar("form:datosCuadrilla");
+            RequestContext.getCurrentInstance().update("form:datosCuadrilla");
             banderaCuadrilla = 0;
             filtrarListaCuadrillas = null;
             tipoListaCuadrilla = 0;
@@ -1998,7 +1998,7 @@ public class ControlATCuadrilla implements Serializable {
             turnoMinFinal = (Column) c.getViewRoot().findComponent("form:datosTurno:turnoMinFinal");
             turnoMinFinal.setFilterStyle("display: none; visibility: hidden;");
             altoTablaTurno = "80";
-            PrimefacesContextUI.actualizar("form:datosTurno");
+            RequestContext.getCurrentInstance().update("form:datosTurno");
             banderaTurno = 0;
             filtrarListaTurnosRotativos = null;
             tipoListaTurno = 0;
@@ -2014,7 +2014,7 @@ public class ControlATCuadrilla implements Serializable {
             detalleEmpleado = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleEmpleado");
             detalleEmpleado.setFilterStyle("display: none; visibility: hidden;");
             altoTablaDetalle = "80";
-            PrimefacesContextUI.actualizar("form:datosDetalle");
+            RequestContext.getCurrentInstance().update("form:datosDetalle");
             banderaDetalle = 0;
             filtrarListaDetallesTurnosRotativos = null;
             tipoListaDetalle = 0;
@@ -2043,7 +2043,7 @@ public class ControlATCuadrilla implements Serializable {
         listaTurnosRotativos = null;
         listaDetallesTurnosRotativos = null;
         guardado = true;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO)
 
@@ -2057,7 +2057,7 @@ public class ControlATCuadrilla implements Serializable {
         } else if (LND == 2) {
             tipoActualizacion = 2;
         }
-        PrimefacesContextUI.actualizar("formEmpleado:EmpleadoDialogo");
+        RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
         PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').show()");
     }
 
@@ -2085,19 +2085,19 @@ public class ControlATCuadrilla implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             cambiosDetalle = true;
-            PrimefacesContextUI.actualizar("form:datosDetalle");
+            RequestContext.getCurrentInstance().update("form:datosDetalle");
             permitirIndexDetalle = true;
         } else if (tipoActualizacion == 1) {
             nuevaDetalle.setEmpleado(empleadoSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaCodigoDetalle");
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaEmpleadoDetalle");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCodigoDetalle");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpleadoDetalle");
         } else if (tipoActualizacion == 2) {
             duplicarDetalle.setEmpleado(empleadoSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCodigoDetalle");
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEmpleadoDetalle");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoDetalle");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmpleadoDetalle");
         }
         filtrarLovEmpleados = null;
         empleadoSeleccionado = null;
@@ -2106,9 +2106,9 @@ public class ControlATCuadrilla implements Serializable {
         secRegistro = null;
         tipoActualizacion = -1;
         /*
-         PrimefacesContextUI.actualizar("formEmpleado:EmpleadoDialogo");
-         PrimefacesContextUI.actualizar("formEmpleado:lovEmpleado");
-         PrimefacesContextUI.actualizar("formEmpleado:aceptarE");*/
+         RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
+         RequestContext.getCurrentInstance().update("formEmpleado:lovEmpleado");
+         RequestContext.getCurrentInstance().update("formEmpleado:aceptarE");*/
         context.reset("formEmpleado:lovEmpleado:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovEmpleado').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').hide()");
@@ -2132,7 +2132,7 @@ public class ControlATCuadrilla implements Serializable {
         if (indexCuadrilla >= 0) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaCuadrilla == 1) {
-                PrimefacesContextUI.actualizar("formEmpleado:EmpleadoDialogo");
+                RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
                 PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -2151,7 +2151,7 @@ public class ControlATCuadrilla implements Serializable {
                 cancelarModificacion();
                 FacesMessage msg = new FacesMessage("Información", "Se realizo con exito el borrado de la programacion");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                PrimefacesContextUI.actualizar("form:growl");
+                RequestContext.getCurrentInstance().update("form:growl");
             } else {
                 PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
             }
@@ -2159,7 +2159,7 @@ public class ControlATCuadrilla implements Serializable {
             System.out.println("Error borrarProgramacionCompleta Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el borrado de la programacion, intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
 
@@ -2169,8 +2169,8 @@ public class ControlATCuadrilla implements Serializable {
             activarBtnBuscar = false;
             activarBtnMostrar = true;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:BUSCAR");
-            PrimefacesContextUI.actualizar("form:TODOS");
+            RequestContext.getCurrentInstance().update("form:BUSCAR");
+            RequestContext.getCurrentInstance().update("form:TODOS");
         } else {
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
@@ -2184,7 +2184,7 @@ public class ControlATCuadrilla implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 lovEmpleadosPorCuadrillas = administrarATCuadrilla.consultarEmpleadosProcesoBuscarEmpleadosCuadrillas();
                 getInfoRegistroEmpleadoCuadrilla();
-                PrimefacesContextUI.actualizar("formEmpleado:EmpleadoCuadrillaDialogo");
+                RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoCuadrillaDialogo");
                 PrimefacesContextUI.ejecutar("PF('EmpleadoCuadrillaDialogo').show()");
             } else {
                 PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
@@ -2208,7 +2208,7 @@ public class ControlATCuadrilla implements Serializable {
                 cuadrillaModulo = (Column) c.getViewRoot().findComponent("form:datosCuadrilla:cuadrillaModulo");
                 cuadrillaModulo.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaCuadrilla = "70";
-                PrimefacesContextUI.actualizar("form:datosCuadrilla");
+                RequestContext.getCurrentInstance().update("form:datosCuadrilla");
                 banderaCuadrilla = 0;
                 filtrarListaCuadrillas = null;
                 tipoListaCuadrilla = 0;
@@ -2231,7 +2231,7 @@ public class ControlATCuadrilla implements Serializable {
                 turnoMinFinal = (Column) c.getViewRoot().findComponent("form:datosTurno:turnoMinFinal");
                 turnoMinFinal.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaTurno = "80";
-                PrimefacesContextUI.actualizar("form:datosTurno");
+                RequestContext.getCurrentInstance().update("form:datosTurno");
                 banderaTurno = 0;
                 filtrarListaTurnosRotativos = null;
                 tipoListaTurno = 0;
@@ -2247,7 +2247,7 @@ public class ControlATCuadrilla implements Serializable {
                 detalleEmpleado = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleEmpleado");
                 detalleEmpleado.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaDetalle = "80";
-                PrimefacesContextUI.actualizar("form:datosDetalle");
+                RequestContext.getCurrentInstance().update("form:datosDetalle");
                 banderaDetalle = 0;
                 filtrarListaDetallesTurnosRotativos = null;
                 tipoListaDetalle = 0;
@@ -2287,22 +2287,22 @@ public class ControlATCuadrilla implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             /*
-             PrimefacesContextUI.actualizar("formEmpleado:EmpleadoCuadrillaDialogo");
-             PrimefacesContextUI.actualizar("formEmpleado:lovEmpleadoCuadrilla");
-             PrimefacesContextUI.actualizar("formEmpleado:aceptarEC");*/
+             RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoCuadrillaDialogo");
+             RequestContext.getCurrentInstance().update("formEmpleado:lovEmpleadoCuadrilla");
+             RequestContext.getCurrentInstance().update("formEmpleado:aceptarEC");*/
             context.reset("formEmpleado:lovEmpleadoCuadrilla:globalFilter");
             PrimefacesContextUI.ejecutar("PF('lovEmpleadoCuadrilla').clearFilters()");
             PrimefacesContextUI.ejecutar("PF('EmpleadoCuadrillaDialogo').hide()");
 
-            PrimefacesContextUI.actualizar("form:datosCuadrilla");
-            PrimefacesContextUI.actualizar("form:datosTurno");
-            PrimefacesContextUI.actualizar("form:datosDetalle");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosCuadrilla");
+            RequestContext.getCurrentInstance().update("form:datosTurno");
+            RequestContext.getCurrentInstance().update("form:datosDetalle");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             activarBtnBuscar = true;
             activarBtnMostrar = false;
-            PrimefacesContextUI.actualizar("form:BUSCAR");
-            PrimefacesContextUI.actualizar("form:TODOS");
+            RequestContext.getCurrentInstance().update("form:BUSCAR");
+            RequestContext.getCurrentInstance().update("form:TODOS");
         } catch (Exception e) {
             System.out.println("Error actualizarEmpleadosCuadrillas Controlador : " + e.toString());
         }

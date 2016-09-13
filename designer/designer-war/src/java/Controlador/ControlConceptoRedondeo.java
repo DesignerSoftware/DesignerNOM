@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Conceptos;
 import Entidades.Personas;
 import Entidades.ConceptosRedondeos;
@@ -23,7 +24,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -139,11 +139,11 @@ public class ControlConceptoRedondeo implements Serializable {
         if (index >= 0) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:conceptosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:conceptosDialogo");
                 PrimefacesContextUI.ejecutar("PF('conceptosDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:tiposRedondeosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:tiposRedondeosDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposRedondeosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -172,7 +172,7 @@ public class ControlConceptoRedondeo implements Serializable {
                         guardado = false;
                     }
                     cambiosPagina = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 index = -1;
                 secRegistro = null;
@@ -188,12 +188,12 @@ public class ControlConceptoRedondeo implements Serializable {
                         guardado = false;
                     }
                     cambiosPagina = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 index = -1;
                 secRegistro = null;
             }
-            PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
         } else if (confirmarCambio.equalsIgnoreCase("CONCEPTO")) {
             if (tipoLista == 0) {
                 listaConceptosRedondeos.get(indice).getConcepto().setDescripcion(Concepto);
@@ -216,10 +216,10 @@ public class ControlConceptoRedondeo implements Serializable {
                 lovlistaConceptos.clear();
                 getLovlistaConceptos();
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:conceptosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:conceptosDialogo");
                 PrimefacesContextUI.ejecutar("PF('conceptosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -281,14 +281,14 @@ public class ControlConceptoRedondeo implements Serializable {
             }
             cambiosPagina = false;
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
         } else if (tipoActualizacion == 1) {
             System.out.println("Entro al Nuevo, como esperaba");
             nuevoConceptoRedondeo.setConcepto(conceptosSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoConcepto");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoConcepto");
         } else if (tipoActualizacion == 2) {
             duplicarConceptoRedondeo.setConcepto(conceptosSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarConcepto");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarConcepto");
 
         }
         lovfiltradoslistaConceptos = null;
@@ -301,7 +301,7 @@ public class ControlConceptoRedondeo implements Serializable {
         context.reset("formularioDialogos:LOVConceptos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVConceptos').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('conceptosDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVConceptos");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVConceptos");
     }
 
     public void cancelarCambiosConceptos() {
@@ -345,13 +345,13 @@ public class ControlConceptoRedondeo implements Serializable {
             }
             cambiosPagina = false;
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
         } else if (tipoActualizacion == 1) {
             nuevoConceptoRedondeo.setTiporedondeo(tiposRedondeosSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipo");
         } else if (tipoActualizacion == 2) {
             duplicarConceptoRedondeo.setTiporedondeo(tiposRedondeosSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipo");
 
         }
         lovfiltradoslistaTiposRedondeos = null;
@@ -364,7 +364,7 @@ public class ControlConceptoRedondeo implements Serializable {
         context.reset("formularioDialogos:LOVTiposRedondeos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVTiposRedondeos').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('tiposRedondeosDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVTiposRedondeos");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposRedondeos");
     }
 
     public void cancelarCambiosTiposRedondeos() {
@@ -395,8 +395,8 @@ public class ControlConceptoRedondeo implements Serializable {
         context.reset("formularioDialogos:LOVConceptosRedondeos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVConceptosRedondeos').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('conceptosRedondeosDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVConceptosRedondeos");
-        PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVConceptosRedondeos");
+        RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
         filtradoListaConceptosRedondeos = null;
         conceptosRedondeosSeleccionado = null;
         aceptar = true;
@@ -429,7 +429,7 @@ public class ControlConceptoRedondeo implements Serializable {
             listaConceptosRedondeos = administrarConceptosRedondeos.consultarConceptosRedondeos();
         }
 
-        PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
+        RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
         filtradoListaConceptosRedondeos = null;
         aceptar = true;
         index = -1;
@@ -455,13 +455,13 @@ public class ControlConceptoRedondeo implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:conceptosDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:conceptosDialogo");
             PrimefacesContextUI.ejecutar("PF('conceptosDialogo').show()");
         } else if (dlg == 1) {
-            PrimefacesContextUI.actualizar("formularioDialogos:tiposRedondeosDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:tiposRedondeosDialogo");
             PrimefacesContextUI.ejecutar("PF('tiposRedondeosDialogo').show()");
         } else if (dlg == 2) {
-            PrimefacesContextUI.actualizar("formularioDialogos:conceptosRedondeosDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:conceptosRedondeosDialogo");
             PrimefacesContextUI.ejecutar("PF('conceptosRedondeosDialogo').show()");
         }
     }
@@ -478,7 +478,7 @@ public class ControlConceptoRedondeo implements Serializable {
             conceptoRedondeoConcepto.setFilterStyle("display: none; visibility: hidden;");
             conceptoRedondeoTipoRedondeo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConceptosRedondeos:conceptoRedondeoTipoRedondeo");
             conceptoRedondeoTipoRedondeo.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
             bandera = 0;
             filtradoListaConceptosRedondeos = null;
             tipoLista = 0;
@@ -494,8 +494,8 @@ public class ControlConceptoRedondeo implements Serializable {
         listaConceptosRedondeos = null;
         guardado = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void cancelarCambioConceptosRedondeos() {
@@ -525,11 +525,11 @@ public class ControlConceptoRedondeo implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarConcepto");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarConcepto");
                 PrimefacesContextUI.ejecutar("PF('editarConcepto').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTipoRedondeo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoRedondeo");
                 PrimefacesContextUI.ejecutar("PF('editarTipoRedondeo').show()");
                 cualCelda = -1;
             }
@@ -558,7 +558,7 @@ public class ControlConceptoRedondeo implements Serializable {
         }
 
         if (pasa != 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoConceptoRedondeo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoConceptoRedondeo");
             PrimefacesContextUI.ejecutar("PF('validacionNuevoConceptoRedondeo').show()");
         }
 
@@ -568,7 +568,7 @@ public class ControlConceptoRedondeo implements Serializable {
             conceptoRedondeoConcepto.setFilterStyle("display: none; visibility: hidden;");
             conceptoRedondeoTipoRedondeo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConceptosRedondeos:conceptoRedondeoTipoRedondeo");
             conceptoRedondeoTipoRedondeo.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
             bandera = 0;
             filtradoListaConceptosRedondeos = null;
             tipoLista = 0;
@@ -579,14 +579,14 @@ public class ControlConceptoRedondeo implements Serializable {
         nuevoConceptoRedondeo.setSecuencia(l);
 
         cambiosPagina = false;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         listaConceptosRedondeosCrear.add(nuevoConceptoRedondeo);
         listaConceptosRedondeos.add(nuevoConceptoRedondeo);
         nuevoConceptoRedondeo = new ConceptosRedondeos();
-        PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
+        RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
         if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:aceptar");
         }
         PrimefacesContextUI.ejecutar("PF('NuevoRegistroConceptosRedondeos').hide()");
         index = -1;
@@ -628,21 +628,21 @@ public class ControlConceptoRedondeo implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoConceptoRedondeo.setConcepto(lovlistaConceptos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoConcepto");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoConcepto");
                 } else if (tipoNuevo == 2) {
                     duplicarConceptoRedondeo.setConcepto(lovlistaConceptos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarConcepto");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarConcepto");
                 }
                 lovlistaConceptos.clear();
                 getLovlistaConceptos();
             } else {
-                PrimefacesContextUI.actualizar("form:conceptosDialogo");
+                RequestContext.getCurrentInstance().update("form:conceptosDialogo");
                 PrimefacesContextUI.ejecutar("PF('conceptosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoConcepto");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoConcepto");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarConcepto");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarConcepto");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("TIPO")) {
@@ -661,22 +661,22 @@ public class ControlConceptoRedondeo implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoConceptoRedondeo.setTiporedondeo(lovlistaTiposRedondeos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipo");
                 } else if (tipoNuevo == 2) {
                     duplicarConceptoRedondeo.setTiporedondeo(lovlistaTiposRedondeos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipo");
                 }
                 lovlistaTiposRedondeos.clear();
                 getLovlistaTiposRedondeos();
             } else {
-                PrimefacesContextUI.actualizar("form:tiposRedondeosDialogo");
+                RequestContext.getCurrentInstance().update("form:tiposRedondeosDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposRedondeosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipo");
 
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipo");
 
                 }
             }
@@ -719,7 +719,7 @@ public class ControlConceptoRedondeo implements Serializable {
             }
             System.out.println("Concepto Duplicar : " + listaConceptosRedondeos.get(index).getConcepto());
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroConceptosRedondeos");
+            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroConceptosRedondeos");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroConceptosRedondeos').show()");
             index = -1;
             secRegistro = null;
@@ -740,7 +740,7 @@ public class ControlConceptoRedondeo implements Serializable {
             conceptoRedondeoConcepto.setFilterStyle("display: none; visibility: hidden;");
             conceptoRedondeoTipoRedondeo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConceptosRedondeos:conceptoRedondeoTipoRedondeo");
             conceptoRedondeoTipoRedondeo.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
             bandera = 0;
             filtradoListaConceptosRedondeos = null;
             tipoLista = 0;
@@ -751,14 +751,14 @@ public class ControlConceptoRedondeo implements Serializable {
         duplicarConceptoRedondeo.setSecuencia(l);
 
         cambiosPagina = false;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         listaConceptosRedondeosCrear.add(duplicarConceptoRedondeo);
         listaConceptosRedondeos.add(duplicarConceptoRedondeo);
         duplicarConceptoRedondeo = new ConceptosRedondeos();
-        PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
+        RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
         if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:aceptar");
         }
         PrimefacesContextUI.ejecutar("PF('DuplicarRegistroConceptosRedondeos').hide()");
         index = -1;
@@ -812,13 +812,13 @@ public class ControlConceptoRedondeo implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                //PrimefacesContextUI.actualizar("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:aceptar");
             }
         }
     }
@@ -835,7 +835,7 @@ public class ControlConceptoRedondeo implements Serializable {
             conceptoRedondeoConcepto.setFilterStyle("width: 85%");
             conceptoRedondeoTipoRedondeo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConceptosRedondeos:conceptoRedondeoTipoRedondeo");
             conceptoRedondeoTipoRedondeo.setFilterStyle("width: 85%");
-            PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
             bandera = 1;
 
         } else if (bandera == 1) {
@@ -845,7 +845,7 @@ public class ControlConceptoRedondeo implements Serializable {
             conceptoRedondeoTipoRedondeo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConceptosRedondeos:conceptoRedondeoTipoRedondeo");
             conceptoRedondeoTipoRedondeo.setFilterStyle("display: none; visibility: hidden;");
 
-            PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
 
             bandera = 0;
             filtradoListaConceptosRedondeos = null;
@@ -865,7 +865,7 @@ public class ControlConceptoRedondeo implements Serializable {
             conceptoRedondeoTipoRedondeo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConceptosRedondeos:conceptoRedondeoTipoRedondeo");
             conceptoRedondeoTipoRedondeo.setFilterStyle("display: none; visibility: hidden;");
 
-            PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
 
             bandera = 0;
             filtradoListaConceptosRedondeos = null;
@@ -997,11 +997,11 @@ public class ControlConceptoRedondeo implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             cambiosPagina = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosConceptosRedondeos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
             guardado = true;
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:aceptar");
             //  k = 0;
         }
         index = -1;

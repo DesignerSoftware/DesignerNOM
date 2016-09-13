@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.MotivosCambiosCargos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -166,7 +166,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioCargo:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosMotivoCambioCargo");
+            RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
             bandera = 0;
             filtrarMotivosCambiosCargos = null;
             tipoLista = 0;
@@ -183,9 +183,9 @@ public class ControlMotivosCambiosCargos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         getListMotivosCambiosCargos();
         contarRegistros();
-        PrimefacesContextUI.actualizar("form:infoRegistro");
-        PrimefacesContextUI.actualizar("form:datosMotivoCambioCargo");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
+        RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -197,7 +197,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioCargo:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosMotivoCambioCargo");
+            RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
             bandera = 0;
             filtrarMotivosCambiosCargos = null;
             tipoLista = 0;
@@ -215,9 +215,9 @@ public class ControlMotivosCambiosCargos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         getListMotivosCambiosCargos();
         contarRegistros();
-        PrimefacesContextUI.actualizar("form:infoRegistro");
-        PrimefacesContextUI.actualizar("form:datosMotivoCambioCargo");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
+        RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -228,7 +228,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
             codigo.setFilterStyle("width: 85%");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioCargo:descripcion");
             descripcion.setFilterStyle("width: 85%");
-            PrimefacesContextUI.actualizar("form:datosMotivoCambioCargo");
+            RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -238,7 +238,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioCargo:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             tamano = 315;
-            PrimefacesContextUI.actualizar("form:datosMotivoCambioCargo");
+            RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
             bandera = 0;
             filtrarMotivosCambiosCargos = null;
             tipoLista = 0;
@@ -308,14 +308,14 @@ public class ControlMotivosCambiosCargos implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
-            PrimefacesContextUI.actualizar("form:validacionModificar");
+            RequestContext.getCurrentInstance().update("form:validacionModificar");
             PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
         }
 
-        PrimefacesContextUI.actualizar("form:datosMotivoCambioCargo");
+        RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
     }
 
     public void borrarMotivosCambiosCargos() {
@@ -336,11 +336,11 @@ public class ControlMotivosCambiosCargos implements Serializable {
                 listMotivosCambiosCargos.remove(motivoCambioCargoSeleccionado);
             }
             modificarinfoRegistro(listMotivosCambiosCargos.size());
-            PrimefacesContextUI.actualizar("form:infoRegistro");
-            PrimefacesContextUI.actualizar("form:datosMotivoCambioCargo");
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
             PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
@@ -365,7 +365,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 motivoCambioCargoSeleccionado = null;
                 borradoVC = new BigInteger("-1");
@@ -386,7 +386,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
 
                 //mostrarBorrados
                 registrosBorrados = borrarMotivoCambioCargo.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarMotivoCambioCargo.clear();
             }
@@ -402,14 +402,14 @@ public class ControlMotivosCambiosCargos implements Serializable {
             System.out.println("Se guardaron los datos con exito");
             listMotivosCambiosCargos = null;
             contarRegistros();
-            PrimefacesContextUI.actualizar("form:datosMotivoCambioCargo");
+            RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
             k = 0;
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -420,11 +420,11 @@ public class ControlMotivosCambiosCargos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -483,7 +483,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioCargo:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosMotivoCambioCargo");
+                RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
                 bandera = 0;
                 filtrarMotivosCambiosCargos = null;
                 tipoLista = 0;
@@ -499,11 +499,11 @@ public class ControlMotivosCambiosCargos implements Serializable {
             nuevoMotivoCambioCargo = new MotivosCambiosCargos();
             motivoCambioCargoSeleccionado = nuevoMotivoCambioCargo;
             modificarinfoRegistro(listMotivosCambiosCargos.size());
-            PrimefacesContextUI.actualizar("form:infoRegistro");
-            PrimefacesContextUI.actualizar("form:datosMotivoCambioCargo");
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             System.out.println("Despues de la bandera guardado");
 
@@ -511,7 +511,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
             System.out.println("Despues de nuevoRegistroMotivoCambiosCargos");
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevoMotivoCambioCargo");
+            RequestContext.getCurrentInstance().update("form:validacionNuevoMotivoCambioCargo");
             PrimefacesContextUI.ejecutar("PF('validacionNuevoMotivoCambioCargo').show()");
             contador = 0;
         }
@@ -534,7 +534,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
             duplicarMotivoCambioCargo.setSecuencia(l);
             duplicarMotivoCambioCargo.setCodigo(motivoCambioCargoSeleccionado.getCodigo());
             duplicarMotivoCambioCargo.setNombre(motivoCambioCargoSeleccionado.getNombre());
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarMotivosCambiosCargos");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivosCambiosCargos");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroMotivosCambiosCargos').show()");
         } else {
             PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
@@ -585,11 +585,11 @@ public class ControlMotivosCambiosCargos implements Serializable {
             crearMotivoCambioCargo.add(duplicarMotivoCambioCargo);
             motivoCambioCargoSeleccionado = duplicarMotivoCambioCargo;
             modificarinfoRegistro(listMotivosCambiosCargos.size());
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosMotivoCambioCargo");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 //CERRAR FILTRADO
@@ -599,19 +599,19 @@ public class ControlMotivosCambiosCargos implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioCargo:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosMotivoCambioCargo");
+                RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
                 bandera = 0;
                 filtrarMotivosCambiosCargos = null;
                 tipoLista = 0;
             }
             infoRegistro = "Cantidad de registros: " + listMotivosCambiosCargos.size();
-            PrimefacesContextUI.actualizar("form:infoRegistro");
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
             duplicarMotivoCambioCargo = new MotivosCambiosCargos();
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroMotivosCambiosCargos').hide()");
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarMotivoCambioCargo");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarMotivoCambioCargo");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarMotivoCambioCargo').show()");
         }
     }
@@ -670,7 +670,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
             }
             modificarinfoRegistro(filtrarMotivosCambiosCargos.size());
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:infoRegistro");
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlMotiviosCambiosCargos eventoFiltrar ERROR===" + e.getMessage());
         }

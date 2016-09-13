@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.TiposPensionados;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 @ManagedBean
 @SessionScoped
@@ -97,7 +97,7 @@ public class ControlTiposPensionados implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarTiposPensionados.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlTiposPensionados eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -167,7 +167,7 @@ public class ControlTiposPensionados implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposPensionados:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposPensionados");
+            RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
             bandera = 0;
             filtrarTiposPensionados = null;
             tipoLista = 0;
@@ -189,9 +189,9 @@ public class ControlTiposPensionados implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listTiposPensionados.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosTiposPensionados");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -202,7 +202,7 @@ public class ControlTiposPensionados implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposPensionados:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposPensionados");
+            RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
             bandera = 0;
             filtrarTiposPensionados = null;
             tipoLista = 0;
@@ -224,9 +224,9 @@ public class ControlTiposPensionados implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listTiposPensionados.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosTiposPensionados");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -237,7 +237,7 @@ public class ControlTiposPensionados implements Serializable {
             codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposPensionados:descripcion");
             descripcion.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosTiposPensionados");
+            RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -247,7 +247,7 @@ public class ControlTiposPensionados implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposPensionados:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposPensionados");
+            RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
             bandera = 0;
             filtrarTiposPensionados = null;
             tipoLista = 0;
@@ -311,7 +311,7 @@ public class ControlTiposPensionados implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -355,7 +355,7 @@ public class ControlTiposPensionados implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -411,7 +411,7 @@ public class ControlTiposPensionados implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -458,7 +458,7 @@ public class ControlTiposPensionados implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -466,8 +466,8 @@ public class ControlTiposPensionados implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosTiposPensionados");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -512,15 +512,15 @@ public class ControlTiposPensionados implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listTiposPensionados.size();
             }
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosTiposPensionados");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -543,7 +543,7 @@ public class ControlTiposPensionados implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
                 contarRetiradosTipoPensionado = new BigInteger("-1");
@@ -558,7 +558,7 @@ public class ControlTiposPensionados implements Serializable {
 
         if (!borrarTiposPensionados.isEmpty() || !crearTiposPensionados.isEmpty() || !modificarTiposPensionados.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -573,7 +573,7 @@ public class ControlTiposPensionados implements Serializable {
                 administrarTiposPensionados.borrarTiposPensionados(borrarTiposPensionados);
                 //mostrarBorrados
                 registrosBorrados = borrarTiposPensionados.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarTiposPensionados.clear();
             }
@@ -587,15 +587,15 @@ public class ControlTiposPensionados implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listTiposPensionados = null;
-            PrimefacesContextUI.actualizar("form:datosTiposPensionados");
+            RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
             k = 0;
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -611,11 +611,11 @@ public class ControlTiposPensionados implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -676,7 +676,7 @@ public class ControlTiposPensionados implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposPensionados:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosTiposPensionados");
+                RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
                 bandera = 0;
                 filtrarTiposPensionados = null;
                 tipoLista = 0;
@@ -691,12 +691,12 @@ public class ControlTiposPensionados implements Serializable {
 
             listTiposPensionados.add(nuevoTiposPensionados);
             nuevoTiposPensionados = new TiposPensionados();
-            PrimefacesContextUI.actualizar("form:datosTiposPensionados");
+            RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
             infoRegistro = "Cantidad de registros: " + listTiposPensionados.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroTiposPensionados').hide()");
@@ -704,7 +704,7 @@ public class ControlTiposPensionados implements Serializable {
             secRegistro = null;
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -738,7 +738,7 @@ public class ControlTiposPensionados implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposPensionados').show()");
             index = -1;
             secRegistro = null;
@@ -791,15 +791,15 @@ public class ControlTiposPensionados implements Serializable {
             }
             listTiposPensionados.add(duplicarTiposPensionados);
             crearTiposPensionados.add(duplicarTiposPensionados);
-            PrimefacesContextUI.actualizar("form:datosTiposPensionados");
+            RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             infoRegistro = "Cantidad de registros: " + listTiposPensionados.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (bandera == 1) {
                 //CERRAR FILTRADO
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -807,7 +807,7 @@ public class ControlTiposPensionados implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposPensionados:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosTiposPensionados");
+                RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
                 bandera = 0;
                 filtrarTiposPensionados = null;
                 tipoLista = 0;
@@ -817,7 +817,7 @@ public class ControlTiposPensionados implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -890,7 +890,7 @@ public class ControlTiposPensionados implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listTiposPensionados.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listTiposPensionados;
     }
 

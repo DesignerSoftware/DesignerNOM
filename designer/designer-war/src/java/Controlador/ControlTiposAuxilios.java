@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.TiposAuxilios;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -21,7 +22,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -100,7 +100,7 @@ public class ControlTiposAuxilios implements Serializable {
                 tipoLista = 1;
             }
             infoRegistro = "Cantidad de registros : " + filtrarTiposAuxilios.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.err.println("ERROR CONTROLTIPOSAUXILIOS EVENTOFILTRAR  ERROR =" + e.getMessage());
         }
@@ -127,7 +127,7 @@ public class ControlTiposAuxilios implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             bandera = 0;
             filtrarTiposAuxilios = null;
             tipoLista = 0;
@@ -146,12 +146,12 @@ public class ControlTiposAuxilios implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros : 0";
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosTipoReemplazo");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -162,7 +162,7 @@ public class ControlTiposAuxilios implements Serializable {
             codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
             descripcion.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             bandera = 1;
         } else if (bandera == 1) {
             altoTabla = "330";
@@ -170,7 +170,7 @@ public class ControlTiposAuxilios implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             bandera = 0;
             filtrarTiposAuxilios = null;
             tipoLista = 0;
@@ -229,7 +229,7 @@ public class ControlTiposAuxilios implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                         cancelarModificacion();
                     }
@@ -288,7 +288,7 @@ public class ControlTiposAuxilios implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                         cancelarModificacion();
                     }
@@ -297,8 +297,8 @@ public class ControlTiposAuxilios implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosTipoReemplazo");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -312,7 +312,7 @@ public class ControlTiposAuxilios implements Serializable {
             }
             if (!verificarTablasAuxilios.equals(new BigInteger("0"))) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
                 verificarTablasAuxilios = new BigInteger("-1");
@@ -358,9 +358,9 @@ public class ControlTiposAuxilios implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros : " + listTiposAuxilios.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosTipoReemplazo");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             index = -1;
             secRegistro = null;
 
@@ -374,7 +374,7 @@ public class ControlTiposAuxilios implements Serializable {
     public void revisarDialogoGuardar() {
         if (!borrarTiposAuxilios.isEmpty() || !crearTiposAuxilios.isEmpty() || !modificarTiposAuxilios.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -388,7 +388,7 @@ public class ControlTiposAuxilios implements Serializable {
                     administrarTiposAuxilios.borrarTiposAuxilios(borrarTiposAuxilios);
                     //mostrarBorrados
                     registrosBorrados = borrarTiposAuxilios.size();
-                    PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                    RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                     PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                     borrarTiposAuxilios.clear();
                 }
@@ -402,19 +402,19 @@ public class ControlTiposAuxilios implements Serializable {
                 }
                 listTiposAuxilios = null;
                 guardado = true;
-                PrimefacesContextUI.actualizar("form:datosTipoReemplazo");
+                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
                 k = 0;
                 index = -1;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                PrimefacesContextUI.actualizar("form:growl");
+                RequestContext.getCurrentInstance().update("form:growl");
             }
         } catch (Exception e) {
             System.out.println("Error guardarTiposAuxilio : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
 
@@ -429,11 +429,11 @@ public class ControlTiposAuxilios implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
 
@@ -479,7 +479,7 @@ public class ControlTiposAuxilios implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosTipoReemplazo");
+                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
                 bandera = 0;
                 filtrarTiposAuxilios = null;
                 tipoLista = 0;
@@ -492,21 +492,21 @@ public class ControlTiposAuxilios implements Serializable {
 
             listTiposAuxilios.add(nuevoTipoAuxilios);
             nuevoTipoAuxilios = new TiposAuxilios();
-            PrimefacesContextUI.actualizar("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             infoRegistro = "Cantidad de registros : " + listTiposAuxilios.size();
 
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroTiposReemplazos').hide()");
             index = -1;
             secRegistro = null;
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -534,7 +534,7 @@ public class ControlTiposAuxilios implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTTR");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTTR");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposReemplazos').show()");
             index = -1;
             secRegistro = null;
@@ -576,12 +576,12 @@ public class ControlTiposAuxilios implements Serializable {
             duplicarTipoAuxilio.setSecuencia(l);
             listTiposAuxilios.add(duplicarTipoAuxilio);
             crearTiposAuxilios.add(duplicarTipoAuxilio);
-            PrimefacesContextUI.actualizar("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 altoTabla = "330";
@@ -590,19 +590,19 @@ public class ControlTiposAuxilios implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosTipoReemplazo");
+                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
                 bandera = 0;
                 filtrarTiposAuxilios = null;
                 tipoLista = 0;
             }
             duplicarTipoAuxilio = new TiposAuxilios();
             infoRegistro = "Cantidad de registros : " + listTiposAuxilios.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposReemplazos').hide()");
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }

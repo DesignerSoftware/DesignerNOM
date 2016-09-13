@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.CentrosCostos;
 import Entidades.Empleados;
 import Entidades.Empresas;
@@ -32,7 +33,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 @ManagedBean
 @SessionScoped
@@ -130,17 +130,17 @@ public class ControlParametro implements Serializable {
         if (LOV.equals("ESTRUCTURA")) {
             cargarLovEstrucuras();
             contarRegistrosLovEstr(0);
-            PrimefacesContextUI.actualizar("formularioDialogos:estructurasDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
             PrimefacesContextUI.ejecutar("PF('estructurasDialogo').show()");
         } else if (LOV.equals("TIPO TRABAJADOR")) {
             cargarLovTiposTrabajadores();
             contarRegistrosLovTT(0);
-            PrimefacesContextUI.actualizar("formularioDialogos:TipoTrabajadorDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:TipoTrabajadorDialogo");
             PrimefacesContextUI.ejecutar("PF('TipoTrabajadorDialogo').show()");
         } else if (LOV.equals("PROCESO")) {
             cargarLovProcesos();
             contarRegistrosLovProc(0);
-            PrimefacesContextUI.actualizar("formularioDialogos:ProcesosDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
             PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').show()");
         }
     }
@@ -205,18 +205,18 @@ public class ControlParametro implements Serializable {
     public void actualizarEstructura() {
         RequestContext context = RequestContext.getCurrentInstance();
         parametroLiquidacion.setEstructura(seleccionEstructura);
-        PrimefacesContextUI.actualizar("form:Estructura");
-        PrimefacesContextUI.actualizar("form:codigoCC");
-        PrimefacesContextUI.actualizar("form:nombreCC");
+        RequestContext.getCurrentInstance().update("form:Estructura");
+        RequestContext.getCurrentInstance().update("form:codigoCC");
+        RequestContext.getCurrentInstance().update("form:nombreCC");
         filtradoLovEstructuras = null;
         seleccionEstructura = null;
         aceptar = true;
         guardado = false;
         cambiosParametros = true;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("formularioDialogos:estructurasDialogo");
-        PrimefacesContextUI.actualizar("formularioDialogos:lOVEstructuras");
-        PrimefacesContextUI.actualizar("formularioDialogos:aceptarE");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lOVEstructuras");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarE");
 
         context.reset("formularioDialogos:lOVEstructuras:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lOVEstructuras').clearFilters()");
@@ -228,9 +228,9 @@ public class ControlParametro implements Serializable {
         seleccionEstructura = null;
         aceptar = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:estructurasDialogo");
-        PrimefacesContextUI.actualizar("formularioDialogos:lOVEstructuras");
-        PrimefacesContextUI.actualizar("formularioDialogos:aceptarE");
+        RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lOVEstructuras");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarE");
         context.reset("formularioDialogos:lOVEstructuras:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lOVEstructuras').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('estructurasDialogo').hide()");
@@ -239,16 +239,16 @@ public class ControlParametro implements Serializable {
     public void actualizarTipoTrabajador() {
         RequestContext context = RequestContext.getCurrentInstance();
         parametroLiquidacion.setTipotrabajador(seleccionTipoTrabajador);
-        PrimefacesContextUI.actualizar("form:tipoTrabajador");
+        RequestContext.getCurrentInstance().update("form:tipoTrabajador");
         filtradoLovTiposTrabajadores = null;
         seleccionTipoTrabajador = null;
         aceptar = true;
         guardado = false;
         cambiosParametros = true;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("formularioDialogos:TipoTrabajadorDialogo");
-        PrimefacesContextUI.actualizar("formularioDialogos:lovTipoTrabajador");
-        PrimefacesContextUI.actualizar("formularioDialogos:aceptarTT");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("formularioDialogos:TipoTrabajadorDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovTipoTrabajador");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTT");
 
         context.reset("formularioDialogos:lovTipoTrabajador:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovTipoTrabajador').clearFilters()");
@@ -260,9 +260,9 @@ public class ControlParametro implements Serializable {
         seleccionTipoTrabajador = null;
         aceptar = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:TipoTrabajadorDialogo");
-        PrimefacesContextUI.actualizar("formularioDialogos:lovTipoTrabajador");
-        PrimefacesContextUI.actualizar("formularioDialogos:aceptarTT");
+        RequestContext.getCurrentInstance().update("formularioDialogos:TipoTrabajadorDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovTipoTrabajador");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTT");
         context.reset("formularioDialogos:lovTipoTrabajador:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovTipoTrabajador').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('TipoTrabajadorDialogo').hide()");
@@ -271,17 +271,17 @@ public class ControlParametro implements Serializable {
     public void actualizarProceso() {
         RequestContext context = RequestContext.getCurrentInstance();
         parametroLiquidacion.setProceso(seleccionProcesos);
-        PrimefacesContextUI.actualizar("form:proceso");
+        RequestContext.getCurrentInstance().update("form:proceso");
         filtradoLovProcesos = null;
         seleccionProcesos = null;
         aceptar = true;
         guardado = false;
         cambiosParametros = true;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
-        PrimefacesContextUI.actualizar("formularioDialogos:ProcesosDialogo");
-        PrimefacesContextUI.actualizar("formularioDialogos:lovProcesos");
-        PrimefacesContextUI.actualizar("formularioDialogos:aceptarP");
+        RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovProcesos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
 
         context.reset("formularioDialogos:lovProcesos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovProcesos').clearFilters()");
@@ -293,9 +293,9 @@ public class ControlParametro implements Serializable {
         seleccionProcesos = null;
         aceptar = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:ProcesosDialogo");
-        PrimefacesContextUI.actualizar("formularioDialogos:lovProcesos");
-        PrimefacesContextUI.actualizar("formularioDialogos:aceptarP");
+        RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovProcesos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
         context.reset("formularioDialogos:lovProcesos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovProcesos').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').hide()");
@@ -331,18 +331,18 @@ public class ControlParametro implements Serializable {
             empleadosParametros = new ArrayList<Parametros>();
             agregarParametro();
         }
-        PrimefacesContextUI.actualizar("form:empleadosParametros");
+        RequestContext.getCurrentInstance().update("form:empleadosParametros");
         contarRegistros();
         filtradoLovEmpleados = null;
         seleccionEmpleado = null;
         aceptar = true;
         guardado = false;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("form:quitarTodos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:quitarTodos");
 
-        PrimefacesContextUI.actualizar("formularioDialogos:buscarEmpleadoDialogo");
-        PrimefacesContextUI.actualizar("formularioDialogos:lovEmpleados");
-        PrimefacesContextUI.actualizar("formularioDialogos:aceptarEm");
+        RequestContext.getCurrentInstance().update("formularioDialogos:buscarEmpleadoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpleados");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarEm");
 
         context.reset("formularioDialogos:lovEmpleados:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovEmpleados').clearFilters()");
@@ -355,9 +355,9 @@ public class ControlParametro implements Serializable {
         aceptar = true;
         RequestContext context = RequestContext.getCurrentInstance();
 
-        PrimefacesContextUI.actualizar("formularioDialogos:buscarEmpleadoDialogo");
-        PrimefacesContextUI.actualizar("formularioDialogos:lovEmpleados");
-        PrimefacesContextUI.actualizar("formularioDialogos:aceptarEm");
+        RequestContext.getCurrentInstance().update("formularioDialogos:buscarEmpleadoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpleados");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarEm");
         context.reset("formularioDialogos:lovEmpleados:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovEmpleados').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('buscarEmpleadoDialogo').hide()");
@@ -413,18 +413,18 @@ public class ControlParametro implements Serializable {
                     }
                     if (coincidencias == 1) {
                         parametroLiquidacion.setEstructura(lovEstructuras.get(indiceUnicoElemento));
-                        PrimefacesContextUI.actualizar("form:Estructura");
-                        PrimefacesContextUI.actualizar("form:codigoCC");
-                        PrimefacesContextUI.actualizar("form:nombreCC");
+                        RequestContext.getCurrentInstance().update("form:Estructura");
+                        RequestContext.getCurrentInstance().update("form:codigoCC");
+                        RequestContext.getCurrentInstance().update("form:nombreCC");
                         guardado = false;
                         cambiosParametros = true;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     } else {
                         cargarLovEstrucuras();
                         contarRegistrosLovEstr(0);
-                        PrimefacesContextUI.actualizar("formularioDialogos:estructurasDialogo");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
                         PrimefacesContextUI.ejecutar("PF('estructurasDialogo').show()");
-                        PrimefacesContextUI.actualizar("form:Estructura");
+                        RequestContext.getCurrentInstance().update("form:Estructura");
                     }
                 } else {
                     PrimefacesContextUI.ejecutar("PF('lovVacia').show()");
@@ -433,11 +433,11 @@ public class ControlParametro implements Serializable {
             } else {
                 guardado = false;
                 cambiosParametros = true;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 parametroLiquidacion.setEstructura(new Estructuras());
-                PrimefacesContextUI.actualizar("form:Estructura");
-                PrimefacesContextUI.actualizar("form:codigoCC");
-                PrimefacesContextUI.actualizar("form:nombreCC");
+                RequestContext.getCurrentInstance().update("form:Estructura");
+                RequestContext.getCurrentInstance().update("form:codigoCC");
+                RequestContext.getCurrentInstance().update("form:nombreCC");
             }
 
         } else if (confirmarCambio.equalsIgnoreCase("TIPO TRABAJADOR")) {
@@ -453,16 +453,16 @@ public class ControlParametro implements Serializable {
                     }
                     if (coincidencias == 1) {
                         parametroLiquidacion.setTipotrabajador(lovTiposTrabajadores.get(indiceUnicoElemento));
-                        PrimefacesContextUI.actualizar("form:tipoTrabajador");
+                        RequestContext.getCurrentInstance().update("form:tipoTrabajador");
                         guardado = false;
                         cambiosParametros = true;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     } else {
                         cargarLovTiposTrabajadores();
                         contarRegistrosLovTT(0);
-                        PrimefacesContextUI.actualizar("formularioDialogos:TipoTrabajadorDialogo");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:TipoTrabajadorDialogo");
                         PrimefacesContextUI.ejecutar("PF('TipoTrabajadorDialogo').show()");
-                        PrimefacesContextUI.actualizar("form:tipoTrabajador");
+                        RequestContext.getCurrentInstance().update("form:tipoTrabajador");
                     }
                 } else {
                     PrimefacesContextUI.ejecutar("PF('lovVacia').show()");
@@ -471,9 +471,9 @@ public class ControlParametro implements Serializable {
             } else {
                 guardado = false;
                 cambiosParametros = true;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 parametroLiquidacion.setTipotrabajador(new TiposTrabajadores());
-                PrimefacesContextUI.actualizar("form:tipoTrabajador");
+                RequestContext.getCurrentInstance().update("form:tipoTrabajador");
             }
         } else if (confirmarCambio.equalsIgnoreCase("PROCESO")) {
             parametroLiquidacion.getProceso().setDescripcion(nombreProceso);
@@ -487,16 +487,16 @@ public class ControlParametro implements Serializable {
                 }
                 if (coincidencias == 1) {
                     parametroLiquidacion.setProceso(lovProcesos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("form:proceso");
+                    RequestContext.getCurrentInstance().update("form:proceso");
                     guardado = false;
                     cambiosParametros = true;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
                     cargarLovProcesos();
                     contarRegistrosLovProc(0);
-                    PrimefacesContextUI.actualizar("formularioDialogos:ProcesosDialogo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
                     PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').show()");
-                    PrimefacesContextUI.actualizar("form:proceso");
+                    RequestContext.getCurrentInstance().update("form:proceso");
                 }
             } else {
                 PrimefacesContextUI.ejecutar("PF('lovVacia').show()");
@@ -535,7 +535,7 @@ public class ControlParametro implements Serializable {
                                                     PrimefacesContextUI.ejecutar("PF('errorDias.show();");
                                                 }
                                             } else {
-                                                PrimefacesContextUI.actualizar("formularioDialogos:errorFechas");
+                                                RequestContext.getCurrentInstance().update("formularioDialogos:errorFechas");
                                                 PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
                                             }
                                         } else {
@@ -630,7 +630,7 @@ public class ControlParametro implements Serializable {
                 if (consultarEmpleadosParametrizados() == true) {
                     adicionarEmpleados();
                 } else {
-                    PrimefacesContextUI.actualizar("formularioDialogos:confirmarAdicionarEmpleados");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:confirmarAdicionarEmpleados");
                     PrimefacesContextUI.ejecutar("PF('confirmarAdicionarEmpleados').show()");
                 }
             } else if (tipoGuardado.equals("GUARDADO RAPIDO")) {
@@ -638,12 +638,12 @@ public class ControlParametro implements Serializable {
                 getEmpleadosParametros();
                 contarRegistros();
                 guardado = true;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
-                PrimefacesContextUI.actualizar("form:empleadosParametros");
-                PrimefacesContextUI.actualizar("form:panelParametro");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:empleadosParametros");
+                RequestContext.getCurrentInstance().update("form:panelParametro");
                 FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                PrimefacesContextUI.actualizar("form:growl");
+                RequestContext.getCurrentInstance().update("form:growl");
             } else if (tipoGuardado.equals("GUARDADO SALIR")) {
                 salir();
                 PrimefacesContextUI.ejecutar("PF('salirGuardado();");
@@ -652,7 +652,7 @@ public class ControlParametro implements Serializable {
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
 
@@ -660,35 +660,35 @@ public class ControlParametro implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (editor == 0) {
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaDesde");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaDesde");
                 PrimefacesContextUI.ejecutar("PF('editarFechaDesde').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaHasta");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaHasta");
                 PrimefacesContextUI.ejecutar("PF('editarFechaHasta').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaCorte");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaCorte");
                 PrimefacesContextUI.ejecutar("PF('editarFechaCorte').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarEstructura");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarEstructura");
                 PrimefacesContextUI.ejecutar("PF('editarEstructura').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoCC");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoCC");
                 PrimefacesContextUI.ejecutar("PF('editarCodigoCC').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarNombreCentroCosto");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreCentroCosto");
                 PrimefacesContextUI.ejecutar("PF('editarNombreCentroCosto').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTipoTrabajador");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoTrabajador");
                 PrimefacesContextUI.ejecutar("PF('editarTipoTrabajador').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarProceso");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarProceso");
                 PrimefacesContextUI.ejecutar("PF('editarProceso').show()");
                 cualCelda = -1;
             }
@@ -702,31 +702,31 @@ public class ControlParametro implements Serializable {
                 }
 
                 if (cualCelda == 8) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarDesde");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDesde");
                     PrimefacesContextUI.ejecutar("PF('editarDesde').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 9) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarHasta");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarHasta");
                     PrimefacesContextUI.ejecutar("PF('editarHasta').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 10) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarCodigo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigo");
                     PrimefacesContextUI.ejecutar("PF('editarCodigo').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 11) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarPApellido");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarPApellido");
                     PrimefacesContextUI.ejecutar("PF('editarPApellido').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 12) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarSApellido");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarSApellido");
                     PrimefacesContextUI.ejecutar("PF('editarSApellido').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 13) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarNombre");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarNombre");
                     PrimefacesContextUI.ejecutar("PF('editarNombre').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 14) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarEstado");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarEstado");
                     PrimefacesContextUI.ejecutar("PF('editarEstado').show()");
                     cualCelda = -1;
                 }
@@ -740,17 +740,17 @@ public class ControlParametro implements Serializable {
         if (cualCelda == 3) {
             cargarLovEstrucuras();
             contarRegistrosLovEstr(0);
-            PrimefacesContextUI.actualizar("formularioDialogos:estructurasDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
             PrimefacesContextUI.ejecutar("PF('estructurasDialogo').show()");
         } else if (cualCelda == 6) {
             cargarLovTiposTrabajadores();
             contarRegistrosLovTT(0);
-            PrimefacesContextUI.actualizar("formularioDialogos:TipoTrabajadorDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:TipoTrabajadorDialogo");
             PrimefacesContextUI.ejecutar("PF('TipoTrabajadorDialogo').show()");
         } else if (cualCelda == 7) {
             cargarLovProcesos();
             contarRegistrosLovProc(0);
-            PrimefacesContextUI.actualizar("formularioDialogos:ProcesosDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
             PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').show()");
         }
     }
@@ -773,7 +773,7 @@ public class ControlParametro implements Serializable {
             estadoParametro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:estadoParametro");
             estadoParametro.setFilterStyle("width: 85%;");
             altoTabla = "170";
-            PrimefacesContextUI.actualizar("form:empleadosParametros");
+            RequestContext.getCurrentInstance().update("form:empleadosParametros");
             bandera = 1;
         } else {
             cerrarFiltrado();
@@ -803,8 +803,8 @@ public class ControlParametro implements Serializable {
         guardado = false;
         cambiosParametros = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:empleadosParametros");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:empleadosParametros");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void eliminarParametros(int indice) {
@@ -833,11 +833,11 @@ public class ControlParametro implements Serializable {
             guardado = false;
             RequestContext context = RequestContext.getCurrentInstance();
             contarRegistros();
-            PrimefacesContextUI.actualizar("form:empleadosParametros");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:empleadosParametros");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             if (empleadosParametros.isEmpty()) {
                 borrarTodos = true;
-                PrimefacesContextUI.actualizar("form:quitarTodos");
+                RequestContext.getCurrentInstance().update("form:quitarTodos");
             }
         }
     }
@@ -860,9 +860,9 @@ public class ControlParametro implements Serializable {
             contexto.addMessage(null, msg);
         }
         contarRegistros();
-        PrimefacesContextUI.actualizar("form:growl");
-        PrimefacesContextUI.actualizar("form:empleadosParametros");
-        PrimefacesContextUI.actualizar("form:quitarTodos");
+        RequestContext.getCurrentInstance().update("form:growl");
+        RequestContext.getCurrentInstance().update("form:empleadosParametros");
+        RequestContext.getCurrentInstance().update("form:quitarTodos");
     }
 
     public boolean consultarEmpleadosParametrizados() {
@@ -913,18 +913,18 @@ public class ControlParametro implements Serializable {
         listaCrearParametros.clear();
         listaBorrarParametros.clear();
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         contarRegistros();
-        PrimefacesContextUI.actualizar("form:empleadosParametros");
+        RequestContext.getCurrentInstance().update("form:empleadosParametros");
 
-        PrimefacesContextUI.actualizar("form:fechaDesde");
-        PrimefacesContextUI.actualizar("form:fechaHasta");
-        PrimefacesContextUI.actualizar("form:fechaCorte");
-        PrimefacesContextUI.actualizar("form:Estructura");
-        PrimefacesContextUI.actualizar("form:codigoCC");
-        PrimefacesContextUI.actualizar("form:nombreCC");
-        PrimefacesContextUI.actualizar("form:tipoTrabajador");
-        PrimefacesContextUI.actualizar("form:proceso");
+        RequestContext.getCurrentInstance().update("form:fechaDesde");
+        RequestContext.getCurrentInstance().update("form:fechaHasta");
+        RequestContext.getCurrentInstance().update("form:fechaCorte");
+        RequestContext.getCurrentInstance().update("form:Estructura");
+        RequestContext.getCurrentInstance().update("form:codigoCC");
+        RequestContext.getCurrentInstance().update("form:nombreCC");
+        RequestContext.getCurrentInstance().update("form:tipoTrabajador");
+        RequestContext.getCurrentInstance().update("form:proceso");
     }
 
     public void salir() {
@@ -940,7 +940,7 @@ public class ControlParametro implements Serializable {
         cambiosParametros = false;
         listaBorrarParametros.clear();
         listaCrearParametros.clear();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         getEmpleadosParametros();
         contarRegistros();
         guardado = true;
@@ -963,7 +963,7 @@ public class ControlParametro implements Serializable {
             estadoParametro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:estadoParametro");
             estadoParametro.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "190";
-            PrimefacesContextUI.actualizar("form:empleadosParametros");
+            RequestContext.getCurrentInstance().update("form:empleadosParametros");
             bandera = 0;
             filtradoEmpleadosParametros = null;
             tipoLista = 0;
@@ -989,9 +989,9 @@ public class ControlParametro implements Serializable {
         empleadosParametros = null;
         contarRegistros();
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:empleadosParametros");
-        PrimefacesContextUI.actualizar("form:quitarTodos");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:empleadosParametros");
+        RequestContext.getCurrentInstance().update("form:quitarTodos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void eventoFiltrar() {
@@ -1026,7 +1026,7 @@ public class ControlParametro implements Serializable {
         } else {
             infoRegistro = String.valueOf(0);
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void contarRegistrosLovEstr(int tipoListaLOV) {
@@ -1037,7 +1037,7 @@ public class ControlParametro implements Serializable {
         } else {
             infoRegistroEstructura = String.valueOf(0);
         }
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroEstructura");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEstructura");
     }
 
     public void contarRegistrosLovTT(int tipoListaLOV) {
@@ -1048,7 +1048,7 @@ public class ControlParametro implements Serializable {
         } else {
             infoRegistroTipoTrabajador = String.valueOf(0);
         }
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroTipoTrabajador");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTipoTrabajador");
     }
 
     public void contarRegistrosLovProc(int tipoListaLOV) {
@@ -1059,7 +1059,7 @@ public class ControlParametro implements Serializable {
         } else {
             infoRegistroProceso = String.valueOf(0);
         }
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroProceso");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroProceso");
     }
 
     public void contarRegistrosLovEmpl(int tipoListaLOV) {
@@ -1070,9 +1070,9 @@ public class ControlParametro implements Serializable {
         } else {
             infoRegistroEmpleado = String.valueOf(0);
         }
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroEmpleado");
-//        PrimefacesContextUI.actualizar("formularioDialogos:buscarEmpleadoDialogo");
-//        PrimefacesContextUI.actualizar("formularioDialogos:lovEmpleados");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEmpleado");
+//        RequestContext.getCurrentInstance().update("formularioDialogos:buscarEmpleadoDialogo");
+//        RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpleados");
     }
 
 ///////////  Cargar listas de valores:  //////////
@@ -1081,9 +1081,9 @@ public class ControlParametro implements Serializable {
             lovEmpleados = administrarParametros.empleadosLov();
         }
         contarRegistrosLovEmpl(0);
-        PrimefacesContextUI.actualizar("formularioDialogos:buscarEmpleadoDialogo");
-        PrimefacesContextUI.actualizar("formularioDialogos:lovEmpleados");
-        PrimefacesContextUI.actualizar("formularioDialogos:aceptarEm");
+        RequestContext.getCurrentInstance().update("formularioDialogos:buscarEmpleadoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpleados");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarEm");
     }
 
     public void cargarLovProcesos() {

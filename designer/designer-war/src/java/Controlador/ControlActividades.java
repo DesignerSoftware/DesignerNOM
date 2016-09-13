@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Actividades;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -103,7 +103,7 @@ public class ControlActividades implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarActividades.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlActividades eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -164,7 +164,7 @@ public class ControlActividades implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             dimensiones = (Column) c.getViewRoot().findComponent("form:datosActividades:dimensiones");
             dimensiones.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosActividades");
+            RequestContext.getCurrentInstance().update("form:datosActividades");
             bandera = 0;
             filtrarActividades = null;
             tipoLista = 0;
@@ -186,9 +186,9 @@ public class ControlActividades implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listActividades.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosActividades");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosActividades");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -202,7 +202,7 @@ public class ControlActividades implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             dimensiones = (Column) c.getViewRoot().findComponent("form:datosActividades:dimensiones");
             dimensiones.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosActividades");
+            RequestContext.getCurrentInstance().update("form:datosActividades");
             bandera = 0;
             filtrarActividades = null;
             tipoLista = 0;
@@ -218,8 +218,8 @@ public class ControlActividades implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosActividades");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosActividades");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -232,7 +232,7 @@ public class ControlActividades implements Serializable {
             descripcion.setFilterStyle("width: 85%;");
             dimensiones = (Column) c.getViewRoot().findComponent("form:datosActividades:dimensiones");
             dimensiones.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosActividades");
+            RequestContext.getCurrentInstance().update("form:datosActividades");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -244,7 +244,7 @@ public class ControlActividades implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             dimensiones = (Column) c.getViewRoot().findComponent("form:datosActividades:dimensiones");
             dimensiones.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosActividades");
+            RequestContext.getCurrentInstance().update("form:datosActividades");
             bandera = 0;
             filtrarActividades = null;
             tipoLista = 0;
@@ -277,8 +277,8 @@ public class ControlActividades implements Serializable {
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosActividades");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosActividades");
 
         }
         System.out.println("Indice: " + index + " Celda: " + cualCelda);
@@ -349,14 +349,14 @@ public class ControlActividades implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    PrimefacesContextUI.actualizar("form:datosActividades");
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:datosActividades");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
 
                     System.out.println("backupCodigo : " + backupCodigo);
@@ -402,14 +402,14 @@ public class ControlActividades implements Serializable {
                             guardado = false;
                         }
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    PrimefacesContextUI.actualizar("form:datosActividades");
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:datosActividades");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                 }
             } else {
@@ -467,7 +467,7 @@ public class ControlActividades implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -520,7 +520,7 @@ public class ControlActividades implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -528,8 +528,8 @@ public class ControlActividades implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosActividades");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosActividades");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -569,16 +569,16 @@ public class ControlActividades implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosActividades");
+            RequestContext.getCurrentInstance().update("form:datosActividades");
             infoRegistro = "Cantidad de registros: " + listActividades.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -604,7 +604,7 @@ public class ControlActividades implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
                 contarBienNecesidadesActividad = new BigInteger("-1");
@@ -620,7 +620,7 @@ public class ControlActividades implements Serializable {
 
         if (!borrarActividades.isEmpty() || !crearActividades.isEmpty() || !modificarActividades.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -635,7 +635,7 @@ public class ControlActividades implements Serializable {
                 administrarActividades.borrarActividades(borrarActividades);
                 //mostrarBorrados
                 registrosBorrados = borrarActividades.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarActividades.clear();
             }
@@ -651,13 +651,13 @@ public class ControlActividades implements Serializable {
             listActividades = null;
             FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
-            PrimefacesContextUI.actualizar("form:datosActividades");
+            RequestContext.getCurrentInstance().update("form:growl");
+            RequestContext.getCurrentInstance().update("form:datosActividades");
             k = 0;
             guardado = true;
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -673,11 +673,11 @@ public class ControlActividades implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -750,7 +750,7 @@ public class ControlActividades implements Serializable {
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 dimensiones = (Column) c.getViewRoot().findComponent("form:datosActividades:dimensiones");
                 dimensiones.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosActividades");
+                RequestContext.getCurrentInstance().update("form:datosActividades");
                 bandera = 0;
                 filtrarActividades = null;
                 tipoLista = 0;
@@ -765,12 +765,12 @@ public class ControlActividades implements Serializable {
 
             listActividades.add(nuevoActividades);
             nuevoActividades = new Actividades();
-            PrimefacesContextUI.actualizar("form:datosActividades");
+            RequestContext.getCurrentInstance().update("form:datosActividades");
             infoRegistro = "Cantidad de registros: " + listActividades.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroActividades').hide()");
@@ -778,7 +778,7 @@ public class ControlActividades implements Serializable {
             secRegistro = null;
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -814,7 +814,7 @@ public class ControlActividades implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroActividades').show()");
             index = -1;
             secRegistro = null;
@@ -877,15 +877,15 @@ public class ControlActividades implements Serializable {
             }
             listActividades.add(duplicarActividades);
             crearActividades.add(duplicarActividades);
-            PrimefacesContextUI.actualizar("form:datosActividades");
+            RequestContext.getCurrentInstance().update("form:datosActividades");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             infoRegistro = "Cantidad de registros: " + listActividades.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
 
@@ -896,7 +896,7 @@ public class ControlActividades implements Serializable {
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 dimensiones = (Column) c.getViewRoot().findComponent("form:datosActividades:dimensiones");
                 dimensiones.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosActividades");
+                RequestContext.getCurrentInstance().update("form:datosActividades");
                 bandera = 0;
                 filtrarActividades = null;
                 tipoLista = 0;
@@ -906,7 +906,7 @@ public class ControlActividades implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -979,7 +979,7 @@ public class ControlActividades implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listActividades.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listActividades;
     }
 

@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Operandos;
 import Entidades.TiposFunciones;
 import Exportar.ExportarPDF;
@@ -29,7 +30,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -158,7 +158,7 @@ public class ControlTipoFuncion implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
@@ -174,13 +174,13 @@ public class ControlTipoFuncion implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 index = -1;
                 secRegistro = null;
             }
-            PrimefacesContextUI.actualizar("form:datosTiposFunciones");
+            RequestContext.getCurrentInstance().update("form:datosTiposFunciones");
         }
     }
 
@@ -201,7 +201,7 @@ public class ControlTipoFuncion implements Serializable {
         }
 
         if (pasa != 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoTipoFuncion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoFuncion");
             PrimefacesContextUI.ejecutar("PF('validacionNuevoTipoFuncion').show()");
         }
 
@@ -216,13 +216,13 @@ public class ControlTipoFuncion implements Serializable {
                 tiposFuncionesFinales.setFilterStyle("display: none; visibility: hidden;");
                 tiposFuncionesObjetos = (Column) c.getViewRoot().findComponent("form:datosTiposFunciones:tiposFuncionesObjetos");
                 tiposFuncionesObjetos.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosTiposFunciones");
+                RequestContext.getCurrentInstance().update("form:datosTiposFunciones");
                 bandera = 0;
                 filtradosListaTiposFunciones = null;
                 tipoLista = 0;
             }
 
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //Falta Ponerle el Operando al cual se agregará
             duplicarTipoFuncion.setOperando(operando);
             listaTiposFunciones.add(duplicarTipoFuncion);
@@ -231,11 +231,11 @@ public class ControlTipoFuncion implements Serializable {
             index = -1;
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.actualizar("form:datosTiposFunciones");
+            RequestContext.getCurrentInstance().update("form:datosTiposFunciones");
             duplicarTipoFuncion = new TiposFunciones();
-            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarTipoFuncion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarTipoFuncion");
             PrimefacesContextUI.ejecutar("PF('DuplicarTipoFuncion').hide()");
         }
     }
@@ -255,7 +255,7 @@ public class ControlTipoFuncion implements Serializable {
             tiposFuncionesFinales.setFilterStyle("width: 85%;");
             tiposFuncionesObjetos = (Column) c.getViewRoot().findComponent("form:datosTiposFunciones:tiposFuncionesObjetos");
             tiposFuncionesObjetos.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosTiposFunciones");
+            RequestContext.getCurrentInstance().update("form:datosTiposFunciones");
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
@@ -268,7 +268,7 @@ public class ControlTipoFuncion implements Serializable {
             tiposFuncionesFinales.setFilterStyle("display: none; visibility: hidden;");
             tiposFuncionesObjetos = (Column) c.getViewRoot().findComponent("form:datosTiposFunciones:tiposFuncionesObjetos");
             tiposFuncionesObjetos.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposFunciones");
+            RequestContext.getCurrentInstance().update("form:datosTiposFunciones");
             bandera = 0;
             filtradosListaTiposFunciones = null;
             tipoLista = 0;
@@ -289,7 +289,7 @@ public class ControlTipoFuncion implements Serializable {
             tiposFuncionesFinales.setFilterStyle("display: none; visibility: hidden;");
             tiposFuncionesObjetos = (Column) c.getViewRoot().findComponent("form:datosTiposFunciones:tiposFuncionesObjetos");
             tiposFuncionesObjetos.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposFunciones");
+            RequestContext.getCurrentInstance().update("form:datosTiposFunciones");
             bandera = 0;
             filtradosListaTiposFunciones = null;
             tipoLista = 0;
@@ -306,8 +306,8 @@ public class ControlTipoFuncion implements Serializable {
         permitirIndex = true;
         cambiosPagina = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("form:datosTiposFunciones");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosTiposFunciones");
     }
 
     //MOSTRAR DATOS CELDA
@@ -323,15 +323,15 @@ public class ControlTipoFuncion implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechasIniciales");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasIniciales");
                 PrimefacesContextUI.ejecutar("PF('editarFechasIniciales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechasFinales");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasFinales");
                 PrimefacesContextUI.ejecutar("PF('editarFechasFinales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarObjetos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarObjetos");
                 PrimefacesContextUI.ejecutar("PF('editarObjetos').show()");
                 cualCelda = -1;
             }
@@ -398,7 +398,7 @@ public class ControlTipoFuncion implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoFuncion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoFuncion");
             PrimefacesContextUI.ejecutar("PF('DuplicarTipoFuncion').show()");
             index = -1;
             secRegistro = null;
@@ -451,13 +451,13 @@ public class ControlTipoFuncion implements Serializable {
             listaTiposFunciones = null;
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosTiposFunciones");
+            RequestContext.getCurrentInstance().update("form:datosTiposFunciones");
             guardado = true;
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
             //  k = 0;
         }
         index = -1;
@@ -508,13 +508,13 @@ public class ControlTipoFuncion implements Serializable {
         }
 
         if (nuevoTipoFuncion.getFechafinal().before(nuevoTipoFuncion.getFechainicial())) {
-            PrimefacesContextUI.actualizar("formularioDialogos:errorFechas");
+            RequestContext.getCurrentInstance().update("formularioDialogos:errorFechas");
             PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             pasa2++;
         }
 
         if (pasa != 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoTipoFuncion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoFuncion");
             PrimefacesContextUI.ejecutar("PF('validacionNuevoTipoFuncion').show()");
         }
 
@@ -532,7 +532,7 @@ public class ControlTipoFuncion implements Serializable {
                 tiposFuncionesFinales.setFilterStyle("display: none; visibility: hidden;");
                 tiposFuncionesObjetos = (Column) c.getViewRoot().findComponent("form:datosTiposFunciones:tiposFuncionesObjetos");
                 tiposFuncionesObjetos.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosTiposFunciones");
+                RequestContext.getCurrentInstance().update("form:datosTiposFunciones");
                 bandera = 0;
                 filtradosListaTiposFunciones = null;
                 tipoLista = 0;
@@ -544,15 +544,15 @@ public class ControlTipoFuncion implements Serializable {
             System.out.println("Operando: " + operando);
             nuevoTipoFuncion.setOperando(operando);
 
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //Falta Agregar el operando al cual se va a adicionar
             listaTiposFuncionesCrear.add(nuevoTipoFuncion);
             listaTiposFunciones.add(nuevoTipoFuncion);
             nuevoTipoFuncion = new TiposFunciones();
-            PrimefacesContextUI.actualizar("form:datosTiposFunciones");
+            RequestContext.getCurrentInstance().update("form:datosTiposFunciones");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('NuevoTipoFuncion').hide()");
             index = -1;
@@ -596,13 +596,13 @@ public class ControlTipoFuncion implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosTiposFunciones");
+            RequestContext.getCurrentInstance().update("form:datosTiposFunciones");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -621,7 +621,7 @@ public class ControlTipoFuncion implements Serializable {
             tiposFuncionesFinales.setFilterStyle("display: none; visibility: hidden;");
             tiposFuncionesObjetos = (Column) c.getViewRoot().findComponent("form:datosTiposFunciones:tiposFuncionesObjetos");
             tiposFuncionesObjetos.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposFunciones");
+            RequestContext.getCurrentInstance().update("form:datosTiposFunciones");
             bandera = 0;
             filtradosListaTiposFunciones = null;
             tipoLista = 0;

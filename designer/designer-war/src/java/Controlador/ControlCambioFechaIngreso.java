@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Empleados;
 import Entidades.VigenciasTiposContratos;
 import InterfaceAdministrar.AdministrarCambiosFechasIngresosInterface;
@@ -19,7 +20,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -70,13 +70,13 @@ public class ControlCambioFechaIngreso implements Serializable {
 
     public void dialogoPaso2() {
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:paso2");
+        RequestContext.getCurrentInstance().update("formularioDialogos:paso2");
         PrimefacesContextUI.ejecutar("PF('paso2').show()");
     }
 
     public void dialogoPaso3() {
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:paso3");
+        RequestContext.getCurrentInstance().update("formularioDialogos:paso3");
         PrimefacesContextUI.ejecutar("PF('paso3').show()");
     }
     
@@ -93,11 +93,11 @@ public class ControlCambioFechaIngreso implements Serializable {
         if (pasa == 0) {
             fechaNew = formato.format(fechaNueva);
             fechaOld = formato.format(vigenciaTipoContrato.getFechavigencia());
-            PrimefacesContextUI.actualizar("formularioDialogos:paso1");
+            RequestContext.getCurrentInstance().update("formularioDialogos:paso1");
             PrimefacesContextUI.ejecutar("PF('paso1').show()");
             System.out.println("Fecha Nueva: " + fechaNew + " Fecha Vieja: " + fechaOld);
         } else {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionCambio");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionCambio");
             PrimefacesContextUI.ejecutar("PF('validacionCambio').show()");
         }
 
@@ -107,15 +107,15 @@ public class ControlCambioFechaIngreso implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         try {
             administrarVigenciasTiposContratos.cambiarFechaIngreso(empleado.getSecuencia(),vigenciaTipoContrato.getFechavigencia(), fechaNueva);
-            PrimefacesContextUI.actualizar("formularioDialogos:exito");
+            RequestContext.getCurrentInstance().update("formularioDialogos:exito");
             PrimefacesContextUI.ejecutar("PF('exito').show()");
             fechaNueva = null;
-            PrimefacesContextUI.actualizar("form:divFechaNueva");
-            PrimefacesContextUI.actualizar("form:fechaNueva");
-            PrimefacesContextUI.actualizar("form:PanelTotal");
+            RequestContext.getCurrentInstance().update("form:divFechaNueva");
+            RequestContext.getCurrentInstance().update("form:fechaNueva");
+            RequestContext.getCurrentInstance().update("form:PanelTotal");
         } catch (Exception e) {
             System.out.println("Error al realizar el cambio de fecha de ingreso al empleado");
-            PrimefacesContextUI.actualizar("formularioDialogos:error");
+            RequestContext.getCurrentInstance().update("formularioDialogos:error");
             PrimefacesContextUI.ejecutar("PF('error').show()");
         }
     }

@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.TiposEmbargos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -162,7 +162,7 @@ public class ControlTiposEmbargos implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             manejaSaldoPromedio = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposEmbargos:manejaSaldoPromedio");
             manejaSaldoPromedio.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposEmbargos");
+            RequestContext.getCurrentInstance().update("form:datosTiposEmbargos");
             bandera = 0;
             filtrarTiposEmbargos = null;
             tipoLista = 0;
@@ -178,8 +178,8 @@ public class ControlTiposEmbargos implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosTiposEmbargos");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosTiposEmbargos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -192,7 +192,7 @@ public class ControlTiposEmbargos implements Serializable {
             descripcion.setFilterStyle("width: 85%;");
             manejaSaldoPromedio = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposEmbargos:manejaSaldoPromedio");
             manejaSaldoPromedio.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosTiposEmbargos");
+            RequestContext.getCurrentInstance().update("form:datosTiposEmbargos");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -203,7 +203,7 @@ public class ControlTiposEmbargos implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             manejaSaldoPromedio = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposEmbargos:manejaSaldoPromedio");
             manejaSaldoPromedio.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposEmbargos");
+            RequestContext.getCurrentInstance().update("form:datosTiposEmbargos");
             bandera = 0;
             filtrarTiposEmbargos = null;
             tipoLista = 0;
@@ -279,7 +279,7 @@ public class ControlTiposEmbargos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                         cancelarModificacion();
                     }
@@ -342,7 +342,7 @@ public class ControlTiposEmbargos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                         cancelarModificacion();
                     }
@@ -351,8 +351,8 @@ public class ControlTiposEmbargos implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosTiposEmbargos");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosTiposEmbargos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -369,7 +369,7 @@ public class ControlTiposEmbargos implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
 
@@ -421,14 +421,14 @@ public class ControlTiposEmbargos implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosTiposEmbargos");
+            RequestContext.getCurrentInstance().update("form:datosTiposEmbargos");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -445,11 +445,11 @@ public class ControlTiposEmbargos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -522,7 +522,7 @@ public class ControlTiposEmbargos implements Serializable {
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 manejaSaldoPromedio = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposEmbargos:manejaSaldoPromedio");
                 manejaSaldoPromedio.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosTiposEmbargos");
+                RequestContext.getCurrentInstance().update("form:datosTiposEmbargos");
                 bandera = 0;
                 filtrarTiposEmbargos = null;
 
@@ -541,10 +541,10 @@ public class ControlTiposEmbargos implements Serializable {
             nuevoTipoEmbargo = new TiposEmbargos();
             nuevoTipoEmbargo.getManejaSaldoPromedio();
 
-            PrimefacesContextUI.actualizar("form:datosTiposEmbargos");
+            RequestContext.getCurrentInstance().update("form:datosTiposEmbargos");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroTiposEmbargos').hide()");
@@ -552,7 +552,7 @@ public class ControlTiposEmbargos implements Serializable {
             secRegistro = null;
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -592,7 +592,7 @@ public class ControlTiposEmbargos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTiposEmbargos");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTiposEmbargos");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposEmbargos').show()");
             index = -1;
             secRegistro = null;
@@ -652,12 +652,12 @@ public class ControlTiposEmbargos implements Serializable {
             }
             listTiposEmbargos.add(duplicarTipoEmbargo);
             crearTiposEmbargos.add(duplicarTipoEmbargo);
-            PrimefacesContextUI.actualizar("form:datosTiposEmbargos");
+            RequestContext.getCurrentInstance().update("form:datosTiposEmbargos");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 //CERRAR FILTRADO
@@ -667,7 +667,7 @@ public class ControlTiposEmbargos implements Serializable {
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 manejaSaldoPromedio = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposEmbargos:manejaSaldoPromedio");
                 manejaSaldoPromedio.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosTiposEmbargos");
+                RequestContext.getCurrentInstance().update("form:datosTiposEmbargos");
                 bandera = 0;
                 filtrarTiposEmbargos = null;
                 tipoLista = 0;
@@ -677,7 +677,7 @@ public class ControlTiposEmbargos implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -695,7 +695,7 @@ public class ControlTiposEmbargos implements Serializable {
                 administrarTiposEmbargos.borrarTiposPrestamos(borrarTiposEmbargos);
                 //mostrarBorrados
                 registrosBorrados = borrarTiposEmbargos.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarTiposEmbargos.clear();
             }
@@ -709,16 +709,16 @@ public class ControlTiposEmbargos implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listTiposEmbargos = null;
-            PrimefacesContextUI.actualizar("form:datosTiposEmbargos");
+            RequestContext.getCurrentInstance().update("form:datosTiposEmbargos");
             k = 0;
             if (guardado == false) {
                 guardado = true;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 

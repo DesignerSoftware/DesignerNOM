@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import InterfaceAdministrar.AdministrarMotivosLocalizacionesInterface;
 import Entidades.MotivosLocalizaciones;
 import Exportar.ExportarPDF;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -161,7 +161,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoContrato:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosMotivoContrato");
+            RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
             bandera = 0;
             filtrarMotivosLocalizaciones = null;
             tipoLista = 0;
@@ -179,9 +179,9 @@ public class ControlMotivosLocalizaciones implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosMotivoContrato");
-        PrimefacesContextUI.actualizar("form:infoRegistro");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -193,7 +193,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoContrato:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosMotivoContrato");
+            RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
             bandera = 0;
             filtrarMotivosLocalizaciones = null;
             tipoLista = 0;
@@ -210,9 +210,9 @@ public class ControlMotivosLocalizaciones implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         contarRegistros();
-        PrimefacesContextUI.actualizar("form:datosMotivoContrato");
-        PrimefacesContextUI.actualizar("form:infoRegistro");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -223,7 +223,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
             codigo.setFilterStyle("width: 85%");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoContrato:descripcion");
             descripcion.setFilterStyle("width: 85%");
-            PrimefacesContextUI.actualizar("form:datosMotivoContrato");
+            RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -233,12 +233,12 @@ public class ControlMotivosLocalizaciones implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoContrato:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosMotivoContrato");
+            RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
             bandera = 0;
             filtrarMotivosLocalizaciones = null;
             tipoLista = 0;
         }
-        PrimefacesContextUI.actualizar("form:datosMotivoContrato");
+        RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
     }
 
     public void modificarMotivosContrato(MotivosLocalizaciones motivoLocalizacion, String confirmarCambio, String valorConfirmar) {
@@ -304,14 +304,14 @@ public class ControlMotivosLocalizaciones implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
-            PrimefacesContextUI.actualizar("form:validacionModificar");
+            RequestContext.getCurrentInstance().update("form:validacionModificar");
             PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
         }
 
-        PrimefacesContextUI.actualizar("form:datosMotivoCambioCargo");
+        RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
 
     }
 
@@ -333,14 +333,14 @@ public class ControlMotivosLocalizaciones implements Serializable {
                 listMotivosLocalizaciones.remove(motivoLocalizacionSeleccionado);
             }
             modificarInfoRegistro(listMotivosLocalizaciones.size());
-            PrimefacesContextUI.actualizar("form:infoRegistro");
-            PrimefacesContextUI.actualizar("form:datosMotivoContrato");
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
             motivoLocalizacionSeleccionado = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else {
             PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
@@ -361,7 +361,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
             } else {
                 System.out.println("Borrado>0");
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 contarVigenciasLocalizacionesMotivoLocalizacion = new BigInteger("-1");
             }
@@ -378,7 +378,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
             if (!borrarMotivoContrato.isEmpty()) {
                 administrarMotivosLocalizaciones.borrarMotivosLocalizaciones(borrarMotivoContrato);
                 registrosBorrados = borrarMotivoContrato.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarMotivoContrato.clear();
             }
@@ -394,10 +394,10 @@ public class ControlMotivosLocalizaciones implements Serializable {
             System.out.println("Se guardaron los datos con exito");
             listMotivosLocalizaciones = null;
             contarRegistros();
-            PrimefacesContextUI.actualizar("form:datosMotivoContrato");
+            RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
             k = 0;
             guardado = true;
         }
@@ -418,11 +418,11 @@ public class ControlMotivosLocalizaciones implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -485,7 +485,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoContrato:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosMotivoContrato");
+                RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
                 bandera = 0;
                 filtrarMotivosLocalizaciones = null;
                 tipoLista = 0;
@@ -502,15 +502,15 @@ public class ControlMotivosLocalizaciones implements Serializable {
             motivoLocalizacionSeleccionado = nuevoMotivoContrato;
             nuevoMotivoContrato = new MotivosLocalizaciones();
             modificarInfoRegistro(listMotivosLocalizaciones.size());
-            PrimefacesContextUI.actualizar("form:infoRegistro");
-            PrimefacesContextUI.actualizar("form:datosMotivoContrato");
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroMotivosLocalizaciones').hide()");
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
 
             contador = 0;
@@ -542,7 +542,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
                 duplicarMotivoContrato.setCodigo(motivoLocalizacionSeleccionado.getCodigo());
                 duplicarMotivoContrato.setDescripcion(motivoLocalizacionSeleccionado.getDescripcion());
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarMotivosCambiosCargos");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivosCambiosCargos");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroMotivosLocalizaciones').show()");
         } else {
             PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
@@ -595,11 +595,11 @@ public class ControlMotivosLocalizaciones implements Serializable {
             motivoLocalizacionSeleccionado = duplicarMotivoContrato;
             duplicarMotivoContrato = new MotivosLocalizaciones();
             modificarInfoRegistro(listMotivosLocalizaciones.size());
-            PrimefacesContextUI.actualizar("form:infoRegistro");
-            PrimefacesContextUI.actualizar("form:datosMotivoContrato");
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 //CERRAR FILTRADO
@@ -609,7 +609,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoContrato:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosMotivoContrato");
+                RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
                 bandera = 0;
                 filtrarMotivosLocalizaciones = null;
                 tipoLista = 0;
@@ -618,7 +618,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarMotivoLocalizacion");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarMotivoLocalizacion");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarMotivoLocalizacion').show()");
         }
     }
@@ -688,7 +688,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             modificarInfoRegistro(filtrarMotivosLocalizaciones.size());
-            PrimefacesContextUI.actualizar("form:infoRegistro");
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlMotiviosCambiosCargos eventoFiltrar ERROR===" + e.getMessage());
         }

@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Operandos;
 import Entidades.Modulos;
 import Exportar.ExportarPDFTablasAnchas;
@@ -27,7 +28,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -158,7 +158,7 @@ public class ControlOperando implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         cambiosPagina = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
 
                 }
@@ -175,14 +175,14 @@ public class ControlOperando implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         cambiosPagina = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
 
                 }
                 index = -1;
                 secRegistro = null;
             }
-            PrimefacesContextUI.actualizar("form:datosOperandos");
+            RequestContext.getCurrentInstance().update("form:datosOperandos");
         }
     }
 
@@ -236,7 +236,7 @@ public class ControlOperando implements Serializable {
         if (guardado == true) {
             guardado = false;
         }
-        PrimefacesContextUI.actualizar("form:datosOperandos");
+        RequestContext.getCurrentInstance().update("form:datosOperandos");
     }
 
     public void guardarVariables(BigInteger secuencia) {
@@ -316,7 +316,7 @@ public class ControlOperando implements Serializable {
             } else if (estadoTipo.equals("RELACIONAL")) {
                 nuevoOperando.setTipo("RELACIONAL");
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoOperando");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoOperando");
         } else {
             if (estadoTipo.equals("FORMULA")) {
                 duplicarOperando.setTipo("FORMULA");
@@ -329,7 +329,7 @@ public class ControlOperando implements Serializable {
             } else if (estadoTipo.equals("RELACIONAL")) {
                 duplicarOperando.setTipo("RELACIONAL");
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoOperando");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoOperando");
         }
     }
 
@@ -349,7 +349,7 @@ public class ControlOperando implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:operandosDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:operandosDialogo");
             PrimefacesContextUI.ejecutar("PF('operandosDialogo').show()");
         }
     }
@@ -363,7 +363,7 @@ public class ControlOperando implements Serializable {
             listaOperandos = administrarOperandos.buscarOperandos();
         }
 
-        PrimefacesContextUI.actualizar("form:datosOperandos");
+        RequestContext.getCurrentInstance().update("form:datosOperandos");
         filtradosListaOperandos = null;
         aceptar = true;
         index = -1;
@@ -397,7 +397,7 @@ public class ControlOperando implements Serializable {
         }
 
         if (pasa != 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoOperando");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoOperando");
             PrimefacesContextUI.ejecutar("PF('validacionNuevoOperando').show()");
         }
 
@@ -416,24 +416,24 @@ public class ControlOperando implements Serializable {
                 operandosDescripciones.setFilterStyle("display: none; visibility: hidden;");
                 operandosCodigos = (Column) c.getViewRoot().findComponent("form:datosOperandos:operandosCodigos");
                 operandosCodigos.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosOperandos");
+                RequestContext.getCurrentInstance().update("form:datosOperandos");
                 bandera = 0;
                 filtradosListaOperandos = null;
                 tipoLista = 0;
             }
             cambiosPagina = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             listaOperandos.add(duplicarOperando);
             listaOperandosCrear.add(duplicarOperando);
 
             index = -1;
             if (guardado == true) {
                 guardado = false;
-                //PrimefacesContextUI.actualizar("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:aceptar");
             }
-            PrimefacesContextUI.actualizar("form:datosOperandos");
+            RequestContext.getCurrentInstance().update("form:datosOperandos");
             duplicarOperando = new Operandos();
-            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarOperando");
+            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarOperando");
             PrimefacesContextUI.ejecutar("PF('DuplicarOperando').hide()");
         }
     }
@@ -453,12 +453,12 @@ public class ControlOperando implements Serializable {
             listaOperandos.add(operandosSeleccionado);
         }
         cambiosPagina = false;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         context.reset("formularioDialogos:LOVOperandos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVOperandos').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('operandosDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVOperandos");
-        PrimefacesContextUI.actualizar("form:datosOperandos");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVOperandos");
+        RequestContext.getCurrentInstance().update("form:datosOperandos");
         filtradosListaOperandos = null;
         operandosSeleccionado = null;
         aceptar = true;
@@ -483,7 +483,7 @@ public class ControlOperando implements Serializable {
             operandosDescripciones.setFilterStyle("width: 85%;");
             operandosCodigos = (Column) c.getViewRoot().findComponent("form:datosOperandos:operandosCodigos");
             operandosCodigos.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosOperandos");
+            RequestContext.getCurrentInstance().update("form:datosOperandos");
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
@@ -500,7 +500,7 @@ public class ControlOperando implements Serializable {
             operandosDescripciones.setFilterStyle("display: none; visibility: hidden;");
             operandosCodigos = (Column) c.getViewRoot().findComponent("form:datosOperandos:operandosCodigos");
             operandosCodigos.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosOperandos");
+            RequestContext.getCurrentInstance().update("form:datosOperandos");
             bandera = 0;
             filtradosListaOperandos = null;
             tipoLista = 0;
@@ -525,7 +525,7 @@ public class ControlOperando implements Serializable {
             operandosDescripciones.setFilterStyle("display: none; visibility: hidden;");
             operandosCodigos = (Column) c.getViewRoot().findComponent("form:datosOperandos:operandosCodigos");
             operandosCodigos.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosOperandos");
+            RequestContext.getCurrentInstance().update("form:datosOperandos");
             bandera = 0;
             filtradosListaOperandos = null;
             tipoLista = 0;
@@ -543,8 +543,8 @@ public class ControlOperando implements Serializable {
         cambiosPagina = false;
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("form:datosOperandos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosOperandos");
     }
 
     public void cancelarCambioOperandos() {
@@ -586,19 +586,19 @@ public class ControlOperando implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarNombres");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarNombres");
                 PrimefacesContextUI.ejecutar("PF('editarNombres').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarValores");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarValores");
                 PrimefacesContextUI.ejecutar("PF('editarValores').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripciones");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripciones");
                 PrimefacesContextUI.ejecutar("PF('editarDescripciones').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigos");
                 PrimefacesContextUI.ejecutar("PF('editarCodigos').show()");
                 cualCelda = -1;
             }
@@ -671,7 +671,7 @@ public class ControlOperando implements Serializable {
         }
 
         if (pasa != 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoOperando");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoOperando");
             PrimefacesContextUI.ejecutar("PF('validacionNuevoOperando').show()");
         }
 
@@ -692,7 +692,7 @@ public class ControlOperando implements Serializable {
                 operandosDescripciones.setFilterStyle("display: none; visibility: hidden;");
                 operandosCodigos = (Column) c.getViewRoot().findComponent("form:datosOperandos:operandosCodigos");
                 operandosCodigos.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosOperandos");
+                RequestContext.getCurrentInstance().update("form:datosOperandos");
                 bandera = 0;
                 filtradosListaOperandos = null;
                 tipoLista = 0;
@@ -704,14 +704,14 @@ public class ControlOperando implements Serializable {
             nuevoOperando.setSecuencia(l);
 
             cambiosPagina = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             listaOperandosCrear.add(nuevoOperando);
             listaOperandos.add(nuevoOperando);
             nuevoOperando = new Operandos();
-            PrimefacesContextUI.actualizar("form:datosOperandos");
+            RequestContext.getCurrentInstance().update("form:datosOperandos");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:aceptar");
             }
             PrimefacesContextUI.ejecutar("PF('NuevoOperando').hide()");
             index = -1;
@@ -755,13 +755,13 @@ public class ControlOperando implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosOperandos");
+            RequestContext.getCurrentInstance().update("form:datosOperandos");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:aceptar");
             }
         }
     }
@@ -800,14 +800,14 @@ public class ControlOperando implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             cambiosPagina = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosOperandos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosOperandos");
             guardado = true;
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         index = -1;
         secRegistro = null;
@@ -840,7 +840,7 @@ public class ControlOperando implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarOperando");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarOperando");
             PrimefacesContextUI.ejecutar("PF('DuplicarOperando').show()");
             index = -1;
             secRegistro = null;
@@ -895,7 +895,7 @@ public class ControlOperando implements Serializable {
             operandosDescripciones.setFilterStyle("display: none; visibility: hidden;");
             operandosCodigos = (Column) c.getViewRoot().findComponent("form:datosOperandos:operandosCodigos");
             operandosCodigos.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosOperandos");
+            RequestContext.getCurrentInstance().update("form:datosOperandos");
             bandera = 0;
             filtradosListaOperandos = null;
             tipoLista = 0;

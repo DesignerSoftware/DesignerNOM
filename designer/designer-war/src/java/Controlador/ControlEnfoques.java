@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Enfoques;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -26,7 +27,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -102,7 +102,7 @@ public class ControlEnfoques implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarEnfoques.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR CONTROLENFOQUES eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -167,7 +167,7 @@ public class ControlEnfoques implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEnfoque:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosEnfoque");
+            RequestContext.getCurrentInstance().update("form:datosEnfoque");
             bandera = 0;
             filtrarEnfoques = null;
             tipoLista = 0;
@@ -189,9 +189,9 @@ public class ControlEnfoques implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listEnfoques.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosEnfoque");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosEnfoque");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -202,7 +202,7 @@ public class ControlEnfoques implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEnfoque:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosEnfoque");
+            RequestContext.getCurrentInstance().update("form:datosEnfoque");
             bandera = 0;
             filtrarEnfoques = null;
             tipoLista = 0;
@@ -224,9 +224,9 @@ public class ControlEnfoques implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listEnfoques.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosEnfoque");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosEnfoque");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -237,7 +237,7 @@ public class ControlEnfoques implements Serializable {
             codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEnfoque:descripcion");
             descripcion.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosEnfoque");
+            RequestContext.getCurrentInstance().update("form:datosEnfoque");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -246,7 +246,7 @@ public class ControlEnfoques implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEnfoque:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosEnfoque");
+            RequestContext.getCurrentInstance().update("form:datosEnfoque");
             bandera = 0;
             filtrarEnfoques = null;
             tipoLista = 0;
@@ -308,9 +308,9 @@ public class ControlEnfoques implements Serializable {
                         if (guardado == true) {
                             guardado = false;
                         }
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -351,9 +351,9 @@ public class ControlEnfoques implements Serializable {
                         if (guardado == true) {
                             guardado = false;
                         }
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -411,10 +411,10 @@ public class ControlEnfoques implements Serializable {
                         if (guardado == true) {
                             guardado = false;
                         }
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -465,9 +465,9 @@ public class ControlEnfoques implements Serializable {
                         if (guardado == true) {
                             guardado = false;
                         }
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -475,8 +475,8 @@ public class ControlEnfoques implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosEnfoque");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosEnfoque");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -518,12 +518,12 @@ public class ControlEnfoques implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + listEnfoques.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:datosEnfoque");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosEnfoque");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             index = -1;
             secRegistro = null;
         }
@@ -547,7 +547,7 @@ public class ControlEnfoques implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
 
@@ -570,7 +570,7 @@ public class ControlEnfoques implements Serializable {
             if (!borrarEnfoques.isEmpty()) {
                 administrarEnfoques.borrarEnfoques(borrarEnfoques);
                 registrosBorrados = borrarEnfoques.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarEnfoques.clear();
             }
@@ -586,13 +586,13 @@ public class ControlEnfoques implements Serializable {
             listEnfoques = null;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
-            PrimefacesContextUI.actualizar("form:datosEnfoque");
+            RequestContext.getCurrentInstance().update("form:growl");
+            RequestContext.getCurrentInstance().update("form:datosEnfoque");
             k = 0;
             guardado = true;
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -608,11 +608,11 @@ public class ControlEnfoques implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -673,7 +673,7 @@ public class ControlEnfoques implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosEnfoque:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosEnfoque");
+                RequestContext.getCurrentInstance().update("form:datosEnfoque");
                 bandera = 0;
                 filtrarEnfoques = null;
                 tipoLista = 0;
@@ -689,12 +689,12 @@ public class ControlEnfoques implements Serializable {
             listEnfoques.add(nuevoEnfoque);
             nuevoEnfoque = new Enfoques();
 
-            PrimefacesContextUI.actualizar("form:datosEnfoque");
+            RequestContext.getCurrentInstance().update("form:datosEnfoque");
             infoRegistro = "Cantidad de registros: " + listEnfoques.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             System.out.println("Despues de la bandera guardado");
 
@@ -704,7 +704,7 @@ public class ControlEnfoques implements Serializable {
             System.out.println("Despues de nuevoRegistroEnfoque");
             nuevoEnfoque = new Enfoques();
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -738,7 +738,7 @@ public class ControlEnfoques implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEnfoques");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEnfoques");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroEnfoque').show()");
             index = -1;
             secRegistro = null;
@@ -791,14 +791,14 @@ public class ControlEnfoques implements Serializable {
             }
             listEnfoques.add(duplicarEnfoque);
             crearEnfoques.add(duplicarEnfoque);
-            PrimefacesContextUI.actualizar("form:datosEnfoque");
+            RequestContext.getCurrentInstance().update("form:datosEnfoque");
             infoRegistro = "Cantidad de registros: " + listEnfoques.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -807,7 +807,7 @@ public class ControlEnfoques implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosEnfoque:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosEnfoque");
+                RequestContext.getCurrentInstance().update("form:datosEnfoque");
                 bandera = 0;
                 filtrarEnfoques = null;
                 tipoLista = 0;
@@ -817,7 +817,7 @@ public class ControlEnfoques implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -890,7 +890,7 @@ public class ControlEnfoques implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listEnfoques.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listEnfoques;
     }
 

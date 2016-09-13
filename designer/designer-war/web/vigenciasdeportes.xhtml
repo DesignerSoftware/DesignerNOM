@@ -169,7 +169,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 120%;" id="fooDescripcion" action="deporte" onclick="PF('#{controlDeportes.recibirPag('deporte')}"  value=""/>
+                                        <p:commandButton style="width: 120%;" id="fooDescripcion" action="deporte" onclick="#{controlDeportes.recibirPag('deporte')}"  value=""/>
                                     </f:facet>
                                 </p:column>  
 
@@ -183,7 +183,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.valorcuantitativo}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{info.valorcuantitativo}" id="editarIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                  <p:keyFilter for="editarIndividual" mask="num"/>
+                                                <p:keyFilter for="editarIndividual" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaDeporte.cambiarIndice(info,3)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlVigenciaDeporte.modificarVigenciaDeporte(info)}" process="@this" update="editarIndividual"/>                                   
                                             </p:inputText>
@@ -204,7 +204,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.valorcualitativo}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  value="#{info.valorcualitativo}" id="editarCIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                  <p:keyFilter for="editarCIndividual" mask="num"/>
+                                                <p:keyFilter for="editarCIndividual" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaDeporte.cambiarIndice(info,4)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlVigenciaDeporte.modificarVigenciaDeporte(info)}" process="@this" update="editarCIndividual"/>                                   
                                             </p:inputText>
@@ -225,7 +225,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.valorcuantitativogrupo}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  value="#{info.valorcuantitativogrupo}" id="editarGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                  <p:keyFilter for="editarGrupal" mask="num"/>
+                                                <p:keyFilter for="editarGrupal" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaDeporte.cambiarIndice(info,5)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlVigenciaDeporte.modificarVigenciaDeporte(info)}" process="@this" update="editarGrupal"/>                                   
                                             </p:inputText>
@@ -246,7 +246,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.valorcuantitativogrupo}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  value="#{info.valorcuantitativogrupo}" id="editarCGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                  <p:keyFilter for="editarCGrupal" mask="num"/>
+                                                <p:keyFilter for="editarCGrupal" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaDeporte.cambiarIndice(info,6)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlVigenciaDeporte.modificarVigenciaDeporte(info)}" process="@this" update="editarCGrupal"/>                                   
                                             </p:inputText>
@@ -407,7 +407,7 @@
                             <strong><h:outputText value="#{msg['puntajeIN']}" style="position: absolute; top: 145px; left: 50px;" /></strong>
                             <p:inputText id="nuevaIndividual" value="#{controlVigenciaDeporte.nuevaVigenciaDeporte.valorcuantitativo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
-                                  <p:keyFilter for="nuevaIndividual" mask="num"/>
+                                <p:keyFilter for="nuevaIndividual" mask="num"/>
                                 <p:ajax event="change" update="nuevaIndividual"/>
                             </p:inputText>
                             <p:watermark for="nuevaIndividual" value="#{msg['puntajeI']}" />
@@ -415,7 +415,7 @@
                             <strong><h:outputText value="#{msg['puntajeCIN']}" style="position: absolute; top: 175px; left: 50px;" /></strong>
                             <p:inputText id="nuevaGIndividual" value="#{controlVigenciaDeporte.nuevaVigenciaDeporte.valorcualitativo}"
                                          style="width: 122px; position: absolute; left: 220px; top: 170px;">
-                                  <p:keyFilter for="nuevaGIndividual" mask="num"/>
+                                <p:keyFilter for="nuevaGIndividual" mask="num"/>
                                 <p:ajax event="change" update="nuevaGIndividual"/>
                             </p:inputText>
                             <p:watermark for="nuevaGIndividual" value="#{msg['puntajeCI']}" />
@@ -423,7 +423,7 @@
                             <strong><h:outputText value="#{msg['puntajeGN']}" style="position: absolute; top: 205px; left: 50px;" /></strong>
                             <p:inputText id="nuevaGrupal" value="#{controlVigenciaDeporte.nuevaVigenciaDeporte.valorcuantitativogrupo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 200px;">
-                                  <p:keyFilter for="nuevaGrupal" mask="num"/>
+                                <p:keyFilter for="nuevaGrupal" mask="num"/>
                                 <p:ajax event="change" update="nuevaGrupal"/>
                             </p:inputText>
                             <p:watermark for="nuevaGrupal" value="#{msg['puntajeG']}" />
@@ -431,7 +431,7 @@
                             <strong><h:outputText value="#{msg['puntajeCGN']}" style="position: absolute; top: 235px; left: 50px;" /></strong>
                             <p:inputText id="nuevaCGrupal" value="#{controlVigenciaDeporte.nuevaVigenciaDeporte.valorcualitativogrupo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 230px;">
-                                   <p:keyFilter for="nuevaCGrupal" mask="num"/>
+                                 <p:keyFilter for="nuevaCGrupal" mask="num"/>
                                 <p:ajax event="change" update="nuevaCGrupal"/>
                             </p:inputText>
                             <p:watermark for="nuevaCGrupal" value="#{msg['puntajeCG']}" />
@@ -478,7 +478,7 @@
                             <strong><h:outputText value="#{msg['puntajeIN']}" style="position: absolute; top: 145px; left: 50px;" /></strong>
                             <p:inputText id="duplicarIndividual" value="#{controlVigenciaDeporte.duplicarVigenciaDeporte.valorcuantitativo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
-                                  <p:keyFilter for="duplicarIndividual" mask="num"/>
+                                <p:keyFilter for="duplicarIndividual" mask="num"/>
                                 <p:ajax event="change" update="duplicarIndividual"/>
                             </p:inputText>
                             <p:watermark for="duplicarIndividual" value="#{msg['puntajeI']}" />
@@ -487,14 +487,14 @@
                             <p:inputText id="duplicarGIndividual" value="#{controlVigenciaDeporte.duplicarVigenciaDeporte.valorcualitativo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 170px;">
                                 <p:ajax event="change" update="duplicarGIndividual"/>
-                                  <p:keyFilter for="duplicarGIndividual" mask="num"/>
+                                <p:keyFilter for="duplicarGIndividual" mask="num"/>
                             </p:inputText>
                             <p:watermark for="duplicarGIndividual" value="#{msg['puntajeCI']}" />
 
                             <strong><h:outputText value="#{msg['puntajeGN']}" style="position: absolute; top: 205px; left: 50px;" /></strong>
                             <p:inputText id="duplicarGrupal" value="#{controlVigenciaDeporte.duplicarVigenciaDeporte.valorcuantitativogrupo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 200px;">
-                                  <p:keyFilter for="duplicarGrupal" mask="num"/>
+                                <p:keyFilter for="duplicarGrupal" mask="num"/>
                                 <p:ajax event="change" update="duplicarGrupal"/>
                             </p:inputText>
                             <p:watermark for="duplicarGrupal" value="#{msg['puntajeG']}" />
@@ -502,7 +502,7 @@
                             <strong><h:outputText value="#{msg['puntajeCGN']}" style="position: absolute; top: 235px; left: 50px;" /></strong>
                             <p:inputText id="duplicarCGrupal" value="#{controlVigenciaDeporte.duplicarVigenciaDeporte.valorcualitativogrupo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 230px;">
-                                  <p:keyFilter for="duplicarCGrupal" mask="num"/>
+                                <p:keyFilter for="duplicarCGrupal" mask="num"/>
                                 <p:ajax event="change" update="duplicarCGrupal"/>
                             </p:inputText>
                             <p:watermark for="duplicarCGrupal" value="#{msg['puntajeCG']}" />

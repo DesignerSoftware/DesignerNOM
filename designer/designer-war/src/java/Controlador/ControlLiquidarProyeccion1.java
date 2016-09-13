@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -11,7 +12,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -58,16 +58,16 @@ public class ControlLiquidarProyeccion1 implements Serializable {
             texto = "Realice la liquidación de proyecciones Salariales a partir de los parámetros de liquidacion como fecha, centro de costo empleados, conceptos etc. Primero ingrese los parametros a liquidar, luego detalle de los conceptos, despúes genere la liquidaciñon y revice los detalles del calculo de proyecciones";
 
         }
-        PrimefacesContextUI.actualizar("form:b1");
-        PrimefacesContextUI.actualizar("form:b6");
-        PrimefacesContextUI.actualizar("form:textomostrado");
-        PrimefacesContextUI.actualizar("form:titulo");
-        PrimefacesContextUI.actualizar("form:t1");
-        PrimefacesContextUI.actualizar("form:t2");
-        PrimefacesContextUI.actualizar("form:t3");
-        PrimefacesContextUI.actualizar("form:t4");
-        PrimefacesContextUI.actualizar("form:t5");
-        PrimefacesContextUI.actualizar("form:t6");
+        RequestContext.getCurrentInstance().update("form:b1");
+        RequestContext.getCurrentInstance().update("form:b6");
+        RequestContext.getCurrentInstance().update("form:textomostrado");
+        RequestContext.getCurrentInstance().update("form:titulo");
+        RequestContext.getCurrentInstance().update("form:t1");
+        RequestContext.getCurrentInstance().update("form:t2");
+        RequestContext.getCurrentInstance().update("form:t3");
+        RequestContext.getCurrentInstance().update("form:t4");
+        RequestContext.getCurrentInstance().update("form:t5");
+        RequestContext.getCurrentInstance().update("form:t6");
     }
 
     public int getNumero() {

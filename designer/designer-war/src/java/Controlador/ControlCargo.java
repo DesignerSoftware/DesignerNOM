@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Cargos;
 import Entidades.Competenciascargos;
 import Entidades.DetallesCargos;
@@ -33,7 +34,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -514,7 +514,7 @@ public class ControlCargo implements Serializable {
             cargoTablaSeleccionado.setNombre(auxNombreCargo);
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosCargo");
+            RequestContext.getCurrentInstance().update("form:datosCargo");
             PrimefacesContextUI.ejecutar("PF('errorDatosNullCargo').show()");
         }
     }
@@ -546,12 +546,12 @@ public class ControlCargo implements Serializable {
             }
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosCargo");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosCargo");
         } else {
             cargoTablaSeleccionado.setNombre(auxNombreCargo);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosCargo");
+            RequestContext.getCurrentInstance().update("form:datosCargo");
             PrimefacesContextUI.ejecutar("PF('errorDescripcionCargo').show()");
         }
     }
@@ -584,10 +584,10 @@ public class ControlCargo implements Serializable {
                     lovGruposSalariales = null;
                     getLovGruposSalariales();
                     cambiosPagina = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
                     permitirIndexCargo = false;
-                    PrimefacesContextUI.actualizar("form:GrupoSalarialDialogo");
+                    RequestContext.getCurrentInstance().update("form:GrupoSalarialDialogo");
                     PrimefacesContextUI.ejecutar("PF('GrupoSalarialDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -597,7 +597,7 @@ public class ControlCargo implements Serializable {
                 cargoTablaSeleccionado.setGruposalarial(new GruposSalariales());
 
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
 
@@ -617,10 +617,10 @@ public class ControlCargo implements Serializable {
                     lovGruposViaticos = null;
                     getLovGruposViaticos();
                     cambiosPagina = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
                     permitirIndexCargo = false;
-                    PrimefacesContextUI.actualizar("form:GrupoViaticoDialogo");
+                    RequestContext.getCurrentInstance().update("form:GrupoViaticoDialogo");
                     PrimefacesContextUI.ejecutar("PF('GrupoViaticoDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -630,7 +630,7 @@ public class ControlCargo implements Serializable {
                 lovGruposViaticos = null;
                 getLovGruposViaticos();
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
         if (confirmarCambio.equalsIgnoreCase("PROCESOPRODUCTIVO")) {
@@ -649,10 +649,10 @@ public class ControlCargo implements Serializable {
                     lovProcesosProductivos = null;
                     getLovProcesosProductivos();
                     cambiosPagina = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
                     permitirIndexCargo = false;
-                    PrimefacesContextUI.actualizar("form:ProcesoProductivoDialogo");
+                    RequestContext.getCurrentInstance().update("form:ProcesoProductivoDialogo");
                     PrimefacesContextUI.ejecutar("PF('ProcesoProductivoDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -662,7 +662,7 @@ public class ControlCargo implements Serializable {
                 lovProcesosProductivos = null;
                 getLovProcesosProductivos();
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
 
@@ -679,7 +679,7 @@ public class ControlCargo implements Serializable {
             }
 
         }
-        PrimefacesContextUI.actualizar("form:datosCargo");
+        RequestContext.getCurrentInstance().update("form:datosCargo");
     }
 
     public void modificarSueldoMercado(int indice) {
@@ -696,8 +696,8 @@ public class ControlCargo implements Serializable {
 
         cambiosPagina = false;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("form:datosSueldoMercado");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
     }
 
     public void modificarSueldoMercado(SueldosMercados sueldoMercado, String confirmarCambio, String valorConfirmar) {
@@ -720,10 +720,10 @@ public class ControlCargo implements Serializable {
                 lovTiposEmpresas = null;
                 getLovTiposEmpresas();
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 permitirIndexSueldoMercado = false;
-                PrimefacesContextUI.actualizar("form:TipoEmpresaDialogo");
+                RequestContext.getCurrentInstance().update("form:TipoEmpresaDialogo");
                 PrimefacesContextUI.ejecutar("PF('TipoEmpresaDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -740,7 +740,7 @@ public class ControlCargo implements Serializable {
                 }
             }
         }
-        PrimefacesContextUI.actualizar("form:datosSueldoMercado");
+        RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
     }
 
     /**
@@ -761,8 +761,8 @@ public class ControlCargo implements Serializable {
 
         cambiosPagina = false;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("form:datosCompetenciaCargo");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
     }
 
     /**
@@ -791,10 +791,10 @@ public class ControlCargo implements Serializable {
                 lovEvalCompetencias = null;
                 getLovEvalCompetencias();
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 permitirCompetencia = false;
-                PrimefacesContextUI.actualizar("form:EvalCompetenciaDialogo");
+                RequestContext.getCurrentInstance().update("form:EvalCompetenciaDialogo");
                 PrimefacesContextUI.ejecutar("PF('EvalCompetenciaDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -812,7 +812,7 @@ public class ControlCargo implements Serializable {
             }
 
         }
-        PrimefacesContextUI.actualizar("form:datosCompetenciaCargo");
+        RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
     }
 
     /**
@@ -829,7 +829,7 @@ public class ControlCargo implements Serializable {
             tipoDetalleSeleccionado.setDescripcion(auxDescriptionTipoDetalle);
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosTipoDetalle");
+            RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
             PrimefacesContextUI.ejecutar("PF('errorDatosNullTipoDetalle').show()");
         }
     }
@@ -858,13 +858,13 @@ public class ControlCargo implements Serializable {
 
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosTipoDetalle");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
         } else {
             tipoDetalleSeleccionado.setDescripcion(auxDescriptionTipoDetalle);
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosTipoDetalle");
+            RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
             PrimefacesContextUI.ejecutar("PF('errorDescripcionTipoDetalle').show()");
 
         }
@@ -896,10 +896,10 @@ public class ControlCargo implements Serializable {
                 lovEnfoques = null;
                 getLovEnfoques();
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 permitirIndexTipoDetalle = false;
-                PrimefacesContextUI.actualizar("form:EnfoqueDialogo");
+                RequestContext.getCurrentInstance().update("form:EnfoqueDialogo");
                 PrimefacesContextUI.ejecutar("PF('EnfoqueDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -917,7 +917,7 @@ public class ControlCargo implements Serializable {
             }
 
         }
-        PrimefacesContextUI.actualizar("form:datosTipoDetalle");
+        RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
     }
 
     public void posicionCargo() {
@@ -955,10 +955,10 @@ public class ControlCargo implements Serializable {
 
                 listaSueldosMercados = null;
                 getListaSueldosMercados();
-                PrimefacesContextUI.actualizar("form:datosSueldoMercado");
+                RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
                 listaCompetenciasCargos = null;
                 getListaCompetenciasCargos();
-                PrimefacesContextUI.actualizar("form:datosCompetenciaCargo");
+                RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
                 if (banderaSueldoMercado == 1) {
                     restaurarTablaSueldoM();
                 }
@@ -968,8 +968,8 @@ public class ControlCargo implements Serializable {
                 activoDetalleCargo = true;
                 legendDetalleCargo = "";
                 detalleCargo = new DetallesCargos();
-                PrimefacesContextUI.actualizar("form:legendDetalleCargo");
-                PrimefacesContextUI.actualizar("form:detalleCargo");
+                RequestContext.getCurrentInstance().update("form:legendDetalleCargo");
+                RequestContext.getCurrentInstance().update("form:detalleCargo");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
@@ -992,8 +992,8 @@ public class ControlCargo implements Serializable {
                 legendDetalleCargo = "";
                 detalleCargo = new DetallesCargos();
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:legendDetalleCargo");
-                PrimefacesContextUI.actualizar("form:detalleCargo");
+                RequestContext.getCurrentInstance().update("form:legendDetalleCargo");
+                RequestContext.getCurrentInstance().update("form:detalleCargo");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
@@ -1021,8 +1021,8 @@ public class ControlCargo implements Serializable {
                 legendDetalleCargo = "";
                 detalleCargo = new DetallesCargos();
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:legendDetalleCargo");
-                PrimefacesContextUI.actualizar("form:detalleCargo");
+                RequestContext.getCurrentInstance().update("form:legendDetalleCargo");
+                RequestContext.getCurrentInstance().update("form:detalleCargo");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
@@ -1046,8 +1046,8 @@ public class ControlCargo implements Serializable {
                 getDetalleCargo();
                 activoDetalleCargo = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:legendDetalleCargo");
-                PrimefacesContextUI.actualizar("form:detalleCargo");
+                RequestContext.getCurrentInstance().update("form:legendDetalleCargo");
+                RequestContext.getCurrentInstance().update("form:detalleCargo");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
@@ -1106,11 +1106,11 @@ public class ControlCargo implements Serializable {
                 contarRegistrosCC();
                 contarRegistrosSM();
                 contarRegistrosTD();
-                PrimefacesContextUI.actualizar("form:legendDetalleCargo");
-                PrimefacesContextUI.actualizar("form:detalleCargo");
+                RequestContext.getCurrentInstance().update("form:legendDetalleCargo");
+                RequestContext.getCurrentInstance().update("form:detalleCargo");
             }
             cambiosPagina = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
     }
 
@@ -1137,18 +1137,18 @@ public class ControlCargo implements Serializable {
             }
             listaCargos = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosCargo");
+            RequestContext.getCurrentInstance().update("form:datosCargo");
             guardado = true;
-            PrimefacesContextUI.actualizar("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:aceptar");
             k = 0;
             FacesMessage msg = new FacesMessage("Información", "Los datos de Cargos se guardaron con Éxito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosCargos : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado de Cargos, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
 
     }
@@ -1169,18 +1169,18 @@ public class ControlCargo implements Serializable {
             }
             listaSueldosMercados = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosSueldoMercado");
+            RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
             guardadoSueldoMercado = true;
-            PrimefacesContextUI.actualizar("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:aceptar");
             k = 0;
             FacesMessage msg = new FacesMessage("Información", "Los datos de Sueldos Mercados se guardaron con Éxito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosCargos : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado de Sueldos Mercados, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
 
@@ -1203,18 +1203,18 @@ public class ControlCargo implements Serializable {
             }
             listaCompetenciasCargos = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosCompetenciaCargo");
+            RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
             guardadoCompetencia = true;
-            PrimefacesContextUI.actualizar("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:aceptar");
             k = 0;
             FacesMessage msg = new FacesMessage("Información", "Los datos de Competencias se guardaron con Éxito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosCargos : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado de Competencias, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
 
@@ -1234,18 +1234,18 @@ public class ControlCargo implements Serializable {
             }
             listaTiposDetalles = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosTipoDetalle");
+            RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
             guardadoTipoDetalle = true;
-            PrimefacesContextUI.actualizar("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:aceptar");
             k = 0;
             FacesMessage msg = new FacesMessage("Información", "Los datos de Propiedades Cargo se guardaron con Éxito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosCargos : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado de Propiedades Cargo, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
     //CANCELAR MODIFICACIONES
@@ -1261,22 +1261,22 @@ public class ControlCargo implements Serializable {
         cargoTablaSeleccionado = null;
         cambiosPagina = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 //        if (guardado == false) {
         cancelarModificacionCargos();
-        PrimefacesContextUI.actualizar("form:datosCargo");
+        RequestContext.getCurrentInstance().update("form:datosCargo");
 //        }
 //        if (guardadoSueldoMercado == false) {
         cancelarModificacionSueldosMercados();
-        PrimefacesContextUI.actualizar("form:datosSueldoMercado");
+        RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
 //        }
 //        if (guardadoCompetencia == false) {
         cancelarModificacionCompetenciasCargos();
-        PrimefacesContextUI.actualizar("form:datosCompetenciaCargo");
+        RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
 //        }
 //        if (guardadoTipoDetalle == false) {
         cancelarModificacionTiposDetalles();
-        PrimefacesContextUI.actualizar("form:datosTipoDetalle");
+        RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
 //        }
         activoDetalleCargo = true;
         detalleCargo = new DetallesCargos();
@@ -1285,8 +1285,8 @@ public class ControlCargo implements Serializable {
         contarRegistrosCC();
         contarRegistrosSM();
         contarRegistrosTD();
-        PrimefacesContextUI.actualizar("form:legendDetalleCargo");
-        PrimefacesContextUI.actualizar("form:detalleCargo");
+        RequestContext.getCurrentInstance().update("form:legendDetalleCargo");
+        RequestContext.getCurrentInstance().update("form:detalleCargo");
         guardadoDetalleCargo = true;
     }
 
@@ -1316,7 +1316,7 @@ public class ControlCargo implements Serializable {
         getListaCargos();
         guardado = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosCargo");
+        RequestContext.getCurrentInstance().update("form:datosCargo");
     }
 
     /**
@@ -1336,7 +1336,7 @@ public class ControlCargo implements Serializable {
         guardadoSueldoMercado = true;
         permitirIndexSueldoMercado = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosSueldoMercado");
+        RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
     }
 
     /**
@@ -1356,7 +1356,7 @@ public class ControlCargo implements Serializable {
         guardadoCompetencia = true;
         permitirCompetencia = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosCompetenciaCargo");
+        RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
     }
 
     /**
@@ -1376,7 +1376,7 @@ public class ControlCargo implements Serializable {
         guardadoTipoDetalle = true;
         permitirIndexTipoDetalle = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosTipoDetalle");
+        RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
     }
 
     /**
@@ -1390,15 +1390,15 @@ public class ControlCargo implements Serializable {
                 editarSueldoMercado = sueldoMercadoSeleccionado;
 
                 if (cualCeldaSueldoMercado == 0) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarTipoEmpresaSueldoMercadoD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoEmpresaSueldoMercadoD");
                     PrimefacesContextUI.ejecutar("PF('editarTipoEmpresaSueldoMercadoD').show()");
                     cualCeldaSueldoMercado = -1;
                 } else if (cualCeldaSueldoMercado == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarSueldoMinimoSueldoMercadoD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarSueldoMinimoSueldoMercadoD");
                     PrimefacesContextUI.ejecutar("PF('editarSueldoMinimoSueldoMercadoD').show()");
                     cualCeldaSueldoMercado = -1;
                 } else if (cualCeldaSueldoMercado == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarSueldoMaximoSueldoMercadoD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarSueldoMaximoSueldoMercadoD");
                     PrimefacesContextUI.ejecutar("PF('editarSueldoMaximoSueldoMercadoD').show()");
                     cualCeldaSueldoMercado = -1;
                 }
@@ -1409,7 +1409,7 @@ public class ControlCargo implements Serializable {
                 editarCompetenciaCargo = competenciaCargoSeleccionado;
 
                 if (cualCeldaCompetencia == 0) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionCompetenciaCargoD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionCompetenciaCargoD");
                     PrimefacesContextUI.ejecutar("PF('editarDescripcionCompetenciaCargoD').show()");
                     cualCeldaCompetencia = -1;
                 }
@@ -1419,15 +1419,15 @@ public class ControlCargo implements Serializable {
                 editarTipoDetalle = tipoDetalleSeleccionado;
 
                 if (cualCeldaTipoDetalle == 0) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoTipoDetalleD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoTipoDetalleD");
                     PrimefacesContextUI.ejecutar("PF('editarCodigoTipoDetalleD').show()");
                     cualCeldaTipoDetalle = -1;
                 } else if (cualCeldaTipoDetalle == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionTipoDetalleD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionTipoDetalleD");
                     PrimefacesContextUI.ejecutar("PF('editarDescripcionTipoDetalleD').show()");
                     cualCeldaTipoDetalle = -1;
                 } else if (cualCeldaTipoDetalle == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarEnfoqueTipoDetalleD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarEnfoqueTipoDetalleD");
                     PrimefacesContextUI.ejecutar("PF('editarEnfoqueTipoDetalleD').show()");
                     cualCeldaTipoDetalle = -1;
                 }
@@ -1436,46 +1436,46 @@ public class ControlCargo implements Serializable {
             if (cargoTablaSeleccionado != null) {
                 editarCargo = cargoTablaSeleccionado;
                 if (cualCelda == 0) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoCargoD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoCargoD");
                     PrimefacesContextUI.ejecutar("PF('editarCodigoCargoD').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarNombreCargoD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreCargoD");
                     PrimefacesContextUI.ejecutar("PF('editarNombreCargoD').show()");
                     cualCelda = -1;
 
                 } else if (cualCelda == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarGrupoSalarialCargoD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarGrupoSalarialCargoD");
                     PrimefacesContextUI.ejecutar("PF('editarGrupoSalarialCargoD').show()");
                     cualCelda = -1;
 
                 } else if (cualCelda == 3) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarSalarioCargoD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarSalarioCargoD");
                     PrimefacesContextUI.ejecutar("PF('editarSalarioCargoD').show()");
                     cualCelda = -1;
 
                 } else if (cualCelda == 4) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarSueldoMinimoCargoD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarSueldoMinimoCargoD");
                     PrimefacesContextUI.ejecutar("PF('editarSueldoMinimoCargoD').show()");
                     cualCelda = -1;
 
                 } else if (cualCelda == 5) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarSueldoMaximoCargoD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarSueldoMaximoCargoD");
                     PrimefacesContextUI.ejecutar("PF('editarSueldoMaximoCargoD').show()");
                     cualCelda = -1;
 
                 } else if (cualCelda == 6) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarGrupoViaticoCargoD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarGrupoViaticoCargoD");
                     PrimefacesContextUI.ejecutar("PF('editarGrupoViaticoCargoD').show()");
                     cualCelda = -1;
 
                 } else if (cualCelda == 9) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarProcesoProductivoCargoD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarProcesoProductivoCargoD");
                     PrimefacesContextUI.ejecutar("PF('editarProcesoProductivoCargoD').show()");
                     cualCelda = -1;
 
                 } else if (cualCelda == 10) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoAlternativoCargoD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoAlternativoCargoD");
                     PrimefacesContextUI.ejecutar("PF('editarCodigoAlternativoCargoD').show()");
                     cualCelda = -1;
                 }
@@ -1495,27 +1495,27 @@ public class ControlCargo implements Serializable {
         } else {/*
              * if (listaCargos.isEmpty()) { activoSueldoMercado = true;
              * activoCompetencia = true; activoTipoDetalle = false;
-             * PrimefacesContextUI.actualizar("formularioDialogos:verificarNuevoRegistro");
+             * RequestContext.getCurrentInstance().update("formularioDialogos:verificarNuevoRegistro");
              * PrimefacesContextUI.ejecutar("PF('verificarNuevoRegistro').show()"); } else { if
              * (listaSueldosMercados.isEmpty() ||
              * listaCompetenciasCargos.isEmpty() ||
              * listaTiposDetalles.isEmpty()) { activoSueldoMercado = false;
              * activoCompetencia = false; activoTipoDetalle = false;
-             * PrimefacesContextUI.actualizar("formularioDialogos:verificarNuevoRegistro");
+             * RequestContext.getCurrentInstance().update("formularioDialogos:verificarNuevoRegistro");
              * PrimefacesContextUI.ejecutar("PF('verificarNuevoRegistro').show()"); } else {
              * activoSueldoMercado = false; activoCompetencia = false;
              * activoTipoDetalle = false; if (cargoTablaSeleccionado != null) {
              * codigoNuevoCargo();
-             * PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroCargo");
+             * RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroCargo");
              * PrimefacesContextUI.ejecutar("PF('NuevoRegistroCargo').show()"); } if
              * (sueldoMercadoSeleccionado != null) {
-             * PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroSueldoMercado");
+             * RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroSueldoMercado");
              * PrimefacesContextUI.ejecutar("PF('NuevoRegistroSueldoMercado').show()"); } if
              * (competenciaCargoSeleccionado != null) {
-             * PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroCompetenciaCargo");
+             * RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroCompetenciaCargo");
              * PrimefacesContextUI.ejecutar("PF('NuevoRegistroCompetenciaCargo').show()"); } if
              * (tipoDetalleSeleccionado != null) { codigoNuevoTipoDetalle();
-             * PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroTipoDetalle");
+             * RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroTipoDetalle");
              * PrimefacesContextUI.ejecutar("PF('NuevoRegistroTipoDetalle').show()"); } } }
              */
 
@@ -1528,14 +1528,14 @@ public class ControlCargo implements Serializable {
     public void dispararDialogoNuevoCargo() {
         RequestContext context = RequestContext.getCurrentInstance();
         codigoNuevoCargo();
-        PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroCargo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroCargo");
         PrimefacesContextUI.ejecutar("PF('NuevoRegistroCargo').show()");
     }
 
     public void dispararDialogoNuevoTipoDetalle() {
         RequestContext context = RequestContext.getCurrentInstance();
         codigoNuevoTipoDetalle();
-        PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroTipoDetalle");
+        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroTipoDetalle");
         PrimefacesContextUI.ejecutar("PF('NuevoRegistroTipoDetalle').show()");
     }
 
@@ -1597,12 +1597,12 @@ public class ControlCargo implements Serializable {
                 nuevoCargo.setProcesoproductivo(new ProcesosProductivos());
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
-                PrimefacesContextUI.actualizar("form:datosCargo");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:datosCargo");
                 PrimefacesContextUI.ejecutar("PF('NuevoRegistroCargo').hide()");
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:aceptar");
+                    RequestContext.getCurrentInstance().update("form:aceptar");
                 }
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -1634,14 +1634,14 @@ public class ControlCargo implements Serializable {
             sueldoMercadoSeleccionado = listaSueldosMercados.get(listaSueldosMercados.indexOf(nuevoSueldoMercado));
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosSueldoMercado");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroSueldoMercado').hide()");
             nuevoSueldoMercado = new SueldosMercados();
             nuevoSueldoMercado.setTipoempresa(new TiposEmpresas());
             if (guardadoSueldoMercado == true) {
                 guardadoSueldoMercado = false;
-                PrimefacesContextUI.actualizar("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:aceptar");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
@@ -1671,8 +1671,8 @@ public class ControlCargo implements Serializable {
             competenciaCargoSeleccionado = listaCompetenciasCargos.get(listaCompetenciasCargos.indexOf(nuevoCompetenciaCargo));
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosCompetenciaCargo");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroCompetenciaCargo').hide()");
             nuevoCompetenciaCargo = new Competenciascargos();
             nuevoCompetenciaCargo.setEvalcompetencia(new EvalCompetencias());
@@ -1710,14 +1710,14 @@ public class ControlCargo implements Serializable {
                 tipoDetalleSeleccionado = listaTiposDetalles.get(listaTiposDetalles.indexOf(nuevoTipoDetalle));
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
-                PrimefacesContextUI.actualizar("form:datosTipoDetalle");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
                 PrimefacesContextUI.ejecutar("PF('NuevoRegistroTipoDetalle').hide()");
                 nuevoTipoDetalle = new TiposDetalles();
                 nuevoTipoDetalle.setEnfoque(new Enfoques());
                 if (guardadoTipoDetalle == true) {
                     guardadoTipoDetalle = false;
-                    PrimefacesContextUI.actualizar("form:aceptar");
+                    RequestContext.getCurrentInstance().update("form:aceptar");
                 }
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -1806,7 +1806,7 @@ public class ControlCargo implements Serializable {
         duplicarCargo.setCodigoalternativo(cargoTablaSeleccionado.getCodigoalternativo());
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroCargo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroCargo");
         PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCargo').show()");
     }
 
@@ -1823,7 +1823,7 @@ public class ControlCargo implements Serializable {
         duplicarSueldoMercado.setSueldomin(sueldoMercadoSeleccionado.getSueldomin());
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroSueldoMercado");
+        RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroSueldoMercado");
         PrimefacesContextUI.ejecutar("PF('DuplicarRegistroSueldoMercado').show()");
 
     }
@@ -1836,7 +1836,7 @@ public class ControlCargo implements Serializable {
         duplicarCompetenciaCargo.setEvalcompetencia(competenciaCargoSeleccionado.getEvalcompetencia());
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroCompetenciaCargo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroCompetenciaCargo");
         PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCompetenciaCargo').show()");
     }
 
@@ -1852,7 +1852,7 @@ public class ControlCargo implements Serializable {
         duplicarTipoDetalle.setEnfoque(tipoDetalleSeleccionado.getEnfoque());
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroTipoDetalle");
+        RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTipoDetalle");
         PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTipoDetalle').show()");
     }
 
@@ -1884,12 +1884,12 @@ public class ControlCargo implements Serializable {
                 cargoTablaSeleccionado = listaCargos.get(listaCargos.indexOf(duplicarCargo));
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
-                PrimefacesContextUI.actualizar("form:datosCargo");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:datosCargo");
                 PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCargo').hide()");
                 if (guardado == true) {
                     guardado = false;
-                    //PrimefacesContextUI.actualizar("form:aceptar");
+                    //RequestContext.getCurrentInstance().update("form:aceptar");
                 }
                 duplicarCargo = new Cargos();
             } else {
@@ -1917,12 +1917,12 @@ public class ControlCargo implements Serializable {
 
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosSueldoMercado");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroSueldoMercado').hide()");
             if (guardadoSueldoMercado == true) {
                 guardadoSueldoMercado = false;
-                //PrimefacesContextUI.actualizar("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:aceptar");
             }
 
             duplicarSueldoMercado = new SueldosMercados();
@@ -1946,12 +1946,12 @@ public class ControlCargo implements Serializable {
 
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosCompetenciaCargo");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCompetenciaCargo').hide()");
             if (guardadoCompetencia == true) {
                 guardadoCompetencia = false;
-                //PrimefacesContextUI.actualizar("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:aceptar");
             }
 
             duplicarCompetenciaCargo = new Competenciascargos();
@@ -1978,12 +1978,12 @@ public class ControlCargo implements Serializable {
 
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
-                PrimefacesContextUI.actualizar("form:datosTipoDetalle");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
                 PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTipoDetalle').hide()");
                 if (guardadoTipoDetalle == true) {
                     guardadoTipoDetalle = false;
-                    //PrimefacesContextUI.actualizar("form:aceptar");
+                    //RequestContext.getCurrentInstance().update("form:aceptar");
                 }
                 duplicarTipoDetalle = new TiposDetalles();
             } else {
@@ -2090,8 +2090,8 @@ public class ControlCargo implements Serializable {
         cambiosPagina = false;
         tablaActiva = "";
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("form:detalleCargo");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:detalleCargo");
     }
 
     public void borrarCargo() {
@@ -2115,12 +2115,12 @@ public class ControlCargo implements Serializable {
             cambiosPagina = false;
             cargoTablaSeleccionado = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosCargo");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosCargo");
 
             if (guardado == true) {
                 guardado = false;
-                //PrimefacesContextUI.actualizar("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:aceptar");
             }
         }
     }
@@ -2149,12 +2149,12 @@ public class ControlCargo implements Serializable {
             tablaActiva = "";
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosSueldoMercado");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
 
             if (guardadoSueldoMercado == true) {
                 guardadoSueldoMercado = false;
-                //PrimefacesContextUI.actualizar("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:aceptar");
             }
         }
     }
@@ -2183,11 +2183,11 @@ public class ControlCargo implements Serializable {
             cambiosPagina = false;
             competenciaCargoSeleccionado = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosCompetenciaCargo");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
             if (guardadoCompetencia == true) {
                 guardadoCompetencia = false;
-                //PrimefacesContextUI.actualizar("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:aceptar");
             }
         }
     }
@@ -2213,8 +2213,8 @@ public class ControlCargo implements Serializable {
             tipoDetalleSeleccionado = null;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosTipoDetalle");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
 
             if (guardadoTipoDetalle == true) {
                 guardadoTipoDetalle = false;
@@ -2254,7 +2254,7 @@ public class ControlCargo implements Serializable {
                     cargoProcesoProductivo.setFilterStyle("width: 85%");
                     cargoCodigoAlternativo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCargo:cargoCodigoAlternativo");
                     cargoCodigoAlternativo.setFilterStyle("width: 85%");
-                    PrimefacesContextUI.actualizar("form:datosCargo");
+                    RequestContext.getCurrentInstance().update("form:datosCargo");
                     bandera = 1;
                 } else if (bandera == 1) {
                     restaurarTablaCargos();
@@ -2270,7 +2270,7 @@ public class ControlCargo implements Serializable {
                     sueldoMercadoSueldoMinimo.setFilterStyle("width: 85%");
                     sueldoMercadoSueldoMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSueldoMercado:sueldoMercadoSueldoMaximo");
                     sueldoMercadoSueldoMaximo.setFilterStyle("width: 85%");
-                    PrimefacesContextUI.actualizar("form:datosSueldoMercado");
+                    RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
                     banderaSueldoMercado = 1;
                 } else if (banderaSueldoMercado == 1) {
                     restaurarTablaSueldoM();
@@ -2282,7 +2282,7 @@ public class ControlCargo implements Serializable {
                     altoTablaCompetencia = "50";
                     competenciaCargoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCompetenciaCargo:competenciaCargoDescripcion");
                     competenciaCargoDescripcion.setFilterStyle("width: 85%");
-                    PrimefacesContextUI.actualizar("form:datosCompetenciaCargo");
+                    RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
                     banderaCompetencia = 1;
                 } else if (banderaCompetencia == 1) {
                     restaurarTablaCompetencia();
@@ -2299,7 +2299,7 @@ public class ControlCargo implements Serializable {
                     tipoDetalleCodigo.setFilterStyle("width: 85%");
                     tipoDetalleEnfoque = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoDetalle:tipoDetalleEnfoque");
                     tipoDetalleEnfoque.setFilterStyle("width: 85%");
-                    PrimefacesContextUI.actualizar("form:datosTipoDetalle");
+                    RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
                     banderaTipoDetalle = 1;
                 } else if (banderaTipoDetalle == 1) {
                     restaurarTablaTipoD();
@@ -2358,7 +2358,7 @@ public class ControlCargo implements Serializable {
         lovProcesosProductivos = null;
         lovTiposEmpresas = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void restaurarTablaCargos() {
@@ -2388,7 +2388,7 @@ public class ControlCargo implements Serializable {
         bandera = 0;
         filtrarListaCargos = null;
         tipoLista = 0;
-        PrimefacesContextUI.actualizar("form:datosCargo");
+        RequestContext.getCurrentInstance().update("form:datosCargo");
     }
 
     public void restaurarTablaCompetencia() {
@@ -2398,7 +2398,7 @@ public class ControlCargo implements Serializable {
         banderaCompetencia = 0;
         filtrarListaCompetenciasCargos = null;
         tipoListaCompetencia = 0;
-        PrimefacesContextUI.actualizar("form:datosCompetenciaCargo");
+        RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
     }
 
     public void restaurarTablaSueldoM() {
@@ -2412,7 +2412,7 @@ public class ControlCargo implements Serializable {
         banderaSueldoMercado = 0;
         filtrarListaSueldosMercados = null;
         tipoListaSueldoMercado = 0;
-        PrimefacesContextUI.actualizar("form:datosSueldoMercado");
+        RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
     }
 
     public void restaurarTablaTipoD() {
@@ -2426,7 +2426,7 @@ public class ControlCargo implements Serializable {
         banderaTipoDetalle = 0;
         filtrarListaTiposDetalles = null;
         tipoListaTipoDetalle = 0;
-        PrimefacesContextUI.actualizar("form:datosTipoDetalle");
+        RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
     }
 
     public void listaValoresBoton() {
@@ -2435,19 +2435,19 @@ public class ControlCargo implements Serializable {
             if (cargoTablaSeleccionado != null) {
                 if (cualCelda == 2) {
                     modificarInfoRegistroLOVs(lovGruposSalariales.size());
-                    PrimefacesContextUI.actualizar("form:GrupoSalarialDialogo");
+                    RequestContext.getCurrentInstance().update("form:GrupoSalarialDialogo");
                     PrimefacesContextUI.ejecutar("PF('GrupoSalarialDialogo').show()");
                     tipoActualizacion = 0;
                 }
                 if (cualCelda == 6) {
                     modificarInfoRegistroLOVs(lovGruposViaticos.size());
-                    PrimefacesContextUI.actualizar("form:GrupoViaticoDialogo");
+                    RequestContext.getCurrentInstance().update("form:GrupoViaticoDialogo");
                     PrimefacesContextUI.ejecutar("PF('GrupoViaticoDialogo').show()");
                     tipoActualizacion = 0;
                 }
                 if (cualCelda == 9) {
                     modificarInfoRegistroLOVs(lovProcesosProductivos.size());
-                    PrimefacesContextUI.actualizar("form:ProcesoProductivoDialogo");
+                    RequestContext.getCurrentInstance().update("form:ProcesoProductivoDialogo");
                     PrimefacesContextUI.ejecutar("PF('ProcesoProductivoDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -2456,7 +2456,7 @@ public class ControlCargo implements Serializable {
             if (sueldoMercadoSeleccionado != null) {
                 if (cualCeldaSueldoMercado == 0) {
                     modificarInfoRegistroLOVs(lovTiposEmpresas.size());
-                    PrimefacesContextUI.actualizar("form:TipoEmpresaDialogo");
+                    RequestContext.getCurrentInstance().update("form:TipoEmpresaDialogo");
                     PrimefacesContextUI.ejecutar("PF('TipoEmpresaDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -2465,7 +2465,7 @@ public class ControlCargo implements Serializable {
             if (competenciaCargoSeleccionado != null) {
                 if (cualCeldaCompetencia == 0) {
                     modificarInfoRegistroLOVs(lovEvalCompetencias.size());
-                    PrimefacesContextUI.actualizar("form:EvalCompetenciaDialogo");
+                    RequestContext.getCurrentInstance().update("form:EvalCompetenciaDialogo");
                     PrimefacesContextUI.ejecutar("PF('EvalCompetenciaDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -2474,7 +2474,7 @@ public class ControlCargo implements Serializable {
             if (tipoDetalleSeleccionado != null) {
                 if (cualCeldaTipoDetalle == 2) {
                     modificarInfoRegistroLOVs(lovEnfoques.size());
-                    PrimefacesContextUI.actualizar("form:EnfoqueDialogo");
+                    RequestContext.getCurrentInstance().update("form:EnfoqueDialogo");
                     PrimefacesContextUI.ejecutar("PF('EnfoqueDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -2489,17 +2489,17 @@ public class ControlCargo implements Serializable {
         tipoActualizacion = tipoAct;
         if (celda == 0) {
             modificarInfoRegistroLOVs(lovGruposSalariales.size());
-            PrimefacesContextUI.actualizar("form:GrupoSalarialDialogo");
+            RequestContext.getCurrentInstance().update("form:GrupoSalarialDialogo");
             PrimefacesContextUI.ejecutar("PF('GrupoSalarialDialogo').show()");
         }
         if (celda == 1) {
             modificarInfoRegistroLOVs(lovGruposViaticos.size());
-            PrimefacesContextUI.actualizar("form:GrupoViaticoDialogo");
+            RequestContext.getCurrentInstance().update("form:GrupoViaticoDialogo");
             PrimefacesContextUI.ejecutar("PF('GrupoViaticoDialogo').show()");
         }
         if (celda == 2) {
             modificarInfoRegistroLOVs(lovProcesosProductivos.size());
-            PrimefacesContextUI.actualizar("form:ProcesoProductivoDialogo");
+            RequestContext.getCurrentInstance().update("form:ProcesoProductivoDialogo");
             PrimefacesContextUI.ejecutar("PF('ProcesoProductivoDialogo').show()");
         }
     }
@@ -2511,7 +2511,7 @@ public class ControlCargo implements Serializable {
         tipoActualizacion = tipoAct;
         if (celda == 0) {
             modificarInfoRegistroLOVs(lovTiposEmpresas.size());
-            PrimefacesContextUI.actualizar("form:TipoEmpresaDialogo");
+            RequestContext.getCurrentInstance().update("form:TipoEmpresaDialogo");
             PrimefacesContextUI.ejecutar("PF('TipoEmpresaDialogo').show()");
         }
     }
@@ -2523,7 +2523,7 @@ public class ControlCargo implements Serializable {
         tipoActualizacion = tipoAct;
         if (celda == 0) {
             modificarInfoRegistroLOVs(lovEvalCompetencias.size());
-            PrimefacesContextUI.actualizar("form:EvalCompetenciaDialogo");
+            RequestContext.getCurrentInstance().update("form:EvalCompetenciaDialogo");
             PrimefacesContextUI.ejecutar("PF('EvalCompetenciaDialogo').show()");
         }
     }
@@ -2535,7 +2535,7 @@ public class ControlCargo implements Serializable {
         tipoActualizacion = tipoAct;
         if (celda == 0) {
             modificarInfoRegistroLOVs(lovEnfoques.size());
-            PrimefacesContextUI.actualizar("form:EnfoqueDialogo");
+            RequestContext.getCurrentInstance().update("form:EnfoqueDialogo");
             PrimefacesContextUI.ejecutar("PF('EnfoqueDialogo').show()");
         }
     }
@@ -2605,23 +2605,23 @@ public class ControlCargo implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
                         nuevoCargo.setGruposalarial(lovGruposSalariales.get(indiceUnicoElemento));
-                        PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargoGrupoSalarial");
-                        PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargoSalario");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoGrupoSalarial");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoSalario");
                     } else if (tipoNuevo == 2) {
                         duplicarCargo.setGruposalarial(lovGruposSalariales.get(indiceUnicoElemento));
-                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargoGrupoSalarial");
-                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargoSalario");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargoGrupoSalarial");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargoSalario");
                     }
                     lovGruposSalariales = null;
                     getLovGruposSalariales();
                 } else {
-                    PrimefacesContextUI.actualizar("form:GrupoSalarialDialogo");
+                    RequestContext.getCurrentInstance().update("form:GrupoSalarialDialogo");
                     PrimefacesContextUI.ejecutar("PF('GrupoSalarialDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
-                        PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargoGrupoSalarial");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoGrupoSalarial");
                     } else if (tipoNuevo == 2) {
-                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargoGrupoSalarial");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargoGrupoSalarial");
                     }
                 }
             } else {
@@ -2629,10 +2629,10 @@ public class ControlCargo implements Serializable {
                 getLovGruposSalariales();
                 if (tipoNuevo == 1) {
                     nuevoCargo.setGruposalarial(new GruposSalariales());
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargoGrupoSalarial");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoGrupoSalarial");
                 } else if (tipoNuevo == 2) {
                     duplicarCargo.setGruposalarial(new GruposSalariales());
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargoGrupoSalarial");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargoGrupoSalarial");
                 }
             }
         }
@@ -2652,21 +2652,21 @@ public class ControlCargo implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
                         nuevoCargo.setGrupoviatico(lovGruposViaticos.get(indiceUnicoElemento));
-                        PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargoGrupoViatico");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoGrupoViatico");
                     } else if (tipoNuevo == 2) {
                         duplicarCargo.setGrupoviatico(lovGruposViaticos.get(indiceUnicoElemento));
-                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargoGrupoViatico");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargoGrupoViatico");
                     }
                     lovGruposViaticos = null;
                     getLovGruposViaticos();
                 } else {
-                    PrimefacesContextUI.actualizar("form:GrupoViaticoDialogo");
+                    RequestContext.getCurrentInstance().update("form:GrupoViaticoDialogo");
                     PrimefacesContextUI.ejecutar("PF('GrupoViaticoDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
-                        PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargoGrupoViatico");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoGrupoViatico");
                     } else if (tipoNuevo == 2) {
-                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargoGrupoViatico");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargoGrupoViatico");
                     }
                 }
             } else {
@@ -2674,10 +2674,10 @@ public class ControlCargo implements Serializable {
                 getLovGruposViaticos();
                 if (tipoNuevo == 1) {
                     nuevoCargo.setGrupoviatico(new GruposViaticos());
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargoGrupoViatico");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoGrupoViatico");
                 } else if (tipoNuevo == 2) {
                     duplicarCargo.setGrupoviatico(new GruposViaticos());
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargoGrupoViatico");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargoGrupoViatico");
                 }
             }
         }
@@ -2697,21 +2697,21 @@ public class ControlCargo implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
                         nuevoCargo.setProcesoproductivo(lovProcesosProductivos.get(indiceUnicoElemento));
-                        PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargoProcesoProductivo");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoProcesoProductivo");
                     } else if (tipoNuevo == 2) {
                         duplicarCargo.setProcesoproductivo(lovProcesosProductivos.get(indiceUnicoElemento));
-                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargoProcesoProductivo");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargoProcesoProductivo");
                     }
                     lovProcesosProductivos = null;
                     getLovProcesosProductivos();
                 } else {
-                    PrimefacesContextUI.actualizar("form:ProcesoProductivoDialogo");
+                    RequestContext.getCurrentInstance().update("form:ProcesoProductivoDialogo");
                     PrimefacesContextUI.ejecutar("PF('ProcesoProductivoDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
-                        PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargoProcesoProductivo");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoProcesoProductivo");
                     } else if (tipoNuevo == 2) {
-                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargoProcesoProductivo");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargoProcesoProductivo");
                     }
                 }
             } else {
@@ -2719,10 +2719,10 @@ public class ControlCargo implements Serializable {
                 getLovProcesosProductivos();
                 if (tipoNuevo == 1) {
                     nuevoCargo.setProcesoproductivo(new ProcesosProductivos());
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargoProcesoProductivo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoProcesoProductivo");
                 } else if (tipoNuevo == 2) {
                     duplicarCargo.setProcesoproductivo(new ProcesosProductivos());
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargoProcesoProductivo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargoProcesoProductivo");
                 }
             }
         }
@@ -2747,21 +2747,21 @@ public class ControlCargo implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoSueldoMercado.setTipoempresa(lovTiposEmpresas.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoSueldoMercadoTipoEmpresa");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoSueldoMercadoTipoEmpresa");
                 } else if (tipoNuevo == 2) {
                     duplicarSueldoMercado.setTipoempresa(lovTiposEmpresas.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarSueldoMercadoTipoEmpresa");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarSueldoMercadoTipoEmpresa");
                 }
                 lovTiposEmpresas = null;
                 getLovTiposEmpresas();
             } else {
-                PrimefacesContextUI.actualizar("form:TipoEmpresaDialogo");
+                RequestContext.getCurrentInstance().update("form:TipoEmpresaDialogo");
                 PrimefacesContextUI.ejecutar("PF('TipoEmpresaDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoSueldoMercadoTipoEmpresa");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoSueldoMercadoTipoEmpresa");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarSueldoMercadoTipoEmpresa");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarSueldoMercadoTipoEmpresa");
                 }
             }
         }
@@ -2786,21 +2786,21 @@ public class ControlCargo implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoCompetenciaCargo.setEvalcompetencia(lovEvalCompetencias.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoCompetenciaCargoEval");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCompetenciaCargoEval");
                 } else if (tipoNuevo == 2) {
                     duplicarCompetenciaCargo.setEvalcompetencia(lovEvalCompetencias.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCompetenciaCargoEval");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCompetenciaCargoEval");
                 }
                 lovEvalCompetencias = null;
                 getLovEvalCompetencias();
             } else {
-                PrimefacesContextUI.actualizar("form:EvalCompetenciaDialogo");
+                RequestContext.getCurrentInstance().update("form:EvalCompetenciaDialogo");
                 PrimefacesContextUI.ejecutar("PF('EvalCompetenciaDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoCompetenciaCargoEval");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCompetenciaCargoEval");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCompetenciaCargoEval");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCompetenciaCargoEval");
                 }
             }
         }
@@ -2825,21 +2825,21 @@ public class ControlCargo implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoTipoDetalle.setEnfoque(lovEnfoques.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoDetalleEnfoque");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoDetalleEnfoque");
                 } else if (tipoNuevo == 2) {
                     duplicarTipoDetalle.setEnfoque(lovEnfoques.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoDetalleEnfoque");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoDetalleEnfoque");
                 }
                 lovEnfoques = null;
                 getLovEnfoques();
             } else {
-                PrimefacesContextUI.actualizar("form:EnfoqueDialogo");
+                RequestContext.getCurrentInstance().update("form:EnfoqueDialogo");
                 PrimefacesContextUI.ejecutar("PF('EnfoqueDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoDetalleEnfoque");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoDetalleEnfoque");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoDetalleEnfoque");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoDetalleEnfoque");
                 }
             }
         }
@@ -2865,18 +2865,18 @@ public class ControlCargo implements Serializable {
             permitirIndexCargo = true;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosCargo");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosCargo");
         } else if (tipoActualizacion == 1) {
             nuevoCargo.setGruposalarial(grupoSalarialSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargoGrupoSalarial");
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargoSalario");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoGrupoSalarial");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoSalario");
         } else if (tipoActualizacion == 2) {
             duplicarCargo.setGruposalarial(grupoSalarialSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargoGrupoSalarial");
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargoSalario");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargoGrupoSalarial");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargoSalario");
         }
         filtrarLovGruposSalariales = null;
         grupoSalarialSeleccionado = new GruposSalariales();
@@ -2884,9 +2884,9 @@ public class ControlCargo implements Serializable {
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
 
-        PrimefacesContextUI.actualizar("form:GrupoSalarialDialogo");
-        PrimefacesContextUI.actualizar("form:lovGrupoSalarial");
-        PrimefacesContextUI.actualizar("form:aceptarGS");
+        RequestContext.getCurrentInstance().update("form:GrupoSalarialDialogo");
+        RequestContext.getCurrentInstance().update("form:lovGrupoSalarial");
+        RequestContext.getCurrentInstance().update("form:aceptarGS");
 
         context.reset("form:lovGrupoSalarial:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovGrupoSalarial').clearFilters()");
@@ -2928,16 +2928,16 @@ public class ControlCargo implements Serializable {
             permitirIndexCargo = true;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosCargo");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosCargo");
         } else if (tipoActualizacion == 1) {
             nuevoCargo.setGrupoviatico(grupoViaticoSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargoGrupoViatico");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoGrupoViatico");
         } else if (tipoActualizacion == 2) {
             duplicarCargo.setGrupoviatico(grupoViaticoSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargoGrupoViatico");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargoGrupoViatico");
         }
         filtrarLovGruposViaticos = null;
         grupoViaticoSeleccionado = new GruposViaticos();
@@ -2945,9 +2945,9 @@ public class ControlCargo implements Serializable {
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
 
-        PrimefacesContextUI.actualizar("form:GrupoViaticoDialogo");
-        PrimefacesContextUI.actualizar("form:lovGrupoViatico");
-        PrimefacesContextUI.actualizar("form:aceptarGV");
+        RequestContext.getCurrentInstance().update("form:GrupoViaticoDialogo");
+        RequestContext.getCurrentInstance().update("form:lovGrupoViatico");
+        RequestContext.getCurrentInstance().update("form:aceptarGV");
 
         context.reset("form:lovGrupoViatico:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovGrupoViatico').clearFilters()");
@@ -2989,16 +2989,16 @@ public class ControlCargo implements Serializable {
             permitirIndexCargo = true;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosCargo");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosCargo");
         } else if (tipoActualizacion == 1) {
             nuevoCargo.setProcesoproductivo(procesoProductivoSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargoProcesoProductivo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoProcesoProductivo");
         } else if (tipoActualizacion == 2) {
             duplicarCargo.setProcesoproductivo(procesoProductivoSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargoProcesoProductivo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargoProcesoProductivo");
         }
         filtrarLovProcesosProductivos = null;
         procesoProductivoSeleccionado = new ProcesosProductivos();
@@ -3006,9 +3006,9 @@ public class ControlCargo implements Serializable {
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
 
-        PrimefacesContextUI.actualizar("form:ProcesoProductivoDialogo");
-        PrimefacesContextUI.actualizar("form:lovProcesoProductivo");
-        PrimefacesContextUI.actualizar("form:aceptarPP");
+        RequestContext.getCurrentInstance().update("form:ProcesoProductivoDialogo");
+        RequestContext.getCurrentInstance().update("form:lovProcesoProductivo");
+        RequestContext.getCurrentInstance().update("form:aceptarPP");
 
         context.reset("form:lovProcesoProductivo:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovProcesoProductivo').clearFilters()");
@@ -3050,16 +3050,16 @@ public class ControlCargo implements Serializable {
             permitirIndexSueldoMercado = true;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosSueldoMercado");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
         } else if (tipoActualizacion == 1) {
             nuevoSueldoMercado.setTipoempresa(tipoEmpresaSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoSueldoMercadoTipoEmpresa");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoSueldoMercadoTipoEmpresa");
         } else if (tipoActualizacion == 2) {
             duplicarSueldoMercado.setTipoempresa(tipoEmpresaSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarSueldoMercadoTipoEmpresa");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarSueldoMercadoTipoEmpresa");
         }
         filtrarLovTiposEmpresas = null;
         tipoEmpresaSeleccionado = null;
@@ -3067,9 +3067,9 @@ public class ControlCargo implements Serializable {
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
 
-        PrimefacesContextUI.actualizar("form:TipoEmpresaDialogo");
-        PrimefacesContextUI.actualizar("form:lovTipoEmpresa");
-        PrimefacesContextUI.actualizar("form:aceptarTT");
+        RequestContext.getCurrentInstance().update("form:TipoEmpresaDialogo");
+        RequestContext.getCurrentInstance().update("form:lovTipoEmpresa");
+        RequestContext.getCurrentInstance().update("form:aceptarTT");
 
         context.reset("form:lovTipoEmpresa:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovTipoEmpresa').clearFilters()");
@@ -3105,16 +3105,16 @@ public class ControlCargo implements Serializable {
             permitirCompetencia = true;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosCompetenciaCargo");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
         } else if (tipoActualizacion == 1) {
             nuevoCompetenciaCargo.setEvalcompetencia(evalCompetenciaSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoCompetenciaCargoEval");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCompetenciaCargoEval");
         } else if (tipoActualizacion == 2) {
             duplicarCompetenciaCargo.setEvalcompetencia(evalCompetenciaSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCompetenciaCargoEval");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCompetenciaCargoEval");
         }
         filtrarLovProcesosProductivos = null;
         procesoProductivoSeleccionado = null;
@@ -3122,9 +3122,9 @@ public class ControlCargo implements Serializable {
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
 
-        PrimefacesContextUI.actualizar("form:EvalCompetenciaDialogo");
-        PrimefacesContextUI.actualizar("form:lovEvalCompetencia");
-        PrimefacesContextUI.actualizar("form:aceptarEC");
+        RequestContext.getCurrentInstance().update("form:EvalCompetenciaDialogo");
+        RequestContext.getCurrentInstance().update("form:lovEvalCompetencia");
+        RequestContext.getCurrentInstance().update("form:aceptarEC");
 
         context.reset("form:lovEvalCompetencia:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovEvalCompetencia').clearFilters()");
@@ -3163,16 +3163,16 @@ public class ControlCargo implements Serializable {
             permitirIndexTipoDetalle = true;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosTipoDetalle");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
         } else if (tipoActualizacion == 1) {
             nuevoTipoDetalle.setEnfoque(enfoqueSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoDetalleEnfoque");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoDetalleEnfoque");
         } else if (tipoActualizacion == 2) {
             duplicarTipoDetalle.setEnfoque(enfoqueSeleccionado);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoDetalleEnfoque");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoDetalleEnfoque");
         }
         lovEnfoques = null;
         enfoqueSeleccionado = new Enfoques();
@@ -3180,9 +3180,9 @@ public class ControlCargo implements Serializable {
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
 
-        PrimefacesContextUI.actualizar("form:EnfoqueDialogo");
-        PrimefacesContextUI.actualizar("form:lovEnfoque");
-        PrimefacesContextUI.actualizar("form:aceptarE");
+        RequestContext.getCurrentInstance().update("form:EnfoqueDialogo");
+        RequestContext.getCurrentInstance().update("form:lovEnfoque");
+        RequestContext.getCurrentInstance().update("form:aceptarE");
 
         context.reset("form:lovEnfoque:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovEnfoque').clearFilters()");
@@ -3370,7 +3370,7 @@ public class ControlCargo implements Serializable {
         if (administrarRastros.verificarHistoricosTabla("CARGOS")) {
             nombreTablaRastro = "Cargos";
             msnConfirmarRastroHistorico = "La tabla CARGOS tiene rastros historicos, ¿Desea continuar?";
-            PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
             PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
         } else {
             PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
@@ -3388,7 +3388,7 @@ public class ControlCargo implements Serializable {
                 } else if (resultado == 2) {
                     nombreTablaRastro = "Cargos";
                     msnConfirmarRastro = "La tabla CARGOS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
                     PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
                     PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
@@ -3412,7 +3412,7 @@ public class ControlCargo implements Serializable {
         if (administrarRastros.verificarHistoricosTabla("SUELDOSMERCADOS")) {
             nombreTablaRastro = "SueldosMercados";
             msnConfirmarRastroHistorico = "La tabla SUELDOSMERCADOS tiene rastros historicos, ¿Desea continuar?";
-            PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
             PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
         } else {
             PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
@@ -3430,7 +3430,7 @@ public class ControlCargo implements Serializable {
                 } else if (resultado == 2) {
                     nombreTablaRastro = "SueldosMercados";
                     msnConfirmarRastro = "La tabla SUELDOSMERCADOS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
                     PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
                     PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
@@ -3454,7 +3454,7 @@ public class ControlCargo implements Serializable {
         if (administrarRastros.verificarHistoricosTabla("COMPETENCIASCARGOS")) {
             nombreTablaRastro = "Competenciascargos";
             msnConfirmarRastroHistorico = "La tabla COMPETENCIASCARGOS tiene rastros historicos, ¿Desea continuar?";
-            PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
             PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
         } else {
             PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
@@ -3472,7 +3472,7 @@ public class ControlCargo implements Serializable {
                 } else if (resultado == 2) {
                     nombreTablaRastro = "Competenciascargos";
                     msnConfirmarRastro = "La tabla COMPETENCIASCARGOS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
                     PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
                     PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
@@ -3495,7 +3495,7 @@ public class ControlCargo implements Serializable {
         if (administrarRastros.verificarHistoricosTabla("TIPOSDETALLES")) {
             nombreTablaRastro = "TiposDetalles";
             msnConfirmarRastroHistorico = "La tabla TIPOSDETALLES tiene rastros historicos, ¿Desea continuar?";
-            PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
             PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
         } else {
             PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
@@ -3513,7 +3513,7 @@ public class ControlCargo implements Serializable {
                 } else if (resultado == 2) {
                     nombreTablaRastro = "TiposDetalles";
                     msnConfirmarRastro = "La tabla TIPOSDETALLES tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
                     PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
                     PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
@@ -3539,7 +3539,7 @@ public class ControlCargo implements Serializable {
             tipoDetalleSeleccionado = null;
             cualCelda = -1;
             modificarInfoRegistroLOVs(lovEmpresas.size());
-            PrimefacesContextUI.actualizar("form:EmpresasDialogo.");
+            RequestContext.getCurrentInstance().update("form:EmpresasDialogo.");
             PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
         } else {
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
@@ -3551,16 +3551,16 @@ public class ControlCargo implements Serializable {
      */
     public void actualizarEmpresa() {
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:nombreEmpresa");
-        PrimefacesContextUI.actualizar("form:nitEmpresa");
+        RequestContext.getCurrentInstance().update("form:nombreEmpresa");
+        RequestContext.getCurrentInstance().update("form:nitEmpresa");
         filtrarLovEmpresas = null;
         aceptar = true;
 
         context.reset("form:lovEmpresas:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-        PrimefacesContextUI.actualizar("form:EmpresasDialogo");
-        PrimefacesContextUI.actualizar("form:lovEmpresas");
-        PrimefacesContextUI.actualizar("form:aceptarEM");
+        RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
+        RequestContext.getCurrentInstance().update("form:lovEmpresas");
+        RequestContext.getCurrentInstance().update("form:aceptarEM");
 
         PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
         empresaActual = empresaSeleccionada;
@@ -3594,12 +3594,12 @@ public class ControlCargo implements Serializable {
         activoDetalleCargo = true;
         detalleCargo = new DetallesCargos();
         legendDetalleCargo = "";
-        PrimefacesContextUI.actualizar("form:legendDetalleCargo");
-        PrimefacesContextUI.actualizar("form:detalleCargo");
-        PrimefacesContextUI.actualizar("form:datosSueldoMercado");
-        PrimefacesContextUI.actualizar("form:datosCargo");
-        PrimefacesContextUI.actualizar("form:datosCompetenciaCargo");
-        PrimefacesContextUI.actualizar("form:datosTipoDetalle");
+        RequestContext.getCurrentInstance().update("form:legendDetalleCargo");
+        RequestContext.getCurrentInstance().update("form:detalleCargo");
+        RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
+        RequestContext.getCurrentInstance().update("form:datosCargo");
+        RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
+        RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
     }
 
     /**
@@ -3645,14 +3645,14 @@ public class ControlCargo implements Serializable {
             administrarCargos.crearDetalleCargo(detalleCargo);
             FacesMessage msg = new FacesMessage("Información", "El registro de Detalle fue creado con Éxito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
             detalleCargo = null;
             getDetalleCargo();
         } catch (Exception e) {
             System.out.println("Error crearDetalleCargo : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado de Detalle, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
 
@@ -3668,9 +3668,9 @@ public class ControlCargo implements Serializable {
             aceptar = true;
             RequestContext context = RequestContext.getCurrentInstance();
             modificarInfoRegistroLOVs(lovCargos.size());
-            PrimefacesContextUI.actualizar("form:BuscarCargoDialogo");
-            PrimefacesContextUI.actualizar("form:lovBuscarCargo");
-            PrimefacesContextUI.actualizar("form:aceptarBC");
+            RequestContext.getCurrentInstance().update("form:BuscarCargoDialogo");
+            RequestContext.getCurrentInstance().update("form:lovBuscarCargo");
+            RequestContext.getCurrentInstance().update("form:aceptarBC");
             PrimefacesContextUI.ejecutar("PF('BuscarCargoDialogo').show()");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
@@ -3699,12 +3699,12 @@ public class ControlCargo implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
 
-        PrimefacesContextUI.actualizar("form:aceptarBC");
+        RequestContext.getCurrentInstance().update("form:aceptarBC");
         context.reset("form:lovBuscarCargo:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovBuscarCargo').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('BuscarCargoDialogo').hide()");
-        PrimefacesContextUI.actualizar("form:BuscarCargoDialogo");
-        PrimefacesContextUI.actualizar("form:lovBuscarCargo");
+        RequestContext.getCurrentInstance().update("form:BuscarCargoDialogo");
+        RequestContext.getCurrentInstance().update("form:lovBuscarCargo");
 
         sueldoMercadoSeleccionado = null;
         competenciaCargoSeleccionado = null;
@@ -3746,11 +3746,11 @@ public class ControlCargo implements Serializable {
         activoDetalleCargo = true;
         legendDetalleCargo = "";
         detalleCargo = new DetallesCargos();
-        PrimefacesContextUI.actualizar("form:legendDetalleCargo");
-        PrimefacesContextUI.actualizar("form:detalleCargo");
-        PrimefacesContextUI.actualizar("form:datosCargo");
-        PrimefacesContextUI.actualizar("form:datosSueldoMercado");
-        PrimefacesContextUI.actualizar("form:datosCompetenciaCargo");
+        RequestContext.getCurrentInstance().update("form:legendDetalleCargo");
+        RequestContext.getCurrentInstance().update("form:detalleCargo");
+        RequestContext.getCurrentInstance().update("form:datosCargo");
+        RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
+        RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
     }
 
     /**
@@ -3818,11 +3818,11 @@ public class ControlCargo implements Serializable {
             activoDetalleCargo = true;
             legendDetalleCargo = "";
             detalleCargo = new DetallesCargos();
-            PrimefacesContextUI.actualizar("form:legendDetalleCargo");
-            PrimefacesContextUI.actualizar("form:detalleCargo");
-            PrimefacesContextUI.actualizar("form:datosCargo");
-            PrimefacesContextUI.actualizar("form:datosSueldoMercado");
-            PrimefacesContextUI.actualizar("form:datosCompetenciaCargo");
+            RequestContext.getCurrentInstance().update("form:legendDetalleCargo");
+            RequestContext.getCurrentInstance().update("form:detalleCargo");
+            RequestContext.getCurrentInstance().update("form:datosCargo");
+            RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
+            RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
 
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
@@ -3843,7 +3843,7 @@ public class ControlCargo implements Serializable {
         }
         cambiosPagina = false;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     /**
@@ -3880,68 +3880,68 @@ public class ControlCargo implements Serializable {
 
         }
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     public void eventoFiltrarEmpresas() {
         modificarInfoRegistroLOVs(filtrarLovEmpresas.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroEmpresa");
+        RequestContext.getCurrentInstance().update("form:infoRegistroEmpresa");
     }
 
     public void eventoFiltrarCargos() {
         modificarInfoRegistroLOVs(filtrarLovCargos.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroCargo");
+        RequestContext.getCurrentInstance().update("form:infoRegistroCargo");
     }
 
     public void eventoFiltrarEnfo() {
         modificarInfoRegistroLOVs(filtrarLovEnfoques.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroEnfoque");
+        RequestContext.getCurrentInstance().update("form:infoRegistroEnfoque");
     }
 
     public void eventoFiltrarEvalComp() {
         modificarInfoRegistroLOVs(filtrarLovEvalCompetencias.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroEval");
+        RequestContext.getCurrentInstance().update("form:infoRegistroEval");
     }
 
     public void eventoFiltrarGrupoSal() {
         modificarInfoRegistroLOVs(filtrarLovGruposSalariales.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroGrupoSalarial");
+        RequestContext.getCurrentInstance().update("form:infoRegistroGrupoSalarial");
     }
 
     public void eventoFiltrarGrupoVia() {
         modificarInfoRegistroLOVs(filtrarLovGruposViaticos.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroGrupoViatico");
+        RequestContext.getCurrentInstance().update("form:infoRegistroGrupoViatico");
     }
 
     public void eventoFiltrarProceProdu() {
         modificarInfoRegistroLOVs(filtrarLovProcesosProductivos.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroProcesoProductivo");
+        RequestContext.getCurrentInstance().update("form:infoRegistroProcesoProductivo");
     }
 
     public void eventoFiltrarTiposEmp() {
         modificarInfoRegistroLOVs(filtrarLovTiposEmpresas.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroTipoEmpresa");
+        RequestContext.getCurrentInstance().update("form:infoRegistroTipoEmpresa");
     }
 
     ////////////////////CONTAR REGISTROS/////////////////////
     private void modificarInfoRegistroC(int valor) {
         infoRegistroC = String.valueOf(valor);
-        PrimefacesContextUI.actualizar("form:informacionRegistroCargo");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroCargo");
     }
 
     private void modificarInfoRegistroCC(int valor) {
         infoRegistroCC = String.valueOf(valor);
-        PrimefacesContextUI.actualizar("form:informacionRegistroCC");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroCC");
     }
 
     private void modificarInfoRegistroSM(int valor) {
         infoRegistroSM = String.valueOf(valor);
-        PrimefacesContextUI.actualizar("form:informacionRegistroSM");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroSM");
     }
 
     private void modificarInfoRegistroTD(int valor) {
         infoRegistroTD = String.valueOf(valor);
-        PrimefacesContextUI.actualizar("form:informacionRegistroTD");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroTD");
     }
 
     private void modificarInfoRegistroLOVs(int valor) {

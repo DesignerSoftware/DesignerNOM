@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.SoCondicionesTrabajos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -100,7 +100,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarSoCondicionesTrabajos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlSoCondicionesTrabajos eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -165,7 +165,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesTrabajos:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosSoCondicionesTrabajos");
+            RequestContext.getCurrentInstance().update("form:datosSoCondicionesTrabajos");
             bandera = 0;
             filtrarSoCondicionesTrabajos = null;
             tipoLista = 0;
@@ -187,9 +187,9 @@ public class ControlSoCondicionesTrabajos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listSoCondicionesTrabajos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosSoCondicionesTrabajos");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosSoCondicionesTrabajos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -200,7 +200,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesTrabajos:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosSoCondicionesTrabajos");
+            RequestContext.getCurrentInstance().update("form:datosSoCondicionesTrabajos");
             bandera = 0;
             filtrarSoCondicionesTrabajos = null;
             tipoLista = 0;
@@ -222,9 +222,9 @@ public class ControlSoCondicionesTrabajos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listSoCondicionesTrabajos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosSoCondicionesTrabajos");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosSoCondicionesTrabajos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -235,7 +235,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
             codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesTrabajos:descripcion");
             descripcion.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosSoCondicionesTrabajos");
+            RequestContext.getCurrentInstance().update("form:datosSoCondicionesTrabajos");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -245,7 +245,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesTrabajos:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosSoCondicionesTrabajos");
+            RequestContext.getCurrentInstance().update("form:datosSoCondicionesTrabajos");
             bandera = 0;
             filtrarSoCondicionesTrabajos = null;
             tipoLista = 0;
@@ -305,7 +305,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -347,7 +347,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -404,7 +404,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -455,7 +455,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -464,8 +464,8 @@ public class ControlSoCondicionesTrabajos implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosSoCondicionesTrabajos");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosSoCondicionesTrabajos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -510,15 +510,15 @@ public class ControlSoCondicionesTrabajos implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listSoCondicionesTrabajos.size();
             }
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosSoCondicionesTrabajos");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosSoCondicionesTrabajos");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -527,7 +527,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
 
         if (!borrarSoCondicionesTrabajos.isEmpty() || !crearSoCondicionesTrabajos.isEmpty() || !modificarSoCondicionesTrabajos.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -562,7 +562,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
             }
@@ -580,7 +580,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
                 administrarSoCondicionesTrabajos.borrarSoCondicionesTrabajos(borrarSoCondicionesTrabajos);
                 //mostrarBorrados
                 registrosBorrados = borrarSoCondicionesTrabajos.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarSoCondicionesTrabajos.clear();
             }
@@ -596,13 +596,13 @@ public class ControlSoCondicionesTrabajos implements Serializable {
             listSoCondicionesTrabajos = null;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
-            PrimefacesContextUI.actualizar("form:datosSoCondicionesTrabajos");
+            RequestContext.getCurrentInstance().update("form:growl");
+            RequestContext.getCurrentInstance().update("form:datosSoCondicionesTrabajos");
             k = 0;
             guardado = true;
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -618,11 +618,11 @@ public class ControlSoCondicionesTrabajos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -687,7 +687,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesTrabajos:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosSoCondicionesTrabajos");
+                RequestContext.getCurrentInstance().update("form:datosSoCondicionesTrabajos");
                 bandera = 0;
                 filtrarSoCondicionesTrabajos = null;
                 tipoLista = 0;
@@ -702,13 +702,13 @@ public class ControlSoCondicionesTrabajos implements Serializable {
 
             listSoCondicionesTrabajos.add(nuevoSoCondicionesTrabajos);
             nuevoSoCondicionesTrabajos = new SoCondicionesTrabajos();
-            PrimefacesContextUI.actualizar("form:datosSoCondicionesTrabajos");
+            RequestContext.getCurrentInstance().update("form:datosSoCondicionesTrabajos");
 
             infoRegistro = "Cantidad de registros: " + listSoCondicionesTrabajos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroSoCondicionesTrabajos').hide()");
@@ -716,7 +716,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
             secRegistro = null;
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
         }
     }
@@ -749,7 +749,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroSoCondicionesTrabajos').show()");
             index = -1;
             secRegistro = null;
@@ -805,15 +805,15 @@ public class ControlSoCondicionesTrabajos implements Serializable {
             }
             listSoCondicionesTrabajos.add(duplicarSoCondicionesTrabajos);
             crearSoCondicionesTrabajos.add(duplicarSoCondicionesTrabajos);
-            PrimefacesContextUI.actualizar("form:datosSoCondicionesTrabajos");
+            RequestContext.getCurrentInstance().update("form:datosSoCondicionesTrabajos");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
             }
             infoRegistro = "Cantidad de registros: " + listSoCondicionesTrabajos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
@@ -821,7 +821,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesTrabajos:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosSoCondicionesTrabajos");
+                RequestContext.getCurrentInstance().update("form:datosSoCondicionesTrabajos");
                 bandera = 0;
                 filtrarSoCondicionesTrabajos = null;
                 tipoLista = 0;
@@ -830,7 +830,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroSoCondicionesTrabajos').hide()");
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -903,7 +903,7 @@ public class ControlSoCondicionesTrabajos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listSoCondicionesTrabajos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listSoCondicionesTrabajos;
     }
 

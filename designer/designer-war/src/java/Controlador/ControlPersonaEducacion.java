@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.AdiestramientosF;
 import Entidades.AdiestramientosNF;
 import Entidades.Cursos;
@@ -31,7 +32,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 @ManagedBean
 @SessionScoped
@@ -238,7 +238,7 @@ public class ControlPersonaEducacion implements Serializable {
             tablaImprimir = ":formExportar:datosVigenciasFormalesExportar";
             nombreArchivo = "VigenciasFormalesXML";
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:exportarXML");
+            RequestContext.getCurrentInstance().update("form:exportarXML");
             if (tipoLista == 0) {
                 vigenciaFormalSeleccionada.getSecuencia();
                 if (cualCelda == 1) {
@@ -290,7 +290,7 @@ public class ControlPersonaEducacion implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
@@ -307,14 +307,14 @@ public class ControlPersonaEducacion implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
                 vigenciaFormalSeleccionada = null;
                 vigenciaFormalSeleccionada = null;
             }
-            PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
         } else if (confirmarCambio.equalsIgnoreCase("TIPOEDUCACION")) {
             if (tipoLista == 0) {
                 vigenciaFormalSeleccionada.getTipoeducacion().setNombre(TipoEducacion);
@@ -338,7 +338,7 @@ public class ControlPersonaEducacion implements Serializable {
                 getListaTiposEducaciones();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:tiposEducacionesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:tiposEducacionesDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposEducacionesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -364,7 +364,7 @@ public class ControlPersonaEducacion implements Serializable {
                 getListaProfesiones();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:profesionesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
                 PrimefacesContextUI.ejecutar("PF('profesionesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -390,7 +390,7 @@ public class ControlPersonaEducacion implements Serializable {
                 getListaInstituciones();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:institucionesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
                 PrimefacesContextUI.ejecutar("PF('institucionesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -416,7 +416,7 @@ public class ControlPersonaEducacion implements Serializable {
                 getListaProfesiones();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:profesionesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
                 PrimefacesContextUI.ejecutar("PF('profesionesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -431,7 +431,7 @@ public class ControlPersonaEducacion implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
@@ -445,13 +445,13 @@ public class ControlPersonaEducacion implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
             }
         }
-        PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+        RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
     }
 
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO)
@@ -472,26 +472,26 @@ public class ControlPersonaEducacion implements Serializable {
         if (dlg == 0) {
             habilitarBotonLov();
             modificarInfoRegistroEducacion(listaTiposEducaciones.size());
-            PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroEducacion");
-            PrimefacesContextUI.actualizar("form:tiposEducacionesDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEducacion");
+            RequestContext.getCurrentInstance().update("form:tiposEducacionesDialogo");
             PrimefacesContextUI.ejecutar("PF('tiposEducacionesDialogo').show()");
         } else if (dlg == 1) {
             habilitarBotonLov();
             modificarInfoRegistroProfesion(listaProfesiones.size());
-            PrimefacesContextUI.actualizar("formularioDialogos:infoRegistrosProfesion");
-            PrimefacesContextUI.actualizar("form:profesionesDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistrosProfesion");
+            RequestContext.getCurrentInstance().update("form:profesionesDialogo");
             PrimefacesContextUI.ejecutar("PF('profesionesDialogo').show()");
         } else if (dlg == 2) {
             habilitarBotonLov();
             modificarInfoRegistroInstitucionesF(listaInstituciones.size());
-            PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroInstitucionesF");
-            PrimefacesContextUI.actualizar("form:institucionesDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroInstitucionesF");
+            RequestContext.getCurrentInstance().update("form:institucionesDialogo");
             PrimefacesContextUI.ejecutar("PF('institucionesDialogo').show()");
         } else if (dlg == 3) {
             habilitarBotonLov();
             modificarInfoRegistroAdiestramientoF(listaAdiestramientosFormales.size());
-            PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroAdiestramientosF");
-            PrimefacesContextUI.actualizar("form:adiestramientosFDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroAdiestramientosF");
+            RequestContext.getCurrentInstance().update("form:adiestramientosFDialogo");
             PrimefacesContextUI.ejecutar("PF('adiestramientosFDialogo').show()");
         }
 
@@ -521,17 +521,17 @@ public class ControlPersonaEducacion implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaFormal.setTipoeducacion(seleccionTiposEducaciones);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigenciaFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigenciaFormal");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciaFormal.setTipoeducacion(seleccionTiposEducaciones);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigenciaFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaFormal");
         }
         filtradoslistaTiposEducaciones = null;
         seleccionTiposEducaciones = null;
@@ -541,7 +541,7 @@ public class ControlPersonaEducacion implements Serializable {
         context.reset("formularioDialogos:LOVTiposEducaciones:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVTiposEducaciones').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('tiposEducacionesDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVTiposEducaciones");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposEducaciones");
     }
 
     public void actualizarProfesiones() {
@@ -568,17 +568,17 @@ public class ControlPersonaEducacion implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaFormal.setProfesion(seleccionProfesiones);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigenciaFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigenciaFormal");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciaFormal.setProfesion(seleccionProfesiones);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigenciaFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaFormal");
         }
         filtradoslistaProfesiones = null;
         seleccionProfesiones = null;
@@ -590,7 +590,7 @@ public class ControlPersonaEducacion implements Serializable {
         context.reset("formularioDialogos:LOVProfesiones:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVProfesiones').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('profesionesDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVProfesiones");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVProfesiones");
     }
 
     public void actualizarInstituciones() {
@@ -617,17 +617,17 @@ public class ControlPersonaEducacion implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaFormal.setInstitucion(seleccionInstituciones);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigenciaFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigenciaFormal");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciaFormal.setInstitucion(seleccionInstituciones);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigenciaFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaFormal");
         }
         filtradoslistaInstituciones = null;
         seleccionInstituciones = null;
@@ -639,7 +639,7 @@ public class ControlPersonaEducacion implements Serializable {
         context.reset("formularioDialogos:LOVInstituciones:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVInstituciones').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('institucionesDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVInstituciones");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVInstituciones");
     }
 
     public void actualizarAdiestramientoF() {
@@ -666,17 +666,17 @@ public class ControlPersonaEducacion implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaFormal.setAdiestramientof(seleccionAdiestramientosFormales);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigenciaFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigenciaFormal");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciaFormal.setAdiestramientof(seleccionAdiestramientosFormales);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigenciaFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaFormal");
         }
         filtradoslistaAdiestramientosFormales = null;
         seleccionAdiestramientosFormales = null;
@@ -687,7 +687,7 @@ public class ControlPersonaEducacion implements Serializable {
         context.reset("formularioDialogos:LOVAdiestramientosF:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVAdiestramientosF').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('adiestramientosFDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVAdiestramientosF");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVAdiestramientosF");
     }
 
     public void cancelarCambioTiposEducaciones() {
@@ -761,43 +761,43 @@ public class ControlPersonaEducacion implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 System.out.println("Entro a editar... valor celda: " + cualCelda);
                 if (cualCelda == 0) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFecha");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
                     PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarTipoEducacion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoEducacion");
                     PrimefacesContextUI.ejecutar("PF('editarTipoEducacion').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarProfesion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarProfesion");
                     PrimefacesContextUI.ejecutar("PF('editarProfesion').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 3) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarInstitucion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarInstitucion");
                     PrimefacesContextUI.ejecutar("PF('editarInstitucion').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 4) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarAdiestramientoF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarAdiestramientoF");
                     PrimefacesContextUI.ejecutar("PF('editarAdiestramientoF').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 5) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarValoracion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarValoracion");
                     PrimefacesContextUI.ejecutar("PF('editarValoracion').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 6) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarNumeroTarjeta");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarNumeroTarjeta");
                     PrimefacesContextUI.ejecutar("PF('editarNumeroTarjeta').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 7) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaExpedicion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaExpedicion");
                     PrimefacesContextUI.ejecutar("PF('editarFechaExpedicion').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 8) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaVencimiento");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaVencimiento");
                     PrimefacesContextUI.ejecutar("PF('editarFechaVencimiento').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 9) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarObservacion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarObservacion");
                     PrimefacesContextUI.ejecutar("PF('editarObservacion').show()");
                     cualCelda = -1;
                 }
@@ -813,31 +813,31 @@ public class ControlPersonaEducacion implements Serializable {
                 System.out.println("Entro a editar... valor celda: " + cualCelda);
                 System.out.println("Cual Tabla: " + CualTabla);
                 if (cualCelda == 0) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaNF");
                     PrimefacesContextUI.ejecutar("PF('editarFechaNF').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarCursoNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCursoNF");
                     PrimefacesContextUI.ejecutar("PF('editarCursoNF').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarTitulo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTitulo");
                     PrimefacesContextUI.ejecutar("PF('editarTitulo').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 3) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarInstitucionNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarInstitucionNF");
                     PrimefacesContextUI.ejecutar("PF('editarInstitucionNF').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 4) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarAdiestramientoNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarAdiestramientoNF");
                     PrimefacesContextUI.ejecutar("PF('editarAdiestramientoNF').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 5) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarCalificacionNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCalificacionNF");
                     PrimefacesContextUI.ejecutar("PF('editarCalificacionNF').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 6) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarObservacion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarObservacion");
                     PrimefacesContextUI.ejecutar("PF('editarObservacion').show()");
                     cualCelda = -1;
                 }
@@ -858,25 +858,25 @@ public class ControlPersonaEducacion implements Serializable {
             if (cualCelda == 1) {
                 habilitarBotonLov();
                 modificarInfoRegistroEducacion(listaTiposEducaciones.size());
-                PrimefacesContextUI.actualizar("formularioDialogos:tiposEducacionesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:tiposEducacionesDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposEducacionesDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 2) {
                 habilitarBotonLov();
                 modificarInfoRegistroProfesion(listaProfesiones.size());
-                PrimefacesContextUI.actualizar("formularioDialogos:profesionesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
                 PrimefacesContextUI.ejecutar("PF('profesionesDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 3) {
                 habilitarBotonLov();
                 modificarInfoRegistroInstitucionesF(listaInstituciones.size());
-                PrimefacesContextUI.actualizar("formularioDialogos:institucionesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
                 PrimefacesContextUI.ejecutar("PF('institucionesDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 4) {
                 habilitarBotonLov();
                 modificarInfoRegistroAdiestramientoF(listaAdiestramientosFormales.size());
-                PrimefacesContextUI.actualizar("formularioDialogos:adiestramientosFDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosFDialogo");
                 PrimefacesContextUI.ejecutar("PF('adiestramientosFDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -889,19 +889,19 @@ public class ControlPersonaEducacion implements Serializable {
                 if (cualCelda == 1) {
                     habilitarBotonLov();
                     modificarInfoRegistroEducacion(listaTiposEducaciones.size());
-                    PrimefacesContextUI.actualizar("formularioDialogos:cursosDialogo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:cursosDialogo");
                     PrimefacesContextUI.ejecutar("PF('cursosDialogo').show()");
                     tipoActualizacion = 0;
                 } else if (cualCelda == 3) {
                     habilitarBotonLov();
                     modificarInfoRegistroInstituciones(listaInstituciones.size());
-                    PrimefacesContextUI.actualizar("formularioDialogos:institucionesNFDialogo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:institucionesNFDialogo");
                     PrimefacesContextUI.ejecutar("PF('institucionesNFDialogo').show()");
                     tipoActualizacion = 0;
                 } else if (cualCelda == 4) {
                     habilitarBotonLov();
                     modificarInfoRegistroAdiestramientoNF(listaAdiestramientosNoFormales.size());
-                    PrimefacesContextUI.actualizar("formularioDialogos:adiestramientosNFDialogo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosNFDialogo");
                     PrimefacesContextUI.ejecutar("PF('adiestramientosNFDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -938,7 +938,7 @@ public class ControlPersonaEducacion implements Serializable {
             pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
             pEObservaciones.setFilterStyle("width: 85%");
             altoTabla1 = "95";
-            PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
             bandera = 1;
 
             ////////////
@@ -959,7 +959,7 @@ public class ControlPersonaEducacion implements Serializable {
             pEObservacionesNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEObservacionesNF");
             pEObservacionesNF.setFilterStyle("width: 85%");
             altoTabla2 = "95";
-            PrimefacesContextUI.actualizar("form:datosVigenciasNoFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
             banderaNF = 1;
 
         } else if (bandera == 1 || banderaNF == 1) {
@@ -986,7 +986,7 @@ public class ControlPersonaEducacion implements Serializable {
             pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
             pEObservaciones.setFilterStyle("display: none; visibility: hidden;");
             altoTabla1 = "115";
-            PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
             bandera = 0;
             filtradosListaVigenciasFormales = null;
             tipoLista = 0;
@@ -1009,7 +1009,7 @@ public class ControlPersonaEducacion implements Serializable {
             pEObservacionesNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEObservacionesNF");
             pEObservacionesNF.setFilterStyle("display: none; visibility: hidden;");
             altoTabla2 = "115";
-            PrimefacesContextUI.actualizar("form:datosVigenciasNoFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
             banderaNF = 0;
             filtradosListaVigenciasNoFormales = null;
             tipoListaNF = 0;
@@ -1117,21 +1117,21 @@ public class ControlPersonaEducacion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigenciaFormal.setTipoeducacion(listaTiposEducaciones.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoEducacion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoEducacion");
                 } else if (tipoNuevo == 2) {
                     duplicarVigenciaFormal.setTipoeducacion(listaTiposEducaciones.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoEducacion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoEducacion");
                 }
                 listaTiposEducaciones.clear();
                 getListaTiposEducaciones();
             } else {
-                PrimefacesContextUI.actualizar("form:tiposEducacionesDialogo");
+                RequestContext.getCurrentInstance().update("form:tiposEducacionesDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposEducacionesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoEducacion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoEducacion");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoEducacion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoEducacion");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("PROFESION")) {
@@ -1149,21 +1149,21 @@ public class ControlPersonaEducacion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigenciaFormal.setProfesion(listaProfesiones.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaProfesion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProfesion");
                 } else if (tipoNuevo == 2) {
                     duplicarVigenciaFormal.setProfesion(listaProfesiones.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarProfesion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProfesion");
                 }
                 listaProfesiones.clear();
                 getListaProfesiones();
             } else {
-                PrimefacesContextUI.actualizar("form:profesionesDialogo");
+                RequestContext.getCurrentInstance().update("form:profesionesDialogo");
                 PrimefacesContextUI.ejecutar("PF('profesionesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaProfesion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProfesion");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarProfesion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProfesion");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("INSTITUCION")) {
@@ -1181,21 +1181,21 @@ public class ControlPersonaEducacion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigenciaFormal.setInstitucion(listaInstituciones.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaInstitucion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaInstitucion");
                 } else if (tipoNuevo == 2) {
                     duplicarVigenciaFormal.setInstitucion(listaInstituciones.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarInstitucion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInstitucion");
                 }
                 listaInstituciones.clear();
                 getListaInstituciones();
             } else {
-                PrimefacesContextUI.actualizar("form:institucionesDialogo");
+                RequestContext.getCurrentInstance().update("form:institucionesDialogo");
                 PrimefacesContextUI.ejecutar("PF('institucionesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaInstitucion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaInstitucion");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarInstitucion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInstitucion");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("ADIESTRAMIENTOF")) {
@@ -1213,21 +1213,21 @@ public class ControlPersonaEducacion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigenciaFormal.setAdiestramientof(listaAdiestramientosFormales.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoAdiestramientoF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAdiestramientoF");
                 } else if (tipoNuevo == 2) {
                     duplicarVigenciaFormal.setAdiestramientof(listaAdiestramientosFormales.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarAdiestramientoF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAdiestramientoF");
                 }
                 listaAdiestramientosFormales.clear();
                 getListaAdiestramientosFormales();
             } else {
-                PrimefacesContextUI.actualizar("form:adiestramientosFDialogo");
+                RequestContext.getCurrentInstance().update("form:adiestramientosFDialogo");
                 PrimefacesContextUI.ejecutar("PF('adiestramientosFDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoAdiestramientoF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAdiestramientoF");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarAdiestramientoF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAdiestramientoF");
                 }
             }
         }
@@ -1291,7 +1291,7 @@ public class ControlPersonaEducacion implements Serializable {
                 pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
                 pEObservaciones.setFilterStyle("display: none; visibility: hidden;");
                 altoTabla1 = "115";
-                PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+                RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
                 bandera = 0;
                 filtradosListaVigenciasFormales = null;
                 tipoLista = 0;
@@ -1319,21 +1319,21 @@ public class ControlPersonaEducacion implements Serializable {
             listaVigenciasFormalesCrear.add(nuevaVigenciaFormal);
             listaVigenciasFormales.add(nuevaVigenciaFormal);
             modificarInfoRegistroF(listaVigenciasFormales.size());
-            PrimefacesContextUI.actualizar("form:infoRegistroF");
+            RequestContext.getCurrentInstance().update("form:infoRegistroF");
             vigenciaFormalSeleccionada = nuevaVigenciaFormal;
             nuevaVigenciaFormal = new VigenciasFormales();
             nuevaVigenciaFormal.setTipoeducacion(new TiposEducaciones());
             nuevaVigenciaFormal.setProfesion(new Profesiones());
             nuevaVigenciaFormal.setInstitucion(new Instituciones());
             nuevaVigenciaFormal.setAdiestramientof(new AdiestramientosF());
-            PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigenciaFormal').hide()");
         } else {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaVigenciaFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaVigenciaFormal");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaVigenciaFormal').show()");
         }
     }
@@ -1361,13 +1361,13 @@ public class ControlPersonaEducacion implements Serializable {
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 modificarInfoRegistroF(listaVigenciasFormales.size());
-                PrimefacesContextUI.actualizar("form:infoRegistroF");
-                PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+                RequestContext.getCurrentInstance().update("form:infoRegistroF");
+                RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
                 vigenciaFormalSeleccionada = null;
 
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             } else if (CualTabla == 1) {
 
@@ -1390,13 +1390,13 @@ public class ControlPersonaEducacion implements Serializable {
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 modificarInfoRegistroNF(listaVigenciasNoFormales.size());
-                PrimefacesContextUI.actualizar("form:infoRegistroNF");
-                PrimefacesContextUI.actualizar("form:datosVigenciasNoFormalesPersona");
+                RequestContext.getCurrentInstance().update("form:infoRegistroNF");
+                RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
                 vigenciaNoFormalSeleccionada = null;
 
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
 
@@ -1441,7 +1441,7 @@ public class ControlPersonaEducacion implements Serializable {
                     duplicarVigenciaFormal.setObservacion(vigenciaFormalSeleccionada.getObservacion());
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigenciaFormal");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaFormal");
                 PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVigenciaFormal').show()");
             } else if (CualTabla == 1) {
                 System.out.println("Entra Duplicar NF");
@@ -1471,7 +1471,7 @@ public class ControlPersonaEducacion implements Serializable {
                     duplicarVigenciaNoFormal.setObservacion(vigenciaNoFormalSeleccionada.getObservacion());
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigenciaNoFormal");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaNoFormal");
                 PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVigenciaNoFormal').show()");
             }
         } else {
@@ -1485,13 +1485,13 @@ public class ControlPersonaEducacion implements Serializable {
         listaVigenciasFormalesCrear.add(duplicarVigenciaFormal);
         RequestContext context = RequestContext.getCurrentInstance();
         modificarInfoRegistroF(listaVigenciasFormales.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroF");
-        PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+        RequestContext.getCurrentInstance().update("form:infoRegistroF");
+        RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
         vigenciaFormalSeleccionada = null;
         vigenciaFormalSeleccionada = null;
         if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -1519,7 +1519,7 @@ public class ControlPersonaEducacion implements Serializable {
             pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
             pEObservaciones.setFilterStyle("display: none; visibility: hidden;");
             altoTabla1 = "115";
-            PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
             bandera = 0;
             filtradosListaVigenciasFormales = null;
             tipoLista = 0;
@@ -1624,7 +1624,7 @@ public class ControlPersonaEducacion implements Serializable {
             pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
             pEObservaciones.setFilterStyle("display: none; visibility: hidden;");
             altoTabla1 = "115";
-            PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
             bandera = 0;
             filtradosListaVigenciasFormales = null;
             tipoLista = 0;
@@ -1670,7 +1670,7 @@ public class ControlPersonaEducacion implements Serializable {
             pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
             pEObservaciones.setFilterStyle("display: none; visibility: hidden;");
             altoTabla1 = "115";
-            PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
             bandera = 0;
             filtradosListaVigenciasFormales = null;
             tipoLista = 0;
@@ -1695,7 +1695,7 @@ public class ControlPersonaEducacion implements Serializable {
             pEObservacionesNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEObservacionesNF");
             pEObservacionesNF.setFilterStyle("display: none; visibility: hidden;");
             altoTabla2 = "115";
-            PrimefacesContextUI.actualizar("form:datosVigenciasNoFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
             banderaNF = 0;
             filtradosListaVigenciasNoFormales = null;
             tipoListaNF = 0;
@@ -1718,8 +1718,8 @@ public class ControlPersonaEducacion implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
-        PrimefacesContextUI.actualizar("form:datosVigenciasNoFormalesPersona");
+        RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+        RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
     }
 
     //GUARDAR TODO
@@ -1828,13 +1828,13 @@ public class ControlPersonaEducacion implements Serializable {
             vigenciaNoFormalSeleccionada = null;
             vigenciaFormalSeleccionada = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosVigenciasFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
             guardado = true;
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
         }
     }
@@ -1857,7 +1857,7 @@ public class ControlPersonaEducacion implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
@@ -1874,14 +1874,14 @@ public class ControlPersonaEducacion implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
                 vigenciaNoFormalSeleccionada = null;
                 vigenciaNoFormalSeleccionada = null;
             }
-            PrimefacesContextUI.actualizar("form:datosVigenciasNoFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
         } else if (confirmarCambio.equalsIgnoreCase("CURSO")) {
             if (tipoListaNF == 0) {
                 vigenciaNoFormalSeleccionada.getCurso().setNombre(Curso);
@@ -1905,7 +1905,7 @@ public class ControlPersonaEducacion implements Serializable {
                 getListaCursos();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:cursosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:cursosDialogo");
                 PrimefacesContextUI.ejecutar("PF('cursosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1932,7 +1932,7 @@ public class ControlPersonaEducacion implements Serializable {
                 getListaInstituciones();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:institucionesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
                 PrimefacesContextUI.ejecutar("PF('institucionesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1958,7 +1958,7 @@ public class ControlPersonaEducacion implements Serializable {
                 getListaAdiestramientosNoFormales();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:adiestramientosNFDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosNFDialogo");
                 PrimefacesContextUI.ejecutar("PF('adiestramientosNFDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1973,7 +1973,7 @@ public class ControlPersonaEducacion implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
@@ -1989,7 +1989,7 @@ public class ControlPersonaEducacion implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
@@ -1997,7 +1997,7 @@ public class ControlPersonaEducacion implements Serializable {
                 vigenciaNoFormalSeleccionada = null;
             }
         }
-        PrimefacesContextUI.actualizar("form:datosVigenciasNoFormalesPersona");
+        RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
     }
 
     //Ubicacion Celda.
@@ -2012,7 +2012,7 @@ public class ControlPersonaEducacion implements Serializable {
             cualInsertar = "formularioDialogos:NuevoRegistroVigenciaNoFormal";
             nombreArchivo = "VigenciasNoFormalesXML";
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:exportarXML");
+            RequestContext.getCurrentInstance().update("form:exportarXML");
             deshabilitarBotonLov();
             if (tipoListaNF == 0) {
                 vigenciaNoFormalSeleccionada.getSecuencia();
@@ -2062,21 +2062,21 @@ public class ControlPersonaEducacion implements Serializable {
         }
         if (dlg == 0) {
             modificarInfoRegistroCursos(listaCursos.size());
-            PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroCursos");
+            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCursos");
             habilitarBotonLov();
-            PrimefacesContextUI.actualizar("form:cursosDialogo");
+            RequestContext.getCurrentInstance().update("form:cursosDialogo");
             PrimefacesContextUI.ejecutar("PF('cursosDialogo').show()");
         } else if (dlg == 2) {
             habilitarBotonLov();
             modificarInfoRegistroInstituciones(listaInstituciones.size());
-            PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroInstituciones");
-            PrimefacesContextUI.actualizar("form:institucionesNFDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroInstituciones");
+            RequestContext.getCurrentInstance().update("form:institucionesNFDialogo");
             PrimefacesContextUI.ejecutar("PF('institucionesNFDialogo').show()");
         } else if (dlg == 3) {
             habilitarBotonLov();
             modificarInfoRegistroAdiestramientoNF(listaAdiestramientosNoFormales.size());
-            PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroAdiestramientosNF");
-            PrimefacesContextUI.actualizar("form:adiestramientosNFDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroAdiestramientosNF");
+            RequestContext.getCurrentInstance().update("form:adiestramientosNFDialogo");
             PrimefacesContextUI.ejecutar("PF('adiestramientosNFDialogo').show()");
         }
 
@@ -2106,17 +2106,17 @@ public class ControlPersonaEducacion implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosVigenciasNoFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaNoFormal.setCurso(seleccionCursos);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigenciaNoFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigenciaNoFormal");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciaNoFormal.setCurso(seleccionCursos);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigenciaNoFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaNoFormal");
         }
         filtradoslistaCursos = null;
         seleccionCursos = null;
@@ -2128,7 +2128,7 @@ public class ControlPersonaEducacion implements Serializable {
         context.reset("formularioDialogos:LOVCursos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVCursos').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('cursosDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVCursos");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVCursos");
     }
 
     public void actualizarInstitucionesNF() {
@@ -2155,17 +2155,17 @@ public class ControlPersonaEducacion implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosVigenciasNoFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaNoFormal.setInstitucion(seleccionInstituciones);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigenciaNoFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigenciaNoFormal");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciaNoFormal.setInstitucion(seleccionInstituciones);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigenciaNoFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaNoFormal");
         }
         filtradoslistaInstituciones = null;
         seleccionInstituciones = null;
@@ -2177,7 +2177,7 @@ public class ControlPersonaEducacion implements Serializable {
         context.reset("formularioDialogos:LOVInstitucionesNF:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVInstitucionesNF').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('institucionesNFDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVInstitucionesNF");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVInstitucionesNF");
     }
 
     public void actualizarAdiestramientoNF() {
@@ -2204,17 +2204,17 @@ public class ControlPersonaEducacion implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosVigenciasNoFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaNoFormal.setAdiestramientonf(seleccionAdiestramientosNoFormales);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigenciaNoFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigenciaNoFormal");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciaNoFormal.setAdiestramientonf(seleccionAdiestramientosNoFormales);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigenciaNoFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaNoFormal");
         }
         filtradoslistaAdiestramientosNoFormales = null;
         seleccionAdiestramientosNoFormales = null;
@@ -2226,7 +2226,7 @@ public class ControlPersonaEducacion implements Serializable {
         context.reset("formularioDialogos:LOVAdiestramientosNF:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVAdiestramientosNF').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('adiestramientosNFDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVAdiestramientosNF");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVAdiestramientosNF");
     }
 
     public void cancelarCambioInstitucionesNF() {
@@ -2290,21 +2290,21 @@ public class ControlPersonaEducacion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigenciaNoFormal.setCurso(listaCursos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoCursoNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCursoNF");
                 } else if (tipoNuevo == 2) {
                     duplicarVigenciaNoFormal.setCurso(listaCursos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCursoNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCursoNF");
                 }
                 listaCursos.clear();
                 getListaCursos();
             } else {
-                PrimefacesContextUI.actualizar("form:cursosDialogo");
+                RequestContext.getCurrentInstance().update("form:cursosDialogo");
                 PrimefacesContextUI.ejecutar("PF('cursosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoCursoNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCursoNF");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCursoNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCursoNF");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("INSTITUCIONNF")) {
@@ -2322,21 +2322,21 @@ public class ControlPersonaEducacion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigenciaNoFormal.setInstitucion(listaInstituciones.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaInstitucionNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaInstitucionNF");
                 } else if (tipoNuevo == 2) {
                     duplicarVigenciaNoFormal.setInstitucion(listaInstituciones.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarInstitucionNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInstitucionNF");
                 }
                 listaInstituciones.clear();
                 getListaInstituciones();
             } else {
-                PrimefacesContextUI.actualizar("form:institucionesNFDialogo");
+                RequestContext.getCurrentInstance().update("form:institucionesNFDialogo");
                 PrimefacesContextUI.ejecutar("PF('institucionesNFDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaInstitucionNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaInstitucionNF");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarInstitucionNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInstitucionNF");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("ADIESTRAMIENTONF")) {
@@ -2354,21 +2354,21 @@ public class ControlPersonaEducacion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigenciaNoFormal.setAdiestramientonf(listaAdiestramientosNoFormales.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoAdiestramientoNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAdiestramientoNF");
                 } else if (tipoNuevo == 2) {
                     duplicarVigenciaNoFormal.setAdiestramientonf(listaAdiestramientosNoFormales.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarAdiestramientoNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAdiestramientoNF");
                 }
                 listaAdiestramientosNoFormales.clear();
                 getListaAdiestramientosNoFormales();
             } else {
-                PrimefacesContextUI.actualizar("form:adiestramientosNFDialogo");
+                RequestContext.getCurrentInstance().update("form:adiestramientosNFDialogo");
                 PrimefacesContextUI.ejecutar("PF('adiestramientosNFDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoAdiestramientoNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAdiestramientoNF");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarAdiestramientoNF");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAdiestramientoNF");
                 }
             }
         }
@@ -2448,7 +2448,7 @@ public class ControlPersonaEducacion implements Serializable {
                     pEObservacionesNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEObservacionesNF");
                     pEObservacionesNF.setFilterStyle("display: none; visibility: hidden;");
                     altoTabla2 = "115";
-                    PrimefacesContextUI.actualizar("form:datosVigenciasNoFormalesPersona");
+                    RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
                     bandera = 0;
                     filtradosListaVigenciasNoFormales = null;
                     tipoListaNF = 0;
@@ -2478,8 +2478,8 @@ public class ControlPersonaEducacion implements Serializable {
             vigenciaNoFormalSeleccionada = nuevaVigenciaNoFormal;
             getListaVigenciasFormales();
             modificarInfoRegistroNF(listaVigenciasNoFormales.size());
-            PrimefacesContextUI.actualizar("form:infoRegistroNF");
-            PrimefacesContextUI.actualizar("form:datosVigenciasNoFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:infoRegistroNF");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
 
             nuevaVigenciaNoFormal = new VigenciasNoFormales();
             nuevaVigenciaNoFormal.setCurso(new Cursos());
@@ -2488,11 +2488,11 @@ public class ControlPersonaEducacion implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigenciaNoFormal').hide()");
         } else {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaVigenciaNoFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaVigenciaNoFormal");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaVigenciaNoFormal').show()");
         }
     }
@@ -2502,13 +2502,13 @@ public class ControlPersonaEducacion implements Serializable {
         System.out.println("Cual Tabla= " + CualTabla);
 
         if ((listaVigenciasFormales.isEmpty() || listaVigenciasNoFormales.isEmpty())) {
-            PrimefacesContextUI.actualizar("formularioDialogos:elegirTabla");
+            RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
             PrimefacesContextUI.ejecutar("PF('elegirTabla').show()");
         } else if (CualTabla == 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroVigenciaFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaFormal");
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigenciaFormal').show()");
         } else if (CualTabla == 1) {
-            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroVigenciaNoFormal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaNoFormal");
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigenciaNoFormal').show()");
         }
     }
@@ -2519,13 +2519,13 @@ public class ControlPersonaEducacion implements Serializable {
         listaVigenciasNoFormalesCrear.add(duplicarVigenciaNoFormal);
         RequestContext context = RequestContext.getCurrentInstance();
         modificarInfoRegistroNF(listaVigenciasNoFormales.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroNF");
-        PrimefacesContextUI.actualizar("form:datosVigenciasNoFormalesPersona");
+        RequestContext.getCurrentInstance().update("form:infoRegistroNF");
+        RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
         vigenciaNoFormalSeleccionada = null;
         vigenciaNoFormalSeleccionada = null;
         if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -2545,7 +2545,7 @@ public class ControlPersonaEducacion implements Serializable {
             pEObservacionesNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEObservacionesNF");
             pEObservacionesNF.setFilterStyle("display: none; visibility: hidden;");
             altoTabla2 = "115";
-            PrimefacesContextUI.actualizar("form:datosVigenciasNoFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
             bandera = 0;
             filtradosListaVigenciasNoFormales = null;
             tipoListaNF = 0;
@@ -2556,13 +2556,13 @@ public class ControlPersonaEducacion implements Serializable {
 
     public void dialogoVigenciasFormales() {
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:NuevoRegistroVigenciaFormal");
+        RequestContext.getCurrentInstance().update("form:NuevoRegistroVigenciaFormal");
         PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigenciaFormal').show()");
     }
 
     public void dialogoVigenciasNoFormales() {
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:NuevoRegistroVigenciaNoFormal");
+        RequestContext.getCurrentInstance().update("form:NuevoRegistroVigenciaNoFormal");
         PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigenciaNoFormal').show()");
 
     }
@@ -2575,7 +2575,7 @@ public class ControlPersonaEducacion implements Serializable {
         deshabilitarBotonLov();
         vigenciaFormalSeleccionada = null;
         modificarInfoRegistroF(filtradosListaVigenciasFormales.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroF");
+        RequestContext.getCurrentInstance().update("form:infoRegistroF");
     }
 
     public void modificarInfoRegistroF(int valor) {
@@ -2621,37 +2621,37 @@ public class ControlPersonaEducacion implements Serializable {
 
     public void eventoFiltrarEducacion() {
         modificarInfoRegistroEducacion(filtradoslistaTiposEducaciones.size());
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroEducacion");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEducacion");
     }
 
     public void eventoFiltrarCursos() {
         modificarInfoRegistroCursos(filtradoslistaCursos.size());
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroCursos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCursos");
     }
 
     public void eventoFiltrarProfesion() {
         modificarInfoRegistroProfesion(filtradoslistaProfesiones.size());
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistrosProfesion");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistrosProfesion");
     }
 
     public void eventoFiltrarInstitucion() {
         modificarInfoRegistroInstituciones(filtradoslistaInstituciones.size());
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroInstituciones");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroInstituciones");
     }
 
     public void eventoFiltrarInstitucionF() {
         modificarInfoRegistroInstituciones(filtradoslistaInstituciones.size());
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroInstitucionesF");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroInstitucionesF");
     }
 
     public void eventoFiltrarAdiestramientoF() {
         modificarInfoRegistroAdiestramientoF(filtradoslistaAdiestramientosFormales.size());
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroAdiestramientosF");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroAdiestramientosF");
     }
 
     public void eventoFiltrarAdiestramientoNF() {
         modificarInfoRegistroAdiestramientoNF(filtradoslistaAdiestramientosNoFormales.size());
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroAdiestramientosNF");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroAdiestramientosNF");
     }
 
     //EVENTO FILTRARNF
@@ -2662,7 +2662,7 @@ public class ControlPersonaEducacion implements Serializable {
         deshabilitarBotonLov();
         vigenciaNoFormalSeleccionada = null;
         modificarInfoRegistroNF(filtradosListaVigenciasNoFormales.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroNF");
+        RequestContext.getCurrentInstance().update("form:infoRegistroNF");
     }
 
     public void modificarInfoRegistroNF(int valor) {
@@ -2680,12 +2680,12 @@ public class ControlPersonaEducacion implements Serializable {
 
     public void habilitarBotonLov() {
         activarLov = false;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     public void deshabilitarBotonLov() {
         activarLov = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     public void recordarSeleccionNF() {

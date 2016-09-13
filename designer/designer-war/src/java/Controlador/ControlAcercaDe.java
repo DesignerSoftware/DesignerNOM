@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Empresas;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -21,7 +22,6 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -110,14 +110,14 @@ public class ControlAcercaDe implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         System.err.println("Cambiar empresa  GUARDADO = " + empresaSeleccionada.getNombre());
 
-        PrimefacesContextUI.actualizar("form:nombreEmpresa");
+        RequestContext.getCurrentInstance().update("form:nombreEmpresa");
         filtradoListaEmpresas = null;
         aceptar = true;
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:lovEmpresas");
-        PrimefacesContextUI.actualizar("form:PanelTotal");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresas");
+        RequestContext.getCurrentInstance().update("form:PanelTotal");
     }
 
     public void cancelarCambioEmpresa() {
@@ -158,7 +158,7 @@ public class ControlAcercaDe implements Serializable {
                 if (!listaEmpresas.isEmpty()) {
                     empresaSeleccionada = listaEmpresas.get(0);
                 }
-                PrimefacesContextUI.actualizar("form:PanelTotal");
+                RequestContext.getCurrentInstance().update("form:PanelTotal");
             }
             return listaEmpresas;
         } catch (Exception e) {
@@ -192,7 +192,7 @@ public class ControlAcercaDe implements Serializable {
             getListaEmpresas();
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("EMPRESA SELECCIONADA  : " + empresaSeleccionada.getNombre());
-            PrimefacesContextUI.actualizar("form:PanelTotal");
+            RequestContext.getCurrentInstance().update("form:PanelTotal");
         }
         return empresaSeleccionada;
     }

@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.FormulasContratosEntidades;
 import Entidades.Formulascontratos;
 import Entidades.TiposEntidades;
@@ -27,7 +28,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -134,7 +134,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
          }
          RequestContext context = RequestContext.getCurrentInstance();
          infoRegistro = "Cantidad de registros: " + filtrarFormulasContratosEntidades.size();
-         PrimefacesContextUI.actualizar("form:informacionRegistro");
+         RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
          System.out.println("ERROR ControlFormulasContratosEntidades eventoFiltrar ERROR===" + e.getMessage());
       }
@@ -178,7 +178,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
             tipoActualizacion = 2;
          }
          if (dig == 0) {
-            PrimefacesContextUI.actualizar("form:personasDialogo");
+            RequestContext.getCurrentInstance().update("form:personasDialogo");
             PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
             dig = -1;
          }
@@ -196,7 +196,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
 
          if (cualCelda == 0) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:personasDialogo");
+            RequestContext.getCurrentInstance().update("form:personasDialogo");
             PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
          }
       }
@@ -207,7 +207,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
          //CERRAR FILTRADO
          personafir = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulasContratosEntidades:personafir");
          personafir.setFilterStyle("display: none; visibility: hidden;");
-         PrimefacesContextUI.actualizar("form:datosFormulasContratosEntidades");
+         RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
          bandera = 0;
          filtrarFormulasContratosEntidades = null;
          tipoLista = 0;
@@ -229,9 +229,9 @@ public class ControlFormulasContratosEntidades implements Serializable {
       } else {
          infoRegistro = "Cantidad de registros: " + listFormulasContratosEntidades.size();
       }
-      PrimefacesContextUI.actualizar("form:informacionRegistro");
-      PrimefacesContextUI.actualizar("form:datosFormulasContratosEntidades");
-      PrimefacesContextUI.actualizar("form:ACEPTAR");
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
+      RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
    public void salir() {
@@ -239,7 +239,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
          //CERRAR FILTRADO
          personafir = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulasContratosEntidades:personafir");
          personafir.setFilterStyle("display: none; visibility: hidden;");
-         PrimefacesContextUI.actualizar("form:datosFormulasContratosEntidades");
+         RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
          bandera = 0;
          filtrarFormulasContratosEntidades = null;
          tipoLista = 0;
@@ -261,9 +261,9 @@ public class ControlFormulasContratosEntidades implements Serializable {
       } else {
          infoRegistro = "Cantidad de registros: " + listFormulasContratosEntidades.size();
       }
-      PrimefacesContextUI.actualizar("form:informacionRegistro");
-      PrimefacesContextUI.actualizar("form:datosFormulasContratosEntidades");
-      PrimefacesContextUI.actualizar("form:ACEPTAR");
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
+      RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
    public void activarCtrlF11() {
@@ -271,7 +271,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
          tamano = 250;
          personafir = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulasContratosEntidades:personafir");
          personafir.setFilterStyle("width: 85%");
-         PrimefacesContextUI.actualizar("form:datosFormulasContratosEntidades");
+         RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
          System.out.println("Activar");
          bandera = 1;
       } else if (bandera == 1) {
@@ -280,7 +280,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
          personafir = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulasContratosEntidades:personafir");
          personafir.setFilterStyle("display: none; visibility: hidden;");
 
-         PrimefacesContextUI.actualizar("form:datosFormulasContratosEntidades");
+         RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
          bandera = 0;
          filtrarFormulasContratosEntidades = null;
          tipoLista = 0;
@@ -320,18 +320,18 @@ public class ControlFormulasContratosEntidades implements Serializable {
          }
          permitirIndex = true;
          System.out.println("ACTUALIZAR FORMULA : " + tipoEntidadSeleccionado.getNombre());
-         PrimefacesContextUI.actualizar("form:datosFormulasContratosEntidades");
-         PrimefacesContextUI.actualizar("form:ACEPTAR");
+         RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } else if (tipoActualizacion == 1) {
          System.out.println("ACTUALIZAR FORMULA NUEVO DEPARTAMENTO: " + tipoEntidadSeleccionado.getNombre());
          nuevoFormulasContratosEntidades.setTipoentidad(tipoEntidadSeleccionado);
-         PrimefacesContextUI.actualizar("formularioDialogos:nuevoPersona");
-         PrimefacesContextUI.actualizar("formularioDialogos:nuevoCodigo");
+         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
+         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCodigo");
       } else if (tipoActualizacion == 2) {
          System.out.println("ACTUALIZAR FORMULA DUPLICAR DEPARTAMENO: " + tipoEntidadSeleccionado.getNombre());
          duplicarFormulasContratosEntidades.setTipoentidad(tipoEntidadSeleccionado);
-         PrimefacesContextUI.actualizar("formularioDialogos:duplicarPersona");
-         PrimefacesContextUI.actualizar("formularioDialogos:duplicarCodigo");
+         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersona");
+         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigo");
       }
       filtradoTiposEntidades = null;
       tipoEntidadSeleccionado = null;
@@ -343,7 +343,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
       context.reset("form:lovFormulas:globalFilter");
       PrimefacesContextUI.ejecutar("PF('lovFormulas').clearFilters()");
       PrimefacesContextUI.ejecutar("PF('personasDialogo').hide()");
-      //PrimefacesContextUI.actualizar("form:lovFormulas");
+      //RequestContext.getCurrentInstance().update("form:lovFormulas");
    }
 
    public void cancelarCambioTiposEntidades() {
@@ -399,7 +399,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
 
             } else {
                permitirIndex = false;
-               PrimefacesContextUI.actualizar("form:personasDialogo");
+               RequestContext.getCurrentInstance().update("form:personasDialogo");
                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                tipoActualizacion = 0;
             }
@@ -412,7 +412,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
                }
             }
             tipoActualizacion = 0;
-            PrimefacesContextUI.actualizar("form:personasDialogo");
+            RequestContext.getCurrentInstance().update("form:personasDialogo");
             PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
          }
 
@@ -448,8 +448,8 @@ public class ControlFormulasContratosEntidades implements Serializable {
             }
          }
 
-         PrimefacesContextUI.actualizar("form:datosFormulasContratosEntidades");
-         PrimefacesContextUI.actualizar("form:ACEPTAR");
+         RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
       }
 
@@ -493,14 +493,14 @@ public class ControlFormulasContratosEntidades implements Serializable {
 
          }
          RequestContext context = RequestContext.getCurrentInstance();
-         PrimefacesContextUI.actualizar("form:datosFormulasContratosEntidades");
+         RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
          index = -1;
          secRegistro = null;
-         PrimefacesContextUI.actualizar("form:informacionRegistro");
+         RequestContext.getCurrentInstance().update("form:informacionRegistro");
          if (guardado == true) {
             guardado = false;
          }
-         PrimefacesContextUI.actualizar("form:ACEPTAR");
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
          cambioFormulasContratosEntidades = true;
       }
 
@@ -546,7 +546,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
                listaTiposEntidades = null;
                System.err.println("PERSONA GUARDADA :-----> " + nuevoFormulasContratosEntidades.getTipoentidad().getNombre());
             } else {
-               PrimefacesContextUI.actualizar("form:personasDialogo");
+               RequestContext.getCurrentInstance().update("form:personasDialogo");
                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                tipoActualizacion = tipoNuevo;
             }
@@ -557,8 +557,8 @@ public class ControlFormulasContratosEntidades implements Serializable {
             nuevoFormulasContratosEntidades.getTipoentidad().setNombre(" ");
             System.out.println("NUEVA NORMA LABORAL" + nuevoFormulasContratosEntidades.getTipoentidad().getNombre());
          }
-         PrimefacesContextUI.actualizar("formularioDialogos:nuevoPersona");
-         PrimefacesContextUI.actualizar("formularioDialogos:nuevoCodigo");
+         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
+         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCodigo");
 
       }
    }
@@ -571,7 +571,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
          tipoActualizacion = 2;
       }
       RequestContext context = RequestContext.getCurrentInstance();
-      PrimefacesContextUI.actualizar("form:personasDialogo");
+      RequestContext.getCurrentInstance().update("form:personasDialogo");
       PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
    }
 
@@ -600,7 +600,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
                duplicarFormulasContratosEntidades.setTipoentidad(listaTiposEntidades.get(indiceUnicoElemento));
                listaTiposEntidades = null;
             } else {
-               PrimefacesContextUI.actualizar("form:personasDialogo");
+               RequestContext.getCurrentInstance().update("form:personasDialogo");
                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                tipoActualizacion = tipoNuevo;
             }
@@ -623,7 +623,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
 
          }
 
-         PrimefacesContextUI.actualizar("formularioDialogos:duplicarPersona");
+         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersona");
       }
    }
 
@@ -631,7 +631,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
 
       if (!borrarFormulasContratosEntidades.isEmpty() || !crearFormulasContratosEntidades.isEmpty() || !modificarFormulasContratosEntidades.isEmpty()) {
          RequestContext context = RequestContext.getCurrentInstance();
-         PrimefacesContextUI.actualizar("form:confirmarGuardar");
+         RequestContext.getCurrentInstance().update("form:confirmarGuardar");
          PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
       }
 
@@ -646,7 +646,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
             administrarFormulasContratosEntidades.borrarFormulasContratosEntidades(borrarFormulasContratosEntidades);
             //mostrarBorrados
             registrosBorrados = borrarFormulasContratosEntidades.size();
-            PrimefacesContextUI.actualizar("form:mostrarBorrados");
+            RequestContext.getCurrentInstance().update("form:mostrarBorrados");
             PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
             borrarFormulasContratosEntidades.clear();
          }
@@ -662,14 +662,14 @@ public class ControlFormulasContratosEntidades implements Serializable {
          listFormulasContratosEntidades = null;
          FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
-         PrimefacesContextUI.actualizar("form:growl");
-         PrimefacesContextUI.actualizar("form:datosFormulasContratosEntidades");
+         RequestContext.getCurrentInstance().update("form:growl");
+         RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
          k = 0;
          guardado = true;
 
       }
       index = -1;
-      PrimefacesContextUI.actualizar("form:ACEPTAR");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
    }
 
@@ -685,15 +685,15 @@ public class ControlFormulasContratosEntidades implements Serializable {
          RequestContext context = RequestContext.getCurrentInstance();
          System.out.println("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:editPais");
+            RequestContext.getCurrentInstance().update("formularioDialogos:editPais");
             PrimefacesContextUI.ejecutar("PF('editPais').show()");
             cualCelda = -1;
          } else if (cualCelda == 1) {
-            PrimefacesContextUI.actualizar("formularioDialogos:editFormulas");
+            RequestContext.getCurrentInstance().update("formularioDialogos:editFormulas");
             PrimefacesContextUI.ejecutar("PF('editFormulas').show()");
             cualCelda = -1;
          } else if (cualCelda == 2) {
-            PrimefacesContextUI.actualizar("formularioDialogos:editOperandos");
+            RequestContext.getCurrentInstance().update("formularioDialogos:editOperandos");
             PrimefacesContextUI.ejecutar("PF('editOperandos').show()");
             cualCelda = -1;
          }
@@ -749,13 +749,13 @@ public class ControlFormulasContratosEntidades implements Serializable {
          crearFormulasContratosEntidades.add(nuevoFormulasContratosEntidades);
          listFormulasContratosEntidades.add(nuevoFormulasContratosEntidades);
          infoRegistro = "Cantidad de registros: " + listFormulasContratosEntidades.size();
-         PrimefacesContextUI.actualizar("form:informacionRegistro");
+         RequestContext.getCurrentInstance().update("form:informacionRegistro");
          nuevoFormulasContratosEntidades = new FormulasContratosEntidades();
          nuevoFormulasContratosEntidades.setTipoentidad(new TiposEntidades());
-         PrimefacesContextUI.actualizar("form:datosFormulasContratosEntidades");
+         RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
          if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
 
          PrimefacesContextUI.ejecutar("PF('nuevoRegistroFormulasContratosEntidades').hide()");
@@ -765,7 +765,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
 
       } else {
 
-         PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+         RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
          PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
          contador = 0;
       }
@@ -809,7 +809,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
          PrimefacesContextUI.ejecutar("PF('duplicarRegistroFormulasContratosEntidades').show()");
          secRegistro = null;
       }
@@ -849,7 +849,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
          duplicarFormulasContratosEntidades.setFormulacontrato(formulaContratoSeleccionada);
          listFormulasContratosEntidades.add(duplicarFormulasContratosEntidades);
          crearFormulasContratosEntidades.add(duplicarFormulasContratosEntidades);
-         PrimefacesContextUI.actualizar("form:datosFormulasContratosEntidades");
+         RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
          index = -1;
          System.out.println("--------------DUPLICAR------------------------");
          System.out.println("PERSONA : " + duplicarFormulasContratosEntidades.getTipoentidad().getNombre());
@@ -860,13 +860,13 @@ public class ControlFormulasContratosEntidades implements Serializable {
             guardado = false;
          }
          infoRegistro = "Cantidad de registros: " + listFormulasContratosEntidades.size();
-         PrimefacesContextUI.actualizar("form:informacionRegistro");
-         PrimefacesContextUI.actualizar("form:ACEPTAR");
+         RequestContext.getCurrentInstance().update("form:informacionRegistro");
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
          if (bandera == 1) {
             //CERRAR FILTRADO
             personafir = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulasContratosEntidades:personafir");
             personafir.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosFormulasContratosEntidades");
+            RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
             bandera = 0;
             filtrarFormulasContratosEntidades = null;
             tipoLista = 0;
@@ -881,7 +881,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
 
          contador = 0;
 
-         PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+         RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
          PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
       }
    }
@@ -961,7 +961,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
       } else {
          infoRegistro = "Cantidad de registros: " + listFormulasContratosEntidades.size();
       }
-      PrimefacesContextUI.actualizar("form:informacionRegistro");
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
       return listFormulasContratosEntidades;
    }
 
@@ -1063,7 +1063,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
       } else {
          infoRegistroLOVTipoEntidad = "Cantidad de registros: " + listaTiposEntidades.size();
       }
-      PrimefacesContextUI.actualizar("form:infoRegistroLOVTipoEntidad");
+      RequestContext.getCurrentInstance().update("form:infoRegistroLOVTipoEntidad");
       return listaTiposEntidades;
    }
 

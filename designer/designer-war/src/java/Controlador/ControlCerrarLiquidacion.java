@@ -4,6 +4,7 @@ package Controlador;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Parametros;
 import Entidades.ParametrosEstructuras;
 import Exportar.ExportarPDF;
@@ -24,7 +25,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -99,7 +99,7 @@ public class ControlCerrarLiquidacion implements Serializable {
         }
         FacesMessage msg = new FacesMessage("Información", "Liquidación cerrada con éxito.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        PrimefacesContextUI.actualizar("form:growl");
+        RequestContext.getCurrentInstance().update("form:growl");
     }
 
     public void confirmarAbrirLiquidacion() {
@@ -120,7 +120,7 @@ public class ControlCerrarLiquidacion implements Serializable {
         administrarCerrarLiquidacion.abrirLiquidacion(parametroEstructura.getProceso().getCodigo(), fechaDesde, fechaHasta);
         FacesMessage msg = new FacesMessage("Información", "Comprobante eliminado exitosamente.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        PrimefacesContextUI.actualizar("form:growl");
+        RequestContext.getCurrentInstance().update("form:growl");
     }
 
     public void exportPDF() throws IOException {
@@ -154,7 +154,7 @@ public class ControlCerrarLiquidacion implements Serializable {
             nombreEmpleado = (Column) c.getViewRoot().findComponent("form:datosEmpleadosParametros:nombreEmpleado");
             nombreEmpleado.setFilterStyle("width: 85%");
             altoTabla = "140";
-            PrimefacesContextUI.actualizar("form:datosEmpleadosParametros");
+            RequestContext.getCurrentInstance().update("form:datosEmpleadosParametros");
             bandera = 1;
         } else if (bandera == 1) {
             codigoEmpleado = (Column) c.getViewRoot().findComponent("form:datosEmpleadosParametros:codigoEmpleado");
@@ -162,7 +162,7 @@ public class ControlCerrarLiquidacion implements Serializable {
             nombreEmpleado = (Column) c.getViewRoot().findComponent("form:datosEmpleadosParametros:nombreEmpleado");
             nombreEmpleado.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "160";
-            PrimefacesContextUI.actualizar("form:datosEmpleadosParametros");
+            RequestContext.getCurrentInstance().update("form:datosEmpleadosParametros");
             bandera = 0;
             tipoLista = 0;
             filtradoListaParametros = null;
@@ -179,7 +179,7 @@ public class ControlCerrarLiquidacion implements Serializable {
 
     public void modificarInfoRegistro(int valor) {
         infoRegistro = String.valueOf(valor);
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void contarRegistros(){

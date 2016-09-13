@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Operandos;
 import Entidades.TiposBloques;
 import Exportar.ExportarPDF;
@@ -28,7 +29,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -172,7 +172,7 @@ public class ControlTipoBloque implements Serializable {
             }
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosTiposBloques");
+        RequestContext.getCurrentInstance().update("form:datosTiposBloques");
     }
 
     //MOSTRAR DATOS CELDA
@@ -188,15 +188,15 @@ public class ControlTipoBloque implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechasIniciales");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasIniciales");
                 PrimefacesContextUI.ejecutar("PF('editarFechasIniciales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechasFinales");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasFinales");
                 PrimefacesContextUI.ejecutar("PF('editarFechasFinales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarSQL");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarSQL");
                 PrimefacesContextUI.ejecutar("PF('editarSQL').show()");
                 cualCelda = -1;
             }
@@ -256,14 +256,14 @@ public class ControlTipoBloque implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosTiposBloques");
+            RequestContext.getCurrentInstance().update("form:datosTiposBloques");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -281,7 +281,7 @@ public class ControlTipoBloque implements Serializable {
             tiposBloquesTipos.setFilterStyle("width: 85%;");
             tiposBloquesSQL = (Column) c.getViewRoot().findComponent("form:datosTiposBloques:tiposBloquesSQL");
             tiposBloquesSQL.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosTiposBloques");
+            RequestContext.getCurrentInstance().update("form:datosTiposBloques");
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
@@ -296,7 +296,7 @@ public class ControlTipoBloque implements Serializable {
             tiposBloquesTipos.setFilterStyle("display: none; visibility: hidden;");
             tiposBloquesSQL = (Column) c.getViewRoot().findComponent("form:datosTiposBloques:tiposBloquesSQL");
             tiposBloquesSQL.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposBloques");
+            RequestContext.getCurrentInstance().update("form:datosTiposBloques");
             bandera = 0;
             filtradosListaTiposBloques = null;
             tipoLista = 0;
@@ -319,7 +319,7 @@ public class ControlTipoBloque implements Serializable {
             tiposBloquesTipos.setFilterStyle("display: none; visibility: hidden;");
             tiposBloquesSQL = (Column) c.getViewRoot().findComponent("form:datosTiposBloques:tiposBloquesSQL");
             tiposBloquesSQL.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposBloques");
+            RequestContext.getCurrentInstance().update("form:datosTiposBloques");
             bandera = 0;
             filtradosListaTiposBloques = null;
             tipoLista = 0;
@@ -352,7 +352,7 @@ public class ControlTipoBloque implements Serializable {
             tiposBloquesTipos.setFilterStyle("display: none; visibility: hidden;");
             tiposBloquesSQL = (Column) c.getViewRoot().findComponent("form:datosTiposBloques:tiposBloquesSQL");
             tiposBloquesSQL.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposBloques");
+            RequestContext.getCurrentInstance().update("form:datosTiposBloques");
             bandera = 0;
             filtradosListaTiposBloques = null;
             tipoLista = 0;
@@ -370,8 +370,8 @@ public class ControlTipoBloque implements Serializable {
         cambiosPagina = true;
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("form:datosTiposBloques");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosTiposBloques");
     }
 
     //DUPLICAR Operando
@@ -400,7 +400,7 @@ public class ControlTipoBloque implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoBloque");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoBloque");
             PrimefacesContextUI.ejecutar("PF('DuplicarTipoBloque').show()");
             index = -1;
             secRegistro = null;
@@ -473,13 +473,13 @@ public class ControlTipoBloque implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             cambiosPagina = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosTiposBloques");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosTiposBloques");
             guardado = true;
             permitirIndex = true;
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
 
             //  k = 0;
         }
@@ -526,9 +526,9 @@ public class ControlTipoBloque implements Serializable {
         if (guardado == true) {
             guardado = false;
             cambiosPagina = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-        PrimefacesContextUI.actualizar("form:datosTiposBloques");
+        RequestContext.getCurrentInstance().update("form:datosTiposBloques");
     }
 
     public void seleccionarTipoNuevoTipoBloque(String estadoTipo, int tipoNuevo) {
@@ -571,7 +571,7 @@ public class ControlTipoBloque implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         cambiosPagina = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 index = -1;
@@ -587,14 +587,14 @@ public class ControlTipoBloque implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         cambiosPagina = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
 
                 }
                 index = -1;
                 secRegistro = null;
             }
-            PrimefacesContextUI.actualizar("form:datosTiposBloques");
+            RequestContext.getCurrentInstance().update("form:datosTiposBloques");
         }
     }
 
@@ -622,14 +622,14 @@ public class ControlTipoBloque implements Serializable {
 
         if (nuevoTipoBloque.getFechainicial() != null && nuevoTipoBloque.getFechafinal() != null) {
             if (nuevoTipoBloque.getFechafinal().before(nuevoTipoBloque.getFechainicial())) {
-                PrimefacesContextUI.actualizar("formularioDialogos:errorFechas");
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorFechas");
                 PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
                 pasa2++;
             }
         }
 
         if (pasa != 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoTipoBloque");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoBloque");
             PrimefacesContextUI.ejecutar("PF('validacionNuevoTipoBloque').show()");
         }
 
@@ -648,7 +648,7 @@ public class ControlTipoBloque implements Serializable {
                 tiposBloquesTipos.setFilterStyle("display: none; visibility: hidden;");
                 tiposBloquesSQL = (Column) c.getViewRoot().findComponent("form:datosTiposBloques:tiposBloquesSQL");
                 tiposBloquesSQL.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosTiposBloques");
+                RequestContext.getCurrentInstance().update("form:datosTiposBloques");
                 bandera = 0;
                 filtradosListaTiposBloques = null;
                 tipoLista = 0;
@@ -661,15 +661,15 @@ public class ControlTipoBloque implements Serializable {
             nuevoTipoBloque.setOperando(operando);
 
             cambiosPagina = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             listaTiposBloquesCrear.add(nuevoTipoBloque);
             listaTiposBloques.add(nuevoTipoBloque);
             nuevoTipoBloque = new TiposBloques();
-            PrimefacesContextUI.actualizar("form:datosTiposBloques");
+            RequestContext.getCurrentInstance().update("form:datosTiposBloques");
             if (guardado == true) {
                 guardado = false;
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('NuevoTipoBloque').hide()");
             index = -1;
@@ -688,7 +688,7 @@ public class ControlTipoBloque implements Serializable {
         }
 
         if (pasa != 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoTipoBloque");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoBloque");
             PrimefacesContextUI.ejecutar("PF('validacionNuevoTipoBloque').show()");
         }
 
@@ -707,13 +707,13 @@ public class ControlTipoBloque implements Serializable {
                 tiposBloquesTipos.setFilterStyle("display: none; visibility: hidden;");
                 tiposBloquesSQL = (Column) c.getViewRoot().findComponent("form:datosTiposBloques:tiposBloquesSQL");
                 tiposBloquesSQL.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosTiposBloques");
+                RequestContext.getCurrentInstance().update("form:datosTiposBloques");
                 bandera = 0;
                 filtradosListaTiposBloques = null;
                 tipoLista = 0;
             }
             cambiosPagina = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //Falta Ponerle el Operando al cual se agregará
             duplicarTipoBloque.setOperando(operando);
             listaTiposBloques.add(duplicarTipoBloque);
@@ -723,11 +723,11 @@ public class ControlTipoBloque implements Serializable {
             if (guardado == true) {
                 guardado = false;
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.actualizar("form:datosTiposFormulas");
+            RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
             duplicarTipoBloque = new TiposBloques();
-            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarTipoBloque");
+            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarTipoBloque");
             PrimefacesContextUI.ejecutar("PF('DuplicarTipoBloque').hide()");
         }
     }

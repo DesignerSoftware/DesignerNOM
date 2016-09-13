@@ -346,7 +346,7 @@
                             <p:commandButton id="atrasEA" style="position: relative; left: 184px;" value="#{msg['atras']}" actionListener="#{controlEmplVigenciaAfiliacion3.cancelarCambioEstadoAfiliacion()}" update=":form:EstadoAfiliacionDialogo" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </p:dialog>
                         
-                        <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplVigenciaAfiliacion3.infoRegistro}" style="position: absolute; left: 20px; top: 465px; font-weight: bold"/>
+                        <h:outputText  id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplVigenciaAfiliacion3.infoRegistro}" style="position: absolute; left: 20px; top: 465px; font-weight: bold"/>
                         <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosVAVigencia" process="@this" disabled="#{controlEmplVigenciaAfiliacion3.guardado}"/>
                         <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlEmplVigenciaAfiliacion3.salir()}" action="nomina" process="@this" />
                     </p:panel>

@@ -29,7 +29,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -149,13 +148,6 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                     mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                     contador++;
                 }
-//                else {
-//                    for (int j = 0; j < listVigenciaEstadoCivilPorEmpleado.size(); j++) {
-//                        if (vigenciaSeleccionada.getFechavigencia().equals(listVigenciaEstadoCivilPorEmpleado.get(j).getFechavigencia())) {
-//                            fechas++;
-//                        }
-//                    }
-//                }
                 if (fechas > 0) {
                     mensajeValidacion = "FECHAS REPETIDAS";
                     contador++;
@@ -169,14 +161,14 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            PrimefacesContextUI.actualizar("form:ACEPTAR");
+                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
                         }
-                        PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+                        RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
 
                     }
                 } else {
-                    PrimefacesContextUI.actualizar("form:validacionModificar");
-                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     cancelarModificacion();
                 }
             } else {
@@ -210,14 +202,14 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            PrimefacesContextUI.actualizar("form:ACEPTAR");
+                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
                         }
-                        PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+                        RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
 
                     }
                 } else {
-                    PrimefacesContextUI.actualizar("form:validacionModificar");
-                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     cancelarModificacion();
 
                 }
@@ -266,8 +258,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             if (dig == 1) {
                 habilitarBotonLov();
                 modificarInfoRegistroEC(listaEstadosCiviles.size());
-                PrimefacesContextUI.actualizar("form:EstadoCivilDialogo");
-                PrimefacesContextUI.ejecutar("PF('EstadoCivilDialogo').show()");
+                RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
+                RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
                 dig = -1;
             }
         } catch (Exception e) {
@@ -285,8 +277,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                 habilitarBotonLov();
                 modificarInfoRegistroEC(listaEstadosCiviles.size());
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:EstadoCivilDialogo");
-                PrimefacesContextUI.ejecutar("PF('EstadoCivilDialogo').show()");
+                RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
+                RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
             }
         }
     }
@@ -302,7 +294,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             parentesco = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:parentesco");
             parentesco.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "270";
-            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
             bandera = 0;
             filtrarVigenciaEstadoCivilPorEmplado = null;
             tipoLista = 0;
@@ -321,9 +313,9 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         deshabilitarBotonLov();
         RequestContext context = RequestContext.getCurrentInstance();
         contarRegistros();
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosHvEntrevista");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
+        RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -335,7 +327,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             parentesco = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:parentesco");
             parentesco.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "270";
-            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
             bandera = 0;
             filtrarVigenciaEstadoCivilPorEmplado = null;
             tipoLista = 0;
@@ -353,9 +345,9 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         getListVigenciaEstadoCivilPorEmpleado();
         RequestContext context = RequestContext.getCurrentInstance();
         contarRegistros();
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosHvEntrevista");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
+        RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -366,7 +358,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             parentesco = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:parentesco");
             parentesco.setFilterStyle("width: 85%;");
             altoTabla = "250";
-            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -376,7 +368,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             parentesco = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:parentesco");
             parentesco.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "270";
-            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
             bandera = 0;
             filtrarVigenciaEstadoCivilPorEmplado = null;
             tipoLista = 0;
@@ -423,8 +415,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                         cancelarModificacion();
                     }
                 }
@@ -449,15 +441,15 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                         cancelarModificacion();
                     }
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else if (confirmarCambio.equalsIgnoreCase("NORMASLABORALES")) {
             System.out.println("MODIFICANDO ESTADO CIVIL : " + vigenciaSeleccionada.getEstadocivil().getDescripcion());
             if (!vigenciaSeleccionada.getEstadocivil().getDescripcion().equals("")) {
@@ -485,8 +477,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
 
                 } else {
                     permitirIndex = false;
-                    PrimefacesContextUI.actualizar("form:EstadoCivilDialogo");
-                    PrimefacesContextUI.ejecutar("PF('EstadoCivilDialogo').show()");
+                    RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
+                    RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -495,8 +487,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                 } else {
                     vigenciaSeleccionada.getEstadocivil().setDescripcion(estadoCivil);
                 }
-                PrimefacesContextUI.actualizar("form:EstadoCivilDialogo");
-                PrimefacesContextUI.ejecutar("PF('EstadoCivilDialogo').show()");
+                RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
+                RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
             }
 
             if (coincidencias == 1) {
@@ -527,8 +519,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                 }
             }
 
-            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
         }
 
@@ -562,14 +554,14 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                 guardado = false;
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else if (tipoActualizacion == 1) {
             nuevoVigenciaEstadoCivil.setEstadocivil(vigenciaEstadoCivilSeleccionada);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoNombreSucursal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombreSucursal");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciaEstadoCivil.setEstadocivil(vigenciaEstadoCivilSeleccionada);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEstadoCivil");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEstadoCivil");
         }
         filtradoEstadosCiviles = null;
         vigenciaEstadoCivilSeleccionada = null;
@@ -577,10 +569,10 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("form:lovTiposFamiliares:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTiposFamiliares').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EstadoCivilDialogo').hide()");
-        //PrimefacesContextUI.actualizar("form:lovTiposFamiliares");
-        //PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+        RequestContext.getCurrentInstance().execute("PF('lovTiposFamiliares').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').hide()");
+        //RequestContext.getCurrentInstance().update("form:lovTiposFamiliares");
+        //RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
     }
 
     public void cancelarCambioEstadoCivil() {
@@ -592,11 +584,11 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTiposFamiliares:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTiposFamiliares').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EstadoCivilDialogo').hide()");
-        PrimefacesContextUI.actualizar("form:EstadoCivilDialogo");
-        PrimefacesContextUI.actualizar("form:lovTiposFamiliares");
-        PrimefacesContextUI.actualizar("form:aceptarS");
+        RequestContext.getCurrentInstance().execute("PF('lovTiposFamiliares').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').hide()");
+        RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
+        RequestContext.getCurrentInstance().update("form:lovTiposFamiliares");
+        RequestContext.getCurrentInstance().update("form:aceptarS");
 
     }
 
@@ -638,8 +630,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                     getListaEstadosCiviles();
                     System.err.println("ESTADO CIVIL GUARDADA " + nuevoVigenciaEstadoCivil.getEstadocivil().getDescripcion());
                 } else {
-                    PrimefacesContextUI.actualizar("form:EstadoCivilDialogo");
-                    PrimefacesContextUI.ejecutar("PF('EstadoCivilDialogo').show()");
+                    RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
+                    RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -649,7 +641,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                 nuevoVigenciaEstadoCivil.getEstadocivil().setDescripcion(" ");
                 System.out.println("NUEVA ESTADO CIVIL" + nuevoVigenciaEstadoCivil.getEstadocivil().getDescripcion());
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoNombreSucursal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombreSucursal");
         }
 
     }
@@ -662,8 +654,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:EstadoCivilDialogo");
-        PrimefacesContextUI.ejecutar("PF('EstadoCivilDialogo').show()");
+        RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
+        RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
     }
 
     public void limpiarNuevoEstadoCivil() {
@@ -681,13 +673,13 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         if (tipoNuevo == 0) {
             tipoActualizacion = 1;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:EstadoCivilDialogo");
-            PrimefacesContextUI.ejecutar("PF('EstadoCivilDialogo').show()");
+            RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
+            RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
         } else if (tipoNuevo == 1) {
             tipoActualizacion = 2;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:EstadoCivilDialogo");
-            PrimefacesContextUI.ejecutar("PF('EstadoCivilDialogo').show()");
+            RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
+            RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
         }
     }
 
@@ -717,8 +709,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                     listaEstadosCiviles = null;
                     getListaEstadosCiviles();
                 } else {
-                    PrimefacesContextUI.actualizar("form:EstadoCivilDialogo");
-                    PrimefacesContextUI.ejecutar("PF('EstadoCivilDialogo').show()");
+                    RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
+                    RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -741,7 +733,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEstadoCivil");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEstadoCivil");
         }
     }
 
@@ -767,13 +759,13 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
             modificarInfoRegistro(listVigenciaEstadoCivilPorEmpleado.size());
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             vigenciaSeleccionada = null;
         } else {
-            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
 
     }
@@ -791,8 +783,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
      System.out.println("Borrado>0");
 
      RequestContext context = RequestContext.getCurrentInstance();
-     PrimefacesContextUI.actualizar("form:validacionBorrar");
-     PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+     RequestContext.getCurrentInstance().update("form:validacionBorrar");
+     RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
      vigenciaSeleccionada = null;
 
      competenciasCargos = new BigDecimal(-1);
@@ -806,8 +798,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
 
         if (!borrarVigenciaEstadoCivilPorEmplado.isEmpty() || !crearVigenciaEstadoCivilPorEmplado.isEmpty() || !modificarVigenciaEstadoCivilPorEmplado.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
 
     }
@@ -824,8 +816,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                 administrarVigenciaEstadosCiviles.borrarVigenciasEstadosCiviles(borrarVigenciaEstadoCivilPorEmplado);
                 //mostrarBorrados
                 registrosBorrados = borrarVigenciaEstadoCivilPorEmplado.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
-                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarVigenciaEstadoCivilPorEmplado.clear();
             }
             if (!crearVigenciaEstadoCivilPorEmplado.isEmpty()) {
@@ -840,15 +832,15 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             listVigenciaEstadoCivilPorEmpleado = null;
             getListVigenciaEstadoCivilPorEmpleado();
             contarRegistros();
-            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
             k = 0;
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         vigenciaSeleccionada = null;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -864,18 +856,18 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 deshabilitarBotonLov();
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFecha");
-                PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
+                RequestContext.getCurrentInstance().execute("PF('editarFecha').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 habilitarBotonLov();
-                PrimefacesContextUI.actualizar("formularioDialogos:editPuntaje");
-                PrimefacesContextUI.ejecutar("PF('editPuntaje').show()");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editPuntaje");
+                RequestContext.getCurrentInstance().execute("PF('editPuntaje').show()");
                 cualCelda = -1;
             }
 
         } else {
-            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
 
@@ -922,7 +914,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                 parentesco = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:parentesco");
                 parentesco.setFilterStyle("display: none; visibility: hidden;");
                 altoTabla = "270";
-                PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+                RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
                 bandera = 0;
                 filtrarVigenciaEstadoCivilPorEmplado = null;
                 tipoLista = 0;
@@ -938,18 +930,18 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             vigenciaSeleccionada = nuevoVigenciaEstadoCivil;
             nuevoVigenciaEstadoCivil = new VigenciasEstadosCiviles();
             nuevoVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
-            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
-            PrimefacesContextUI.actualizar("form:infoRegistro");
+            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
-            PrimefacesContextUI.ejecutar("PF('nuevoRegistroEstadoCivil').hide()");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEstadoCivil').hide()");
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevoEstadoCivil");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoEstadoCivil').show()");
+            RequestContext.getCurrentInstance().update("form:validacionNuevoEstadoCivil");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoEstadoCivil').show()");
             contador = 0;
         }
     }
@@ -988,11 +980,11 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEvC");
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroEstadoCivil').show()");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEvC");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEstadoCivil').show()");
 
         } else {
-            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
 
@@ -1043,13 +1035,13 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             }
             listVigenciaEstadoCivilPorEmpleado.add(duplicarVigenciaEstadoCivil);
             crearVigenciaEstadoCivilPorEmplado.add(duplicarVigenciaEstadoCivil);
-            PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+            RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
             vigenciaSeleccionada = duplicarVigenciaEstadoCivil;
             if (guardado == true) {
                 guardado = false;
             }
             modificarInfoRegistro(listVigenciaEstadoCivilPorEmpleado.size());
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
             if (bandera == 1) {
                 //CERRAR FILTRADO
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -1058,21 +1050,21 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                 parentesco = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:parentesco");
                 parentesco.setFilterStyle("display: none; visibility: hidden;");
                 altoTabla = "270";
-                PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+                RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
                 bandera = 0;
                 filtrarVigenciaEstadoCivilPorEmplado = null;
                 tipoLista = 0;
             }
             duplicarVigenciaEstadoCivil = new VigenciasEstadosCiviles();
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroEstadoCivil').hide()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEstadoCivil').hide()");
 
         } else {
             contador = 0;
             fechas = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
         }
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void limpiarDuplicarVigenciaEstadoCivil() {
@@ -1110,22 +1102,22 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(vigenciaSeleccionada.getSecuencia(), "VIGENCIASESTADOSCIVILES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASESTADOSCIVILES")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -1145,24 +1137,23 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        RequestContext context = RequestContext.getCurrentInstance();
         modificarInfoRegistro(filtrarVigenciaEstadoCivilPorEmplado.size());
-        PrimefacesContextUI.actualizar("form:infoRegistro");
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void habilitarBotonLov() {
         activarLov = false;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     public void deshabilitarBotonLov() {
         activarLov = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     public void eventoFiltrarEC() {
         modificarInfoRegistroEC(filtradoEstadosCiviles.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroEC");
+        RequestContext.getCurrentInstance().update("form:infoRegistroEC");
     }
 
     public void modificarInfoRegistroEC(int valor) {

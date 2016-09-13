@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Administrar.AdministrarNovedadCesantiasRC;
 import Entidades.Empleados;
 import Entidades.MotivosCesantias;
@@ -32,7 +33,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -177,34 +177,34 @@ public class ControlNovedadCesantiasRC implements Serializable {
         if (novedadSeleccionada != null) {
             editarNovedades = novedadSeleccionada;
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editFechaCorteCesantias");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editFechaCorteCesantias");
                 PrimefacesContextUI.ejecutar("PF('editFechaCorteCesantias').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editFechaCorteIntCesantias");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editFechaCorteIntCesantias");
                 PrimefacesContextUI.ejecutar("PF('editFechaCorteIntCesantias').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editValorCesantias");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editValorCesantias");
                 PrimefacesContextUI.ejecutar("PF('editValorCesantias').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editValorIntCesantias");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editValorIntCesantias");
                 PrimefacesContextUI.ejecutar("PF('editValorIntCesantias').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editValorSolicitado");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editValorSolicitado");
                 PrimefacesContextUI.ejecutar("PF('editValorSolicitado').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editMotivoCesantias");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editMotivoCesantias");
                 PrimefacesContextUI.ejecutar("PF('editMotivoCesantias').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editObservaciones");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editObservaciones");
                 PrimefacesContextUI.ejecutar("PF('editObservaciones').show()");
             } else if (cualCelda == 7) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editBeneficiarios");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editBeneficiarios");
                 PrimefacesContextUI.ejecutar("PF('editBeneficiarios').show()");
             }
         } else {
@@ -252,8 +252,8 @@ public class ControlNovedadCesantiasRC implements Serializable {
         modificarInfoRegistroEmpleados(listaEmpleadosNovedad.size());
         RequestContext context = RequestContext.getCurrentInstance();
         actuales = false;
-        PrimefacesContextUI.actualizar("form:datosEmpleados");
-        PrimefacesContextUI.actualizar("form:NOLIQUIDADAS");
+        RequestContext.getCurrentInstance().update("form:datosEmpleados");
+        RequestContext.getCurrentInstance().update("form:NOLIQUIDADAS");
     }
 
     public void novedadesCesantiasNoLiquidadas() {
@@ -270,8 +270,8 @@ public class ControlNovedadCesantiasRC implements Serializable {
         contarRegistrosNovedades();
         RequestContext context = RequestContext.getCurrentInstance();
         actuales = false;
-        PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
-        PrimefacesContextUI.actualizar("form:NOVNOLIQUIDADAS");
+        RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+        RequestContext.getCurrentInstance().update("form:NOVNOLIQUIDADAS");
     }
 
     public void novedadesTodas() {
@@ -282,8 +282,8 @@ public class ControlNovedadCesantiasRC implements Serializable {
         contarRegistrosNovedades();
         RequestContext context = RequestContext.getCurrentInstance();
         actuales = false;
-        PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
-        PrimefacesContextUI.actualizar("form:TODASNOV");
+        RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+        RequestContext.getCurrentInstance().update("form:TODASNOV");
     }
 
     public void modificarNovedadCesantias(NovedadesSistema novedadS, String confirmarCambio, String valorConfirmar) {
@@ -303,7 +303,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
@@ -316,13 +316,13 @@ public class ControlNovedadCesantiasRC implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
             }
 
-            PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
         } else if (confirmarCambio.equalsIgnoreCase("M")) {
             if (tipoLista == 0) {
                 if (!listaNovedadesCrear.contains(novedadSeleccionada)) {
@@ -333,7 +333,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
@@ -346,13 +346,13 @@ public class ControlNovedadCesantiasRC implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
             }
 
-            PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
         } else if (confirmarCambio.equalsIgnoreCase("MOTIVO")) {
             novedadSeleccionada.getMotivocesantia().setNombre(motivo);
             for (int i = 0; i < listaMotivosCesantiasLOV.size(); i++) {
@@ -371,7 +371,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
                 getListaMotivosCesantiasLOV();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:motivoscesantiasDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:motivoscesantiasDialogo");
                 PrimefacesContextUI.ejecutar("PF('motivoscesantiasDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -391,7 +391,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
             pasa++;
         }
         if (pasa != 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaNovedadEmpleado");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedadEmpleado");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaNovedadEmpleado').show()");
         }
 
@@ -414,7 +414,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
             modificarInfoRegistroMotivosNovedades(listaNovedades.size());
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             nuevaNovedad = new NovedadesSistema();
             nuevaNovedad.setEstado("ABIERTO");
@@ -424,7 +424,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
             nuevaNovedad.setSubtipo("DINERO");
             nuevaNovedad.setFechasistema(new Date());
             PrimefacesContextUI.ejecutar("PF('nuevanovedadpagoparcialcesantias').hide()");
-            PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
         } else {
         }
     }
@@ -453,7 +453,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
             duplicarNovedad.setBeneficiario(novedadSeleccionada.getBeneficiario());
             duplicarNovedad.setDias(BigInteger.valueOf(0));
 
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarNovedad");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNovedad");
             PrimefacesContextUI.ejecutar("PF('duplicarregistroNovedad').show()");
         } else {
             PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
@@ -475,7 +475,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         }
         System.out.println("Valor Pasa: " + pasa);
         if (pasa != 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaNovedadEmpleado");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedadEmpleado");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaNovedadEmpleado').show()");
         }
         if (pasa == 0) {
@@ -485,14 +485,14 @@ public class ControlNovedadCesantiasRC implements Serializable {
             modificarInfoRegistroMotivosNovedades(listaNovedades.size());
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 cargarTablaDefault();
             }
-            PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
             duplicarNovedad = new NovedadesSistema();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarregistroNovedad");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarregistroNovedad");
             PrimefacesContextUI.ejecutar("PF('duplicarregistroNovedad').hide()");
         }
     }
@@ -535,12 +535,12 @@ public class ControlNovedadCesantiasRC implements Serializable {
             observacion.setFilterStyle("width: 85%");
             beneficiarios = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:beneficiarios");
             beneficiarios.setFilterStyle("width: 85%");
-            PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
             cargarTablaDefault();
-            PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
         }
     }
 
@@ -564,9 +564,9 @@ public class ControlNovedadCesantiasRC implements Serializable {
         cualCelda = -1;
         activarMTodos = true;
 
-        PrimefacesContextUI.actualizar("form:datosEmpleados");
-        PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
-        PrimefacesContextUI.actualizar("form:btnMostrarTodos");
+        RequestContext.getCurrentInstance().update("form:datosEmpleados");
+        RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+        RequestContext.getCurrentInstance().update("form:btnMostrarTodos");
     }
 
     public void cargarTablaDefault() {
@@ -624,7 +624,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         tipoActualizacion = LND;
         contarRegistrosNovedades();
         if (dlg == 5) {
-            PrimefacesContextUI.actualizar("formularioDialogos:motivoscesantiasDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:motivoscesantiasDialogo");
             PrimefacesContextUI.ejecutar("PF('motivoscesantiasDialogo').show()");
         }
     }
@@ -633,7 +633,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         System.out.println("Entró a autocompletarVlrCesantias");
         if(retornarprovision() != null){
         nuevaNovedad.setValorcesantia(retornarprovisioncesantias().toBigInteger());
-        PrimefacesContextUI.actualizar("formularioDialogos:vlrcesantias");
+        RequestContext.getCurrentInstance().update("formularioDialogos:vlrcesantias");
         } else {
         PrimefacesContextUI.ejecutar("PF('formularioDialogos:validacionvlrcesantias");
         }
@@ -644,7 +644,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         System.out.println("Entró a autocompletarVlrIntCesantias");
         if(retornarprovision() != null){
         nuevaNovedad.setValorinterescesantia(retornarprovision().toBigInteger());
-        PrimefacesContextUI.actualizar("formularioDialogos:vlrintcesantias");
+        RequestContext.getCurrentInstance().update("formularioDialogos:vlrintcesantias");
         } else {
         PrimefacesContextUI.ejecutar("PF('formularioDialogos:validacionvlrintcesantias");
         }
@@ -654,7 +654,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         System.out.println("Entró a autocompletarVlrSolicitado");
         if(retornarprovision() != null && retornarprovisioncesantias() != null){
         nuevaNovedad.setValorsolicitado(sumarvalorsolicitado(nuevaNovedad.getValorcesantia(), nuevaNovedad.getValorinterescesantia()));
-        PrimefacesContextUI.actualizar("formularioDialogos:vlrsolicitado");
+        RequestContext.getCurrentInstance().update("formularioDialogos:vlrsolicitado");
         }
         else{
         PrimefacesContextUI.ejecutar("PF('formularioDialogos:validacionvlrsolicitado");
@@ -664,19 +664,19 @@ public class ControlNovedadCesantiasRC implements Serializable {
     public void autocompletarduplicarVlrSolicitado() {
         System.out.println("Entró a autocompletarduplicarVlrSolicitado");
         duplicarNovedad.setValorsolicitado(sumarvalorsolicitado(duplicarNovedad.getValorcesantia(), duplicarNovedad.getValorinterescesantia()));
-        PrimefacesContextUI.actualizar("formularioDialogos:duplicarvlrsolicitado");
+        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarvlrsolicitado");
     }
 
     public void autocompletarduplicarVlrIntCesantias() {
         System.out.println("Entró a autocompletarduplicaVlrIntCesantias");
         duplicarNovedad.setValorinterescesantia(retornarprovision().toBigInteger());
-        PrimefacesContextUI.actualizar("formularioDialogos:duplicarvlrintcesantias");
+        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarvlrintcesantias");
     }
 
     public void autocompletarduplicarVlrCesantias() {
         System.out.println("Entró a autocompletarduplicaVlrCesantias");
         duplicarNovedad.setValorcesantia(retornarprovisioncesantias().toBigInteger());
-        PrimefacesContextUI.actualizar("formularioDialogos:duplicarvlrcesantias");
+        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarvlrcesantias");
     }
 
     public void cambiarEmpleado() {
@@ -692,10 +692,10 @@ public class ControlNovedadCesantiasRC implements Serializable {
 //            System.out.println("lista cesantias:  " + getCesantias());
 //            System.out.println("lista Intcesantias:  " + getIntcesantias());
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:cambiar");
+            RequestContext.getCurrentInstance().update("formularioDialogos:cambiar");
             PrimefacesContextUI.ejecutar("PF('cambiar').show()");
         }
     }
@@ -706,7 +706,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
             empleadoSeleccionadoLOV = null;
             modificarInfoRegistroEmpleadosLov(listaEmpleadosLOV.size());
             contarRegistrosNovedades();
-            PrimefacesContextUI.actualizar("formularioDialogos:empleadosDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
             PrimefacesContextUI.ejecutar("PF('empleadosDialogo').show()");
         }
     }
@@ -731,10 +731,10 @@ public class ControlNovedadCesantiasRC implements Serializable {
         context.reset("formularioDialogos:LOVEmpleados:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVEmpleados').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('empleadosDialogo').hide()");
-        PrimefacesContextUI.actualizar("formularioDialogos:LOVEmpleados");
-        PrimefacesContextUI.actualizar("form:datosEmpleados");
-        PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
-        PrimefacesContextUI.actualizar("form:btnMostrarTodos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVEmpleados");
+        RequestContext.getCurrentInstance().update("form:datosEmpleados");
+        RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+        RequestContext.getCurrentInstance().update("form:btnMostrarTodos");
     }
 
     public void actualizarMotivosCesantias() {
@@ -751,16 +751,16 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("formularioDialogos:motivoces");
+            RequestContext.getCurrentInstance().update("formularioDialogos:motivoces");
         } else if (tipoActualizacion == 1) {
             nuevaNovedad.setMotivocesantia(motivoCesantiaSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:motivoces");
+            RequestContext.getCurrentInstance().update("formularioDialogos:motivoces");
         } else if (tipoActualizacion == 2) {
             duplicarNovedad.setMotivocesantia(motivoCesantiaSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarmotivoces");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarmotivoces");
         }
         listaFiltrarMotivosCesantiasLOV = null;
         motivoCesantiaSeleccionado = null;
@@ -770,7 +770,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         context.reset("formularioDialogos:lovmotivoscesantias:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovmotivoscesantias').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('motivoscesantiasDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVPeriodos");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVPeriodos");
     }
 
     public BigInteger sumarvalorsolicitado(BigInteger valorcesantia, BigInteger valorintcesantia) {
@@ -779,7 +779,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         valorsolicitado = valorcesantia.add(valorintcesantia);
         System.out.println("El valor solicitado es : " + valorsolicitado);
         return valorsolicitado;
-        // PrimefacesContextUI.actualizar("formularioDialogos:nuevaNovedad");
+        // RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
     }
 
     public void cancelarCambioSaldoCesantias() {
@@ -823,12 +823,12 @@ public class ControlNovedadCesantiasRC implements Serializable {
                 listaFiltrarNovedades.remove(novedadSeleccionada);
             }
             modificarInfoRegistroMotivosNovedades(listaNovedades.size());
-            PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
             novedadSeleccionada = null;
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
             PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
@@ -884,13 +884,13 @@ public class ControlNovedadCesantiasRC implements Serializable {
             getListaNovedades();
             contarRegistrosNovedades();
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
             guardado = true;
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
             k = 0;
         }
         System.out.println("Valor k: " + k);
@@ -966,8 +966,8 @@ public class ControlNovedadCesantiasRC implements Serializable {
         empleadoSeleccionado = null;
         novedadSeleccionada = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
-        PrimefacesContextUI.actualizar("form:datosEmpleados");
+        RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosEmpleados");
     }
 
     public void salir() {
@@ -995,7 +995,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         novedadSeleccionada = null;
         listaNovedades = null;
         activarMTodos = true;
-        PrimefacesContextUI.actualizar("form:datosNovedadesEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
     }
 
     public void eventoFiltrar() {
@@ -1008,22 +1008,22 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
     public void modificarInfoRegistroNovedades(int valor) {
         infoRegistroNovedadCesantias = String.valueOf(valor);
-        PrimefacesContextUI.actualizar("form:infoRegistroNovedad");
+        RequestContext.getCurrentInstance().update("form:infoRegistroNovedad");
     }
 
     public void modificarInfoRegistroEmpleados(int valor) {
         infoRegistroEmpleados = String.valueOf(valor);
-        PrimefacesContextUI.actualizar("form:infoRegistroEmpleados");
+        RequestContext.getCurrentInstance().update("form:infoRegistroEmpleados");
     }
 
     public void modificarInfoRegistroEmpleadosLov(int valor) {
         infoRegistroEmpleadosLov = String.valueOf(valor);
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroEmpleadosLOV");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEmpleadosLOV");
     }
 
     public void modificarInfoRegistroMotivosNovedades(int valor) {
         infoRegistroMotivosCesantias = String.valueOf(valor);
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroMotivosNovedades");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroMotivosNovedades");
     }
 
     public void contarRegistrosNovedades() {
@@ -1040,7 +1040,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
         if (empleadoSeleccionado != null) {
             System.out.println("empleadoSeleccionado : " + empleadoSeleccionado.getSecuencia());
-            PrimefacesContextUI.actualizar(":formularioDialogos:nuevaNovedad");
+            RequestContext.getCurrentInstance().update(":formularioDialogos:nuevaNovedad");
             PrimefacesContextUI.ejecutar("PF('nuevanovedadpagoparcialcesantias').show()");
         } else {
             PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
@@ -1125,21 +1125,21 @@ public class ControlNovedadCesantiasRC implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaNovedad.setMotivocesantia(listaMotivosCesantiasLOV.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigencias");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigencias");
                 } else if (tipoNuevo == 2) {
                     duplicarNovedad.setMotivocesantia(listaMotivosCesantiasLOV.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigencias");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigencias");
                 }
                 listaMotivosCesantiasLOV.clear();
                 getListaMotivosCesantiasLOV();
             } else {
-                PrimefacesContextUI.actualizar("form:motivoscesantiasDialogo");
+                RequestContext.getCurrentInstance().update("form:motivoscesantiasDialogo");
                 PrimefacesContextUI.ejecutar("PF('motivoscesantiasDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevanovedadpagoparcialcesantias");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevanovedadpagoparcialcesantias");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarregistroNovedad");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarregistroNovedad");
                 }
             }
         }

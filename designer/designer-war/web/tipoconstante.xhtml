@@ -99,7 +99,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="PF('#{controlTipoConstante.revisarTipo(indice)}" readonly="#{controlTipoConstante.numericoB}" value="#{tc.valorreal}" id="editarValoresReales" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height:12px"> 
+                                            <p:inputText onclick="#{controlTipoConstante.revisarTipo(indice)}" readonly="#{controlTipoConstante.numericoB}" value="#{tc.valorreal}" id="editarValoresReales" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height:12px"> 
                                                 <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(indice, 3)}" />
                                                 <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.valorreal)}" update="@this" />
                                             </p:inputText> 
@@ -139,7 +139,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="PF('#{controlTipoConstante.revisarTipo(indice)}" readonly="#{controlTipoConstante.cadenaB}" value="#{tc.valorstring}" id="editarValoresCadenas" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase"> 
+                                            <p:inputText onclick="#{controlTipoConstante.revisarTipo(indice)}" readonly="#{controlTipoConstante.cadenaB}" value="#{tc.valorstring}" id="editarValoresCadenas" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(indice, 5)}" />
                                                 <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.valorstring)}" update="@this" />
                                             </p:inputText> 
@@ -279,7 +279,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['valorrealN']}" style=" position: absolute; top: 205px;" /></strong>
-                            <p:inputText onclick="PF('#{controlTipoConstante.revisarTipoN()}" readonly="#{controlTipoConstante.numericoBN}" id="nuevoValorReal" value="#{controlTipoConstante.nuevoTipoConstante.valorreal}" style=" width: 122px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" >
+                            <p:inputText onclick="#{controlTipoConstante.revisarTipoN()}" readonly="#{controlTipoConstante.numericoBN}" id="nuevoValorReal" value="#{controlTipoConstante.nuevoTipoConstante.valorreal}" style=" width: 122px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -293,7 +293,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['valorcadenaN']}" style=" position: absolute; top: 285px;" /></strong>
-                            <p:inputText onclick="PF('#{controlTipoConstante.revisarTipoN()}" readonly="#{controlTipoConstante.cadenaBN}" id="nuevoValorCadena" value="#{controlTipoConstante.nuevoTipoConstante.valorstring}" style=" width: 122px; position: absolute; left: 150px; top: 280px; text-transform: uppercase">
+                            <p:inputText onclick="#{controlTipoConstante.revisarTipoN()}" readonly="#{controlTipoConstante.cadenaBN}" id="nuevoValorCadena" value="#{controlTipoConstante.nuevoTipoConstante.valorstring}" style=" width: 122px; position: absolute; left: 150px; top: 280px; text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -336,7 +336,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['valorrealN']}" style=" position: absolute; top: 205px;" /></strong>
-                            <p:inputText onclick="PF('#{controlTipoConstante.revisarTipoD()}" readonly="#{controlTipoConstante.numericoBD}" id="duplicarValorReal" value="#{controlTipoConstante.duplicarTipoConstante.valorreal}" style=" width: 122px; position: absolute; left: 150px; top: 200px; text-transform: uppercase">
+                            <p:inputText onclick="#{controlTipoConstante.revisarTipoD()}" readonly="#{controlTipoConstante.numericoBD}" id="duplicarValorReal" value="#{controlTipoConstante.duplicarTipoConstante.valorreal}" style=" width: 122px; position: absolute; left: 150px; top: 200px; text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -350,7 +350,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['valorcadenaN']}" style=" position: absolute; top: 285px;" /></strong>
-                            <p:inputText onclick="PF('#{controlTipoConstante.revisarTipoD()}" readonly="#{controlTipoConstante.cadenaBD}" id="duplicarValorCadena" value="#{controlTipoConstante.duplicarTipoConstante.valorstring}" style=" width: 122px; position: absolute; left: 150px; top: 265px; text-transform: uppercase">
+                            <p:inputText onclick="#{controlTipoConstante.revisarTipoD()}" readonly="#{controlTipoConstante.cadenaBD}" id="duplicarValorCadena" value="#{controlTipoConstante.duplicarTipoConstante.valorstring}" style=" width: 122px; position: absolute; left: 150px; top: 265px; text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 

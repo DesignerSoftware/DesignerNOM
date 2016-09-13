@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Conceptos;
 import Entidades.Empleados;
 import Entidades.ErroresLiquidacion;
@@ -30,7 +31,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -106,7 +106,7 @@ public class ControlErroresLiquidacion implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarErroresLiquidacion.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlErroresLiquidacion eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -196,7 +196,7 @@ public class ControlErroresLiquidacion implements Serializable {
                 }
             }
 
-            PrimefacesContextUI.actualizar("form:datosErroresLiquidacion");
+            RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
 
         }
 
@@ -405,7 +405,7 @@ public class ControlErroresLiquidacion implements Serializable {
 
             }
         }
-        PrimefacesContextUI.actualizar("form:datosErroresLiquidacion");
+        RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
     }
 
     public void asignarIndex(Integer indice, int LND, int dig) {
@@ -454,7 +454,7 @@ public class ControlErroresLiquidacion implements Serializable {
             error.setFilterStyle("display: none; visibility: hidden;");
             paquete = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:paquete");
             paquete.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosErroresLiquidacion");
+            RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
             bandera = 0;
             filtrarErroresLiquidacion = null;
             tipoLista = 0;
@@ -477,9 +477,9 @@ public class ControlErroresLiquidacion implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listErroresLiquidacion.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosErroresLiquidacion");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -504,9 +504,9 @@ public class ControlErroresLiquidacion implements Serializable {
             error.setFilterStyle("display: none; visibility: hidden;");
             paquete = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:paquete");
             paquete.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosErroresLiquidacion");
+            RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
 
-            PrimefacesContextUI.actualizar("form:datosErroresLiquidacion");
+            RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
             bandera = 0;
             filtrarErroresLiquidacion = null;
             tipoLista = 0;
@@ -523,8 +523,8 @@ public class ControlErroresLiquidacion implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosErroresLiquidacion");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void borrandoErroresLiquidaciones() {
@@ -562,9 +562,9 @@ public class ControlErroresLiquidacion implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosErroresLiquidacion");
+            RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
             infoRegistro = "Cantidad de registros: " + listErroresLiquidacion.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             index = -1;
             secRegistro = null;
@@ -572,7 +572,7 @@ public class ControlErroresLiquidacion implements Serializable {
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -599,7 +599,7 @@ public class ControlErroresLiquidacion implements Serializable {
             error.setFilterStyle("width: 85%;");
             paquete = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:paquete");
             paquete.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosErroresLiquidacion");
+            RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
 
             System.out.println("Activar");
             bandera = 1;
@@ -624,9 +624,9 @@ public class ControlErroresLiquidacion implements Serializable {
             error.setFilterStyle("display: none; visibility: hidden;");
             paquete = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:paquete");
             paquete.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosErroresLiquidacion");
+            RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
 
-            PrimefacesContextUI.actualizar("form:datosErroresLiquidacion");
+            RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
             bandera = 0;
             filtrarErroresLiquidacion = null;
             tipoLista = 0;
@@ -645,39 +645,39 @@ public class ControlErroresLiquidacion implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicial");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicial");
                 PrimefacesContextUI.ejecutar("PF('editarFechaInicial').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaHasta");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaHasta");
                 PrimefacesContextUI.ejecutar("PF('editarFechaHasta').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarEmpleado");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarEmpleado");
                 PrimefacesContextUI.ejecutar("PF('editarEmpleado').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTipoCentroCosto");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoCentroCosto");
                 PrimefacesContextUI.ejecutar("PF('editarTipoCentroCosto').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarConcepto");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarConcepto");
                 PrimefacesContextUI.ejecutar("PF('editarConcepto').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFormula");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFormula");
                 PrimefacesContextUI.ejecutar("PF('editarFormula').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaE");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaE");
                 PrimefacesContextUI.ejecutar("PF('editarFechaE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarErrorE");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarErrorE");
                 PrimefacesContextUI.ejecutar("PF('editarErrorE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 8) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarPaqueteE");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarPaqueteE");
                 PrimefacesContextUI.ejecutar("PF('editarPaqueteE').show()");
                 cualCelda = -1;
             }
@@ -698,14 +698,14 @@ public class ControlErroresLiquidacion implements Serializable {
     public void revisarDialogoGuardar() {
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:confirmarGuardar");
+        RequestContext.getCurrentInstance().update("form:confirmarGuardar");
         PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
     }
 
     public void revisarDialogoBorrarTodo() {
         if (listErroresLiquidacion != null) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarBorrarTodo");
+            RequestContext.getCurrentInstance().update("form:confirmarBorrarTodo");
             PrimefacesContextUI.ejecutar("PF('confirmarBorrarTodo').show()");
         }
     }
@@ -720,11 +720,11 @@ public class ControlErroresLiquidacion implements Serializable {
         borrarTodo = true;
         listErroresLiquidacion = null;
         getListErroresLiquidacion();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("form:BORRARTODO");
-        PrimefacesContextUI.actualizar("form:datosErroresLiquidacion");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:BORRARTODO");
+        RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
         infoRegistro = "Cantidad de registros: " + listErroresLiquidacion.size();
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
     }
 
@@ -737,21 +737,21 @@ public class ControlErroresLiquidacion implements Serializable {
                 administrarErroresLiquidacion.borrarErroresLiquidaciones(borrarErroresLiquidacion);
                 //mostrarBorrados
                 registrosBorrados = borrarErroresLiquidacion.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarErroresLiquidacion.clear();
             }
             System.out.println("Se guardaron los datos con exito");
             listErroresLiquidacion = null;
-            PrimefacesContextUI.actualizar("form:datosErroresLiquidacion");
+            RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
             k = 0;
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -823,8 +823,8 @@ public class ControlErroresLiquidacion implements Serializable {
             infoRegistro = "Cantidad de registros: " + listErroresLiquidacion.size();
             borrarTodo = false;
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:BORRARTODO");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:BORRARTODO");
 
         return listErroresLiquidacion;
     }

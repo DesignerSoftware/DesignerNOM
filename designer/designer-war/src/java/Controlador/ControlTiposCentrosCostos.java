@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.GruposTiposCC;
 import Entidades.TiposCentrosCostos;
 import Exportar.ExportarPDF;
@@ -26,7 +27,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -126,7 +126,7 @@ public class ControlTiposCentrosCostos implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarTiposCentrosCostos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlTiposCentrosCostos eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -189,7 +189,7 @@ public class ControlTiposCentrosCostos implements Serializable {
             System.out.println("dig: " + dig);
 
             if (dig == 2) {
-                PrimefacesContextUI.actualizar("form:gruposTiposCentrosCostosDialogo");
+                RequestContext.getCurrentInstance().update("form:gruposTiposCentrosCostosDialogo");
                 PrimefacesContextUI.ejecutar("PF('gruposTiposCentrosCostosDialogo').show()");
                 dig = -1;
             }
@@ -207,7 +207,7 @@ public class ControlTiposCentrosCostos implements Serializable {
         if (index >= 0) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("form:gruposTiposCentrosCostosDialogo");
+                RequestContext.getCurrentInstance().update("form:gruposTiposCentrosCostosDialogo");
                 PrimefacesContextUI.ejecutar("PF('gruposTiposCentrosCostosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -244,14 +244,14 @@ public class ControlTiposCentrosCostos implements Serializable {
                 guardado = false;
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosTipoEntidad");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosTipoEntidad");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else if (tipoActualizacion == 1) {
             nuevoTipoCentroCosto.setGrupotipocc(grupoTipoCCSeleccionada);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoCentroCosto");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoCentroCosto");
         } else if (tipoActualizacion == 2) {
             duplicarTipoCentroCosto.setGrupotipocc(grupoTipoCCSeleccionada);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTiposCentrosCostos");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTiposCentrosCostos");
         }
         filtradoGruposTiposCC = null;
         grupoTipoCCSeleccionada = null;
@@ -263,7 +263,7 @@ public class ControlTiposCentrosCostos implements Serializable {
         context.reset("form:lovGruposTiposCC:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovGruposTiposCC').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('gruposTiposCentrosCostosDialogo').hide()");
-        //PrimefacesContextUI.actualizar("form:lovGruposTiposCC");
+        //RequestContext.getCurrentInstance().update("form:lovGruposTiposCC");
     }
 
     public void cancelarCambioGrupoTipoCC() {
@@ -291,7 +291,7 @@ public class ControlTiposCentrosCostos implements Serializable {
             nombre.setFilterStyle("display: none; visibility: hidden;");
             grupoTipoCC = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:grupoTipoCC");
             grupoTipoCC.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTipoCentroCosto");
+            RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
             bandera = 0;
             filtrarTiposCentrosCostos = null;
             tipoLista = 0;
@@ -313,9 +313,9 @@ public class ControlTiposCentrosCostos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listTiposCentrosCostos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosTipoCentroCosto");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -328,7 +328,7 @@ public class ControlTiposCentrosCostos implements Serializable {
             nombre.setFilterStyle("display: none; visibility: hidden;");
             grupoTipoCC = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:grupoTipoCC");
             grupoTipoCC.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTipoCentroCosto");
+            RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
             bandera = 0;
             filtrarTiposCentrosCostos = null;
             tipoLista = 0;
@@ -350,9 +350,9 @@ public class ControlTiposCentrosCostos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listTiposCentrosCostos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosTipoCentroCosto");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
     //-----------------------------------------------------------------------
 
@@ -407,7 +407,7 @@ public class ControlTiposCentrosCostos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -445,7 +445,7 @@ public class ControlTiposCentrosCostos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -497,7 +497,7 @@ public class ControlTiposCentrosCostos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -542,7 +542,7 @@ public class ControlTiposCentrosCostos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -550,7 +550,7 @@ public class ControlTiposCentrosCostos implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosTipoCentroCosto");
+            RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
         } else if (confirmarCambio.equalsIgnoreCase("GRUPOSTIPOSCC")) {
             System.err.println("ENTRE A MODIFICAR TIPO CENTRO COSTO, CONFIRMAR CAMBIO ES GRUPOSTIPOSCC");
             if (tipoLista == 0) {
@@ -578,13 +578,13 @@ public class ControlTiposCentrosCostos implements Serializable {
                 getListaGruposTiposCC();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("form:gruposTiposCentrosCostosDialogo");
+                RequestContext.getCurrentInstance().update("form:gruposTiposCentrosCostosDialogo");
                 PrimefacesContextUI.ejecutar("PF('gruposTiposCentrosCostosDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
-        PrimefacesContextUI.actualizar("form:datosTipoCentroCosto");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
     //------------------------------------------------------------------------- 
@@ -599,7 +599,7 @@ public class ControlTiposCentrosCostos implements Serializable {
             nombre.setFilterStyle("width: 85%;");
             grupoTipoCC = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:grupoTipoCC");
             grupoTipoCC.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosTipoCentroCosto");
+            RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -611,7 +611,7 @@ public class ControlTiposCentrosCostos implements Serializable {
             nombre.setFilterStyle("display: none; visibility: hidden;");
             grupoTipoCC = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:grupoTipoCC");
             grupoTipoCC.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTipoCentroCosto");
+            RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
             bandera = 0;
             filtrarTiposCentrosCostos = null;
             tipoLista = 0;
@@ -649,22 +649,22 @@ public class ControlTiposCentrosCostos implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoTipoCentroCosto.setGrupotipocc(listaGruposTiposCC.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoGrupoTipoCC");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoGrupoTipoCC");
                 } else if (tipoNuevo == 2) {
                     duplicarTipoCentroCosto.setGrupotipocc(listaGruposTiposCC.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarGrupoTipoCentroCosto");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarGrupoTipoCentroCosto");
                 }
                 listaGruposTiposCC.clear();
                 listaGruposTiposCC = null;
                 getListaGruposTiposCC();
             } else {
-                PrimefacesContextUI.actualizar("form:gruposTiposCentrosCostosDialogo");
+                RequestContext.getCurrentInstance().update("form:gruposTiposCentrosCostosDialogo");
                 PrimefacesContextUI.ejecutar("PF('gruposTiposCentrosCostosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoGrupoTipoCC");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoGrupoTipoCC");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarGrupoTipoCentroCosto");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarGrupoTipoCentroCosto");
                 }
             }
         }
@@ -679,7 +679,7 @@ public class ControlTiposCentrosCostos implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:gruposTiposCentrosCostosDialogo");
+        RequestContext.getCurrentInstance().update("form:gruposTiposCentrosCostosDialogo");
         PrimefacesContextUI.ejecutar("PF('gruposTiposCentrosCostosDialogo').show()");
     }
 
@@ -764,7 +764,7 @@ public class ControlTiposCentrosCostos implements Serializable {
                 nombre.setFilterStyle("display: none; visibility: hidden;");
                 grupoTipoCC = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:grupoTipoCC");
                 grupoTipoCC.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosTipoCentroCosto");
+                RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
                 bandera = 0;
                 filtrarTiposCentrosCostos = null;
                 tipoLista = 0;
@@ -781,17 +781,17 @@ public class ControlTiposCentrosCostos implements Serializable {
             nuevoTipoCentroCosto.setGrupotipocc(new GruposTiposCC());
 
             infoRegistro = "Cantidad de registros: " + listTiposCentrosCostos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosTipoCentroCosto");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroTipoCentroCosto').hide()");
             index = -1;
             secRegistro = null;
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -810,12 +810,12 @@ public class ControlTiposCentrosCostos implements Serializable {
         if (tipoNuevo == 0) {
             tipoActualizacion = 1;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:gruposTiposCentrosCostosDialogo");
+            RequestContext.getCurrentInstance().update("form:gruposTiposCentrosCostosDialogo");
             PrimefacesContextUI.ejecutar("PF('gruposTiposCentrosCostosDialogo').show()");
         } else if (tipoNuevo == 1) {
             tipoActualizacion = 2;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:gruposTiposCentrosCostosDialogo");
+            RequestContext.getCurrentInstance().update("form:gruposTiposCentrosCostosDialogo");
             PrimefacesContextUI.ejecutar("PF('gruposTiposCentrosCostosDialogo').show()");
         }
     }
@@ -830,7 +830,7 @@ public class ControlTiposCentrosCostos implements Serializable {
 
                 //mostrarBorrados
                 registrosBorrados = borrarTiposCentrosCostos.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarTiposCentrosCostos.clear();
             }
@@ -850,15 +850,15 @@ public class ControlTiposCentrosCostos implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listTiposCentrosCostos = null;
-            PrimefacesContextUI.actualizar("form:datosTipoCentroCosto");
+            RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
             k = 0;
             guardado = true;
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -883,7 +883,7 @@ public class ControlTiposCentrosCostos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTiposCentrosCostos");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTiposCentrosCostos");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposCentrosCostos').show()");
             index = -1;
             secRegistro = null;
@@ -943,15 +943,15 @@ public class ControlTiposCentrosCostos implements Serializable {
             }
             listTiposCentrosCostos.add(duplicarTipoCentroCosto);
             crearTiposCentrosCostos.add(duplicarTipoCentroCosto);
-            PrimefacesContextUI.actualizar("form:datosTipoCentroCosto");
+            RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
 
             infoRegistro = "Cantidad de registros: " + listTiposCentrosCostos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -962,7 +962,7 @@ public class ControlTiposCentrosCostos implements Serializable {
                 nombre.setFilterStyle("display: none; visibility: hidden;");
                 grupoTipoCC = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:grupoTipoCC");
                 grupoTipoCC.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosTipoCentroCosto");
+                RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
                 bandera = 0;
                 filtrarTiposCentrosCostos = null;
                 tipoLista = 0;
@@ -973,7 +973,7 @@ public class ControlTiposCentrosCostos implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -995,15 +995,15 @@ public class ControlTiposCentrosCostos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editNombre");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editNombre");
                 PrimefacesContextUI.ejecutar("PF('editNombre').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editGrupoTipoCC");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editGrupoTipoCC");
                 PrimefacesContextUI.ejecutar("PF('editGrupoTipoCC').show()");
                 cualCelda = -1;
             }
@@ -1052,7 +1052,7 @@ public class ControlTiposCentrosCostos implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
                 borradoCC = new BigInteger("-1");
@@ -1106,14 +1106,14 @@ public class ControlTiposCentrosCostos implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listTiposCentrosCostos.size();
             }
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosTipoCentroCosto");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
 
@@ -1163,7 +1163,7 @@ public class ControlTiposCentrosCostos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listTiposCentrosCostos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listTiposCentrosCostos;
     }
 
@@ -1197,7 +1197,7 @@ public class ControlTiposCentrosCostos implements Serializable {
         } else {
             infoRegistroTiposCentrosCostos = "Cantidad de registros: " + listaGruposTiposCC.size();
         }
-        PrimefacesContextUI.actualizar("form:infoRegistroTiposCentrosCostos");
+        RequestContext.getCurrentInstance().update("form:infoRegistroTiposCentrosCostos");
         return listaGruposTiposCC;
     }
 

@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Empleados;
 import Entidades.VWVacaPendientesEmpleados;
 import Exportar.ExportarPDF;
@@ -23,7 +24,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -160,10 +160,10 @@ public class ControlEmplVacaPendiente implements Serializable {
             totalDiasPendientes = BigInteger.valueOf(0);
             getTotalDiasPendientes();
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado:totalDiasP");
+            RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado:totalDiasP");
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
         if (tipoTabla == 2) {//Para listVacaDisfrutadas
@@ -173,7 +173,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -189,12 +189,12 @@ public class ControlEmplVacaPendiente implements Serializable {
                     retorno = validarTraslapos(regVacaAuxiliar);
                 } else {
                     retorno = false;
-                    PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+                    RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                     PrimefacesContextUI.ejecutar("PF('errorFechaContratacion').show()");
                 }
             } else {
                 retorno = false;
-                PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                 PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         }
@@ -207,12 +207,12 @@ public class ControlEmplVacaPendiente implements Serializable {
                     retorno = validarTraslapos(nuevaVacacion);
                 } else {
                     retorno = false;
-                    PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+                    RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                     PrimefacesContextUI.ejecutar("PF('errorFechaContratacion').show()");
                 }
             } else {
                 retorno = false;
-                PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                 PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         }
@@ -224,12 +224,12 @@ public class ControlEmplVacaPendiente implements Serializable {
                     retorno = validarTraslapos(duplicarVacacion);
                 } else {
                     retorno = false;
-                    PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+                    RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                     PrimefacesContextUI.ejecutar("PF('errorFechaContratacion').show()");
                 }
             } else {
                 retorno = false;
-                PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                 PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         }
@@ -246,12 +246,12 @@ public class ControlEmplVacaPendiente implements Serializable {
                 retorno = validarTraslapos(regVacaAuxiliar);
             } else {
                 retorno = false;
-                PrimefacesContextUI.actualizar("form:datosVacacionesDEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
                 PrimefacesContextUI.ejecutar("PF('errorFechaContratacion').show()");
             }
         } else {
             retorno = false;
-            PrimefacesContextUI.actualizar("form:datosVacacionesDEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
             PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
         }
         return retorno;
@@ -293,12 +293,12 @@ public class ControlEmplVacaPendiente implements Serializable {
                 respuesta = true;
             } else {
                 respuesta = false;
-                PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                 PrimefacesContextUI.ejecutar("PF('errorFechaContratacionTras').show()");
             }
         } else {
             respuesta = false;
-            PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
             PrimefacesContextUI.ejecutar("PF('errorFechaContratacionMargenAnio').show()");
         }
         return respuesta;
@@ -321,7 +321,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             }
         } else {
             revertir = true;
-            PrimefacesContextUI.actualizar("form:datosVacacionesDEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
             PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
         regVacaAuxiliar = null;
@@ -351,7 +351,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             }
         } else {
             revertir = true;
-            PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
             PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
         regVacaAuxiliar = null;
@@ -382,7 +382,7 @@ public class ControlEmplVacaPendiente implements Serializable {
                     vacacionesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesFechaInicial");
                     vacacionesFechaInicial.setFilterStyle("display: none; visibility: hidden;");
                     altoTabla1 = "275";
-                    PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+                    RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                     banderaPendientes = 0;
                     filtrarListVacaPendientes = null;
                     tipoListaPendientes = 0;
@@ -406,14 +406,14 @@ public class ControlEmplVacaPendiente implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 getTotalDiasPendientes();
                 tipoActualizacion = -1;
-                PrimefacesContextUI.actualizar("form:totalDiasP");
-                PrimefacesContextUI.actualizar("form:informacionRegistroP");
-                PrimefacesContextUI.actualizar("form:informacionRegistroD");
-                PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+                RequestContext.getCurrentInstance().update("form:totalDiasP");
+                RequestContext.getCurrentInstance().update("form:informacionRegistroP");
+                RequestContext.getCurrentInstance().update("form:informacionRegistroD");
+                RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                 PrimefacesContextUI.ejecutar("PF('NuevoRegistroVP').hide()");
                 if (guardado) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         } else {//Si hay datos obligatorios nulos
@@ -441,7 +441,7 @@ public class ControlEmplVacaPendiente implements Serializable {
                 duplicarVacacion.setFinalcausacion(vacaPendienteSeleccionada.getFinalcausacion());
 
                 //Dialogo Duplicar VacaPendiente
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarVP");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVP");
                 PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVP').show()");
             }
         }
@@ -464,7 +464,7 @@ public class ControlEmplVacaPendiente implements Serializable {
                     vacacionesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesFechaInicial");
                     vacacionesFechaInicial.setFilterStyle("display: none; visibility: hidden;");
                     altoTabla1 = "275";
-                    PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+                    RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                     banderaPendientes = 0;
                     filtrarListVacaPendientes = null;
                     tipoListaPendientes = 0;
@@ -479,14 +479,14 @@ public class ControlEmplVacaPendiente implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 getTotalDiasPendientes();
                 tipoActualizacion = -1;
-                PrimefacesContextUI.actualizar("form:totalDiasP");
-                PrimefacesContextUI.actualizar("form:informacionRegistroP");
-                PrimefacesContextUI.actualizar("form:informacionRegistroD");
-                PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+                RequestContext.getCurrentInstance().update("form:totalDiasP");
+                RequestContext.getCurrentInstance().update("form:informacionRegistroP");
+                RequestContext.getCurrentInstance().update("form:informacionRegistroD");
+                RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                 PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVP').hide()");
                 if (guardado) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         } else {
@@ -520,12 +520,12 @@ public class ControlEmplVacaPendiente implements Serializable {
                         filtrarListVacaPendientes.remove(vacaPendienteSeleccionada);
                     }
                 }
-                PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                 getTotalDiasPendientes();
-                PrimefacesContextUI.actualizar("form:totalDiasP");
+                RequestContext.getCurrentInstance().update("form:totalDiasP");
                 if (guardado) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
             if (tipoTabla == 2) {
@@ -542,10 +542,10 @@ public class ControlEmplVacaPendiente implements Serializable {
                         filtrarListVacaDisfrutadas.remove(vacaDisfrutadaSeleccionada);
                     }
                 }
-                PrimefacesContextUI.actualizar("form:datosVacacionesDEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
                 if (guardado) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         }
@@ -553,8 +553,8 @@ public class ControlEmplVacaPendiente implements Serializable {
         vacaDisfrutadaSeleccionada = null;
         contarRegistrosP();
         contarRegistrosD();
-        PrimefacesContextUI.actualizar("form:informacionRegistroD");
-        PrimefacesContextUI.actualizar("form:informacionRegistroP");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroD");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroP");
     }
 
     public void cancelarModificaciones() {
@@ -567,7 +567,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaFinalD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesFechaFinalD");
             vacacionesFechaFinalD.setFilterStyle("display: none; visibility: hidden;");
             altoTabla2 = "275";
-            PrimefacesContextUI.actualizar("form:datosVacacionesDEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
             banderaDisfrutadas = 0;
             filtrarListVacaDisfrutadas = null;
             tipoListaDisfrutadas = 0;
@@ -580,7 +580,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesFechaInicial");
             vacacionesFechaInicial.setFilterStyle("display: none; visibility: hidden;");
             altoTabla1 = "275";
-            PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
             banderaPendientes = 0;
             filtrarListVacaPendientes = null;
             tipoListaPendientes = 0;
@@ -606,13 +606,13 @@ public class ControlEmplVacaPendiente implements Serializable {
         contarRegistrosD();
         contarRegistrosP();
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("form:totalDiasP");
-        PrimefacesContextUI.actualizar("form:informacionRegistroP");
-        PrimefacesContextUI.actualizar("form:informacionRegistroD");
-        PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
-        PrimefacesContextUI.actualizar("form:datosVacacionesDEmpleado");
-        PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado:totalDiasP");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:totalDiasP");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroP");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroD");
+        RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado:totalDiasP");
 
     }
 
@@ -635,7 +635,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesFechaInicial");
             vacacionesFechaInicial.setFilterStyle("width: 85%");
             altoTabla1 = "255";
-            PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
             banderaPendientes = 1;
         } else if (banderaPendientes == 1) {
             vacacionesDP = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesDP");
@@ -645,7 +645,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesFechaInicial");
             vacacionesFechaInicial.setFilterStyle("display: none; visibility: hidden;");
             altoTabla1 = "275";
-            PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
             banderaPendientes = 0;
             filtrarListVacaPendientes = null;
             tipoListaPendientes = 0;
@@ -662,7 +662,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaFinalD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesFechaFinalD");
             vacacionesFechaFinalD.setFilterStyle("width: 85%");
             altoTabla2 = "255";
-            PrimefacesContextUI.actualizar("form:datosVacacionesDEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
             banderaDisfrutadas = 1;
         } else if (banderaDisfrutadas == 1) {
             vacacionesDPD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesDPD");
@@ -672,7 +672,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaFinalD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesFechaFinalD");
             vacacionesFechaFinalD.setFilterStyle("display: none; visibility: hidden;");
             altoTabla2 = "275";
-            PrimefacesContextUI.actualizar("form:datosVacacionesDEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
             banderaDisfrutadas = 0;
             filtrarListVacaDisfrutadas = null;
             tipoListaDisfrutadas = 0;
@@ -697,14 +697,14 @@ public class ControlEmplVacaPendiente implements Serializable {
                 vacacionesFechaFinalD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesFechaFinalD");
                 vacacionesFechaFinalD.setFilterStyle("display: none; visibility: hidden;");
                 altoTabla2 = "275";
-                PrimefacesContextUI.actualizar("form:datosVacacionesDEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
                 banderaDisfrutadas = 0;
                 filtrarListVacaDisfrutadas = null;
                 tipoListaDisfrutadas = 0;
             }
             vacaDisfrutadaSeleccionada = null;
             PrimefacesContextUI.ejecutar("PF('datosVacacionesDEmpleado').unselectAllRows()");
-            PrimefacesContextUI.actualizar("form:datosVacacionesDEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
         }
         if (tabla == 2) {
             tipoTabla = 2;
@@ -720,14 +720,14 @@ public class ControlEmplVacaPendiente implements Serializable {
                 vacacionesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesFechaInicial");
                 vacacionesFechaInicial.setFilterStyle("display: none; visibility: hidden;");
                 altoTabla1 = "275";
-                PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                 banderaPendientes = 0;
                 filtrarListVacaPendientes = null;
                 tipoListaPendientes = 0;
             }
             vacaPendienteSeleccionada = null;
             PrimefacesContextUI.ejecutar("PF('datosVacacionesPEmpleado').unselectAllRows()");
-            PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
         }
     }
 
@@ -742,7 +742,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaFinalD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesFechaFinalD");
             vacacionesFechaFinalD.setFilterStyle("display: none; visibility: hidden;");
             altoTabla1 = "275";
-            PrimefacesContextUI.actualizar("form:datosVacacionesDEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
             banderaPendientes = 0;
             filtrarListVacaPendientes = null;
             tipoListaPendientes = 0;
@@ -755,7 +755,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaFinalD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesFechaFinalD");
             vacacionesFechaFinalD.setFilterStyle("display: none; visibility: hidden;");
             altoTabla2 = "275";
-            PrimefacesContextUI.actualizar("form:datosVacacionesDEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
             banderaDisfrutadas = 0;
             filtrarListVacaDisfrutadas = null;
             tipoListaDisfrutadas = 0;
@@ -766,10 +766,10 @@ public class ControlEmplVacaPendiente implements Serializable {
         vacaDisfrutadaSeleccionada = null;
         recargarListas();
         guardado = true;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("form:datosVacacionesPEmpleado");
-        PrimefacesContextUI.actualizar("form:datosVacacionesDEmpleado");
-        PrimefacesContextUI.actualizar("form:totalDiasP");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
+        RequestContext.getCurrentInstance().update("form:totalDiasP");
     }
 
     public void guardarCambiosVPendientes() {
@@ -801,10 +801,10 @@ public class ControlEmplVacaPendiente implements Serializable {
         if (ms > 0) {
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Otros Certificados con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistroP");
-        PrimefacesContextUI.actualizar("form:informacionRegistroD");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroP");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroD");
     }
 
     public void guardarCambiosVDisfrutadas() {
@@ -834,10 +834,10 @@ public class ControlEmplVacaPendiente implements Serializable {
         if (ms > 0) {
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Otros Certificados con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistroD");
-        PrimefacesContextUI.actualizar("form:informacionRegistroP");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroD");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroP");
     }
 
     public void salir() {
@@ -870,17 +870,17 @@ public class ControlEmplVacaPendiente implements Serializable {
                 editarVacacion = vacaPendienteSeleccionada;
                 if (casillaPendiente == 1) {
                     //Dialogo Dias Pendientes
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarDiasPendientesP");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDiasPendientesP");
                     PrimefacesContextUI.ejecutar("PF('editarDiasPendientesP').show()");
                 }
                 if (casillaPendiente == 2) {
                     //Dialogo Fecha Inicial
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicialP");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialP");
                     PrimefacesContextUI.ejecutar("PF('editarFechaInicialP').show()");
                 }
                 if (casillaPendiente == 3) {
                     //Dialogo Fecha Final
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinalP");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalP");
                     PrimefacesContextUI.ejecutar("PF('editarFechaFinalP').show()");
                 }
             }
@@ -888,17 +888,17 @@ public class ControlEmplVacaPendiente implements Serializable {
                 editarVacacion = vacaDisfrutadaSeleccionada;
                 if (casillaDisfrutada == 1) {
                     //Dialogo Dias Pendientes
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarDiasPendientesD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDiasPendientesD");
                     PrimefacesContextUI.ejecutar("PF('editarDiasPendientesD').show()");
                 }
                 if (casillaDisfrutada == 2) {
                     //Dialogo Fecha Inicial
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicialD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialD");
                     PrimefacesContextUI.ejecutar("PF('editarFechaInicialD').show()");
                 }
                 if (casillaDisfrutada == 3) {
                     //Dialogo Fecha Final
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinalD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalD");
                     PrimefacesContextUI.ejecutar("PF('editarFechaFinalD').show()");
                 }
             }
@@ -977,7 +977,7 @@ public class ControlEmplVacaPendiente implements Serializable {
         }
         vacaPendienteSeleccionada = null;
         modificarInfoRegistroP(filtrarListVacaPendientes.size());
-        PrimefacesContextUI.actualizar("form:informacionRegistroP");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroP");
     }
 
     public void eventoFiltrarD() {
@@ -986,7 +986,7 @@ public class ControlEmplVacaPendiente implements Serializable {
         }
         vacaDisfrutadaSeleccionada = null;
         modificarInfoRegistroD(filtrarListVacaDisfrutadas.size());
-        PrimefacesContextUI.actualizar("form:informacionRegistroD");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroD");
     }
 
     public void contarRegistrosP() {

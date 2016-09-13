@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Empleados;
 import InterfaceAdministrar.AdministarReportesInterface;
 import java.io.File;
@@ -29,7 +30,6 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 import org.primefaces.event.FileUploadEvent;
 
 @ManagedBean
@@ -64,7 +64,7 @@ public class ControlPruebaEnvioCorreo implements Serializable {
     public void cargarArchivo(FileUploadEvent event) throws IOException {
         nombreArchivo = event.getFile().getFileName();
         transformarArchivo(event.getFile().getSize(), event.getFile().getInputstream(), event.getFile().getFileName());
-        PrimefacesContextUI.actualizar("form:nombreArchivo");
+        RequestContext.getCurrentInstance().update("form:nombreArchivo");
     }
 
     public void transformarArchivo(long size, InputStream in, String nombreArchivo) {
@@ -92,7 +92,7 @@ public class ControlPruebaEnvioCorreo implements Serializable {
         } else {
             mensajeValidacion = "El correo no pudo ser enviado, lo sentimos.";
         }
-        PrimefacesContextUI.actualizar("form:validarEnvioCorreo");
+        RequestContext.getCurrentInstance().update("form:validarEnvioCorreo");
         PrimefacesContextUI.ejecutar("PF('validarEnvioCorreo.show();");
     }
 

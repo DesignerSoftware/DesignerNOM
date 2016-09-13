@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Rastros;
 import Entidades.RastrosValores;
 import Exportar.ExportarPDF;
@@ -19,7 +20,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 @ManagedBean
 @SessionScoped
@@ -114,10 +114,10 @@ public class ControlRastro implements Serializable {
         backUplistaLOVRastros = listaRastros;
         listaRastros = administrarRastros.rastrosTablaHistoricosEliminados(nombreTablaRastro);
         if (!listaRastros.isEmpty()) {
-            PrimefacesContextUI.actualizar("form:datosRastro");
+            RequestContext.getCurrentInstance().update("form:datosRastro");
             backUplistaLOVRastros = null;
             btnValor = "Consultar (Insertados - Actualizados)";
-            PrimefacesContextUI.actualizar("form:btnConsultar");
+            RequestContext.getCurrentInstance().update("form:btnConsultar");
             estadoBtn = 2;
         } else {
             listaRastros = backUplistaLOVRastros;
@@ -130,10 +130,10 @@ public class ControlRastro implements Serializable {
         backUplistaLOVRastros = listaRastros;
         listaRastros = administrarRastros.rastrosTablaHistoricosEliminadosEmpleado(nombreTablaRastro);
         if (!listaRastros.isEmpty()) {
-            PrimefacesContextUI.actualizar("form:datosRastro");
+            RequestContext.getCurrentInstance().update("form:datosRastro");
             backUplistaLOVRastros = null;
             btnValor = "Consultar (Insertados - Actualizados)";
-            PrimefacesContextUI.actualizar("form:btnConsultar");
+            RequestContext.getCurrentInstance().update("form:btnConsultar");
             estadoBtn = 2;
         } else {
             listaRastros = backUplistaLOVRastros;
@@ -155,8 +155,8 @@ public class ControlRastro implements Serializable {
             }
             estadoBtn = 1;
             btnValor = "Consultar Eliminados";
-            PrimefacesContextUI.actualizar("form:btnConsultar");
-            PrimefacesContextUI.actualizar("form:datosRastro");
+            RequestContext.getCurrentInstance().update("form:btnConsultar");
+            RequestContext.getCurrentInstance().update("form:datosRastro");
         }
     }
 
@@ -185,7 +185,7 @@ public class ControlRastro implements Serializable {
             }
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:fechaDialogo");
+        RequestContext.getCurrentInstance().update("form:fechaDialogo");
         PrimefacesContextUI.ejecutar("PF('fechaDialogo').show()");
     }
 
@@ -200,9 +200,9 @@ public class ControlRastro implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         PrimefacesContextUI.ejecutar("PF('fechaDialogo').hide()");
         context.reset("form:lovFecha:globalFilter");
-        PrimefacesContextUI.actualizar("form:lovFecha");
-        PrimefacesContextUI.actualizar("form:btnMostrarT");
-        PrimefacesContextUI.actualizar("form:datosRastro");
+        RequestContext.getCurrentInstance().update("form:lovFecha");
+        RequestContext.getCurrentInstance().update("form:btnMostrarT");
+        RequestContext.getCurrentInstance().update("form:datosRastro");
     }
 
     public void cancelarSeleccionFecha() {
@@ -211,7 +211,7 @@ public class ControlRastro implements Serializable {
         aceptar = true;
         listaLOVRastros = null;
         seleccionRastro = null;
-        PrimefacesContextUI.actualizar("form:datosRastro");
+        RequestContext.getCurrentInstance().update("form:datosRastro");
     }
 
     //MOSTRAR TODOS
@@ -223,7 +223,7 @@ public class ControlRastro implements Serializable {
         }
         btnMostrarTodos = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:btnMostrarT");
+        RequestContext.getCurrentInstance().update("form:btnMostrarT");
     }
     //CTRL + F11 ACTIVAR/DESACTIVAR
 
@@ -245,7 +245,7 @@ public class ControlRastro implements Serializable {
             usuarioBD.setFilterStyle("width: 85%;");
             tipoManipulacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:tipoManipulacion");
             tipoManipulacion.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosRastro");
+            RequestContext.getCurrentInstance().update("form:datosRastro");
             bandera = 1;
         } else if (bandera == 1) {
             nombreTabla = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:nombreTabla");
@@ -264,7 +264,7 @@ public class ControlRastro implements Serializable {
             usuarioBD.setFilterStyle("display: none; visibility: hidden;");
             tipoManipulacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:tipoManipulacion");
             tipoManipulacion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosRastro");
+            RequestContext.getCurrentInstance().update("form:datosRastro");
 
             bandera = 0;
             filtradoListaRastros = null;
@@ -276,7 +276,7 @@ public class ControlRastro implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         rastroValor = administrarRastros.valorRastro(seleccionRastro.getSecuencia());
         if (!rastroValor.isEmpty()) {
-            PrimefacesContextUI.actualizar("form:valorRastroDialogo");
+            RequestContext.getCurrentInstance().update("form:valorRastroDialogo");
             PrimefacesContextUI.ejecutar("PF('valorRastroDialogo').show()");
         } else {
             PrimefacesContextUI.ejecutar("PF('errorValorRastro').show()");

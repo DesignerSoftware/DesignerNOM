@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Demandas;
 import Entidades.Empleados;
 import Entidades.MotivosDemandas;
@@ -29,7 +30,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -202,7 +202,7 @@ public class ControlEmplDemanda implements Serializable {
                     filtrarListDemandasEmpleado.get(index).setFecha(fechaInic);
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:datosDemanda");
+                RequestContext.getCurrentInstance().update("form:datosDemanda");
                 PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
             }
         } else {
@@ -213,7 +213,7 @@ public class ControlEmplDemanda implements Serializable {
                 filtrarListDemandasEmpleado.get(index).setFecha(fechaInic);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosDemanda");
+            RequestContext.getCurrentInstance().update("form:datosDemanda");
             PrimefacesContextUI.ejecutar("PF('errorRegNull').show()");
         }
     }
@@ -230,7 +230,7 @@ public class ControlEmplDemanda implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 cambioDemanda = true;
@@ -248,7 +248,7 @@ public class ControlEmplDemanda implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 cambioDemanda = true;
@@ -257,7 +257,7 @@ public class ControlEmplDemanda implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosDemanda");
+            RequestContext.getCurrentInstance().update("form:datosDemanda");
         } else {
             if (tipoLista == 0) {
                 listDemandasEmpleado.get(index).getMotivo().setDescripcion(motivo);
@@ -266,7 +266,7 @@ public class ControlEmplDemanda implements Serializable {
                 filtrarListDemandasEmpleado.get(index).getMotivo().setDescripcion(motivo);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosDemanda");
+            RequestContext.getCurrentInstance().update("form:datosDemanda");
             PrimefacesContextUI.ejecutar("PF('errorRegNull').show()");
         }
     }
@@ -299,7 +299,7 @@ public class ControlEmplDemanda implements Serializable {
                 cambioDemanda = true;
             } else {
                 permitirIndexD = false;
-                PrimefacesContextUI.actualizar("form:DemandaDialogo");
+                RequestContext.getCurrentInstance().update("form:DemandaDialogo");
                 PrimefacesContextUI.ejecutar("PF('DemandaDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -315,7 +315,7 @@ public class ControlEmplDemanda implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 cambioDemanda = true;
@@ -331,7 +331,7 @@ public class ControlEmplDemanda implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 cambioDemanda = true;
@@ -340,7 +340,7 @@ public class ControlEmplDemanda implements Serializable {
             }
             cambioDemanda = true;
         }
-        PrimefacesContextUI.actualizar("form:datosDemanda");
+        RequestContext.getCurrentInstance().update("form:datosDemanda");
     }
 
     public void valoresBackupAutocompletarDemanda(int tipoNuevo, String Campo) {
@@ -373,21 +373,21 @@ public class ControlEmplDemanda implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaDemandaEmpleado.setMotivo(listMotivosDemandas.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaMotivo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivo");
                 } else if (tipoNuevo == 2) {
                     duplicarDemandaEmpleado.setMotivo(listMotivosDemandas.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarMotivo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivo");
                 }
                 listMotivosDemandas = null;
                 getListMotivosDemandas();
             } else {
-                PrimefacesContextUI.actualizar("form:DemandaDialogo");
+                RequestContext.getCurrentInstance().update("form:DemandaDialogo");
                 PrimefacesContextUI.ejecutar("PF('DemandaDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaMotivo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivo");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarMotivo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivo");
                 }
             }
         }
@@ -428,7 +428,7 @@ public class ControlEmplDemanda implements Serializable {
     public void guardadoGeneral() {
         guardarCambiosD();
         guardado = true;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void guardarCambiosD() {
@@ -448,7 +448,7 @@ public class ControlEmplDemanda implements Serializable {
                     listDemandaEmpleadoModificar.clear();
                 }
                 listDemandasEmpleado = null;
-                PrimefacesContextUI.actualizar("form:datosDemanda");
+                RequestContext.getCurrentInstance().update("form:datosDemanda");
                 k = 0;
 
                 cambioDemanda = false;
@@ -460,16 +460,16 @@ public class ControlEmplDemanda implements Serializable {
                 } else {
                     infoRegistroMotivo = "Cantidad de registros : 0";
                 }
-                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con Éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                PrimefacesContextUI.actualizar("form:growl");
+                RequestContext.getCurrentInstance().update("form:growl");
             }
         } catch (Exception e) {
             System.out.println("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
 
@@ -485,7 +485,7 @@ public class ControlEmplDemanda implements Serializable {
             dFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dFecha");
             dFecha.setFilterStyle("display: none; visibility: hidden;");
 
-            PrimefacesContextUI.actualizar("form:datosDemanda");
+            RequestContext.getCurrentInstance().update("form:datosDemanda");
             banderaD = 0;
             filtrarListDemandasEmpleado = null;
             tipoLista = 0;
@@ -499,7 +499,7 @@ public class ControlEmplDemanda implements Serializable {
         k = 0;
         listDemandasEmpleado = null;
         guardado = true;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         RequestContext context = RequestContext.getCurrentInstance();
         getListDemandasEmpleado();
         if (listDemandasEmpleado != null) {
@@ -507,8 +507,8 @@ public class ControlEmplDemanda implements Serializable {
         } else {
             infoRegistroMotivo = "Cantidad de registros : 0";
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosDemanda");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosDemanda");
         cambioDemanda = false;
         nuevaDemandaEmpleado = new Demandas();
         nuevaDemandaEmpleado.setMotivo(new MotivosDemandas());
@@ -529,15 +529,15 @@ public class ControlEmplDemanda implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaDD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaDD");
                 PrimefacesContextUI.ejecutar("PF('editarFechaDD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarSeguimientoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarSeguimientoD");
                 PrimefacesContextUI.ejecutar("PF('editarSeguimientoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarMotivoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarMotivoD");
                 PrimefacesContextUI.ejecutar("PF('editarMotivoD').show()");
                 cualCelda = -1;
             }
@@ -588,7 +588,7 @@ public class ControlEmplDemanda implements Serializable {
                     dFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dFecha");
                     dFecha.setFilterStyle("display: none; visibility: hidden;");
 
-                    PrimefacesContextUI.actualizar("form:datosDemanda");
+                    RequestContext.getCurrentInstance().update("form:datosDemanda");
                     banderaD = 0;
                     filtrarListDemandasEmpleado = null;
                     tipoLista = 0;
@@ -614,7 +614,7 @@ public class ControlEmplDemanda implements Serializable {
                 //
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 index = -1;
                 secRegistro = null;
@@ -622,8 +622,8 @@ public class ControlEmplDemanda implements Serializable {
 
                 infoRegistroMotivo = "Cantidad de registros : " + listDemandasEmpleado.size();
 
-                PrimefacesContextUI.actualizar("form:informacionRegistro");
-                PrimefacesContextUI.actualizar("form:datosDemanda");
+                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                RequestContext.getCurrentInstance().update("form:datosDemanda");
                 PrimefacesContextUI.ejecutar("PF('NuevoRegistroD').hide()");
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -695,7 +695,7 @@ public class ControlEmplDemanda implements Serializable {
             }
             cambioDemanda = true;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarD");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarD");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroD').show()");
             index = -1;
             secRegistro = null;
@@ -723,7 +723,7 @@ public class ControlEmplDemanda implements Serializable {
                 secRegistro = null;
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 if (banderaD == 1) {
                     altoTabla = "310";
@@ -737,7 +737,7 @@ public class ControlEmplDemanda implements Serializable {
                     dFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dFecha");
                     dFecha.setFilterStyle("display: none; visibility: hidden;");
 
-                    PrimefacesContextUI.actualizar("form:datosDemanda");
+                    RequestContext.getCurrentInstance().update("form:datosDemanda");
                     banderaD = 0;
                     filtrarListDemandasEmpleado = null;
                     tipoLista = 0;
@@ -746,8 +746,8 @@ public class ControlEmplDemanda implements Serializable {
                 limpiarduplicarD();
                 RequestContext context = RequestContext.getCurrentInstance();
                 infoRegistroMotivo = "Cantidad de registros : " + listDemandasEmpleado.size();
-                PrimefacesContextUI.actualizar("form:informacionRegistro");
-                PrimefacesContextUI.actualizar("form:datosDemanda");
+                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                RequestContext.getCurrentInstance().update("form:datosDemanda");
                 PrimefacesContextUI.ejecutar("PF('DuplicarRegistroD').hide()");
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -817,13 +817,13 @@ public class ControlEmplDemanda implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         infoRegistroMotivo = "Cantidad de registros : " + listDemandasEmpleado.size();
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosDemanda");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosDemanda");
         index = -1;
         secRegistro = null;
         if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -850,7 +850,7 @@ public class ControlEmplDemanda implements Serializable {
             dFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dFecha");
             dFecha.setFilterStyle("width: 85%");
             ///
-            PrimefacesContextUI.actualizar("form:datosDemanda");
+            RequestContext.getCurrentInstance().update("form:datosDemanda");
             tipoLista = 1;
             banderaD = 1;
         } else {
@@ -864,7 +864,7 @@ public class ControlEmplDemanda implements Serializable {
             dFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dFecha");
             dFecha.setFilterStyle("display: none; visibility: hidden;");
 
-            PrimefacesContextUI.actualizar("form:datosDemanda");
+            RequestContext.getCurrentInstance().update("form:datosDemanda");
             banderaD = 0;
             filtrarListDemandasEmpleado = null;
             tipoLista = 0;
@@ -888,7 +888,7 @@ public class ControlEmplDemanda implements Serializable {
             dFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dFecha");
             dFecha.setFilterStyle("display: none; visibility: hidden;");
 
-            PrimefacesContextUI.actualizar("form:datosDemanda");
+            RequestContext.getCurrentInstance().update("form:datosDemanda");
             banderaD = 0;
             filtrarListDemandasEmpleado = null;
             tipoLista = 0;
@@ -917,7 +917,7 @@ public class ControlEmplDemanda implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            PrimefacesContextUI.actualizar("form:DemandaDialogo");
+            RequestContext.getCurrentInstance().update("form:DemandaDialogo");
             PrimefacesContextUI.ejecutar("PF('DemandaDialogo').show()");
         }
     }
@@ -941,7 +941,7 @@ public class ControlEmplDemanda implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 cambioDemanda = true;
                 permitirIndexD = true;
@@ -957,19 +957,19 @@ public class ControlEmplDemanda implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 cambioDemanda = true;
                 permitirIndexD = true;
 
             }
-            PrimefacesContextUI.actualizar("form:datosDemanda");
+            RequestContext.getCurrentInstance().update("form:datosDemanda");
         } else if (tipoActualizacion == 1) {
             nuevaDemandaEmpleado.setMotivo(motivoDemandaSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaMotivo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivo");
         } else if (tipoActualizacion == 2) {
             duplicarDemandaEmpleado.setMotivo(motivoDemandaSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarMotivo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivo");
         }
         filtrarListMotivosDemandas = null;
         motivoDemandaSeleccionado = null;
@@ -978,9 +978,9 @@ public class ControlEmplDemanda implements Serializable {
         secRegistro = null;
         tipoActualizacion = -1;
         /*
-         PrimefacesContextUI.actualizar("form:DemandaDialogo");
-         PrimefacesContextUI.actualizar("form:lovDemanda");
-         PrimefacesContextUI.actualizar("form:aceptarD");*/
+         RequestContext.getCurrentInstance().update("form:DemandaDialogo");
+         RequestContext.getCurrentInstance().update("form:lovDemanda");
+         RequestContext.getCurrentInstance().update("form:aceptarD");*/
         context.reset("form:lovDemanda:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovDemanda').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('DemandaDialogo').hide()");
@@ -1008,7 +1008,7 @@ public class ControlEmplDemanda implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (index >= 0) {
             if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("form:DemandaDialogo");
+                RequestContext.getCurrentInstance().update("form:DemandaDialogo");
                 PrimefacesContextUI.ejecutar("PF('DemandaDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1082,7 +1082,7 @@ public class ControlEmplDemanda implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistroMotivo = "Cantidad de registros : " + filtrarListDemandasEmpleado.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         }
     }
 

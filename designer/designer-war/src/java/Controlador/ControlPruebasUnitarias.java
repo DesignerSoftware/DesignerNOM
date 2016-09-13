@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import ClasesAyuda.ColumnasBusquedaAvanzada;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -19,7 +20,6 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.primefaces.component.panel.Panel;
 import org.primefaces.component.scrollpanel.ScrollPanel;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 @ManagedBean
 @SessionScoped
@@ -35,8 +35,8 @@ public class ControlPruebasUnitarias implements Serializable {
     
     public void modificarParametroInforme(){
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:fechaDesdeParametroL");
-        PrimefacesContextUI.actualizar("form:prueba");
+        RequestContext.getCurrentInstance().update("form:fechaDesdeParametroL");
+        RequestContext.getCurrentInstance().update("form:prueba");
     }
 
     public Date getFechaPrueba() {

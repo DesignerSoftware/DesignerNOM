@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.ClasesPensiones;
 import Entidades.Empleados;
 import Entidades.MotivosRetiros;
@@ -33,7 +34,6 @@ import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.component.panel.Panel;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -283,12 +283,12 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             }
             if (cambiosPagina) {
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
         guardado = false;
 
-        PrimefacesContextUI.actualizar("form:datosVTTEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
     }
 
     public boolean validarFechasRegistroVTT(int i) {
@@ -325,7 +325,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
 
     public void modificarFechasVTT(VigenciasTiposTrabajadores vtt, int c) {
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         vigenciaSeleccionada = vtt;
         if (vigenciaSeleccionada.getFechavigencia() != null) {
             boolean retorno = false;
@@ -337,14 +337,14 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                 vigenciaSeleccionada.setFechavigencia(fechaVigenciaVTT);
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:datosVTTEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
                 PrimefacesContextUI.ejecutar("PF('errorFechaVTT').show()");
             }
         } else {
             vigenciaSeleccionada.setFechavigencia(fechaVigenciaVTT);
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosVTTEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
             PrimefacesContextUI.ejecutar("PF('errorRegNewVTT').show()");
         }
     }
@@ -362,7 +362,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("TIPOTRABAJADOR")) {
             activarLOV = false;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
             vigenciaSeleccionada.getTipotrabajador().setNombre(tipoTrabajador);
 
             for (int i = 0; i < listaTiposTrabajadores.size(); i++) {
@@ -380,7 +380,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                 permitirIndex = false;
                 modificarInfoRegistro(vigenciasTiposTrabajadores.size());
                 // modificarInfoRegistroTipoTrabajador(listaTiposTrabajadores.size());
-                PrimefacesContextUI.actualizar("formLovs:TipoTrabajadorDialogo");
+                RequestContext.getCurrentInstance().update("formLovs:TipoTrabajadorDialogo");
                 PrimefacesContextUI.ejecutar("PF('TipoTrabajadorDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -395,19 +395,19 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                 }
                 if (cambiosPagina) {
                     cambiosPagina = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
             guardado = false;
 
         }
-        PrimefacesContextUI.actualizar("form:datosVTTEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
     }
 
     public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
         if (Campo.equals("TIPOTRABAJADOR")) {
             activarLOV = false;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
             if (tipoNuevo == 1) {
                 tipoTrabajador = nuevaVigencia.getTipotrabajador().getNombre();
             } else if (tipoNuevo == 2) {
@@ -422,7 +422,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("TIPOTRABAJADOR")) {
             activarLOV = false;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
             if (tipoNuevo == 1) {
                 nuevaVigencia.getTipotrabajador().setNombre(tipoTrabajador);
             } else if (tipoNuevo == 2) {
@@ -437,21 +437,21 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigencia.setTipotrabajador(listaTiposTrabajadores.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoTrabajador");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoTrabajador");
                 } else if (tipoNuevo == 2) {
                     duplicarVTT.setTipotrabajador(listaTiposTrabajadores.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoTrabajador");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoTrabajador");
                 }
                 listaTiposTrabajadores.clear();
                 getListaTiposTrabajadores();
             } else {
-                PrimefacesContextUI.actualizar("formLovs:TipoTrabajadorDialogo");
+                RequestContext.getCurrentInstance().update("formLovs:TipoTrabajadorDialogo");
                 PrimefacesContextUI.ejecutar("PF('TipoTrabajadorDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoTrabajador");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoTrabajador");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoTrabajador");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoTrabajador");
                 }
             }
         }
@@ -463,7 +463,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         }
         cambiosPagina = false;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void posicionTabla() {
@@ -490,13 +490,13 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     public void cambiarIndice(VigenciasTiposTrabajadores vtt, int celda) {
         if (permitirIndex) {
             activarLOV = true;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
             if (cambioRetiros == false && cambioPension == false) {
                 vigenciaSeleccionada = vtt;
                 cualCelda = celda;
                 fechaVigenciaVTT = vigenciaSeleccionada.getFechavigencia();
                 activarLOV = false;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
 
                 cambioVisibleRetiradosInput();
                 cambioVisibleRetiradosMensaje();
@@ -507,15 +507,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                 if (cambioRetiros == true) {
                     RequestContext context = RequestContext.getCurrentInstance();
                     activarLOV = false;
-                    PrimefacesContextUI.actualizar("form:listaValores");
-                    PrimefacesContextUI.actualizar("formularioDialogos:guardarCambiosRetiros");
+                    RequestContext.getCurrentInstance().update("form:listaValores");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:guardarCambiosRetiros");
                     PrimefacesContextUI.ejecutar("PF('guardarCambiosRetiros').show()");
                 }
                 if (cambioPension == true) {
                     RequestContext context = RequestContext.getCurrentInstance();
                     activarLOV = false;
-                    PrimefacesContextUI.actualizar("form:listaValores");
-                    PrimefacesContextUI.actualizar("formularioDialogos:guardarCambiosPensionados");
+                    RequestContext.getCurrentInstance().update("form:listaValores");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:guardarCambiosPensionados");
                     PrimefacesContextUI.ejecutar("PF('guardarCambiosPensionados').show()");
                 }
             }
@@ -569,16 +569,16 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             panelRetiradosMensaje = (Panel) c.getViewRoot().findComponent("form:panelRetiradosMensaje");
             panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
 
-            PrimefacesContextUI.actualizar("form:panelRetiradosInput");
-            PrimefacesContextUI.actualizar("form:panelRetiradosMensaje");
-            PrimefacesContextUI.actualizar("form:panelPensionadosInput");
-            PrimefacesContextUI.actualizar("form:panelPensionadosMensaje");
-            PrimefacesContextUI.actualizar("form:datosVTTEmpleado");
+            RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
+            RequestContext.getCurrentInstance().update("form:panelRetiradosMensaje");
+            RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
+            RequestContext.getCurrentInstance().update("form:panelPensionadosMensaje");
+            RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
 
             guardado = true;
             k = 0;
             activarLOV = true;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
             vigenciasTiposTrabajadores = null;
             getVigenciasTiposTrabajadores();
             if (vigenciasTiposTrabajadores != null) {
@@ -588,12 +588,12 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                 modificarInfoRegistro(0);
             }
             cambiosPagina = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
     //CANCELAR MODIFICACIONES
@@ -637,12 +637,12 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:panelRetiradosInput");
-        PrimefacesContextUI.actualizar("form:panelRetiradosMensaje");
-        PrimefacesContextUI.actualizar("form:panelPensionadosInput");
-        PrimefacesContextUI.actualizar("form:panelPensionadosMensaje");
+        RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
+        RequestContext.getCurrentInstance().update("form:panelRetiradosMensaje");
+        RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
+        RequestContext.getCurrentInstance().update("form:panelPensionadosMensaje");
 
-        PrimefacesContextUI.actualizar("form:datosVTTEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
         context.reset("form:motivoRetiro");
         context.reset("form:fechaRetiro");
         context.reset("form:observacion");
@@ -655,9 +655,9 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         context.reset("form:resolucionPension");
         context.reset("form:causaBiente");
         context.reset("form:tutorPension");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:listaValores");
 
     }
 
@@ -675,15 +675,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                 editarVTT = vigenciaSeleccionada;
 
                 if (cualCelda == 0) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaDialogo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaDialogo");
                     PrimefacesContextUI.ejecutar("PF('editarFechaDialogo').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarTipoTrabajadorDialogo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoTrabajadorDialogo");
                     PrimefacesContextUI.ejecutar("PF('editarTipoTrabajadorDialogo').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarTipoCotizanterDialogo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoCotizanterDialogo");
                     PrimefacesContextUI.ejecutar("PF('editarTipoCotizanterDialogo').show()");
                     cualCelda = -1;
                 }
@@ -714,7 +714,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                 vigenciasTiposTrabajadores.add(nuevaVigencia);
                 vigenciaSeleccionada = vigenciasTiposTrabajadores.get(vigenciasTiposTrabajadores.indexOf(nuevaVigencia));
                 activarLOV = true;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 nuevaVigencia = new VigenciasTiposTrabajadores();
                 nuevaVigencia.setTipotrabajador(new TiposTrabajadores());
                 nuevaVigencia.getTipotrabajador().setTipocotizante(new TiposCotizantes());
@@ -732,16 +732,16 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                 panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:panelRetiradosInput");
-                PrimefacesContextUI.actualizar("form:panelRetiradosMensaje");
-                PrimefacesContextUI.actualizar("form:panelPensionadosInput");
-                PrimefacesContextUI.actualizar("form:panelPensionadosMensaje");
+                RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
+                RequestContext.getCurrentInstance().update("form:panelRetiradosMensaje");
+                RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
+                RequestContext.getCurrentInstance().update("form:panelPensionadosMensaje");
 
-                PrimefacesContextUI.actualizar("form:datosVTTEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
                 PrimefacesContextUI.ejecutar("PF('NuevoRegistroVTT.hide();");
                 if (cambiosPagina) {
                     cambiosPagina = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 guardado = false;
                 banderaEliminarRetiro = false;
@@ -796,12 +796,12 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                 panelRetiradosMensaje = (Panel) c.getViewRoot().findComponent("form:panelRetiradosMensaje");
                 panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
 
-                PrimefacesContextUI.actualizar("form:panelRetiradosInput");
-                PrimefacesContextUI.actualizar("form:panelRetiradosMensaje");
-                PrimefacesContextUI.actualizar("form:panelPensionadosInput");
-                PrimefacesContextUI.actualizar("form:panelPensionadosMensaje");
+                RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
+                RequestContext.getCurrentInstance().update("form:panelRetiradosMensaje");
+                RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
+                RequestContext.getCurrentInstance().update("form:panelPensionadosMensaje");
 
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarVTT");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVTT");
                 PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVTT').show()");
             }
         }
@@ -828,7 +828,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                 }
             }
             if (fechas > 0) {
-                PrimefacesContextUI.actualizar("form:validacionFechas");
+                RequestContext.getCurrentInstance().update("form:validacionFechas");
                 PrimefacesContextUI.ejecutar("PF('validacionFechas').show()");
                 pasa++;
 
@@ -856,18 +856,18 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                         panelRetiradosMensaje = (Panel) c.getViewRoot().findComponent("form:panelRetiradosMensaje");
                         panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
 
-                        PrimefacesContextUI.actualizar("form:panelRetiradosInput");
-                        PrimefacesContextUI.actualizar("form:panelRetiradosMensaje");
-                        PrimefacesContextUI.actualizar("form:panelPensionadosInput");
-                        PrimefacesContextUI.actualizar("form:panelPensionadosMensaje");
-                        PrimefacesContextUI.actualizar("form:datosVTTEmpleado");
+                        RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
+                        RequestContext.getCurrentInstance().update("form:panelRetiradosMensaje");
+                        RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
+                        RequestContext.getCurrentInstance().update("form:panelPensionadosMensaje");
+                        RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
 
                         activarLOV = true;
-                        PrimefacesContextUI.actualizar("form:listaValores");
+                        RequestContext.getCurrentInstance().update("form:listaValores");
 
                         if (cambiosPagina) {
                             cambiosPagina = false;
-                            PrimefacesContextUI.actualizar("form:ACEPTAR");
+                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
                         }
                         guardado = false;
                         if (bandera == 1) {
@@ -924,11 +924,11 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                         filtrarVTT.remove(vigenciaSeleccionada);
                     }
 
-                    PrimefacesContextUI.actualizar("form:datosVTTEmpleado");
+                    RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
 
                     if (cambiosPagina) {
                         cambiosPagina = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                     guardado = false;
                 } else {
@@ -955,11 +955,11 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                                 filtrarVTT.remove(vigenciaSeleccionada);
                             }
 
-                            PrimefacesContextUI.actualizar("form:datosVTTEmpleado");
+                            RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
 
                             if (cambiosPagina) {
                                 cambiosPagina = false;
-                                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                                RequestContext.getCurrentInstance().update("form:ACEPTAR");
                             }
                             guardado = false;
                         } else {
@@ -1002,11 +1002,11 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                                 filtrarVTT.remove(vigenciaSeleccionada);
                             }
                             modificarInfoRegistro(vigenciasTiposTrabajadores.size());
-                            PrimefacesContextUI.actualizar("form:datosVTTEmpleado");
+                            RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
 
                             if (cambiosPagina) {
                                 cambiosPagina = false;
-                                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                                RequestContext.getCurrentInstance().update("form:ACEPTAR");
                             }
                             guardado = false;
                         } else {
@@ -1029,15 +1029,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                 panelRetiradosMensaje = (Panel) c.getViewRoot().findComponent("form:panelRetiradosMensaje");
                 panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
 
-                PrimefacesContextUI.actualizar("form:panelRetiradosInput");
-                PrimefacesContextUI.actualizar("form:panelRetiradosMensaje");
-                PrimefacesContextUI.actualizar("form:panelPensionadosInput");
-                PrimefacesContextUI.actualizar("form:panelPensionadosMensaje");
-                PrimefacesContextUI.actualizar("form:datosVTTEmpleado");
+                RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
+                RequestContext.getCurrentInstance().update("form:panelRetiradosMensaje");
+                RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
+                RequestContext.getCurrentInstance().update("form:panelPensionadosMensaje");
+                RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
             }
             vigenciaSeleccionada = null;
             activarLOV = true;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
             indexPension = false;
             indexRetiro = false;
             banderaLimpiarRetiro = false;
@@ -1060,7 +1060,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             vttTipoCotizante = (Column) c.getViewRoot().findComponent("form:datosVTTEmpleado:vttTipoCotizante");
             vttTipoCotizante.setFilterStyle("width: 85%;");
             altoTabla = "96";
-            PrimefacesContextUI.actualizar("form:datosVTTEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
             bandera = 1;
         } else if (bandera == 1) {
             cerrarFiltrado();
@@ -1074,7 +1074,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     public void salir() {
         cerrarFiltrado();
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         listVTTBorrar.clear();
         listVTTCrear.clear();
         listVTTModificar.clear();
@@ -1091,7 +1091,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         listaPensionados = null;
         motivosRetiros = null;
         listaTiposTrabajadores = null;
-        //PrimefacesContextUI.actualizar("form:ACEPTAR");
+        //RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void cerrarFiltrado() {
@@ -1105,7 +1105,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             vttTipoCotizante = (Column) c.getViewRoot().findComponent("form:datosVTTEmpleado:vttTipoCotizante");
             vttTipoCotizante.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "116";
-            PrimefacesContextUI.actualizar("form:datosVTTEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
             bandera = 0;
             filtrarVTT = null;
             tipoLista = 0;
@@ -1126,7 +1126,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         activarLOV = true;
         vigenciaSeleccionada = vtt;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         System.out.println("VigenciasTiposTrabajadores: " + vtt.toString());
         if (tt == 0) {
             if (LND == 0) {
@@ -1141,9 +1141,9 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                 //TiposTrabajadoresDialogo
                 tipoTrabajadorSeleccionado = null;
                 activarLOV = false;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 modificarInfoRegistroTipoTrabajador(listaTiposTrabajadores.size());
-                PrimefacesContextUI.actualizar("formLovs:TipoTrabajadorDialogo");
+                RequestContext.getCurrentInstance().update("formLovs:TipoTrabajadorDialogo");
                 PrimefacesContextUI.ejecutar("PF('formLovs:TipoTrabajadorDialogo').show()");
             }
         }
@@ -1160,33 +1160,33 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                 //ClasesPensionDialogo
                 clasesPensionesSeleccionada = null;
                 activarLOV = true;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 modificarInfoRegistroClasePension(clasesPensiones.size());
-                PrimefacesContextUI.actualizar("formLovs:clasePensionDialogo");
+                RequestContext.getCurrentInstance().update("formLovs:clasePensionDialogo");
                 PrimefacesContextUI.ejecutar("PF('clasePensionDialogo').show()");
             } else if (dlg == 1) {
                 //tipoPensionadoDialogo
                 tiposPensionadosSeleccionada = null;
                 activarLOV = true;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 modificarInfoRegistroTipoPension(tiposPensionados.size());
-                PrimefacesContextUI.actualizar("formLovs:tipoPensionadoDialogo");
+                RequestContext.getCurrentInstance().update("formLovs:tipoPensionadoDialogo");
                 PrimefacesContextUI.ejecutar("PF('tipoPensionadoDialogo').show()");
             } else if (dlg == 2) {
                 //causaBientesDialogo
                 pensionadoSeleccionado = null;
                 activarLOV = true;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 modificarInfoRegistroEmpleado(listaPensionados.size());
-                PrimefacesContextUI.actualizar("formLovs:causaBientesDialogo");
+                RequestContext.getCurrentInstance().update("formLovs:causaBientesDialogo");
                 PrimefacesContextUI.ejecutar("PF('causaBientesDialogo').show()");
             } else if (dlg == 3) {
                 //tipoPensionadoDialogo
                 personaSeleccionada = null;
                 activarLOV = true;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 modificarInfoRegistroPersona(listaPersonas.size());
-                PrimefacesContextUI.actualizar("formLovs:tutorDialogo");
+                RequestContext.getCurrentInstance().update("formLovs:tutorDialogo");
                 PrimefacesContextUI.ejecutar("PF('tutorDialogo').show()");
             }
         }
@@ -1203,10 +1203,10 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                 //RetirosDialogo
                 motivoRetiroSeleccionado = null;
                 activarLOV = true;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 modificarInfoRegistroMotivoRetiros(motivosRetiros.size());
                 //    dialogoRetiros();
-                PrimefacesContextUI.actualizar("formLovs:RetirosDialogo");
+                RequestContext.getCurrentInstance().update("formLovs:RetirosDialogo");
                 PrimefacesContextUI.ejecutar("PF('RetirosDialogo').show()");
             }
         }
@@ -1228,10 +1228,10 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
 //                //RetirosDialogo
 //                motivoRetiroSeleccionado = null;
 //                activarLOV = true;
-//                PrimefacesContextUI.actualizar("form:listaValores");
+//                RequestContext.getCurrentInstance().update("form:listaValores");
 //                modificarInfoRegistroMotivoRetiros(motivosRetiros.size());
 //                //    dialogoRetiros();
-//                PrimefacesContextUI.actualizar("formLovs:RetirosDialogo");
+//                RequestContext.getCurrentInstance().update("formLovs:RetirosDialogo");
 //                PrimefacesContextUI.ejecutar("PF('RetirosDialogo').show()");
 //            }
 //        }
@@ -1256,24 +1256,24 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
 
             if (cambiosPagina) {
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             guardado = false;
         } else if (tipoActualizacion == 1) {
             nuevaVigencia.setTipotrabajador(tipoTrabajadorSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVTT");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVTT");
         } else if (tipoActualizacion == 2) {
             duplicarVTT.setTipotrabajador(tipoTrabajadorSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVTT");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVTT");
         }
         filtradoTiposTrabajadores = null;
         tipoTrabajadorSeleccionado = null;
         aceptar = true;
         tipoActualizacion = -1;
-        PrimefacesContextUI.actualizar("form:datosVTTEmpleado");
-        PrimefacesContextUI.actualizar("form:TipoTrabajadorDialogo");
-        PrimefacesContextUI.actualizar("form:lovTipoTrabajador");
-        PrimefacesContextUI.actualizar("form:aceptarTT");
+        RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
+        RequestContext.getCurrentInstance().update("form:TipoTrabajadorDialogo");
+        RequestContext.getCurrentInstance().update("form:lovTipoTrabajador");
+        RequestContext.getCurrentInstance().update("form:aceptarTT");
 
         context.reset("formLovs:lovTipoTrabajador:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovTipoTrabajador').clearFilters()");
@@ -1312,7 +1312,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                     //TiposTrabajadoresDialogo
                     tipoTrabajadorSeleccionado = null;
                     modificarInfoRegistroTipoTrabajador(listaTiposTrabajadores.size());
-                    PrimefacesContextUI.actualizar("formLovs:TipoTrabajadorDialogo");
+                    RequestContext.getCurrentInstance().update("formLovs:TipoTrabajadorDialogo");
                     PrimefacesContextUI.ejecutar("PF('TipoTrabajadorDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -1373,7 +1373,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             } else {
                 panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left;visibility: visible;");
             }
-            PrimefacesContextUI.actualizar("form:panelRetiradosMensaje");
+            RequestContext.getCurrentInstance().update("form:panelRetiradosMensaje");
         }
     }
 
@@ -1395,7 +1395,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             } else {
                 panelRetiradosInput.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
             }
-            PrimefacesContextUI.actualizar("form:panelRetiradosInput");
+            RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
             RequestContext context = RequestContext.getCurrentInstance();
             context.reset("form:motivoRetiro");
             context.reset("form:fechaRetiro");
@@ -1419,7 +1419,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             } else {
                 panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: visible;");
             }
-            PrimefacesContextUI.actualizar("form:panelPensionadosMensaje");
+            RequestContext.getCurrentInstance().update("form:panelPensionadosMensaje");
         }
     }
 
@@ -1442,7 +1442,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             } else {
                 panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
             }
-            PrimefacesContextUI.actualizar("form:panelPensionadosInput");
+            RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
         }
         indexPension = false;
     }
@@ -1567,15 +1567,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
 
             FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Retirados con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
 
-            PrimefacesContextUI.actualizar("form:panelRetiradosInput");
-            PrimefacesContextUI.actualizar("form:panelRetiradosMensaje");
-            PrimefacesContextUI.actualizar("form:panelPensionadosInput");
-            PrimefacesContextUI.actualizar("form:panelPensionadosMensaje");
+            RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
+            RequestContext.getCurrentInstance().update("form:panelRetiradosMensaje");
+            RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
+            RequestContext.getCurrentInstance().update("form:panelPensionadosMensaje");
 
             cambiosPagina = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             System.out.println("SALIO GUARDARDATOSRETIROS");
 
         } else {
@@ -1608,10 +1608,10 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:panelRetiradosInput");
-        PrimefacesContextUI.actualizar("form:panelRetiradosMensaje");
-        PrimefacesContextUI.actualizar("form:panelPensionadosInput");
-        PrimefacesContextUI.actualizar("form:panelPensionadosMensaje");
+        RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
+        RequestContext.getCurrentInstance().update("form:panelRetiradosMensaje");
+        RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
+        RequestContext.getCurrentInstance().update("form:panelPensionadosMensaje");
     }
 
     /**
@@ -1697,15 +1697,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
 
             FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Pensionados con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
 
-            PrimefacesContextUI.actualizar("form:panelRetiradosInput");
-            PrimefacesContextUI.actualizar("form:panelRetiradosMensaje");
-            PrimefacesContextUI.actualizar("form:panelPensionadosInput");
-            PrimefacesContextUI.actualizar("form:panelPensionadosMensaje");
+            RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
+            RequestContext.getCurrentInstance().update("form:panelRetiradosMensaje");
+            RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
+            RequestContext.getCurrentInstance().update("form:panelPensionadosMensaje");
 
             cambiosPagina = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             System.out.println("SALIO");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
@@ -1740,10 +1740,10 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:panelRetiradosInput");
-        PrimefacesContextUI.actualizar("form:panelRetiradosMensaje");
-        PrimefacesContextUI.actualizar("form:panelPensionadosInput");
-        PrimefacesContextUI.actualizar("form:panelPensionadosMensaje");
+        RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
+        RequestContext.getCurrentInstance().update("form:panelRetiradosMensaje");
+        RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
+        RequestContext.getCurrentInstance().update("form:panelPensionadosMensaje");
     }
 
     /**
@@ -1766,7 +1766,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         System.out.println("retiroVigencia: " + retiroVigencia);
         retiroVigencia.setMotivoretiro(motivoRetiroSeleccionado);
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:panelRetiradosInput");
+        RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
         aceptar = true;
         filtradoMotivosRetiros = null;
         motivoRetiroSeleccionado = null;
@@ -1775,9 +1775,9 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          */
         getMotivosRetiros();
 
-//        PrimefacesContextUI.actualizar("form:RetirosDialogo");
-//        PrimefacesContextUI.actualizar("form:lovMotivosRetiros");
-//        PrimefacesContextUI.actualizar("form:aceptarMR");
+//        RequestContext.getCurrentInstance().update("form:RetirosDialogo");
+//        RequestContext.getCurrentInstance().update("form:lovMotivosRetiros");
+//        RequestContext.getCurrentInstance().update("form:aceptarMR");
 
         context.reset("formLovs:lovMotivosRetiros:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovMotivosRetiros').clearFilters()");
@@ -1819,15 +1819,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         banderaCambiosPensionados();
         pensionVigencia.setClase(clasesPensionesSeleccionada);
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:panelPensionadosInput");
+        RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
         aceptar = true;
         clasesPensionesFiltrado = null;
         clasesPensionesSeleccionada = null;
         getClasesPensiones();
 
-        PrimefacesContextUI.actualizar("form:clasePensionDialogo");
-        PrimefacesContextUI.actualizar("form:lovClasePension");
-        PrimefacesContextUI.actualizar("form:aceptarCP");
+        RequestContext.getCurrentInstance().update("form:clasePensionDialogo");
+        RequestContext.getCurrentInstance().update("form:lovClasePension");
+        RequestContext.getCurrentInstance().update("form:aceptarCP");
 
         context.reset("formLovs:lovClasePension:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovClasePension').clearFilters()");
@@ -1868,15 +1868,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         banderaCambiosPensionados();
         pensionVigencia.setTipopensionado(tiposPensionadosSeleccionada);
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:panelPensionadosInput");
+        RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
         aceptar = true;
         tiposPensionadosSeleccionada = null;
         tiposPensionadosFiltrado = null;
         getTiposPensionados();
         /*
-         * PrimefacesContextUI.actualizar("form:tipoPensionadoDialogo");
-         * PrimefacesContextUI.actualizar("form:lovTipoPensionado");
-         * PrimefacesContextUI.actualizar("form:aceptarTP");
+         * RequestContext.getCurrentInstance().update("form:tipoPensionadoDialogo");
+         * RequestContext.getCurrentInstance().update("form:lovTipoPensionado");
+         * RequestContext.getCurrentInstance().update("form:aceptarTP");
          */
         context.reset("formLovs:lovTipoPensionado:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovTipoPensionado').clearFilters()");
@@ -1917,15 +1917,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         banderaCambiosPensionados();
         pensionVigencia.setCausabiente(pensionadoSeleccionado.getCausabiente());
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:panelPensionadosInput");
+        RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
         aceptar = true;
         pensionadoSeleccionado = null;
         pensionadosFiltrado = null;
         getListaPensionados();
         /*
-         * PrimefacesContextUI.actualizar("form:causaBientesDialogo");
-         * PrimefacesContextUI.actualizar("form:lovCausaBientes");
-         * PrimefacesContextUI.actualizar("form:aceptarCB");
+         * RequestContext.getCurrentInstance().update("form:causaBientesDialogo");
+         * RequestContext.getCurrentInstance().update("form:lovCausaBientes");
+         * RequestContext.getCurrentInstance().update("form:aceptarCB");
          */
         context.reset("formLovs:lovCausaBientes:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovCausaBientes').clearFilters()");
@@ -1966,14 +1966,14 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         banderaCambiosPensionados();
         pensionVigencia.setTutor(personaSeleccionada);
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:panelPensionadosInput");
+        RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
         aceptar = true;
         personasFiltrado = null;
         personaSeleccionada = null;
         getListaPersonas();
         /*
-         * PrimefacesContextUI.actualizar("form:tutorDialogo"); PrimefacesContextUI.actualizar("form:lovTutor");
-         * PrimefacesContextUI.actualizar("form:aceptarT");
+         * RequestContext.getCurrentInstance().update("form:tutorDialogo"); RequestContext.getCurrentInstance().update("form:lovTutor");
+         * RequestContext.getCurrentInstance().update("form:aceptarT");
          */
         context.reset("formLovs:lovTutor:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovTutor').clearFilters()");
@@ -2020,9 +2020,9 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         cargarRetiro();
         banderaLimpiarRetiro = false;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:observacion");
-        PrimefacesContextUI.actualizar("form:motivoRetiro");
-        PrimefacesContextUI.actualizar("form:fechaRetiro");
+        RequestContext.getCurrentInstance().update("form:observacion");
+        RequestContext.getCurrentInstance().update("form:motivoRetiro");
+        RequestContext.getCurrentInstance().update("form:fechaRetiro");
     }
 
     /**
@@ -2058,7 +2058,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         cargarPension();
         banderaLimpiarPension = false;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:panelPensionadosInput");
+        RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
     }
 
     /**
@@ -2074,7 +2074,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         }
         cambiosPagina = false;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         System.out.println("paso por banderaCambiosRetirados() y salio Bien");
     }
 
@@ -2091,7 +2091,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         }
         cambiosPagina = false;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -2123,7 +2123,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         }
         if (banderaValidacion == true && guardado == false) {
             //Dialogo de almacenar el nuevo registro de retiro antes de realizar operaciones
-            PrimefacesContextUI.actualizar("formularioDialogos:guardarNuevoRegistroRetiro");
+            RequestContext.getCurrentInstance().update("formularioDialogos:guardarNuevoRegistroRetiro");
             PrimefacesContextUI.ejecutar("PF('guardarNuevoRegistroRetiro').show()");
         }
     }
@@ -2163,7 +2163,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         if (banderaValidacion == true && guardado == false) {
             //Dialogo de almacenar el nuevo registro de retiro antes de realizar operaciones
           /*
-             * PrimefacesContextUI.actualizar("formularioDialogos:guardarNuevoRegistroPensionado");
+             * RequestContext.getCurrentInstance().update("formularioDialogos:guardarNuevoRegistroPensionado");
              * PrimefacesContextUI.ejecutar("PF('guardarNuevoRegistroPensionado').show()");
              */
         }
@@ -2245,40 +2245,40 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             tipoLista = 1;
         }
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         modificarInfoRegistro(filtrarVTT.size());
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void eventoFiltrarTipoTrabajador() {
         modificarInfoRegistroTipoTrabajador(filtradoTiposTrabajadores.size());
-        PrimefacesContextUI.actualizar("formLovs:infoRegistroTipoTrabajador");
+        RequestContext.getCurrentInstance().update("formLovs:infoRegistroTipoTrabajador");
     }
 
     public void eventoFiltrarClasePension() {
         modificarInfoRegistroClasePension(clasesPensionesFiltrado.size());
-        PrimefacesContextUI.actualizar("formLovs:infoRegistroClasePension");
+        RequestContext.getCurrentInstance().update("formLovs:infoRegistroClasePension");
     }
 
     public void eventoFiltrarTipoPension() {
         modificarInfoRegistroTipoPension(tiposPensionadosFiltrado.size());
-        PrimefacesContextUI.actualizar("formLovs:infoRegistroClasePension");
+        RequestContext.getCurrentInstance().update("formLovs:infoRegistroClasePension");
     }
 
     public void eventoFiltrarEmpleado() {
         modificarInfoRegistroEmpleado(pensionadosFiltrado.size());
-        PrimefacesContextUI.actualizar("formLovs:infoRegistroEmpleado");
+        RequestContext.getCurrentInstance().update("formLovs:infoRegistroEmpleado");
     }
 
     public void eventoFiltrarPersona() {
         modificarInfoRegistroPersona(personasFiltrado.size());
-        PrimefacesContextUI.actualizar("formLovs:infoRegistroPersona");
+        RequestContext.getCurrentInstance().update("formLovs:infoRegistroPersona");
     }
 
     public void eventoFiltrarMotivosRetiros() {
         modificarInfoRegistroMotivoRetiros(filtradoMotivosRetiros.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroTipoEntidad");
+        RequestContext.getCurrentInstance().update("form:infoRegistroTipoEntidad");
     }
 
     private void modificarInfoRegistro(int valor) {
@@ -2330,7 +2330,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
 
     public void anularLOV() {
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     //**************************GETTER & SETTER**********************************************************************************************************************************************//

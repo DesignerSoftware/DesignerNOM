@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Tiposviajeros;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -110,7 +110,7 @@ public class ControlTiposViajeros implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         modificarInfoRegistro(filtrarTiposViajeros.size());
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
     }
 
@@ -190,9 +190,9 @@ public class ControlTiposViajeros implements Serializable {
         } else {
             modificarInfoRegistro(listTiposViajeros.size());
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosTiposViajeros");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosTiposViajeros");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -207,8 +207,8 @@ public class ControlTiposViajeros implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosTiposViajeros");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosTiposViajeros");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void cerrarFiltrado() {
@@ -217,7 +217,7 @@ public class ControlTiposViajeros implements Serializable {
         codigo.setFilterStyle("display: none; visibility: hidden;");
         descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposViajeros:descripcion");
         descripcion.setFilterStyle("display: none; visibility: hidden;");
-        PrimefacesContextUI.actualizar("form:datosTiposViajeros");
+        RequestContext.getCurrentInstance().update("form:datosTiposViajeros");
         bandera = 0;
         filtrarTiposViajeros = null;
         tipoLista = 0;
@@ -232,7 +232,7 @@ public class ControlTiposViajeros implements Serializable {
             codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposViajeros:descripcion");
             descripcion.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosTiposViajeros");
+            RequestContext.getCurrentInstance().update("form:datosTiposViajeros");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -297,7 +297,7 @@ public class ControlTiposViajeros implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -342,7 +342,7 @@ public class ControlTiposViajeros implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -396,7 +396,7 @@ public class ControlTiposViajeros implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -442,7 +442,7 @@ public class ControlTiposViajeros implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -450,8 +450,8 @@ public class ControlTiposViajeros implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosTiposViajeros");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosTiposViajeros");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -491,9 +491,9 @@ public class ControlTiposViajeros implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosTiposViajeros");
+            RequestContext.getCurrentInstance().update("form:datosTiposViajeros");
             modificarInfoRegistro(listTiposViajeros.size());
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             index = -1;
             secRegistro = null;
@@ -501,7 +501,7 @@ public class ControlTiposViajeros implements Serializable {
             if (guardado) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -528,7 +528,7 @@ public class ControlTiposViajeros implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
                 contarTiposLegalizaciones = new BigInteger("-1");
@@ -543,7 +543,7 @@ public class ControlTiposViajeros implements Serializable {
 
         if (!borrarTiposViajeros.isEmpty() || !crearTiposViajeros.isEmpty() || !modificarTiposViajeros.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -558,7 +558,7 @@ public class ControlTiposViajeros implements Serializable {
                 administrarTiposViajeros.borrarTiposViajeros(borrarTiposViajeros);
                 //mostrarBorrados
                 registrosBorrados = borrarTiposViajeros.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarTiposViajeros.clear();
             }
@@ -572,15 +572,15 @@ public class ControlTiposViajeros implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listTiposViajeros = null;
-            PrimefacesContextUI.actualizar("form:datosTiposViajeros");
+            RequestContext.getCurrentInstance().update("form:datosTiposViajeros");
             k = 0;
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -596,11 +596,11 @@ public class ControlTiposViajeros implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -670,13 +670,13 @@ public class ControlTiposViajeros implements Serializable {
             listTiposViajeros.add(nuevoTiposViajeros);
             tiposViajeroSeleccionado = listTiposViajeros.get(listTiposViajeros.indexOf(nuevoTiposViajeros));
             nuevoTiposViajeros = new Tiposviajeros();
-            PrimefacesContextUI.actualizar("form:datosTiposViajeros");
+            RequestContext.getCurrentInstance().update("form:datosTiposViajeros");
             modificarInfoRegistro(listTiposViajeros.size());
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroTiposViajeros').hide()");
@@ -684,7 +684,7 @@ public class ControlTiposViajeros implements Serializable {
             secRegistro = null;
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -718,7 +718,7 @@ public class ControlTiposViajeros implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposViajeros').show()");
             index = -1;
             secRegistro = null;
@@ -777,15 +777,15 @@ public class ControlTiposViajeros implements Serializable {
             listTiposViajeros.add(duplicarTiposViajeros);
             crearTiposViajeros.add(duplicarTiposViajeros);
             tiposViajeroSeleccionado = listTiposViajeros.get(listTiposViajeros.indexOf(duplicarTiposViajeros));
-            PrimefacesContextUI.actualizar("form:datosTiposViajeros");
+            RequestContext.getCurrentInstance().update("form:datosTiposViajeros");
             index = -1;
             secRegistro = null;
             if (guardado) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             modificarInfoRegistro(listTiposViajeros.size());
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             if (bandera == 1) {
                 cerrarFiltrado();
@@ -795,7 +795,7 @@ public class ControlTiposViajeros implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }

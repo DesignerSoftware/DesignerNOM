@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Administrar.AdministrarUsuarios;
 import Entidades.Pantallas;
 import Entidades.Perfiles;
@@ -28,7 +29,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -179,7 +179,7 @@ public class ControlUsuarios implements Serializable {
             usuarioPantallaInicio = (Column) c.getViewRoot().findComponent("form:datosUsuarios:pantalla");
             usuarioPantallaInicio.setFilterStyle("width: 85%");
             altoTabla = "250";
-            PrimefacesContextUI.actualizar("form:datosUsuarios");
+            RequestContext.getCurrentInstance().update("form:datosUsuarios");
             bandera = 1;
             tipoLista = 1;
             System.out.println("TipoLista= " + tipoLista);
@@ -198,7 +198,7 @@ public class ControlUsuarios implements Serializable {
             System.out.println("pantalla1");
             usuarioPantallaInicio.setFilterStyle("display: none; visibility: hidden;");
             System.out.println("pantalla2");
-            PrimefacesContextUI.actualizar("form:datosUsuarios");
+            RequestContext.getCurrentInstance().update("form:datosUsuarios");
             altoTabla = "270";
             bandera = 0;
             filtrarUsuarios = null;
@@ -215,7 +215,7 @@ public class ControlUsuarios implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         infoRegistro = "Cantidad de registros: " + filtrarUsuarios.size();
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     //UBICACION CELDA
@@ -267,22 +267,22 @@ public class ControlUsuarios implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarPersona");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarPersona");
                 PrimefacesContextUI.ejecutar("PF('editarPersona').show()");
                 cualCelda = -1;
             }
             if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarPerfil");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarPerfil");
                 PrimefacesContextUI.ejecutar("PF('editarPerfil').show()");
                 cualCelda = -1;
             }
             if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarAlias");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarAlias");
                 PrimefacesContextUI.ejecutar("PF('editarAlias').show()");
                 cualCelda = -1;
             }
             if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarPantalla");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarPantalla");
                 PrimefacesContextUI.ejecutar("PF('editarPantalla').show()");
                 cualCelda = -1;
             }
@@ -316,17 +316,17 @@ public class ControlUsuarios implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosUsuarios");
+            RequestContext.getCurrentInstance().update("form:datosUsuarios");
         } else if (tipoActualizacion == 1) {
             nuevaUsuarios.setPersona(personasSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaUsuario");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaUsuario");
         } else if (tipoActualizacion == 2) {
             duplicarUsuarios.setPersona(personasSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarUsuario");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuario");
         }
         lovFiltradoPersonas = null;
         personasSeleccionado = null;
@@ -359,10 +359,10 @@ public class ControlUsuarios implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:personasDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:personasDialogo");
             PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
             infoRegistroPersonas = "Cantidad de registros: " + lovPersonas.size();
-            PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroPersonas");
+            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPersonas");
         }
     }
 
@@ -406,17 +406,17 @@ public class ControlUsuarios implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosUsuarios");
+            RequestContext.getCurrentInstance().update("form:datosUsuarios");
         } else if (tipoActualizacion == 1) {
             nuevaUsuarios.setPerfil(perfilesSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaUsuario");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaUsuario");
         } else if (tipoActualizacion == 2) {
             duplicarUsuarios.setPerfil(perfilesSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarUsuario");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuario");
         }
         lovFiltradoPerfiles = null;
         perfilesSeleccionado = null;
@@ -448,17 +448,17 @@ public class ControlUsuarios implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:perfilesDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:perfilesDialogo");
             PrimefacesContextUI.ejecutar("PF('perfilesDialogo').show()");
             infoRegistroPerfiles = "Cantidad de registros: " + lovPerfiles.size();
-            PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroPerfiles");
+            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPerfiles");
         }
     }
 
     public void lovUsuarios() {
         RequestContext context = RequestContext.getCurrentInstance();
         getLovUsuarioAlias();
-        PrimefacesContextUI.actualizar("formularioDialogos:aliasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aliasDialogo");
         PrimefacesContextUI.ejecutar("PF('aliasDialogo').show()");
     }
 
@@ -510,17 +510,17 @@ public class ControlUsuarios implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosUsuarios");
+            RequestContext.getCurrentInstance().update("form:datosUsuarios");
         } else if (tipoActualizacion == 1) {
             nuevaUsuarios.setPantallainicio(pantallasSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaUsuario");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaUsuario");
         } else if (tipoActualizacion == 2) {
             duplicarUsuarios.setPantallainicio(pantallasSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarUsuario");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuario");
         }
         lovFiltradoPantallas = null;
         pantallasSeleccionado = null;
@@ -552,10 +552,10 @@ public class ControlUsuarios implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:pantallasDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:pantallasDialogo");
             PrimefacesContextUI.ejecutar("PF('pantallasDialogo').show()");
             infoRegistroPantallas = "Cantidad de registros: " + lovPantallas.size();
-            PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroPantallas");
+            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPantallas");
         }
     }
 
@@ -578,15 +578,15 @@ public class ControlUsuarios implements Serializable {
         if (index >= 0) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:personasDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:personasDialogo");
                 PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:perfilesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:perfilesDialogo");
                 PrimefacesContextUI.ejecutar("PF('perfilesDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:pantallasDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:pantallasDialogo");
                 PrimefacesContextUI.ejecutar("PF('pantallasDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -618,11 +618,11 @@ public class ControlUsuarios implements Serializable {
 
                         if (guardado == true) {
                             guardado = false;
-                            PrimefacesContextUI.actualizar("form:ACEPTAR");
+                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
                         }
                     } else if (pasa != 0) {
                         listaUsuarios.get(indice).setAlias(alisin);
-                        PrimefacesContextUI.actualizar("formularioDialogos:validacionAlias");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:validacionAlias");
                         PrimefacesContextUI.ejecutar("PF('validacionAlias').show()");
                     }
                 }
@@ -643,10 +643,10 @@ public class ControlUsuarios implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            PrimefacesContextUI.actualizar("form:ACEPTAR");
+                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
                         } else if (pasa > 1) {
                             filtrarUsuarios.get(indice).setAlias(alisin);
-                            PrimefacesContextUI.actualizar("formularioDialogos:validacionAlias");
+                            RequestContext.getCurrentInstance().update("formularioDialogos:validacionAlias");
                             PrimefacesContextUI.ejecutar("PF('validacionAlias').show()");
                         }
                     }
@@ -654,7 +654,7 @@ public class ControlUsuarios implements Serializable {
                 index = -1;
                 secRegistro = null;
             }
-            PrimefacesContextUI.actualizar("form:datosUsuarios");
+            RequestContext.getCurrentInstance().update("form:datosUsuarios");
 
         } else if (confirmarCambio.equalsIgnoreCase("PERSONAS")) {
             System.out.println("si está entrando personas");
@@ -680,7 +680,7 @@ public class ControlUsuarios implements Serializable {
                 getLovPersonas();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:personasDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:personasDialogo");
                 PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -708,7 +708,7 @@ public class ControlUsuarios implements Serializable {
                 getLovPersonas();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:perfilesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:perfilesDialogo");
                 PrimefacesContextUI.ejecutar("PF('perfilesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -736,7 +736,7 @@ public class ControlUsuarios implements Serializable {
                 getLovPantallas();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:pantallasDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:pantallasDialogo");
                 PrimefacesContextUI.ejecutar("PF('pantallasDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -751,7 +751,7 @@ public class ControlUsuarios implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
@@ -767,7 +767,7 @@ public class ControlUsuarios implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
@@ -775,7 +775,7 @@ public class ControlUsuarios implements Serializable {
                 secRegistro = null;
             }
         }
-        PrimefacesContextUI.actualizar("form:datosUsuarios");
+        RequestContext.getCurrentInstance().update("form:datosUsuarios");
     }
 
     //EXPORTAR
@@ -845,14 +845,14 @@ public class ControlUsuarios implements Serializable {
                 } else {
                     infoRegistro = "Cantidad de registros: 0";
                 }
-                PrimefacesContextUI.actualizar("form:informacionRegistro");
-                PrimefacesContextUI.actualizar("form:datosUsuarios");
+                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                RequestContext.getCurrentInstance().update("form:datosUsuarios");
                 guardado = true;
                 permitirIndex = true;
                 FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                PrimefacesContextUI.actualizar("form:growl");
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:growl");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 k = 0;
                 index = -1;
                 secRegistro = null;
@@ -860,7 +860,7 @@ public class ControlUsuarios implements Serializable {
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
 
@@ -901,14 +901,14 @@ public class ControlUsuarios implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosUsuarios");
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosUsuarios");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -929,7 +929,7 @@ public class ControlUsuarios implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:personasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:personasDialogo");
         PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
     }
 
@@ -952,21 +952,21 @@ public class ControlUsuarios implements Serializable {
         if (coincidencias == 1) {
             if (tipoNuevo == 1) {
                 nuevaUsuarios.setPersona(lovPersonas.get(indiceUnicoElemento));
-                PrimefacesContextUI.actualizar("formularioDialogos:nuevoPersona");
+                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
             } else if (tipoNuevo == 2) {
                 duplicarUsuarios.setPersona(lovPersonas.get(indiceUnicoElemento));
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarPersona");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersona");
             }
             lovPersonas.clear();
             getLovPersonas();
         } else {
-            PrimefacesContextUI.actualizar("form:personasDialogo");
+            RequestContext.getCurrentInstance().update("form:personasDialogo");
             PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:nuevoPersona");
+                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
             } else if (tipoNuevo == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarPersona");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersona");
             }
         }
     }
@@ -987,7 +987,7 @@ public class ControlUsuarios implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:perfilesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:perfilesDialogo");
         PrimefacesContextUI.ejecutar("PF('perfilesDialogo').show()");
     }
 
@@ -1010,21 +1010,21 @@ public class ControlUsuarios implements Serializable {
         if (coincidencias == 1) {
             if (tipoNuevo == 1) {
                 nuevaUsuarios.setPerfil(lovPerfiles.get(indiceUnicoElemento));
-                PrimefacesContextUI.actualizar("formularioDialogos:nuevoPerfil");
+                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPerfil");
             } else if (tipoNuevo == 2) {
                 duplicarUsuarios.setPerfil(lovPerfiles.get(indiceUnicoElemento));
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarPerfil");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPerfil");
             }
             lovPerfiles.clear();
             getLovPerfiles();
         } else {
-            PrimefacesContextUI.actualizar("form:perfilesDialogo");
+            RequestContext.getCurrentInstance().update("form:perfilesDialogo");
             PrimefacesContextUI.ejecutar("PF('perfilesDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:nuevoPerfil");
+                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPerfil");
             } else if (tipoNuevo == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarPerfil");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPerfil");
             }
         }
     }
@@ -1045,7 +1045,7 @@ public class ControlUsuarios implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:pantallasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:pantallasDialogo");
         PrimefacesContextUI.ejecutar("PF('pantallasDialogo').show()");
     }
 
@@ -1068,21 +1068,21 @@ public class ControlUsuarios implements Serializable {
         if (coincidencias == 1) {
             if (tipoNuevo == 1) {
                 nuevaUsuarios.setPantallainicio(lovPantallas.get(indiceUnicoElemento));
-                PrimefacesContextUI.actualizar("formularioDialogos:nuevoPantalla");
+                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPantalla");
             } else if (tipoNuevo == 2) {
                 duplicarUsuarios.setPantallainicio(lovPantallas.get(indiceUnicoElemento));
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarPantalla");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPantalla");
             }
             lovPerfiles.clear();
             getLovPerfiles();
         } else {
-            PrimefacesContextUI.actualizar("form:pantallasDialogo");
+            RequestContext.getCurrentInstance().update("form:pantallasDialogo");
             PrimefacesContextUI.ejecutar("PF('pantallasDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:nuevoPantalla");
+                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPantalla");
             } else if (tipoNuevo == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarPantalla");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPantalla");
             }
         }
     }
@@ -1122,7 +1122,7 @@ public class ControlUsuarios implements Serializable {
                 if (nuevaUsuarios.getPersona().getNombreCompleto().equals(listaUsuarios.get(i).getPersona().getNombreCompleto())) {
                     pasas++;
                     System.out.println("i= " + i);
-                    PrimefacesContextUI.actualizar("formularioDialogos:validacionPersona");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:validacionPersona");
                     PrimefacesContextUI.ejecutar("PF('validacionPersona').show()");
                 }
 
@@ -1143,7 +1143,7 @@ public class ControlUsuarios implements Serializable {
                 usuarioPantallaInicio = (Column) c.getViewRoot().findComponent("form:datosUsuarios:pantallainicio");
                 usuarioPantallaInicio.setFilterStyle("display: none; visibility: hidden;");
                 altoTabla = "115";
-                PrimefacesContextUI.actualizar("form:datosUsuarios");
+                RequestContext.getCurrentInstance().update("form:datosUsuarios");
                 bandera = 0;
                 filtrarUsuarios = null;
                 tipoLista = 0;
@@ -1163,20 +1163,20 @@ public class ControlUsuarios implements Serializable {
             listaUsuariosCrear.add(nuevaUsuarios);
             listaUsuarios.add(nuevaUsuarios);
             infoRegistro = "Cantidad de registros: " + listaUsuarios.size();
-            PrimefacesContextUI.actualizar("form:infoRegistro");
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
             nuevaUsuarios = new Usuarios();
-            PrimefacesContextUI.actualizar("form:datosUsuarios");
+            RequestContext.getCurrentInstance().update("form:datosUsuarios");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             System.out.println("SE ESTÀ CERRANDO? YA VEREMOS");
-            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroUsuario");
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroUsuario");
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroUsuario').hide()");
             index = -1;
             secRegistro = null;
         } else if (pasa > 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaUsuario");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaUsuario");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaUsuario').show()");
         }
     }
@@ -1201,7 +1201,7 @@ public class ControlUsuarios implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarUsuario");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuario");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroUsuario').show()");
             index = -1;
             secRegistro = null;
@@ -1224,7 +1224,7 @@ public class ControlUsuarios implements Serializable {
                 if (duplicarUsuarios.getPersona().getNombreCompleto() != null) {
                     if (duplicarUsuarios.getPersona().getNombreCompleto().equals(listaUsuarios.get(i).getPersona().getNombreCompleto())) {
                         pasas++;
-                        PrimefacesContextUI.actualizar("formularioDialogos:validacionPersona");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:validacionPersona");
                         PrimefacesContextUI.ejecutar("PF('validacionPersona').show()");
                     }
                 }
@@ -1256,7 +1256,7 @@ public class ControlUsuarios implements Serializable {
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -1270,7 +1270,7 @@ public class ControlUsuarios implements Serializable {
                 usuarioAlias.setFilterStyle("display: none; visibility: hidden;");
                 usuarioPantallaInicio = (Column) c.getViewRoot().findComponent("form:datosUsuarios:pantallainicio");
                 usuarioPantallaInicio.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosUsuarios");
+                RequestContext.getCurrentInstance().update("form:datosUsuarios");
                 altoTabla = "270";
                 bandera = 0;
                 filtrarUsuarios = null;
@@ -1280,16 +1280,16 @@ public class ControlUsuarios implements Serializable {
 
             listaUsuarios.add(duplicarUsuarios);
             listaUsuariosCrear.add(duplicarUsuarios);
-            PrimefacesContextUI.actualizar("form:datosUsuarios");
+            RequestContext.getCurrentInstance().update("form:datosUsuarios");
             duplicarUsuarios = new Usuarios();
             infoRegistro = "Cantidad de registros: " + listaUsuarios.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarUsuario");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuario");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroUsuario').hide()");
 
         } else if (pasa > 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaUsuario");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaUsuario");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaUsuario').show()");
         }
 
@@ -1344,7 +1344,7 @@ public class ControlUsuarios implements Serializable {
             usuarioPantallaInicio.setFilterStyle("display: none; visibility: hidden;");
             usuarioActivo = (Column) c.getViewRoot().findComponent("form:datosUsuarios:activo");
             usuarioActivo.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosUsuarios");
+            RequestContext.getCurrentInstance().update("form:datosUsuarios");
             altoTabla = "270";
             bandera = 0;
             filtrarUsuarios = null;
@@ -1371,9 +1371,9 @@ public class ControlUsuarios implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosUsuarios");
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:aliasNombreClon");
+        RequestContext.getCurrentInstance().update("form:datosUsuarios");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:aliasNombreClon");
         PrimefacesContextUI.ejecutar("PF('aliasNombreClon').show()");
     }
 
@@ -1393,7 +1393,7 @@ public class ControlUsuarios implements Serializable {
             usuarioPantallaInicio.setFilterStyle("display: none; visibility: hidden;");
             usuarioActivo = (Column) c.getViewRoot().findComponent("form:datosUsuarios:activo");
             usuarioActivo.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosUsuarios");
+            RequestContext.getCurrentInstance().update("form:datosUsuarios");
             altoTabla = "270";
             bandera = 0;
             filtrarUsuarios = null;
@@ -1411,9 +1411,9 @@ public class ControlUsuarios implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosUsuarios");
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:aliasNombreClon");
+        RequestContext.getCurrentInstance().update("form:datosUsuarios");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:aliasNombreClon");
         PrimefacesContextUI.ejecutar("PF('aliasNombreClon').show()");
     }
 
@@ -1435,33 +1435,33 @@ public class ControlUsuarios implements Serializable {
                     mensaje = "Creando el nuevo Usuario...";
                     FacesMessage msg = new FacesMessage("Información", mensaje);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-                    PrimefacesContextUI.actualizar("form:growl");
+                    RequestContext.getCurrentInstance().update("form:growl");
                     exeC = null;
                     if (exeC2 != null) {
                         mensaje2 = "Creando el nuevo Perfil...";
                         FacesMessage msg2 = new FacesMessage("Información", mensaje);
                         FacesContext.getCurrentInstance().addMessage(null, msg);
-                        PrimefacesContextUI.actualizar("form:growl");
+                        RequestContext.getCurrentInstance().update("form:growl");
                         exeC2 = null;
                     } else {
                         mensaje2 = "Excepción no tratada... "
                                 + "Error al crear el Perfil";
                         FacesMessage msg2 = new FacesMessage("Información", mensaje);
                         FacesContext.getCurrentInstance().addMessage(null, msg);
-                        PrimefacesContextUI.actualizar("form:growl");
+                        RequestContext.getCurrentInstance().update("form:growl");
                     }
                 } else {
                     mensaje = "Excepción no tratada... "
                             + "Error al crear el Usuario";
                     FacesMessage msg = new FacesMessage("Información", mensaje);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-                    PrimefacesContextUI.actualizar("form:growl");
+                    RequestContext.getCurrentInstance().update("form:growl");
                     if (exeC2 == null) {
                         mensaje2 = "Excepción no tratada... "
                                 + "Error al crear el Perfil";
                         FacesMessage msg2 = new FacesMessage("Información", mensaje);
                         FacesContext.getCurrentInstance().addMessage(null, msg);
-                        PrimefacesContextUI.actualizar("form:growl");
+                        RequestContext.getCurrentInstance().update("form:growl");
                     }
                 }
 
@@ -1474,33 +1474,33 @@ public class ControlUsuarios implements Serializable {
                     mensaje = "Creando el nuevo Usuario...";
                     FacesMessage msg = new FacesMessage("Información", mensaje);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-                    PrimefacesContextUI.actualizar("form:growl");
+                    RequestContext.getCurrentInstance().update("form:growl");
                     exeC = null;
                     if (exeC2 != null) {
                         mensaje2 = "Creando el nuevo Perfil...";
                         FacesMessage msg2 = new FacesMessage("Información", mensaje);
                         FacesContext.getCurrentInstance().addMessage(null, msg);
-                        PrimefacesContextUI.actualizar("form:growl");
+                        RequestContext.getCurrentInstance().update("form:growl");
                         exeC2 = null;
                     } else {
                         mensaje2 = "Excepción no tratada... "
                                 + "Error al crear el Perfil";
                         FacesMessage msg2 = new FacesMessage("Información", mensaje);
                         FacesContext.getCurrentInstance().addMessage(null, msg);
-                        PrimefacesContextUI.actualizar("form:growl");
+                        RequestContext.getCurrentInstance().update("form:growl");
                     }
                 } else {
                     mensaje = "Excepción no tratada... "
                             + "Error al crear el Usuario";
                     FacesMessage msg = new FacesMessage("Información", mensaje);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-                    PrimefacesContextUI.actualizar("form:growl");
+                    RequestContext.getCurrentInstance().update("form:growl");
                     if (exeC2 == null) {
                         mensaje2 = "Excepción no tratada... "
                                 + "Error al crear el Perfil";
                         FacesMessage msg2 = new FacesMessage("Información", mensaje);
                         FacesContext.getCurrentInstance().addMessage(null, msg);
-                        PrimefacesContextUI.actualizar("form:growl");
+                        RequestContext.getCurrentInstance().update("form:growl");
                         exeC2 = null;
                     }
                 }
@@ -1532,7 +1532,7 @@ public class ControlUsuarios implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("entro aqui");
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionEliminar");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionEliminar");
             PrimefacesContextUI.ejecutar("PF('validacionEliminar').show()");
             index = -1;
             secRegistro = null;
@@ -1559,26 +1559,26 @@ public class ControlUsuarios implements Serializable {
             mensaje = "Borrando el Usuario...";
             FacesMessage msg = new FacesMessage("Información", mensaje);
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
             exeE = null;
         } else {
             mensaje = "Excepción no tratada... Error al borrar el Usuario";
             FacesMessage msg = new FacesMessage("Información", mensaje);
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         if (exeE2 != null) {
             mensaje2 = "Usuario Borrado";
             FacesMessage msg = new FacesMessage("Información", mensaje);
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
             exeE2 = null;
         } else {
             mensaje2 = "Excepción no tratada... "
                     + "No se puedo suprimir el registro maestro al existir registros detalle coincidentes";
             FacesMessage msg = new FacesMessage("Información", mensaje);
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
 
         index = -1;
@@ -1594,7 +1594,7 @@ public class ControlUsuarios implements Serializable {
         context.reset("formularioDialogos:LOVUsuariosAlias:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVUsuariosAlias').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('aliasDialogo').hide()");
-        PrimefacesContextUI.actualizar("form:aliasNombreClon");
+        RequestContext.getCurrentInstance().update("form:aliasNombreClon");
     }
 
     public void dfghjkl() {
@@ -1611,7 +1611,7 @@ public class ControlUsuarios implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (auxClon.equals("")) {
 
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionClon");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionClon");
             PrimefacesContextUI.ejecutar("PF('validacionClon').show()");
 
         } else if (!auxClon.equals("")) {
@@ -1624,12 +1624,12 @@ public class ControlUsuarios implements Serializable {
                     if (exeA != null) {
                         FacesMessage msg = new FacesMessage("Información", "Reportes Clonados");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
-                        PrimefacesContextUI.actualizar("form:growl");
+                        RequestContext.getCurrentInstance().update("form:growl");
                         exeA = null;
                     } else {
                         FacesMessage msg = new FacesMessage("Información", "Excepción no tratada");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
-                        PrimefacesContextUI.actualizar("form:growl");
+                        RequestContext.getCurrentInstance().update("form:growl");
                     }
                 }
                 if (tipoLista == 1) {
@@ -1637,11 +1637,11 @@ public class ControlUsuarios implements Serializable {
                     if (exeA != null) {
                         FacesMessage msg = new FacesMessage("Información", "Reportes Clonados");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
-                        PrimefacesContextUI.actualizar("form:growl");
+                        RequestContext.getCurrentInstance().update("form:growl");
                     } else {
                         FacesMessage msg = new FacesMessage("Información", "Excepción no tratada");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
-                        PrimefacesContextUI.actualizar("form:growl");
+                        RequestContext.getCurrentInstance().update("form:growl");
                     }
                 }
                 index = -1;
@@ -1661,12 +1661,12 @@ public class ControlUsuarios implements Serializable {
                 if (exeD != null) {
                     FacesMessage msg = new FacesMessage("Información", "Usuario Desbloqueado");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-                    PrimefacesContextUI.actualizar("form:growl");
+                    RequestContext.getCurrentInstance().update("form:growl");
                     exeD = null;
                 } else {
                     FacesMessage msg = new FacesMessage("Información", "Excepción no tratada");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-                    PrimefacesContextUI.actualizar("form:growl");
+                    RequestContext.getCurrentInstance().update("form:growl");
                 }
             }
             if (tipoLista == 1) {
@@ -1674,12 +1674,12 @@ public class ControlUsuarios implements Serializable {
                 if (exeD != null) {
                     FacesMessage msg = new FacesMessage("Información", "Usuario Desbloqueado");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-                    PrimefacesContextUI.actualizar("form:growl");
+                    RequestContext.getCurrentInstance().update("form:growl");
                     exeD = null;
                 } else {
                     FacesMessage msg = new FacesMessage("Información", "Excepción no tratada");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-                    PrimefacesContextUI.actualizar("form:growl");
+                    RequestContext.getCurrentInstance().update("form:growl");
                 }
             }
             index = -1;
@@ -1745,26 +1745,26 @@ public class ControlUsuarios implements Serializable {
                 exeR = administrarUsuario.restaurarUsuariosBD(usuariosSeleccionado.getAlias(), fecha);
                 if (exeR != null) {
                     mensajeContra = usuariosSeleccionado.getAlias() + "_" + fecha;
-                    PrimefacesContextUI.actualizar("formularioDialogos:contrasenaNueva");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:contrasenaNueva");
                     PrimefacesContextUI.ejecutar("PF('contrasenaNueva').show()");
                     exeR = null;
                 } else {
                     FacesMessage msg = new FacesMessage("Información", "Excepción no tratada");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-                    PrimefacesContextUI.actualizar("form:growl");
+                    RequestContext.getCurrentInstance().update("form:growl");
                 }
             }
             if (tipoLista == 1) {
                 exeR = administrarUsuario.restaurarUsuariosBD(usuariosSeleccionado.getAlias(), fecha);
                 if (exeR != null) {
                     mensajeContra = usuariosSeleccionado.getAlias() + "_" + fecha;
-                    PrimefacesContextUI.actualizar("formularioDialogos:contrasenaNueva");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:contrasenaNueva");
                     PrimefacesContextUI.ejecutar("PF('contrasenaNueva').show()");
                     exeR = null;
                 } else {
                     FacesMessage msg = new FacesMessage("Información", "Excepción no tratada");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-                    PrimefacesContextUI.actualizar("form:growl");
+                    RequestContext.getCurrentInstance().update("form:growl");
                 }
             }
             index = -1;
@@ -1820,7 +1820,7 @@ public class ControlUsuarios implements Serializable {
         } else {
             infoRegistroPersonas = "Cantidad de registros: " + lovPersonas.size();
         }
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroPersonas");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPersonas");
         return lovPersonas;
     }
 
@@ -1845,7 +1845,7 @@ public class ControlUsuarios implements Serializable {
         } else {
             infoRegistroPerfiles = "Cantidad de registros: " + lovPerfiles.size();
         }
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroPerfiles");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPerfiles");
         return lovPerfiles;
     }
 
@@ -1870,7 +1870,7 @@ public class ControlUsuarios implements Serializable {
         } else {
             infoRegistroPantallas = "Cantidad de registros: " + lovPantallas.size();
         }
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroPantallas");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPantallas");
         return lovPantallas;
     }
 

@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Cargos;
 import Entidades.Empleados;
 import Entidades.Proyectos;
@@ -30,7 +31,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 @ManagedBean
 @SessionScoped
@@ -165,7 +165,7 @@ public class ControlVigenciasProyectos implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
@@ -182,14 +182,14 @@ public class ControlVigenciasProyectos implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
                 index = -1;
                 secRegistro = null;
             }
-            PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
         } else if (confirmarCambio.equalsIgnoreCase("PROYECTO")) {
             if (tipoLista == 0) {
                 listaVigenciasProyectos.get(indice).getProyecto().setNombreproyecto(Proyecto);
@@ -213,7 +213,7 @@ public class ControlVigenciasProyectos implements Serializable {
                 getListaProyectos();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:proyectosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:proyectosDialogo");
                 PrimefacesContextUI.ejecutar("PF('proyectosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -239,7 +239,7 @@ public class ControlVigenciasProyectos implements Serializable {
                 getListaPryRoles();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:pryRolesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
                 PrimefacesContextUI.ejecutar("PF('pryRolesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -265,7 +265,7 @@ public class ControlVigenciasProyectos implements Serializable {
                 getListaCargos();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:cargosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
                 PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -280,7 +280,7 @@ public class ControlVigenciasProyectos implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
@@ -296,7 +296,7 @@ public class ControlVigenciasProyectos implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
@@ -304,7 +304,7 @@ public class ControlVigenciasProyectos implements Serializable {
                 secRegistro = null;
             }
         }
-        PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+        RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
     }
 
 //Ubicacion Celda.
@@ -316,7 +316,7 @@ public class ControlVigenciasProyectos implements Serializable {
             //tablaImprimir = ":formExportar:datosVigenciasFormalesExportar";
             //nombreArchivo = "VigenciasFormalesXML";
             //RequestContext context = RequestContext.getCurrentInstance();
-            //PrimefacesContextUI.actualizar("form:exportarXML");
+            //RequestContext.getCurrentInstance().update("form:exportarXML");
             getProyectoParametro();
             if (proyectoParametro != null) {
                 plataformaParametroProyecto = null;
@@ -324,7 +324,7 @@ public class ControlVigenciasProyectos implements Serializable {
                     plataformaParametroProyecto = proyectoParametro.getPryPlataforma().getDescripcion() + " - " + proyectoParametro.getPryPlataforma().getObservacion();
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("formularioDetalles:plataforma");
+                RequestContext.getCurrentInstance().update("formularioDetalles:plataforma");
             }
             if (proyectoParametro != null) {
                 getClienteParametroProyecto();
@@ -369,13 +369,13 @@ public class ControlVigenciasProyectos implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            PrimefacesContextUI.actualizar("form:proyectosDialogo");
+            RequestContext.getCurrentInstance().update("form:proyectosDialogo");
             PrimefacesContextUI.ejecutar("PF('proyectosDialogo').show()");
         } else if (dlg == 1) {
-            PrimefacesContextUI.actualizar("form:pryRolesDialogo");
+            RequestContext.getCurrentInstance().update("form:pryRolesDialogo");
             PrimefacesContextUI.ejecutar("PF('pryRolesDialogo').show()");
         } else if (dlg == 2) {
-            PrimefacesContextUI.actualizar("form:cargosDialogo");
+            RequestContext.getCurrentInstance().update("form:cargosDialogo");
             PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
         }
 
@@ -402,7 +402,7 @@ public class ControlVigenciasProyectos implements Serializable {
             vPCantidadPersonas = (Column) c.getViewRoot().findComponent("form:datosVigenciasProyectosPersona:vPCantidadPersonas");
             vPCantidadPersonas.setFilterStyle("width: 85%;");
             altoTabla = "95";
-            PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
@@ -422,7 +422,7 @@ public class ControlVigenciasProyectos implements Serializable {
             vPCantidadPersonas.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "115";
 
-            PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
             bandera = 0;
             filtradosListaVigenciasProyectos = null;
             tipoLista = 0;
@@ -434,15 +434,15 @@ public class ControlVigenciasProyectos implements Serializable {
         if (index >= 0) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:proyectosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:proyectosDialogo");
                 PrimefacesContextUI.ejecutar("PF('proyectosDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:pryRolesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
                 PrimefacesContextUI.ejecutar("PF('pryRolesDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:cargosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
                 PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -547,7 +547,7 @@ public class ControlVigenciasProyectos implements Serializable {
                 vPCantidadPersonas = (Column) c.getViewRoot().findComponent("form:datosVigenciasProyectosPersona:vPCantidadPersonas");
                 vPCantidadPersonas.setFilterStyle("display: none; visibility: hidden;");
                 altoTabla = "115";
-                PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+                RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
                 bandera = 0;
                 filtradosListaVigenciasProyectos = null;
                 tipoLista = 0;
@@ -568,16 +568,16 @@ public class ControlVigenciasProyectos implements Serializable {
             nuevaVigenciaProyectos.setPryRol(new PryRoles());
             nuevaVigenciaProyectos.setProyecto(new Proyectos());
             nuevaVigenciaProyectos.setPryCargoproyecto(new Cargos());
-            PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigenciaProyecto').hide()");
             index = -1;
             secRegistro = null;
         } else {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaVigenciaProyecto");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaVigenciaProyecto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaVigenciaProyecto').show()");
         }
     }
@@ -611,7 +611,7 @@ public class ControlVigenciasProyectos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigenciaProyecto");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaProyecto");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVigenciaProyecto').show()");
             index = -1;
             secRegistro = null;
@@ -623,11 +623,11 @@ public class ControlVigenciasProyectos implements Serializable {
         listaVigenciasProyectos.add(duplicarVigenciaProyectos);
         listaVigenciasProyectosCrear.add(duplicarVigenciaProyectos);
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+        RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
         index = -1;
         if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         if (bandera == 1) {
             //CERRAR FILTRADO
@@ -645,13 +645,13 @@ public class ControlVigenciasProyectos implements Serializable {
             vPCantidadPersonas = (Column) c.getViewRoot().findComponent("form:datosVigenciasProyectosPersona:vPCantidadPersonas");
             vPCantidadPersonas.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "115";
-            PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
             bandera = 0;
             filtradosListaVigenciasProyectos = null;
             tipoLista = 0;
         }
         duplicarVigenciaProyectos = new VigenciasProyectos();
-        PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroVigenciaProyecto");
+        RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroVigenciaProyecto");
         PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVigenciaProyecto').hide()");
     }
     //LIMPIAR DUPLICAR
@@ -702,13 +702,13 @@ public class ControlVigenciasProyectos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -733,7 +733,7 @@ public class ControlVigenciasProyectos implements Serializable {
             vPCantidadPersonas = (Column) c.getViewRoot().findComponent("form:datosVigenciasProyectosPersona:vPCantidadPersonas");
             vPCantidadPersonas.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "115";
-            PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
             bandera = 0;
             filtradosListaVigenciasProyectos = null;
             tipoLista = 0;
@@ -749,7 +749,7 @@ public class ControlVigenciasProyectos implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+        RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
     }
 
     public void salir() {
@@ -772,7 +772,7 @@ public class ControlVigenciasProyectos implements Serializable {
             vPCantidadPersonas = (Column) c.getViewRoot().findComponent("form:datosVigenciasProyectosPersona:vPCantidadPersonas");
             vPCantidadPersonas.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "115";
-            PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
             bandera = 0;
             filtradosListaVigenciasProyectos = null;
             tipoLista = 0;
@@ -842,13 +842,13 @@ public class ControlVigenciasProyectos implements Serializable {
             System.out.println("Se guardaron los datos con exito");
             listaVigenciasProyectos = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
             guardado = true;
             permitirIndex = true;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:growl");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //  k = 0;
         }
         System.out.println("Tamaño lista: " + listaVigenciasProyectosCrear.size());
@@ -876,21 +876,21 @@ public class ControlVigenciasProyectos implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigenciaProyectos.setProyecto(listaProyectos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoProyecto");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoProyecto");
                 } else if (tipoNuevo == 2) {
                     duplicarVigenciaProyectos.setProyecto(listaProyectos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarProyecto");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProyecto");
                 }
                 listaProyectos.clear();
                 getListaProyectos();
             } else {
-                PrimefacesContextUI.actualizar("form:proyectosDialogo");
+                RequestContext.getCurrentInstance().update("form:proyectosDialogo");
                 PrimefacesContextUI.ejecutar("PF('proyectosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoProyecto");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoProyecto");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarProyecto");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProyecto");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("PRYROL")) {
@@ -909,21 +909,21 @@ public class ControlVigenciasProyectos implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigenciaProyectos.setPryRol(listaPryRoles.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoPryRol");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPryRol");
                 } else if (tipoNuevo == 2) {
                     duplicarVigenciaProyectos.setPryRol(listaPryRoles.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarPryRol");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPryRol");
                 }
                 listaPryRoles.clear();
                 getListaPryRoles();
             } else {
-                PrimefacesContextUI.actualizar("form:pryRolesDialogo");
+                RequestContext.getCurrentInstance().update("form:pryRolesDialogo");
                 PrimefacesContextUI.ejecutar("PF('pryRolesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoPryRol");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPryRol");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarPryRol");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPryRol");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("CARGO")) {
@@ -942,21 +942,21 @@ public class ControlVigenciasProyectos implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigenciaProyectos.setPryCargoproyecto(listaCargos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargo");
                 } else if (tipoNuevo == 2) {
                     duplicarVigenciaProyectos.setPryCargoproyecto(listaCargos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargo");
                 }
                 listaCargos.clear();
                 getListaCargos();
             } else {
-                PrimefacesContextUI.actualizar("form:cargosDialogo");
+                RequestContext.getCurrentInstance().update("form:cargosDialogo");
                 PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargo");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargo");
                 }
             }
 
@@ -976,27 +976,27 @@ public class ControlVigenciasProyectos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechasIniciales");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasIniciales");
                 PrimefacesContextUI.ejecutar("PF('editarFechasIniciales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechasFinales");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasFinales");
                 PrimefacesContextUI.ejecutar("PF('editarFechasFinales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarProyectos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarProyectos");
                 PrimefacesContextUI.ejecutar("PF('editarProyectos').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarPryRoles");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarPryRoles");
                 PrimefacesContextUI.ejecutar("PF('editarPryRoles').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCargos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCargos");
                 PrimefacesContextUI.ejecutar("PF('editarCargos').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCantidadPersonas");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCantidadPersonas");
                 PrimefacesContextUI.ejecutar("PF('editarCantidadPersonas').show()");
                 cualCelda = -1;
             }
@@ -1029,17 +1029,17 @@ public class ControlVigenciasProyectos implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaProyectos.setProyecto(seleccionProyectos);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigenciaProyecto");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigenciaProyecto");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciaProyectos.setProyecto(seleccionProyectos);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigenciaProyecto");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaProyecto");
         }
         filtradoslistaProyectos = null;
         seleccionProyectos = null;
@@ -1051,7 +1051,7 @@ public class ControlVigenciasProyectos implements Serializable {
         context.reset("formularioDialogos:LOVProyectos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVProyectos').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('proyectosDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVProyectos");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVProyectos");
     }
 
     public void actualizarPryRoles() {
@@ -1078,17 +1078,17 @@ public class ControlVigenciasProyectos implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaProyectos.setPryRol(seleccionPryRoles);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigenciaProyecto");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigenciaProyecto");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciaProyectos.setPryRol(seleccionPryRoles);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigenciaProyecto");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaProyecto");
 
         }
         filtradoslistaPryRoles = null;
@@ -1101,7 +1101,7 @@ public class ControlVigenciasProyectos implements Serializable {
         context.reset("formularioDialogos:LOVPryRoles:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVPryRoles').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('pryRolesDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVPryRoles");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVPryRoles");
     }
 
     public void actualizarCargos() {
@@ -1128,17 +1128,17 @@ public class ControlVigenciasProyectos implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosVigenciasProyectosPersona");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaProyectos.setPryCargoproyecto(seleccionCargos);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigenciaProyecto");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigenciaProyecto");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciaProyectos.setPryCargoproyecto(seleccionCargos);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigenciaProyecto");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaProyecto");
 
         }
         filtradoslistaPryRoles = null;
@@ -1151,7 +1151,7 @@ public class ControlVigenciasProyectos implements Serializable {
         context.reset("formularioDialogos:LOVCargos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVCargos').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('cargosDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVCargos");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVCargos");
     }
 
     public void cancelarCambioProyectos() {
@@ -1410,19 +1410,19 @@ public class ControlVigenciasProyectos implements Serializable {
             if (!listaVigenciasProyectos.isEmpty()) {
                 proyectoParametro = administrarVigenciasProyectos.buscarProyectoPorNombreVigencia(listaVigenciasProyectos.get(index).getProyecto().getNombreproyecto());
                 /*RequestContext context = RequestContext.getCurrentInstance();
-                 PrimefacesContextUI.actualizar("formularioDialogos:pryRolesDialogo");
+                 RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
                  PrimefacesContextUI.ejecutar("PF('pryRolesDialogo').show()");*/
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("formularioDetalles:nombreProyecto");
-                PrimefacesContextUI.actualizar("formularioDetalles:tipoMoneda");
-                PrimefacesContextUI.actualizar("formularioDetalles:cliente");
-                PrimefacesContextUI.actualizar("formularioDetalles:plataforma");
-                PrimefacesContextUI.actualizar("formularioDetalles:totalPersonas");
-                PrimefacesContextUI.actualizar("formularioDetalles:detalleProyecto");
-                PrimefacesContextUI.actualizar("formularioDetalles:fechaInicial");
-                PrimefacesContextUI.actualizar("formularioDetalles:monto");
-                PrimefacesContextUI.actualizar("formularioDetalles:fechaFinal");
-                PrimefacesContextUI.actualizar("formularioDetalles:codigoProyecto");
+                RequestContext.getCurrentInstance().update("formularioDetalles:nombreProyecto");
+                RequestContext.getCurrentInstance().update("formularioDetalles:tipoMoneda");
+                RequestContext.getCurrentInstance().update("formularioDetalles:cliente");
+                RequestContext.getCurrentInstance().update("formularioDetalles:plataforma");
+                RequestContext.getCurrentInstance().update("formularioDetalles:totalPersonas");
+                RequestContext.getCurrentInstance().update("formularioDetalles:detalleProyecto");
+                RequestContext.getCurrentInstance().update("formularioDetalles:fechaInicial");
+                RequestContext.getCurrentInstance().update("formularioDetalles:monto");
+                RequestContext.getCurrentInstance().update("formularioDetalles:fechaFinal");
+                RequestContext.getCurrentInstance().update("formularioDetalles:codigoProyecto");
             }
         }
         return proyectoParametro;
@@ -1436,7 +1436,7 @@ public class ControlVigenciasProyectos implements Serializable {
         if (proyectoParametro.getSecuencia() != null) {
             clienteParametroProyecto = proyectoParametro.getPryCliente().getNombre() + "/" + proyectoParametro.getPryCliente().getDireccion() + "/" + proyectoParametro.getPryCliente().getTelefono() + " - " + proyectoParametro.getPryCliente().getContacto();
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDetalles:cliente");
+            RequestContext.getCurrentInstance().update("formularioDetalles:cliente");
         }
         return clienteParametroProyecto;
     }

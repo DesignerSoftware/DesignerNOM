@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.TiposFamiliares;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -179,7 +179,7 @@ public class ControlTiposFamiliares implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposFamiliares:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposFamiliares");
+            RequestContext.getCurrentInstance().update("form:datosTiposFamiliares");
             bandera = 0;
             filtrarTiposFamiliares = null;
             tipoLista = 0;
@@ -198,9 +198,9 @@ public class ControlTiposFamiliares implements Serializable {
         getListTiposFamiliares();
         RequestContext context = RequestContext.getCurrentInstance();
         contarRegistros();
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosTiposFamiliares");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosTiposFamiliares");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -211,7 +211,7 @@ public class ControlTiposFamiliares implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposFamiliares:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposFamiliares");
+            RequestContext.getCurrentInstance().update("form:datosTiposFamiliares");
             bandera = 0;
             filtrarTiposFamiliares = null;
             tipoLista = 0;
@@ -229,8 +229,8 @@ public class ControlTiposFamiliares implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosTiposFamiliares");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosTiposFamiliares");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -241,7 +241,7 @@ public class ControlTiposFamiliares implements Serializable {
             codigo.setFilterStyle("width: 85%");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposFamiliares:descripcion");
             descripcion.setFilterStyle("width: 85%");
-            PrimefacesContextUI.actualizar("form:datosTiposFamiliares");
+            RequestContext.getCurrentInstance().update("form:datosTiposFamiliares");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -251,7 +251,7 @@ public class ControlTiposFamiliares implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposFamiliares:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposFamiliares");
+            RequestContext.getCurrentInstance().update("form:datosTiposFamiliares");
             bandera = 0;
             filtrarTiposFamiliares = null;
             tipoLista = 0;
@@ -313,7 +313,7 @@ public class ControlTiposFamiliares implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     tiposFamiliaresSeleccionado = null;
@@ -356,7 +356,7 @@ public class ControlTiposFamiliares implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     tiposFamiliaresSeleccionado = null;
@@ -408,7 +408,7 @@ public class ControlTiposFamiliares implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     tiposFamiliaresSeleccionado = null;
@@ -453,7 +453,7 @@ public class ControlTiposFamiliares implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     tiposFamiliaresSeleccionado = null;
@@ -461,8 +461,8 @@ public class ControlTiposFamiliares implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosTiposFamiliares");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosTiposFamiliares");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -487,15 +487,15 @@ public class ControlTiposFamiliares implements Serializable {
                 filtrarTiposFamiliares.remove(tiposFamiliaresSeleccionado);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosTiposFamiliares");
+            RequestContext.getCurrentInstance().update("form:datosTiposFamiliares");
             modificarInfoRegistro(listTiposFamiliares.size());
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             tiposFamiliaresSeleccionado = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else{
             PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
         } 
@@ -519,7 +519,7 @@ public class ControlTiposFamiliares implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 tiposFamiliaresSeleccionado = null;
                 contarHvReferenciasTipoFamiliar = new BigInteger("-1");
@@ -534,7 +534,7 @@ public class ControlTiposFamiliares implements Serializable {
 
         if (!borrarTiposFamiliares.isEmpty() || !crearTiposFamiliares.isEmpty() || !modificarTiposFamiliares.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -549,7 +549,7 @@ public class ControlTiposFamiliares implements Serializable {
                 administrarTiposFamiliares.borrarTiposFamiliares(borrarTiposFamiliares);
                 //mostrarBorrados
                 registrosBorrados = borrarTiposFamiliares.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarTiposFamiliares.clear();
             }
@@ -565,15 +565,15 @@ public class ControlTiposFamiliares implements Serializable {
             listTiposFamiliares = null;
             getListTiposFamiliares();
             contarRegistros();
-            PrimefacesContextUI.actualizar("form:datosTiposFamiliares");
+            RequestContext.getCurrentInstance().update("form:datosTiposFamiliares");
             k = 0;
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         tiposFamiliaresSeleccionado = null;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -589,11 +589,11 @@ public class ControlTiposFamiliares implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -658,7 +658,7 @@ public class ControlTiposFamiliares implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposFamiliares:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosTiposFamiliares");
+                RequestContext.getCurrentInstance().update("form:datosTiposFamiliares");
                 bandera = 0;
                 filtrarTiposFamiliares = null;
                 tipoLista = 0;
@@ -672,19 +672,19 @@ public class ControlTiposFamiliares implements Serializable {
             listTiposFamiliares.add(nuevoTiposFamiliares);
             tiposFamiliaresSeleccionado = nuevoTiposFamiliares;
             nuevoTiposFamiliares = new TiposFamiliares();
-            PrimefacesContextUI.actualizar("form:datosTiposFamiliares");
+            RequestContext.getCurrentInstance().update("form:datosTiposFamiliares");
             modificarInfoRegistro(listTiposFamiliares.size());
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroTiposFamiliares').hide()");
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -716,7 +716,7 @@ public class ControlTiposFamiliares implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposFamiliares').show()");
         } else{
             PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
@@ -775,13 +775,13 @@ public class ControlTiposFamiliares implements Serializable {
             listTiposFamiliares.add(duplicarTiposFamiliares);
             crearTiposFamiliares.add(duplicarTiposFamiliares);
             tiposFamiliaresSeleccionado = duplicarTiposFamiliares;
-            PrimefacesContextUI.actualizar("form:datosTiposFamiliares");
+            RequestContext.getCurrentInstance().update("form:datosTiposFamiliares");
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             modificarInfoRegistro(listTiposFamiliares.size());
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -790,7 +790,7 @@ public class ControlTiposFamiliares implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposFamiliares:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosTiposFamiliares");
+                RequestContext.getCurrentInstance().update("form:datosTiposFamiliares");
                 bandera = 0;
                 filtrarTiposFamiliares = null;
                 tipoLista = 0;
@@ -800,7 +800,7 @@ public class ControlTiposFamiliares implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -870,7 +870,7 @@ public class ControlTiposFamiliares implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             modificarInfoRegistro(filtrarTiposFamiliares.size());
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlTiposFamiliares eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -890,12 +890,12 @@ public class ControlTiposFamiliares implements Serializable {
 
     public void habilitarBotonLov() {
         activarLov = false;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     public void deshabilitarBotonLov() {
         activarLov = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
     
 public void recordarSeleccion(){

@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Motivosmvrs;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -112,7 +112,7 @@ public class ControlMotivosMvrs implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarMotivosMvrs.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlNormasLaborales eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -178,7 +178,7 @@ public class ControlMotivosMvrs implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoMvr:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosMotivoMvr");
+            RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
             bandera = 0;
             filtrarMotivosMvrs = null;
             tipoLista = 0;
@@ -199,9 +199,9 @@ public class ControlMotivosMvrs implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listMotivosMvrs.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosMotivoMvr");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -212,7 +212,7 @@ public class ControlMotivosMvrs implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoMvr:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosMotivoMvr");
+            RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
             bandera = 0;
             filtrarMotivosMvrs = null;
             tipoLista = 0;
@@ -233,9 +233,9 @@ public class ControlMotivosMvrs implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listMotivosMvrs.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosMotivoMvr");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -246,7 +246,7 @@ public class ControlMotivosMvrs implements Serializable {
             codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoMvr:descripcion");
             descripcion.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosMotivoMvr");
+            RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -256,7 +256,7 @@ public class ControlMotivosMvrs implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoMvr:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosMotivoMvr");
+            RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
             bandera = 0;
             filtrarMotivosMvrs = null;
             tipoLista = 0;
@@ -317,11 +317,11 @@ public class ControlMotivosMvrs implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            PrimefacesContextUI.actualizar("form:ACEPTAR");
+                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -362,11 +362,11 @@ public class ControlMotivosMvrs implements Serializable {
                     if (banderita == true) {
                         if (guardado == true) {
                             guardado = false;
-                            PrimefacesContextUI.actualizar("form:ACEPTAR");
+                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -416,11 +416,11 @@ public class ControlMotivosMvrs implements Serializable {
                         }
                         if (guardado == true) {
                             guardado = false;
-                            PrimefacesContextUI.actualizar("form:ACEPTAR");
+                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -463,11 +463,11 @@ public class ControlMotivosMvrs implements Serializable {
 
                         if (guardado == true) {
                             guardado = false;
-                            PrimefacesContextUI.actualizar("form:ACEPTAR");
+                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -475,7 +475,7 @@ public class ControlMotivosMvrs implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosMotivoMvr");
+            RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
         }
 
     }
@@ -517,14 +517,14 @@ public class ControlMotivosMvrs implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + listMotivosMvrs.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosMotivoMvr");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
 
@@ -542,7 +542,7 @@ public class ControlMotivosMvrs implements Serializable {
      System.out.println("Borrado>0");
 
      RequestContext context = RequestContext.getCurrentInstance();
-     PrimefacesContextUI.actualizar("form:validacionBorrar");
+     RequestContext.getCurrentInstance().update("form:validacionBorrar");
      PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
      index = -1;
      borradoVC = new Long(-1);
@@ -562,7 +562,7 @@ public class ControlMotivosMvrs implements Serializable {
                 administrarMotivosMvrs.borrarMotivosMvrs(borrarMotivoMvrs);
                 //mostrarBorrados
                 registrosBorrados = borrarMotivoMvrs.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarMotivoMvrs.clear();
             }
@@ -576,15 +576,15 @@ public class ControlMotivosMvrs implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listMotivosMvrs = null;
-            PrimefacesContextUI.actualizar("form:datosMotivoMvr");
+            RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
             k = 0;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
             guardado = true;
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -600,11 +600,11 @@ public class ControlMotivosMvrs implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -665,7 +665,7 @@ public class ControlMotivosMvrs implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoMvr:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosMotivoMvr");
+                RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
                 bandera = 0;
                 filtrarMotivosMvrs = null;
                 tipoLista = 0;
@@ -681,11 +681,11 @@ public class ControlMotivosMvrs implements Serializable {
             listMotivosMvrs.add(nuevoMotivoMvr);
             nuevoMotivoMvr = new Motivosmvrs();
             infoRegistro = "Cantidad de registros: " + listMotivosMvrs.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosMotivoMvr");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroMotivoMvrs').hide()");
@@ -693,7 +693,7 @@ public class ControlMotivosMvrs implements Serializable {
             secRegistro = null;
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -727,7 +727,7 @@ public class ControlMotivosMvrs implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarMotivoMvr");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivoMvr");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroMotivosMvr').show()");
             index = -1;
             secRegistro = null;
@@ -780,12 +780,12 @@ public class ControlMotivosMvrs implements Serializable {
             }
             listMotivosMvrs.add(duplicarMotivosMvrs);
             crearMotivoMvrs.add(duplicarMotivosMvrs);
-            PrimefacesContextUI.actualizar("form:datosMotivoMvr");
+            RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -794,19 +794,19 @@ public class ControlMotivosMvrs implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoMvr:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosMotivoMvr");
+                RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
                 bandera = 0;
                 filtrarMotivosMvrs = null;
                 tipoLista = 0;
             }
             duplicarMotivosMvrs = new Motivosmvrs();
             infoRegistro = "Cantidad de registros: " + listMotivosMvrs.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroMotivosMvr').hide()");
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -879,7 +879,7 @@ public class ControlMotivosMvrs implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listMotivosMvrs.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listMotivosMvrs;
     }
 

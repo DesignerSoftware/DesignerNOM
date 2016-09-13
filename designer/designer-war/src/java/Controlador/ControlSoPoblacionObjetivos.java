@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.SoPoblacionObjetivos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -101,7 +101,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarSoPoblacionObjetivos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlSoPoblacionObjetivos eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -166,12 +166,12 @@ public class ControlSoPoblacionObjetivos implements Serializable {
 
             if (cualCelda == 2) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:personasDialogo");
+                RequestContext.getCurrentInstance().update("form:personasDialogo");
                 PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
             }
             if (cualCelda == 3) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:cargosDialogo");
+                RequestContext.getCurrentInstance().update("form:cargosDialogo");
                 PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
             }
         }
@@ -185,7 +185,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSoPoblacionObjetivos:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosSoPoblacionObjetivos");
+            RequestContext.getCurrentInstance().update("form:datosSoPoblacionObjetivos");
             bandera = 0;
             filtrarSoPoblacionObjetivos = null;
             tipoLista = 0;
@@ -207,9 +207,9 @@ public class ControlSoPoblacionObjetivos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listSoPoblacionObjetivos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosSoPoblacionObjetivos");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosSoPoblacionObjetivos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -220,7 +220,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSoPoblacionObjetivos:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosSoPoblacionObjetivos");
+            RequestContext.getCurrentInstance().update("form:datosSoPoblacionObjetivos");
             bandera = 0;
             filtrarSoPoblacionObjetivos = null;
             tipoLista = 0;
@@ -241,9 +241,9 @@ public class ControlSoPoblacionObjetivos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listSoPoblacionObjetivos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosSoPoblacionObjetivos");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosSoPoblacionObjetivos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -254,7 +254,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
             codigo.setFilterStyle("width: 85%;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSoPoblacionObjetivos:descripcion");
             descripcion.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosSoPoblacionObjetivos");
+            RequestContext.getCurrentInstance().update("form:datosSoPoblacionObjetivos");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -264,7 +264,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSoPoblacionObjetivos:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosSoPoblacionObjetivos");
+            RequestContext.getCurrentInstance().update("form:datosSoPoblacionObjetivos");
             bandera = 0;
             filtrarSoPoblacionObjetivos = null;
             tipoLista = 0;
@@ -337,14 +337,14 @@ public class ControlSoPoblacionObjetivos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    PrimefacesContextUI.actualizar("form:datosSoPoblacionObjetivos");
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:datosSoPoblacionObjetivos");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
 
                     System.out.println("backupCodigo : " + backupCodigo);
@@ -390,14 +390,14 @@ public class ControlSoPoblacionObjetivos implements Serializable {
                             guardado = false;
                         }
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    PrimefacesContextUI.actualizar("form:datosSoPoblacionObjetivos");
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:datosSoPoblacionObjetivos");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                 }
             } else {
@@ -448,7 +448,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -495,7 +495,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -503,8 +503,8 @@ public class ControlSoPoblacionObjetivos implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosSoPoblacionObjetivos");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosSoPoblacionObjetivos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -549,15 +549,15 @@ public class ControlSoPoblacionObjetivos implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listSoPoblacionObjetivos.size();
             }
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosSoPoblacionObjetivos");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosSoPoblacionObjetivos");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -592,7 +592,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
      System.out.println("Borrado>0");
 
      RequestContext context = RequestContext.getCurrentInstance();
-     PrimefacesContextUI.actualizar("form:validacionBorrar");
+     RequestContext.getCurrentInstance().update("form:validacionBorrar");
      PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
      index = -1;
      contarBienProgramacionesDepartamento = new BigInteger("-1");
@@ -610,7 +610,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
 
         if (!borrarSoPoblacionObjetivos.isEmpty() || !crearSoPoblacionObjetivos.isEmpty() || !modificarSoPoblacionObjetivos.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -625,7 +625,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
                 administrarSoPoblacionObjetivos.borrarSoPoblacionObjetivos(borrarSoPoblacionObjetivos);
                 //mostrarBorrados
                 registrosBorrados = borrarSoPoblacionObjetivos.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarSoPoblacionObjetivos.clear();
             }
@@ -641,13 +641,13 @@ public class ControlSoPoblacionObjetivos implements Serializable {
             listSoPoblacionObjetivos = null;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
-            PrimefacesContextUI.actualizar("form:datosSoPoblacionObjetivos");
+            RequestContext.getCurrentInstance().update("form:growl");
+            RequestContext.getCurrentInstance().update("form:datosSoPoblacionObjetivos");
             k = 0;
             guardado = true;
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -663,19 +663,19 @@ public class ControlSoPoblacionObjetivos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editPais");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editPais");
                 PrimefacesContextUI.ejecutar("PF('editPais').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editSubtituloFirma");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editSubtituloFirma");
                 PrimefacesContextUI.ejecutar("PF('editSubtituloFirma').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editBancos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editBancos");
                 PrimefacesContextUI.ejecutar("PF('editBancos').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCiudades");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCiudades");
                 PrimefacesContextUI.ejecutar("PF('editCiudades').show()");
                 cualCelda = -1;
             }
@@ -756,11 +756,11 @@ public class ControlSoPoblacionObjetivos implements Serializable {
             nuevoSoPoblacionObjetivos = new SoPoblacionObjetivos();
 
             infoRegistro = "Cantidad de registros: " + listSoPoblacionObjetivos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosSoPoblacionObjetivos");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosSoPoblacionObjetivos");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroSoPoblacionObjetivos').hide()");
@@ -768,7 +768,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
             secRegistro = null;
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -812,7 +812,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroSoPoblacionObjetivos').show()");
             index = -1;
             secRegistro = null;
@@ -871,7 +871,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
             }
             listSoPoblacionObjetivos.add(duplicarSoPoblacionObjetivos);
             crearSoPoblacionObjetivos.add(duplicarSoPoblacionObjetivos);
-            PrimefacesContextUI.actualizar("form:datosSoPoblacionObjetivos");
+            RequestContext.getCurrentInstance().update("form:datosSoPoblacionObjetivos");
             index = -1;
             System.out.println("--------------DUPLICAR------------------------");
             System.out.println("CODIGO : " + duplicarSoPoblacionObjetivos.getCodigo());
@@ -885,8 +885,8 @@ public class ControlSoPoblacionObjetivos implements Serializable {
 
             infoRegistro = "Cantidad de registros: " + listSoPoblacionObjetivos.size();
 
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
@@ -894,7 +894,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosSoPoblacionObjetivos:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosSoPoblacionObjetivos");
+                RequestContext.getCurrentInstance().update("form:datosSoPoblacionObjetivos");
                 bandera = 0;
                 filtrarSoPoblacionObjetivos = null;
                 tipoLista = 0;
@@ -905,7 +905,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -978,7 +978,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listSoPoblacionObjetivos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listSoPoblacionObjetivos;
     }
 

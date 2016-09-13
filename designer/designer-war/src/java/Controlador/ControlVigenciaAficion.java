@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Aficiones;
 import Entidades.Empleados;
 import Entidades.VigenciasAficiones;
@@ -28,7 +29,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -148,7 +148,7 @@ public class ControlVigenciaAficion implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
             index = -1;
@@ -163,7 +163,7 @@ public class ControlVigenciaAficion implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
             index = -1;
@@ -264,7 +264,7 @@ public class ControlVigenciaAficion implements Serializable {
 
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:datosVigenciasAficiones");
+                RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
                 PrimefacesContextUI.ejecutar("PF('form:errorFechas').show()");
             }
         } else {
@@ -276,7 +276,7 @@ public class ControlVigenciaAficion implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosVigenciasAficiones");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
             PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
@@ -309,7 +309,7 @@ public class ControlVigenciaAficion implements Serializable {
             } else {
                 permitirIndex = false;
                 getInfoRegistroAficion();
-                PrimefacesContextUI.actualizar("form:AficionesDialogo");
+                RequestContext.getCurrentInstance().update("form:AficionesDialogo");
                 PrimefacesContextUI.ejecutar("PF('AficionesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -325,7 +325,7 @@ public class ControlVigenciaAficion implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 index = -1;
@@ -340,14 +340,14 @@ public class ControlVigenciaAficion implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 index = -1;
                 secRegistro = null;
             }
         }
-        PrimefacesContextUI.actualizar("form:datosVigenciasAficiones");
+        RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
     }
 
     public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
@@ -379,21 +379,21 @@ public class ControlVigenciaAficion implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigenciaAficion.setAficion(listAficiones.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigencias");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigencias");
                 } else if (tipoNuevo == 2) {
                     duplicarVigenciaAficion.setAficion(listAficiones.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigencias");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigencias");
                 }
                 listAficiones.clear();
                 getListAficiones();
             } else {
-                PrimefacesContextUI.actualizar("form:AficionesDialogo");
+                RequestContext.getCurrentInstance().update("form:AficionesDialogo");
                 PrimefacesContextUI.ejecutar("PF('AficionesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigencias");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigencias");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigencias");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigencias");
                 }
             }
         }
@@ -455,22 +455,22 @@ public class ControlVigenciaAficion implements Serializable {
                 } else {
                     infoRegistro = "Cantidad de registros : 0";
                 }
-                PrimefacesContextUI.actualizar("form:informacionRegistro");
-                PrimefacesContextUI.actualizar("form:datosVigenciasAficiones");
+                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
                 guardado = true;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 k = 0;
             }
             index = -1;
             secRegistro = null;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con Éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {
             System.out.println("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
     //CANCELAR MODIFICACIONES
@@ -496,7 +496,7 @@ public class ControlVigenciaAficion implements Serializable {
             veGrupal.setFilterStyle("display: none; visibility: hidden;");
             veCGrupal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasAficiones:veCGrupal");
             veCGrupal.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosVigenciasAficiones");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
             bandera = 0;
             filtrarListVigenciasAficiones = null;
             tipoLista = 0;
@@ -517,9 +517,9 @@ public class ControlVigenciaAficion implements Serializable {
             infoRegistro = "Cantidad de registros : 0";
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosVigenciasAficiones");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     //MOSTRAR DATOS CELDA
@@ -538,31 +538,31 @@ public class ControlVigenciaAficion implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicialD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialD");
                 PrimefacesContextUI.ejecutar("PF('editarFechaInicialD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinalD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalD");
                 PrimefacesContextUI.ejecutar("PF('editarFechaFinalD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionD");
                 PrimefacesContextUI.ejecutar("PF('editarDescripcionD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarIndividualD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarIndividualD");
                 PrimefacesContextUI.ejecutar("PF('editarIndividualD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCIndividualD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCIndividualD");
                 PrimefacesContextUI.ejecutar("PF('editarCIndividualD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarGrupalD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarGrupalD");
                 PrimefacesContextUI.ejecutar("PF('editarGrupalD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCGrupalD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCGrupalD");
                 PrimefacesContextUI.ejecutar("PF('editarCGrupalD').show()");
                 cualCelda = -1;
             }
@@ -595,7 +595,7 @@ public class ControlVigenciaAficion implements Serializable {
                     veGrupal.setFilterStyle("display: none; visibility: hidden;");
                     veCGrupal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasAficiones:veCGrupal");
                     veCGrupal.setFilterStyle("display: none; visibility: hidden;");
-                    PrimefacesContextUI.actualizar("form:datosVigenciasAficiones");
+                    RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
                     bandera = 0;
                     filtrarListVigenciasAficiones = null;
                     tipoLista = 0;
@@ -616,12 +616,12 @@ public class ControlVigenciaAficion implements Serializable {
                 infoRegistro = "Cantidad de registros : " + listVigenciasAficiones.size();
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:informacionRegistro");
-                PrimefacesContextUI.actualizar("form:datosVigenciasAficiones");
+                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
                 PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigencias').hide()");
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 index = -1;
                 secRegistro = null;
@@ -681,7 +681,7 @@ public class ControlVigenciaAficion implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigencias");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigencias");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVigencias').show()");
             index = -1;
             secRegistro = null;
@@ -706,14 +706,14 @@ public class ControlVigenciaAficion implements Serializable {
                 listVigenciaAficionCrear.add(duplicarVigenciaAficion);
                 infoRegistro = "Cantidad de registros : " + listVigenciasAficiones.size();
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:informacionRegistro");
-                PrimefacesContextUI.actualizar("form:datosVigenciasAficiones");
+                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
                 PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVigencias').hide()");
                 index = -1;
                 secRegistro = null;
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 if (bandera == 1) {
                     //CERRAR FILTRADO
@@ -732,7 +732,7 @@ public class ControlVigenciaAficion implements Serializable {
                     veGrupal.setFilterStyle("display: none; visibility: hidden;");
                     veCGrupal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasAficiones:veCGrupal");
                     veCGrupal.setFilterStyle("display: none; visibility: hidden;");
-                    PrimefacesContextUI.actualizar("form:datosVigenciasAficiones");
+                    RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
                     bandera = 0;
                     filtrarListVigenciasAficiones = null;
                     tipoLista = 0;
@@ -799,14 +799,14 @@ public class ControlVigenciaAficion implements Serializable {
                 infoRegistro = "Cantidad de registros : 0";
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosVigenciasAficiones");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -833,7 +833,7 @@ public class ControlVigenciaAficion implements Serializable {
             veGrupal.setFilterStyle("width: 85%;");
             veCGrupal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasAficiones:veCGrupal");
             veCGrupal.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosVigenciasAficiones");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
             bandera = 1;
         } else if (bandera == 1) {
             altoTabla = "300";
@@ -851,7 +851,7 @@ public class ControlVigenciaAficion implements Serializable {
             veGrupal.setFilterStyle("display: none; visibility: hidden;");
             veCGrupal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasAficiones:veCGrupal");
             veCGrupal.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosVigenciasAficiones");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
             bandera = 0;
             filtrarListVigenciasAficiones = null;
             tipoLista = 0;
@@ -879,7 +879,7 @@ public class ControlVigenciaAficion implements Serializable {
             veGrupal.setFilterStyle("display: none; visibility: hidden;");
             veCGrupal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasAficiones:veCGrupal");
             veCGrupal.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosVigenciasAficiones");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
             bandera = 0;
             filtrarListVigenciasAficiones = null;
             tipoLista = 0;
@@ -893,7 +893,7 @@ public class ControlVigenciaAficion implements Serializable {
         k = 0;
         listVigenciasAficiones = null;
         guardado = true;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO)
@@ -916,7 +916,7 @@ public class ControlVigenciaAficion implements Serializable {
             tipoActualizacion = 2;
         }
         getInfoRegistroAficion();
-        PrimefacesContextUI.actualizar("form:AficionesDialogo");
+        RequestContext.getCurrentInstance().update("form:AficionesDialogo");
         PrimefacesContextUI.ejecutar("PF('AficionesDialogo').show()");
     }
 
@@ -949,16 +949,16 @@ public class ControlVigenciaAficion implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosVigenciasAficiones");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaAficion.setAficion(aficionSeleccionada);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVigencias");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigencias");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciaAficion.setAficion(aficionSeleccionada);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigencias");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigencias");
         }
         filtrarListAficiones = null;
         aficionSeleccionada = null;
@@ -967,9 +967,9 @@ public class ControlVigenciaAficion implements Serializable {
         secRegistro = null;
         tipoActualizacion = -1;
         /*
-         PrimefacesContextUI.actualizar("form:AficionesDialogo");
-         PrimefacesContextUI.actualizar("form:lovAficiones");
-         PrimefacesContextUI.actualizar("form:aceptarA");*/
+         RequestContext.getCurrentInstance().update("form:AficionesDialogo");
+         RequestContext.getCurrentInstance().update("form:lovAficiones");
+         RequestContext.getCurrentInstance().update("form:aceptarA");*/
         context.reset("form:lovAficiones:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovAficiones').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('AficionesDialogo').hide()");
@@ -1004,7 +1004,7 @@ public class ControlVigenciaAficion implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
                 getInfoRegistroAficion();
-                PrimefacesContextUI.actualizar("form:AficionesDialogo");
+                RequestContext.getCurrentInstance().update("form:AficionesDialogo");
                 PrimefacesContextUI.ejecutar("PF('AficionesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1059,7 +1059,7 @@ public class ControlVigenciaAficion implements Serializable {
         }
         infoRegistro = "Cantidad de registros : " + filtrarListVigenciasAficiones.size();
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
     //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
 

@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Grupostiposentidades;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -103,7 +103,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarGruposTiposEntidades.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlGruposTiposEntidades eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -161,7 +161,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposTiposEntidades:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
+            RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
             bandera = 0;
             filtrarGruposTiposEntidades = null;
             tipoLista = 0;
@@ -183,9 +183,9 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
         } else {
             infoRegistro = "Cantidad de registros: " + listGruposTiposEntidades.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -196,7 +196,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposTiposEntidades:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
+            RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
             bandera = 0;
             filtrarGruposTiposEntidades = null;
             tipoLista = 0;
@@ -218,9 +218,9 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
         } else {
             infoRegistro = "Cantidad de registros: " + listGruposTiposEntidades.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -231,7 +231,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
             codigo.setFilterStyle("width: 85%");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposTiposEntidades:descripcion");
             descripcion.setFilterStyle("width: 85%");
-            PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
+            RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -241,7 +241,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposTiposEntidades:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
+            RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
             bandera = 0;
             filtrarGruposTiposEntidades = null;
             tipoLista = 0;
@@ -312,14 +312,14 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
 
                     System.out.println("backupCodigo : " + backupCodigo);
@@ -365,14 +365,14 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
                             guardado = false;
                         }
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                 }
             } else {
@@ -430,7 +430,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -483,7 +483,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -491,8 +491,8 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -533,15 +533,15 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
             }
             infoRegistro = "Cantidad de registros: " + listGruposTiposEntidades.size();
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -568,7 +568,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
                 contarTSgruposTiposEntidadesTipoEntidad = new BigInteger("-1");
@@ -584,7 +584,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
 
         if (!borrarGruposTiposEntidades.isEmpty() || !crearGruposTiposEntidades.isEmpty() || !modificarGruposTiposEntidades.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -599,7 +599,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
                 administrarGruposTiposEntidades.borrarGruposTiposEntidades(borrarGruposTiposEntidades);
                 //mostrarBorrados
                 registrosBorrados = borrarGruposTiposEntidades.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarGruposTiposEntidades.clear();
             }
@@ -615,13 +615,13 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
             listGruposTiposEntidades = null;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
-            PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
+            RequestContext.getCurrentInstance().update("form:growl");
+            RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
             k = 0;
             guardado = true;
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -637,11 +637,11 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -702,7 +702,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposTiposEntidades:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
+                RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
                 bandera = 0;
                 filtrarGruposTiposEntidades = null;
                 tipoLista = 0;
@@ -717,12 +717,12 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
 
             listGruposTiposEntidades.add(nuevoGruposTiposEntidades);
             infoRegistro = "Cantidad de registros: " + listGruposTiposEntidades.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             nuevoGruposTiposEntidades = new Grupostiposentidades();
-            PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
+            RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroGruposTiposEntidades').hide()");
@@ -730,7 +730,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
             secRegistro = null;
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -764,7 +764,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroGruposTiposEntidades').show()");
             index = -1;
             secRegistro = null;
@@ -817,15 +817,15 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
             }
             listGruposTiposEntidades.add(duplicarGruposTiposEntidades);
             crearGruposTiposEntidades.add(duplicarGruposTiposEntidades);
-            PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
+            RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
             index = -1;
             infoRegistro = "Cantidad de registros: " + listGruposTiposEntidades.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
@@ -833,7 +833,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposTiposEntidades:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosGruposTiposEntidades");
+                RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
                 bandera = 0;
                 filtrarGruposTiposEntidades = null;
                 tipoLista = 0;
@@ -843,7 +843,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -917,7 +917,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
         } else {
             infoRegistro = "Cantidad de registros: " + listGruposTiposEntidades.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listGruposTiposEntidades;
     }
 

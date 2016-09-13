@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Empleados;
 import Entidades.Tiposviajeros;
 import Entidades.VigenciasViajeros;
@@ -28,7 +29,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -148,7 +148,7 @@ public class ControlVigenciasViajeros implements Serializable {
                 }
             }
             if (fechas > 0) {
-                PrimefacesContextUI.actualizar("form:validacionFechas");
+                RequestContext.getCurrentInstance().update("form:validacionFechas");
                 PrimefacesContextUI.ejecutar("PF('validacionFechas').show()");
                 contador++;
             }
@@ -161,13 +161,13 @@ public class ControlVigenciasViajeros implements Serializable {
                     }
                     if (guardado) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
-                    PrimefacesContextUI.actualizar("form:datosViajeros");
+                    RequestContext.getCurrentInstance().update("form:datosViajeros");
 
                 }
             } else {
-                PrimefacesContextUI.actualizar("form:validacionModificar");
+                RequestContext.getCurrentInstance().update("form:validacionModificar");
                 PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                 cancelarModificacion();
             }
@@ -182,14 +182,14 @@ public class ControlVigenciasViajeros implements Serializable {
             cualCelda = celda;
             if (cualCelda == 1) {
                 activarLOV = false;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 viajeros = vigenciaSeleccionada.getTipoViajero().getNombre();
 
             }
         } else {
             PrimefacesContextUI.ejecutar("PF('datosViajeros.selectRow(" + vViajeros + ", false); datosViajeros').unselectAllRows()");
         }
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     public void asignarIndex(VigenciasViajeros vViajeros, int LND, int dig) {
@@ -197,7 +197,7 @@ public class ControlVigenciasViajeros implements Serializable {
         vigenciaSeleccionada = vViajeros;
         activarLOV = false;
         viajeroSeleccionado = null;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         try {
             if (LND == 0) {
                 tipoActualizacion = 0;
@@ -208,7 +208,7 @@ public class ControlVigenciasViajeros implements Serializable {
             }
             if (dig == 1) {
                 modificarInfoRegistroViajero(listaTiposviajeros.size());
-                PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                 PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                 dig = -1;
             }
@@ -229,7 +229,7 @@ public class ControlVigenciasViajeros implements Serializable {
             if (vigenciaSeleccionada != null) {
                 if (cualCelda == 1) {
                     viajeroSeleccionado = null;
-                    PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                    RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                     PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -240,7 +240,7 @@ public class ControlVigenciasViajeros implements Serializable {
     public void cancelarModificacion() {
         cerrarFiltrado();
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         borrarVigenciasViajerosPorEmpleado.clear();
         crearVigenciasViajerosPorEmpleado.clear();
         modificarVigenciasViajerosPorEmpleado.clear();
@@ -252,9 +252,9 @@ public class ControlVigenciasViajeros implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosViajeros");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosViajeros");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -265,7 +265,7 @@ public class ControlVigenciasViajeros implements Serializable {
             parentesco = (Column) c.getViewRoot().findComponent("form:datosViajeros:parentesco");
             parentesco.setFilterStyle("width: 85%");
             altoTabla = "272";
-            PrimefacesContextUI.actualizar("form:datosViajeros");
+            RequestContext.getCurrentInstance().update("form:datosViajeros");
             bandera = 1;
         } else if (bandera == 1) {
             cerrarFiltrado();
@@ -279,7 +279,7 @@ public class ControlVigenciasViajeros implements Serializable {
         parentesco = (Column) c.getViewRoot().findComponent("form:datosViajeros:parentesco");
         parentesco.setFilterStyle("display: none; visibility: hidden;");
         altoTabla = "292";
-        PrimefacesContextUI.actualizar("form:datosViajeros");
+        RequestContext.getCurrentInstance().update("form:datosViajeros");
         bandera = 0;
         filtrarVigenciasViajerosPorEmpleado = null;
         tipoLista = 0;
@@ -294,7 +294,7 @@ public class ControlVigenciasViajeros implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("N")) {
             activarLOV = true;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
             if (!crearVigenciasViajerosPorEmpleado.contains(vigenciaSeleccionada)) {
                 if (vigenciaSeleccionada.getFechavigencia() == null) {
                     mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -323,20 +323,20 @@ public class ControlVigenciasViajeros implements Serializable {
                     }
                     if (guardado) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
 
                 } else {
-                    PrimefacesContextUI.actualizar("form:validacionModificar");
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
                     PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     cancelarModificacion();
                 }
             }
 
-            PrimefacesContextUI.actualizar("form:datosViajeros");
+            RequestContext.getCurrentInstance().update("form:datosViajeros");
         } else if (confirmarCambio.equalsIgnoreCase("VIGENCIASVIAJEROS")) {
             activarLOV = false;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
             if (!vigenciaSeleccionada.getTipoViajero().getNombre().equals("")) {
                 vigenciaSeleccionada.getTipoViajero().setNombre(viajeros);
                 for (int i = 0; i < listaTiposviajeros.size(); i++) {
@@ -354,13 +354,13 @@ public class ControlVigenciasViajeros implements Serializable {
 
                 } else {
                     permitirIndex = false;
-                    PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                    RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                     PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
                 vigenciaSeleccionada.getTipoViajero().setNombre(viajeros);
-                PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                 PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
             }
 
@@ -376,9 +376,9 @@ public class ControlVigenciasViajeros implements Serializable {
 
                 if (guardado) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
-                PrimefacesContextUI.actualizar("form:datosViajeros");
+                RequestContext.getCurrentInstance().update("form:datosViajeros");
             }
         }
 
@@ -398,16 +398,16 @@ public class ControlVigenciasViajeros implements Serializable {
 
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosViajeros");
+            RequestContext.getCurrentInstance().update("form:datosViajeros");
         } else if (tipoActualizacion == 1) {
             nuevoVigenciasViajeros.setTipoViajero(viajeroSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoNombreSucursal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombreSucursal");
         } else if (tipoActualizacion == 2) {
             duplicarVigenciasViajeros.setTipoViajero(viajeroSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoCentroCostos");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoCentroCostos");
         }
         filtradoTiposviajeros = null;
         aceptar = true;
@@ -416,8 +416,8 @@ public class ControlVigenciasViajeros implements Serializable {
         context.reset("form:lovTiposFamiliares:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovTiposFamiliares').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').hide()");
-        //PrimefacesContextUI.actualizar("form:lovTiposFamiliares");
-        //PrimefacesContextUI.actualizar("form:datosViajeros");
+        //RequestContext.getCurrentInstance().update("form:lovTiposFamiliares");
+        //RequestContext.getCurrentInstance().update("form:datosViajeros");
     }
 
     public void cancelarCambioVigenciaViajero() {
@@ -460,7 +460,7 @@ public class ControlVigenciasViajeros implements Serializable {
                     listaTiposviajeros = null;
                     getListaTiposviajeros();
                 } else {
-                    PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                    RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                     PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
@@ -469,7 +469,7 @@ public class ControlVigenciasViajeros implements Serializable {
                 nuevoVigenciasViajeros.setTipoViajero(new Tiposviajeros());
                 nuevoVigenciasViajeros.getTipoViajero().setNombre(" ");
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoNombreSucursal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombreSucursal");
         }
     }
 
@@ -482,7 +482,7 @@ public class ControlVigenciasViajeros implements Serializable {
         }
         viajeroSeleccionado = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+        RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
         PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
     }
 
@@ -499,14 +499,14 @@ public class ControlVigenciasViajeros implements Serializable {
         if (tipoNuevo == 0) {
             tipoActualizacion = 1;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+            RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
             PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
         } else if (tipoNuevo == 1) {
             activarLOV = false;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
             tipoActualizacion = 2;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+            RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
             PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
         }
     }
@@ -530,7 +530,7 @@ public class ControlVigenciasViajeros implements Serializable {
                     listaTiposviajeros = null;
                     getListaTiposviajeros();
                 } else {
-                    PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                    RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                     PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
@@ -543,7 +543,7 @@ public class ControlVigenciasViajeros implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoCentroCostos");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoCentroCostos");
         }
     }
 
@@ -570,13 +570,13 @@ public class ControlVigenciasViajeros implements Serializable {
                 modificarInfoRegistro(listVigenciasViajerosPorEmpleado.size());
                 vigenciaSeleccionada = null;
                 activarLOV = true;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 if (guardado) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
-                PrimefacesContextUI.actualizar("form:informacionRegistro");
-                PrimefacesContextUI.actualizar("form:datosViajeros");
+                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                RequestContext.getCurrentInstance().update("form:datosViajeros");
 
             }
         }
@@ -586,7 +586,7 @@ public class ControlVigenciasViajeros implements Serializable {
 
         if (!borrarVigenciasViajerosPorEmpleado.isEmpty() || !crearVigenciasViajerosPorEmpleado.isEmpty() || !modificarVigenciasViajerosPorEmpleado.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -601,7 +601,7 @@ public class ControlVigenciasViajeros implements Serializable {
                 }
                 //mostrarBorrados
                 registrosBorrados = borrarVigenciasViajerosPorEmpleado.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarVigenciasViajerosPorEmpleado.clear();
             }
@@ -628,16 +628,16 @@ public class ControlVigenciasViajeros implements Serializable {
                 modificarInfoRegistro(0);
             }
             activarLOV = true;
-            PrimefacesContextUI.actualizar("form:datosViajeros");
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:datosViajeros");
+            RequestContext.getCurrentInstance().update("form:listaValores");
             guardado = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             k = 0;
             permitirIndex = true;
             FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         // vigenciaSeleccionada = null;
     }
@@ -650,11 +650,11 @@ public class ControlVigenciasViajeros implements Serializable {
             if (vigenciaSeleccionada != null) {
                 editarVigenciasViajeros = vigenciaSeleccionada;
                 if (cualCelda == 0) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFecha");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
                     PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editPuntaje");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editPuntaje");
                     PrimefacesContextUI.ejecutar("PF('editPuntaje').show()");
                     cualCelda = -1;
                 }
@@ -682,7 +682,7 @@ public class ControlVigenciasViajeros implements Serializable {
                 }
             }
             if (fechas > 0) {
-                PrimefacesContextUI.actualizar("form:validacionFechas");
+                RequestContext.getCurrentInstance().update("form:validacionFechas");
                 PrimefacesContextUI.ejecutar("PF('validacionFechas').show()");
                 pasa++;
             } else {
@@ -711,22 +711,22 @@ public class ControlVigenciasViajeros implements Serializable {
                 listVigenciasViajerosPorEmpleado.add(nuevoVigenciasViajeros);
             }
             activarLOV = true;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
             modificarInfoRegistro(listVigenciasViajerosPorEmpleado.size());
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             System.out.println("nuevoVigenciasViajeros: " + nuevoVigenciasViajeros);
             nuevoVigenciasViajeros = new VigenciasViajeros();
             nuevoVigenciasViajeros.setTipoViajero(new Tiposviajeros());
 
-            PrimefacesContextUI.actualizar("form:datosViajeros");
+            RequestContext.getCurrentInstance().update("form:datosViajeros");
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroEvalEmpresas').hide()");
             // vigenciaSeleccionada = null;
         } else if (pasa == 0 && contador != 2) {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
             pasa = 0;
@@ -758,7 +758,7 @@ public class ControlVigenciasViajeros implements Serializable {
                 duplicarVigenciasViajeros.setFechavigencia(vigenciaSeleccionada.getFechavigencia());
                 duplicarVigenciasViajeros.setTipoViajero(vigenciaSeleccionada.getTipoViajero());
 
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarEvC");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEvC");
                 PrimefacesContextUI.ejecutar("PF('duplicarRegistroEvalCompetencias').show()");
             }
         }
@@ -783,7 +783,7 @@ public class ControlVigenciasViajeros implements Serializable {
                 }
             }
             if (fechas > 0) {
-                PrimefacesContextUI.actualizar("form:validacionFechas");
+                RequestContext.getCurrentInstance().update("form:validacionFechas");
                 PrimefacesContextUI.ejecutar("PF('validacionFechas').show()");
                 pasa++;
 
@@ -803,14 +803,14 @@ public class ControlVigenciasViajeros implements Serializable {
             listVigenciasViajerosPorEmpleado.add(duplicarVigenciasViajeros);
             crearVigenciasViajerosPorEmpleado.add(duplicarVigenciasViajeros);
             activarLOV = true;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
             modificarInfoRegistro(listVigenciasViajerosPorEmpleado.size());
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             vigenciaSeleccionada = listVigenciasViajerosPorEmpleado.get(listVigenciasViajerosPorEmpleado.indexOf(duplicarVigenciasViajeros));
-            PrimefacesContextUI.actualizar("form:datosViajeros");
+            RequestContext.getCurrentInstance().update("form:datosViajeros");
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 cerrarFiltrado();
@@ -819,12 +819,12 @@ public class ControlVigenciasViajeros implements Serializable {
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroEvalCompetencias').hide()");
 
         } else if (pasa == 0 && contador != 2) {
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
             contador = 0;
             pasa = 0;
         }
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void limpiarDuplicarVigenciasViajeros() {
@@ -876,15 +876,15 @@ public class ControlVigenciasViajeros implements Serializable {
             tipoLista = 1;
         }
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         RequestContext context = RequestContext.getCurrentInstance();
         modificarInfoRegistro(filtrarVigenciasViajerosPorEmpleado.size());
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void eventoFiltrarViajero() {
         modificarInfoRegistroViajero(filtradoTiposviajeros.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroTiposViajeros");
+        RequestContext.getCurrentInstance().update("form:infoRegistroTiposViajeros");
     }
 
     private void modificarInfoRegistro(int valor) {
@@ -916,7 +916,7 @@ public class ControlVigenciasViajeros implements Serializable {
 
     public void anularLOV() {
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/

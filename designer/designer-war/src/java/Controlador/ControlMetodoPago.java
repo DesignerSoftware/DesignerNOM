@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.MetodosPagos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -98,7 +98,7 @@ public class ControlMetodoPago implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarMetodosPagos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlMotiviosCambiosCargos eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -167,7 +167,7 @@ public class ControlMetodoPago implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             pago = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:pago");
             pago.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosMetodoPago");
+            RequestContext.getCurrentInstance().update("form:datosMetodoPago");
             bandera = 0;
             filtrarMetodosPagos = null;
             tipoLista = 0;
@@ -189,9 +189,9 @@ public class ControlMetodoPago implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listMetodosPagos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosMetodoPago");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosMetodoPago");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -204,7 +204,7 @@ public class ControlMetodoPago implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             pago = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:pago");
             pago.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosMetodoPago");
+            RequestContext.getCurrentInstance().update("form:datosMetodoPago");
             bandera = 0;
             filtrarMetodosPagos = null;
             tipoLista = 0;
@@ -226,9 +226,9 @@ public class ControlMetodoPago implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listMetodosPagos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosMetodoPago");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosMetodoPago");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -242,7 +242,7 @@ public class ControlMetodoPago implements Serializable {
             descripcion.setFilterStyle("width: 85%;");
             pago = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:pago");
             pago.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosMetodoPago");
+            RequestContext.getCurrentInstance().update("form:datosMetodoPago");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -254,7 +254,7 @@ public class ControlMetodoPago implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             pago = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:pago");
             pago.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosMetodoPago");
+            RequestContext.getCurrentInstance().update("form:datosMetodoPago");
             bandera = 0;
             filtrarMetodosPagos = null;
             tipoLista = 0;
@@ -317,7 +317,7 @@ public class ControlMetodoPago implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -360,7 +360,7 @@ public class ControlMetodoPago implements Serializable {
                             guardado = false;
                         }
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -413,7 +413,7 @@ public class ControlMetodoPago implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -458,7 +458,7 @@ public class ControlMetodoPago implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -466,8 +466,8 @@ public class ControlMetodoPago implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosMetodoPago");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosMetodoPago");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -489,7 +489,7 @@ public class ControlMetodoPago implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
 
@@ -539,15 +539,15 @@ public class ControlMetodoPago implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
 
             infoRegistro = "Cantidad de registros: " + listMetodosPagos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosMetodoPago");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosMetodoPago");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -561,7 +561,7 @@ public class ControlMetodoPago implements Serializable {
                 administrarMetodosPagos.borrarMetodosPagos(borrarMetodosPagos);
                 //mostrarBorrados
                 registrosBorrados = borrarMetodosPagos.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarMetodosPagos.clear();
             }
@@ -575,15 +575,15 @@ public class ControlMetodoPago implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listMetodosPagos = null;
-            PrimefacesContextUI.actualizar("form:datosMetodoPago");
+            RequestContext.getCurrentInstance().update("form:datosMetodoPago");
             k = 0;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         index = -1;
         guardado = true;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -599,11 +599,11 @@ public class ControlMetodoPago implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -667,7 +667,7 @@ public class ControlMetodoPago implements Serializable {
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 pago = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:pago");
                 pago.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosMetodoPago");
+                RequestContext.getCurrentInstance().update("form:datosMetodoPago");
                 bandera = 0;
                 filtrarMetodosPagos = null;
                 tipoLista = 0;
@@ -684,11 +684,11 @@ public class ControlMetodoPago implements Serializable {
             listMetodosPagos.add(nuevoMetodoPago);
             nuevoMetodoPago = new MetodosPagos();
             infoRegistro = "Cantidad de registros: " + listMetodosPagos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosMetodoPago");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosMetodoPago");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             System.out.println("Despues de la bandera guardado");
 
@@ -698,7 +698,7 @@ public class ControlMetodoPago implements Serializable {
             System.out.println("Despues de nuevoRegistroMetodosPagos");
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -733,7 +733,7 @@ public class ControlMetodoPago implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarMetodosPagos");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMetodosPagos");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroMetodosPagos').show()");
             index = -1;
             secRegistro = null;
@@ -794,7 +794,7 @@ public class ControlMetodoPago implements Serializable {
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 pago = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:pago");
                 pago.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosMetodoPago");
+                RequestContext.getCurrentInstance().update("form:datosMetodoPago");
                 bandera = 0;
                 filtrarMetodosPagos = null;
                 tipoLista = 0;
@@ -811,11 +811,11 @@ public class ControlMetodoPago implements Serializable {
             listMetodosPagos.add(duplicarMetodoPago);
             nuevoMetodoPago = new MetodosPagos();
             infoRegistro = "Cantidad de registros: " + listMetodosPagos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosMetodoPago");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosMetodoPago");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             System.out.println("Despues de la bandera guardado");
 
@@ -825,7 +825,7 @@ public class ControlMetodoPago implements Serializable {
             System.out.println("Despues de duplicarRegistroMetodosPagos");
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -904,7 +904,7 @@ public class ControlMetodoPago implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listMetodosPagos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listMetodosPagos;
     }
 

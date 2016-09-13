@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.VigenciasRetenciones;
 import Entidades.Retenciones;
 import Exportar.ExportarPDFTablasAnchas;
@@ -29,7 +30,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -171,14 +171,14 @@ public class ControlRetencion implements Serializable {
         
         for (int i = 0; i < listaVigenciasRetenciones.size(); i++) {
             if (nuevoVigenciasRetenciones.getCodigo() == listaVigenciasRetenciones.get(i).getCodigo()) {
-                PrimefacesContextUI.actualizar("formularioDialogos:codigos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:codigos");
                 PrimefacesContextUI.ejecutar("PF('codigos').show()");
                 pasar++;
             }
         }
 
         if (pasa != 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevo");
             PrimefacesContextUI.ejecutar("PF('validacionNuevo').show()");
         }
 
@@ -191,7 +191,7 @@ public class ControlRetencion implements Serializable {
                 vUvt = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vUvt");
                 vUvt.setFilterStyle("display: none; visibility: hidden;");
                 altoScrollVigenciasRetenciones = "90";
-                PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
+                RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
                 bandera = 0;
                 filtradoListaVigenciasRetenciones = null;
                 tipoLista = 0;
@@ -201,17 +201,17 @@ public class ControlRetencion implements Serializable {
             l = BigInteger.valueOf(k);
             nuevoVigenciasRetenciones.setSecuencia(l);
             cambiosPagina = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             listaVigenciasRetencionesCrear.add(nuevoVigenciasRetenciones);
             listaVigenciasRetenciones.add(nuevoVigenciasRetenciones);
-            PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:aceptar");
             }
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigenciasRetenciones').hide()");
             nuevoVigenciasRetenciones = new VigenciasRetenciones();
-            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroVigenciasRetenciones");
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciasRetenciones");
             index = -1;
             secRegistro = null;
         }
@@ -240,11 +240,11 @@ public class ControlRetencion implements Serializable {
             listaRetenciones = null;
             getListaRetenciones();
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosRetenciones");
             //}
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:cambiar");
+            RequestContext.getCurrentInstance().update("formularioDialogos:cambiar");
             PrimefacesContextUI.ejecutar("PF('cambiar').show()");
 
         }
@@ -255,7 +255,7 @@ public class ControlRetencion implements Serializable {
         listaVigenciasRetencionesBorrar.clear();
         listaVigenciasRetencionesModificar.clear();
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
+        RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
 
     }
 
@@ -296,19 +296,19 @@ public class ControlRetencion implements Serializable {
                 }
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
+                RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
                 cambiosPagina = false;
                 index = -1;
                 secRegistro = null;
 
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:aceptar");
+                    RequestContext.getCurrentInstance().update("form:aceptar");
                 }
             } else {
                 System.out.println("No se puede borrar porque tiene registros en la tabla de abajo");
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("formularioDialogos:registro");
+                RequestContext.getCurrentInstance().update("formularioDialogos:registro");
                 PrimefacesContextUI.ejecutar("PF('registro').show()");
             }
         } else if (indexD >= 0 && cualTabla == 1) {
@@ -345,14 +345,14 @@ public class ControlRetencion implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosRetenciones");
             indexD = -1;
             secRegistro = null;
             cambiosPagina = false;
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:aceptar");
             }
         }
     }
@@ -393,11 +393,11 @@ public class ControlRetencion implements Serializable {
             System.out.println("Se guardaron los datos con exito");
             listaVigenciasRetenciones = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
             guardado = true;
             permitirIndex = true;
             cambiosPagina = true;
-            PrimefacesContextUI.actualizar("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:aceptar");
             //  k = 0;
         }
         System.out.println("Valor k: " + k);
@@ -445,11 +445,11 @@ public class ControlRetencion implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg = new FacesMessage("Información", "Se han guardado los datos exitosamente.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        PrimefacesContextUI.actualizar("form:datosRetenciones");
-        PrimefacesContextUI.actualizar("form:growl");
+        RequestContext.getCurrentInstance().update("form:datosRetenciones");
+        RequestContext.getCurrentInstance().update("form:growl");
         guardado = true;
         permitirIndex = true;
-        PrimefacesContextUI.actualizar("form:aceptar");
+        RequestContext.getCurrentInstance().update("form:aceptar");
         //  k = 0;
 
         System.out.println("Valor k: " + k);
@@ -473,7 +473,7 @@ public class ControlRetencion implements Serializable {
             vUvt.setFilterStyle("width: 85%;");
             altoScrollVigenciasRetenciones = "70";
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
             bandera = 1;
 
         } else if (bandera == 1 && cualTabla == 0) {
@@ -486,7 +486,7 @@ public class ControlRetencion implements Serializable {
             vUvt.setFilterStyle("display: none; visibility: hidden;");
             altoScrollVigenciasRetenciones = "90";
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
             bandera = 0;
             filtradoListaVigenciasRetenciones = null;
 
@@ -504,7 +504,7 @@ public class ControlRetencion implements Serializable {
             rAdicionarUvt.setFilterStyle("");
             altoScrollRetenciones = "66";
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosRetenciones");
             bandera = 1;
             tipoListaD = 1;
 
@@ -523,7 +523,7 @@ public class ControlRetencion implements Serializable {
             rAdicionarUvt.setFilterStyle("display: none; visibility: hidden;");
             altoScrollRetenciones = "90";
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosRetenciones");
             bandera = 0;
             tipoListaD = 0;
             filtradoListaRetenciones = null;
@@ -541,7 +541,7 @@ public class ControlRetencion implements Serializable {
             vUvt.setFilterStyle("display: none; visibility: hidden;");
             altoScrollVigenciasRetenciones = "90";
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
             bandera = 0;
             filtradoListaVigenciasRetenciones = null;
             altoScrollVigenciasRetenciones = "90";
@@ -570,7 +570,7 @@ public class ControlRetencion implements Serializable {
             filtradoListaRetenciones = null;
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosRetenciones");
             bandera = 0;
             filtradoListaRetenciones = null;
             tipoListaD = 0;
@@ -592,8 +592,8 @@ public class ControlRetencion implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
-        PrimefacesContextUI.actualizar("form:datosRetenciones");
+        RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
+        RequestContext.getCurrentInstance().update("form:datosRetenciones");
 
     }
 
@@ -609,7 +609,7 @@ public class ControlRetencion implements Serializable {
             vUvt.setFilterStyle("display: none; visibility: hidden;");
             altoScrollVigenciasRetenciones = "90";
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
             bandera = 0;
             filtradoListaVigenciasRetenciones = null;
             altoScrollVigenciasRetenciones = "90";
@@ -633,7 +633,7 @@ public class ControlRetencion implements Serializable {
             rAdicionarUvt = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rAdicionarUvt");
             rAdicionarUvt.setFilterStyle("display: none; visibility: hidden;");
             altoScrollRetenciones = "90";
-            PrimefacesContextUI.actualizar("form:datosVigenciasRetencionesDetalles");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasRetencionesDetalles");
             bandera = 0;
             filtradoListaRetenciones = null;
             tipoListaD = 0;
@@ -655,8 +655,8 @@ public class ControlRetencion implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
-        PrimefacesContextUI.actualizar("form:datosVigenciasRetencionesDetalles");
+        RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
+        RequestContext.getCurrentInstance().update("form:datosVigenciasRetencionesDetalles");
     }
 
     //GUARDAR
@@ -700,11 +700,11 @@ public class ControlRetencion implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 FacesMessage msg = new FacesMessage("Información", "Se han guardado los datos exitosamente.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                PrimefacesContextUI.actualizar("form:growl");
-                PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
+                RequestContext.getCurrentInstance().update("form:growl");
+                RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
                 guardado = true;
                 permitirIndex = true;
-                PrimefacesContextUI.actualizar("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:aceptar");
                 //  k = 0;
             }
             System.out.println("Tamaño lista: " + listaVigenciasRetencionesCrear.size());
@@ -756,11 +756,11 @@ public class ControlRetencion implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             FacesMessage msg = new FacesMessage("Información", "Se han guardado los datos exitosamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:datosRetenciones");
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:datosRetenciones");
+            RequestContext.getCurrentInstance().update("form:growl");
             guardado = true;
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:aceptar");
             //  k = 0;
         }
         System.out.println("Valor k: " + k);
@@ -799,7 +799,7 @@ public class ControlRetencion implements Serializable {
 
         if (nuevoRetencion.getValorminimo() != null && nuevoRetencion.getValormaximo() != null) {
             if (nuevoRetencion.getValorminimo().compareTo(nuevoRetencion.getValormaximo()) == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:valores");
+                RequestContext.getCurrentInstance().update("formularioDialogos:valores");
                 PrimefacesContextUI.ejecutar("PF('valores').show()");
                 pasar++;
             }
@@ -807,7 +807,7 @@ public class ControlRetencion implements Serializable {
 
         if (nuevoRetencion.getValorminimo() != null && nuevoRetencion.getValormaximo() != null) {
             if (nuevoRetencion.getValorminimo().compareTo(nuevoRetencion.getValormaximo()) == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:valores2");
+                RequestContext.getCurrentInstance().update("formularioDialogos:valores2");
                 PrimefacesContextUI.ejecutar("PF('valores2').show()");
                 pasar++;
             }
@@ -816,14 +816,14 @@ public class ControlRetencion implements Serializable {
         if (nuevoRetencion.getValor() != null) {
             if (nuevoRetencion.getValor().compareTo(BigDecimal.ZERO) == -1) {
                 System.out.println("Valor es menor a 0");
-                PrimefacesContextUI.actualizar("formularioDialogos:valores3");
+                RequestContext.getCurrentInstance().update("formularioDialogos:valores3");
                 PrimefacesContextUI.ejecutar("PF('valores3').show()");
                 pasar++;
             }
         }
 
         if (pasa != 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevo");
             PrimefacesContextUI.ejecutar("PF('validacionNuevo').show()");
         }
 
@@ -842,7 +842,7 @@ public class ControlRetencion implements Serializable {
                 rAdicionarUvt = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rAdicionarUvt");
                 rAdicionarUvt.setFilterStyle("display: none; visibility: hidden;");
                 altoScrollRetenciones = "90";
-                PrimefacesContextUI.actualizar("form:datosRetenciones");
+                RequestContext.getCurrentInstance().update("form:datosRetenciones");
                 bandera = 0;
                 filtradoListaRetenciones = null;
                 tipoListaD = 0;
@@ -854,18 +854,18 @@ public class ControlRetencion implements Serializable {
             System.out.println("vigenciaRetencionSeleccionado" + vigenciaRetencionSeleccionado.getCodigo());
             nuevoRetencion.setVigencia(vigenciaRetencionSeleccionado);
             cambiosPagina = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             listaRetencionesCrear.add(nuevoRetencion);
             listaRetenciones.add(nuevoRetencion);
 
-            PrimefacesContextUI.actualizar("form:datosRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosRetenciones");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:aceptar");
             }
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroRetenciones').hide()");
             nuevoRetencion = new Retenciones();
-            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroRetenciones");
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroRetenciones");
             index = -1;
             secRegistro = null;
         }
@@ -877,7 +877,7 @@ public class ControlRetencion implements Serializable {
         
         for (int i = 0; i < listaVigenciasRetenciones.size(); i++) {
             if (duplicarVigenciasRetenciones.getCodigo() == listaVigenciasRetenciones.get(i).getCodigo()) {
-                PrimefacesContextUI.actualizar("formularioDialogos:valores");
+                RequestContext.getCurrentInstance().update("formularioDialogos:valores");
                 PrimefacesContextUI.ejecutar("PF('valores').show()");
                 pasa++;
             }
@@ -886,12 +886,12 @@ public class ControlRetencion implements Serializable {
         if (pasa == 0) {
             listaVigenciasRetenciones.add(duplicarVigenciasRetenciones);
             listaVigenciasRetencionesCrear.add(duplicarVigenciasRetenciones);
-            PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:aceptar");
             }
             if (bandera == 1) {
                 vCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vCodigo");
@@ -901,7 +901,7 @@ public class ControlRetencion implements Serializable {
                 vUvt = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vUvt");
                 vUvt.setFilterStyle("display: none; visibility: hidden;");
                 altoScrollVigenciasRetenciones = "90";
-                PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
+                RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
                 bandera = 0;
                 filtradoListaVigenciasRetenciones = null;
                 tipoLista = 0;
@@ -915,12 +915,12 @@ public class ControlRetencion implements Serializable {
         listaRetenciones.add(duplicarRetencion);
         listaRetencionesCrear.add(duplicarRetencion);
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosRetenciones");
+        RequestContext.getCurrentInstance().update("form:datosRetenciones");
         index = -1;
         secRegistro = null;
         if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:aceptar");
         }
         if (bandera == 1) {
             rValorMinimo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rValorMinimo");
@@ -934,7 +934,7 @@ public class ControlRetencion implements Serializable {
             rAdicionarUvt = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rAdicionarUvt");
             rAdicionarUvt.setFilterStyle("display: none; visibility: hidden;");
             altoScrollRetenciones = "90";
-            PrimefacesContextUI.actualizar("form:datosRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosRetenciones");
             bandera = 0;
             filtradoListaRetenciones = null;
             tipoListaD = 0;
@@ -964,7 +964,7 @@ public class ControlRetencion implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVigenciaRetencion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaRetencion");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVigenciasRetenciones').show()");
             index = -1;
             secRegistro = null;
@@ -996,7 +996,7 @@ public class ControlRetencion implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarRetencion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRetencion");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroRetencion').show()");
             indexD = -1;
             secRegistro = null;
@@ -1017,15 +1017,15 @@ public class ControlRetencion implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoVR");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoVR");
                 PrimefacesContextUI.ejecutar("PF('editarCodigoVR').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaVigenciaVR");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaVigenciaVR");
                 PrimefacesContextUI.ejecutar("PF('editarFechaVigenciaVR').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarUvtVR");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarUvtVR");
                 PrimefacesContextUI.ejecutar("PF('editarUvtVR').show()");
                 cualCelda = -1;
             }
@@ -1041,23 +1041,23 @@ public class ControlRetencion implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCeldaD);
             System.out.println("Cual Tabla: " + cualTabla);
             if (cualCeldaD == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarValorMinimoR");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarValorMinimoR");
                 PrimefacesContextUI.ejecutar("PF('editarValorMinimoR').show()");
                 cualCeldaD = -1;
             } else if (cualCeldaD == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarValorMaximoR");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarValorMaximoR");
                 PrimefacesContextUI.ejecutar("PF('editarValorMaximoR').show()");
                 cualCeldaD = -1;
             } else if (cualCeldaD == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarPorcentajeR");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarPorcentajeR");
                 PrimefacesContextUI.ejecutar("PF('editarPorcentajeR').show()");
                 cualCeldaD = -1;
             } else if (cualCeldaD == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarValorR");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarValorR");
                 PrimefacesContextUI.ejecutar("PF('editarValorR').show()");
                 cualCeldaD = -1;
             } else if (cualCeldaD == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarAdicionaR");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarAdicionaR");
                 PrimefacesContextUI.ejecutar("PF('editarAdicionaR').show()");
                 cualCeldaD = -1;
             }
@@ -1074,24 +1074,24 @@ public class ControlRetencion implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (!listaVigenciasRetenciones.isEmpty() && listaRetenciones.isEmpty()) {
-            PrimefacesContextUI.actualizar("formularioDialogos:elegirTabla");
+            RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
             PrimefacesContextUI.ejecutar("PF('elegirTabla').show()");
         }
         int tamaño = listaVigenciasRetenciones.size();
 
         if (tamaño == 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroVigenciasRetenciones");
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciasRetenciones");
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigenciasRetenciones').show()");
         }
 
         if (listaRetenciones.isEmpty() && !listaVigenciasRetenciones.isEmpty()) {
-            PrimefacesContextUI.actualizar("formularioDialogos:elegirTabla");
+            RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
             PrimefacesContextUI.ejecutar("PF('elegirTabla').show()");
         } else if (cualTabla == 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroVigenciasRetenciones");
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciasRetenciones");
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigenciasRetenciones').show()");
         } else if (cualTabla == 1) {
-            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroRetenciones");
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroRetenciones");
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroRetenciones').show()");
         }
     }
@@ -1099,14 +1099,14 @@ public class ControlRetencion implements Serializable {
     public void dialogoVigencias() {
         cualTabla = 0;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:NuevoRegistroVigenciasRetenciones");
+        RequestContext.getCurrentInstance().update("form:NuevoRegistroVigenciasRetenciones");
         PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigenciasRetenciones').show()");
     }
 
     public void dialogoRetenciones() {
         cualTabla = 1;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:NuevoRegistroRetenciones");
+        RequestContext.getCurrentInstance().update("form:NuevoRegistroRetenciones");
         PrimefacesContextUI.ejecutar("PF('NuevoRegistroRetenciones').show()");
     }
 
@@ -1126,16 +1126,16 @@ public class ControlRetencion implements Serializable {
             /*
              if (listaDeclarantes.get(index).getFechafinal().before(listaDeclarantes.get(index).getFechainicial())) {
              listaDeclarantes.get(index).setFechafinal(fechaFinal);
-             PrimefacesContextUI.actualizar("formularioDialogos:fechas");
+             RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
              PrimefacesContextUI.ejecutar("PF('fechas').show()");
-             PrimefacesContextUI.actualizar("form:datosDeclarantes");
+             RequestContext.getCurrentInstance().update("form:datosDeclarantes");
              }
 
              if (listaDeclarantes.get(index).getFechainicial().after(listaDeclarantes.get(index).getFechafinal())) {
              listaDeclarantes.get(index).setFechainicial(fechaInicial);
-             PrimefacesContextUI.actualizar("formularioDialogos:fechas");
+             RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
              PrimefacesContextUI.ejecutar("PF('fechas').show()");
-             PrimefacesContextUI.actualizar("form:datosDeclarantes");
+             RequestContext.getCurrentInstance().update("form:datosDeclarantes");
              }
              */
         } else {
@@ -1146,7 +1146,7 @@ public class ControlRetencion implements Serializable {
                 filtradoListaVigenciasRetenciones.get(i).setFechavigencia(fechaVigencia);
 
             }
-            PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
             PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
         }
     }
@@ -1192,7 +1192,7 @@ public class ControlRetencion implements Serializable {
                         guardado = false;
                     }
                     cambiosPagina = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 index = -1;
                 secRegistro = null;
@@ -1208,12 +1208,12 @@ public class ControlRetencion implements Serializable {
                         guardado = false;
                     }
                     cambiosPagina = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 index = -1;
                 secRegistro = null;
             }
-            PrimefacesContextUI.actualizar("form:datosVigenciasRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
         }
     }
 
@@ -1237,7 +1237,7 @@ public class ControlRetencion implements Serializable {
                         guardado = false;
                     }
                     cambiosPagina = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 indexD = -1;
                 secRegistro = null;
@@ -1253,12 +1253,12 @@ public class ControlRetencion implements Serializable {
                         guardado = false;
                     }
                     cambiosPagina = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 indexD = -1;
                 secRegistro = null;
             }
-            PrimefacesContextUI.actualizar("form:datosRetenciones");
+            RequestContext.getCurrentInstance().update("form:datosRetenciones");
         }
 
     }

@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Cuentas;
 import Entidades.VigenciasCuentas;
 import Exportar.ExportarPDF;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -190,31 +190,31 @@ public class ControlDetalleCuenta implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaCredito == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicialCreditoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialCreditoD");
                 PrimefacesContextUI.ejecutar("PF('editarFechaInicialCreditoD').show()");
                 cualCeldaCredito = -1;
             } else if (cualCeldaCredito == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinalCreditoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalCreditoD");
                 PrimefacesContextUI.ejecutar("PF('editarFechaFinalCreditoD').show()");
                 cualCeldaCredito = -1;
             } else if (cualCeldaCredito == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoCreditoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoCreditoD");
                 PrimefacesContextUI.ejecutar("PF('editarCodigoCreditoD').show()");
                 cualCeldaCredito = -1;
             } else if (cualCeldaCredito == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionCreditoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionCreditoD");
                 PrimefacesContextUI.ejecutar("PF('editarDescripcionCreditoD').show()");
                 cualCeldaCredito = -1;
             } else if (cualCeldaCredito == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionCCCreditoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionCCCreditoD");
                 PrimefacesContextUI.ejecutar("PF('editarDescripcionCCCreditoD').show()");
                 cualCeldaCredito = -1;
             } else if (cualCeldaCredito == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCCCreditoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCCCreditoD");
                 PrimefacesContextUI.ejecutar("PF('editarCCCreditoD').show()");
                 cualCeldaCredito = -1;
             } else if (cualCeldaCredito == 6) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTipoCreditoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoCreditoD");
                 PrimefacesContextUI.ejecutar("PF('editarTipoCreditoD').show()");
                 cualCeldaCredito = -1;
             }
@@ -228,31 +228,31 @@ public class ControlDetalleCuenta implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaDebito == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicialDebitoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialDebitoD");
                 PrimefacesContextUI.ejecutar("PF('editarFechaInicialDebitoD').show()");
                 cualCeldaDebito = -1;
             } else if (cualCeldaDebito == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinalDebitoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalDebitoD");
                 PrimefacesContextUI.ejecutar("PF('editarFechaFinalDebitoD').show()");
                 cualCeldaDebito = -1;
             } else if (cualCeldaDebito == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoDebitoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoDebitoD");
                 PrimefacesContextUI.ejecutar("PF('editarCodigoDebitoD').show()");
                 cualCeldaDebito = -1;
             } else if (cualCeldaDebito == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionDebitoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionDebitoD");
                 PrimefacesContextUI.ejecutar("PF('editarDescripcionDebitoD').show()");
                 cualCeldaDebito = -1;
             } else if (cualCeldaDebito == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionCCDebitoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionCCDebitoD");
                 PrimefacesContextUI.ejecutar("PF('editarDescripcionCCDebitoD').show()");
                 cualCeldaDebito = -1;
             } else if (cualCeldaDebito == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCCDebitoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCCDebitoD");
                 PrimefacesContextUI.ejecutar("PF('editarCCDebitoD').show()");
                 cualCeldaDebito = -1;
             } else if (cualCeldaDebito == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTipoDebitoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoDebitoD");
                 PrimefacesContextUI.ejecutar("PF('editarTipoDebitoD').show()");
                 cualCeldaDebito = -1;
             }
@@ -301,7 +301,7 @@ public class ControlDetalleCuenta implements Serializable {
             creditoCC.setFilterStyle("width: 85%");
             creditoTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoTipo");
             creditoTipo.setFilterStyle("width: 85%");
-            PrimefacesContextUI.actualizar("form:datosCuentaCredito");
+            RequestContext.getCurrentInstance().update("form:datosCuentaCredito");
             banderaCredito = 1;
         } else if (banderaCredito == 1) {
             altoTablaCredito = "120";
@@ -319,7 +319,7 @@ public class ControlDetalleCuenta implements Serializable {
             creditoCC.setFilterStyle("display: none; visibility: hidden;");
             creditoTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoTipo");
             creditoTipo.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosCuentaCredito");
+            RequestContext.getCurrentInstance().update("form:datosCuentaCredito");
             banderaCredito = 0;
             filtrarListCuentasCredito = null;
             tipoListaCredito = 0;
@@ -348,7 +348,7 @@ public class ControlDetalleCuenta implements Serializable {
             debitoCC.setFilterStyle("width: 85%;");
             debitoTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoTipo");
             debitoTipo.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosCuentaDebito");
+            RequestContext.getCurrentInstance().update("form:datosCuentaDebito");
             banderaDebito = 1;
         } else if (banderaDebito == 1) {
             altoTablaDebito = "105";
@@ -366,7 +366,7 @@ public class ControlDetalleCuenta implements Serializable {
             debitoCC.setFilterStyle("display: none; visibility: hidden;");
             debitoTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoTipo");
             debitoTipo.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosCuentaDebito");
+            RequestContext.getCurrentInstance().update("form:datosCuentaDebito");
             banderaDebito = 0;
             filtrarListCuentasDebito = null;
             tipoListaDebito = 0;
@@ -394,7 +394,7 @@ public class ControlDetalleCuenta implements Serializable {
             creditoCC.setFilterStyle("display: none; visibility: hidden;");
             creditoTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoTipo");
             creditoTipo.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosCuentaCredito");
+            RequestContext.getCurrentInstance().update("form:datosCuentaCredito");
             banderaCredito = 0;
             filtrarListCuentasCredito = null;
             tipoListaCredito = 0;
@@ -415,7 +415,7 @@ public class ControlDetalleCuenta implements Serializable {
             debitoCC.setFilterStyle("display: none; visibility: hidden;");
             debitoTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoTipo");
             debitoTipo.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosCuentaDebito");
+            RequestContext.getCurrentInstance().update("form:datosCuentaDebito");
             banderaDebito = 0;
             filtrarListCuentasDebito = null;
             tipoListaDebito = 0;
@@ -595,7 +595,7 @@ public class ControlDetalleCuenta implements Serializable {
                 } else if (resultado == 2) {
                     nombreTablaRastro = "VigenciasCuentas";
                     msnConfirmarRastro = "La tabla VIGENCIASCUENTAS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
                     PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
                     PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
@@ -611,7 +611,7 @@ public class ControlDetalleCuenta implements Serializable {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASCUENTAS")) {
                 nombreTablaRastro = "VigenciasCuentas";
                 msnConfirmarRastroHistorico = "La tabla VIGENCIASCUENTAS tiene rastros historicos, ¿Desea continuar?";
-                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
                 PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
                 PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
@@ -634,7 +634,7 @@ public class ControlDetalleCuenta implements Serializable {
                 } else if (resultado == 2) {
                     nombreTablaRastro = "VigenciasCuentas";
                     msnConfirmarRastro = "La tabla VIGENCIASCUENTAS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                    RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
                     PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
                     PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
@@ -650,7 +650,7 @@ public class ControlDetalleCuenta implements Serializable {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASCUENTAS")) {
                 nombreTablaRastro = "VigenciasCuentas";
                 msnConfirmarRastroHistorico = "La tabla VIGENCIASCUENTAS tiene rastros historicos, ¿Desea continuar?";
-                PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+                RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
                 PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
             } else {
                 PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");

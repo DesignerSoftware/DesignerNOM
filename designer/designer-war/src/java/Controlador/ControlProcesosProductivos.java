@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.ProcesosProductivos;
 import Entidades.CentrosCostos;
 import Exportar.ExportarPDF;
@@ -26,7 +27,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -116,7 +116,7 @@ public class ControlProcesosProductivos implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarProcesosProductivos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlProcesosProductivos eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -175,7 +175,7 @@ public class ControlProcesosProductivos implements Serializable {
                 tipoActualizacion = 2;
             }
             if (dig == 2) {
-                PrimefacesContextUI.actualizar("form:personasDialogo");
+                RequestContext.getCurrentInstance().update("form:personasDialogo");
                 PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                 dig = -1;
             }
@@ -193,7 +193,7 @@ public class ControlProcesosProductivos implements Serializable {
 
             if (cualCelda == 2) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:personasDialogo");
+                RequestContext.getCurrentInstance().update("form:personasDialogo");
                 PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
             }
         }
@@ -209,7 +209,7 @@ public class ControlProcesosProductivos implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             personafir = (Column) c.getViewRoot().findComponent("form:datosProcesosProductivos:personafir");
             personafir.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosProcesosProductivos");
+            RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
             bandera = 0;
             filtrarProcesosProductivos = null;
             tipoLista = 0;
@@ -231,9 +231,9 @@ public class ControlProcesosProductivos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listProcesosProductivos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosProcesosProductivos");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -246,7 +246,7 @@ public class ControlProcesosProductivos implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             personafir = (Column) c.getViewRoot().findComponent("form:datosProcesosProductivos:personafir");
             personafir.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosProcesosProductivos");
+            RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
             bandera = 0;
             filtrarProcesosProductivos = null;
             tipoLista = 0;
@@ -268,9 +268,9 @@ public class ControlProcesosProductivos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listProcesosProductivos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosProcesosProductivos");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -284,7 +284,7 @@ public class ControlProcesosProductivos implements Serializable {
             descripcion.setFilterStyle("width: 85%;");
             personafir = (Column) c.getViewRoot().findComponent("form:datosProcesosProductivos:personafir");
             personafir.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosProcesosProductivos");
+            RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -296,7 +296,7 @@ public class ControlProcesosProductivos implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             personafir = (Column) c.getViewRoot().findComponent("form:datosProcesosProductivos:personafir");
             personafir.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosProcesosProductivos");
+            RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
             bandera = 0;
             filtrarProcesosProductivos = null;
             tipoLista = 0;
@@ -336,16 +336,16 @@ public class ControlProcesosProductivos implements Serializable {
             }
             permitirIndex = true;
             System.out.println("ACTUALIZAR PAIS PAIS SELECCIONADO : " + centrocostoSeleccionado.getNombre());
-            PrimefacesContextUI.actualizar("form:datosProcesosProductivos");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else if (tipoActualizacion == 1) {
             System.out.println("ACTUALIZAR PAIS NUEVO DEPARTAMENTO: " + centrocostoSeleccionado.getNombre());
             nuevoProcesosProductivos.setCentrocosto(centrocostoSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoPersona");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
         } else if (tipoActualizacion == 2) {
             System.out.println("ACTUALIZAR PAIS DUPLICAR DEPARTAMENO: " + centrocostoSeleccionado.getNombre());
             duplicarProcesosProductivos.setCentrocosto(centrocostoSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarPersona");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersona");
         }
         filtradoCentrosCostos = null;
         centrocostoSeleccionado = null;
@@ -357,8 +357,8 @@ public class ControlProcesosProductivos implements Serializable {
         context.reset("form:lovCentrosCostos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovCentrosCostos').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('personasDialogo').hide()");
-        //PrimefacesContextUI.actualizar("form:lovCentrosCostos");
-        //PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+        //RequestContext.getCurrentInstance().update("form:lovCentrosCostos");
+        //RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
     }
 
     public void cancelarCambioCentrosCostos() {
@@ -442,14 +442,14 @@ public class ControlProcesosProductivos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    PrimefacesContextUI.actualizar("form:datosProcesosProductivos");
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
 
                     System.out.println("backupCodigo : " + backupCodigo);
@@ -495,14 +495,14 @@ public class ControlProcesosProductivos implements Serializable {
                             guardado = false;
                         }
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    PrimefacesContextUI.actualizar("form:datosProcesosProductivos");
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                 }
             } else {
@@ -560,7 +560,7 @@ public class ControlProcesosProductivos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -613,7 +613,7 @@ public class ControlProcesosProductivos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -621,8 +621,8 @@ public class ControlProcesosProductivos implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosProcesosProductivos");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else if (confirmarCambio.equalsIgnoreCase("PERSONAS")) {
             System.out.println("MODIFICANDO NORMA LABORAL : " + listProcesosProductivos.get(indice).getCentrocosto().getNombre());
             if (!listProcesosProductivos.get(indice).getCentrocosto().getNombre().equals("")) {
@@ -651,7 +651,7 @@ public class ControlProcesosProductivos implements Serializable {
 
                 } else {
                     permitirIndex = false;
-                    PrimefacesContextUI.actualizar("form:personasDialogo");
+                    RequestContext.getCurrentInstance().update("form:personasDialogo");
                     PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -665,7 +665,7 @@ public class ControlProcesosProductivos implements Serializable {
                 }
                 tipoActualizacion = 0;
                 System.out.println("PAIS ANTES DE MOSTRAR DIALOGO PERSONA : " + backupBanco);
-                PrimefacesContextUI.actualizar("form:personasDialogo");
+                RequestContext.getCurrentInstance().update("form:personasDialogo");
                 PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
             }
 
@@ -701,8 +701,8 @@ public class ControlProcesosProductivos implements Serializable {
                 }
             }
 
-            PrimefacesContextUI.actualizar("form:datosProcesosProductivos");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
         }
     }
@@ -731,7 +731,7 @@ public class ControlProcesosProductivos implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
 
@@ -785,15 +785,15 @@ public class ControlProcesosProductivos implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listProcesosProductivos.size();
             }
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosProcesosProductivos");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -837,7 +837,7 @@ public class ControlProcesosProductivos implements Serializable {
                     listaCentrosCostos = null;
                     System.err.println("PERSONA GUARDADA :-----> " + nuevoProcesosProductivos.getCentrocosto().getNombre());
                 } else {
-                    PrimefacesContextUI.actualizar("form:personasDialogo");
+                    RequestContext.getCurrentInstance().update("form:personasDialogo");
                     PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
@@ -848,7 +848,7 @@ public class ControlProcesosProductivos implements Serializable {
                 nuevoProcesosProductivos.getCentrocosto().setNombre(" ");
                 System.out.println("NUEVA NORMA LABORAL" + nuevoProcesosProductivos.getCentrocosto().getNombre());
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoPersona");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
         }
     }
 
@@ -860,7 +860,7 @@ public class ControlProcesosProductivos implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:personasDialogo");
+        RequestContext.getCurrentInstance().update("form:personasDialogo");
         PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
     }
 
@@ -872,7 +872,7 @@ public class ControlProcesosProductivos implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:cargosDialogo");
+        RequestContext.getCurrentInstance().update("form:cargosDialogo");
         PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
     }
 
@@ -901,7 +901,7 @@ public class ControlProcesosProductivos implements Serializable {
                     duplicarProcesosProductivos.setCentrocosto(listaCentrosCostos.get(indiceUnicoElemento));
                     listaCentrosCostos = null;
                 } else {
-                    PrimefacesContextUI.actualizar("form:personasDialogo");
+                    RequestContext.getCurrentInstance().update("form:personasDialogo");
                     PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
@@ -926,7 +926,7 @@ public class ControlProcesosProductivos implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarPersona");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersona");
         }
     }
 
@@ -960,7 +960,7 @@ public class ControlProcesosProductivos implements Serializable {
      System.out.println("Borrado>0");
 
      RequestContext context = RequestContext.getCurrentInstance();
-     PrimefacesContextUI.actualizar("form:validacionBorrar");
+     RequestContext.getCurrentInstance().update("form:validacionBorrar");
      PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
      index = -1;
      contarBienProgramacionesDepartamento = new BigInteger("-1");
@@ -978,7 +978,7 @@ public class ControlProcesosProductivos implements Serializable {
 
         if (!borrarProcesosProductivos.isEmpty() || !crearProcesosProductivos.isEmpty() || !modificarProcesosProductivos.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -993,7 +993,7 @@ public class ControlProcesosProductivos implements Serializable {
                 administrarProcesosProductivos.borrarProcesosProductivos(borrarProcesosProductivos);
                 //mostrarBorrados
                 registrosBorrados = borrarProcesosProductivos.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarProcesosProductivos.clear();
             }
@@ -1011,10 +1011,10 @@ public class ControlProcesosProductivos implements Serializable {
 
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -1030,19 +1030,19 @@ public class ControlProcesosProductivos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editPais");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editPais");
                 PrimefacesContextUI.ejecutar("PF('editPais').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editSubtituloFirma");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editSubtituloFirma");
                 PrimefacesContextUI.ejecutar("PF('editSubtituloFirma').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCentrosCostos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCentrosCostos");
                 PrimefacesContextUI.ejecutar("PF('editCentrosCostos').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCiudades");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCiudades");
                 PrimefacesContextUI.ejecutar("PF('editCiudades').show()");
                 cualCelda = -1;
             }
@@ -1131,14 +1131,14 @@ public class ControlProcesosProductivos implements Serializable {
             listProcesosProductivos.add(nuevoProcesosProductivos);
             nuevoProcesosProductivos = new ProcesosProductivos();
             nuevoProcesosProductivos.setCentrocosto(new CentrosCostos());
-            PrimefacesContextUI.actualizar("form:datosProcesosProductivos");
+            RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
 
             infoRegistro = "Cantidad de registros: " + listProcesosProductivos.size();
 
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroProcesosProductivos').hide()");
@@ -1146,7 +1146,7 @@ public class ControlProcesosProductivos implements Serializable {
             secRegistro = null;
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -1195,7 +1195,7 @@ public class ControlProcesosProductivos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroProcesosProductivos').show()");
             secRegistro = null;
         }
@@ -1256,7 +1256,7 @@ public class ControlProcesosProductivos implements Serializable {
             }
             listProcesosProductivos.add(duplicarProcesosProductivos);
             crearProcesosProductivos.add(duplicarProcesosProductivos);
-            PrimefacesContextUI.actualizar("form:datosProcesosProductivos");
+            RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
             index = -1;
             System.out.println("--------------DUPLICAR------------------------");
             System.out.println("CODIGO : " + duplicarProcesosProductivos.getCodigo());
@@ -1268,10 +1268,10 @@ public class ControlProcesosProductivos implements Serializable {
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             infoRegistro = "Cantidad de registros: " + listProcesosProductivos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
 
@@ -1282,7 +1282,7 @@ public class ControlProcesosProductivos implements Serializable {
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 personafir = (Column) c.getViewRoot().findComponent("form:datosProcesosProductivos:personafir");
                 personafir.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosProcesosProductivos");
+                RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
                 bandera = 0;
                 filtrarProcesosProductivos = null;
                 tipoLista = 0;
@@ -1294,7 +1294,7 @@ public class ControlProcesosProductivos implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -1368,7 +1368,7 @@ public class ControlProcesosProductivos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listProcesosProductivos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listProcesosProductivos;
     }
 
@@ -1458,7 +1458,7 @@ public class ControlProcesosProductivos implements Serializable {
         } else {
             infoRegistroCentroCostos = "Cantidad de registros: " + listaCentrosCostos.size();
         }
-        PrimefacesContextUI.actualizar("form:infoRegistroCentroCostos");
+        RequestContext.getCurrentInstance().update("form:infoRegistroCentroCostos");
         return listaCentrosCostos;
     }
 

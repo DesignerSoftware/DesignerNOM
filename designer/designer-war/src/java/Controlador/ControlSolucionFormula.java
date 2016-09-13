@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Empleados;
 import Entidades.Novedades;
 import Entidades.SolucionesFormulas;
@@ -22,7 +23,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -137,31 +137,31 @@ public class ControlSolucionFormula implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaHastaD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaHastaD");
                 PrimefacesContextUI.ejecutar("PF('editarFechaHastaD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarConceptoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarConceptoD");
                 PrimefacesContextUI.ejecutar("PF('editarConceptoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarValorD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarValorD");
                 PrimefacesContextUI.ejecutar("PF('editarValorD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarSaldoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarSaldoD");
                 PrimefacesContextUI.ejecutar("PF('editarSaldoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaPagoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaPagoD");
                 PrimefacesContextUI.ejecutar("PF('editarFechaPagoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarProcesoD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarProcesoD");
                 PrimefacesContextUI.ejecutar("PF('editarProcesoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFormulaD");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFormulaD");
                 PrimefacesContextUI.ejecutar("PF('editarFormulaD').show()");
                 cualCelda = -1;
             }
@@ -187,7 +187,7 @@ public class ControlSolucionFormula implements Serializable {
             proceso.setFilterStyle("width: 85%;");
             formula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:formula");
             formula.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosSolucionFormula");
+            RequestContext.getCurrentInstance().update("form:datosSolucionFormula");
             bandera = 1;
         } else if (bandera == 1) {
             algoTabla = "300";
@@ -205,7 +205,7 @@ public class ControlSolucionFormula implements Serializable {
             proceso.setFilterStyle("display: none; visibility: hidden;");
             formula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:formula");
             formula.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosSolucionFormula");
+            RequestContext.getCurrentInstance().update("form:datosSolucionFormula");
             bandera = 0;
             filtrarListaSolucionesFormulas = null;
             tipoLista = 0;
@@ -231,7 +231,7 @@ public class ControlSolucionFormula implements Serializable {
             proceso.setFilterStyle("display: none; visibility: hidden;");
             formula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:formula");
             formula.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosSolucionFormula");
+            RequestContext.getCurrentInstance().update("form:datosSolucionFormula");
             bandera = 0;
             filtrarListaSolucionesFormulas = null;
             tipoLista = 0;
@@ -281,7 +281,7 @@ public class ControlSolucionFormula implements Serializable {
             tipoLista = 1;
         }
         infoRegistro = "Cantidad de registros : " + filtrarListaSolucionesFormulas.size();
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
     //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
 

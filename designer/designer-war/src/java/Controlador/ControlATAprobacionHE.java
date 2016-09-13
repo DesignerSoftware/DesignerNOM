@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.ActualUsuario;
 import Entidades.EersCabeceras;
 import Entidades.EersDetalles;
@@ -28,7 +29,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -202,7 +202,7 @@ public class ControlATAprobacionHE implements Serializable {
             rowsCabecera = rowsCabecera + 20;
             numeroScrollCabecera = numeroScrollCabecera + 500;
             PrimefacesContextUI.ejecutar("PF('operacionEnProceso').hide()");
-            PrimefacesContextUI.actualizar("form:PanelTotal");
+            RequestContext.getCurrentInstance().update("form:PanelTotal");
         }
     }
 
@@ -216,7 +216,7 @@ public class ControlATAprobacionHE implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             indexCabecera = -1;
@@ -229,13 +229,13 @@ public class ControlATAprobacionHE implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             indexCabecera = -1;
             secRegistro = null;
         }
-        PrimefacesContextUI.actualizar("form:tablaInferiorIzquierda");
-        PrimefacesContextUI.actualizar("form:tablaInferiorDerecha");
+        RequestContext.getCurrentInstance().update("form:tablaInferiorIzquierda");
+        RequestContext.getCurrentInstance().update("form:tablaInferiorDerecha");
     }
 
     public void modificarCabecera(int indice, String confirmarCambio, String valorConfirmar) {
@@ -265,7 +265,7 @@ public class ControlATAprobacionHE implements Serializable {
                 getLovEstructuras();
             } else {
                 permitirIndexCabecera = false;
-                PrimefacesContextUI.actualizar("formEstructura:EstructuraDialogo");
+                RequestContext.getCurrentInstance().update("formEstructura:EstructuraDialogo");
                 PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').show()");
             }
         }
@@ -278,7 +278,7 @@ public class ControlATAprobacionHE implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 indexCabecera = -1;
                 secRegistro = null;
@@ -290,14 +290,14 @@ public class ControlATAprobacionHE implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 indexCabecera = -1;
                 secRegistro = null;
             }
         }
-        PrimefacesContextUI.actualizar("form:tablaInferiorIzquierda");
-        PrimefacesContextUI.actualizar("form:tablaInferiorDerecha");
+        RequestContext.getCurrentInstance().update("form:tablaInferiorIzquierda");
+        RequestContext.getCurrentInstance().update("form:tablaInferiorDerecha");
     }
 
     public boolean validarFechasRegistroCabecera(int i) {
@@ -338,8 +338,8 @@ public class ControlATAprobacionHE implements Serializable {
             } else {
                 filtrarListaEersCabeceras.get(i).setFechapago(auxCabeceraFechaPago);
             }
-            PrimefacesContextUI.actualizar("form:tablaInferiorIzquierda");
-            PrimefacesContextUI.actualizar("form:tablaInferiorDerecha");
+            RequestContext.getCurrentInstance().update("form:tablaInferiorIzquierda");
+            RequestContext.getCurrentInstance().update("form:tablaInferiorDerecha");
             PrimefacesContextUI.ejecutar("PF('errorFechaCabecera').show()");
         }
     }
@@ -373,10 +373,10 @@ public class ControlATAprobacionHE implements Serializable {
                 //
                 if (cualCeldaCabecera >= 0 && cualCeldaCabecera <= 3) {
                     cabeceraSeleccionada = listaEersCabeceras.get(indexCabecera);
-                    PrimefacesContextUI.actualizar("form:tablaInferiorDerecha");
+                    RequestContext.getCurrentInstance().update("form:tablaInferiorDerecha");
                 } else if (cualCeldaCabecera >= 4) {
                     cabeceraSeleccionada = listaEersCabeceras.get(indexCabecera);
-                    PrimefacesContextUI.actualizar("form:tablaInferiorIzquierda");
+                    RequestContext.getCurrentInstance().update("form:tablaInferiorIzquierda");
                 }
                 //
                 lovEstructuras = administrarATAprobacionHE.lovEstructuras(listaEersCabeceras.get(indexCabecera).getEerestado().getSecuencia());
@@ -387,10 +387,10 @@ public class ControlATAprobacionHE implements Serializable {
                 //
                 if (cualCeldaCabecera >= 0 && cualCeldaCabecera <= 3) {
                     cabeceraSeleccionada = filtrarListaEersCabeceras.get(indexCabecera);
-                    PrimefacesContextUI.actualizar("form:tablaInferiorDerecha");
+                    RequestContext.getCurrentInstance().update("form:tablaInferiorDerecha");
                 } else if (cualCeldaCabecera >= 4) {
                     cabeceraSeleccionada = filtrarListaEersCabeceras.get(indexCabecera);
-                    PrimefacesContextUI.actualizar("form:tablaInferiorIzquierda");
+                    RequestContext.getCurrentInstance().update("form:tablaInferiorIzquierda");
                 }
                 //
                 lovEstructuras = administrarATAprobacionHE.lovEstructuras(filtrarListaEersCabeceras.get(indexCabecera).getEerestado().getSecuencia());
@@ -403,7 +403,7 @@ public class ControlATAprobacionHE implements Serializable {
                 flujoProceso = (Column) c.getViewRoot().findComponent("form:datosFlujo:flujoProceso");
                 flujoProceso.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaFlujo = "110";
-                PrimefacesContextUI.actualizar("form:datosFlujo");
+                RequestContext.getCurrentInstance().update("form:datosFlujo");
                 banderaFlujo = 0;
                 filtrarListaFlujos = null;
                 tipoListaFlujo = 0;
@@ -417,14 +417,14 @@ public class ControlATAprobacionHE implements Serializable {
                 detalleObservaciones = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleObservaciones");
                 detalleObservaciones.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaDetalle = "85";
-                PrimefacesContextUI.actualizar("form:datosDetalle");
+                RequestContext.getCurrentInstance().update("form:datosDetalle");
                 banderaDetalle = 0;
                 filtrarListaDetalles = null;
                 tipoListaDetalle = 0;
             }
             getListaFlujos();
             getListaDetalles();
-            PrimefacesContextUI.actualizar("form:datosFlujo");
+            RequestContext.getCurrentInstance().update("form:datosFlujo");
         }
     }
 
@@ -481,57 +481,57 @@ public class ControlATAprobacionHE implements Serializable {
                 editarCabecera = filtrarListaEersCabeceras.get(indexCabecera);
             }
             if (cualCeldaCabecera == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCabeceraAprobado");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraAprobado");
                 PrimefacesContextUI.ejecutar("PF('editarCabeceraAprobado').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCabeceraSiguiente");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraSiguiente");
                 PrimefacesContextUI.ejecutar("PF('editarCabeceraSiguiente').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCabeceraNumDocumento");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraNumDocumento");
                 PrimefacesContextUI.ejecutar("PF('editarCabeceraNumDocumento').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarEmplNombre");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarEmplNombre");
                 PrimefacesContextUI.ejecutar("PF('editarEmplNombre').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCabeceraHoras");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraHoras");
                 PrimefacesContextUI.ejecutar("PF('editarCabeceraHoras').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCabeceraMinuto");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraMinuto");
                 PrimefacesContextUI.ejecutar("PF('editarCabeceraMinuto').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 6) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCabeceraNovedad");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraNovedad");
                 PrimefacesContextUI.ejecutar("PF('editarCabeceraNovedad').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 7) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCabeceraEstado");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraEstado");
                 PrimefacesContextUI.ejecutar("PF('editarCabeceraEstado').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 8) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCabeceraPaso");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraPaso");
                 PrimefacesContextUI.ejecutar("PF('editarCabeceraPaso').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 9) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCabeceraFechaPago");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraFechaPago");
                 PrimefacesContextUI.ejecutar("PF('editarCabeceraFechaPago').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 10) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCabeceraObservacion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraObservacion");
                 PrimefacesContextUI.ejecutar("PF('editarCabeceraObservacion').show()");
                 cualCeldaCabecera = -1;
             }
@@ -545,12 +545,12 @@ public class ControlATAprobacionHE implements Serializable {
                 editarFlujo = filtrarListaFlujos.get(indexFlujo);
             }
             if (cualCeldaFlujo == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFlujoProceso");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFlujoProceso");
                 PrimefacesContextUI.ejecutar("PF('editarFlujoProceso').show()");
                 cualCeldaFlujo = -1;
             }
             if (cualCeldaFlujo == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFlujoFecha");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFlujoFecha");
                 PrimefacesContextUI.ejecutar("PF('editarFlujoFecha').show()");
                 cualCeldaFlujo = -1;
             }
@@ -564,17 +564,17 @@ public class ControlATAprobacionHE implements Serializable {
                 editarDetalle = filtrarListaDetalles.get(indexDetalle);
             }
             if (cualCeldaDetalle == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDetalleConcepto");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDetalleConcepto");
                 PrimefacesContextUI.ejecutar("PF('editarDetalleConcepto').show()");
                 cualCeldaDetalle = -1;
             }
             if (cualCeldaDetalle == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDetalleFecha");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDetalleFecha");
                 PrimefacesContextUI.ejecutar("PF('editarDetalleFecha').show()");
                 cualCeldaDetalle = -1;
             }
             if (cualCeldaDetalle == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDetalleObservacion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDetalleObservacion");
                 PrimefacesContextUI.ejecutar("PF('editarDetalleObservacion').show()");
                 cualCeldaDetalle = -1;
             }
@@ -587,7 +587,7 @@ public class ControlATAprobacionHE implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (indexCabecera >= 0) {
             if (cualCeldaCabecera == 3) {
-                PrimefacesContextUI.actualizar("formEstructura:EstructuraDialogo");
+                RequestContext.getCurrentInstance().update("formEstructura:EstructuraDialogo");
                 PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').show()");
                 cualCeldaCabecera = -1;
             }
@@ -600,7 +600,7 @@ public class ControlATAprobacionHE implements Serializable {
         if (indexCabecera >= 0) {
             indexCabecera = indice;
             if (dialogo == 0) {
-                PrimefacesContextUI.actualizar("formEstructura:EstructuraDialogo");
+                RequestContext.getCurrentInstance().update("formEstructura:EstructuraDialogo");
                 PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').show()");
             }
         }
@@ -638,8 +638,8 @@ public class ControlATAprobacionHE implements Serializable {
             filtrarListaEersCabeceras = null;
             tipoListaCabecera = 0;
 
-            PrimefacesContextUI.actualizar("form:tablaSuperiorIzquierda");
-            PrimefacesContextUI.actualizar("form:tablaSuperiorDerecha");
+            RequestContext.getCurrentInstance().update("form:tablaSuperiorIzquierda");
+            RequestContext.getCurrentInstance().update("form:tablaSuperiorDerecha");
 
             altoDivTablaInferiorIzquierda = "95px";
             topDivTablaInferiorIzquierda = "37px";
@@ -647,7 +647,7 @@ public class ControlATAprobacionHE implements Serializable {
             altoDivTablaInferiorDerecha = "95px";
             topDivTablaInferiorDerecha = "37px";
 
-            PrimefacesContextUI.actualizar("form:PanelTotal");
+            RequestContext.getCurrentInstance().update("form:PanelTotal");
         }
 
         if (banderaFlujo == 1) {
@@ -657,7 +657,7 @@ public class ControlATAprobacionHE implements Serializable {
             flujoProceso = (Column) c.getViewRoot().findComponent("form:datosFlujo:flujoProceso");
             flujoProceso.setFilterStyle("display: none; visibility: hidden;");
             altoTablaFlujo = "110";
-            PrimefacesContextUI.actualizar("form:datosFlujo");
+            RequestContext.getCurrentInstance().update("form:datosFlujo");
             banderaFlujo = 0;
             filtrarListaFlujos = null;
             tipoListaFlujo = 0;
@@ -672,7 +672,7 @@ public class ControlATAprobacionHE implements Serializable {
             detalleObservaciones = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleObservaciones");
             detalleObservaciones.setFilterStyle("display: none; visibility: hidden;");
             altoTablaDetalle = "85";
-            PrimefacesContextUI.actualizar("form:datosDetalle");
+            RequestContext.getCurrentInstance().update("form:datosDetalle");
             banderaDetalle = 0;
             filtrarListaDetalles = null;
             tipoListaDetalle = 0;
@@ -711,7 +711,7 @@ public class ControlATAprobacionHE implements Serializable {
         rowsCabecera = 20;
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:PanelTotal");
+        RequestContext.getCurrentInstance().update("form:PanelTotal");
     }
 
     public void salir() {
@@ -746,8 +746,8 @@ public class ControlATAprobacionHE implements Serializable {
             filtrarListaEersCabeceras = null;
             tipoListaCabecera = 0;
 
-            PrimefacesContextUI.actualizar("form:tablaSuperiorIzquierda");
-            PrimefacesContextUI.actualizar("form:tablaSuperiorDerecha");
+            RequestContext.getCurrentInstance().update("form:tablaSuperiorIzquierda");
+            RequestContext.getCurrentInstance().update("form:tablaSuperiorDerecha");
 
             altoDivTablaInferiorIzquierda = "95px";
             topDivTablaInferiorIzquierda = "37px";
@@ -755,7 +755,7 @@ public class ControlATAprobacionHE implements Serializable {
             altoDivTablaInferiorDerecha = "95px";
             topDivTablaInferiorDerecha = "37px";
 
-            PrimefacesContextUI.actualizar("form:PanelTotal");
+            RequestContext.getCurrentInstance().update("form:PanelTotal");
         }
 
         if (banderaFlujo == 1) {
@@ -765,7 +765,7 @@ public class ControlATAprobacionHE implements Serializable {
             flujoProceso = (Column) c.getViewRoot().findComponent("form:datosFlujo:flujoProceso");
             flujoProceso.setFilterStyle("display: none; visibility: hidden;");
             altoTablaFlujo = "110";
-            PrimefacesContextUI.actualizar("form:datosFlujo");
+            RequestContext.getCurrentInstance().update("form:datosFlujo");
             banderaFlujo = 0;
             filtrarListaFlujos = null;
             tipoListaFlujo = 0;
@@ -780,7 +780,7 @@ public class ControlATAprobacionHE implements Serializable {
             detalleObservaciones = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleObservaciones");
             detalleObservaciones.setFilterStyle("display: none; visibility: hidden;");
             altoTablaDetalle = "85";
-            PrimefacesContextUI.actualizar("form:datosDetalle");
+            RequestContext.getCurrentInstance().update("form:datosDetalle");
             banderaDetalle = 0;
             filtrarListaDetalles = null;
             tipoListaDetalle = 0;
@@ -832,18 +832,18 @@ public class ControlATAprobacionHE implements Serializable {
             }
             listaEersCabeceras = null;
             guardado = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             indexCabecera = -1;
             secRegistro = null;
             cancelarModificacion();
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Conceptos A Aprobar con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosCabecera Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el guardado de Conceptos A Aprobar");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
 
     }
@@ -851,7 +851,7 @@ public class ControlATAprobacionHE implements Serializable {
     public void dispararDialogoBuscarEmpleados() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (guardado == true) {
-            PrimefacesContextUI.actualizar("formEmpleado:EmpleadoDialogo");
+            RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
             PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').show()");
         } else {
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
@@ -902,8 +902,8 @@ public class ControlATAprobacionHE implements Serializable {
             filtrarListaEersCabeceras = null;
             tipoListaCabecera = 0;
 
-            PrimefacesContextUI.actualizar("form:tablaSuperiorIzquierda");
-            PrimefacesContextUI.actualizar("form:tablaSuperiorDerecha");
+            RequestContext.getCurrentInstance().update("form:tablaSuperiorIzquierda");
+            RequestContext.getCurrentInstance().update("form:tablaSuperiorDerecha");
 
             altoDivTablaInferiorIzquierda = "95px";
             topDivTablaInferiorIzquierda = "37px";
@@ -911,7 +911,7 @@ public class ControlATAprobacionHE implements Serializable {
             altoDivTablaInferiorDerecha = "95px";
             topDivTablaInferiorDerecha = "37px";
 
-            PrimefacesContextUI.actualizar("form:PanelTotal");
+            RequestContext.getCurrentInstance().update("form:PanelTotal");
         }
 
         if (banderaFlujo == 1) {
@@ -921,7 +921,7 @@ public class ControlATAprobacionHE implements Serializable {
             flujoProceso = (Column) c.getViewRoot().findComponent("form:datosFlujo:flujoProceso");
             flujoProceso.setFilterStyle("display: none; visibility: hidden;");
             altoTablaFlujo = "110";
-            PrimefacesContextUI.actualizar("form:datosFlujo");
+            RequestContext.getCurrentInstance().update("form:datosFlujo");
             banderaFlujo = 0;
             filtrarListaFlujos = null;
             tipoListaFlujo = 0;
@@ -936,7 +936,7 @@ public class ControlATAprobacionHE implements Serializable {
             detalleObservaciones = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleObservaciones");
             detalleObservaciones.setFilterStyle("display: none; visibility: hidden;");
             altoTablaDetalle = "85";
-            PrimefacesContextUI.actualizar("form:datosDetalle");
+            RequestContext.getCurrentInstance().update("form:datosDetalle");
             banderaDetalle = 0;
             filtrarListaDetalles = null;
             tipoListaDetalle = 0;
@@ -957,14 +957,14 @@ public class ControlATAprobacionHE implements Serializable {
         numeroScrollCabecera = 505;
         rowsCabecera = 20;
         /*
-         PrimefacesContextUI.actualizar("formEmpleado:EmpleadoDialogo");
-         PrimefacesContextUI.actualizar("formEmpleado:lovEmpleado");
-         PrimefacesContextUI.actualizar("formEmpleado:aceptarE");*/
+         RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
+         RequestContext.getCurrentInstance().update("formEmpleado:lovEmpleado");
+         RequestContext.getCurrentInstance().update("formEmpleado:aceptarE");*/
         context.reset("formEmpleado:lovEmpleado:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovEmpleado').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').hide()");
 
-        PrimefacesContextUI.actualizar("form:panelTotal");
+        RequestContext.getCurrentInstance().update("form:panelTotal");
 
         cargarDatosNuevosCabecera(2);
     }
@@ -985,7 +985,7 @@ public class ControlATAprobacionHE implements Serializable {
                 }
             }
             Thread.sleep(2000L);
-            PrimefacesContextUI.actualizar("form:PanelTotal");
+            RequestContext.getCurrentInstance().update("form:PanelTotal");
             System.out.println("Ejecuto Time");
             RequestContext.getCurrentInstance().execute("operacionEnProceso').hide()");
 
@@ -1026,9 +1026,9 @@ public class ControlATAprobacionHE implements Serializable {
         }
         if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-        PrimefacesContextUI.actualizar("form:datosCabecera");
+        RequestContext.getCurrentInstance().update("form:datosCabecera");
         permitirIndexCabecera = true;
         filtrarLovEstructuras = null;
         estructuraSeleccionada = null;
@@ -1036,9 +1036,9 @@ public class ControlATAprobacionHE implements Serializable {
         indexCabecera = -1;
         secRegistro = null;
         /*
-         PrimefacesContextUI.actualizar("formEstructura:EstructuraDialogo");
-         PrimefacesContextUI.actualizar("formEstructura:lovEstructura");
-         PrimefacesContextUI.actualizar("formEstructura:aceptarEA");*/
+         RequestContext.getCurrentInstance().update("formEstructura:EstructuraDialogo");
+         RequestContext.getCurrentInstance().update("formEstructura:lovEstructura");
+         RequestContext.getCurrentInstance().update("formEstructura:aceptarEA");*/
         context.reset("formEstructura:lovEstructura:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovEstructura').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').hide()");
@@ -1063,8 +1063,8 @@ public class ControlATAprobacionHE implements Serializable {
                 tipoListaCabecera = 1;
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:tablaInferiorIzquierda");
-            PrimefacesContextUI.actualizar("form:tablaInferiorDerecha");
+            RequestContext.getCurrentInstance().update("form:tablaInferiorIzquierda");
+            RequestContext.getCurrentInstance().update("form:tablaInferiorDerecha");
         }
         if (indexFlujo >= 0) {
             if (tipoListaFlujo == 0) {
@@ -1080,8 +1080,8 @@ public class ControlATAprobacionHE implements Serializable {
 
     public void organizarTablas() {
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:tablaInferiorIzquierda");
-        PrimefacesContextUI.actualizar("form:tablaInferiorDerecha");
+        RequestContext.getCurrentInstance().update("form:tablaInferiorIzquierda");
+        RequestContext.getCurrentInstance().update("form:tablaInferiorDerecha");
     }
 
     public void activarCtrlF11() {
@@ -1113,8 +1113,8 @@ public class ControlATAprobacionHE implements Serializable {
                 altoTablaCabecera = "62";
                 banderaCabecera = 1;
 
-                PrimefacesContextUI.actualizar("form:tablaSuperiorIzquierda");
-                PrimefacesContextUI.actualizar("form:tablaSuperiorDerecha");
+                RequestContext.getCurrentInstance().update("form:tablaSuperiorIzquierda");
+                RequestContext.getCurrentInstance().update("form:tablaSuperiorDerecha");
 
                 altoDivTablaInferiorIzquierda = "77px";
                 altoDivTablaInferiorDerecha = "77px";
@@ -1122,7 +1122,7 @@ public class ControlATAprobacionHE implements Serializable {
                 topDivTablaInferiorIzquierda = "59px";
                 topDivTablaInferiorDerecha = "59px";
 
-                PrimefacesContextUI.actualizar("form:PanelTotal");
+                RequestContext.getCurrentInstance().update("form:PanelTotal");
 
             } else if (banderaCabecera == 1) {
                 //CERRAR FILTRADO
@@ -1153,8 +1153,8 @@ public class ControlATAprobacionHE implements Serializable {
                 filtrarListaEersCabeceras = null;
                 tipoListaCabecera = 0;
 
-                PrimefacesContextUI.actualizar("form:tablaSuperiorIzquierda");
-                PrimefacesContextUI.actualizar("form:tablaSuperiorDerecha");
+                RequestContext.getCurrentInstance().update("form:tablaSuperiorIzquierda");
+                RequestContext.getCurrentInstance().update("form:tablaSuperiorDerecha");
 
                 altoDivTablaInferiorIzquierda = "95px";
                 topDivTablaInferiorIzquierda = "37px";
@@ -1162,7 +1162,7 @@ public class ControlATAprobacionHE implements Serializable {
                 altoDivTablaInferiorDerecha = "95px";
                 topDivTablaInferiorDerecha = "37px";
 
-                PrimefacesContextUI.actualizar("form:PanelTotal");
+                RequestContext.getCurrentInstance().update("form:PanelTotal");
             }
         }
         if (indexFlujo >= 0) {
@@ -1172,7 +1172,7 @@ public class ControlATAprobacionHE implements Serializable {
                 flujoProceso = (Column) c.getViewRoot().findComponent("form:datosFlujo:flujoProceso");
                 flujoProceso.setFilterStyle("width: 85%;");
                 altoTablaFlujo = "88";
-                PrimefacesContextUI.actualizar("form:datosFlujo");
+                RequestContext.getCurrentInstance().update("form:datosFlujo");
                 banderaFlujo = 1;
             } else if (banderaFlujo == 1) {
                 flujoFecha = (Column) c.getViewRoot().findComponent("form:datosFlujo:flujoFecha");
@@ -1180,7 +1180,7 @@ public class ControlATAprobacionHE implements Serializable {
                 flujoProceso = (Column) c.getViewRoot().findComponent("form:datosFlujo:flujoProceso");
                 flujoProceso.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaFlujo = "110";
-                PrimefacesContextUI.actualizar("form:datosFlujo");
+                RequestContext.getCurrentInstance().update("form:datosFlujo");
                 banderaFlujo = 0;
                 filtrarListaFlujos = null;
                 tipoListaFlujo = 0;
@@ -1195,7 +1195,7 @@ public class ControlATAprobacionHE implements Serializable {
                 detalleObservaciones = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleObservaciones");
                 detalleObservaciones.setFilterStyle("width: 85%;");
                 altoTablaFlujo = "63";
-                PrimefacesContextUI.actualizar("form:datosDetalle");
+                RequestContext.getCurrentInstance().update("form:datosDetalle");
                 banderaDetalle = 1;
             } else if (banderaDetalle == 1) {
                 detalleConcepto = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleConcepto");
@@ -1205,7 +1205,7 @@ public class ControlATAprobacionHE implements Serializable {
                 detalleObservaciones = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleObservaciones");
                 detalleObservaciones.setFilterStyle("display: none; visibility: hidden;");
                 altoTablaDetalle = "85";
-                PrimefacesContextUI.actualizar("form:datosDetalle");
+                RequestContext.getCurrentInstance().update("form:datosDetalle");
                 banderaDetalle = 0;
                 filtrarListaDetalles = null;
                 tipoListaDetalle = 0;

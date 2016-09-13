@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.ConceptosRetroactivos;
 import Entidades.Conceptos;
 import Exportar.ExportarPDF;
@@ -26,7 +27,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -120,7 +120,7 @@ public class ControlConceptosRetroactivos implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarConceptosRetroactivos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlConceptosRetroactivos eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -178,12 +178,12 @@ public class ControlConceptosRetroactivos implements Serializable {
                 tipoActualizacion = 2;
             }
             if (dig == 0) {
-                PrimefacesContextUI.actualizar("form:conceptosDialogo");
+                RequestContext.getCurrentInstance().update("form:conceptosDialogo");
                 PrimefacesContextUI.ejecutar("PF('conceptosDialogo').show()");
                 dig = -1;
             }
             if (dig == 1) {
-                PrimefacesContextUI.actualizar("form:conceptosRetroDialogo");
+                RequestContext.getCurrentInstance().update("form:conceptosRetroDialogo");
                 PrimefacesContextUI.ejecutar("PF('conceptosRetroDialogo').show()");
                 dig = -1;
             }
@@ -201,12 +201,12 @@ public class ControlConceptosRetroactivos implements Serializable {
 
             if (cualCelda == 0) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:conceptosDialogo");
+                RequestContext.getCurrentInstance().update("form:conceptosDialogo");
                 PrimefacesContextUI.ejecutar("PF('conceptosDialogo').show()");
             }
             if (cualCelda == 1) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:conceptosRetroDialogo");
+                RequestContext.getCurrentInstance().update("form:conceptosRetroDialogo");
                 PrimefacesContextUI.ejecutar("PF('conceptosRetroDialogo').show()");
             }
         }
@@ -225,7 +225,7 @@ public class ControlConceptosRetroactivos implements Serializable {
             personafir.setFilterStyle("display: none; visibility: hidden;");
             cargo = (Column) c.getViewRoot().findComponent("form:datosConceptosRetroactivos:cargo");
             cargo.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosConceptosRetroactivos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRetroactivos");
             bandera = 0;
             filtrarConceptosRetroactivos = null;
             tipoLista = 0;
@@ -246,9 +246,9 @@ public class ControlConceptosRetroactivos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listConceptosRetroactivos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosConceptosRetroactivos");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosConceptosRetroactivos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -263,7 +263,7 @@ public class ControlConceptosRetroactivos implements Serializable {
             personafir.setFilterStyle("display: none; visibility: hidden;");
             cargo = (Column) c.getViewRoot().findComponent("form:datosConceptosRetroactivos:cargo");
             cargo.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosConceptosRetroactivos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRetroactivos");
             bandera = 0;
             filtrarConceptosRetroactivos = null;
             tipoLista = 0;
@@ -284,9 +284,9 @@ public class ControlConceptosRetroactivos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listConceptosRetroactivos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosConceptosRetroactivos");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosConceptosRetroactivos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -301,7 +301,7 @@ public class ControlConceptosRetroactivos implements Serializable {
             personafir.setFilterStyle("width: 85%");
             cargo = (Column) c.getViewRoot().findComponent("form:datosConceptosRetroactivos:cargo");
             cargo.setFilterStyle("width: 85%");
-            PrimefacesContextUI.actualizar("form:datosConceptosRetroactivos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRetroactivos");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -316,7 +316,7 @@ public class ControlConceptosRetroactivos implements Serializable {
             cargo = (Column) c.getViewRoot().findComponent("form:datosConceptosRetroactivos:cargo");
             cargo.setFilterStyle("display: none; visibility: hidden;");
 
-            PrimefacesContextUI.actualizar("form:datosConceptosRetroactivos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRetroactivos");
             bandera = 0;
             filtrarConceptosRetroactivos = null;
             tipoLista = 0;
@@ -359,16 +359,16 @@ public class ControlConceptosRetroactivos implements Serializable {
             }
             permitirIndex = true;
             System.out.println("ACTUALIZAR PAIS PAIS SELECCIONADO : " + conceptoSeleccionado.getDescripcion());
-            PrimefacesContextUI.actualizar("form:datosConceptosRetroactivos");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRetroactivos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else if (tipoActualizacion == 1) {
             System.out.println("ACTUALIZAR PAIS NUEVO DEPARTAMENTO: " + conceptoSeleccionado.getDescripcion());
             nuevoConceptosRetroactivos.setConcepto(conceptoSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoPersona");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
         } else if (tipoActualizacion == 2) {
             System.out.println("ACTUALIZAR PAIS DUPLICAR DEPARTAMENO: " + conceptoSeleccionado.getDescripcion());
             duplicarConceptosRetroactivos.setConcepto(conceptoSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarPersona");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersona");
         }
         filtradoConceptos = null;
         conceptoSeleccionado = null;
@@ -380,8 +380,8 @@ public class ControlConceptosRetroactivos implements Serializable {
         context.reset("form:lovConceptos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovConceptos').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('conceptosDialogo').hide()");
-        //PrimefacesContextUI.actualizar("form:lovConceptos");
-        //PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+        //RequestContext.getCurrentInstance().update("form:lovConceptos");
+        //RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
     }
 
     public void actualizarConceptosRetro() {
@@ -417,16 +417,16 @@ public class ControlConceptosRetroactivos implements Serializable {
             }
             permitirIndex = true;
             System.out.println("ACTUALIZAR PAIS CONCEPTOSRETRO SELECCIONADO : " + conceptoRetroSeleccionado.getDescripcion());
-            PrimefacesContextUI.actualizar("form:datosConceptosRetroactivos");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRetroactivos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else if (tipoActualizacion == 1) {
             System.out.println("ACTUALIZAR PAIS NUEVO DEPARTAMENTO: " + conceptoRetroSeleccionado.getDescripcion());
             nuevoConceptosRetroactivos.setConceptoRetroActivo(conceptoRetroSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargo");
         } else if (tipoActualizacion == 2) {
             System.out.println("ACTUALIZAR PAIS DUPLICAR DEPARTAMENO: " + conceptoRetroSeleccionado.getDescripcion());
             duplicarConceptosRetroactivos.setConceptoRetroActivo(conceptoRetroSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargo");
         }
         filtradoConceptos = null;
         conceptoSeleccionado = null;
@@ -438,8 +438,8 @@ public class ControlConceptosRetroactivos implements Serializable {
         context.reset("form:lovConceptosRetro:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovConceptosRetro').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('conceptosRetroDialogo').hide()");
-        //PrimefacesContextUI.actualizar("form:lovConceptosRetro");
-        //PrimefacesContextUI.actualizar("form:datosHvEntrevista");
+        //RequestContext.getCurrentInstance().update("form:lovConceptosRetro");
+        //RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
     }
 
     public void cancelarCambioConceptos() {
@@ -506,7 +506,7 @@ public class ControlConceptosRetroactivos implements Serializable {
 
                 } else {
                     permitirIndex = false;
-                    PrimefacesContextUI.actualizar("form:conceptosDialogo");
+                    RequestContext.getCurrentInstance().update("form:conceptosDialogo");
                     PrimefacesContextUI.ejecutar("PF('conceptosDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -520,7 +520,7 @@ public class ControlConceptosRetroactivos implements Serializable {
                 }
                 tipoActualizacion = 0;
                 System.out.println("PAIS ANTES DE MOSTRAR DIALOGO CONCEPTOS : " + backupConcepto);
-                PrimefacesContextUI.actualizar("form:conceptosDialogo");
+                RequestContext.getCurrentInstance().update("form:conceptosDialogo");
                 PrimefacesContextUI.ejecutar("PF('conceptosDialogo').show()");
             }
 
@@ -556,8 +556,8 @@ public class ControlConceptosRetroactivos implements Serializable {
                 }
             }
 
-            PrimefacesContextUI.actualizar("form:datosConceptosRetroactivos");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRetroactivos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
         } else if (confirmarCambio.equalsIgnoreCase("CONCEPTOSRETRO")) {
             System.out.println("MODIFICANDO CONCEPTOSRETRO: " + listConceptosRetroactivos.get(indice).getConceptoRetroActivo().getDescripcion());
@@ -587,7 +587,7 @@ public class ControlConceptosRetroactivos implements Serializable {
 
                 } else {
                     permitirIndex = false;
-                    PrimefacesContextUI.actualizar("form:conceptosRetroDialogo");
+                    RequestContext.getCurrentInstance().update("form:conceptosRetroDialogo");
                     PrimefacesContextUI.ejecutar("PF('conceptosRetroDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -601,7 +601,7 @@ public class ControlConceptosRetroactivos implements Serializable {
                 }
                 tipoActualizacion = 0;
                 System.out.println("PAIS ANTES DE MOSTRAR DIALOGO CONCEPTOSRETRO : " + backupConceptoRetro);
-                PrimefacesContextUI.actualizar("form:conceptosDialogo");
+                RequestContext.getCurrentInstance().update("form:conceptosDialogo");
                 PrimefacesContextUI.ejecutar("PF('conceptosDialogo').show()");
             }
 
@@ -637,8 +637,8 @@ public class ControlConceptosRetroactivos implements Serializable {
                 }
             }
 
-            PrimefacesContextUI.actualizar("form:datosConceptosRetroactivos");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRetroactivos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
         }
 
@@ -685,15 +685,15 @@ public class ControlConceptosRetroactivos implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listConceptosRetroactivos.size();
             }
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosConceptosRetroactivos");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRetroactivos");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -745,7 +745,7 @@ public class ControlConceptosRetroactivos implements Serializable {
                     listaConceptos = null;
                     System.err.println("CONCEPTOS GUARDADA :-----> " + nuevoConceptosRetroactivos.getConcepto().getDescripcion());
                 } else {
-                    PrimefacesContextUI.actualizar("form:conceptosDialogo");
+                    RequestContext.getCurrentInstance().update("form:conceptosDialogo");
                     PrimefacesContextUI.ejecutar("PF('conceptosDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
@@ -756,7 +756,7 @@ public class ControlConceptosRetroactivos implements Serializable {
                 nuevoConceptosRetroactivos.getConcepto().setDescripcion(" ");
                 System.out.println("NUEVA NORMA LABORAL" + nuevoConceptosRetroactivos.getConcepto().getDescripcion());
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoPersona");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
         } else if (confirmarCambio.equalsIgnoreCase("CONCEPTOSRETRO")) {
             System.out.println(" nueva ConceptoRetro    Entro al if 'Centro costo'");
             System.out.println("NUEVO CONCEPTOS :-------> " + nuevoConceptosRetroactivos.getConceptoRetroActivo().getDescripcion());
@@ -778,7 +778,7 @@ public class ControlConceptosRetroactivos implements Serializable {
                     listaConceptosRetro = null;
                     System.err.println("CONCEPTOSRETRO GUARDADA :-----> " + nuevoConceptosRetroactivos.getConceptoRetroActivo().getDescripcion());
                 } else {
-                    PrimefacesContextUI.actualizar("form:conceptosRetroDialogo");
+                    RequestContext.getCurrentInstance().update("form:conceptosRetroDialogo");
                     PrimefacesContextUI.ejecutar("PF('conceptosRetroDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
@@ -789,7 +789,7 @@ public class ControlConceptosRetroactivos implements Serializable {
                 nuevoConceptosRetroactivos.getConceptoRetroActivo().setDescripcion(" ");
                 System.out.println("NUEVO CONCEPTOSRETRO " + nuevoConceptosRetroactivos.getConceptoRetroActivo().getDescripcion());
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargo");
         }
 
     }
@@ -802,7 +802,7 @@ public class ControlConceptosRetroactivos implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:conceptosDialogo");
+        RequestContext.getCurrentInstance().update("form:conceptosDialogo");
         PrimefacesContextUI.ejecutar("PF('conceptosDialogo').show()");
     }
 
@@ -814,7 +814,7 @@ public class ControlConceptosRetroactivos implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:conceptosRetroDialogo");
+        RequestContext.getCurrentInstance().update("form:conceptosRetroDialogo");
         PrimefacesContextUI.ejecutar("PF('conceptosRetroDialogo').show()");
     }
 
@@ -843,7 +843,7 @@ public class ControlConceptosRetroactivos implements Serializable {
                     duplicarConceptosRetroactivos.setConcepto(listaConceptos.get(indiceUnicoElemento));
                     listaConceptos = null;
                 } else {
-                    PrimefacesContextUI.actualizar("form:conceptosDialogo");
+                    RequestContext.getCurrentInstance().update("form:conceptosDialogo");
                     PrimefacesContextUI.ejecutar("PF('conceptosDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
@@ -868,7 +868,7 @@ public class ControlConceptosRetroactivos implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarPersona");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersona");
         } else if (confirmarCambio.equalsIgnoreCase("CONCEPTOSRETRO")) {
             System.out.println("DUPLICAR valorConfirmar : " + valorConfirmar);
             System.out.println("DUPLICAR CIUDAD bkp : " + nuevoYduplicarCompletarConceptoRetro);
@@ -890,7 +890,7 @@ public class ControlConceptosRetroactivos implements Serializable {
                     listaConceptosRetro = null;
                     getListaConceptosRetro();
                 } else {
-                    PrimefacesContextUI.actualizar("form:conceptosRetroDialogo");
+                    RequestContext.getCurrentInstance().update("form:conceptosRetroDialogo");
                     PrimefacesContextUI.ejecutar("PF('conceptosRetroDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
@@ -915,7 +915,7 @@ public class ControlConceptosRetroactivos implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargo");
         }
     }
 
@@ -923,7 +923,7 @@ public class ControlConceptosRetroactivos implements Serializable {
 
         if (!borrarConceptosRetroactivos.isEmpty() || !crearConceptosRetroactivos.isEmpty() || !modificarConceptosRetroactivos.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -938,7 +938,7 @@ public class ControlConceptosRetroactivos implements Serializable {
                 administrarConceptosRetroactivos.borrarConceptosRetroactivos(borrarConceptosRetroactivos);
                 //mostrarBorrados
                 registrosBorrados = borrarConceptosRetroactivos.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarConceptosRetroactivos.clear();
             }
@@ -956,10 +956,10 @@ public class ControlConceptosRetroactivos implements Serializable {
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -975,11 +975,11 @@ public class ControlConceptosRetroactivos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editConceptos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editConceptos");
                 PrimefacesContextUI.ejecutar("PF('editConceptos').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editConceptosRetro");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editConceptosRetro");
                 PrimefacesContextUI.ejecutar("PF('editConceptosRetro').show()");
                 cualCelda = -1;
             }
@@ -1050,21 +1050,21 @@ public class ControlConceptosRetroactivos implements Serializable {
             nuevoConceptosRetroactivos = new ConceptosRetroactivos();
             nuevoConceptosRetroactivos.setConceptoRetroActivo(new Conceptos());
             nuevoConceptosRetroactivos.setConcepto(new Conceptos());
-            PrimefacesContextUI.actualizar("form:datosConceptosRetroactivos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRetroactivos");
             infoRegistro = "Cantidad de registros: " + listConceptosRetroactivos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroConceptosRetroactivos').hide()");
-            PrimefacesContextUI.actualizar("nuevoRegistroConceptosRetroactivos').hide()");
+            RequestContext.getCurrentInstance().update("nuevoRegistroConceptosRetroactivos').hide()");
             index = -1;
             secRegistro = null;
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -1089,7 +1089,7 @@ public class ControlConceptosRetroactivos implements Serializable {
         duplicarConceptosRetroactivos.setConceptoRetroActivo(new Conceptos());
         RequestContext context = RequestContext.getCurrentInstance();
         PrimefacesContextUI.ejecutar("PF('nuevoRegistroConceptosRetroactivos').show()");
-        PrimefacesContextUI.actualizar("formularioDialogos:nuevaTipoempresa");
+        RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoempresa");
 
     }
 
@@ -1115,7 +1115,7 @@ public class ControlConceptosRetroactivos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroConceptosRetroactivos').show()");
             index = -1;
             secRegistro = null;
@@ -1155,7 +1155,7 @@ public class ControlConceptosRetroactivos implements Serializable {
             }
             listConceptosRetroactivos.add(duplicarConceptosRetroactivos);
             crearConceptosRetroactivos.add(duplicarConceptosRetroactivos);
-            PrimefacesContextUI.actualizar("form:datosConceptosRetroactivos");
+            RequestContext.getCurrentInstance().update("form:datosConceptosRetroactivos");
             index = -1;
             System.out.println("--------------DUPLICAR------------------------");
 
@@ -1167,9 +1167,9 @@ public class ControlConceptosRetroactivos implements Serializable {
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             infoRegistro = "Cantidad de registros: " + listConceptosRetroactivos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (bandera == 1) {
                 //CERRAR FILTRADO
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -1181,7 +1181,7 @@ public class ControlConceptosRetroactivos implements Serializable {
                 personafir.setFilterStyle("display: none; visibility: hidden;");
                 cargo = (Column) c.getViewRoot().findComponent("form:datosConceptosRetroactivos:cargo");
                 cargo.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosConceptosRetroactivos");
+                RequestContext.getCurrentInstance().update("form:datosConceptosRetroactivos");
                 bandera = 0;
                 filtrarConceptosRetroactivos = null;
                 tipoLista = 0;
@@ -1191,11 +1191,11 @@ public class ControlConceptosRetroactivos implements Serializable {
             duplicarConceptosRetroactivos.setConcepto(new Conceptos());
 
             RequestContext.getCurrentInstance().execute("duplicarRegistroConceptosRetroactivos').hide()");
-            PrimefacesContextUI.actualizar("duplicarRegistroConceptosRetroactivos').hide()");
+            RequestContext.getCurrentInstance().update("duplicarRegistroConceptosRetroactivos').hide()");
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -1270,7 +1270,7 @@ public class ControlConceptosRetroactivos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listConceptosRetroactivos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listConceptosRetroactivos;
     }
 
@@ -1362,7 +1362,7 @@ public class ControlConceptosRetroactivos implements Serializable {
         } else {
             infoRegistroConceptos = "Cantidad de registros: " + listaConceptos.size();
         }
-        PrimefacesContextUI.actualizar("form:infoRegistroConceptos");
+        RequestContext.getCurrentInstance().update("form:infoRegistroConceptos");
         return listaConceptos;
     }
 
@@ -1398,7 +1398,7 @@ public class ControlConceptosRetroactivos implements Serializable {
         } else {
             infoRegistroConceptosRetro = "Cantidad de registros: " + listaConceptosRetro.size();
         }
-        PrimefacesContextUI.actualizar("form:infoRegistroConceptosRetro");
+        RequestContext.getCurrentInstance().update("form:infoRegistroConceptosRetro");
         return listaConceptosRetro;
     }
 

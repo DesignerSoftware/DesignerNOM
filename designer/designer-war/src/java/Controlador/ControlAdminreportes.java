@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Inforeportes;
 import Entidades.Modulos;
 import Exportar.ExportarPDF;
@@ -28,7 +29,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -187,11 +187,11 @@ public class ControlAdminreportes implements Serializable {
                         if (guardado == true) {
                             guardado = false;
                             cambiosPagina = false;
-                            PrimefacesContextUI.actualizar("form:ACEPTAR");
+                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
                         }
                     } else {
                         listaInforeportes.get(indice).setCodigo(codiguin);
-                        PrimefacesContextUI.actualizar("formularioDialogos:repetido");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:repetido");
                         PrimefacesContextUI.ejecutar("PF('repetido').show()");
                     }
 
@@ -222,18 +222,18 @@ public class ControlAdminreportes implements Serializable {
                         if (guardado == true) {
                             guardado = false;
                             cambiosPagina = false;
-                            PrimefacesContextUI.actualizar("form:ACEPTAR");
+                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
                         }
                     } else {
                         filtradosListaInforeportes.get(indice).setCodigo(codiguin);
-                        PrimefacesContextUI.actualizar("formularioDialogos:repetido");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:repetido");
                         PrimefacesContextUI.ejecutar("PF('repetido').show()");
                     }
                 }
                 index = -1;
                 secRegistro = null;
             }
-            PrimefacesContextUI.actualizar("form:datosInforeportes");
+            RequestContext.getCurrentInstance().update("form:datosInforeportes");
         } else if (confirmarCambio.equalsIgnoreCase("N")) {
             if (tipoLista == 0) {
                 if (!listaInforeportesCrear.contains(listaInforeportes.get(indice))) {
@@ -247,7 +247,7 @@ public class ControlAdminreportes implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         cambiosPagina = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
 
                 }
@@ -264,14 +264,14 @@ public class ControlAdminreportes implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         cambiosPagina = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
 
                 }
                 index = -1;
                 secRegistro = null;
             }
-            PrimefacesContextUI.actualizar("form:datosInforeportes");
+            RequestContext.getCurrentInstance().update("form:datosInforeportes");
         } else if (confirmarCambio.equalsIgnoreCase("MODULO")) {
             BigInteger secModulo = null;
             System.out.println("La secuencia del modulo de la lista es : " + listaInforeportes.get(indice).getModulo().getSecuencia());
@@ -306,7 +306,7 @@ public class ControlAdminreportes implements Serializable {
                 }
                 if (pasa == 1) {
                     cambiosPagina = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
                     Modulos moduloAnterior = administrarInforeportes.buscarModuloPorSecuencia(secModulo);
                     if (tipoLista == 0) {
@@ -314,12 +314,12 @@ public class ControlAdminreportes implements Serializable {
                     } else {
                         filtradosListaInforeportes.get(indice).setModulo(moduloAnterior);
                     }
-                    PrimefacesContextUI.actualizar("formularioDialogos:repetido");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:repetido");
                     PrimefacesContextUI.ejecutar("PF('repetido').show()");
                 }
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:modulosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:modulosDialogo");
                 PrimefacesContextUI.ejecutar("PF('modulosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -335,7 +335,7 @@ public class ControlAdminreportes implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         cambiosPagina = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 index = -1;
@@ -351,14 +351,14 @@ public class ControlAdminreportes implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         cambiosPagina = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 index = -1;
                 secRegistro = null;
             }
         }
-        PrimefacesContextUI.actualizar("form:datosInforeportes");
+        RequestContext.getCurrentInstance().update("form:datosInforeportes");
     }
 
     public void eventoFiltrar() {
@@ -367,7 +367,7 @@ public class ControlAdminreportes implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         infoRegistro = "Cantidad de registros: " + filtradosListaInforeportes.size();
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void seleccionarTipo(String estadoTipo, int indice, int celda) {
@@ -421,9 +421,9 @@ public class ControlAdminreportes implements Serializable {
         if (guardado == true) {
             guardado = false;
             cambiosPagina = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-        PrimefacesContextUI.actualizar("form:datosInforeportes");
+        RequestContext.getCurrentInstance().update("form:datosInforeportes");
     }
 
     public void seleccionarTipoNuevoInforeporte(String estadoTipo, int tipoNuevo) {
@@ -441,7 +441,7 @@ public class ControlAdminreportes implements Serializable {
             } else if (estadoTipo.equals("CSV")) {
                 nuevoInforeporte.setTipo("CSV");
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoInforeporte");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoInforeporte");
         } else {
             if (estadoTipo.equals("PDF")) {
                 duplicarInforeporte.setTipo("PDF");
@@ -456,7 +456,7 @@ public class ControlAdminreportes implements Serializable {
             } else if (estadoTipo.equals("CSV")) {
                 duplicarInforeporte.setTipo("CSV");
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoInforeporte");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoInforeporte");
         }
 
     }
@@ -477,10 +477,10 @@ public class ControlAdminreportes implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:inforeportesDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:inforeportesDialogo");
             PrimefacesContextUI.ejecutar("PF('inforeportesDialogo').show()");
         } else if (dlg == 1) {
-            PrimefacesContextUI.actualizar("formularioDialogos:modulosDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:modulosDialogo");
             PrimefacesContextUI.ejecutar("PF('modulosDialogo').show()");
         }
     }
@@ -494,7 +494,7 @@ public class ControlAdminreportes implements Serializable {
             listaInforeportes = administrarInforeportes.inforeportes();
         }
 
-        PrimefacesContextUI.actualizar("form:datosInforeportes");
+        RequestContext.getCurrentInstance().update("form:datosInforeportes");
         filtradosListaInforeportes = null;
         aceptar = true;
         index = -1;
@@ -512,7 +512,7 @@ public class ControlAdminreportes implements Serializable {
         int pasa = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         cambiosPagina = false;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         if (!duplicarInforeporte.getCodigo().equals(null) && duplicarInforeporte.getModulo().getNombre() != null) {
             for (int i = 0; i < listaInforeportes.size(); i++) {
                 if (duplicarInforeporte.getCodigo().equals(listaInforeportes.get(i).getCodigo())) {
@@ -536,8 +536,8 @@ public class ControlAdminreportes implements Serializable {
             if (guardado == true) {
                 guardado = false;
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
-                //PrimefacesContextUI.actualizar("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                //RequestContext.getCurrentInstance().update("form:aceptar");
             }
             if (bandera == 1) {
                 altoTabla = "270";
@@ -557,19 +557,19 @@ public class ControlAdminreportes implements Serializable {
                 inforeportesTipos.setFilterStyle("display: none; visibility: hidden;");
                 inforeportesModulos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesModulos");
                 inforeportesModulos.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosInforeportes");
+                RequestContext.getCurrentInstance().update("form:datosInforeportes");
                 bandera = 0;
                 filtradosListaInforeportes = null;
                 tipoLista = 0;
             }
-            PrimefacesContextUI.actualizar("form:datosInforeportes");
+            RequestContext.getCurrentInstance().update("form:datosInforeportes");
             duplicarInforeporte = new Inforeportes();
             infoRegistro = "Cantidad de registros: " + listaInforeportes.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarInforeporte");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarInforeporte");
             PrimefacesContextUI.ejecutar("PF('DuplicarInforeporte').hide()");
         } else {
-            PrimefacesContextUI.actualizar("formularioDialogos:repetido");
+            RequestContext.getCurrentInstance().update("formularioDialogos:repetido");
             PrimefacesContextUI.ejecutar("PF('repetido').show()");
         }
     }
@@ -590,12 +590,12 @@ public class ControlAdminreportes implements Serializable {
             listaInforeportes.add(i);
         }
         cambiosPagina = false;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         context.reset("formularioDialogos:LOVInforeportes:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVInforeportes').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('inforeportesDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVInforeportes");
-        PrimefacesContextUI.actualizar("form:datosInforeportes");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVInforeportes");
+        RequestContext.getCurrentInstance().update("form:datosInforeportes");
         filtradosListaInforeportes = null;
         inforeportesSeleccionado = null;
         aceptar = true;
@@ -630,18 +630,18 @@ public class ControlAdminreportes implements Serializable {
             if (guardado == true) {
                 guardado = false;
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             cambiosPagina = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosInforeportes");
+            RequestContext.getCurrentInstance().update("form:datosInforeportes");
         } else if (tipoActualizacion == 1) {
             nuevoInforeporte.setModulo(moduloSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoModuloInforeporte");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoModuloInforeporte");
         } else if (tipoActualizacion == 2) {
             duplicarInforeporte.setModulo(moduloSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarModuloInforeporte");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarModuloInforeporte");
 
         }
         lovFiltradoslistaModulos = null;
@@ -654,7 +654,7 @@ public class ControlAdminreportes implements Serializable {
         context.reset("formularioDialogos:LOVModulos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVModulos').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('modulosDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVModulos");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVModulos");
     }
 
     public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
@@ -686,21 +686,21 @@ public class ControlAdminreportes implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoInforeporte.setModulo(lovListaModulos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoModuloInforeporte");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoModuloInforeporte");
                 } else if (tipoNuevo == 2) {
                     duplicarInforeporte.setModulo(lovListaModulos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarModuloInforeporte");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarModuloInforeporte");
                 }
                 lovListaModulos.clear();
                 getLovListaModulos();
             } else {
-                PrimefacesContextUI.actualizar("form:modulosDialogo");
+                RequestContext.getCurrentInstance().update("form:modulosDialogo");
                 PrimefacesContextUI.ejecutar("PF('modulosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoModuloInforeporte");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoModuloInforeporte");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarModuloInforeporte");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarModuloInforeporte");
                 }
             }
         }
@@ -711,7 +711,7 @@ public class ControlAdminreportes implements Serializable {
         if (index >= 0) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 5) {
-                PrimefacesContextUI.actualizar("form:modulosDialogo");
+                RequestContext.getCurrentInstance().update("form:modulosDialogo");
                 PrimefacesContextUI.ejecutar("PF('modulosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -738,7 +738,7 @@ public class ControlAdminreportes implements Serializable {
             inforeportesTipos.setFilterStyle("width: 85%;");
             inforeportesModulos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesModulos");
             inforeportesModulos.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosInforeportes");
+            RequestContext.getCurrentInstance().update("form:datosInforeportes");
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
@@ -757,7 +757,7 @@ public class ControlAdminreportes implements Serializable {
             inforeportesTipos.setFilterStyle("display: none; visibility: hidden;");
             inforeportesModulos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesModulos");
             inforeportesModulos.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosInforeportes");
+            RequestContext.getCurrentInstance().update("form:datosInforeportes");
             bandera = 0;
             filtradosListaInforeportes = null;
             tipoLista = 0;
@@ -782,7 +782,7 @@ public class ControlAdminreportes implements Serializable {
             inforeportesTipos.setFilterStyle("display: none; visibility: hidden;");
             inforeportesModulos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesModulos");
             inforeportesModulos.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosInforeportes");
+            RequestContext.getCurrentInstance().update("form:datosInforeportes");
             bandera = 0;
             filtradosListaInforeportes = null;
             tipoLista = 0;
@@ -808,7 +808,7 @@ public class ControlAdminreportes implements Serializable {
         permitirIndex = true;
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:PanelTotal");
+        RequestContext.getCurrentInstance().update("form:PanelTotal");
 
     }
 
@@ -855,23 +855,23 @@ public class ControlAdminreportes implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigos");
                 PrimefacesContextUI.ejecutar("PF('editarCodigos').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarReportes");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarReportes");
                 PrimefacesContextUI.ejecutar("PF('editarReportes').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarContadores");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarContadores");
                 PrimefacesContextUI.ejecutar("PF('editarContadores').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarNombresReportes");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarNombresReportes");
                 PrimefacesContextUI.ejecutar("PF('editarNombresReportes').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarModulos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarModulos");
                 PrimefacesContextUI.ejecutar("PF('editarModulos').show()");
                 cualCelda = -1;
             }
@@ -945,7 +945,7 @@ public class ControlAdminreportes implements Serializable {
                 inforeportesTipos.setFilterStyle("display: none; visibility: hidden;");
                 inforeportesModulos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesModulos");
                 inforeportesModulos.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosInforeportes");
+                RequestContext.getCurrentInstance().update("form:datosInforeportes");
                 bandera = 0;
                 filtradosListaInforeportes = null;
                 tipoLista = 0;
@@ -1092,24 +1092,24 @@ public class ControlAdminreportes implements Serializable {
             }
 
             cambiosPagina = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             listaInforeportesCrear.add(nuevoInforeporte);
             listaInforeportes.add(nuevoInforeporte);
             infoRegistro = "Cantidad de registros: " + listaInforeportes.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             nuevoInforeporte = new Inforeportes();
-            PrimefacesContextUI.actualizar("form:datosInforeportes");
+            RequestContext.getCurrentInstance().update("form:datosInforeportes");
             if (guardado == true) {
                 guardado = false;
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('NuevoInforeporte').hide()");
             index = -1;
             secRegistro = null;
         } else {
-            PrimefacesContextUI.actualizar("formularioDialogos:repetido");
-            PrimefacesContextUI.actualizar("repetido').show()");
+            RequestContext.getCurrentInstance().update("formularioDialogos:repetido");
+            RequestContext.getCurrentInstance().update("repetido').show()");
         }
     }
 
@@ -1152,8 +1152,8 @@ public class ControlAdminreportes implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosInforeportes");
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosInforeportes");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             index = -1;
             secRegistro = null;
@@ -1161,7 +1161,7 @@ public class ControlAdminreportes implements Serializable {
             if (guardado == true) {
                 guardado = false;
                 cambiosPagina = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -1363,14 +1363,14 @@ public class ControlAdminreportes implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             cambiosPagina = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:datosInforeportes");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosInforeportes");
             guardado = true;
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
             //  k = 0;
         }
         index = -1;
@@ -1441,7 +1441,7 @@ public class ControlAdminreportes implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarInforeporte");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInforeporte");
             PrimefacesContextUI.ejecutar("PF('DuplicarInforeporte').show()");
             index = -1;
             secRegistro = null;
@@ -1497,7 +1497,7 @@ public class ControlAdminreportes implements Serializable {
             inforeportesTipos.setFilterStyle("display: none; visibility: hidden;");
             inforeportesModulos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesModulos");
             inforeportesModulos.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosInforeportes");
+            RequestContext.getCurrentInstance().update("form:datosInforeportes");
             bandera = 0;
             filtradosListaInforeportes = null;
             tipoLista = 0;

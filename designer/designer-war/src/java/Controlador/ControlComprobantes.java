@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.DetallesFormulas;
 import Entidades.Parametros;
 import Entidades.ParametrosEstructuras;
@@ -30,7 +31,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 @ManagedBean
 @SessionScoped
@@ -136,8 +136,8 @@ public class ControlComprobantes implements Serializable {
         getListaSolucionesNodosEmpleador();
         getListaParametros();
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosSolucionesNodosEmpleado");
-        PrimefacesContextUI.actualizar("form:datosSolucionesNodosEmpleadoR");
+        RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleadoR");
     }
 
     public void anteriorEmpleado() {
@@ -155,16 +155,16 @@ public class ControlComprobantes implements Serializable {
                 estadoBtnAbajo = false;
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:panelInf");
-            PrimefacesContextUI.actualizar("form:datosSolucionesNodosEmpleado");
-            PrimefacesContextUI.actualizar("form:datosSolucionesNodosEmpleador");
-            PrimefacesContextUI.actualizar("form:btnArriba");
-            PrimefacesContextUI.actualizar("form:btnAbajo");
-            PrimefacesContextUI.actualizar("form:pagocomprobante");
-            PrimefacesContextUI.actualizar("form:descuentocomprobante");
-            PrimefacesContextUI.actualizar("form:netocomprobante");
-            PrimefacesContextUI.actualizar("form:pasivocomprobantes");
-            PrimefacesContextUI.actualizar("form:gastocomprobantes");
+            RequestContext.getCurrentInstance().update("form:panelInf");
+            RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
+            RequestContext.getCurrentInstance().update("form:btnArriba");
+            RequestContext.getCurrentInstance().update("form:btnAbajo");
+            RequestContext.getCurrentInstance().update("form:pagocomprobante");
+            RequestContext.getCurrentInstance().update("form:descuentocomprobante");
+            RequestContext.getCurrentInstance().update("form:netocomprobante");
+            RequestContext.getCurrentInstance().update("form:pasivocomprobantes");
+            RequestContext.getCurrentInstance().update("form:gastocomprobantes");
         }
     }
 
@@ -183,16 +183,16 @@ public class ControlComprobantes implements Serializable {
                 estadoBtnAbajo = true;
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:panelInf");
-            PrimefacesContextUI.actualizar("form:datosSolucionesNodosEmpleado");
-            PrimefacesContextUI.actualizar("form:datosSolucionesNodosEmpleador");
-            PrimefacesContextUI.actualizar("form:btnArriba");
-            PrimefacesContextUI.actualizar("form:btnAbajo");
-            PrimefacesContextUI.actualizar("form:pagocomprobante");
-            PrimefacesContextUI.actualizar("form:descuentocomprobante");
-            PrimefacesContextUI.actualizar("form:netocomprobante");
-            PrimefacesContextUI.actualizar("form:pasivocomprobantes");
-            PrimefacesContextUI.actualizar("form:gastocomprobantes");
+            RequestContext.getCurrentInstance().update("form:panelInf");
+            RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
+            RequestContext.getCurrentInstance().update("form:btnArriba");
+            RequestContext.getCurrentInstance().update("form:btnAbajo");
+            RequestContext.getCurrentInstance().update("form:pagocomprobante");
+            RequestContext.getCurrentInstance().update("form:descuentocomprobante");
+            RequestContext.getCurrentInstance().update("form:netocomprobante");
+            RequestContext.getCurrentInstance().update("form:pasivocomprobantes");
+            RequestContext.getCurrentInstance().update("form:gastocomprobantes");
         }
     }
 
@@ -210,13 +210,13 @@ public class ControlComprobantes implements Serializable {
         getListaSolucionesNodosEmpleado();
         getListaSolucionesNodosEmpleador();
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:panelInf");
-        PrimefacesContextUI.actualizar("form:datosSolucionesNodosEmpleado");
-        PrimefacesContextUI.actualizar("form:datosSolucionesNodosEmpleador");
+        RequestContext.getCurrentInstance().update("form:panelInf");
+        RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
 
-        PrimefacesContextUI.actualizar("formularioDialogos:buscarEmpleadoDialogo");
-        PrimefacesContextUI.actualizar("formularioDialogos:lovEmpleados");
-        PrimefacesContextUI.actualizar("formularioDialogos:aceptarP");
+        RequestContext.getCurrentInstance().update("formularioDialogos:buscarEmpleadoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpleados");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
         context.reset("formularioDialogos:lovEmpleados:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovEmpleados').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('buscarEmpleadoDialogo').hide()");
@@ -246,9 +246,9 @@ public class ControlComprobantes implements Serializable {
         modificarInfoRegistroComprobanteEmpleador(listaSolucionesNodosEmpleador.size());
         mostrarTodos = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:panelInf");
-        PrimefacesContextUI.actualizar("form:datosSolucionesNodosEmpleado");
-        PrimefacesContextUI.actualizar("form:datosSolucionesNodosEmpleador");
+        RequestContext.getCurrentInstance().update("form:panelInf");
+        RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
     }
 
     //CTRL + F11 ACTIVAR/DESACTIVAR
@@ -321,8 +321,8 @@ public class ControlComprobantes implements Serializable {
             altoScrollSolucionesNodosEmpleado = "75";
             altoScrollSolucionesNodosEmpleador = "75";
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosSolucionesNodosEmpleado");
-            PrimefacesContextUI.actualizar("form:datosSolucionesNodosEmpleador");
+            RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
             bandera = 1;
 
         } else if (bandera == 1) {
@@ -393,8 +393,8 @@ public class ControlComprobantes implements Serializable {
             altoScrollSolucionesNodosEmpleado = "95";
             altoScrollSolucionesNodosEmpleador = "95";
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosSolucionesNodosEmpleado");
-            PrimefacesContextUI.actualizar("form:datosSolucionesNodosEmpleador");
+            RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
             bandera = 0;
             filtradolistaSolucionesNodosEmpleado = null;
             filtradolistaSolucionesNodosEmpleador = null;
@@ -431,7 +431,7 @@ public class ControlComprobantes implements Serializable {
             parcialesSolucionNodos = solucionNodoSeleccionada.getParciales();
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:parcialesConcepto");
+        RequestContext.getCurrentInstance().update("formularioDialogos:parcialesConcepto");
         PrimefacesContextUI.ejecutar("PF('parcialesConcepto.show();");
     }
 
@@ -443,7 +443,7 @@ public class ControlComprobantes implements Serializable {
             parcialesSolucionNodos = solucionNodoEmpleadorSeleccionada.getParciales();
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:parcialesConcepto");
+        RequestContext.getCurrentInstance().update("formularioDialogos:parcialesConcepto");
         PrimefacesContextUI.ejecutar("PF('parcialesConcepto.show();");
     }
 
@@ -524,7 +524,7 @@ public class ControlComprobantes implements Serializable {
     public void verDetallesFormula() {
         listaDetallesFormulas = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:detallesFormulas");
+        RequestContext.getCurrentInstance().update("formularioDialogos:detallesFormulas");
         PrimefacesContextUI.ejecutar("PF('detallesFormulas.show();");
     }
 
@@ -544,17 +544,17 @@ public class ControlComprobantes implements Serializable {
 
     public void modificarInfoRegistroEmpleado(int valor) {
         infoRegistroEmpleado = String.valueOf(valor);
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroEmpleado");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEmpleado");
     }
 
     public void modificarInfoRegistroComprobanteEmpleador(int valor) {
         infoRegistroComprobanteEmpleador = String.valueOf(valor);
-        PrimefacesContextUI.actualizar("form:infoRegistroComprobanteEmpleador");
+        RequestContext.getCurrentInstance().update("form:infoRegistroComprobanteEmpleador");
     }
 
     public void modificarInfoRegistroComprobanteEmpleado(int valor) {
         infoRegistroComprobanteEmpleado = String.valueOf(valor);
-        PrimefacesContextUI.actualizar("form:infoRegistroComprobanteEmpleado");
+        RequestContext.getCurrentInstance().update("form:infoRegistroComprobanteEmpleado");
     }
 
     public void eventoFiltrarEmpleado() {
@@ -574,63 +574,63 @@ public class ControlComprobantes implements Serializable {
             if (solucionNodoSeleccionada != null) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 if (cualCelda == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarCodEmpleado");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCodEmpleado");
                     PrimefacesContextUI.ejecutar("PF('editarCodEmpleado').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarDescConcepto");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDescConcepto");
                     PrimefacesContextUI.ejecutar("PF('editarDescConcepto').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 3) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarUnd");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarUnd");
                     PrimefacesContextUI.ejecutar("PF('editarUnd').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 4) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarPago");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarPago");
                     PrimefacesContextUI.ejecutar("PF('editarPago').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 5) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarDescuento");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDescuento");
                     PrimefacesContextUI.ejecutar("PF('editarDescuento').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 6) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarTercero");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTercero");
                     PrimefacesContextUI.ejecutar("PF('editarTercero').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 7) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaHasta");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaHasta");
                     PrimefacesContextUI.ejecutar("PF('editarFechaHasta').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 8) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarDebito");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDebito");
                     PrimefacesContextUI.ejecutar("PF('editarDebito').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 9) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarCCDebito");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCCDebito");
                     PrimefacesContextUI.ejecutar("PF('editarCCDebito').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 10) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarCredito");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCredito");
                     PrimefacesContextUI.ejecutar("PF('editarCredito').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 11) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarCCCredito");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCCCredito");
                     PrimefacesContextUI.ejecutar("PF('editarCCCredito').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 12) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarSaldo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarSaldo");
                     PrimefacesContextUI.ejecutar("PF('editarSaldo').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 13) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaDesde");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaDesde");
                     PrimefacesContextUI.ejecutar("PF('editarFechaDesde').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 14) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaPago");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaPago");
                     PrimefacesContextUI.ejecutar("PF('editarFechaPago').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 15) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaModificacion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaModificacion");
                     PrimefacesContextUI.ejecutar("PF('formularioDialogos:editarFechaModificacion').show()");
                     cualCelda = -1;
                 } // } 
@@ -640,63 +640,63 @@ public class ControlComprobantes implements Serializable {
         } else if (tablaActual == 1) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCodEmpleadoEmpleador");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodEmpleadoEmpleador");
                 PrimefacesContextUI.ejecutar("PF('editarCodEmpleadoEmpleador').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDescConceptoEmpleador");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescConceptoEmpleador");
                 PrimefacesContextUI.ejecutar("PF('editarDescConceptoEmpleador').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarUndEmpleador");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarUndEmpleador");
                 PrimefacesContextUI.ejecutar("PF('editarUndEmpleador').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarPasivo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarPasivo");
                 PrimefacesContextUI.ejecutar("PF('editarPasivo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarGasto");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarGasto");
                 PrimefacesContextUI.ejecutar("PF('editarGasto').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTerceroEmpleador");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTerceroEmpleador");
                 PrimefacesContextUI.ejecutar("PF('editarTerceroEmpleador').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaHastaEmpleador");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaHastaEmpleador");
                 PrimefacesContextUI.ejecutar("PF('editarFechaHastaEmpleador').show()");
                 cualCelda = -1;
             } else if (cualCelda == 8) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDebitoEmpleador");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDebitoEmpleador");
                 PrimefacesContextUI.ejecutar("PF('editarDebitoEmpleador').show()");
                 cualCelda = -1;
             } else if (cualCelda == 9) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCCDebitoEmpleador");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCCDebitoEmpleador");
                 PrimefacesContextUI.ejecutar("PF('editarCCDebitoEmpleador').show()");
                 cualCelda = -1;
             } else if (cualCelda == 10) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCreditoEmpleador");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCreditoEmpleador");
                 PrimefacesContextUI.ejecutar("PF('editarCreditoEmpleador').show()");
                 cualCelda = -1;
             } else if (cualCelda == 11) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCCCreditoEmpleador");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCCCreditoEmpleador");
                 PrimefacesContextUI.ejecutar("PF('editarCCCreditoEmpleador').show()");
                 cualCelda = -1;
             } else if (cualCelda == 12) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarSaldoEmpleador");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarSaldoEmpleador");
                 PrimefacesContextUI.ejecutar("PF('editarSaldoEmpleador').show()");
                 cualCelda = -1;
             } else if (cualCelda == 13) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaDesdeEmpleador");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaDesdeEmpleador");
                 PrimefacesContextUI.ejecutar("PF('editarFechaDesdeEmpleador').show()");
                 cualCelda = -1;
             } else if (cualCelda == 14) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaPagoEmpleador");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaPagoEmpleador");
                 PrimefacesContextUI.ejecutar("PF('editarFechaPagoEmpleador').show()");
                 cualCelda = -1;
             } else if (cualCelda == 15) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechaModificacionEmpleador");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaModificacionEmpleador");
                 PrimefacesContextUI.ejecutar("PF('formularioDialogos:editarFechaModificacionEmpleador').show()");
                 cualCelda = -1;
             } // } 

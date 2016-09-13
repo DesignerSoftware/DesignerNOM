@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Departamentos;
 import Entidades.Paises;
 import Exportar.ExportarPDF;
@@ -26,7 +27,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -113,7 +113,7 @@ public class ControlDepartamentos implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarDepartamentos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlDepartamentos eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -159,7 +159,7 @@ public class ControlDepartamentos implements Serializable {
                 tipoActualizacion = 2;
             }
             if (dig == 2) {
-                PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                 PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                 dig = -1;
             }
@@ -176,7 +176,7 @@ public class ControlDepartamentos implements Serializable {
         if (index >= 0) {
             if (cualCelda == 2) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                 PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
             }
         }
@@ -193,7 +193,7 @@ public class ControlDepartamentos implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             pais = (Column) c.getViewRoot().findComponent("form:datosDepartamentos:pais");
             pais.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosDepartamentos");
+            RequestContext.getCurrentInstance().update("form:datosDepartamentos");
             bandera = 0;
             filtrarDepartamentos = null;
             tipoLista = 0;
@@ -215,9 +215,9 @@ public class ControlDepartamentos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listDepartamentos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosDepartamentos");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosDepartamentos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -231,7 +231,7 @@ public class ControlDepartamentos implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             pais = (Column) c.getViewRoot().findComponent("form:datosDepartamentos:pais");
             pais.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosDepartamentos");
+            RequestContext.getCurrentInstance().update("form:datosDepartamentos");
             bandera = 0;
             filtrarDepartamentos = null;
             tipoLista = 0;
@@ -247,8 +247,8 @@ public class ControlDepartamentos implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosDepartamentos");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosDepartamentos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -261,7 +261,7 @@ public class ControlDepartamentos implements Serializable {
             descripcion.setFilterStyle("width: 85%");
             pais = (Column) c.getViewRoot().findComponent("form:datosDepartamentos:pais");
             pais.setFilterStyle("width: 85%");
-            PrimefacesContextUI.actualizar("form:datosDepartamentos");
+            RequestContext.getCurrentInstance().update("form:datosDepartamentos");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -273,7 +273,7 @@ public class ControlDepartamentos implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             pais = (Column) c.getViewRoot().findComponent("form:datosDepartamentos:pais");
             pais.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosDepartamentos");
+            RequestContext.getCurrentInstance().update("form:datosDepartamentos");
             bandera = 0;
             filtrarDepartamentos = null;
             tipoLista = 0;
@@ -313,16 +313,16 @@ public class ControlDepartamentos implements Serializable {
             }
             permitirIndex = true;
             System.out.println("ACTUALIZAR PAIS PAIS SELECCIONADO : " + paisSeleccionado.getNombre());
-            PrimefacesContextUI.actualizar("form:datosDepartamentos");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosDepartamentos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else if (tipoActualizacion == 1) {
             System.out.println("ACTUALIZAR PAIS NUEVO DEPARTAMENTO: " + paisSeleccionado.getNombre());
             nuevoDepartamentos.setPais(paisSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoPais");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPais");
         } else if (tipoActualizacion == 2) {
             System.out.println("ACTUALIZAR PAIS DUPLICAR DEPARTAMENO: " + paisSeleccionado.getNombre());
             duplicarDepartamentos.setPais(paisSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarPais");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPais");
         }
         filtradoPaises = null;
         paisSeleccionado = null;
@@ -416,14 +416,14 @@ public class ControlDepartamentos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    PrimefacesContextUI.actualizar("form:datosDepartamentos");
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:datosDepartamentos");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
 
                     System.out.println("backupCodigo : " + backupCodigo);
@@ -468,14 +468,14 @@ public class ControlDepartamentos implements Serializable {
                             guardado = false;
                         }
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     index = -1;
                     secRegistro = null;
-                    PrimefacesContextUI.actualizar("form:datosDepartamentos");
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:datosDepartamentos");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                 }
             } else {
@@ -536,7 +536,7 @@ public class ControlDepartamentos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -590,7 +590,7 @@ public class ControlDepartamentos implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -598,8 +598,8 @@ public class ControlDepartamentos implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosDepartamentos");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosDepartamentos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else if (confirmarCambio.equalsIgnoreCase("PAISES")) {
             System.out.println("MODIFICANDO NORMA LABORAL : " + listDepartamentos.get(indice).getPais().getNombre());
             if (!listDepartamentos.get(indice).getPais().getNombre().equals("")) {
@@ -628,7 +628,7 @@ public class ControlDepartamentos implements Serializable {
 
                 } else {
                     permitirIndex = false;
-                    PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                    RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                     PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -642,7 +642,7 @@ public class ControlDepartamentos implements Serializable {
                 }
                 tipoActualizacion = 0;
                 System.out.println("PAIS ANTES DE MOSTRAR DIALOGO : " + paises);
-                PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                 PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
             }
 
@@ -678,8 +678,8 @@ public class ControlDepartamentos implements Serializable {
                 }
             }
 
-            PrimefacesContextUI.actualizar("form:datosDepartamentos");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosDepartamentos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
         }
 
@@ -720,16 +720,16 @@ public class ControlDepartamentos implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosDepartamentos");
+            RequestContext.getCurrentInstance().update("form:datosDepartamentos");
             infoRegistro = "Cantidad de registros: " + listDepartamentos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -772,7 +772,7 @@ public class ControlDepartamentos implements Serializable {
                     getListaPaises();
                     System.err.println("NORMA LABORAL GUARDADA " + nuevoDepartamentos.getPais().getNombre());
                 } else {
-                    PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                    RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                     PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
@@ -783,7 +783,7 @@ public class ControlDepartamentos implements Serializable {
                 nuevoDepartamentos.getPais().setNombre(" ");
                 System.out.println("NUEVA NORMA LABORAL" + nuevoDepartamentos.getPais().getNombre());
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoPais");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPais");
         }
 
     }
@@ -796,7 +796,7 @@ public class ControlDepartamentos implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+        RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
         PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
     }
 
@@ -826,7 +826,7 @@ public class ControlDepartamentos implements Serializable {
                     listaPaises = null;
                     getListaPaises();
                 } else {
-                    PrimefacesContextUI.actualizar("form:sucursalesDialogo");
+                    RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                     PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
@@ -851,7 +851,7 @@ public class ControlDepartamentos implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarPais");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPais");
         }
     }
 
@@ -885,7 +885,7 @@ public class ControlDepartamentos implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
                 contarBienProgramacionesDepartamento = new BigInteger("-1");
@@ -903,7 +903,7 @@ public class ControlDepartamentos implements Serializable {
 
         if (!borrarDepartamentos.isEmpty() || !crearDepartamentos.isEmpty() || !modificarDepartamentos.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -918,7 +918,7 @@ public class ControlDepartamentos implements Serializable {
                 administrarDepartamentos.borrarDepartamentos(borrarDepartamentos);
                 //mostrarBorrados
                 registrosBorrados = borrarDepartamentos.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarDepartamentos.clear();
             }
@@ -934,13 +934,13 @@ public class ControlDepartamentos implements Serializable {
             listDepartamentos = null;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
-            PrimefacesContextUI.actualizar("form:datosDepartamentos");
+            RequestContext.getCurrentInstance().update("form:growl");
+            RequestContext.getCurrentInstance().update("form:datosDepartamentos");
             k = 0;
             guardado = true;
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -956,16 +956,16 @@ public class ControlDepartamentos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editPais");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editPais");
                 PrimefacesContextUI.ejecutar("PF('editPais').show()");
                 cualCelda = -1;
             }
@@ -1038,7 +1038,7 @@ public class ControlDepartamentos implements Serializable {
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 pais = (Column) c.getViewRoot().findComponent("form:datosDepartamentos:pais");
                 pais.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosDepartamentos");
+                RequestContext.getCurrentInstance().update("form:datosDepartamentos");
                 bandera = 0;
                 filtrarDepartamentos = null;
                 tipoLista = 0;
@@ -1054,12 +1054,12 @@ public class ControlDepartamentos implements Serializable {
             listDepartamentos.add(nuevoDepartamentos);
             nuevoDepartamentos = new Departamentos();
             nuevoDepartamentos.setPais(new Paises());
-            PrimefacesContextUI.actualizar("form:datosDepartamentos");
+            RequestContext.getCurrentInstance().update("form:datosDepartamentos");
             infoRegistro = "Cantidad de registros: " + listDepartamentos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroDepartamentos').hide()");
@@ -1067,7 +1067,7 @@ public class ControlDepartamentos implements Serializable {
             secRegistro = null;
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -1105,7 +1105,7 @@ public class ControlDepartamentos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroDepartamentos').show()");
             index = -1;
             secRegistro = null;
@@ -1166,15 +1166,15 @@ public class ControlDepartamentos implements Serializable {
             }
             listDepartamentos.add(duplicarDepartamentos);
             crearDepartamentos.add(duplicarDepartamentos);
-            PrimefacesContextUI.actualizar("form:datosDepartamentos");
+            RequestContext.getCurrentInstance().update("form:datosDepartamentos");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             infoRegistro = "Cantidad de registros: " + listDepartamentos.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
 
@@ -1185,7 +1185,7 @@ public class ControlDepartamentos implements Serializable {
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 pais = (Column) c.getViewRoot().findComponent("form:datosDepartamentos:pais");
                 pais.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosDepartamentos");
+                RequestContext.getCurrentInstance().update("form:datosDepartamentos");
                 bandera = 0;
                 filtrarDepartamentos = null;
                 tipoLista = 0;
@@ -1197,7 +1197,7 @@ public class ControlDepartamentos implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -1271,7 +1271,7 @@ public class ControlDepartamentos implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listDepartamentos.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listDepartamentos;
     }
 
@@ -1362,7 +1362,7 @@ public class ControlDepartamentos implements Serializable {
         } else {
             infoRegistroPaises = "Cantidad de registros: " + listaPaises.size();
         }
-        PrimefacesContextUI.actualizar("form:infoRegistroPaises");
+        RequestContext.getCurrentInstance().update("form:infoRegistroPaises");
         return listaPaises;
     }
 

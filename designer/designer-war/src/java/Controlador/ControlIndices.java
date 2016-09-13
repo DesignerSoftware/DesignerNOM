@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Indices;
 import Entidades.TiposIndices;
 import Exportar.ExportarPDF;
@@ -28,7 +29,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -121,7 +121,7 @@ public class ControlIndices implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarIndices.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlIndices eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -180,7 +180,7 @@ public class ControlIndices implements Serializable {
                 tipoActualizacion = 2;
             }
             if (dig == 2) {
-                PrimefacesContextUI.actualizar("form:tiposindicesDialogo");
+                RequestContext.getCurrentInstance().update("form:tiposindicesDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposindicesDialogo').show()");
                 dig = -1;
             }
@@ -199,7 +199,7 @@ public class ControlIndices implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
 
             if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("form:tiposindicesDialogo");
+                RequestContext.getCurrentInstance().update("form:tiposindicesDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposindicesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -226,7 +226,7 @@ public class ControlIndices implements Serializable {
             dividendo.setFilterStyle("display: none; visibility: hidden;");
             divisor = (Column) c.getViewRoot().findComponent("form:datosIndices:divisor");
             divisor.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosIndices");
+            RequestContext.getCurrentInstance().update("form:datosIndices");
             bandera = 0;
             filtrarIndices = null;
             tipoLista = 0;
@@ -249,9 +249,9 @@ public class ControlIndices implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listIndices.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosIndices");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosIndices");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -272,7 +272,7 @@ public class ControlIndices implements Serializable {
             dividendo.setFilterStyle("display: none; visibility: hidden;");
             divisor = (Column) c.getViewRoot().findComponent("form:datosIndices:divisor");
             divisor.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosIndices");
+            RequestContext.getCurrentInstance().update("form:datosIndices");
             bandera = 0;
             filtrarIndices = null;
             tipoLista = 0;
@@ -294,9 +294,9 @@ public class ControlIndices implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listIndices.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosIndices");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosIndices");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -317,7 +317,7 @@ public class ControlIndices implements Serializable {
             dividendo.setFilterStyle("width: 85%");
             divisor = (Column) c.getViewRoot().findComponent("form:datosIndices:divisor");
             divisor.setFilterStyle("width: 85%");
-            PrimefacesContextUI.actualizar("form:datosIndices");
+            RequestContext.getCurrentInstance().update("form:datosIndices");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -337,7 +337,7 @@ public class ControlIndices implements Serializable {
             dividendo.setFilterStyle("display: none; visibility: hidden;");
             divisor = (Column) c.getViewRoot().findComponent("form:datosIndices:divisor");
             divisor.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosIndices");
+            RequestContext.getCurrentInstance().update("form:datosIndices");
             bandera = 0;
             filtrarIndices = null;
             tipoLista = 0;
@@ -380,7 +380,7 @@ public class ControlIndices implements Serializable {
      }
 
      } else {
-     PrimefacesContextUI.actualizar("form:validacionModificar");
+     RequestContext.getCurrentInstance().update("form:validacionModificar");
      PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
      cancelarModificacion();
      }
@@ -410,7 +410,7 @@ public class ControlIndices implements Serializable {
      }
 
      } else {
-     PrimefacesContextUI.actualizar("form:validacionModificar");
+     RequestContext.getCurrentInstance().update("form:validacionModificar");
      PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
      cancelarModificacion();
      }
@@ -419,7 +419,7 @@ public class ControlIndices implements Serializable {
      }
 
      }
-     PrimefacesContextUI.actualizar("form:datosIndices");
+     RequestContext.getCurrentInstance().update("form:datosIndices");
      }
 
      }
@@ -465,7 +465,7 @@ public class ControlIndices implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -490,7 +490,7 @@ public class ControlIndices implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -521,7 +521,7 @@ public class ControlIndices implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
@@ -546,7 +546,7 @@ public class ControlIndices implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
@@ -555,7 +555,7 @@ public class ControlIndices implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosIndices");
+            RequestContext.getCurrentInstance().update("form:datosIndices");
         } else if (confirmarCambio.equalsIgnoreCase("TIPOSINDICES")) {
             if (!listIndices.get(indice).getTipoindice().getDescripcion().equals("")) {
                 if (tipoLista == 0) {
@@ -584,7 +584,7 @@ public class ControlIndices implements Serializable {
 
                 } else {
                     permitirIndex = false;
-                    PrimefacesContextUI.actualizar("form:tiposindicesDialogo");
+                    RequestContext.getCurrentInstance().update("form:tiposindicesDialogo");
                     PrimefacesContextUI.ejecutar("PF('tiposindicesDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -607,7 +607,7 @@ public class ControlIndices implements Serializable {
                         if (guardado == true) {
                             guardado = false;
                         }
-                        PrimefacesContextUI.actualizar("form:datosIndices");
+                        RequestContext.getCurrentInstance().update("form:datosIndices");
                     }
                     index = -1;
                     secRegistro = null;
@@ -628,7 +628,7 @@ public class ControlIndices implements Serializable {
                 }
             }
 
-            PrimefacesContextUI.actualizar("form:datosIndices");
+            RequestContext.getCurrentInstance().update("form:datosIndices");
 
         }
         if (confirmarCambio.equalsIgnoreCase("CODIGO")) {
@@ -668,7 +668,7 @@ public class ControlIndices implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -702,7 +702,7 @@ public class ControlIndices implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     index = -1;
@@ -742,7 +742,7 @@ public class ControlIndices implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
@@ -776,7 +776,7 @@ public class ControlIndices implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
@@ -785,10 +785,10 @@ public class ControlIndices implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosIndices");
+            RequestContext.getCurrentInstance().update("form:datosIndices");
         }
-        PrimefacesContextUI.actualizar("form:datosIndices");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosIndices");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void actualizarTipoIndice() {
@@ -819,14 +819,14 @@ public class ControlIndices implements Serializable {
                 guardado = false;
             }
             permitirIndex = true;
-            // PrimefacesContextUI.actualizar("form:datosIndices");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            // RequestContext.getCurrentInstance().update("form:datosIndices");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else if (tipoActualizacion == 1) {
             nuevoIndices.setTipoindice(tipoIndiceSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevooHvReferenciaLab");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevooHvReferenciaLab");
         } else if (tipoActualizacion == 2) {
             duplicarIndices.setTipoindice(tipoIndiceSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarRRL");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRRL");
         }
         filtradoTiposIndices = null;
         tipoIndiceSeleccionado = null;
@@ -838,8 +838,8 @@ public class ControlIndices implements Serializable {
         context.reset("form:lovTiposIndices:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovTiposIndices').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('tiposindicesDialogo').hide()");
-        //PrimefacesContextUI.actualizar("form:lovTiposIndices");
-        PrimefacesContextUI.actualizar("form:datosIndices");
+        //RequestContext.getCurrentInstance().update("form:lovTiposIndices");
+        RequestContext.getCurrentInstance().update("form:datosIndices");
     }
 
     public void cancelarCambioTiposIndices() {
@@ -895,15 +895,15 @@ public class ControlIndices implements Serializable {
             } else {
                 infoRegistro = "Cantidad de registros: " + listIndices.size();
             }
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosIndices");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosIndices");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -934,7 +934,7 @@ public class ControlIndices implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
 
@@ -948,7 +948,7 @@ public class ControlIndices implements Serializable {
 
         if (!borrarIndices.isEmpty() || !crearIndices.isEmpty() || !modificarIndices.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -969,7 +969,7 @@ public class ControlIndices implements Serializable {
                 administrarIndices.borrarIndices(borrarIndices);
                 //mostrarBorrados
                 registrosBorrados = borrarIndices.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarIndices.clear();
             }
@@ -995,16 +995,16 @@ public class ControlIndices implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listIndices = null;
-            PrimefacesContextUI.actualizar("form:datosIndices");
+            RequestContext.getCurrentInstance().update("form:datosIndices");
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
 
             k = 0;
         }
         index = -1;
         guardado = true;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -1019,34 +1019,34 @@ public class ControlIndices implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editTipoIndice");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editTipoIndice");
                 PrimefacesContextUI.ejecutar("PF('editTipoIndice').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editPorcentajeEstandar");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editPorcentajeEstandar");
                 PrimefacesContextUI.ejecutar("PF('editPorcentajeEstandar').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editObjetivo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editObjetivo");
                 PrimefacesContextUI.ejecutar("PF('editObjetivo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDividendo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDividendo");
                 PrimefacesContextUI.ejecutar("PF('editDividendo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDivisor");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDivisor");
                 PrimefacesContextUI.ejecutar("PF('editDivisor').show()");
                 cualCelda = -1;
             }
@@ -1094,19 +1094,19 @@ public class ControlIndices implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoIndices.setTipoindice(listaClavesAjustes.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoNombreSucursal");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombreSucursal");
                 }
                 listaClavesAjustes.clear();
                 listaClavesAjustes = null;
                 getListaTiposIndices();
             } else {
-                PrimefacesContextUI.actualizar("form:tiposindicesDialogo");
+                RequestContext.getCurrentInstance().update("form:tiposindicesDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposindicesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoNombreSucursal");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombreSucursal");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarNombreSucursal");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNombreSucursal");
                 }
             }
         }
@@ -1130,19 +1130,19 @@ public class ControlIndices implements Serializable {
                 if (coincidencias == 1) {
                     if (tipoNuevo == 2) {
                         duplicarIndices.setTipoindice(listaClavesAjustes.get(indiceUnicoElemento));
-                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarNombreSucursal");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNombreSucursal");
 
                     }
                     listaClavesAjustes.clear();
                     listaClavesAjustes = null;
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarNombreSucursal");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNombreSucursal");
                     getListaTiposIndices();
                 } else {
-                    PrimefacesContextUI.actualizar("form:tiposindicesDialogo");
+                    RequestContext.getCurrentInstance().update("form:tiposindicesDialogo");
                     PrimefacesContextUI.ejecutar("PF('tiposindicesDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 2) {
-                        PrimefacesContextUI.actualizar("formularioDialogos:duplicarNombreSucursal");
+                        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNombreSucursal");
                     }
                 }
             } else {
@@ -1162,7 +1162,7 @@ public class ControlIndices implements Serializable {
                 }
             }
 
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarNombreSucursal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNombreSucursal");
 
         }
     }
@@ -1175,7 +1175,7 @@ public class ControlIndices implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:tiposindicesDialogo");
+        RequestContext.getCurrentInstance().update("form:tiposindicesDialogo");
         PrimefacesContextUI.ejecutar("PF('tiposindicesDialogo').show()");
     }
 
@@ -1241,7 +1241,7 @@ public class ControlIndices implements Serializable {
                 divisor = (Column) c.getViewRoot().findComponent("form:datosIndices:divisor");
                 divisor.setFilterStyle("display: none; visibility: hidden;");
 
-                PrimefacesContextUI.actualizar("form:datosIndices");
+                RequestContext.getCurrentInstance().update("form:datosIndices");
                 bandera = 0;
                 filtrarIndices = null;
                 tipoLista = 0;
@@ -1256,12 +1256,12 @@ public class ControlIndices implements Serializable {
             listIndices.add(nuevoIndices);
             nuevoIndices = new Indices();
             nuevoIndices.setTipoindice(new TiposIndices());
-            PrimefacesContextUI.actualizar("form:datosIndices");
+            RequestContext.getCurrentInstance().update("form:datosIndices");
             infoRegistro = "Cantidad de registros: " + listIndices.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroIndices').hide()");
@@ -1269,7 +1269,7 @@ public class ControlIndices implements Serializable {
             secRegistro = null;
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -1314,7 +1314,7 @@ public class ControlIndices implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarRRL");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRRL");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroIndices').show()");
             secRegistro = null;
         }
@@ -1367,16 +1367,16 @@ public class ControlIndices implements Serializable {
                 crearIndices.add(duplicarIndices);
             }
             listIndices.add(duplicarIndices);
-            PrimefacesContextUI.actualizar("form:datosIndices");
+            RequestContext.getCurrentInstance().update("form:datosIndices");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             infoRegistro = "Cantidad de registros: " + listIndices.size();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -1395,7 +1395,7 @@ public class ControlIndices implements Serializable {
                 dividendo.setFilterStyle("display: none; visibility: hidden;");
                 divisor = (Column) c.getViewRoot().findComponent("form:datosIndices:divisor");
                 divisor.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosIndices");
+                RequestContext.getCurrentInstance().update("form:datosIndices");
                 bandera = 0;
                 filtrarIndices = null;
                 tipoLista = 0;
@@ -1405,7 +1405,7 @@ public class ControlIndices implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -1484,7 +1484,7 @@ public class ControlIndices implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listIndices.size();
         }
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listIndices;
     }
 
@@ -1550,7 +1550,7 @@ public class ControlIndices implements Serializable {
         } else {
             infoRegistroParentesco = "Cantidad de registros: " + listaClavesAjustes.size();
         }
-        PrimefacesContextUI.actualizar("form:infoRegistroParentesco");
+        RequestContext.getCurrentInstance().update("form:infoRegistroParentesco");
         return listaClavesAjustes;
     }
 

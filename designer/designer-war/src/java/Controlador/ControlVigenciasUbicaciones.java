@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Empleados;
 import Entidades.UbicacionesGeograficas;
 import Entidades.VigenciasUbicaciones;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 @ManagedBean
 @SessionScoped
@@ -150,7 +150,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("N")) {
             activarLOV = true;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
             System.out.println("valor Confirmar: " + valorConfirmar);
             if (!valorConfirmar.isEmpty()) {
                 int control = 0;
@@ -179,7 +179,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
 
                     if (guardado) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 } else {
                     PrimefacesContextUI.ejecutar("PF('validacionFechaDuplicada.show();");
@@ -190,7 +190,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
             }
         } else if (confirmarCambio.equalsIgnoreCase("UBICACION")) {
             activarLOV = false;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
             vigenciaSeleccionada.getUbicacion().setDescripcion(ubicacion);
             for (int i = 0; i < listaUbicaciones.size(); i++) {
                 if (listaUbicaciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
@@ -205,7 +205,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
             } else {
                 permitirIndex = false;
                 getInfoRegistroUbicacion();
-                PrimefacesContextUI.actualizar("form:UbicacionesGeograficasDialogo");
+                RequestContext.getCurrentInstance().update("form:UbicacionesGeograficasDialogo");
                 PrimefacesContextUI.ejecutar("PF('UbicacionesGeograficasDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -222,10 +222,10 @@ public class ControlVigenciasUbicaciones implements Serializable {
 
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
-        PrimefacesContextUI.actualizar("form:datosVUEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosVUEmpleado");
     }
 
     //Ubicacion Celda.
@@ -235,12 +235,12 @@ public class ControlVigenciasUbicaciones implements Serializable {
             cualCelda = celda;
             if (cualCelda == 0) {
                 activarLOV = true;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 fechaVigenciaBck = vigenciaSeleccionada.getFechavigencia();
             }
             if (cualCelda == 1) {
                 activarLOV = false;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 ubicacion = vigenciaSeleccionada.getUbicacion().getDescripcion();
             }
         }
@@ -288,25 +288,25 @@ public class ControlVigenciasUbicaciones implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaVigencia.setUbicacion(listaUbicaciones.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaDescripcion");
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCiudad");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDescripcion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudad");
                 } else if (tipoNuevo == 2) {
                     duplicarVU.setUbicacion(listaUbicaciones.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarDescripcion");
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCiudad");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDescripcion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudad");
                 }
                 listaUbicaciones.clear();
                 getListaUbicaciones();
             } else {
-                PrimefacesContextUI.actualizar("form:UbicacionesGeograficasDialogo");
+                RequestContext.getCurrentInstance().update("form:UbicacionesGeograficasDialogo");
                 PrimefacesContextUI.ejecutar("PF('UbicacionesGeograficasDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaDescripcion");
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCiudad");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDescripcion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudad");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarDescripcion");
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCiudad");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDescripcion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudad");
                 }
             }
         }
@@ -339,15 +339,15 @@ public class ControlVigenciasUbicaciones implements Serializable {
             getVigenciasUbicaciones();
             contarRegistrosUbicaciones();
             activarLOV = true;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosVUEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVUEmpleado");
             guardado = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             k = 0;
             FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
     //CANCELAR MODIFICACIONES
@@ -358,7 +358,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
             cerrarFiltrado();
         }
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         listVUBorrar.clear();
         listVUCrear.clear();
         listVUModificar.clear();
@@ -369,8 +369,8 @@ public class ControlVigenciasUbicaciones implements Serializable {
         contarRegistrosUbicaciones();
         guardado = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosVUEmpleado");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosVUEmpleado");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -383,7 +383,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
         vuCiudad = (Column) c.getViewRoot().findComponent("form:datosVUEmpleado:vuCiudad");
         vuCiudad.setFilterStyle("display: none; visibility: hidden;");
         altoTabla = "292";
-        PrimefacesContextUI.actualizar("form:datosVUEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosVUEmpleado");
         bandera = 0;
         filtrarVU = null;
         tipoLista = 0;
@@ -427,15 +427,15 @@ public class ControlVigenciasUbicaciones implements Serializable {
         } else {
             editarVU = vigenciaSeleccionada;
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFecha");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
                 PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editarDescripcion').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCiudad");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCiudad");
                 PrimefacesContextUI.ejecutar("PF('editarCiudad').show()");
                 cualCelda = -1;
             }
@@ -464,7 +464,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
                 }
             }
             if (fechas > 0) {
-                PrimefacesContextUI.actualizar("form:fechas");
+                RequestContext.getCurrentInstance().update("form:fechas");
                 PrimefacesContextUI.ejecutar("PF('fechas').show()");
                 pasa++;
 
@@ -494,24 +494,24 @@ public class ControlVigenciasUbicaciones implements Serializable {
             vigenciasUbicaciones.add(nuevaVigencia);
             vigenciaSeleccionada = vigenciasUbicaciones.get(vigenciasUbicaciones.indexOf(nuevaVigencia));
             modificarInfoRegistro(vigenciasUbicaciones.size());
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             nuevaVigencia = new VigenciasUbicaciones();
             nuevaVigencia.setUbicacion(new UbicacionesGeograficas());
             activarLOV = true;
-            PrimefacesContextUI.actualizar("form:listaValores");
-            PrimefacesContextUI.actualizar("form:datosVUEmpleado");
+            RequestContext.getCurrentInstance().update("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:datosVUEmpleado");
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroVU').hide()");
         } else if (pasa == 0 && contador != 2) {
-            PrimefacesContextUI.actualizar("form:validacionNuevo");
+            RequestContext.getCurrentInstance().update("form:validacionNuevo");
             PrimefacesContextUI.ejecutar("PF('validacionNuevo').show()");
             contador = 0;
             pasa = 0;
         }
-        PrimefacesContextUI.actualizar("form:NuevoRegistroVU");
+        RequestContext.getCurrentInstance().update("form:NuevoRegistroVU");
     }
 
 //LIMPIAR NUEVO REGISTRO}
@@ -536,7 +536,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
                 duplicarVU.setUbicacion(vigenciaSeleccionada.getUbicacion());
 
 
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarVU");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVU");
                 PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVU').show()");
             }
         }
@@ -556,7 +556,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
         if (contador > 0) {
             mensajeValidacion = "Fechas NO Repetidas";
 
-            PrimefacesContextUI.actualizar("form:validacionFechaDuplicada");
+            RequestContext.getCurrentInstance().update("form:validacionFechaDuplicada");
             PrimefacesContextUI.ejecutar("PF('validacionFechaDuplicada').show()");
 
         } else {
@@ -565,13 +565,13 @@ public class ControlVigenciasUbicaciones implements Serializable {
             vigenciaSeleccionada = vigenciasUbicaciones.get(vigenciasUbicaciones.indexOf(duplicarVU));
             modificarInfoRegistro(vigenciasUbicaciones.size());
             activarLOV = true;
-            PrimefacesContextUI.actualizar("form:listaValores");
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosVUEmpleado");
+            RequestContext.getCurrentInstance().update("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosVUEmpleado");
 //            vigenciaSeleccionada = null;
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             if (bandera == 1) {
@@ -609,15 +609,15 @@ public class ControlVigenciasUbicaciones implements Serializable {
                 vigenciasUbicaciones.remove(vigenciaSeleccionada);
                 modificarInfoRegistro(vigenciasUbicaciones.size());
                 activarLOV = true;
-                PrimefacesContextUI.actualizar("form:listaValores");
-                PrimefacesContextUI.actualizar("form:datosVUEmpleado");
-                PrimefacesContextUI.actualizar("form:informacionRegistro");
+                RequestContext.getCurrentInstance().update("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:datosVUEmpleado");
+                RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
                 vigenciaSeleccionada = null;
 
                 if (guardado) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         }
@@ -635,7 +635,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
             vuCiudad = (Column) c.getViewRoot().findComponent("form:datosVUEmpleado:vuCiudad");
             vuCiudad.setFilterStyle("width: 85%;");
             altoTabla = "272";
-            PrimefacesContextUI.actualizar("form:datosVUEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVUEmpleado");
             bandera = 1;
         } else if (bandera == 1) {
             cerrarFiltrado();
@@ -647,7 +647,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         cerrarFiltrado();
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         listVUBorrar.clear();
         listVUCrear.clear();
         listVUModificar.clear();
@@ -655,7 +655,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
         k = 0;
         vigenciasUbicaciones = null;
         guardado = true;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO)
 
@@ -663,7 +663,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
         vigenciaSeleccionada = vu;
         RequestContext context = RequestContext.getCurrentInstance();
         activarLOV = false;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         UbicacionSelecionada = null;
         if (LND == 0) {
             tipoActualizacion = 0;
@@ -674,7 +674,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
             tipoActualizacion = 2;
         }
         modificarInfoRegistroUbicaciones(listaUbicaciones.size());
-        PrimefacesContextUI.actualizar("form:UbicacionesGeograficasDialogo");
+        RequestContext.getCurrentInstance().update("form:UbicacionesGeograficasDialogo");
         PrimefacesContextUI.ejecutar("PF('UbicacionesGeograficasDialogo').show()");
     }
 
@@ -694,16 +694,16 @@ public class ControlVigenciasUbicaciones implements Serializable {
 
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.actualizar("form:datosVUEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVUEmpleado");
             permitirIndex = true;
         } else if (tipoActualizacion == 1) {
             nuevaVigencia.setUbicacion(UbicacionSelecionada);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaVU");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVU");
         } else if (tipoActualizacion == 2) {
             duplicarVU.setUbicacion(UbicacionSelecionada);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarVU");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVU");
         }
         filtradoUbicaciones = null;
         UbicacionSelecionada = null;
@@ -739,7 +739,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
                     UbicacionSelecionada = null;
                     //getInfoRegistroUbicacion();
                     modificarInfoRegistroUbicaciones(listaUbicaciones.size());
-                    PrimefacesContextUI.actualizar("form:UbicacionesGeograficasDialogo");
+                    RequestContext.getCurrentInstance().update("form:UbicacionesGeograficasDialogo");
                     PrimefacesContextUI.ejecutar("PF('UbicacionesGeograficasDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -776,14 +776,14 @@ public class ControlVigenciasUbicaciones implements Serializable {
             tipoLista = 1;
         }
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         modificarInfoRegistro(filtrarVU.size());
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void eventoFiltrarUbicaciones() {
         modificarInfoRegistroUbicaciones(filtradoUbicaciones.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroUbicacion");
+        RequestContext.getCurrentInstance().update("form:infoRegistroUbicacion");
     }
 
     private void modificarInfoRegistro(int valor) {
@@ -815,7 +815,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
 
     public void anularLOV() {
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     //GETTERS AND SETTERS

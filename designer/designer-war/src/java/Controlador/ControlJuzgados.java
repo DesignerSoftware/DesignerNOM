@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Ciudades;
 import Entidades.Juzgados;
 import Exportar.ExportarPDF;
@@ -26,7 +27,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -217,10 +217,10 @@ public class ControlJuzgados implements Serializable {
                             guardado = false;
 
                         }
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                         cancelarModificacion();
                     }
@@ -289,7 +289,7 @@ public class ControlJuzgados implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                         cancelarModificacion();
                     }
@@ -298,7 +298,7 @@ public class ControlJuzgados implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosJuzgados");
+            RequestContext.getCurrentInstance().update("form:datosJuzgados");
         } else if (confirmarCambio.equalsIgnoreCase("CIUDADES")) {
             System.err.println("ENTRE A MODIFICAR CIUDADES , CONFIRMAR CAMBIO ES CIUDADES");
             System.err.println("CIUDADES AUTOCOMPLETAR" + ciudadesAutocompletar);
@@ -328,12 +328,12 @@ public class ControlJuzgados implements Serializable {
                 // getListaTiposCentrosCostos();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("form:tiposCentrosCostosDialogo");
+                RequestContext.getCurrentInstance().update("form:tiposCentrosCostosDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
-        PrimefacesContextUI.actualizar("form:datosJuzgados");
+        RequestContext.getCurrentInstance().update("form:datosJuzgados");
 
     }
 
@@ -377,9 +377,9 @@ public class ControlJuzgados implements Serializable {
             //   if (banderaModificacionEmpresa == 0) {
             //     cambiarEmpresa();
             // }
-            PrimefacesContextUI.actualizar("form:datosJuzgados");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("form:MOSTRARTODOS");
+            RequestContext.getCurrentInstance().update("form:datosJuzgados");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         } catch (Exception E) {
             System.out.println("ERROR CONTROLJUZGADOS CANCELARMODIFICACION ERROR " + E.getMessage());
         }
@@ -400,7 +400,7 @@ public class ControlJuzgados implements Serializable {
                 tipoActualizacion = 2;
             }
             if (dig == 4) {
-                PrimefacesContextUI.actualizar("form:tiposCentrosCostosDialogo");
+                RequestContext.getCurrentInstance().update("form:tiposCentrosCostosDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
                 dig = -1;
             }
@@ -426,21 +426,21 @@ public class ControlJuzgados implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
 
                 }
-                PrimefacesContextUI.actualizar("form:datosJuzgados");
+                RequestContext.getCurrentInstance().update("form:datosJuzgados");
                 PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').hide()");
             } else if (tipoActualizacion == 1) {
                 // context.reset("formularioDialogos:nuevaTipoCentroCostos");
                 System.out.println("Entro actualizar centro costo nuevo rgistro");
                 nuevoJuzgado.setCiudad(ciudadSeleccionada);
                 System.out.println("CIUDAD SELECCIONADA: " + nuevoJuzgado.getCiudad().getNombre());
-                PrimefacesContextUI.actualizar("formularioDialogos:nuevaTipoCentroCostos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoCentroCostos");
             } else if (tipoActualizacion == 2) {
                 duplicarJuzgado.setCiudad(ciudadSeleccionada);
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoCentroCostos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoCentroCostos");
             }
             filtradoCiudades = null;
             ciudadSeleccionada = null;
@@ -489,7 +489,7 @@ public class ControlJuzgados implements Serializable {
                 oficina.setFilterStyle("width: 85%;");
                 observaciones = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosJuzgados:observaciones");
                 observaciones.setFilterStyle("width: 85%;");
-                PrimefacesContextUI.actualizar("form:datosJuzgados");
+                RequestContext.getCurrentInstance().update("form:datosJuzgados");
                 bandera = 1;
             } else if (bandera == 1) {
                 System.out.println("Desactivar");
@@ -505,7 +505,7 @@ public class ControlJuzgados implements Serializable {
                 observaciones = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosJuzgados:observaciones");
                 observaciones.setFilterStyle("display: none; visibility: hidden;");
 
-                PrimefacesContextUI.actualizar("form:datosJuzgados");
+                RequestContext.getCurrentInstance().update("form:datosJuzgados");
                 bandera = 0;
                 filtrarJuzgados = null;
                 tipoLista = 0;
@@ -540,11 +540,11 @@ public class ControlJuzgados implements Serializable {
             context.reset("formularioDialogos:lovEmpresas:globalFilter");
             PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
             PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
-            //PrimefacesContextUI.actualizar("formularioDialogos:lovEmpresas");
+            //RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresas");
             banderaModificacionEmpresa = 1;
-            PrimefacesContextUI.actualizar("form:datosJuzgados");
+            RequestContext.getCurrentInstance().update("form:datosJuzgados");
             mostrarTodos = false;
-            PrimefacesContextUI.actualizar("form:MOSTRARTODOS");
+            RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
 
         } else {
             banderaModificacionEmpresa = 0;
@@ -559,7 +559,7 @@ public class ControlJuzgados implements Serializable {
         banderaModificacionEmpresa = 0;
         index = -1;
         mostrarTodos = true;
-        PrimefacesContextUI.actualizar("form:MOSTRARTODOS");
+        RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
         PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
@@ -575,7 +575,7 @@ public class ControlJuzgados implements Serializable {
 
                 //mostrarBorrados
                 registrosBorrados = borrarJuzgados.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarJuzgados.clear();
             }
@@ -590,7 +590,7 @@ public class ControlJuzgados implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listJuzgadosPorCiudad = null;
-            PrimefacesContextUI.actualizar("form:datosJuzgados");
+            RequestContext.getCurrentInstance().update("form:datosJuzgados");
             k = 0;
             guardado = true;
 
@@ -603,13 +603,13 @@ public class ControlJuzgados implements Serializable {
              listCentrosCostosPorEmpresaBoton = null;
              getListCentrosCostosPorEmpresaBoton();
              index = -1;
-             PrimefacesContextUI.actualizar("formularioDialogos:lovCentrosCostos");
+             RequestContext.getCurrentInstance().update("formularioDialogos:lovCentrosCostos");
              PrimefacesContextUI.ejecutar("PF('buscarCentrosCostosDialogo').show()");
              banderaSeleccionCentrosCostosPorEmpresa = false;
              }*/
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         banderaModificacionEmpresa = 0;
     }
     private BigInteger verificarEerPrestamos;
@@ -629,7 +629,7 @@ public class ControlJuzgados implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
 
@@ -680,14 +680,14 @@ public class ControlJuzgados implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosJuzgados");
+            RequestContext.getCurrentInstance().update("form:datosJuzgados");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -705,23 +705,23 @@ public class ControlJuzgados implements Serializable {
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
                 if (cualCelda == 0) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarCCC");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCCC");
                     PrimefacesContextUI.ejecutar("PF('editarCCC').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarNCC");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarNCC");
                     PrimefacesContextUI.ejecutar("PF('editarNCC').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarTCC");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTCC");
                     PrimefacesContextUI.ejecutar("PF('editarTCC').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 3) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarMO");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarMO");
                     PrimefacesContextUI.ejecutar("PF('editarMO').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 4) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarCAT");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCAT");
                     PrimefacesContextUI.ejecutar("PF('editarCAT').show()");
                     cualCelda = -1;
                 }
@@ -739,7 +739,7 @@ public class ControlJuzgados implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 if (cualCelda == 4) {
                     System.out.println("\n ListaValoresBoton \n");
-                    PrimefacesContextUI.actualizar("formularioDialogos:tiposCentrosCostosDialogo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:tiposCentrosCostosDialogo");
                     PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -844,7 +844,7 @@ public class ControlJuzgados implements Serializable {
                     getListaCiudades();
                     System.err.println("CIUDAD GUARDADA EN NUEVO JUZGADO " + nuevoJuzgado.getCiudad().getNombre());
                 } else {
-                    PrimefacesContextUI.actualizar("form:tiposCentrosCostosDialogo");
+                    RequestContext.getCurrentInstance().update("form:tiposCentrosCostosDialogo");
                     PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
@@ -855,7 +855,7 @@ public class ControlJuzgados implements Serializable {
                 nuevoJuzgado.getCiudad().setNombre(" ");
                 System.out.println("NUEVO CIUDAD" + nuevoJuzgado.getCiudad().getNombre());
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoGrupoTipoCC");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoGrupoTipoCC");
         }
 
     }
@@ -868,7 +868,7 @@ public class ControlJuzgados implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:tiposCentrosCostosDialogo");
+        RequestContext.getCurrentInstance().update("form:tiposCentrosCostosDialogo");
         PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
     }
 
@@ -887,12 +887,12 @@ public class ControlJuzgados implements Serializable {
         if (tipoNuevo == 0) {
             tipoActualizacion = 1;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:tiposCentrosCostosDialogo");
+            RequestContext.getCurrentInstance().update("form:tiposCentrosCostosDialogo");
             PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
         } else if (tipoNuevo == 1) {
             tipoActualizacion = 2;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:tiposCentrosCostosDialogo");
+            RequestContext.getCurrentInstance().update("form:tiposCentrosCostosDialogo");
             PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
         }
     }
@@ -900,7 +900,7 @@ public class ControlJuzgados implements Serializable {
     public void mostrarDialogoNuevoJuzgado() {
         RequestContext context = RequestContext.getCurrentInstance();
         index = -1;
-        PrimefacesContextUI.actualizar("formularioDialogos:nuevoCentroCostos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCentroCostos");
         PrimefacesContextUI.ejecutar("PF('NuevoRegistroCentroCostos').show()");
     }
 
@@ -982,13 +982,13 @@ public class ControlJuzgados implements Serializable {
 
             }
             listJuzgadosPorCiudad.add(nuevoJuzgado);
-            PrimefacesContextUI.actualizar("form:datosJuzgados");
+            RequestContext.getCurrentInstance().update("form:datosJuzgados");
             nuevoJuzgado = new Juzgados();
             // index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosJuzgados:codigo");
@@ -1001,7 +1001,7 @@ public class ControlJuzgados implements Serializable {
                 oficina.setFilterStyle("display: none; visibility: hidden;");
                 observaciones = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosJuzgados:observaciones");
                 observaciones.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosJuzgados");
+                RequestContext.getCurrentInstance().update("form:datosJuzgados");
 
                 bandera = 0;
                 filtrarJuzgados = null;
@@ -1013,7 +1013,7 @@ public class ControlJuzgados implements Serializable {
             nuevoJuzgado.setCiudad(new Ciudades());
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
 
@@ -1055,7 +1055,7 @@ public class ControlJuzgados implements Serializable {
                 }
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarCentroCostos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCentroCostos");
                 PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCentroCostos').show()");
                 index = -1;
             }
@@ -1143,13 +1143,13 @@ public class ControlJuzgados implements Serializable {
                 listJuzgadosPorCiudad.add(duplicarJuzgado);
             }
             crearJuzgados.add(duplicarJuzgado);
-            PrimefacesContextUI.actualizar("form:datosJuzgados");
+            RequestContext.getCurrentInstance().update("form:datosJuzgados");
 
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 //CERRAR FILTRADO
@@ -1171,7 +1171,7 @@ public class ControlJuzgados implements Serializable {
                 observaciones.setFilterStyle("display: none; visibility: hidden;");
                 //7 COMBO BOX
 
-                PrimefacesContextUI.actualizar("form:datosJuzgados");
+                RequestContext.getCurrentInstance().update("form:datosJuzgados");
                 bandera = 0;
                 filtrarJuzgados = null;
                 tipoLista = 0;
@@ -1184,7 +1184,7 @@ public class ControlJuzgados implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -1215,7 +1215,7 @@ public class ControlJuzgados implements Serializable {
                     listaCiudades = null;
                     getListaCiudades();
                 } else {
-                    PrimefacesContextUI.actualizar("form:tiposCentrosCostosDialogo");
+                    RequestContext.getCurrentInstance().update("form:tiposCentrosCostosDialogo");
                     PrimefacesContextUI.ejecutar("PF('tiposCentrosCostosDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
@@ -1227,7 +1227,7 @@ public class ControlJuzgados implements Serializable {
                 duplicarJuzgado.getCiudad().setNombre(" ");
                 System.out.println("Valor CIUDAD : " + duplicarJuzgado.getCiudad().getNombre());
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoCentroCostos");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoCentroCostos");
         }
     }
 
@@ -1292,7 +1292,7 @@ public class ControlJuzgados implements Serializable {
         if (listaJuzgadosPorCiudadBoton == null) {
             listaJuzgadosPorCiudadBoton = administrarJuzgados.consultarJuzgadosPorCiudad(ciudadSeleccionada.getSecuencia());
             listJuzgadosPorCiudad = listaJuzgadosPorCiudadBoton;
-            PrimefacesContextUI.actualizar("form:datosJuzgados");
+            RequestContext.getCurrentInstance().update("form:datosJuzgados");
         }
         return listaJuzgadosPorCiudadBoton;
     }

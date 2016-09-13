@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Banner.BannerInicioRed;
 import Entidades.Conexiones;
 import Entidades.Recordatorios;
@@ -21,7 +22,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 //import org.primefaces.model.DefaultStreamedContent;
 //import org.primefaces.model.StreamedContent;
 
@@ -113,7 +113,7 @@ public class ControlInicioRed implements Serializable {
                                      for (int i = 0; i < listaRecordatorios.size(); i++) {
                                      contexto.addMessage(null, new FacesMessage("", listaRecordatorios.get(i)));
                                      }
-                                     PrimefacesContextUI.actualizar("form:growl");
+                                     RequestContext.getCurrentInstance().update("form:growl");
                                      }*/
                            obtenerConsultas();
                            /*listaConsultas = administrarInicioRed.consultasInicio();
@@ -150,36 +150,36 @@ public class ControlInicioRed implements Serializable {
                            conexion.setUsuarioso(System.getProperty("os.name") + " / " + System.getProperty("user.name"));
                            conexion.setUsuariobd(administrarInicioRed.usuarioBD());
                            administrarInicioRed.guardarDatosConexion(conexion);
-//                           PrimefacesContextUI.actualizar(actualizaciones);
+//                           RequestContext.getCurrentInstance().update(actualizaciones);
                            PrimefacesContextUI.actualizarLista(actualizaciones);
                         } else {
                            inicioSession = true;
                            sessionEntradaDefault();
                            contexto.addMessage(null, new FacesMessage("", "La contraseña puede ser incorrecta, ha expirado ó esta bloqueada."));
-//                           PrimefacesContextUI.actualizar("form:informacionAcceso");
-                           PrimefacesContextUI.actualizar("form:informacionAcceso");
+//                           RequestContext.getCurrentInstance().update("form:informacionAcceso");
+                           RequestContext.getCurrentInstance().update("form:informacionAcceso");
                         }
                      } else {
                         inicioSession = true;
                         sessionEntradaDefault();
                         contexto.addMessage(null, new FacesMessage("", "No se pudo crear el EntityManager, comuniquese con soporte.."));
-                        PrimefacesContextUI.actualizar("form:informacionAcceso");
+                        RequestContext.getCurrentInstance().update("form:informacionAcceso");
                      }
                   } else {
                      inicioSession = true;
                      sessionEntradaDefault();
                      contexto.addMessage(null, new FacesMessage("", "El usuario no existe o esta inactivo"));
-                     PrimefacesContextUI.actualizar("form:informacionAcceso");
+                     RequestContext.getCurrentInstance().update("form:informacionAcceso");
                   }
                } else {
                   inicioSession = true;
                   sessionEntradaDefault();
                   contexto.addMessage(null, new FacesMessage("", "Base de datos incorrecta."));
-                  PrimefacesContextUI.actualizar("form:informacionAcceso");
+                  RequestContext.getCurrentInstance().update("form:informacionAcceso");
                }
             } else {
                contexto.addMessage(null, new FacesMessage("", "Existen campos vacios."));
-               PrimefacesContextUI.actualizar("form:informacionAcceso");
+               RequestContext.getCurrentInstance().update("form:informacionAcceso");
             }
          } else {
             administrarInicioRed.cerrarSession(ses.getId());
@@ -192,12 +192,12 @@ public class ControlInicioRed implements Serializable {
             getNombreEmpresa();
             llenarBannerSinEntrar();
             PrimefacesContextUI.actualizarLista(actualizaciones);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
             inicioSession = true;
             acceso = false;
             sessionEntradaDefault();
          }
-         PrimefacesContextUI.actualizar("form:btnCandadoLogin");
+         RequestContext.getCurrentInstance().update("form:btnCandadoLogin");
          System.out.println("estadoinicio ingresar fin: " + estadoInicio);
       } catch (UnknownHostException e) {
          System.out.println("estadoinicio ingresar exception: " + estadoInicio);
@@ -209,17 +209,17 @@ public class ControlInicioRed implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (!estadoInicio) {
          msgSesion = "Iniciando sesión, por favor espere...";
-         PrimefacesContextUI.actualizar("formularioDialogos:estadoSesion");
+         RequestContext.getCurrentInstance().update("formularioDialogos:estadoSesion");
          PrimefacesContextUI.ejecutar("PF('estadoSesion').show()");
       } else {
          msgSesion = "Cerrando sesión, por favor espere...";
-//         PrimefacesContextUI.actualizar("formularioDialogos:estadoSesion");
-         PrimefacesContextUI.actualizar("formularioDialogos:estadoSesion");
+//         RequestContext.getCurrentInstance().update("formularioDialogos:estadoSesion");
+         RequestContext.getCurrentInstance().update("formularioDialogos:estadoSesion");
 //         PrimefacesContextUI.ejecutar("PF('estadoSesion').show()");
          PrimefacesContextUI.ejecutar("PF('estadoSesion').show()");
       }
       System.out.println("ControlInicioRed.validaDialogoSesion");
-      PrimefacesContextUI.actualizar("form:btnCandadoLogin");
+      RequestContext.getCurrentInstance().update("form:btnCandadoLogin");
    }
 
    private void llenarBannerSinEntrar() {
@@ -248,7 +248,7 @@ public class ControlInicioRed implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("", listaRecordatorios.get(i)));
          }
 //         request.update("form:growl");
-         PrimefacesContextUI.actualizar("form:growl");
+         RequestContext.getCurrentInstance().update("form:growl");
       }
    }
 
@@ -289,7 +289,7 @@ public class ControlInicioRed implements Serializable {
    public void nuevoRecordatorio() {
       getRecordatorio();
       RequestContext context = RequestContext.getCurrentInstance();
-      PrimefacesContextUI.actualizar("form:recordatorio");
+      RequestContext.getCurrentInstance().update("form:recordatorio");
    }
 
    public void inicioComponentes() throws IOException {
@@ -297,8 +297,8 @@ public class ControlInicioRed implements Serializable {
       getNombreEmpresa();
       getRecordatorio();
       RequestContext context = RequestContext.getCurrentInstance();
-      PrimefacesContextUI.actualizar("form:nombreEmpresa");
-      PrimefacesContextUI.actualizar("form:recordatorio");
+      RequestContext.getCurrentInstance().update("form:nombreEmpresa");
+      RequestContext.getCurrentInstance().update("form:recordatorio");
    }
 
    public void cambiarClave() {

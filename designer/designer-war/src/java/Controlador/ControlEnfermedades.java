@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Enfermedades;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -24,7 +25,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -144,7 +144,7 @@ public class ControlEnfermedades implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosEnfermedades");
+            RequestContext.getCurrentInstance().update("form:datosEnfermedades");
             bandera = 0;
             filtrarEnfermedades = null;
             tipoLista = 0;
@@ -160,8 +160,8 @@ public class ControlEnfermedades implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosEnfermedades");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosEnfermedades");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -171,7 +171,7 @@ public class ControlEnfermedades implements Serializable {
             codigo.setFilterStyle("width: 85%");
             descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
             descripcion.setFilterStyle("width: 85%");
-            PrimefacesContextUI.actualizar("form:datosEnfermedades");
+            RequestContext.getCurrentInstance().update("form:datosEnfermedades");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -180,7 +180,7 @@ public class ControlEnfermedades implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosEnfermedades");
+            RequestContext.getCurrentInstance().update("form:datosEnfermedades");
             bandera = 0;
             filtrarEnfermedades = null;
             tipoLista = 0;
@@ -239,7 +239,7 @@ public class ControlEnfermedades implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                         cancelarModificacion();
                     }
@@ -296,7 +296,7 @@ public class ControlEnfermedades implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                         cancelarModificacion();
                     }
@@ -305,8 +305,8 @@ public class ControlEnfermedades implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosEnfermedades");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosEnfermedades");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -347,14 +347,14 @@ public class ControlEnfermedades implements Serializable {
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosEnfermedades");
+            RequestContext.getCurrentInstance().update("form:datosEnfermedades");
             index = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -390,7 +390,7 @@ public class ControlEnfermedades implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 index = -1;
 
@@ -413,7 +413,7 @@ public class ControlEnfermedades implements Serializable {
 
         if (!borrarEnfermedades.isEmpty() || !crearEnfermedades.isEmpty() || !modificarEnfermedades.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -429,7 +429,7 @@ public class ControlEnfermedades implements Serializable {
 
                 //mostrarBorrados
                 registrosBorrados = borrarEnfermedades.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarEnfermedades.clear();
             }
@@ -444,12 +444,12 @@ public class ControlEnfermedades implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listEnfermedades = null;
-            PrimefacesContextUI.actualizar("form:datosEnfermedades");
+            RequestContext.getCurrentInstance().update("form:datosEnfermedades");
             k = 0;
             guardado = true;
         }
         index = -1;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -465,11 +465,11 @@ public class ControlEnfermedades implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -527,7 +527,7 @@ public class ControlEnfermedades implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosEnfermedades");
+                RequestContext.getCurrentInstance().update("form:datosEnfermedades");
                 bandera = 0;
                 filtrarEnfermedades = null;
                 tipoLista = 0;
@@ -543,10 +543,10 @@ public class ControlEnfermedades implements Serializable {
             listEnfermedades.add(nuevaEnfermedad);
             nuevaEnfermedad = new Enfermedades();
 
-            PrimefacesContextUI.actualizar("form:datosEnfermedades");
+            RequestContext.getCurrentInstance().update("form:datosEnfermedades");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroEnfermedades').hide()");
@@ -554,7 +554,7 @@ public class ControlEnfermedades implements Serializable {
             secRegistro = null;
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
@@ -588,7 +588,7 @@ public class ControlEnfermedades implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEnfer");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEnfer");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroEnfermedad').show()");
             index = -1;
             secRegistro = null;
@@ -640,12 +640,12 @@ public class ControlEnfermedades implements Serializable {
             }
             listEnfermedades.add(duplicarEnfermedad);
             crearEnfermedades.add(duplicarEnfermedad);
-            PrimefacesContextUI.actualizar("form:datosEnfermedades");
+            RequestContext.getCurrentInstance().update("form:datosEnfermedades");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 //CERRAR FILTRADO
@@ -653,7 +653,7 @@ public class ControlEnfermedades implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEnfermedades:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosEnfermedades");
+                RequestContext.getCurrentInstance().update("form:datosEnfermedades");
                 bandera = 0;
                 filtrarEnfermedades = null;
                 tipoLista = 0;
@@ -663,7 +663,7 @@ public class ControlEnfermedades implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }

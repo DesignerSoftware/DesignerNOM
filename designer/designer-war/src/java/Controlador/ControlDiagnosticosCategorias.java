@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Diagnosticoscapitulos;
 import Entidades.Diagnosticoscategorias;
 import Entidades.Diagnosticossecciones;
@@ -29,7 +30,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -173,7 +173,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             nombreArchivo = "DiagnosticosCapitulosXML";
             listaDiagnosticosSecciones = null;
             listaDiagnosticosSecciones = administrarDiagnosticosCategorias.consultarDiagnosticoSeccion(diagnosticoCapituloSeleccionado.getSecuencia());
-            PrimefacesContextUI.actualizar("form:datosSecciones");
+            RequestContext.getCurrentInstance().update("form:datosSecciones");
             contarRegistrosSecciones();
             if (cualCeldaCapitulo == 0) {
                 diagnosticoCapituloSeleccionado.getCodigo();
@@ -192,7 +192,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             nombreArchivo = "DiagnosticosSeccionesXML";
             listaDiagnosticosCategorias = null;
             listaDiagnosticosCategorias = administrarDiagnosticosCategorias.consultarDiagnosticoCategoria(diagnosticoSeccionSeleccionado.getSecuencia());
-            PrimefacesContextUI.actualizar("form:datosCategorias");
+            RequestContext.getCurrentInstance().update("form:datosCategorias");
             contarRegistros();
             if (cualCeldaSeccion == 0) {
                 diagnosticoSeccionSeleccionado.getCodigo();
@@ -236,9 +236,9 @@ public class ControlDiagnosticosCategorias implements Serializable {
             codSeccion.setFilterStyle("display: none; visibility: hidden;");
             descSeccion = (Column) c.getViewRoot().findComponent("form:datosSecciones:descripcionSeccion");
             descSeccion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosCategorias");
-            PrimefacesContextUI.actualizar("form:datosCapitulos");
-            PrimefacesContextUI.actualizar("form:datosSecciones");
+            RequestContext.getCurrentInstance().update("form:datosCategorias");
+            RequestContext.getCurrentInstance().update("form:datosCapitulos");
+            RequestContext.getCurrentInstance().update("form:datosSecciones");
             bandera = 0;
             listaFiltrarDiagnosticosCategorias = null;
             listaFiltrarDiagnosticosCapitulos = null;
@@ -280,10 +280,10 @@ public class ControlDiagnosticosCategorias implements Serializable {
         k = 0;
         guardado = true;
         permitirIndex = true;
-        PrimefacesContextUI.actualizar("form:datosCategorias");
-        PrimefacesContextUI.actualizar("form:datosCapitulos");
-        PrimefacesContextUI.actualizar("form:datosSecciones");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosCategorias");
+        RequestContext.getCurrentInstance().update("form:datosCapitulos");
+        RequestContext.getCurrentInstance().update("form:datosSecciones");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -302,9 +302,9 @@ public class ControlDiagnosticosCategorias implements Serializable {
             codSeccion.setFilterStyle("display: none; visibility: hidden;");
             descSeccion = (Column) c.getViewRoot().findComponent("form:datosSecciones:descripcionSeccion");
             descSeccion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosCategorias");
-            PrimefacesContextUI.actualizar("form:datosCapitulos");
-            PrimefacesContextUI.actualizar("form:datosSecciones");
+            RequestContext.getCurrentInstance().update("form:datosCategorias");
+            RequestContext.getCurrentInstance().update("form:datosCapitulos");
+            RequestContext.getCurrentInstance().update("form:datosSecciones");
             bandera = 0;
             listaFiltrarDiagnosticosCategorias = null;
             listaFiltrarDiagnosticosCapitulos = null;
@@ -333,10 +333,10 @@ public class ControlDiagnosticosCategorias implements Serializable {
         listaDiagnosticosSecciones = null;
         guardado = true;
         permitirIndex = true;
-        PrimefacesContextUI.actualizar("form:datosCategorias");
-        PrimefacesContextUI.actualizar("form:datosCapitulos");
-        PrimefacesContextUI.actualizar("form:datosSecciones");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosCategorias");
+        RequestContext.getCurrentInstance().update("form:datosCapitulos");
+        RequestContext.getCurrentInstance().update("form:datosSecciones");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -355,9 +355,9 @@ public class ControlDiagnosticosCategorias implements Serializable {
             codSeccion.setFilterStyle("width: 85%");
             descSeccion = (Column) c.getViewRoot().findComponent("form:datosSecciones:descripcionSeccion");
             descSeccion.setFilterStyle("width: 85%");
-            PrimefacesContextUI.actualizar("form:datosCategorias");
-            PrimefacesContextUI.actualizar("form:datosCapitulos");
-            PrimefacesContextUI.actualizar("form:datosSecciones");
+            RequestContext.getCurrentInstance().update("form:datosCategorias");
+            RequestContext.getCurrentInstance().update("form:datosCapitulos");
+            RequestContext.getCurrentInstance().update("form:datosSecciones");
             bandera = 1;
         } else if (bandera == 1) {
             altoTabla = "50";
@@ -373,9 +373,9 @@ public class ControlDiagnosticosCategorias implements Serializable {
             codSeccion.setFilterStyle("display: none; visibility: hidden;");
             descSeccion = (Column) c.getViewRoot().findComponent("form:datosSecciones:descripcionSeccion");
             descSeccion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosCapitulos");
-            PrimefacesContextUI.actualizar("form:datosCategorias");
-            PrimefacesContextUI.actualizar("form:datosSecciones");
+            RequestContext.getCurrentInstance().update("form:datosCapitulos");
+            RequestContext.getCurrentInstance().update("form:datosCategorias");
+            RequestContext.getCurrentInstance().update("form:datosSecciones");
             bandera = 0;
             listaFiltrarDiagnosticosCategorias = null;
             listaFiltrarDiagnosticosCapitulos = null;
@@ -443,15 +443,15 @@ public class ControlDiagnosticosCategorias implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionModificar");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionModificar");
             PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
         }
 
-        PrimefacesContextUI.actualizar("form:datosCategorias");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosCategorias");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -513,15 +513,15 @@ public class ControlDiagnosticosCategorias implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionModificar");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionModificar");
             PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
         }
 
-        PrimefacesContextUI.actualizar("form:datosCapitulos");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosCapitulos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void modificarSeccion(Diagnosticossecciones seccion, String confirmarCambio, String valorConfirmar) {
@@ -583,15 +583,15 @@ public class ControlDiagnosticosCategorias implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionModificar");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionModificar");
             PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
         }
 
-        PrimefacesContextUI.actualizar("form:datosSecciones");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosSecciones");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -611,14 +611,14 @@ public class ControlDiagnosticosCategorias implements Serializable {
             if (tipoLista == 1) {
                 listaFiltrarDiagnosticosCategorias.remove(diagnosticoCategoriaSeleccionado);
             }
-            PrimefacesContextUI.actualizar("form:datosCategorias");
+            RequestContext.getCurrentInstance().update("form:datosCategorias");
             modificarInfoRegistroCategorias(listaDiagnosticosCategorias.size());
             diagnosticoCategoriaSeleccionado = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
         if (diagnosticoCapituloSeleccionado != null) {
@@ -635,14 +635,14 @@ public class ControlDiagnosticosCategorias implements Serializable {
             if (tipoLista == 1) {
                 listaFiltrarDiagnosticosCapitulos.remove(diagnosticoCapituloSeleccionado);
             }
-            PrimefacesContextUI.actualizar("form:datosCapitulos");
+            RequestContext.getCurrentInstance().update("form:datosCapitulos");
             modificarInfoRegistroCapitulos(listaDiagnosticosCapitulos.size());
             diagnosticoCapituloSeleccionado = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         if (diagnosticoSeccionSeleccionado != null) {
             if (!listaDiagnosticosSeccionesModificar.isEmpty() && listaDiagnosticosSeccionesModificar.contains(diagnosticoSeccionSeleccionado)) {
@@ -658,14 +658,14 @@ public class ControlDiagnosticosCategorias implements Serializable {
             if (tipoLista == 1) {
                 listaFiltrarDiagnosticosSecciones.remove(diagnosticoSeccionSeleccionado);
             }
-            PrimefacesContextUI.actualizar("form:datosSecciones");
+            RequestContext.getCurrentInstance().update("form:datosSecciones");
             modificarInfoRegistroSecciones(listaDiagnosticosSecciones.size());
             diagnosticoSeccionSeleccionado = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else {
             PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
         }
@@ -675,15 +675,15 @@ public class ControlDiagnosticosCategorias implements Serializable {
 
         if (!listaDiagnosticosCategoriasBorrar.isEmpty() || !listaDiagnosticosCategoriasCrear.isEmpty() || !listaDiagnosticosCategoriasModificar.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("formularioDialogos:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         } else if (!listaDiagnosticosCapitulosBorrar.isEmpty() || !listaDiagnosticosCapitulosCrear.isEmpty() || !listaDiagnosticosCapitulosModificar.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("formularioDialogos:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         } else if (!listaDiagnosticosSeccionesBorrar.isEmpty() || !listaDiagnosticosSeccionesCrear.isEmpty() || !listaDiagnosticosSeccionesModificar.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("formularioDialogos:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -695,7 +695,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             if (!listaDiagnosticosCategoriasBorrar.isEmpty()) {
                 administrarDiagnosticosCategorias.borrarDiagnosticoCategoria(listaDiagnosticosCategoriasBorrar);
                 registrosBorrados = listaDiagnosticosCategoriasBorrar.size();
-                PrimefacesContextUI.actualizar("formularioDialogos:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("formularioDialogos:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 listaDiagnosticosCategoriasBorrar.clear();
             }
@@ -709,16 +709,16 @@ public class ControlDiagnosticosCategorias implements Serializable {
             }
             listaDiagnosticosCategorias = null;
             getListaDiagnosticosCategorias();
-            PrimefacesContextUI.actualizar("form:datosCategorias");
+            RequestContext.getCurrentInstance().update("form:datosCategorias");
             contarRegistros();
             k = 0;
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         diagnosticoCategoriaSeleccionado = null;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void guardarCapitulo() {
@@ -727,7 +727,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             if (!listaDiagnosticosCapitulosBorrar.isEmpty()) {
                 administrarDiagnosticosCategorias.borrarDiagnosticoCapitulo(listaDiagnosticosCapitulosBorrar);
                 registrosBorrados = listaDiagnosticosCapitulosBorrar.size();
-                PrimefacesContextUI.actualizar("formularioDialogos:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("formularioDialogos:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 listaDiagnosticosCapitulosBorrar.clear();
             }
@@ -742,15 +742,15 @@ public class ControlDiagnosticosCategorias implements Serializable {
             listaDiagnosticosCapitulos = null;
             getListaDiagnosticosCapitulos();
             contarRegistrosCapitulos();
-            PrimefacesContextUI.actualizar("form:datosCapitulos");
+            RequestContext.getCurrentInstance().update("form:datosCapitulos");
             k = 0;
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         diagnosticoCapituloSeleccionado = null;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void guardarSeccion() {
@@ -759,7 +759,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             if (!listaDiagnosticosSeccionesBorrar.isEmpty()) {
                 administrarDiagnosticosCategorias.borrarDiagnosticoSeccion(listaDiagnosticosSeccionesBorrar);
                 registrosBorrados = listaDiagnosticosSeccionesBorrar.size();
-                PrimefacesContextUI.actualizar("formularioDialogos:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("formularioDialogos:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 listaDiagnosticosSeccionesBorrar.clear();
             }
@@ -773,16 +773,16 @@ public class ControlDiagnosticosCategorias implements Serializable {
             }
             listaDiagnosticosSecciones = null;
             getListaDiagnosticosSecciones();
-            PrimefacesContextUI.actualizar("form:datosSecciones");
+            RequestContext.getCurrentInstance().update("form:datosSecciones");
             contarRegistrosSecciones();
             k = 0;
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         diagnosticoSeccionSeleccionado = null;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void editarCelda() {
@@ -792,11 +792,11 @@ public class ControlDiagnosticosCategorias implements Serializable {
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 if (cualCeldaCapitulo == 0) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editCodigoCapitulo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editCodigoCapitulo");
                     PrimefacesContextUI.ejecutar("PF('editCodigoCapitulo').show()");
                     cualCeldaCapitulo = -1;
                 } else if (cualCeldaCapitulo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editDescripcionCapitulo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcionCapitulo");
                     PrimefacesContextUI.ejecutar("PF('editDescripcionCapitulo').show()");
                     cualCeldaCapitulo = -1;
                 }
@@ -807,11 +807,11 @@ public class ControlDiagnosticosCategorias implements Serializable {
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 if (cualCeldaSeccion == 0) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editCodigoSeccion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editCodigoSeccion");
                     PrimefacesContextUI.ejecutar("PF('editCodigoSeccion').show()");
                     cualCeldaSeccion = -1;
                 } else if (cualCeldaSeccion == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editDescripcionSeccion");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcionSeccion");
                     PrimefacesContextUI.ejecutar("PF('editDescripcionSeccion').show()");
                     cualCeldaSeccion = -1;
                 }
@@ -821,11 +821,11 @@ public class ControlDiagnosticosCategorias implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -870,7 +870,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosCategorias:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosCategorias");
+                RequestContext.getCurrentInstance().update("form:datosCategorias");
                 bandera = 0;
                 listaFiltrarDiagnosticosCategorias = null;
                 tipoLista = 0;
@@ -883,16 +883,16 @@ public class ControlDiagnosticosCategorias implements Serializable {
             listaDiagnosticosCategorias.add(nuevoDiagnosticoCategoria);
             diagnosticoCategoriaSeleccionado = nuevoDiagnosticoCategoria;
             nuevoDiagnosticoCategoria = new Diagnosticoscategorias();
-            PrimefacesContextUI.actualizar("form:datosCategorias");
+            RequestContext.getCurrentInstance().update("form:datosCategorias");
             modificarInfoRegistroCategorias(listaDiagnosticosCategorias.size());
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroDiagnosticoCategorias').hide()");
         } else {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoDiagnosticoCategorias");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoDiagnosticoCategorias");
             PrimefacesContextUI.ejecutar("PF('validacionNuevoDiagnosticoCategorias').show()");
             contador = 0;
         }
@@ -933,7 +933,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
                 codCapitulo.setFilterStyle("display: none; visibility: hidden;");
                 descCapitulo = (Column) c.getViewRoot().findComponent("form:datosCapitulos:descripcionCapitulo");
                 descCapitulo.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosCapitulos");
+                RequestContext.getCurrentInstance().update("form:datosCapitulos");
                 bandera = 0;
                 listaFiltrarDiagnosticosCapitulos = null;
                 tipoLista = 0;
@@ -946,16 +946,16 @@ public class ControlDiagnosticosCategorias implements Serializable {
             listaDiagnosticosCapitulos.add(nuevoDiagnosticoCapitulo);
             diagnosticoCapituloSeleccionado = nuevoDiagnosticoCapitulo;
             nuevoDiagnosticoCapitulo = new Diagnosticoscapitulos();
-            PrimefacesContextUI.actualizar("form:datosCapitulos");
+            RequestContext.getCurrentInstance().update("form:datosCapitulos");
             modificarInfoRegistroCapitulos(listaDiagnosticosCapitulos.size());
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroDiagnosticoCapitulos').hide()");
         } else {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoDiagnosticoCapitulos");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoDiagnosticoCapitulos");
             PrimefacesContextUI.ejecutar("PF('validacionNuevoDiagnosticoCapitulos').show()");
             contador = 0;
         }
@@ -996,7 +996,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
                 codSeccion.setFilterStyle("display: none; visibility: hidden;");
                 descSeccion = (Column) c.getViewRoot().findComponent("form:datosSecciones:descripcionSeccion");
                 descSeccion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosSecciones");
+                RequestContext.getCurrentInstance().update("form:datosSecciones");
                 bandera = 0;
                 listaFiltrarDiagnosticosSecciones = null;
                 tipoLista = 0;
@@ -1009,16 +1009,16 @@ public class ControlDiagnosticosCategorias implements Serializable {
             listaDiagnosticosSecciones.add(nuevoDiagnosticoSeccion);
             diagnosticoSeccionSeleccionado = nuevoDiagnosticoSeccion;
             nuevoDiagnosticoSeccion = new Diagnosticossecciones();
-            PrimefacesContextUI.actualizar("form:datosSecciones");
+            RequestContext.getCurrentInstance().update("form:datosSecciones");
             modificarInfoRegistroCapitulos(listaDiagnosticosSecciones.size());
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroDiagnosticoSeccion').hide()");
         } else {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoDiagnosticoSecciones");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoDiagnosticoSecciones");
             PrimefacesContextUI.ejecutar("PF('validacionNuevoDiagnosticoSecciones').show()");
             contador = 0;
         }
@@ -1070,7 +1070,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             duplicarDiagnosticoCategoria.setCodigo(diagnosticoCategoriaSeleccionado.getCodigo());
             duplicarDiagnosticoCategoria.setDescripcion(diagnosticoCategoriaSeleccionado.getDescripcion());
 
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarC");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarC");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroDiagnosticoCategoria').show()");
         } else if (diagnosticoCapituloSeleccionado != null) {
             duplicarDiagnosticoCapitulo = new Diagnosticoscapitulos();
@@ -1081,7 +1081,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             duplicarDiagnosticoCapitulo.setCodigo(diagnosticoCapituloSeleccionado.getCodigo());
             duplicarDiagnosticoCapitulo.setDescripcion(diagnosticoCapituloSeleccionado.getDescripcion());
 
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCap");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCap");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroDiagnosticoCapitulo').show()");
         } else if (diagnosticoSeccionSeleccionado != null) {
             duplicarDiagnosticoSeccion = new Diagnosticossecciones();
@@ -1092,7 +1092,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             duplicarDiagnosticoSeccion.setCodigo(diagnosticoSeccionSeleccionado.getCodigo());
             duplicarDiagnosticoSeccion.setDescripcion(diagnosticoSeccionSeleccionado.getDescripcion());
 
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarS");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarS");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroDiagnosticoSeccion').show()");
         }
     }
@@ -1128,11 +1128,11 @@ public class ControlDiagnosticosCategorias implements Serializable {
             listaDiagnosticosCategorias.add(duplicarDiagnosticoCategoria);
             listaDiagnosticosCategoriasCrear.add(duplicarDiagnosticoCategoria);
             diagnosticoCategoriaSeleccionado = duplicarDiagnosticoCategoria;
-            PrimefacesContextUI.actualizar("form:datosCategorias");
+            RequestContext.getCurrentInstance().update("form:datosCategorias");
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             modificarInfoRegistroCategorias(listaDiagnosticosCategorias.size());
 
             if (bandera == 1) {
@@ -1142,7 +1142,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosCategorias:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosCategorias");
+                RequestContext.getCurrentInstance().update("form:datosCategorias");
                 bandera = 0;
                 listaFiltrarDiagnosticosCategorias = null;
                 tipoLista = 0;
@@ -1151,7 +1151,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroDiagnosticoCategoria').hide()");
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionDuplicarDiagnosticoCategoria");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionDuplicarDiagnosticoCategoria");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarDiagnosticoCategoria').show()");
         }
 
@@ -1188,11 +1188,11 @@ public class ControlDiagnosticosCategorias implements Serializable {
             listaDiagnosticosCapitulos.add(duplicarDiagnosticoCapitulo);
             listaDiagnosticosCapitulosCrear.add(duplicarDiagnosticoCapitulo);
             diagnosticoCapituloSeleccionado = duplicarDiagnosticoCapitulo;
-            PrimefacesContextUI.actualizar("form:datosCapitulos");
+            RequestContext.getCurrentInstance().update("form:datosCapitulos");
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             modificarInfoRegistroCapitulos(listaDiagnosticosCapitulos.size());
 
             if (bandera == 1) {
@@ -1202,7 +1202,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
                 codCapitulo.setFilterStyle("display: none; visibility: hidden;");
                 descCapitulo = (Column) c.getViewRoot().findComponent("form:datosCapitulos:descripcionCapitulo");
                 descCapitulo.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosCapitulos");
+                RequestContext.getCurrentInstance().update("form:datosCapitulos");
                 bandera = 0;
                 listaFiltrarDiagnosticosCapitulos = null;
                 tipoLista = 0;
@@ -1211,7 +1211,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroDiagnosticoCapitulo').hide()");
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionDuplicarDiagnosticoCategoria");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionDuplicarDiagnosticoCategoria");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarDiagnosticoCategoria').show()");
         }
     }
@@ -1247,11 +1247,11 @@ public class ControlDiagnosticosCategorias implements Serializable {
             listaDiagnosticosSecciones.add(duplicarDiagnosticoSeccion);
             listaDiagnosticosSeccionesCrear.add(duplicarDiagnosticoSeccion);
             diagnosticoSeccionSeleccionado = duplicarDiagnosticoSeccion;
-            PrimefacesContextUI.actualizar("form:datosSecciones");
+            RequestContext.getCurrentInstance().update("form:datosSecciones");
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             modificarInfoRegistroSecciones(listaDiagnosticosSecciones.size());
 
             if (bandera == 1) {
@@ -1261,7 +1261,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
                 codSeccion.setFilterStyle("display: none; visibility: hidden;");
                 descSeccion = (Column) c.getViewRoot().findComponent("form:datosSecciones:descripcionSeccion");
                 descSeccion.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosSecciones");
+                RequestContext.getCurrentInstance().update("form:datosSecciones");
                 bandera = 0;
                 listaFiltrarDiagnosticosSecciones = null;
                 tipoLista = 0;
@@ -1270,7 +1270,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroDiagnosticoSeccion').hide()");
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionDuplicarDiagnosticoCategoria");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionDuplicarDiagnosticoCategoria");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarDiagnosticoCategoria').show()");
         }
     }
@@ -1386,17 +1386,17 @@ public class ControlDiagnosticosCategorias implements Serializable {
 
     public void modificarInfoRegistroCategorias(int valor) {
         infoRegistroCategorias = String.valueOf(valor);
-        PrimefacesContextUI.actualizar("form:infoRegistroCategoria");
+        RequestContext.getCurrentInstance().update("form:infoRegistroCategoria");
     }
 
     public void modificarInfoRegistroCapitulos(int valor) {
         infoRegistroCapitulos = String.valueOf(valor);
-        PrimefacesContextUI.actualizar("form:infoRegistroCapitulo");
+        RequestContext.getCurrentInstance().update("form:infoRegistroCapitulo");
     }
 
     public void modificarInfoRegistroSecciones(int valor) {
         infoRegistroSecciones = String.valueOf(valor);
-        PrimefacesContextUI.actualizar("form:infoRegistroSeccion");
+        RequestContext.getCurrentInstance().update("form:infoRegistroSeccion");
     }
 
     public void contarRegistros() {
@@ -1424,22 +1424,22 @@ public class ControlDiagnosticosCategorias implements Serializable {
     }
 
     public void mostrarDialogoInsertarCapitulo() {
-        PrimefacesContextUI.actualizar("formularioDialogos:nuevoRegistroDiagnosticoCapitulos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoRegistroDiagnosticoCapitulos");
         PrimefacesContextUI.ejecutar("PF('formularioDialogos:nuevoRegistroDiagnosticoCapitulos').show()");
     }
 
     public void mostrarDialogoInsertarCategoria() {
-        PrimefacesContextUI.actualizar("formularioDialogos:nuevoRegistroDiagnosticoCategoria");
+        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoRegistroDiagnosticoCategoria");
         PrimefacesContextUI.ejecutar("PF('formularioDialogos:nuevoRegistroDiagnosticoCategoria').show()");
     }
 
     public void mostrarDialogoInsertarSeccion() {
-        PrimefacesContextUI.actualizar("formularioDialogos:nuevoRegistroDiagnosticoSeccion");
+        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoRegistroDiagnosticoSeccion");
         PrimefacesContextUI.ejecutar("PF('formularioDialogos:nuevoRegistroDiagnosticoSeccion').show()");
     }
 
     public void mostrarDialogoElegirTabla() {
-        PrimefacesContextUI.actualizar("formularioDialogos:seleccionarTablaNewReg");
+        RequestContext.getCurrentInstance().update("formularioDialogos:seleccionarTablaNewReg");
         PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarTablaNewReg').show()");
     }
 

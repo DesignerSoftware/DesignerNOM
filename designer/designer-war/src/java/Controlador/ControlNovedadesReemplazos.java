@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Cargos;
 import Entidades.Empleados;
 import Entidades.Encargaturas;
@@ -30,7 +31,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 @ManagedBean
 @SessionScoped
@@ -204,7 +204,7 @@ public class ControlNovedadesReemplazos implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 encargaturaSeleccionada = null;
@@ -220,12 +220,12 @@ public class ControlNovedadesReemplazos implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 encargaturaSeleccionada = null;
             }
-            PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
         } else if (confirmarCambio.equalsIgnoreCase("REEMPLAZADO")) {
             if (tipoLista == 0) {
                 encargaturaSeleccionada.getReemplazado().getPersona().setNombreCompleto(Reemplazado);
@@ -249,7 +249,7 @@ public class ControlNovedadesReemplazos implements Serializable {
                 getListaEmpleados();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:empleadosAbajoDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:empleadosAbajoDialogo");
                 PrimefacesContextUI.ejecutar("PF('empleadosAbajoDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -275,7 +275,7 @@ public class ControlNovedadesReemplazos implements Serializable {
                 getListaTiposReemplazos();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:tiposReemplazosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:tiposReemplazosDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposReemplazosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -301,7 +301,7 @@ public class ControlNovedadesReemplazos implements Serializable {
                 getListaMotivosReemplazos();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:motivosReemplazosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:motivosReemplazosDialogo");
                 PrimefacesContextUI.ejecutar("PF('motivosReemplazosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -327,7 +327,7 @@ public class ControlNovedadesReemplazos implements Serializable {
                 getListaEstructuras();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:estructurasDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
                 PrimefacesContextUI.ejecutar("PF('estructurasDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -353,7 +353,7 @@ public class ControlNovedadesReemplazos implements Serializable {
                 getListaCargos();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:cargosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
                 PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -368,7 +368,7 @@ public class ControlNovedadesReemplazos implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 encargaturaSeleccionada = null;
@@ -383,14 +383,14 @@ public class ControlNovedadesReemplazos implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 encargaturaSeleccionada = null;
                 encargaturaSeleccionada = null;
             }
         }
-        PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
     }
 
     //Ubicacion Celda Arriba 
@@ -398,7 +398,7 @@ public class ControlNovedadesReemplazos implements Serializable {
         secuenciaEmpleado = seleccionMostrar.getSecuencia();
         listaEncargaturas = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
     }
 
     //Ubicacion Celda Indice Abajo.
@@ -410,7 +410,7 @@ public class ControlNovedadesReemplazos implements Serializable {
             //tablaImprimir = ":formExportar:datosVigenciasFormalesExportar";
             //nombreArchivo = "VigenciasFormalesXML";
             //RequestContext context = RequestContext.getCurrentInstance();
-            //PrimefacesContextUI.actualizar("form:exportarXML");
+            //RequestContext.getCurrentInstance().update("form:exportarXML");
             if (tipoLista == 0) {
                 encargaturaSeleccionada.getSecuencia();
                 if (cualCelda == 0) {
@@ -458,22 +458,22 @@ public class ControlNovedadesReemplazos implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:empleadosDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
             PrimefacesContextUI.ejecutar("PF('empleadosDialogo').show()");
         } else if (dlg == 1) {
-            PrimefacesContextUI.actualizar("formularioDialogos:tiposReemplazosDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:tiposReemplazosDialogo");
             PrimefacesContextUI.ejecutar("PF('tiposReemplazosDialogo').show()");
         } else if (dlg == 2) {
-            PrimefacesContextUI.actualizar("formularioDialogos:motivosReemplazosDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:motivosReemplazosDialogo");
             PrimefacesContextUI.ejecutar("PF('motivosReemplazosDialogo').show()");
         } else if (dlg == 3) {
-            PrimefacesContextUI.actualizar("formularioDialogos:cargosDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
             PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
         } else if (dlg == 4) {
-            PrimefacesContextUI.actualizar("formularioDialogos:estructurasDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
             PrimefacesContextUI.ejecutar("PF('estructurasDialogo').show()");
         } else if (dlg == 5) {
-            PrimefacesContextUI.actualizar("formularioDialogos:empleadosAbajoDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:empleadosAbajoDialogo");
             PrimefacesContextUI.ejecutar("PF('empleadosAbajoDialogo').show()");
         }
     }
@@ -492,8 +492,8 @@ public class ControlNovedadesReemplazos implements Serializable {
             getListaEncargaturas();
         }
         listaEncargaturas = null;
-        PrimefacesContextUI.actualizar("form:datosEmpleados");
-        PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosEmpleados");
+        RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
         filtradosListaFalsaEmpleados = null;
         aceptar = true;
         encargaturaSeleccionada = null;
@@ -519,9 +519,9 @@ public class ControlNovedadesReemplazos implements Serializable {
         context.reset("formularioDialogos:LOVEmpleados:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVEmpleados').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('empleadosDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVEmpleados");
-        PrimefacesContextUI.actualizar("form:datosEmpleados");
-        PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVEmpleados");
+        RequestContext.getCurrentInstance().update("form:datosEmpleados");
+        RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
         filtradosListaFalsaEmpleados = null;
         seleccionEmpleados = null;
         aceptar = true;
@@ -556,7 +556,7 @@ public class ControlNovedadesReemplazos implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             for (int i = 0; i < listaEncargaturas.size(); i++) {
@@ -564,13 +564,13 @@ public class ControlNovedadesReemplazos implements Serializable {
                 System.out.println("Seleccionado: " + seleccionEmpleadosReemplazados.getPersona().getNombreCompleto());
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
         } else if (tipoActualizacion == 1) {
             nuevaEncargatura.setReemplazado(seleccionEmpleadosReemplazados);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaEncargatura");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEncargatura");
         } else if (tipoActualizacion == 2) {
             duplicarEncargatura.setReemplazado(seleccionEmpleadosReemplazados);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEncargatura");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEncargatura");
         }
         filtradoslistaEmpleados = null;
         seleccionEmpleadosReemplazados = null;
@@ -582,7 +582,7 @@ public class ControlNovedadesReemplazos implements Serializable {
         context.reset("formularioDialogos:LOVEmpleadosAbajo:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVEmpleadosAbajo').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('empleadosAbajoDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVEmpleadosAbajo");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVEmpleadosAbajo");
     }
 
     public void actualizarTiposReemplazos() {
@@ -609,16 +609,16 @@ public class ControlNovedadesReemplazos implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
         } else if (tipoActualizacion == 1) {
             nuevaEncargatura.setTiporeemplazo(seleccionTiposReemplazos);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaEncargatura");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEncargatura");
         } else if (tipoActualizacion == 2) {
             duplicarEncargatura.setTiporeemplazo(seleccionTiposReemplazos);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEncargatura");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEncargatura");
 
         }
         filtradoslistaTiposReemplazos = null;
@@ -631,7 +631,7 @@ public class ControlNovedadesReemplazos implements Serializable {
         context.reset("formularioDialogos:LOVTiposReemplazos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVTiposReemplazos').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('tiposReemplazosDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVTiposReemplazos");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposReemplazos");
     }
 
     public void actualizarCargos() {
@@ -659,7 +659,7 @@ public class ControlNovedadesReemplazos implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             /*for (int i = 0; i < listaEncargaturas.size(); i++) {
@@ -667,13 +667,13 @@ public class ControlNovedadesReemplazos implements Serializable {
              System.out.println("Seleccionado: " + seleccionEmpleadosReemplazados.getPersona().getNombreCompleto());
              }*/
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
         } else if (tipoActualizacion == 1) {
             nuevaEncargatura.setCargo(seleccionCargos);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaEncargatura");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEncargatura");
         } else if (tipoActualizacion == 2) {
             duplicarEncargatura.setCargo(seleccionCargos);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEncargatura");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEncargatura");
         }
         filtradoslistaCargos = null;
         seleccionCargos = null;
@@ -685,7 +685,7 @@ public class ControlNovedadesReemplazos implements Serializable {
         context.reset("formularioDialogos:LOVCargos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVCargos').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('cargosDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVCargos");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVCargos");
     }
 
     public void actualizarMotivosReemplazos() {
@@ -712,16 +712,16 @@ public class ControlNovedadesReemplazos implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
         } else if (tipoActualizacion == 1) {
             nuevaEncargatura.setMotivoreemplazo(seleccionMotivosReemplazos);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaEncargatura");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEncargatura");
         } else if (tipoActualizacion == 2) {
             duplicarEncargatura.setMotivoreemplazo(seleccionMotivosReemplazos);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEncargatura");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEncargatura");
 
         }
         filtradoslistaTiposReemplazos = null;
@@ -734,7 +734,7 @@ public class ControlNovedadesReemplazos implements Serializable {
         context.reset("formularioDialogos:LOVMotivosReemplazos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVMotivosReemplazos').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('motivosReemplazosDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVMotivosReemplazos");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVMotivosReemplazos");
     }
 
     public void actualizarEstructuras() {
@@ -761,16 +761,16 @@ public class ControlNovedadesReemplazos implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
         } else if (tipoActualizacion == 1) {
             nuevaEncargatura.setEstructura(seleccionEstructuras);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaEncargatura");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEncargatura");
         } else if (tipoActualizacion == 2) {
             duplicarEncargatura.setEstructura(seleccionEstructuras);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEncargatura");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEncargatura");
 
         }
         filtradoslistaEstructuras = null;
@@ -783,7 +783,7 @@ public class ControlNovedadesReemplazos implements Serializable {
         context.reset("formularioDialogos:LOVEstructuras:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVEstructuras').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('estructurasDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVEstructuras");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVEstructuras");
     }
 
     public void cancelarCambioEstructuras() {
@@ -912,7 +912,7 @@ public class ControlNovedadesReemplazos implements Serializable {
             nREstructuras = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nREstructuras");
             nREstructuras.setFilterStyle("width: 85%;");
             altoTabla = "135";
-            PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
@@ -935,7 +935,7 @@ public class ControlNovedadesReemplazos implements Serializable {
             nREstructuras = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nREstructuras");
             nREstructuras.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "155";
-            PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
             bandera = 0;
             filtradosListaEncargaturas = null;
             tipoLista = 0;
@@ -972,7 +972,7 @@ public class ControlNovedadesReemplazos implements Serializable {
 
         if ((!nuevaEncargatura.getReemplazado().getPersona().getNombreCompleto().equals("  ") && !nuevaEncargatura.getReemplazado().getPersona().getNombreCompleto().equals(" ")) && (!nuevaEncargatura.getCargo().getNombre().equals(" ") && !nuevaEncargatura.getCargo().getNombre().equals(""))) {
             System.out.println("Entro a Inconsistencia");
-            PrimefacesContextUI.actualizar("formularioDialogos:inconsistencia");
+            RequestContext.getCurrentInstance().update("formularioDialogos:inconsistencia");
             PrimefacesContextUI.ejecutar("PF('inconsistencia').show()");
             pasa2++;
         }
@@ -999,7 +999,7 @@ public class ControlNovedadesReemplazos implements Serializable {
 
         System.out.println("Valor Pasa: " + pasa);
         if (pasa != 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaNovedadReemplazo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedadReemplazo");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaNovedadReemplazo').show()");
         }
 
@@ -1026,7 +1026,7 @@ public class ControlNovedadesReemplazos implements Serializable {
                 nREstructuras = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nREstructuras");
                 nREstructuras.setFilterStyle("display: none; visibility: hidden;");
                 altoTabla = "155";
-                PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
                 bandera = 0;
                 filtradosListaEncargaturas = null;
                 tipoLista = 0;
@@ -1045,10 +1045,10 @@ public class ControlNovedadesReemplazos implements Serializable {
             nuevaEncargatura.setCargo(new Cargos());
             nuevaEncargatura.setMotivoreemplazo(new MotivosReemplazos());
             nuevaEncargatura.setEstructura(new Estructuras());
-            PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('NuevaNovedadReemplazo').hide()");
             encargaturaSeleccionada = null;
@@ -1162,13 +1162,13 @@ public class ControlNovedadesReemplazos implements Serializable {
             System.out.println("Se guardaron los datos con exito");
             listaEncargaturas = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
             guardado = true;
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
 
             //  k = 0;
         }
@@ -1199,13 +1199,13 @@ public class ControlNovedadesReemplazos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
             encargaturaSeleccionada = null;
             encargaturaSeleccionada = null;
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -1263,21 +1263,21 @@ public class ControlNovedadesReemplazos implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaEncargatura.setReemplazado(listaEmpleados.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoReemplazado");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoReemplazado");
                 } else if (tipoNuevo == 2) {
                     duplicarEncargatura.setReemplazado(listaEmpleados.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarReemplazado");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarReemplazado");
                 }
                 listaEmpleados.clear();
                 getListaEmpleados();
             } else {
-                PrimefacesContextUI.actualizar("form:empleadosAbajoDialogo");
+                RequestContext.getCurrentInstance().update("form:empleadosAbajoDialogo");
                 PrimefacesContextUI.ejecutar("PF('empleadosAbajoDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoReemplazado");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoReemplazado");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarReemplazado");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarReemplazado");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("TIPOREEMPLAZO")) {
@@ -1296,21 +1296,21 @@ public class ControlNovedadesReemplazos implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaEncargatura.setTiporeemplazo(listaTiposReemplazos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoReemplazo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoReemplazo");
                 } else if (tipoNuevo == 2) {
                     duplicarEncargatura.setTiporeemplazo(listaTiposReemplazos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoReemplazo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoReemplazo");
                 }
                 listaTiposReemplazos.clear();
                 getListaTiposReemplazos();
             } else {
-                PrimefacesContextUI.actualizar("form:tiposReemplazosDialogo");
+                RequestContext.getCurrentInstance().update("form:tiposReemplazosDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposReemplazosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoReemplazo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoReemplazo");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicartipoReemplazo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicartipoReemplazo");
                 }
             }
         } else if (confirmarCambio.equalsIgnoreCase("CARGO")) {
@@ -1329,21 +1329,21 @@ public class ControlNovedadesReemplazos implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaEncargatura.setCargo(listaCargos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargo");
                 } else if (tipoNuevo == 2) {
                     duplicarEncargatura.setCargo(listaCargos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargo");
                 }
                 listaCargos.clear();
                 getListaCargos();
             } else {
-                PrimefacesContextUI.actualizar("form:cargosDialogo");
+                RequestContext.getCurrentInstance().update("form:cargosDialogo");
                 PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoCargo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargo");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCargo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargo");
                 }
             }
 
@@ -1363,21 +1363,21 @@ public class ControlNovedadesReemplazos implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaEncargatura.setMotivoreemplazo(listaMotivosReemplazos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoMotivoReemplazo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoMotivoReemplazo");
                 } else if (tipoNuevo == 2) {
                     duplicarEncargatura.setMotivoreemplazo(listaMotivosReemplazos.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarMotivoReemplazo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivoReemplazo");
                 }
                 listaMotivosReemplazos.clear();
                 getListaMotivosReemplazos();
             } else {
-                PrimefacesContextUI.actualizar("form:motivosReemplazosDialogo");
+                RequestContext.getCurrentInstance().update("form:motivosReemplazosDialogo");
                 PrimefacesContextUI.ejecutar("PF('motivosReemplazosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoMotivoReemplazo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoMotivoReemplazo");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarMotivoReemplazo");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivoReemplazo");
                 }
             }
 
@@ -1397,21 +1397,21 @@ public class ControlNovedadesReemplazos implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaEncargatura.setEstructura(listaEstructuras.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaEstructura");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEstructura");
                 } else if (tipoNuevo == 2) {
                     duplicarEncargatura.setEstructura(listaEstructuras.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarEstructura");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEstructura");
                 }
                 listaEstructuras.clear();
                 getListaEstructuras();
             } else {
-                PrimefacesContextUI.actualizar("form:estructurasDialogo");
+                RequestContext.getCurrentInstance().update("form:estructurasDialogo");
                 PrimefacesContextUI.ejecutar("PF('estructurasDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaEstructura");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEstructura");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarEstructura");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEstructura");
                 }
             }
 
@@ -1440,7 +1440,7 @@ public class ControlNovedadesReemplazos implements Serializable {
             nREstructuras = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nREstructuras");
             nREstructuras.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "155";
-            PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
             bandera = 0;
             filtradosListaEncargaturas = null;
             tipoLista = 0;
@@ -1456,7 +1456,7 @@ public class ControlNovedadesReemplazos implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
     }
 
     public void salir() {
@@ -1481,7 +1481,7 @@ public class ControlNovedadesReemplazos implements Serializable {
             nREstructuras = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nREstructuras");
             nREstructuras.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "155";
-            PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
             bandera = 0;
             filtradosListaEncargaturas = null;
             tipoLista = 0;
@@ -1512,33 +1512,33 @@ public class ControlNovedadesReemplazos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarReemplazados");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarReemplazados");
                 PrimefacesContextUI.ejecutar("PF('editarReemplazados').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTiposReemplazos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTiposReemplazos");
                 PrimefacesContextUI.ejecutar("PF('editarTiposReemplazos').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechasPagos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasPagos");
                 PrimefacesContextUI.ejecutar("PF('editarFechasPagos').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechasIniciales");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasIniciales");
                 PrimefacesContextUI.ejecutar("PF('editarFechasIniciales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFechasFinales");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasFinales");
                 PrimefacesContextUI.ejecutar("PF('editarFechasFinales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarMotivosReemplazos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarMotivosReemplazos");
                 PrimefacesContextUI.ejecutar("PF('editarMotivosReemplazos').show()");
             } else if (cualCelda == 7) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarEstructuras");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarEstructuras");
                 PrimefacesContextUI.ejecutar("PF('editarEstructuras').show()");
             } else if (cualCelda == 5) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCargos");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCargos");
                 PrimefacesContextUI.ejecutar("PF('editarCargos').show()");
                 cualCelda = -1;
             }
@@ -1580,7 +1580,7 @@ public class ControlNovedadesReemplazos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarEncargatura");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEncargatura");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroEncargatura').show()");
             encargaturaSeleccionada = null;
             encargaturaSeleccionada = null;
@@ -1594,7 +1594,7 @@ public class ControlNovedadesReemplazos implements Serializable {
 
         if ((!duplicarEncargatura.getReemplazado().getPersona().getNombreCompleto().equals("  ") && !duplicarEncargatura.getReemplazado().getPersona().getNombreCompleto().equals(" ")) && (!duplicarEncargatura.getCargo().getNombre().equals(" ") && !duplicarEncargatura.getCargo().getNombre().equals(""))) {
             System.out.println("Entro a Inconsistencia");
-            PrimefacesContextUI.actualizar("formularioDialogos:inconsistencia");
+            RequestContext.getCurrentInstance().update("formularioDialogos:inconsistencia");
             PrimefacesContextUI.ejecutar("PF('inconsistencia').show()");
             pasa2++;
         }
@@ -1603,11 +1603,11 @@ public class ControlNovedadesReemplazos implements Serializable {
             listaEncargaturas.add(duplicarEncargatura);
             listaEncargaturasCrear.add(duplicarEncargatura);
 
-            PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
             encargaturaSeleccionada = null;
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -1629,13 +1629,13 @@ public class ControlNovedadesReemplazos implements Serializable {
                 nREstructuras = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nREstructuras");
                 nREstructuras.setFilterStyle("display: none; visibility: hidden;");
                 altoTabla = "155";
-                PrimefacesContextUI.actualizar("form:datosEncargaturasEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
                 bandera = 0;
                 filtradosListaEncargaturas = null;
                 tipoLista = 0;
             }
             duplicarEncargatura = new Encargaturas();
-            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroEncargatura");
+            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroEncargatura");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroEncargatura').hide()");
         }
     }
@@ -1658,19 +1658,19 @@ public class ControlNovedadesReemplazos implements Serializable {
         if (encargaturaSeleccionada != null) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:empleadosAbajoDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:empleadosAbajoDialogo");
                 PrimefacesContextUI.ejecutar("PF('empleadosAbajoDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:tiposReemplazosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:tiposReemplazosDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposReemplazosDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 6) {
-                PrimefacesContextUI.actualizar("formularioDialogos:motivosReemplazosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:motivosReemplazosDialogo");
                 PrimefacesContextUI.ejecutar("PF('motivosReemplazosDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 7) {
-                PrimefacesContextUI.actualizar("formularioDialogos:estructurasDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
                 PrimefacesContextUI.ejecutar("PF('estructurasDialogo').show()");
             }
         }

@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Empleados;
 import Entidades.Motivosmvrs;
 import Entidades.Mvrs;
@@ -30,7 +31,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -176,7 +176,7 @@ public class ControlEmplMvr implements Serializable {
         altoTabla2 = "115";
 
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
 
         estadoMientras = "";
         hMapEstados = new HashMap<Integer, String>();
@@ -239,10 +239,10 @@ public class ControlEmplMvr implements Serializable {
             cambiosMvr = true;
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
-        PrimefacesContextUI.actualizar("form:datosMvrEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
     }
 
     public boolean validarFechasRegistroMvrs(int i) {
@@ -351,16 +351,16 @@ public class ControlEmplMvr implements Serializable {
                 mvrSeleccionado.setFechafinal(fechaFin);
                 mvrSeleccionado.setFechainicial(fechaIni);
 
-                PrimefacesContextUI.actualizar("form:datosMvrEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
                 PrimefacesContextUI.ejecutar("PF('form:errorFechas').show()");
             }
         } else {
             mvrSeleccionado.setFechainicial(fechaIni);
-            PrimefacesContextUI.actualizar("form:datosMvrEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
             PrimefacesContextUI.ejecutar("PF('errorRegNewMvr').show()");
         }
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     public void modificarFechasOtros(OtrosCertificados otroC, int c) {
@@ -377,7 +377,7 @@ public class ControlEmplMvr implements Serializable {
                 otroCertificadoSeleccionado.setFechainicial(fechaIniOC);
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:datosOCEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
                 PrimefacesContextUI.ejecutar("PF('form:errorFechasOC').show()");
             }
         } else {
@@ -385,11 +385,11 @@ public class ControlEmplMvr implements Serializable {
             otroCertificadoSeleccionado.setFechainicial(fechaIniOC);
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosOCEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
             PrimefacesContextUI.ejecutar("PF('errorRegNewOtro').show()");
         }
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     /**
@@ -417,12 +417,12 @@ public class ControlEmplMvr implements Serializable {
             } else {
                 permitirIndexMvrs = false;
                 modificarInfoRegistroM(listMotivosMvrs.size());
-                PrimefacesContextUI.actualizar("form:MotivoDialogo");
+                RequestContext.getCurrentInstance().update("form:MotivoDialogo");
                 PrimefacesContextUI.ejecutar("PF('MotivoDialogo').show()");
                 tipoActualizacion = 0;
             }
             activarLOV = true;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
         }
         if (coincidencias == 1) {
             if (!listMvrsCrear.contains(mvrSeleccionado)) {
@@ -435,11 +435,11 @@ public class ControlEmplMvr implements Serializable {
                 cambiosMvr = true;
                 if (guardado) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         }
-        PrimefacesContextUI.actualizar("form:datosMvrEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -461,7 +461,7 @@ public class ControlEmplMvr implements Serializable {
             cambiosOtros = true;
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -471,7 +471,7 @@ public class ControlEmplMvr implements Serializable {
         System.out.println("otroCertificadoSeleccionado.getEstado(): " + otroCertificadoSeleccionado.getEstado());
         System.out.println("hMapEstados.get(otro.getSecuencia().intValue()): " + hMapEstados.get(otroCertificadoSeleccionado.getSecuencia().intValue()));
         
-        PrimefacesContextUI.actualizar("form:datosOCEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
     }
 /*
     public String llamarEstado(BigInteger sec) {
@@ -504,12 +504,12 @@ public class ControlEmplMvr implements Serializable {
             } else {
                 permitirIndexOtrosCertificados = false;
                 modificarInfoRegistroC(listTiposCertificados.size());
-                PrimefacesContextUI.actualizar("form:CertificadosDialogo");
+                RequestContext.getCurrentInstance().update("form:CertificadosDialogo");
                 PrimefacesContextUI.ejecutar("PF('CertificadosDialogo').show()");
                 tipoActualizacion = 0;
             }
             activarLOV = true;
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
         }
         if (coincidencias == 1) {
             if (!listOtrosCertificadosCrear.contains(otroCertificadoSeleccionado)) {
@@ -522,11 +522,11 @@ public class ControlEmplMvr implements Serializable {
                 cambiosOtros = true;
                 if (guardado) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         }
-        PrimefacesContextUI.actualizar("form:datosOCEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
     }
 
     /**
@@ -574,19 +574,19 @@ public class ControlEmplMvr implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaMvrs.setMotivo(listMotivosMvrs.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaMotivoMVRS");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivoMVRS");
                 } else if (tipoNuevo == 2) {
                     duplicarMvrs.setMotivo(listMotivosMvrs.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarMotivoMVRS");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivoMVRS");
                 }
             } else {
-                PrimefacesContextUI.actualizar("form:MotivoDialogo");
+                RequestContext.getCurrentInstance().update("form:MotivoDialogo");
                 PrimefacesContextUI.ejecutar("PF('MotivoDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaMotivoMVRS");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivoMVRS");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarMotivoMVRS");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivoMVRS");
                 }
             }
         }
@@ -639,19 +639,19 @@ public class ControlEmplMvr implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevaOtroCertificado.setTipocertificado(listTiposCertificados.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCertificadoOC");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCertificadoOC");
                 } else if (tipoNuevo == 2) {
                     duplicarOtrosCertificados.setTipocertificado(listTiposCertificados.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCertificadoOC");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCertificadoOC");
                 }
             } else {
-                PrimefacesContextUI.actualizar("form:CertificadosDialogo");
+                RequestContext.getCurrentInstance().update("form:CertificadosDialogo");
                 PrimefacesContextUI.ejecutar("PF('CertificadosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevaCertificadoOC");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCertificadoOC");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarCertificadoOC");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCertificadoOC");
                 }
             }
         }
@@ -676,11 +676,11 @@ public class ControlEmplMvr implements Serializable {
             } else {
                 activarLOV = true;
             }
-            PrimefacesContextUI.actualizar("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:listaValores");
         }
         otroCertificadoSeleccionado = null;
         PrimefacesContextUI.ejecutar("PF('datosOCEmpleado').unselectAllRows()");
-        PrimefacesContextUI.actualizar("form:datosOCEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
     }
 
     public void posicionOtro() {
@@ -706,10 +706,10 @@ public class ControlEmplMvr implements Serializable {
         filtrarListMotivosMvrs = null;
         motivoMvrSeleccionado = null;
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosMvrEmpleado");
-        PrimefacesContextUI.actualizar("form:datosOCEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
     }
 
     public void cambiarIndiceOtrosCertificados(OtrosCertificados otroC, int celda) {
@@ -720,16 +720,16 @@ public class ControlEmplMvr implements Serializable {
             fechaIniOC = otroCertificadoSeleccionado.getFechainicial();
             if (cualCeldaOtrosCertificados == 4) {
                 activarLOV = false;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 tipoCertificado = otroCertificadoSeleccionado.getTipocertificado().getDescripcion();
             } else {
                 activarLOV = true;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
             }
         }
         mvrSeleccionado = null;
         PrimefacesContextUI.ejecutar("PF('datosMvrEmpleado').unselectAllRows()");
-        PrimefacesContextUI.actualizar("form:datosMvrEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
     }
 
     //GUARDAR
@@ -741,9 +741,9 @@ public class ControlEmplMvr implements Serializable {
         guardarCambiosOtrosCertificados();
         guardado = true;
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     /**
@@ -765,11 +765,11 @@ public class ControlEmplMvr implements Serializable {
                 listMvrsModificar.clear();
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosMvrEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
             paraNuevaMenValRet = 0;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Mvrs con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
             cambiosMvr = false;
 
             contarRegistrosMVR();
@@ -795,7 +795,7 @@ public class ControlEmplMvr implements Serializable {
                 listOtrosCertificadosModificar.clear();
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosOCEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
             paraNuevaMenValRet = 0;
             cambiosOtros = false;
 
@@ -803,7 +803,7 @@ public class ControlEmplMvr implements Serializable {
 
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Otros Certificados con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         otroCertificadoSeleccionado = null;
     }
@@ -835,7 +835,7 @@ public class ControlEmplMvr implements Serializable {
         otroCertificadoSeleccionado = null;
         mvrSeleccionado = null;
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
 
         getListMvrsEmpleado();
         getListOCertificados();
@@ -843,9 +843,9 @@ public class ControlEmplMvr implements Serializable {
         contarRegistrosOC();
 
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosMvrEmpleado");
-        PrimefacesContextUI.actualizar("form:datosOCEmpleado");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     //MOSTRAR DATOS CELDA
@@ -862,23 +862,23 @@ public class ControlEmplMvr implements Serializable {
                 editarMvrs = mvrSeleccionado;
 
                 if (cualCeldaMvrs == 0) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicialMVRD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialMVRD");
                     PrimefacesContextUI.ejecutar("PF('editarFechaInicialMVRD').show()");
                     cualCeldaMvrs = -1;
                 } else if (cualCeldaMvrs == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinalMVRD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalMVRD");
                     PrimefacesContextUI.ejecutar("PF('editarFechaFinalMVRD').show()");
                     cualCeldaMvrs = -1;
                 } else if (cualCeldaMvrs == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarValorMVRD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarValorMVRD");
                     PrimefacesContextUI.ejecutar("PF('editarValorMVRD').show()");
                     cualCeldaMvrs = -1;
                 } else if (cualCeldaMvrs == 3) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarMotivoMVRD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarMotivoMVRD");
                     PrimefacesContextUI.ejecutar("PF('editarMotivoMVRD').show()");
                     cualCeldaMvrs = -1;
                 } else if (cualCeldaMvrs == 4) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarValorAMVRD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarValorAMVRD");
                     PrimefacesContextUI.ejecutar("PF('editarValorAMVRD').show()");
                     cualCeldaMvrs = -1;
                 }
@@ -887,27 +887,27 @@ public class ControlEmplMvr implements Serializable {
                 editarOtrosCertificados = otroCertificadoSeleccionado;
 
                 if (cualCeldaOtrosCertificados == 0) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaInicialOCD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialOCD");
                     PrimefacesContextUI.ejecutar("PF('editarFechaInicialOCD').show()");
                     cualCeldaOtrosCertificados = -1;
                 } else if (cualCeldaOtrosCertificados == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarFechaFinalOCD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalOCD");
                     PrimefacesContextUI.ejecutar("PF('editarFechaFinalOCD').show()");
                     cualCeldaOtrosCertificados = -1;
                 } else if (cualCeldaOtrosCertificados == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarValorOCD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarValorOCD");
                     PrimefacesContextUI.ejecutar("PF('editarValorOCD').show()");
                     cualCeldaOtrosCertificados = -1;
                 } else if (cualCeldaOtrosCertificados == 3) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarEstadoOCD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarEstadoOCD");
                     PrimefacesContextUI.ejecutar("PF('editarEstadoOCD').show()");
                     cualCeldaOtrosCertificados = -1;
                 } else if (cualCeldaOtrosCertificados == 4) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarCertificadoOCD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCertificadoOCD");
                     PrimefacesContextUI.ejecutar("PF('editarCertificadoOCD').show()");
                     cualCeldaOtrosCertificados = -1;
                 } else if (cualCeldaOtrosCertificados == 5) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:editarDiasOCD");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDiasOCD");
                     PrimefacesContextUI.ejecutar("PF('editarDiasOCD').show()");
                     cualCeldaOtrosCertificados = -1;
                 }
@@ -944,14 +944,14 @@ public class ControlEmplMvr implements Serializable {
                     modificarInfoRegistroMVR(listMvrsEmpleado.size());
                     mvrSeleccionado = listMvrsEmpleado.get(listMvrsEmpleado.indexOf(nuevaMvrs));
                     activarLOV = true;
-                    PrimefacesContextUI.actualizar("form:listaValores");
+                    RequestContext.getCurrentInstance().update("form:listaValores");
                     nuevaMvrs = new Mvrs();
                     nuevaMvrs.setMotivo(new Motivosmvrs());
                     RequestContext context = RequestContext.getCurrentInstance();
-                    PrimefacesContextUI.actualizar("form:datosMvrEmpleado");
+                    RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
                     if (guardado) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                     PrimefacesContextUI.ejecutar("PF('NuevoRegistroMVRS').hide()");
                 } else {
@@ -1003,16 +1003,16 @@ public class ControlEmplMvr implements Serializable {
                 modificarInfoRegistroOtroC(listOCertificados.size());
                 otroCertificadoSeleccionado = listOCertificados.get(listOCertificados.indexOf(nuevaOtroCertificado));
                 activarLOV = true;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
 
                 nuevaOtroCertificado = new OtrosCertificados();
                 nuevaOtroCertificado.setTipocertificado(new TiposCertificados());
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:datosOCEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
                 PrimefacesContextUI.ejecutar("PF('NuevoRegistroOC').hide()");
                 if (guardado) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -1076,7 +1076,7 @@ public class ControlEmplMvr implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarMVRS");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMVRS");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroMVRS').show()");
         }
     }
@@ -1103,13 +1103,13 @@ public class ControlEmplMvr implements Serializable {
                     listMvrsCrear.add(duplicarMvrs);
                     mvrSeleccionado = listMvrsEmpleado.get(listMvrsEmpleado.indexOf(duplicarMvrs));
                     activarLOV = true;
-                    PrimefacesContextUI.actualizar("form:listaValores");
+                    RequestContext.getCurrentInstance().update("form:listaValores");
                     modificarInfoRegistroMVR(listMvrsEmpleado.size());
                     RequestContext context = RequestContext.getCurrentInstance();
-                    PrimefacesContextUI.actualizar("form:datosMvrEmpleado");
+                    RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
                     if (guardado) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                     if (banderaMvrs == 1) {
                         restablecerTablaMVR();
@@ -1160,7 +1160,7 @@ public class ControlEmplMvr implements Serializable {
                 duplicarOtrosCertificados.setTipocertificado(new TiposCertificados());
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarOC");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarOC");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroOC').show()");
         }
     }
@@ -1181,17 +1181,17 @@ public class ControlEmplMvr implements Serializable {
                 otroCertificadoSeleccionado = listOCertificados.get(listOCertificados.indexOf(duplicarOtrosCertificados));
                 modificarInfoRegistroOtroC(listOCertificados.size());
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:datosOCEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
                 PrimefacesContextUI.ejecutar("PF('DuplicarRegistroOC.hide();");
                 if (guardado) {
                     guardado = false;
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 if (banderaOC == 1) {
                     restablecerTablaOC();
                 }
                 activarLOV = true;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 duplicarOtrosCertificados = new OtrosCertificados();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -1219,7 +1219,7 @@ public class ControlEmplMvr implements Serializable {
     public void validarBorradoRegistro() {
         RequestContext context = RequestContext.getCurrentInstance();
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         if (otroCertificadoSeleccionado == null && mvrSeleccionado == null) {
             PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         } else {
@@ -1255,12 +1255,12 @@ public class ControlEmplMvr implements Serializable {
             modificarInfoRegistroMVR(listMvrsEmpleado.size());
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosMvrEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
             mvrSeleccionado = null;
             cambiosMvr = true;
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -1286,14 +1286,14 @@ public class ControlEmplMvr implements Serializable {
             modificarInfoRegistroOtroC(listOCertificados.size());
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosOCEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
             otroCertificadoSeleccionado = null;
             cambiosOtros = true;
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.actualizar("form:datosOCEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
         }
     }
 
@@ -1329,7 +1329,7 @@ public class ControlEmplMvr implements Serializable {
                 mvrFechaInicial = (Column) c.getViewRoot().findComponent("form:datosMvrEmpleado:mvrFechaInicial");
                 mvrFechaInicial.setFilterStyle("width: 85%");
                 altoTabla1 = "95";
-                PrimefacesContextUI.actualizar("form:datosMvrEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
                 banderaMvrs = 1;
             } else if (banderaMvrs == 1) {
                 restablecerTablaMVR();
@@ -1353,7 +1353,7 @@ public class ControlEmplMvr implements Serializable {
         banderaMvrs = 0;
         filtrarListMvrsEmpleado = null;
         tipoListaMvrs = 0;
-        PrimefacesContextUI.actualizar("form:datosMvrEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
     }
 
     public void restablecerTablaOC() {
@@ -1374,7 +1374,7 @@ public class ControlEmplMvr implements Serializable {
         banderaOC = 0;
         filtrarListOtrosCertificados = null;
         tipoListaOtrosCertificados = 0;
-        PrimefacesContextUI.actualizar("form:datosOCEmpleado");
+        RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
     }
 
     /**
@@ -1398,7 +1398,7 @@ public class ControlEmplMvr implements Serializable {
                 ocFechaInicial = (Column) c.getViewRoot().findComponent("form:datosOCEmpleado:ocFechaInicial");
                 ocFechaInicial.setFilterStyle("width: 85%");
                 altoTabla2 = "95";
-                PrimefacesContextUI.actualizar("form:datosOCEmpleado");
+                RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
                 banderaOC = 1;
             } else if (banderaOC == 1) {
                 restablecerTablaOC();
@@ -1435,8 +1435,8 @@ public class ControlEmplMvr implements Serializable {
         cambiosMvr = false;
         cambiosOtros = false;
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO) (list = ESTRUCTURAS - MOTIVOSLOCALIZACIONES - PROYECTOS)
 
@@ -1464,9 +1464,9 @@ public class ControlEmplMvr implements Serializable {
             }
             if (column == 0) {
                 activarLOV = false;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 modificarInfoRegistroM(listMotivosMvrs.size());
-                PrimefacesContextUI.actualizar("form:MotivoDialogo");
+                RequestContext.getCurrentInstance().update("form:MotivoDialogo");
                 PrimefacesContextUI.ejecutar("PF('MotivoDialogo').show()");
             }
         }
@@ -1482,9 +1482,9 @@ public class ControlEmplMvr implements Serializable {
             }
             if (column == 0) {
                 activarLOV = false;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 modificarInfoRegistroC(listTiposCertificados.size());
-                PrimefacesContextUI.actualizar("form:CertificadosDialogo");
+                RequestContext.getCurrentInstance().update("form:CertificadosDialogo");
                 PrimefacesContextUI.ejecutar("PF('CertificadosDialogo').show()");
             }
         }
@@ -1503,9 +1503,9 @@ public class ControlEmplMvr implements Serializable {
             }
             if (column == 0) {
                 activarLOV = false;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 modificarInfoRegistroM(listMotivosMvrs.size());
-                PrimefacesContextUI.actualizar("form:MotivoDialogo");
+                RequestContext.getCurrentInstance().update("form:MotivoDialogo");
                 PrimefacesContextUI.ejecutar("PF('MotivoDialogo').show()");
             }
         }
@@ -1520,9 +1520,9 @@ public class ControlEmplMvr implements Serializable {
             }
             if (column == 0) {
                 activarLOV = false;
-                PrimefacesContextUI.actualizar("form:listaValores");
+                RequestContext.getCurrentInstance().update("form:listaValores");
                 modificarInfoRegistroC(listTiposCertificados.size());
-                PrimefacesContextUI.actualizar("form:CertificadosDialogo");
+                RequestContext.getCurrentInstance().update("form:CertificadosDialogo");
                 PrimefacesContextUI.ejecutar("PF('CertificadosDialogo').show()");
             }
         }
@@ -1547,16 +1547,16 @@ public class ControlEmplMvr implements Serializable {
 
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             permitirIndexMvrs = true;
-            PrimefacesContextUI.actualizar("form:datosMvrEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
         } else if (tipoActualizacion == 1) {// Para crear registro
             nuevaMvrs.setMotivo(motivoMvrSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaMVRS");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMVRS");
         } else if (tipoActualizacion == 2) {// Para duplicar registro
             duplicarMvrs.setMotivo(motivoMvrSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarMVRS");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMVRS");
         }
         filtrarListMotivosMvrs = null;
         motivoMvrSeleccionado = null;
@@ -1603,16 +1603,16 @@ public class ControlEmplMvr implements Serializable {
             cambiosOtros = true;
             if (guardado) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             permitirIndexOtrosCertificados = true;
-            PrimefacesContextUI.actualizar("form:datosOCEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
         } else if (tipoActualizacion == 1) {// Para crear registro
             nuevaOtroCertificado.setTipocertificado(tipoCertificadoSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaCertificadoOC");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCertificadoOC");
         } else if (tipoActualizacion == 2) {// Para duplicar registro
             duplicarOtrosCertificados.setTipocertificado(tipoCertificadoSeleccionado);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarCertificadoOC");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCertificadoOC");
         }
         filtrarListTiposCertificados = null;
         tipoCertificadoSeleccionado = null;
@@ -1651,7 +1651,7 @@ public class ControlEmplMvr implements Serializable {
             if (mvrSeleccionado != null) {
                 if (cualCeldaMvrs == 3) {
                     modificarInfoRegistroM(listMotivosMvrs.size());
-                    PrimefacesContextUI.actualizar("form:MotivoDialogo");
+                    RequestContext.getCurrentInstance().update("form:MotivoDialogo");
                     PrimefacesContextUI.ejecutar("PF('MotivoDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -1659,7 +1659,7 @@ public class ControlEmplMvr implements Serializable {
             if (otroCertificadoSeleccionado != null) {
                 if (cualCeldaOtrosCertificados == 4) {
                     modificarInfoRegistroC(listTiposCertificados.size());
-                    PrimefacesContextUI.actualizar("form:CertificadosDialogo");
+                    RequestContext.getCurrentInstance().update("form:CertificadosDialogo");
                     PrimefacesContextUI.ejecutar("PF('CertificadosDialogo').show()");
                     tipoActualizacion = 0;
                 }
@@ -1686,12 +1686,12 @@ public class ControlEmplMvr implements Serializable {
         } else {
             if (mvrSeleccionado != null) {
                 limpiarNuevaMvr();
-                PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroMVRS");
+                RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroMVRS");
                 PrimefacesContextUI.ejecutar("PF('NuevoRegistroMVRS').show()");
             }
             if (otroCertificadoSeleccionado != null) {
                 limpiarNuevaOtroC();
-                PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroOC");
+                RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroOC");
                 PrimefacesContextUI.ejecutar("PF('NuevoRegistroOC').show()");
             }
         }
@@ -1811,10 +1811,10 @@ public class ControlEmplMvr implements Serializable {
             tipoListaMvrs = 1;
         }
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         mvrSeleccionado = null;
         modificarInfoRegistroMVR(filtrarListMvrsEmpleado.size());
-        PrimefacesContextUI.actualizar("form:informacionRegistroMVR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroMVR");
     }
 
     public void eventoFiltrarOC() {
@@ -1822,20 +1822,20 @@ public class ControlEmplMvr implements Serializable {
             tipoListaMvrs = 1;
         }
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
         otroCertificadoSeleccionado = null;
         modificarInfoRegistroOtroC(filtrarListOtrosCertificados.size());
-        PrimefacesContextUI.actualizar("form:informacionRegistroOtroC");
+        RequestContext.getCurrentInstance().update("form:informacionRegistroOtroC");
     }
 
     public void eventoFiltrarC() {
         modificarInfoRegistroC(filtrarListTiposCertificados.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroCertificado");
+        RequestContext.getCurrentInstance().update("form:infoRegistroCertificado");
     }
 
     public void eventoFiltrarM() {
         modificarInfoRegistroM(filtrarListMotivosMvrs.size());
-        PrimefacesContextUI.actualizar("form:infoRegistroMotivoMVR");
+        RequestContext.getCurrentInstance().update("form:infoRegistroMotivoMVR");
     }
 
     private void modificarInfoRegistroMVR(int valor) {
@@ -1872,7 +1872,7 @@ public class ControlEmplMvr implements Serializable {
 
     public void anularLOV() {
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     //METODO RASTROS PARA LAS TABLAS EN EMPLVIGENCIASUELDOS
@@ -1921,7 +1921,7 @@ public class ControlEmplMvr implements Serializable {
             } else if (resultado == 2) {
                 nombreTablaRastro = "Mvrs";
                 msnConfirmarRastro = "La tabla MVRS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
                 PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
                 PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
@@ -1940,7 +1940,7 @@ public class ControlEmplMvr implements Serializable {
         if (administrarRastros.verificarHistoricosTabla("MVRS")) {
             nombreTablaRastro = "Mvrs";
             msnConfirmarRastroHistorico = "La tabla MVRS tiene rastros historicos, ¿Desea continuar?";
-            PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
             PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
         } else {
             PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
@@ -1957,7 +1957,7 @@ public class ControlEmplMvr implements Serializable {
             } else if (resultado == 2) {
                 nombreTablaRastro = "OtrosCertificados";
                 msnConfirmarRastro = "La tabla OTROSCERTIFICADOS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                PrimefacesContextUI.actualizar("form:msnConfirmarRastro");
+                RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
                 PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
                 PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
@@ -1976,7 +1976,7 @@ public class ControlEmplMvr implements Serializable {
         if (administrarRastros.verificarHistoricosTabla("OTROSCERTIFICADOS")) {
             nombreTablaRastro = "OtrosCertificados";
             msnConfirmarRastroHistorico = "La tabla OTROSCERTIFICADOS tiene rastros historicos, ¿Desea continuar?";
-            PrimefacesContextUI.actualizar("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
             PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
         } else {
             PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");

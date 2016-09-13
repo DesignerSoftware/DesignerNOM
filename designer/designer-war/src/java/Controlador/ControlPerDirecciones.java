@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.Ciudades;
 import Entidades.Direcciones;
 import Entidades.Empleados;
@@ -30,7 +31,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 @ManagedBean
 @SessionScoped
@@ -164,13 +164,13 @@ public class ControlPerDirecciones implements Serializable {
         if (tipoNuevo == 1) {
             if (nuevaDireccion.getTipoppal() != null && nuevaDireccion.getPpal() != null && nuevaDireccion.getSecundario() != null && nuevaDireccion.getTiposecundario() != null) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("formularioDialogos:pregunta");
+                RequestContext.getCurrentInstance().update("formularioDialogos:pregunta");
                 PrimefacesContextUI.ejecutar("PF('pregunta').show()");
             }
         } else if (tipoNuevo == 2) {
             if (duplicarDireccion.getTipoppal() != null && duplicarDireccion.getPpal() != null && duplicarDireccion.getSecundario() != null && duplicarDireccion.getTiposecundario() != null) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("formularioDialogos:pregunta");
+                RequestContext.getCurrentInstance().update("formularioDialogos:pregunta");
                 PrimefacesContextUI.ejecutar("PF('pregunta').show()");
             }
         }
@@ -180,11 +180,11 @@ public class ControlPerDirecciones implements Serializable {
         if (tipoNuevo == 1) {
             nuevaDireccion.setDireccionalternativa(nuevaDireccion.getEstadoTipoPpal() + (" ") + nuevaDireccion.getPpal() + (" ") + nuevaDireccion.getEstadoTipoSecundario() + (" ") + nuevaDireccion.getSecundario());
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaDireccion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDireccion");
         } else {
             duplicarDireccion.setDireccionalternativa(nuevaDireccion.getTipoppal() + (" ") + duplicarDireccion.getPpal() + (" ") + duplicarDireccion.getTiposecundario() + (" ") + duplicarDireccion.getSecundario());
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDireccion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDireccion");
         }
 
     }
@@ -243,7 +243,7 @@ public class ControlPerDirecciones implements Serializable {
                 dHipoteca.setFilterStyle("display: none; visibility: hidden;");
                 dDireccionAlternativa = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDireccionAlternativa");
                 dDireccionAlternativa.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+                RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
                 bandera = 0;
                 filtradosListaDirecciones = null;
                 tipoLista = 0;
@@ -265,17 +265,17 @@ public class ControlPerDirecciones implements Serializable {
             getListaDirecciones();
             modificarInfoRegistro(listaDirecciones.size());
             deshabilitarBotonLOV();
-            PrimefacesContextUI.actualizar("form:infoRegistro");
-            PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
             nuevaDireccion = new Direcciones();
             nuevaDireccion.setCiudad(new Ciudades());
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroDireccion').hide()");
         } else {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaDireccion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaDireccion");
             PrimefacesContextUI.ejecutar("PF('validacionNuevaDireccion').show()");
         }
     }
@@ -313,7 +313,7 @@ public class ControlPerDirecciones implements Serializable {
                     }
                 }
             }
-            PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
         } else if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
             if (tipoLista == 0) {
                 direccionSeleccionada.getCiudad().setNombre(Ciudad);
@@ -337,7 +337,7 @@ public class ControlPerDirecciones implements Serializable {
                 getListaCiudades();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:ciudadesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
                 PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -368,7 +368,7 @@ public class ControlPerDirecciones implements Serializable {
                 }
             }
         }
-        PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+        RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
     }
 
     //METODOS L.O.V CIUDADES
@@ -396,17 +396,17 @@ public class ControlPerDirecciones implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
         } else if (tipoActualizacion == 1) {
             nuevaDireccion.setCiudad(seleccionCiudades);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaDireccion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDireccion");
         } else if (tipoActualizacion == 2) {
             System.out.println(seleccionCiudades.getNombre());
             duplicarDireccion.setCiudad(seleccionCiudades);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDireccion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDireccion");
         }
         filtradoslistaCiudades = null;
         seleccionCiudades = null;
@@ -416,7 +416,7 @@ public class ControlPerDirecciones implements Serializable {
         context.reset("formularioDialogos:LOVCiudades:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVCiudades').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVCiudades");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVCiudades");
     }
 
     public void activarCtrlF11() {
@@ -448,7 +448,7 @@ public class ControlPerDirecciones implements Serializable {
             dDireccionAlternativa = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDireccionAlternativa");
             dDireccionAlternativa.setFilterStyle("width: 85%");
             altoTabla = "250";
-            PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
@@ -475,7 +475,7 @@ public class ControlPerDirecciones implements Serializable {
             dDireccionAlternativa = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDireccionAlternativa");
             dDireccionAlternativa.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "270";
-            PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
             bandera = 0;
             filtradosListaDirecciones = null;
             tipoLista = 0;
@@ -496,7 +496,7 @@ public class ControlPerDirecciones implements Serializable {
             if (cualCelda == 6) {
                 habilitarBotonLOV();
                 modificarInfoRegistroCiudades(listaCiudades.size());
-                PrimefacesContextUI.actualizar("formularioDialogos:ciudadesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
                 PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -511,7 +511,7 @@ public class ControlPerDirecciones implements Serializable {
         direccionSeleccionada = direccion;
         RequestContext context = RequestContext.getCurrentInstance();
         modificarInfoRegistroCiudades(listaCiudades.size());
-        PrimefacesContextUI.actualizar("formularioDialogos:ciudadesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
         PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
         tipoActualizacion = 0;
     }
@@ -530,52 +530,52 @@ public class ControlPerDirecciones implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 deshabilitarBotonLOV();
-                PrimefacesContextUI.actualizar("formularioDialogos:editarFecha");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
                 PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 deshabilitarBotonLOV();
-                PrimefacesContextUI.actualizar("formularioDialogos:editarUbicacionesPrincipales");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarUbicacionesPrincipales");
                 PrimefacesContextUI.ejecutar("PF('editarUbicacionesPrincipales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 deshabilitarBotonLOV();
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionesUbicacionesPrincipales");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionesUbicacionesPrincipales");
                 PrimefacesContextUI.ejecutar("PF('editarDescripcionesUbicacionesPrincipales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 deshabilitarBotonLOV();
-                PrimefacesContextUI.actualizar("formularioDialogos:editarUbicacionesSecundarias");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarUbicacionesSecundarias");
                 PrimefacesContextUI.ejecutar("PF('editarUbicacionesSecundarias').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 deshabilitarBotonLOV();
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcionesUbicacionesSecundarias");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionesUbicacionesSecundarias");
                 PrimefacesContextUI.ejecutar("PF('editarDescripcionesUbicacionesSecundarias').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
                 deshabilitarBotonLOV();
-                PrimefacesContextUI.actualizar("formularioDialogos:editarBarrios");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarBarrios");
                 PrimefacesContextUI.ejecutar("PF('editarBarrios').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
                 habilitarBotonLOV();
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCiudades");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCiudades");
                 PrimefacesContextUI.ejecutar("PF('editarCiudades').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
                 deshabilitarBotonLOV();
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTiposViviendas");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTiposViviendas");
                 PrimefacesContextUI.ejecutar("PF('editarTiposViviendas').show()");
                 cualCelda = -1;
             } else if (cualCelda == 8) {
                 deshabilitarBotonLOV();
-                PrimefacesContextUI.actualizar("formularioDialogos:editarHipotecas");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarHipotecas");
                 PrimefacesContextUI.ejecutar("PF('editarHipotecas').show()");
                 cualCelda = -1;
             } else if (cualCelda == 9) {
                 deshabilitarBotonLOV();
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDireccionesAlternativas");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDireccionesAlternativas");
                 PrimefacesContextUI.ejecutar("PF('editarDireccionesAlternativas').show()");
                 cualCelda = -1;
             }
@@ -623,7 +623,7 @@ public class ControlPerDirecciones implements Serializable {
             listaDirecciones.add(duplicarDireccion);
             direccionSeleccionada = duplicarDireccion;
 
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarDireccion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDireccion");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroDireccion').show()");
         } else {
             PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
@@ -646,12 +646,12 @@ public class ControlPerDirecciones implements Serializable {
         System.out.println("secuencia direccion "+ duplicarDireccion.getSecuencia()+ "\n");
         for (int i = 0; i < listaDirecciones.size(); i++) {
             if ((listaDirecciones.get(i).getSecuencia().equals(duplicarDireccion.getSecuencia())) && ((listaDirecciones.get(i).getFechavigencia().equals(duplicarDireccion.getFechavigencia())))) {// && !(duplicarTelefono.getFechavigencia().before(listaTelefonos.get(i).getFechavigencia())))) {
-                PrimefacesContextUI.actualizar("formularioDialogos:existeDireccion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:existeDireccion");
                 PrimefacesContextUI.ejecutar("PF('existeDireccion').show()");
                 pasaA++;
             }
             if (pasa != 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevaDireccion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaDireccion");
                 PrimefacesContextUI.ejecutar("PF('validacionNuevaDireccion').show()");
             }
         }
@@ -663,12 +663,12 @@ public class ControlPerDirecciones implements Serializable {
             direccionSeleccionada = duplicarDireccion;
             getListaDirecciones();
             modificarInfoRegistro(listaDirecciones.size());
-            PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
-            PrimefacesContextUI.actualizar("form:infoRegistro");
-            PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
             System.out.println("Desactivar");
@@ -694,7 +694,7 @@ public class ControlPerDirecciones implements Serializable {
             dDireccionAlternativa = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDireccionAlternativa");
             dDireccionAlternativa.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "270";
-            PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
             bandera = 0;
             filtradosListaDirecciones = null;
             tipoLista = 0;
@@ -724,13 +724,13 @@ public class ControlPerDirecciones implements Serializable {
             getListaDirecciones();
             contarRegistros();
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
             guardado = true;
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
+            RequestContext.getCurrentInstance().update("form:growl");
             // k = 0;
         }
         direccionSeleccionada = null;
@@ -760,7 +760,7 @@ public class ControlPerDirecciones implements Serializable {
             dDireccionAlternativa = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDireccionAlternativa");
             dDireccionAlternativa.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "270";
-            PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
             bandera = 0;
             filtradosListaDirecciones = null;
             tipoLista = 0;
@@ -773,7 +773,7 @@ public class ControlPerDirecciones implements Serializable {
         listaDirecciones = null;
         guardado = true;
         contarRegistros();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         permitirIndex = true;
     }
 
@@ -787,9 +787,9 @@ public class ControlPerDirecciones implements Serializable {
         context.reset("formularioDialogos:LOVCiudades:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVCiudades').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').hide()");
-        PrimefacesContextUI.actualizar("formularioDialogos:ciudadesDialogo");
-        PrimefacesContextUI.actualizar("form:LOVCiudades");
-        PrimefacesContextUI.actualizar("form:aceptarC");
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
+        RequestContext.getCurrentInstance().update("form:LOVCiudades");
+        RequestContext.getCurrentInstance().update("form:aceptarC");
 
     }
 
@@ -818,7 +818,7 @@ public class ControlPerDirecciones implements Serializable {
             dDireccionAlternativa = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDireccionAlternativa");
             dDireccionAlternativa.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "270";
-            PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
             bandera = 0;
             filtradosListaDirecciones = null;
             tipoLista = 0;
@@ -835,8 +835,8 @@ public class ControlPerDirecciones implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
     }
 
     public void limpiarDuplicarDireccion() {
@@ -869,21 +869,21 @@ public class ControlPerDirecciones implements Serializable {
         if (coincidencias == 1) {
             if (tipoNuevo == 1) {
                 nuevaDireccion.setCiudad(seleccionCiudades);
-                PrimefacesContextUI.actualizar("formularioDialogos:nuevaCiudad");
+                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudad");
             } else if (tipoNuevo == 2) {
                 duplicarDireccion.setCiudad(seleccionCiudades);
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarCiudad");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudad");
             }
             listaCiudades.clear();
             getListaCiudades();
         } else {
-            PrimefacesContextUI.actualizar("formularioDialogos:ciudadesDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
             PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:nuevaCiudad");
+                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudad");
             } else if (tipoNuevo == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:duplicarCiudad");
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudad");
             }
         }
     }
@@ -896,7 +896,7 @@ public class ControlPerDirecciones implements Serializable {
         }
         modificarInfoRegistroCiudades(listaCiudades.size());
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("formularioDialogos:ciudadesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
         PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
     }
 
@@ -923,12 +923,12 @@ public class ControlPerDirecciones implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
             direccionSeleccionada = null;
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
             PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
@@ -1033,9 +1033,9 @@ public class ControlPerDirecciones implements Serializable {
         }
         if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-        PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+        RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
     }
 
     public void seleccionarTipoPpalNuevaDireccion(String estadoTipoPpal, int tipoNuevo) {
@@ -1055,7 +1055,7 @@ public class ControlPerDirecciones implements Serializable {
             } else if (estadoTipoPpal.equals("OTROS")) {
                 nuevaDireccion.setTipoppal("O");
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaUbicacionPrincipal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaUbicacionPrincipal");
         } else {
             if (estadoTipoPpal.equals("CALLE")) {
                 duplicarDireccion.setTipoppal("C");
@@ -1072,7 +1072,7 @@ public class ControlPerDirecciones implements Serializable {
             } else if (estadoTipoPpal.equals("OTROS")) {
                 duplicarDireccion.setTipoppal("O");
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarUbicacionPrincipal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUbicacionPrincipal");
         }
 
     }
@@ -1129,9 +1129,9 @@ public class ControlPerDirecciones implements Serializable {
         }
         if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-        PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+        RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
     }
 
     public void seleccionarTipoSecundarioNuevaDireccion(String estadoTipoSecundario, int tipoNuevo) {
@@ -1151,7 +1151,7 @@ public class ControlPerDirecciones implements Serializable {
             } else if (estadoTipoSecundario.equals("OTROS")) {
                 nuevaDireccion.setTiposecundario("O");
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaUbicacionSecundaria");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaUbicacionSecundaria");
         } else {
             if (estadoTipoSecundario.equals("CALLE")) {
                 duplicarDireccion.setTiposecundario("C");
@@ -1168,7 +1168,7 @@ public class ControlPerDirecciones implements Serializable {
             } else if (estadoTipoSecundario.equals("OTROS")) {
                 duplicarDireccion.setTiposecundario("O");
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarUbicacionSecundaria");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUbicacionSecundaria");
         }
 
     }
@@ -1209,9 +1209,9 @@ public class ControlPerDirecciones implements Serializable {
         }
         if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-        PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+        RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
     }
 
     public void seleccionarTipoViviendaNuevaDireccion(String estadoTipoVivienda, int tipoNuevo) {
@@ -1223,7 +1223,7 @@ public class ControlPerDirecciones implements Serializable {
             } else if (estadoTipoVivienda.equals("APARTAMENTO")) {
                 nuevaDireccion.setTipovivienda("APARTAMENTO");
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoVivienda");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoVivienda");
         } else {
             if (estadoTipoVivienda.equals("FINCA")) {
                 duplicarDireccion.setTipovivienda("FINCA");
@@ -1232,7 +1232,7 @@ public class ControlPerDirecciones implements Serializable {
             } else if (estadoTipoVivienda.equals("APARTAMENTO")) {
                 duplicarDireccion.setTipovivienda("APARTAMENTO");
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoVivienda");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoVivienda");
         }
     }
 
@@ -1268,9 +1268,9 @@ public class ControlPerDirecciones implements Serializable {
         }
         if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-        PrimefacesContextUI.actualizar("form:datosDireccionesPersona");
+        RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
     }
 
     public void seleccionarHipotecaNuevaDireccion(String estadoHipoteca, int tipoNuevo) {
@@ -1281,7 +1281,7 @@ public class ControlPerDirecciones implements Serializable {
                 nuevaDireccion.setHipoteca("N");
             }
 
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevaHipoteca");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaHipoteca");
         } else {
             if (estadoHipoteca.equals("SI")) {
                 duplicarDireccion.setHipoteca("S");
@@ -1289,7 +1289,7 @@ public class ControlPerDirecciones implements Serializable {
                 duplicarDireccion.setTipovivienda("N");
             }
         }
-        PrimefacesContextUI.actualizar("formularioDialogos:duplicarHipoteca");
+        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarHipoteca");
     }
 
     public void eventoFiltrar() {
@@ -1298,12 +1298,12 @@ public class ControlPerDirecciones implements Serializable {
         }
         direccionSeleccionada = null;
         modificarInfoRegistro(filtradosListaDirecciones.size());
-        PrimefacesContextUI.actualizar("form:infoRegistro");
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void eventoFiltrarCiudades() {
         modificarInfoRegistroCiudades(filtradoslistaCiudades.size());
-        PrimefacesContextUI.actualizar("formularioDialogos:infoRegistroCiudades");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCiudades");
     }
 
     public void modificarInfoRegistro(int valor) {
@@ -1332,12 +1332,12 @@ public class ControlPerDirecciones implements Serializable {
 
     public void habilitarBotonLOV() {
         activarLOV = false;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     public void deshabilitarBotonLOV() {
         activarLOV = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
 //GETTER & SETTER

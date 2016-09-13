@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.GruposInfAdicionales;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -25,7 +26,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 /**
  *
@@ -167,7 +167,7 @@ public class ControlGruposInfAdicionales implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
             estado.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosGruposInfAdicionales");
+            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
             bandera = 0;
             filtrarGruposInfAdicionales = null;
             tipoLista = 0;
@@ -185,9 +185,9 @@ public class ControlGruposInfAdicionales implements Serializable {
         getListGruposInfAdicionales();
         contarRegistros();
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosGruposInfAdicionales");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
@@ -200,7 +200,7 @@ public class ControlGruposInfAdicionales implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
             estado.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosGruposInfAdicionales");
+            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
             bandera = 0;
             filtrarGruposInfAdicionales = null;
             tipoLista = 0;
@@ -218,9 +218,9 @@ public class ControlGruposInfAdicionales implements Serializable {
         getListGruposInfAdicionales();
         RequestContext context = RequestContext.getCurrentInstance();
         contarRegistros();
-        PrimefacesContextUI.actualizar("form:informacionRegistro");
-        PrimefacesContextUI.actualizar("form:datosGruposInfAdicionales");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -231,7 +231,7 @@ public class ControlGruposInfAdicionales implements Serializable {
             codigo.setFilterStyle("width: 85%");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:descripcion");
             descripcion.setFilterStyle("width: 85%");
-            PrimefacesContextUI.actualizar("form:datosGruposInfAdicionales");
+            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
             estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
             estado.setFilterStyle("width: 85%");
             System.out.println("Activar");
@@ -245,7 +245,7 @@ public class ControlGruposInfAdicionales implements Serializable {
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
             estado.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosGruposInfAdicionales");
+            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
             bandera = 0;
             filtrarGruposInfAdicionales = null;
             tipoLista = 0;
@@ -320,14 +320,14 @@ public class ControlGruposInfAdicionales implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     grupoInfAdSeleccionado = null;
                     grupoInfAdSeleccionado = null;
-                    PrimefacesContextUI.actualizar("form:datosGruposInfAdicionales");
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
 
                     System.out.println("backupCodigo : " + backupCodigo);
@@ -376,14 +376,14 @@ public class ControlGruposInfAdicionales implements Serializable {
                             guardado = false;
                         }
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
 
                     }
                     grupoInfAdSeleccionado = null;
                     grupoInfAdSeleccionado = null;
-                    PrimefacesContextUI.actualizar("form:datosGruposInfAdicionales");
-                    PrimefacesContextUI.actualizar("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                 }
             } else {
@@ -443,7 +443,7 @@ public class ControlGruposInfAdicionales implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     grupoInfAdSeleccionado = null;
@@ -498,7 +498,7 @@ public class ControlGruposInfAdicionales implements Serializable {
                         }
 
                     } else {
-                        PrimefacesContextUI.actualizar("form:validacionModificar");
+                        RequestContext.getCurrentInstance().update("form:validacionModificar");
                         PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
                     }
                     grupoInfAdSeleccionado = null;
@@ -506,8 +506,8 @@ public class ControlGruposInfAdicionales implements Serializable {
                 }
 
             }
-            PrimefacesContextUI.actualizar("form:datosGruposInfAdicionales");
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
     }
@@ -533,14 +533,14 @@ public class ControlGruposInfAdicionales implements Serializable {
             }
             modificarInfoRegistro(listGruposInfAdicionales.size());
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
-            PrimefacesContextUI.actualizar("form:datosGruposInfAdicionales");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
             grupoInfAdSeleccionado = null;
 
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else {
             PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
         }
@@ -565,7 +565,7 @@ public class ControlGruposInfAdicionales implements Serializable {
                 System.out.println("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.actualizar("form:validacionBorrar");
+                RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
                 grupoInfAdSeleccionado = null;
                 verificarInformacionesAdicionales = new BigInteger("-1");
@@ -580,7 +580,7 @@ public class ControlGruposInfAdicionales implements Serializable {
 
         if (!borrarGruposInfAdicionales.isEmpty() || !crearGruposInfAdicionales.isEmpty() || !modificarGruposInfAdicionales.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
         }
 
@@ -595,7 +595,7 @@ public class ControlGruposInfAdicionales implements Serializable {
                 administrarGruposInfAdicionales.borrarGruposInfAdicionales(borrarGruposInfAdicionales);
                 //mostrarBorrados
                 registrosBorrados = borrarGruposInfAdicionales.size();
-                PrimefacesContextUI.actualizar("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
                 borrarGruposInfAdicionales.clear();
             }
@@ -613,13 +613,13 @@ public class ControlGruposInfAdicionales implements Serializable {
             contarRegistros();
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
-            PrimefacesContextUI.actualizar("form:datosGruposInfAdicionales");
+            RequestContext.getCurrentInstance().update("form:growl");
+            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
             k = 0;
             guardado = true;
         }
         grupoInfAdSeleccionado = null;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -635,11 +635,11 @@ public class ControlGruposInfAdicionales implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
@@ -699,7 +699,7 @@ public class ControlGruposInfAdicionales implements Serializable {
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
                 estado.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosGruposInfAdicionales");
+                RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
                 bandera = 0;
                 filtrarGruposInfAdicionales = null;
                 tamano = 270;
@@ -713,19 +713,19 @@ public class ControlGruposInfAdicionales implements Serializable {
             crearGruposInfAdicionales.add(nuevoGruposInfAdicionales);
             listGruposInfAdicionales.add(nuevoGruposInfAdicionales);
             modificarInfoRegistro(listGruposInfAdicionales.size());
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             grupoInfAdSeleccionado = nuevoGruposInfAdicionales;
             nuevoGruposInfAdicionales = new GruposInfAdicionales();
-            PrimefacesContextUI.actualizar("form:datosGruposInfAdicionales");
+            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('nuevoRegistroGruposInfAdicionales').hide()");
 
         } else {
-            PrimefacesContextUI.actualizar("form:validacionNuevoGrupoInfAd");
+            RequestContext.getCurrentInstance().update("form:validacionNuevoGrupoInfAd");
             PrimefacesContextUI.ejecutar("PF('validacionNuevoGrupoInfAd').show()");
             contador = 0;
         }
@@ -759,7 +759,7 @@ public class ControlGruposInfAdicionales implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarTE");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
             PrimefacesContextUI.ejecutar("PF('duplicarRegistroGruposInfAdicionales').show()");
 
         } else {
@@ -812,14 +812,14 @@ public class ControlGruposInfAdicionales implements Serializable {
             }
             listGruposInfAdicionales.add(duplicarGruposInfAdicionales);
             crearGruposInfAdicionales.add(duplicarGruposInfAdicionales);
-            PrimefacesContextUI.actualizar("form:datosGruposInfAdicionales");
+            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
             grupoInfAdSeleccionado = duplicarGruposInfAdicionales;
             modificarInfoRegistro(listGruposInfAdicionales.size());
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
             }
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
@@ -829,7 +829,7 @@ public class ControlGruposInfAdicionales implements Serializable {
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
                 estado.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosGruposInfAdicionales");
+                RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
                 bandera = 0;
                 filtrarGruposInfAdicionales = null;
                 tipoLista = 0;
@@ -839,7 +839,7 @@ public class ControlGruposInfAdicionales implements Serializable {
 
         } else {
             contador = 0;
-            PrimefacesContextUI.actualizar("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
         }
     }
@@ -899,7 +899,7 @@ public class ControlGruposInfAdicionales implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             modificarInfoRegistro(filtrarGruposInfAdicionales.size());
-            PrimefacesContextUI.actualizar("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
             System.out.println("ERROR ControlGruposInfAdicionales eventoFiltrar ERROR===" + e.getMessage());
         }
@@ -927,12 +927,12 @@ public class ControlGruposInfAdicionales implements Serializable {
 
     public void habilitarBotonLov() {
         activarLov = false;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     public void deshabilitarBotonLov() {
         activarLov = true;
-        PrimefacesContextUI.actualizar("form:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/

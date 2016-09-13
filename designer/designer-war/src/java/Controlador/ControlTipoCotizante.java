@@ -1,5 +1,6 @@
 package Controlador;
 
+import utilidadesUI.PrimefacesContextUI;
 import Entidades.TiposEntidades;
 import Entidades.TiposCotizantes;
 import Entidades.DetallesTiposCotizantes;
@@ -24,7 +25,6 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
 
 @ManagedBean
 @SessionScoped
@@ -191,11 +191,11 @@ public class ControlTipoCotizante implements Serializable {
             listaDetallesTiposCotizantes = null;
             getListaDetallesTiposCotizantes();
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
 
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:cambiar");
+            RequestContext.getCurrentInstance().update("formularioDialogos:cambiar");
             PrimefacesContextUI.ejecutar("PF('cambiar').show()");
         }
     }
@@ -225,7 +225,7 @@ public class ControlTipoCotizante implements Serializable {
             tablaImprimir = ":formExportar:datosTiposCotizantesExportar";
             nombreArchivo = "TiposCotizantesXML";
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:exportarXML");
+            RequestContext.getCurrentInstance().update("form:exportarXML");
             if (tipoLista == 0) {
                 secRegistro = listaTiposCotizantes.get(index).getSecuencia();
 
@@ -284,7 +284,7 @@ public class ControlTipoCotizante implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
                 indexNF = -1;
@@ -300,14 +300,14 @@ public class ControlTipoCotizante implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
 
                 }
                 indexNF = -1;
                 secRegistro = null;
             }
-            PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
         }
     }
 
@@ -372,10 +372,10 @@ public class ControlTipoCotizante implements Serializable {
         }
         if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
-        PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
+        RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
         System.out.println("Subtipo: " + listaTiposCotizantes.get(indice).getSubtipocotizante());
     }
 
@@ -403,7 +403,7 @@ public class ControlTipoCotizante implements Serializable {
 
                 nuevoTipoCotizante.setSubtipocotizante(null);
             }
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoSubTipoCotizacion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoSubTipoCotizacion");
         } else {
             if (estadoSubTipoCotizante != null) {
                 if (estadoSubTipoCotizante.equals(" ")) {
@@ -426,8 +426,8 @@ public class ControlTipoCotizante implements Serializable {
                 duplicarTipoCotizante.setSubtipocotizante(null);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarSubTipoCotizacion");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarSubTipoCotizacion");
         }
 
     }
@@ -445,15 +445,15 @@ public class ControlTipoCotizante implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigo");
                 PrimefacesContextUI.ejecutar("PF('editarCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarDescripcion");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcion");
                 PrimefacesContextUI.ejecutar("PF('editarDescripcion').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarCodigoAlternativo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoAlternativo");
                 PrimefacesContextUI.ejecutar("PF('editarCodigoAlternativo').show()");
                 cualCelda = -1;
             }
@@ -470,15 +470,15 @@ public class ControlTipoCotizante implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             System.out.println("Cual Tabla: " + CualTabla);
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarTipoEntidad");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoEntidad");
                 PrimefacesContextUI.ejecutar("PF('editarTipoEntidad').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarMinimo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarMinimo");
                 PrimefacesContextUI.ejecutar("PF('editarMinimo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
-                PrimefacesContextUI.actualizar("formularioDialogos:editarMaximo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarMaximo");
                 PrimefacesContextUI.ejecutar("PF('editarMaximo').show()");
                 cualCelda = -1;
             }
@@ -493,7 +493,7 @@ public class ControlTipoCotizante implements Serializable {
         if (indexNF >= 0 && CualTabla == 1) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
-                PrimefacesContextUI.actualizar("formularioDialogos:tiposEntidadesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:tiposEntidadesDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposEntidadesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -529,7 +529,7 @@ public class ControlTipoCotizante implements Serializable {
             tcSubtipoCotizante.setFilterStyle("width: 85%;");
             tcCodigoAlternativo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcCodigoAlternativo");
             tcCodigoAlternativo.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
             bandera = 1;
 
         } else if (bandera == 1 && CualTabla == 0) {
@@ -554,7 +554,7 @@ public class ControlTipoCotizante implements Serializable {
             tcExtranjero.setFilterStyle("display: none; visibility: hidden;");
             tcSubtipoCotizante = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcSubtipoCotizante");
             tcSubtipoCotizante.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
             bandera = 0;
             filtradosListaTiposCotizantes = null;
             tipoLista = 0;
@@ -566,7 +566,7 @@ public class ControlTipoCotizante implements Serializable {
             dtcMinimo.setFilterStyle("width: 85%;");
             dtcMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMaximo");
             dtcMaximo.setFilterStyle("width: 85%;");
-            PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
             banderaNF = 1;
 
         } else if (banderaNF == 1 && CualTabla == 1) {
@@ -577,7 +577,7 @@ public class ControlTipoCotizante implements Serializable {
             dtcMinimo.setFilterStyle("display: none; visibility: hidden;");
             dtcMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMaximo");
             dtcMaximo.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
             banderaNF = 0;
             filtradosListaDetallesTiposCotizantes = null;
             tipoListaNF = 0;
@@ -657,7 +657,7 @@ public class ControlTipoCotizante implements Serializable {
         }
 
         if (pasa != 0) {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoTipoCotizante");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoCotizante");
             PrimefacesContextUI.ejecutar("PF('validacionNuevoTipoCotizante').show()");
         }
 
@@ -684,7 +684,7 @@ public class ControlTipoCotizante implements Serializable {
                 tcExtranjero.setFilterStyle("display: none; visibility: hidden;");
                 tcSubtipoCotizante = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcSubtipoCotizante");
                 tcSubtipoCotizante.setFilterStyle("display: none; visibility: hidden;");
-                PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
+                RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
                 bandera = 0;
                 filtradosListaTiposCotizantes = null;
                 tipoLista = 0;
@@ -700,11 +700,11 @@ public class ControlTipoCotizante implements Serializable {
             nuevoTipoCotizante = new TiposCotizantes();
             nuevoTipoCotizante.setCodigo(BigInteger.valueOf(0));
             nuevoTipoCotizante.setDescripcion(" ");
-            PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroTipoCotizante').hide()");
             index = -1;
@@ -750,15 +750,15 @@ public class ControlTipoCotizante implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
             index = -1;
             secRegistro = null;
 
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else if (indexNF >= 0 && CualTabla == 1) {
 
@@ -794,15 +794,15 @@ public class ControlTipoCotizante implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
 
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             indexNF = -1;
             secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -844,7 +844,7 @@ public class ControlTipoCotizante implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroTipoCotizante");
+            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTipoCotizante");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTipoCotizante').show()");
             index = -1;
             secRegistro = null;
@@ -869,7 +869,7 @@ public class ControlTipoCotizante implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroDetalleTipoCotizante");
+            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroDetalleTipoCotizante");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroDetalleTipoCotizante').show()");
             indexNF = -1;
             secRegistro = null;
@@ -887,7 +887,7 @@ public class ControlTipoCotizante implements Serializable {
         secRegistro = null;
         if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         if (bandera == 1) {
             altoTabla = "73";
@@ -913,15 +913,15 @@ public class ControlTipoCotizante implements Serializable {
             tcExtranjero.setFilterStyle("display: none; visibility: hidden;");
             tcSubtipoCotizante = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcSubtipoCotizante");
             tcSubtipoCotizante.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
             bandera = 0;
             filtradosListaTiposCotizantes = null;
             tipoLista = 0;
 
         }
-        PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
+        RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
         duplicarTipoCotizante = new TiposCotizantes();
-        PrimefacesContextUI.actualizar("formularioDialogos:DuplicarRegistroTipoCotizante");
+        RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTipoCotizante");
         PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTipoCotizante').hide()");
 
     }
@@ -1027,7 +1027,7 @@ public class ControlTipoCotizante implements Serializable {
             tcExtranjero.setFilterStyle("display: none; visibility: hidden;");
             tcSubtipoCotizante = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcSubtipoCotizante");
             tcSubtipoCotizante.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
             bandera = 0;
             filtradosListaTiposCotizantes = null;
             tipoLista = 0;
@@ -1041,7 +1041,7 @@ public class ControlTipoCotizante implements Serializable {
             dtcMinimo.setFilterStyle("display: none; visibility: hidden;");
             dtcMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMaximo");
             dtcMaximo.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
             banderaNF = 0;
             filtradosListaDetallesTiposCotizantes = null;
             tipoListaNF = 0;
@@ -1092,7 +1092,7 @@ public class ControlTipoCotizante implements Serializable {
             tcExtranjero.setFilterStyle("display: none; visibility: hidden;");
             tcSubtipoCotizante = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcSubtipoCotizante");
             tcSubtipoCotizante.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
             bandera = 0;
             filtradosListaTiposCotizantes = null;
             tipoLista = 0;
@@ -1107,7 +1107,7 @@ public class ControlTipoCotizante implements Serializable {
             dtcMinimo.setFilterStyle("display: none; visibility: hidden;");
             dtcMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMaximo");
             dtcMaximo.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
             banderaNF = 0;
             filtradosListaDetallesTiposCotizantes = null;
             tipoListaNF = 0;
@@ -1130,9 +1130,9 @@ public class ControlTipoCotizante implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         cambiosPagina = true;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
-        PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
+        RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
     }
 
     //GUARDAR
@@ -1171,13 +1171,13 @@ public class ControlTipoCotizante implements Serializable {
             System.out.println("Se guardaron los datos con exito");
             listaTiposCotizantes = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
             guardado = true;
             permitirIndex = true;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            PrimefacesContextUI.actualizar("form:growl");
-            PrimefacesContextUI.actualizar("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:growl");
+            RequestContext.getCurrentInstance().update("form:aceptar");
             index = -1;
             secRegistro = null;
             //  k = 0;
@@ -1214,10 +1214,10 @@ public class ControlTipoCotizante implements Serializable {
             System.out.println("Se guardaron los datos con exito");
             listaDetallesTiposCotizantes = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
             guardado = true;
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:aceptar");
             //  k = 0;
         }
         System.out.println("Valor k: " + k);
@@ -1288,15 +1288,15 @@ public class ControlTipoCotizante implements Serializable {
         listaTiposCotizantes = null;
         RequestContext context = RequestContext.getCurrentInstance();
         cambiosPagina = true;
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
-        PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
-        PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
+        RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
         guardado = true;
         permitirIndex = true;
         FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        PrimefacesContextUI.actualizar("form:growl");
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:growl");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         indexNF = -1;
         secRegistro = null;
         index = -1;
@@ -1321,14 +1321,14 @@ public class ControlTipoCotizante implements Serializable {
                 getLovListaTiposCotizantes();
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("form:tiposCotizantesDialogo");
+                RequestContext.getCurrentInstance().update("form:tiposCotizantesDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposCotizantesDialogo').show()");
                 tipoActualizacion = 0;
             }
 
         }
-        PrimefacesContextUI.actualizar("form:ClonarTipoCotizante");
-        PrimefacesContextUI.actualizar("form:ClonarTipoCotizanteDescripcion");
+        RequestContext.getCurrentInstance().update("form:ClonarTipoCotizante");
+        RequestContext.getCurrentInstance().update("form:ClonarTipoCotizanteDescripcion");
     }
 
     //<--------------------------------------------METODOS VIGENCIAS NO FORMALES--------------------------------------------->
@@ -1349,7 +1349,7 @@ public class ControlTipoCotizante implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
@@ -1366,14 +1366,14 @@ public class ControlTipoCotizante implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        PrimefacesContextUI.actualizar("form:ACEPTAR");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                     }
                 }
                 indexNF = -1;
                 secRegistro = null;
             }
-            PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
         } else if (confirmarCambio.equalsIgnoreCase("TIPOENTIDAD")) {
             if (tipoListaNF == 0) {
                 listaDetallesTiposCotizantes.get(indiceNF).getTipoentidad().setNombre(TipoEntidad);
@@ -1396,16 +1396,16 @@ public class ControlTipoCotizante implements Serializable {
                 lovListaTiposEntidades.clear();
                 getLovListaTiposEntidades();
 
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 permitirIndex = false;
-                PrimefacesContextUI.actualizar("formularioDialogos:tiposEntidadesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:tiposEntidadesDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposEntidadesDialogo').show()");
                 tipoActualizacion = 0;
             }
 
         }
-        PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+        RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
     }
 
     //Ubicacion Celda.
@@ -1420,7 +1420,7 @@ public class ControlTipoCotizante implements Serializable {
             cualInsertar = "formularioDialogos:NuevoRegistroDetalleTipoCotizante";
             nombreArchivo = "DetallesTiposCotizantesXML";
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:exportarXML");
+            RequestContext.getCurrentInstance().update("form:exportarXML");
 
             if (tipoListaNF == 0) {
                 secRegistro = listaDetallesTiposCotizantes.get(indexNF).getSecuencia();
@@ -1453,10 +1453,10 @@ public class ControlTipoCotizante implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            PrimefacesContextUI.actualizar("form:tiposEntidadesDialogo");
+            RequestContext.getCurrentInstance().update("form:tiposEntidadesDialogo");
             PrimefacesContextUI.ejecutar("PF('tiposEntidadesDialogo').show()");
         } else if (dlg == 1) {
-            PrimefacesContextUI.actualizar("form:tiposCotizantesDialogo");
+            RequestContext.getCurrentInstance().update("form:tiposCotizantesDialogo");
             PrimefacesContextUI.ejecutar("PF('tiposCotizantesDialogo').show()");
         }
 
@@ -1477,10 +1477,10 @@ public class ControlTipoCotizante implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            PrimefacesContextUI.actualizar("form:tiposEntidadesDialogo");
+            RequestContext.getCurrentInstance().update("form:tiposEntidadesDialogo");
             PrimefacesContextUI.ejecutar("PF('tiposEntidadesDialogo').show()");
         } else if (dlg == 1) {
-            PrimefacesContextUI.actualizar("form:tiposCotizantesDialogo");
+            RequestContext.getCurrentInstance().update("form:tiposCotizantesDialogo");
             PrimefacesContextUI.ejecutar("PF('tiposCotizantesDialogo').show()");
         }
 
@@ -1489,14 +1489,14 @@ public class ControlTipoCotizante implements Serializable {
     public void actualizarTipoCotizante() {
         RequestContext context = RequestContext.getCurrentInstance();
         clonarTipoCotizante = lovTipoCotizanteSeleccionado;
-        PrimefacesContextUI.actualizar("form:ClonarTipoCotizante");
-        PrimefacesContextUI.actualizar("form:ClonarTipoCotizanteDescripcion");
+        RequestContext.getCurrentInstance().update("form:ClonarTipoCotizante");
+        RequestContext.getCurrentInstance().update("form:ClonarTipoCotizanteDescripcion");
         context.reset("formularioDialogos:LOVTiposCotizantes:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVTiposCotizantes').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('tiposCotizantesDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVTiposCotizantes");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposCotizantes");
 
-        PrimefacesContextUI.actualizar("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void actualizarTipoEntidad() {
@@ -1523,17 +1523,17 @@ public class ControlTipoCotizante implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
             permitirIndex = true;
-            PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
         } else if (tipoActualizacion == 1) {
             nuevoRegistroDetalleTipoCotizante.setTipoentidad(seleccionTiposEntidades);
-            PrimefacesContextUI.actualizar("formularioDialogos:nuevoRegistroDetalleTipoCotizante");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoRegistroDetalleTipoCotizante");
         } else if (tipoActualizacion == 2) {
             duplicarRegistroDetalleTipoCotizante.setTipoentidad(seleccionTiposEntidades);
-            PrimefacesContextUI.actualizar("formularioDialogos:duplicarRegistroDetalleTipoCotizante");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroDetalleTipoCotizante");
         }
         filtradoslovListaTiposEntidades = null;
         seleccionTiposEntidades = null;
@@ -1545,7 +1545,7 @@ public class ControlTipoCotizante implements Serializable {
         context.reset("formularioDialogos:LOVTiposEntidades:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVTiposEntidades').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('tiposEntidadesDialogo').hide()");
-        //PrimefacesContextUI.actualizar("formularioDialogos:LOVTiposEntidades");
+        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposEntidades");
     }
 
     public void autocompletarNuevoyDuplicadoNF(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
@@ -1567,23 +1567,23 @@ public class ControlTipoCotizante implements Serializable {
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
                     nuevoRegistroDetalleTipoCotizante.setTipoentidad(lovListaTiposEntidades.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoEntidad");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoEntidad");
                 } else if (tipoNuevo == 2) {
                     duplicarRegistroDetalleTipoCotizante.setTipoentidad(lovListaTiposEntidades.get(indiceUnicoElemento));
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoEntidad");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoEntidad");
                 }
                 lovListaTiposEntidades.clear();
                 getLovListaTiposEntidades();
 
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
-                PrimefacesContextUI.actualizar("form:tiposEntidadesDialogo");
+                RequestContext.getCurrentInstance().update("form:tiposEntidadesDialogo");
                 PrimefacesContextUI.ejecutar("PF('tiposEntidadesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:nuevoTipoEntidad");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoEntidad");
                 } else if (tipoNuevo == 2) {
-                    PrimefacesContextUI.actualizar("formularioDialogos:duplicarTipoEntidad");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoEntidad");
                 }
             }
         }
@@ -1617,7 +1617,7 @@ public class ControlTipoCotizante implements Serializable {
                 dtcMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMaximo");
                 dtcMaximo.setFilterStyle("display: none; visibility: hidden;");
 
-                PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+                RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
                 bandera = 0;
                 filtradosListaDetallesTiposCotizantes = null;
                 tipoListaNF = 0;
@@ -1640,17 +1640,17 @@ public class ControlTipoCotizante implements Serializable {
 
             nuevoRegistroDetalleTipoCotizante = new DetallesTiposCotizantes();
 
-            PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
             if (guardado == true) {
                 guardado = false;
-                PrimefacesContextUI.actualizar("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroDetalleTipoCotizante').hide()");
             indexNF = -1;
             secRegistro = null;
         } else {
-            PrimefacesContextUI.actualizar("formularioDialogos:validacionNuevoDetalleTipoCotizante");
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoDetalleTipoCotizante");
             PrimefacesContextUI.ejecutar("PF('validacionNuevoDetalleTipoCotizante').show()");
         }
     }
@@ -1659,20 +1659,20 @@ public class ControlTipoCotizante implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         System.out.println("Cual Tabla: " + CualTabla);
         if (tipoCotizanteSeleccionado != null && listaDetallesTiposCotizantes.isEmpty()) {
-            PrimefacesContextUI.actualizar("formularioDialogos:elegirTabla");
+            RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
             PrimefacesContextUI.ejecutar("PF('elegirTabla').show()");
         }
 
         if ((listaTiposCotizantes.isEmpty() || listaDetallesTiposCotizantes.isEmpty())) {
-            PrimefacesContextUI.actualizar("formularioDialogos:elegirTabla");
+            RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
             PrimefacesContextUI.ejecutar("PF('elegirTabla').show()");
         } else if (CualTabla == 0) {
             System.out.println("cual = 0");
-            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroTipoCotizante");
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroTipoCotizante");
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroTipoCotizante').show()");
         } else if (CualTabla == 1) {
             System.out.println("cual = 1");
-            PrimefacesContextUI.actualizar("formularioDialogos:NuevoRegistroDetalleTipoCotizante");
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroDetalleTipoCotizante");
             PrimefacesContextUI.ejecutar("PF('NuevoRegistroDetalleTipoCotizante').show()");
         }
     }
@@ -1682,12 +1682,12 @@ public class ControlTipoCotizante implements Serializable {
         listaDetallesTiposCotizantes.add(duplicarRegistroDetalleTipoCotizante);
         listaDetallesTiposCotizantesCrear.add(duplicarRegistroDetalleTipoCotizante);
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+        RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
         indexNF = -1;
         secRegistro = null;
         if (guardado == true) {
             guardado = false;
-            PrimefacesContextUI.actualizar("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         if (bandera == 1) {
             altoTablaNF = "95";
@@ -1697,28 +1697,28 @@ public class ControlTipoCotizante implements Serializable {
             dtcMinimo.setFilterStyle("display: none; visibility: hidden;");
             dtcMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMaximo");
             dtcMaximo.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
             bandera = 0;
             filtradosListaDetallesTiposCotizantes = null;
             tipoListaNF = 0;
 
         }
-        PrimefacesContextUI.actualizar("form:DuplicarRegistroDetalleTipoCotizante");
+        RequestContext.getCurrentInstance().update("form:DuplicarRegistroDetalleTipoCotizante");
         duplicarRegistroDetalleTipoCotizante = new DetallesTiposCotizantes();
-        PrimefacesContextUI.actualizar("formularioDialogos:duplicarRegistroDetalleTipoCotizante");
+        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroDetalleTipoCotizante");
         PrimefacesContextUI.ejecutar("PF('DuplicarRegistroDetalleTipoCotizante').hide()");
 
     }
 
     public void dialogoTiposCotizantes() {
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
+        RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
         PrimefacesContextUI.ejecutar("PF('NuevoRegistroTipoCotizante').show()");
     }
 
     public void dialogoDetallesTiposCotizantes() {
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+        RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
         PrimefacesContextUI.ejecutar("PF('NuevoRegistroDetalleTipoCotizante').show()");
 
     }
@@ -1738,7 +1738,7 @@ public class ControlTipoCotizante implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             listaTiposCotizantes = administrarTiposCotizantes.tiposCotizantes();
             tipoCotizanteSeleccionado = listaTiposCotizantes.get(0);
-            PrimefacesContextUI.actualizar("form:datosTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
         }
         return listaTiposCotizantes;
     }
@@ -1836,7 +1836,7 @@ public class ControlTipoCotizante implements Serializable {
             listaDetallesTiposCotizantes = new ArrayList<DetallesTiposCotizantes>();
             listaDetallesTiposCotizantes = administrarDetallesTiposCotizantes.detallesTiposCotizantes(tipoCotizanteSeleccionado.getSecuencia());
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.actualizar("form:datosDetallesTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
 
         }
         return listaDetallesTiposCotizantes;
