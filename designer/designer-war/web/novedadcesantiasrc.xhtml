@@ -209,7 +209,7 @@
                                                 <!--onselect="posicionOtro([{name: 'celda', value: '2'}, {name: 'registro', value: '#{indice}'}]);"-->
                                                 <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades,2 )}" process="@this"/>
                                             </p:inputText>
-                                            <pe:keyFilter for="editarvalorcesantias" mask="num"/>
+                                             <p:keyFilter for="editarvalorcesantias" mask="num"/>
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -377,7 +377,7 @@
                             <p:inputText id="vlrcesantias" value="#{controlNovedadCesantiasRC.nuevaNovedad.valorcesantia}" 
                                          style=" width: 122px; position: absolute; left: 220px; top: 140px; text-transform: uppercase; text-align: right;" onclick="PF('select();" >
                             </p:inputText>
-                            <pe:keyFilter for="vlrcesantias" mask="num"/>
+                             <p:keyFilter for="vlrcesantias" mask="num"/>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 140px; left: 355px; " value="" 
                                              actionListener="#{controlNovedadCesantiasRC.autocompletarVlrCesantias()}" />
 
@@ -385,7 +385,7 @@
                             <p:inputText id="vlrintcesantias" value="#{controlNovedadCesantiasRC.nuevaNovedad.valorinterescesantia}" 
                                          style=" width: 122px; position: absolute; left: 220px; top: 180px; text-transform: uppercase; text-align: right;" onclick="PF('select();">
                             </p:inputText>
-                            <pe:keyFilter for="vlrintcesantias" mask="num"/>
+                             <p:keyFilter for="vlrintcesantias" mask="num"/>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 180px; left: 355px; " value="" 
                                              actionListener="#{controlNovedadCesantiasRC.autocompletarVlrIntCesantias()}" />
 
@@ -393,7 +393,7 @@
                             <p:inputText id="vlrsolicitado" value="#{controlNovedadCesantiasRC.nuevaNovedad.valorsolicitado} " readonly="true" 
                                          style=" width: 122px; position: absolute; left: 220px; top: 220px; text-transform: uppercase; text-align: right;" onclick="PF('select();">
                             </p:inputText>
-                            <pe:keyFilter for="vlrsolicitado" mask="num"/>
+                             <p:keyFilter for="vlrsolicitado" mask="num"/>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 220px; left: 355px; " value="" 
                                              actionListener="#{controlNovedadCesantiasRC.autocompletarVlrSolicitado()}" />
 
@@ -452,7 +452,7 @@
                             <p:inputText id="duplicarvlrcesantias" value="#{controlNovedadCesantiasRC.duplicarNovedad.valorcesantia}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase; text-align: right;" onclick="PF('select();">
                             </p:inputText>
-                            <pe:keyFilter for="duplicarvlrcesantias" mask="num"/>
+                             <p:keyFilter for="duplicarvlrcesantias" mask="num"/>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 140px; left: 355px; " value="" 
                                              actionListener="#{controlNovedadCesantiasRC.autocompletarduplicarVlrCesantias()}" />
 
@@ -460,7 +460,7 @@
                             <p:inputText  id="duplicarvlrintcesantias" value="#{controlNovedadCesantiasRC.duplicarNovedad.valorinterescesantia}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase; text-align: right;" onclick="PF('select();">
                             </p:inputText>
-                            <pe:keyFilter for="duplicarvlrintcesantias" mask="num"/>
+                             <p:keyFilter for="duplicarvlrintcesantias" mask="num"/>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 180px; left: 355px; " value="" 
                                              actionListener="#{controlNovedadCesantiasRC.autocompletarduplicarVlrIntCesantias()}" />
 
@@ -469,7 +469,7 @@
                             <p:inputText id="duplicarvlrsolicitado" value="#{controlNovedadCesantiasRC.duplicarNovedad.valorsolicitado}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase; text-align: right;" onclick="PF('select();">
                             </p:inputText>
-                            <pe:keyFilter for="duplicarvlrsolicitado" mask="num"/>
+                             <p:keyFilter for="duplicarvlrsolicitado" mask="num"/>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 220px; left: 355px; " value="" 
                                              actionListener="#{controlNovedadCesantiasRC.autocompletarduplicarVlrSolicitado()}" />
 

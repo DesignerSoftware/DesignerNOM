@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -8,563 +8,564 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:lnk="http://java.sun.com/jsf/composite/linkare"
       xmlns:pe="http://primefaces.org/ui/extensions">
-    <h:head>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form"> 
+   <h:head>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">                  
+            <h:form id="form"> 
 
-                    <f:loadBundle basename="Recursos.emplvigenciaevento" var="msg" />
-                    <p:growl id="growl" showDetail="true"/>
+               <f:loadBundle basename="Recursos.emplvigenciaevento" var="msg" />
+               <p:growl id="growl" showDetail="true"/>
 
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" > 
-                        <p:toolbar styleClass="cssToolbar" > 
-                            <p:toolbarGroup align="left"> 
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" > 
+                  <p:toolbar styleClass="cssToolbar" > 
+                     <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none; " actionListener="#{controlEmplVigenciaEvento.guardarCambios()}" process="@this" />
-                                <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none; " actionListener="#{controlEmplVigenciaEvento.guardarCambios()}" process="@this" />
+                        <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; " actionListener="#{controlEmplVigenciaEvento.editarCelda()}" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" /> 
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; " actionListener="#{controlEmplVigenciaEvento.editarCelda()}" process="@this"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}" /> 
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; " actionListener="#{controlEmplVigenciaEvento.listaValoresBoton()}" process="@this" disabled="#{controlEmplVigenciaEvento.activarLov}"/>
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; " actionListener="#{controlEmplVigenciaEvento.listaValoresBoton()}" process="@this" disabled="#{controlEmplVigenciaEvento.activarLov}"/>
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlEmplVigenciaEvento.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip for="filtrar" value="#{msg['filtrar']}" />
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlEmplVigenciaEvento.activarCtrlF11()}" process="@this"/>
+                        <p:tooltip for="filtrar" value="#{msg['filtrar']}" />
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " ajax="false" actionListener="#{controlEmplVigenciaEvento.exportXLS()}" />
-                                <p:tooltip for="exportarXLS" value="#{msg['xls']}" />
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " ajax="false" actionListener="#{controlEmplVigenciaEvento.exportXLS()}" />
+                        <p:tooltip for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none; " actionListener="#{controlEmplVigenciaEvento.limpiarNuevaVigenciaEvento()}" ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosVigenciaExportar" fileName="VigenciasEventosXML" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip for="exportarXML" value="#{msg['xml']}" />
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none; " actionListener="#{controlEmplVigenciaEvento.limpiarNuevaVigenciaEvento()}" ajax="false">
+                           <p:dataExporter type="xml"  target=":formExportar:datosVigenciaExportar" fileName="VigenciasEventosXML" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none; " actionListener="#{controlEmplVigenciaEvento.exportPDF()}" ajax="false"/>
-                                <p:tooltip for="exportarPDF" value="#{msg['pdf']}" />
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none; " actionListener="#{controlEmplVigenciaEvento.exportPDF()}" ajax="false"/>
+                        <p:tooltip for="exportarPDF" value="#{msg['pdf']}" />
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; " oncomplete="PF('NuevoRegistroVigencias').show()" update=":formularioDialogos:nuevaVigencias" process="@this"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; " oncomplete="PF('NuevoRegistroVigencias').show()" update=":formularioDialogos:nuevaVigencias" process="@this"/> 
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none; " actionListener="#{controlEmplVigenciaEvento.borrarVigenciaEvento()}" process="@this"/>  
-                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none; " actionListener="#{controlEmplVigenciaEvento.borrarVigenciaEvento()}" process="@this"/>  
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none; " actionListener="#{controlEmplVigenciaEvento.duplicarVigenciaEventoM()}"  process="@this"/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none; " actionListener="#{controlEmplVigenciaEvento.duplicarVigenciaEventoM()}"  process="@this"/>  
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " actionListener="#{controlEmplVigenciaEvento.verificarRastro()}" process="@this"/>  
-                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " actionListener="#{controlEmplVigenciaEvento.verificarRastro()}" process="@this"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlEmplVigenciaEvento.cancelarModificacion()}" process="@this" oncomplete="PF('window.location.reload()"/>  
-                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlEmplVigenciaEvento.cancelarModificacion()}" process="@this" oncomplete="PF('window.location.reload()"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " actionListener="#{controlEmplVigenciaEvento.salir()}" action="emplIndv" process="@this"/>  
-                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " actionListener="#{controlEmplVigenciaEvento.salir()}" action="emplIndv" process="@this"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
-                            </p:toolbarGroup>  
-                        </p:toolbar> 
+                     </p:toolbarGroup>  
+                  </p:toolbar> 
 
-                        <p:commandButton style=" position: absolute; left: 675px; top: 468px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" disabled="#{controlEmplVigenciaEvento.guardado}" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciaEventos" process="@this" />
-                        <p:commandButton style=" position: absolute; left: 765px; top: 468px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlEmplVigenciaEvento.salir()}" action="emplIndv" process="@this" />
+                  <p:commandButton style=" position: absolute; left: 675px; top: 468px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" disabled="#{controlEmplVigenciaEvento.guardado}" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciaEventos" process="@this" />
+                  <p:commandButton style=" position: absolute; left: 765px; top: 468px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlEmplVigenciaEvento.salir()}" action="emplIndv" process="@this" />
 
-                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
-                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
-                            <h:outputText id="nombreEmpleado" value="#{controlEmplVigenciaEvento.empleado.persona.nombreCompleto}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+                  <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                     <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
+                     <h:outputText id="nombreEmpleado" value="#{controlEmplVigenciaEvento.empleado.persona.nombreCompleto}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
-                            <h:outputText id="docEmpleado" value="#{controlEmplVigenciaEvento.empleado.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
-                        </fieldset>
+                     <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
+                     <h:outputText id="docEmpleado" value="#{controlEmplVigenciaEvento.empleado.codigoempleado}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
+                  </fieldset>
 
 
-                        <fieldset style="position: absolute; left: 10px; top: 110px; width: 830px; height: 340px; border-radius: 10px; ">
-                            <legend style="color: blue;text-align:left"><strong>#{msg['eventos']}</strong></legend>
+                  <fieldset style="position: absolute; left: 10px; top: 110px; width: 830px; height: 340px; border-radius: 10px; ">
+                     <legend style="color: blue;text-align:left"><strong>#{msg['eventos']}</strong></legend>
 
 
-                            <p:dataTable id="datosVigenciaEventos" widgetVar="datosVigenciaEventos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left;width: 820px;"                           
-                                         value="#{controlEmplVigenciaEvento.listVigenciasEventos}" scrollable="true" scrollHeight="#{controlEmplVigenciaEvento.altoTabla}" scrollWidth="820"
-                                         filteredValue="#{controlEmplVigenciaEvento.filtrarListVigenciasEventos}" emptyMessage="#{msg['vacio']}" selectionMode="single"
-                                         editable="true" editMode="cell" liveScroll="true" scrollRows="20" selection="#{controlEmplVigenciaEvento.vigenciaTablaSeleccionada}">
+                     <p:dataTable id="datosVigenciaEventos" widgetVar="datosVigenciaEventos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left;width: 820px;"                           
+                                  value="#{controlEmplVigenciaEvento.listVigenciasEventos}" scrollable="true" scrollHeight="#{controlEmplVigenciaEvento.altoTabla}" scrollWidth="820"
+                                  filteredValue="#{controlEmplVigenciaEvento.filtrarListVigenciasEventos}" emptyMessage="#{msg['vacio']}" selectionMode="single"
+                                  editable="true" editMode="cell" liveScroll="true" scrollRows="20" selection="#{controlEmplVigenciaEvento.vigenciaTablaSeleccionada}">
 
-                                <p:ajax event="filter" listener="#{controlEmplVigenciaEvento.eventoFiltrar()}"/>
-                                <f:event type="preRenderView" listener="#{controlEmplVigenciaEvento.recordarSeleccion()}"/>
+                        <p:ajax event="filter" listener="#{controlEmplVigenciaEvento.eventoFiltrar()}"/>
+                        <f:event type="preRenderView" listener="#{controlEmplVigenciaEvento.recordarSeleccion()}"/>
 
-                                <p:column headerText="#{msg['inicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" 
-                                          width="72" id="veFechaInicial" filterStyle="display: none; visibility: hidden;" >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{info.fechainicial}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}" >  
-                                                <p:ajax event="dateSelect" listener="#{controlEmplVigenciaEvento.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,0)}" process="@this"/> 
-                                            </p:calendar> 
-                                        </f:facet>   
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['final']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains"  
-                                          width="72" id="veFechaFinal" filterStyle="display: none; visibility: hidden;" >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{info.fechafinal}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}" >  
-                                                <p:ajax event="dateSelect" listener="#{controlEmplVigenciaEvento.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,1)}" process="@this"/> 
-                                            </p:calendar> 
-                                        </f:facet>   
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['descripcion']}" sortBy="#{info.evento.descripcion}" filterBy="#{info.evento.descripcion}" 
-                                          filterMatchMode="contains" id="veDescripcion" width="133" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.evento.descripcion}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{info.evento.descripcion}" id="editarDescripcionVigencia" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info, 'EVENTOS', info.evento.descripcion)}"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info, 2)}" />
-                                                <p:ajax event="dblclick" listener="#{controlEmplVigenciaEvento.asignarIndex(info, 0)}"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <p:commandButton style="width: 153px;" id="fooDescripcion" value=" " action="evento" onclick="PF('#{controlEventos.recibirPag('evento')}" />
-                                    </f:facet>
-                                </p:column>  
-
-                                <p:column headerText="#{msg['puntajeindividual']}" sortBy="#{info.valorcuantitativo}" filterBy="#{info.valorcuantitativo}" width="76"
-                                          filterMatchMode="contains" id="veIndividual" filterStyle="display: none; visibility: hidden;"   >   
-                                    <f:facet name="header"> 
-                                        <h:outputText id="PI" value="#{msg['puntajeIcorto']}"/>
-                                        <p:tooltip for="PI" value="#{msg['puntajeI']}" />
-                                    </f:facet> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.valorcuantitativo}" style="width: 100px;"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  value="#{info.valorcuantitativo}" id="editarIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <pe:keyFilter for="editarIndividual" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,3)}" process="@this"/> 
-                                                <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarIndividual"/>                                   
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value=" " />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['pci']}" sortBy="#{info.valorcualitativo}" filterBy="#{info.valorcualitativo}" width="76"
-                                          filterMatchMode="contains" id="veCIndividual" filterStyle="display: none; visibility: hidden;"   >     
-                                    <f:facet name="header"> 
-                                        <h:outputText id="PCI" value="#{msg['puntajeCIcorto']}"/>
-                                        <p:tooltip for="PCI" value="#{msg['puntajeCI']}" />
-                                    </f:facet> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.valorcualitativo}" style="width: 100px;"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  value="#{info.valorcualitativo}" id="editarCIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <pe:keyFilter for="editarCIndividual" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,4)}" process="@this"/> 
-                                                <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarCIndividual"/>                                   
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value=" " />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['puntajegrupal']}" sortBy="#{info.valorcuantitativogrupo}" filterBy="#{info.valorcuantitativogrupo}" width="76"
-                                          filterMatchMode="contains" id="veGrupal" filterStyle="display: none; visibility: hidden;"   >  
-                                    <f:facet name="header"> 
-                                        <h:outputText id="PG" value="#{msg['puntajeGcorto']}"/>
-                                        <p:tooltip for="PG" value="#{msg['puntajeG']}" />
-                                    </f:facet> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.valorcuantitativogrupo}" style="width: 100px;"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  value="#{info.valorcuantitativogrupo}" id="editarGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <pe:keyFilter for="editarGrupal" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,5)}" process="@this"/> 
-                                                <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarGrupal"/>                                   
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value=" " />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['pcg']}" sortBy="#{info.valorcuantitativogrupo}" filterBy="#{info.valorcuantitativogrupo}" width="76"
-                                          filterMatchMode="contains" id="veCGrupal" filterStyle="display: none; visibility: hidden;" >    
-                                    <f:facet name="header"> 
-                                        <h:outputText id="PCG" value="#{msg['puntajeCGcorto']}"/>
-                                        <p:tooltip for="PCG" value="#{msg['puntajeCG']}" />
-                                    </f:facet> 
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.valorcuantitativogrupo}" style="width: 100px;"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  value="#{info.valorcuantitativogrupo}" id="editarCGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <pe:keyFilter for="editarCGrupal" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,6)}" process="@this"/> 
-                                                <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarCGrupal"/>                                   
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value=" " />
-                                    </f:facet>
-                                </p:column>
-
-                            </p:dataTable>  
-                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlEmplVigenciaEvento.infoRegistro}" style="position: relative; left: 15px; top: 4px; font-weight: bold"/>
-                        </fieldset> 
-
-                        <p:dialog header="#{msg['eventoEV']}" widgetVar="EventosDialogo" draggable="false" resizable="false" closable="false" id="EventosDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                            <p:dataTable id="lovEventos" style="width: 400px;" var="eventos" value="#{controlEmplVigenciaEvento.listEventos}" rowKey="#{eventos.secuencia}"
-                                         selection="#{controlEmplVigenciaEvento.eventoSeleccionado}" selectionMode="single" widgetVar="lovEventos" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                         filteredValue="#{controlEmplVigenciaEvento.filtrarListEventos}" emptyMessage="#{msg['lovvacio']}">              
-                                <p:ajax event="rowSelect" listener="#{controlEmplVigenciaEvento.activarAceptar()}" update=":form:aceptarE"/>
-                                <p:ajax event="rowDblselect" listener="#{controlEmplVigenciaEvento.actualizarEvento()}" process="@this" />
-                                <p:ajax event="filter" listener="#{controlEmplVigenciaEvento.eventoFiltrarEventos()}"/>
-                                <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarEV']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovEventos.filter();" style="width:250px; position: relative; left: 55px;" />  
-                                </f:facet>
-
-                                <p:column filterBy="#{eventos.descripcion}" filterMatchMode="contains" >
-                                    <f:facet name="header">
-                                        <h:outputText style="text-align: center" value="#{msg['descripcionEV']}" />
-                                    </f:facet>
-                                    <h:outputText  value="#{eventos.descripcion}" />
-                                </p:column>
-                            </p:dataTable>
-
-                            <h:outputText id="infoRegistroEvento" value="#{msg['infoRegistros']} #{controlEmplVigenciaEvento.infoRegistroEvento}" style="position: absolute; left: 20px; top: 320px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarE" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlEmplVigenciaEvento.aceptar}" actionListener="#{controlEmplVigenciaEvento.actualizarEvento()}"  process="@this"/>
-
-                            <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlEmplVigenciaEvento.cancelarCambioEvento()}"  process="@this"/>
-
-                        </p:dialog> 
-
-                    </p:panel>
-
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigenciaEvento.guardarCambios()}" action="emplIndv" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigenciaEvento.salir()}" action="emplIndv" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                    </p:dialog>    
-
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaEvento.backUpSecRegistro, 'VigenciasEventos', 'vigenciasERastros')}" style="position: absolute; top: 63px; left: 175px;" icon="ui-icon-check" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" icon="ui-icon-close" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasEventos', 'vigenciasERastros')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" icon="ui-icon-close" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 14px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 14px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaEvento.backUpSecRegistro, 'VigenciasEventos', 'vigenciasERastros')}" style="position: absolute; top: 68px; left: 175px;" action="rastro" icon="ui-icon-check" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 68px; left: 240px;" process="@this" icon="ui-icon-close" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText   value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplVigenciaEvento.activarCtrlF11()}"/> 
-                </h:form>
-                <h:form id="formularioDialogos" >
-
-                    <p:dialog id="NuevoRegistroVigencias" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroVigencias" closable="false" resizable="false"  draggable="false" modal="true" height="315" width="400" style="padding: 0px">  
-
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                        <p:panel id="nuevaVigencias" style="border: none;">
-
-                            <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechainicial}" >
-                                    <p:ajax event="dateSelect" update="nuevaFechaInicialV" process="@this"/>
-                                    <p:ajax event="change" update="nuevaFechaInicialV" process="@this"/>
-                                </p:calendar>
-                            </div>
-
-                            <strong><h:outputText value="#{msg['finalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechafinal}" >
-                                    <p:ajax event="dateSelect" update="nuevaFechaFinalV" process="@this"/>
-                                    <p:ajax event="change" update="nuevaFechaFinalV" process="@this"/>
-                                </p:calendar>
-                            </div>
-
-                            <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaDescripcion" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.evento.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px;">
-                                <p:ajax event="dblclick" listener="#{controlEmplVigenciaEvento.asignarIndex(info,1)}"/>
-                                <p:ajax event="click" listener="#{controlEmplVigenciaEvento.valoresBackupAutocompletar(1, 'EVENTOS')}" />
-                                <p:ajax event="change" listener="#{controlEmplVigenciaEvento.autocompletarNuevoyDuplicado('EVENTOS', controlEmplVigenciaEvento.nuevaVigenciaEvento.evento.descripcion, 1)}" />
-                            </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 351px; top: 130px;  " id="btnNuevaDescripcion" value="" process="@this"  actionListener="#{controlEmplVigenciaEvento.asignarIndex(info,1)}"/>   
-                            <p:watermark for="nuevaDescripcion" value="#{msg['descripcion']}" />
-
-                            <strong><h:outputText value="#{msg['puntajeindividual']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaIndividual" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 160px;">
-                                <pe:keyFilter for="nuevaIndividual" mask="num"/>
-                                <p:ajax event="change" update="nuevaIndividual"/>
-                            </p:inputText>
-                            <p:watermark for="nuevaIndividual" value="#{msg['puntajeind']}" />
-
-                            <strong><h:outputText value="#{msg['pciN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaGIndividual" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 190px;">
-                                <pe:keyFilter for="nuevaGIndividual" mask="num"/>
-                                <p:ajax event="change" update="nuevaGIndividual"/>
-                            </p:inputText>
-                            <p:watermark for="nuevaGIndividual" value="#{msg['pciNN']}" />
-
-                            <strong><h:outputText value="#{msg['puntajegrupalN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaGrupal" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcuantitativogrupo}" style=" width: 122px; position: absolute; left: 220px; top: 220px;">
-                                <pe:keyFilter for="nuevaGrupal" mask="num"/>
-                                <p:ajax event="change" update="nuevaGrupal"/>
-                            </p:inputText>
-                            <p:watermark for="nuevaGrupal" value="#{msg['puntajegrupalNN']}" />
-
-                            <strong><h:outputText value="#{msg['pcgN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCGrupal" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcualitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 250px;">
-                                <pe:keyFilter for="nuevaCGrupal" mask="num"/>
-                                <p:ajax event="change" update="nuevaCGrupal"/>
-                            </p:inputText>
-                            <p:watermark for="nuevaCGrupal" value="#{msg['pcgNN']}" />
-
-                            <p:commandButton icon="ui-icon-trash" id="limpiarV" value="#{msg['limpiar']}" style="position: absolute; left: 40px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarNuevaVigenciaEvento()}" update="nuevaVigencias" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="agregarV" value="#{msg['agregar']}" style="position: absolute; left: 145px; top: 285px;"  process="@this" actionListener="#{controlEmplVigenciaEvento.agregarNuevaVigenciaEvento()}"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarV" value="#{msg['cancelar']}" style="position: absolute; left: 250px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarNuevaVigenciaEvento()}" update="nuevaVigencias" onclick="PF('NuevoRegistroVigencias').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="DuplicarRegistroVigencias" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroVigencias" closable="false" resizable="false"  draggable="false" modal="true" height="315" width="400" style="padding: 0px">  
-
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                        <p:panel id="duplicarVigencias" style="border: none;">
-
-
-                            <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechainicial}" >
-                                    <p:ajax event="dateSelect" update="duplicarFechaInicialV" process="@this"/>
-                                    <p:ajax event="change" update="duplicarFechaInicialV" process="@this"/>
-                                </p:calendar>
-                            </div>
-
-                            <strong><h:outputText value="#{msg['finalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechafinal}" >
-                                    <p:ajax event="dateSelect" update="duplicarFechaFinalV" process="@this"/>
-                                    <p:ajax event="change" update="duplicarFechaFinalV" process="@this"/>
-                                </p:calendar>
-                            </div>
-
-                            <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDescripcion" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.evento.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px;">
-                                <p:ajax event="dblclick" listener="#{controlEmplVigenciaEvento.asignarIndex(info,2)}"/>
-                                <p:ajax event="click" listener="#{controlEmplVigenciaEvento.valoresBackupAutocompletar(2, 'EVENTOS')}" />
-                                <p:ajax event="change" listener="#{controlEmplVigenciaEvento.autocompletarNuevoyDuplicado('EVENTOS', controlEmplVigenciaEvento.duplicarVigenciaEvento.evento.descripcion, 2)}" />
-                            </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 351px; top: 130px;  " id="btnDuplicarDescripcion" value="" process="@this"  actionListener="#{controlEmplVigenciaEvento.asignarIndex(info,1)}"/>   
-                            <p:watermark for="duplicarDescripcion" value="#{msg['descripcion']}" />
-
-                            <strong><h:outputText value="#{msg['puntajeindividualN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarIndividual" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 160px;">
-                                <pe:keyFilter for="duplicarIndividual" mask="num"/>
-                                <p:ajax event="change" update="duplicarIndividual"/>
-                            </p:inputText>
-                            <p:watermark for="duplicarIndividual" value="#{msg['puntajeind']}" />
-
-                            <strong><h:outputText value="#{msg['pciN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarGIndividual" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 190px;">
-                                <pe:keyFilter for="duplicarGIndividual" mask="num"/>
-                                <p:ajax event="change" update="duplicarGIndividual"/>
-                            </p:inputText>
-                            <p:watermark for="duplicarGIndividual" value="#{msg['pciNN']}" />
-
-                            <strong><h:outputText value="#{msg['puntajegrupalN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarGrupal" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcuantitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 220px;">
-                                <pe:keyFilter for="duplicarGrupal" mask="num"/>
-                                <p:ajax event="change" update="duplicarGrupal"/>
-                            </p:inputText>
-                            <p:watermark for="duplicarGrupal" value="#{msg['puntajegrupalNN']}" />
-
-                            <strong><h:outputText value="#{msg['pcgN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarCGrupal" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcualitativogrupo}" style=" width: 122px; position: absolute; left: 220px; top: 250px;">
-                                <pe:keyFilter for="duplicarCGrupal" mask="num"/>
-                                <p:ajax event="change" update="duplicarCGrupal"/>
-                            </p:inputText>
-                            <p:watermark for="duplicarCGrupal" value="#{msg['pcgNN']}" />
-
-                            <p:commandButton icon="ui-icon-trash" id="limpiarDuplicadoE" value="#{msg['limpiar']}" style="position: absolute; left: 40px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarDuplicar()}" update="duplicarVigencias" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="agregarDuplicadoE" value="#{msg['agregar']}" style="position: absolute; left: 145px; top: 285px;"  process="@this" actionListener="#{controlEmplVigenciaEvento.confirmarDuplicar()}"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDuplicadoE" value="#{msg['cancelar']}" style="position: absolute; left: 250px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarDuplicar()}" update="duplicarVigencias" onclick="PF('DuplicarRegistroVigencias').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="editarFechaInicialD" header="#{msg['inicialE']}" widgetVar="editarFechaInicialD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>
-                    </p:dialog>
-
-                    <p:dialog id="editarFechaFinalD" header="#{msg['finalE']}" widgetVar="editarFechaFinalD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>
-                    </p:dialog>
-
-                    <p:dialog id="editarDescripcionD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.evento.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarIndividualD" header="#{msg['puntajeindividualE']}" widgetVar="editarIndividualD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcuantitativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarCIndividualD" header="#{msg['pciE']}" widgetVar="editarCIndividualD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcualitativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarGrupalD" header="#{msg['puntajegrupalE']}" widgetVar="editarGrupalD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcuantitativogrupo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarCGrupalD" header="#{msg['pcgE']}" widgetVar="editarCGrupalD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcualitativogrupo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                    </p:dialog>
-                </h:form>
-
-                <h:form id="formExportar">
-                    <p:dataTable id="datosVigenciaExportar" var="infoExp" style="visibility: hidden; display: none;"                           
-                                 value="#{controlEmplVigenciaEvento.listVigenciasEventos}"> 
-                        <p:column>  
-                            <f:facet name="header">
-                                <h:outputText value="#{msg['inicialXX']}" />
-                            </f:facet>
-                            <h:outputText value="#{infoExp.fechainicial}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
+                        <p:column headerText="#{msg['inicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" 
+                                  width="72" id="veFechaInicial" filterStyle="display: none; visibility: hidden;" >  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{info.fechainicial}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}" >  
+                                    <p:ajax event="dateSelect" listener="#{controlEmplVigenciaEvento.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,0)}" process="@this"/> 
+                                 </p:calendar> 
+                              </f:facet>   
+                           </p:cellEditor>
+
+                           <f:facet name="footer">
+                              <h:outputText value="" />
+                           </f:facet>
                         </p:column>
 
-                        <p:column>  
-                            <f:facet name="header">
-                                <h:outputText value="#{msg['finalXX']}" />
-                            </f:facet>
-                            <h:outputText value="#{infoExp.fechafinal}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
+                        <p:column headerText="#{msg['final']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains"  
+                                  width="72" id="veFechaFinal" filterStyle="display: none; visibility: hidden;" >  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{info.fechafinal}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}" >  
+                                    <p:ajax event="dateSelect" listener="#{controlEmplVigenciaEvento.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,1)}" process="@this"/> 
+                                 </p:calendar> 
+                              </f:facet>   
+                           </p:cellEditor>
+
+                           <f:facet name="footer">
+                              <h:outputText value="" />
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['descripcionX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['descripcionX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.evento.descripcion}" />
+                        <p:column headerText="#{msg['descripcion']}" sortBy="#{info.evento.descripcion}" filterBy="#{info.evento.descripcion}" 
+                                  filterMatchMode="contains" id="veDescripcion" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.evento.descripcion}" /></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText value="#{info.evento.descripcion}" id="editarDescripcionVigencia" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                    <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info, 'EVENTOS', info.evento.descripcion)}"/>
+                                    <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info, 2)}" />
+                                    <p:ajax event="dblclick" listener="#{controlEmplVigenciaEvento.asignarIndex(info, 0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+
+                           <f:facet name="footer">
+                              <p:commandButton style="width: 153px;" id="fooDescripcion" value=" " action="evento" onclick="PF('#{controlEventos.recibirPag('evento')}" />
+                           </f:facet>
                         </p:column>  
 
-                        <p:column headerText="#{msg['puntajeindividualXX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['puntajeindividualX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.valorcuantitativo}" />
+                        <p:column headerText="#{msg['puntajeindividual']}" sortBy="#{info.valorcuantitativo}" filterBy="#{info.valorcuantitativo}" width="76"
+                                  filterMatchMode="contains" id="veIndividual" filterStyle="display: none; visibility: hidden;"   >   
+                           <f:facet name="header"> 
+                              <h:outputText id="PI" value="#{msg['puntajeIcorto']}"/>
+                              <p:tooltip for="PI" value="#{msg['puntajeI']}" />
+                           </f:facet> 
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.valorcuantitativo}" style="width: 100px;"/></f:facet>  
+                              <f:facet name="input">
+                                  <!--<p:inputText  value="#{info.valorcuantitativo}" id="editarIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase">--> 
+                                 <p:inputMask id="editarIndividual" value="#{info.valorcuantitativo}" mask="$99999999"
+                                              style="border-radius: 0px; width: 93.5%;text-transform: uppercase">
+                                    <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,3)}" process="@this"/> 
+                                    <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarIndividual"/>                                   
+                                 </p:inputMask>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=" " />
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['pciXX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['pciX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.valorcuantitativo}" />
+                        <p:column headerText="#{msg['pci']}" sortBy="#{info.valorcualitativo}" filterBy="#{info.valorcualitativo}" width="76"
+                                  filterMatchMode="contains" id="veCIndividual" filterStyle="display: none; visibility: hidden;"   >     
+                           <f:facet name="header"> 
+                              <h:outputText id="PCI" value="#{msg['puntajeCIcorto']}"/>
+                              <p:tooltip for="PCI" value="#{msg['puntajeCI']}" />
+                           </f:facet> 
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.valorcualitativo}" style="width: 100px;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  value="#{info.valorcualitativo}" id="editarCIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                    <p:keyFilter for="editarCIndividual" mask="num"/>
+                                    <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,4)}" process="@this"/> 
+                                    <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarCIndividual"/>                                   
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=" " />
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['puntajegrupalXX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['puntajegrupalX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.valorcuantitativo}" />
+                        <p:column headerText="#{msg['puntajegrupal']}" sortBy="#{info.valorcuantitativogrupo}" filterBy="#{info.valorcuantitativogrupo}" width="76"
+                                  filterMatchMode="contains" id="veGrupal" filterStyle="display: none; visibility: hidden;"   >  
+                           <f:facet name="header"> 
+                              <h:outputText id="PG" value="#{msg['puntajeGcorto']}"/>
+                              <p:tooltip for="PG" value="#{msg['puntajeG']}" />
+                           </f:facet> 
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.valorcuantitativogrupo}" style="width: 100px;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  value="#{info.valorcuantitativogrupo}" id="editarGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                    <p:keyFilter for="editarGrupal" mask="num"/>
+                                    <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,5)}" process="@this"/> 
+                                    <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarGrupal"/>                                   
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=" " />
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['pcgXX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['pcgX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.valorcualitativogrupo}" />
+                        <p:column headerText="#{msg['pcg']}" sortBy="#{info.valorcuantitativogrupo}" filterBy="#{info.valorcuantitativogrupo}" width="76"
+                                  filterMatchMode="contains" id="veCGrupal" filterStyle="display: none; visibility: hidden;" >    
+                           <f:facet name="header"> 
+                              <h:outputText id="PCG" value="#{msg['puntajeCGcorto']}"/>
+                              <p:tooltip for="PCG" value="#{msg['puntajeCG']}" />
+                           </f:facet> 
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.valorcuantitativogrupo}" style="width: 100px;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  value="#{info.valorcuantitativogrupo}" id="editarCGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                    <p:keyFilter for="editarCGrupal" mask="num"/>
+                                    <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,6)}" process="@this"/> 
+                                    <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarCGrupal"/>                                   
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=" " />
+                           </f:facet>
                         </p:column>
-                    </p:dataTable>
-                </h:form>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+
+                     </p:dataTable>  
+                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlEmplVigenciaEvento.infoRegistro}" style="position: relative; left: 15px; top: 4px; font-weight: bold"/>
+                  </fieldset> 
+
+                  <p:dialog header="#{msg['eventoEV']}" widgetVar="EventosDialogo" draggable="false" resizable="false" closable="false" id="EventosDialogo"  
+                            showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                     <p:dataTable id="lovEventos" style="width: 400px;" var="eventos" value="#{controlEmplVigenciaEvento.listEventos}" rowKey="#{eventos.secuencia}"
+                                  selection="#{controlEmplVigenciaEvento.eventoSeleccionado}" selectionMode="single" widgetVar="lovEventos" scrollable="true" scrollWidth="416" scrollHeight="250"
+                                  filteredValue="#{controlEmplVigenciaEvento.filtrarListEventos}" emptyMessage="#{msg['lovvacio']}">              
+                        <p:ajax event="rowSelect" listener="#{controlEmplVigenciaEvento.activarAceptar()}" update=":form:aceptarE"/>
+                        <p:ajax event="rowDblselect" listener="#{controlEmplVigenciaEvento.actualizarEvento()}" process="@this" />
+                        <p:ajax event="filter" listener="#{controlEmplVigenciaEvento.eventoFiltrarEventos()}"/>
+                        <f:facet name="header">  
+                           <h:outputText value="#{msg['buscarEV']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                           <p:inputText id="globalFilter" onkeyup="lovEventos.filter();" style="width:250px; position: relative; left: 55px;" />  
+                        </f:facet>
+
+                        <p:column filterBy="#{eventos.descripcion}" filterMatchMode="contains" >
+                           <f:facet name="header">
+                              <h:outputText style="text-align: center" value="#{msg['descripcionEV']}" />
+                           </f:facet>
+                           <h:outputText  value="#{eventos.descripcion}" />
+                        </p:column>
+                     </p:dataTable>
+
+                     <h:outputText id="infoRegistroEvento" value="#{msg['infoRegistros']} #{controlEmplVigenciaEvento.infoRegistroEvento}" style="position: absolute; left: 20px; top: 320px; font-weight: bold"/>
+
+                     <p:commandButton id="aceptarE" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlEmplVigenciaEvento.aceptar}" actionListener="#{controlEmplVigenciaEvento.actualizarEvento()}"  process="@this"/>
+
+                     <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlEmplVigenciaEvento.cancelarCambioEvento()}"  process="@this"/>
+
+                  </p:dialog> 
+
+               </p:panel>
+
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigenciaEvento.guardarCambios()}" action="emplIndv" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigenciaEvento.salir()}" action="emplIndv" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+               </p:dialog>    
+
+               <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaEvento.backUpSecRegistro, 'VigenciasEventos', 'vigenciasERastros')}" style="position: absolute; top: 63px; left: 175px;" icon="ui-icon-check" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" icon="ui-icon-close" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasEventos', 'vigenciasERastros')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="rastro" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" icon="ui-icon-close" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 14px; width: 185px; font-weight:bold; text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 14px; width: 185px; font-weight:bold; text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaEvento.backUpSecRegistro, 'VigenciasEventos', 'vigenciasERastros')}" style="position: absolute; top: 68px; left: 175px;" action="rastro" icon="ui-icon-check" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 68px; left: 240px;" process="@this" icon="ui-icon-close" />
+               </p:dialog>
+
+               <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText   value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplVigenciaEvento.activarCtrlF11()}"/> 
+            </h:form>
+            <h:form id="formularioDialogos" >
+
+               <p:dialog id="NuevoRegistroVigencias" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroVigencias" closable="false" resizable="false"  draggable="false" modal="true" height="315" width="400" style="padding: 0px">  
+
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+
+                  <p:panel id="nuevaVigencias" style="border: none;">
+
+                     <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
+                     <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
+                        <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechainicial}" >
+                           <p:ajax event="dateSelect" update="nuevaFechaInicialV" process="@this"/>
+                           <p:ajax event="change" update="nuevaFechaInicialV" process="@this"/>
+                        </p:calendar>
+                     </div>
+
+                     <strong><h:outputText value="#{msg['finalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
+                     <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
+                        <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechafinal}" >
+                           <p:ajax event="dateSelect" update="nuevaFechaFinalV" process="@this"/>
+                           <p:ajax event="change" update="nuevaFechaFinalV" process="@this"/>
+                        </p:calendar>
+                     </div>
+
+                     <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
+                     <p:inputText id="nuevaDescripcion" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.evento.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px;">
+                        <p:ajax event="dblclick" listener="#{controlEmplVigenciaEvento.asignarIndex(info,1)}"/>
+                        <p:ajax event="click" listener="#{controlEmplVigenciaEvento.valoresBackupAutocompletar(1, 'EVENTOS')}" />
+                        <p:ajax event="change" listener="#{controlEmplVigenciaEvento.autocompletarNuevoyDuplicado('EVENTOS', controlEmplVigenciaEvento.nuevaVigenciaEvento.evento.descripcion, 1)}" />
+                     </p:inputText>
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 351px; top: 130px;  " id="btnNuevaDescripcion" value="" process="@this"  actionListener="#{controlEmplVigenciaEvento.asignarIndex(info,1)}"/>   
+                     <p:watermark for="nuevaDescripcion" value="#{msg['descripcion']}" />
+
+                     <strong><h:outputText value="#{msg['puntajeindividual']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
+                     <p:inputText id="nuevaIndividual" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 160px;">
+                        <p:keyFilter for="nuevaIndividual" mask="num"/>
+                        <p:ajax event="change" update="nuevaIndividual"/>
+                     </p:inputText>
+                     <p:watermark for="nuevaIndividual" value="#{msg['puntajeind']}" />
+
+                     <strong><h:outputText value="#{msg['pciN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
+                     <p:inputText id="nuevaGIndividual" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 190px;">
+                        <p:keyFilter for="nuevaGIndividual" mask="num"/>
+                        <p:ajax event="change" update="nuevaGIndividual"/>
+                     </p:inputText>
+                     <p:watermark for="nuevaGIndividual" value="#{msg['pciNN']}" />
+
+                     <strong><h:outputText value="#{msg['puntajegrupalN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
+                     <p:inputText id="nuevaGrupal" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcuantitativogrupo}" style=" width: 122px; position: absolute; left: 220px; top: 220px;">
+                        <p:keyFilter for="nuevaGrupal" mask="num"/>
+                        <p:ajax event="change" update="nuevaGrupal"/>
+                     </p:inputText>
+                     <p:watermark for="nuevaGrupal" value="#{msg['puntajegrupalNN']}" />
+
+                     <strong><h:outputText value="#{msg['pcgN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
+                     <p:inputText id="nuevaCGrupal" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcualitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 250px;">
+                        <p:keyFilter for="nuevaCGrupal" mask="num"/>
+                        <p:ajax event="change" update="nuevaCGrupal"/>
+                     </p:inputText>
+                     <p:watermark for="nuevaCGrupal" value="#{msg['pcgNN']}" />
+
+                     <p:commandButton icon="ui-icon-trash" id="limpiarV" value="#{msg['limpiar']}" style="position: absolute; left: 40px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarNuevaVigenciaEvento()}" update="nuevaVigencias" process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-check" id="agregarV" value="#{msg['agregar']}" style="position: absolute; left: 145px; top: 285px;"  process="@this" actionListener="#{controlEmplVigenciaEvento.agregarNuevaVigenciaEvento()}"  />
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarV" value="#{msg['cancelar']}" style="position: absolute; left: 250px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarNuevaVigenciaEvento()}" update="nuevaVigencias" onclick="PF('NuevoRegistroVigencias').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="DuplicarRegistroVigencias" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroVigencias" closable="false" resizable="false"  draggable="false" modal="true" height="315" width="400" style="padding: 0px">  
+
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+
+                  <p:panel id="duplicarVigencias" style="border: none;">
+
+
+                     <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
+                     <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
+                        <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechainicial}" >
+                           <p:ajax event="dateSelect" update="duplicarFechaInicialV" process="@this"/>
+                           <p:ajax event="change" update="duplicarFechaInicialV" process="@this"/>
+                        </p:calendar>
+                     </div>
+
+                     <strong><h:outputText value="#{msg['finalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
+                     <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
+                        <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechafinal}" >
+                           <p:ajax event="dateSelect" update="duplicarFechaFinalV" process="@this"/>
+                           <p:ajax event="change" update="duplicarFechaFinalV" process="@this"/>
+                        </p:calendar>
+                     </div>
+
+                     <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
+                     <p:inputText id="duplicarDescripcion" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.evento.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px;">
+                        <p:ajax event="dblclick" listener="#{controlEmplVigenciaEvento.asignarIndex(info,2)}"/>
+                        <p:ajax event="click" listener="#{controlEmplVigenciaEvento.valoresBackupAutocompletar(2, 'EVENTOS')}" />
+                        <p:ajax event="change" listener="#{controlEmplVigenciaEvento.autocompletarNuevoyDuplicado('EVENTOS', controlEmplVigenciaEvento.duplicarVigenciaEvento.evento.descripcion, 2)}" />
+                     </p:inputText>
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 351px; top: 130px;  " id="btnDuplicarDescripcion" value="" process="@this"  actionListener="#{controlEmplVigenciaEvento.asignarIndex(info,1)}"/>   
+                     <p:watermark for="duplicarDescripcion" value="#{msg['descripcion']}" />
+
+                     <strong><h:outputText value="#{msg['puntajeindividualN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
+                     <p:inputText id="duplicarIndividual" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 160px;">
+                        <p:keyFilter for="duplicarIndividual" mask="num"/>
+                        <p:ajax event="change" update="duplicarIndividual"/>
+                     </p:inputText>
+                     <p:watermark for="duplicarIndividual" value="#{msg['puntajeind']}" />
+
+                     <strong><h:outputText value="#{msg['pciN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
+                     <p:inputText id="duplicarGIndividual" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 190px;">
+                        <p:keyFilter for="duplicarGIndividual" mask="num"/>
+                        <p:ajax event="change" update="duplicarGIndividual"/>
+                     </p:inputText>
+                     <p:watermark for="duplicarGIndividual" value="#{msg['pciNN']}" />
+
+                     <strong><h:outputText value="#{msg['puntajegrupalN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
+                     <p:inputText id="duplicarGrupal" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcuantitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 220px;">
+                        <p:keyFilter for="duplicarGrupal" mask="num"/>
+                        <p:ajax event="change" update="duplicarGrupal"/>
+                     </p:inputText>
+                     <p:watermark for="duplicarGrupal" value="#{msg['puntajegrupalNN']}" />
+
+                     <strong><h:outputText value="#{msg['pcgN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
+                     <p:inputText id="duplicarCGrupal" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcualitativogrupo}" style=" width: 122px; position: absolute; left: 220px; top: 250px;">
+                        <p:keyFilter for="duplicarCGrupal" mask="num"/>
+                        <p:ajax event="change" update="duplicarCGrupal"/>
+                     </p:inputText>
+                     <p:watermark for="duplicarCGrupal" value="#{msg['pcgNN']}" />
+
+                     <p:commandButton icon="ui-icon-trash" id="limpiarDuplicadoE" value="#{msg['limpiar']}" style="position: absolute; left: 40px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarDuplicar()}" update="duplicarVigencias" process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-check" id="agregarDuplicadoE" value="#{msg['agregar']}" style="position: absolute; left: 145px; top: 285px;"  process="@this" actionListener="#{controlEmplVigenciaEvento.confirmarDuplicar()}"  />
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDuplicadoE" value="#{msg['cancelar']}" style="position: absolute; left: 250px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarDuplicar()}" update="duplicarVigencias" onclick="PF('DuplicarRegistroVigencias').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="editarFechaInicialD" header="#{msg['inicialE']}" widgetVar="editarFechaInicialD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarFechaFinalD" header="#{msg['finalE']}" widgetVar="editarFechaFinalD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarDescripcionD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                  <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.evento.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarIndividualD" header="#{msg['puntajeindividualE']}" widgetVar="editarIndividualD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                  <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcuantitativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarCIndividualD" header="#{msg['pciE']}" widgetVar="editarCIndividualD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                  <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcualitativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarGrupalD" header="#{msg['puntajegrupalE']}" widgetVar="editarGrupalD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                  <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcuantitativogrupo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarCGrupalD" header="#{msg['pcgE']}" widgetVar="editarCGrupalD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                  <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcualitativogrupo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               </p:dialog>
+            </h:form>
+
+            <h:form id="formExportar">
+               <p:dataTable id="datosVigenciaExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                            value="#{controlEmplVigenciaEvento.listVigenciasEventos}"> 
+                  <p:column>  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['inicialXX']}" />
+                     </f:facet>
+                     <h:outputText value="#{infoExp.fechainicial}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     </h:outputText>
+                  </p:column>
+
+                  <p:column>  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['finalXX']}" />
+                     </f:facet>
+                     <h:outputText value="#{infoExp.fechafinal}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     </h:outputText>
+                  </p:column>
+
+                  <p:column headerText="#{msg['descripcionX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['descripcionX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.evento.descripcion}" />
+                  </p:column>  
+
+                  <p:column headerText="#{msg['puntajeindividualXX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['puntajeindividualX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.valorcuantitativo}" />
+                  </p:column>
+
+                  <p:column headerText="#{msg['pciXX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['pciX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.valorcuantitativo}" />
+                  </p:column>
+
+                  <p:column headerText="#{msg['puntajegrupalXX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['puntajegrupalX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.valorcuantitativo}" />
+                  </p:column>
+
+                  <p:column headerText="#{msg['pcgXX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['pcgX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.valorcualitativogrupo}" />
+                  </p:column>
+               </p:dataTable>
+            </h:form>
+         </ui:define>
+      </ui:composition>
+   </h:body>
 </html>
 

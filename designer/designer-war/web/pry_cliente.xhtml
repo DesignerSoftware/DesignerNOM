@@ -119,7 +119,7 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.telefono}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{info.telefono}" maxlength="30" id="editarTelefono" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <pe:keyFilter for="telefono" mask="num"/>
+                                                 <p:keyFilter for="telefono" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 2)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlPryClientes.modificarPryCliente(info, 'N', info.telefono)}" update="telefono"/>
                                             </p:inputText>
@@ -269,7 +269,7 @@
 
                             <strong><h:outputText value="Telefono: "  style=" position: absolute; top: 120px;" /></strong>
                             <p:inputText  id="nuevoTelefono" maxlength="30" value="#{controlPryClientes.nuevoPryCliente.telefono}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
-                                <pe:keyFilter for="nuevoTelefono" mask="num"/>
+                                 <p:keyFilter for="nuevoTelefono" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoTelefono" value="Telefono" />
@@ -305,7 +305,7 @@
 
                             <strong><h:outputText value="Telefono: "  style=" position: absolute; top: 120px;" /></strong>
                             <p:inputText  id="duplicarTelefono" maxlength="30" value="#{controlPryClientes.nuevoPryCliente.telefono}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
-                                <pe:keyFilter for="duplicarTelefono" mask="num"/>
+                                 <p:keyFilter for="duplicarTelefono" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarTelefono" value="Telefono" />

@@ -195,7 +195,7 @@
                                                          text-transform: uppercase;height:12px;" readonly="true" onselect="posicionOtro([{name: 'celda', value: '2'}, {name: 'registro', value: '#{indice}'}]);">
                                                 <!--<p:ajax event="select" listener="#/{controlNovedadesVacaciones.cambiarIndice(novedades,2 )}" process="@this"/>-->
                                             </p:inputText>
-                                            <pe:keyFilter for="editarDias" mask="num"/>
+                                             <p:keyFilter for="editarDias" mask="num"/>
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -306,7 +306,7 @@
                                                          text-transform: uppercase;height:12px;" onselect="posicionOtro([{name: 'celda', value: '7'}, {name: 'registro', value: '#{indice}'}]);">
                                                 <!--<p:ajax event="select" listener="#/{controlNovedadesVacaciones.cambiarIndice(novedades, 7)}" process="@this"/>-->
                                             </p:inputText>
-                                            <pe:keyFilter for="editarDiasAplazados" mask="num"/>
+                                             <p:keyFilter for="editarDiasAplazados" mask="num"/>
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -363,7 +363,7 @@
                                          style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.diasMayor(controlNovedadesVacaciones.nuevaNovedad.dias)}" />
                             </p:inputText>
-                            <pe:keyFilter for="nuevoDias" mask="num"/>
+                             <p:keyFilter for="nuevoDias" mask="num"/>
 
                             <strong><h:outputText value="Fecha Sig. Fin. Vacacion: " style=" position: absolute; top: 185px;" /></strong>
                             <div id="posicionFechaSiguienteNuevoRegi" style=" position: absolute; top: 180px; left: 200px">
@@ -403,7 +403,7 @@
                                          style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <pe:keyFilter for="nuevoDiasAplazados" mask="num"/>
+                             <p:keyFilter for="nuevoDiasAplazados" mask="num"/>
 
                             <p:commandButton id="limpiar" value="Limpiar" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 390px; width: 100px; height: 30px;" actionListener="#{controlNovedadesVacaciones.limpiarNuevaNovedad()}" update="nuevaNovedad" process="@this"/>
                             <p:commandButton id="agregarNE" icon="ui-icon-check" value="#{msg['aceptar']}" style=" position: absolute; left: 200px; top: 390px; height: 30px; width: 90px;" 

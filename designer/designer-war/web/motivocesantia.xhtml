@@ -92,7 +92,7 @@
                                             <p:inputText value="#{info.codigo}" id="editarCodigo" style=" font-size: 10px; border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlMotivosCesantias.cambiarIndice(info, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlMotivosCesantias.modificandoMotivoCensantia(info, 'N', info.codigo)}"  update="codigo"/>
-                                                <pe:keyFilter for="editarCodigo" mask="num"/>
+                                                 <p:keyFilter for="editarCodigo" mask="num"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -230,7 +230,7 @@
                             <strong><h:outputText value="Código: "  style="font-size: 12px; position: absolute; top: 60px;" /></strong>
                             <p:inputText id="nuevoCodigo" value="#{controlMotivosCesantias.nuevoMotivoCesantia.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
                                 <p:ajax event="change" update="@this"/>
-                                <pe:keyFilter for="nuevoCodigo" mask="num"/>
+                                 <p:keyFilter for="nuevoCodigo" mask="num"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
 
@@ -255,7 +255,7 @@
                             <strong><h:outputText value="Código "  style="font-size: 12px; position: absolute; top: 60px;" /></strong>
                             <p:inputText id="duplicarCodigo" value="#{controlMotivosCesantias.duplicarMotivoCesantia.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
                                 <p:ajax event="change" update="@this"/>
-                                <pe:keyFilter for="duplicarCodigo" mask="num"/>
+                                 <p:keyFilter for="duplicarCodigo" mask="num"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 

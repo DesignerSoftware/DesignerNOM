@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -20,6 +21,7 @@ public class Deportes implements Serializable {
     @Column(name = "SECUENCIA")
     private BigInteger secuencia;
     @Column(name = "CODIGO")
+    @Size(max = 4)
     private Integer codigo;
     @Column(name = "NOMBRE")
     private String nombre;

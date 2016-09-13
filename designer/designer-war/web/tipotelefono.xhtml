@@ -36,7 +36,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{info.codigo}" id="editarCodigosTiposTelefonos" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
-                                                <pe:keyFilter for="editarCodigosTiposTelefonos" mask="num"/>
+                                                 <p:keyFilter for="editarCodigosTiposTelefonos" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlTiposTelefonos.cambiarIndice(info,0)}" />
                                                 <p:ajax event="change" listener="#{controlTiposTelefonos.modificarTiposTelefonos(info, 'N', info.codigo)}" update="@this"/>
                                             </p:inputText> 

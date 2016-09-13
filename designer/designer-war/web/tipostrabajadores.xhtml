@@ -115,7 +115,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{infoTT.codigo}" maxlength="4" id="editarCodigosTT" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
-                                                <pe:keyFilter for="editarCodigosTT" mask="num"/>
+                                                 <p:keyFilter for="editarCodigosTT" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlTiposTrabajadores.cambiarIndice(infoTT, 0)}" />
                                                 <p:ajax event="change" listener="#{controlTiposTrabajadores.modificarTT(infoTT, 'COD', infoTT.codigo)}" update="@this"/>
                                             </p:inputText>
@@ -156,7 +156,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{infoTT.factordesalarizacion}" id="editarFD" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
-                                                <pe:keyFilter for="editarFD" mask="num"/>
+                                                 <p:keyFilter for="editarFD" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlTiposTrabajadores.cambiarIndice(infoTT, 2)}" />
                                                 <p:ajax event="change" listener="#{controlTiposTrabajadores.modificarTT(infoTT, 'N', infoTT.factordesalarizacion)}" update="@this"/>
                                             </p:inputText> 
@@ -199,7 +199,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{infoTT.diasvacacionesnoordinarios}" id="editarDNO" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
-                                                <pe:keyFilter for="editarDNO" mask="num"/>
+                                                 <p:keyFilter for="editarDNO" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlTiposTrabajadores.cambiarIndice(infoTT, 4)}" />
                                                 <p:ajax event="change" listener="#{controlTiposTrabajadores.modificarTT(infoTT, 'N', infoTT.diasvacacionesnoordinarios)}" update="@this"/>
                                             </p:inputText> 
@@ -222,7 +222,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{infoTT.derechodiasvacaciones}" id="editarDDV" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
-                                                <pe:keyFilter for="editarDDV" mask="num"/>
+                                                 <p:keyFilter for="editarDDV" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlTiposTrabajadores.cambiarIndice(infoTT, 5)}" />
                                                 <p:ajax event="change" listener="#{controlTiposTrabajadores.modificarTT(infoTT, 'N', infoTT.derechodiasvacaciones)}" update="@this"/>
                                             </p:inputText> 
@@ -297,7 +297,7 @@
                                         <f:facet name="input">
                                             <p:inputText value="#{infoTT.nivelendeudamiento}" maxlength="3" id="editarNivel" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlTiposTrabajadores.cambiarIndice(infoTT, 8)}" />
-                                                <pe:keyFilter for="editarNivel" mask="num"/>
+                                                 <p:keyFilter for="editarNivel" mask="num"/>
                                                 <p:ajax event="change" listener="#{controlTiposTrabajadores.modificarTT(infoTT, 'N', infoTT.nivelendeudamiento)}" update="@this"/>
                                             </p:inputText> 
                                         </f:facet>   
@@ -346,7 +346,7 @@
                                         <f:facet name="input">
                                             <p:inputText value="#{infoTT.porcentajesml}" maxlength="3" id="editarPor" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlTiposTrabajadores.cambiarIndice(infoTT, 10)}"/>
-                                                <pe:keyFilter for="editarPor" mask="num"/>
+                                                 <p:keyFilter for="editarPor" mask="num"/>
                                                 <p:ajax event="change" listener="#{controlTiposTrabajadores.modificarTT(infoTT, 'N', infoTT.porcentajesml)}" update="@this"/>
                                             </p:inputText> 
                                         </f:facet>   
@@ -520,7 +520,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{info.dias}" id="editardias"> 
-                                                <pe:keyFilter for="editardias" mask="num"/>
+                                                 <p:keyFilter for="editardias" mask="num"/>
                                                 <p:ajax event="change" listener="#{controlTiposTrabajadores.modificarVD(info)}" update="@this" process="@this"/>
                                             </p:inputText>  
                                         </f:facet>   
@@ -564,7 +564,7 @@
 
                             <p:inputText onclick="PF('select();" id="codigoTipoTClonar" value="#{controlTiposTrabajadores.codigoNuevoClonado}" 
                                          style="display: block; position: relative; top : 9px; left: 25px; width: 90px; height: 12px; text-transform: uppercase;">
-                                <pe:keyFilter for="codigoTipoTClonar" mask="num"/>
+                                 <p:keyFilter for="codigoTipoTClonar" mask="num"/>
                                 <p:ajax event="change" update="codigoTipoTClonar" process="@this"/>
                             </p:inputText>
                             <p:inputText onclick="PF('select();" id="nombreTipoTClonar" value="#{controlTiposTrabajadores.nombreNuevoClonado}" 
@@ -577,7 +577,7 @@
 
                             <p:inputText onclick="PF('select();" id="codigoTipoTClonarBase" value="#{controlTiposTrabajadores.tipoTrabajadorAClonar.codigo}"
                                          style="display: block; position: relative; top : -20px; left: 25px; width: 90px; height: 12px;">
-                                <pe:keyFilter for="codigoTipoTClonarBase" mask="num"/>
+                                 <p:keyFilter for="codigoTipoTClonarBase" mask="num"/>
                                 <p:ajax event="change" update="codigoTipoTClonarBase" process="@this" listener="#{controlTiposTrabajadores.autocompletarClonado('COD')}"/>
                                 <p:ajax event="dblclick" process="@this" listener="#{controlTiposTrabajadores.llamadoDialogoTT(3)}"/>
                             </p:inputText>
@@ -694,7 +694,7 @@
                             <strong><h:outputText value="*#{msg['codigoNTT']}" style=" position: absolute; top: 60px;" /></strong>
                             <p:inputText id="nuevaCodigoTT" style=" width: 90px; position: absolute; left: 240px; top: 55px;text-transform: uppercase"  
                                          maxlength="4" value="#{controlTiposTrabajadores.nuevoTipoT.codigo}">
-                                <pe:keyFilter for="nuevaCodigoTT" mask="num"/>
+                                 <p:keyFilter for="nuevaCodigoTT" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <!--1-->
@@ -717,7 +717,7 @@
                             <strong><h:outputText value="#{msg['factorDNTT']}" style=" position: absolute; top: 150px;" /></strong>
                             <p:inputText id="nuevafactorDNTT" style=" width: 90px; position: absolute; left: 240px; top: 145px;text-transform: uppercase"
                                          value="#{controlTiposTrabajadores.nuevoTipoT.factordesalarizacion}" >  
-                                <pe:keyFilter for="nuevafactorDNTT" mask="num"/>
+                                 <p:keyFilter for="nuevafactorDNTT" mask="num"/>
 <!--                                <p:ajax event="click" listener="#{controlBetaCentrosCostos.valoresBackupAutocompletar(1, 'TIPOSCENTROSCOSTOS')}" />
                                 <p:ajax event="change" listener="#{controlBetaCentrosCostos.autocompletarNuevo('TIPOSCENTROSCOSTOS', controlBetaCentrosCostos.nuevoCentroCosto.tipocentrocosto.nombre , 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlBetaCentrosCostos.asignarVariableTiposCC(0)}" />-->
@@ -726,14 +726,14 @@
                             <strong><h:outputText value="#{msg['diasvacNoOrdNTT']}" style=" position: absolute; top: 180px;" /></strong>
                             <p:inputText id="nuevadiasvacNoOrdNTT" style=" width: 90px; position: absolute; left: 240px; top: 175px;text-transform: uppercase"
                                          value="#{controlTiposTrabajadores.nuevoTipoT.diasvacacionesnoordinarios}" >  
-                                <pe:keyFilter for="nuevadiasvacNoOrdNTT" mask="num"/>
+                                 <p:keyFilter for="nuevadiasvacNoOrdNTT" mask="num"/>
                                 <!--                                <p:ajax event="change" update="@this"/>-->
                             </p:inputText>
                             <!--5-->
                             <strong><h:outputText value="#{msg['diasvacNTT']}" style="  position: absolute; top: 210px;" /></strong>
                             <p:inputText id="nuevadiasvacNTT" style=" width: 90px; position: absolute; left: 240px; top: 205px;text-transform: uppercase"  
                                          value="#{controlTiposTrabajadores.nuevoTipoT.derechodiasvacaciones}">
-                                <pe:keyFilter for="nuevadiasvacNTT" mask="num"/>
+                                 <p:keyFilter for="nuevadiasvacNTT" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <!--6-->
@@ -767,7 +767,7 @@
                             <strong><h:outputText value="#{msg['nivelEndeuda']}:" style=" position: absolute; top: 60px; left: 400px;" /></strong>
                             <p:inputText id="nuevanivelEndeuda" style=" width: 50px; position: absolute; left: 630px; top: 55px;text-transform: uppercase"  
                                          maxlength="3" value="#{controlTiposTrabajadores.nuevoTipoT.codigo}">
-                                <pe:keyFilter for="nuevanivelEndeuda" mask="num"/>
+                                 <p:keyFilter for="nuevanivelEndeuda" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <!--9-->
@@ -782,7 +782,7 @@
                             <strong><h:outputText value="#{msg['porc']}:" style=" position: absolute; top: 120px; left: 400px;" /></strong>
                             <p:inputText id="nuevaporc" style=" width: 50px; position: absolute; left: 630px; top: 115px;text-transform: uppercase"
                                          maxlength="3" value="#{controlTiposTrabajadores.nuevoTipoT.factordesalarizacion}" >  
-                                <pe:keyFilter for="nuevaporc" mask="num"/>
+                                 <p:keyFilter for="nuevaporc" mask="num"/>
 <!--                                <p:ajax event="click" listener="#{controlBetaCentrosCostos.valoresBackupAutocompletar(1, 'TIPOSCENTROSCOSTOS')}" />
                                 <p:ajax event="change" listener="#{controlBetaCentrosCostos.autocompletarNuevo('TIPOSCENTROSCOSTOS', controlBetaCentrosCostos.nuevoCentroCosto.tipocentrocosto.nombre , 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlBetaCentrosCostos.asignarVariableTiposCC(0)}" />-->
@@ -855,7 +855,7 @@
                             <strong><h:outputText value="*#{msg['codigoNTT']}" style=" position: absolute; top: 60px;" /></strong>
                             <p:inputText id="duplicarCodigoTT" style=" width: 90px; position: absolute; left: 240px; top: 55px;text-transform: uppercase"  
                                          maxlength="4" value="#{controlTiposTrabajadores.duplicarTT.codigo}">
-                                <pe:keyFilter for="duplicarCodigoTT" mask="num"/>
+                                 <p:keyFilter for="duplicarCodigoTT" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <!--1-->
@@ -878,7 +878,7 @@
                             <strong><h:outputText value="#{msg['factorDNTT']}" style=" position: absolute; top: 150px;" /></strong>
                             <p:inputText id="duplicarfactorDNTT" style=" width: 90px; position: absolute; left: 240px; top: 145px;text-transform: uppercase"
                                          value="#{controlTiposTrabajadores.duplicarTT.factordesalarizacion}" >  
-                                <pe:keyFilter for="duplicarfactorDNTT" mask="num"/>
+                                 <p:keyFilter for="duplicarfactorDNTT" mask="num"/>
 <!--                                <p:ajax event="click" listener="#{controlBetaCentrosCostos.valoresBackupAutocompletar(1, 'TIPOSCENTROSCOSTOS')}" />
                                 <p:ajax event="change" listener="#{controlBetaCentrosCostos.autocompletarNuevo('TIPOSCENTROSCOSTOS', controlBetaCentrosCostos.nuevoCentroCosto.tipocentrocosto.nombre , 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlBetaCentrosCostos.asignarVariableTiposCC(0)}" />-->
@@ -887,14 +887,14 @@
                             <strong><h:outputText value="#{msg['diasvacNoOrdNTT']}" style=" position: absolute; top: 180px;" /></strong>
                             <p:inputText id="duplicardiasvacNoOrdNTT" style=" width: 90px; position: absolute; left: 240px; top: 175px;text-transform: uppercase"
                                          value="#{controlTiposTrabajadores.duplicarTT.diasvacacionesnoordinarios}" >  
-                                <pe:keyFilter for="duplicardiasvacNoOrdNTT" mask="num"/>
+                                 <p:keyFilter for="duplicardiasvacNoOrdNTT" mask="num"/>
                                 <!--                                <p:ajax event="change" update="@this"/>-->
                             </p:inputText>
                             <!--5-->
                             <strong><h:outputText value="#{msg['diasvacNTT']}" style="  position: absolute; top: 210px;" /></strong>
                             <p:inputText id="duplicardiasvacNTT" style=" width: 90px; position: absolute; left: 240px; top: 205px;text-transform: uppercase"  
                                          value="#{controlTiposTrabajadores.duplicarTT.derechodiasvacaciones}">
-                                <pe:keyFilter for="duplicardiasvacNTT" mask="num"/>
+                                 <p:keyFilter for="duplicardiasvacNTT" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <!--6-->
@@ -928,7 +928,7 @@
                             <strong><h:outputText value="#{msg['nivelEndeuda']}:" style=" position: absolute; top: 60px; left: 400px;" /></strong>
                             <p:inputText id="duplicarnivelEndeuda" style=" width: 50px; position: absolute; left: 630px; top: 55px;text-transform: uppercase"  
                                          maxlength="3" value="#{controlTiposTrabajadores.duplicarTT.codigo}">
-                                <pe:keyFilter for="duplicarnivelEndeuda" mask="num"/>
+                                 <p:keyFilter for="duplicarnivelEndeuda" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <!--9-->
@@ -943,7 +943,7 @@
                             <strong><h:outputText value="#{msg['porc']}:" style=" position: absolute; top: 120px; left: 400px;" /></strong>
                             <p:inputText id="duplicarporc" style=" width: 50px; position: absolute; left: 630px; top: 115px;text-transform: uppercase"
                                          maxlength="3" value="#{controlTiposTrabajadores.duplicarTT.factordesalarizacion}" >  
-                                <pe:keyFilter for="duplicarporc" mask="num"/>
+                                 <p:keyFilter for="duplicarporc" mask="num"/>
 <!--                                <p:ajax event="click" listener="#{controlBetaCentrosCostos.valoresBackupAutocompletar(1, 'TIPOSCENTROSCOSTOS')}" />
                                 <p:ajax event="change" listener="#{controlBetaCentrosCostos.autocompletarNuevo('TIPOSCENTROSCOSTOS', controlBetaCentrosCostos.nuevoCentroCosto.tipocentrocosto.nombre , 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlBetaCentrosCostos.asignarVariableTiposCC(0)}" />-->
@@ -1013,7 +1013,7 @@
                             <strong><h:outputText value="*#{msg['dias']}:" style="left: 80px; position: absolute; top: 80px;" /></strong>
                             <p:inputText id="nuevoDiasVD" style=" width: 90px; position: absolute; left: 190px; top: 75px; text-transform: uppercase"  
                                          maxlength="4" value="#{controlTiposTrabajadores.nuevaVD.dias}">
-                                <pe:keyFilter for="nuevoDiasVD" mask="num"/>
+                                 <p:keyFilter for="nuevoDiasVD" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -1045,7 +1045,7 @@
                             <strong><h:outputText value="*#{msg['dias']}:" style="left: 80px; position: absolute; top: 80px;" /></strong>
                             <p:inputText id="duplicarDiasVD" style=" width: 90px; position: absolute; left: 190px; top: 75px; text-transform: uppercase"  
                                          maxlength="4" value="#{controlTiposTrabajadores.duplicarVD.dias}">
-                                <pe:keyFilter for="duplicarDiasVD" mask="num"/>
+                                 <p:keyFilter for="duplicarDiasVD" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 

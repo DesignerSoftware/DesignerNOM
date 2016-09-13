@@ -136,7 +136,7 @@
                                     <p:inputText onclick="PF('select();" value="#{controlPersonaIndividual.nuevaPersona.numerodocumento}" id="numeroDocumentoModPersonal" widgetVar="numeroDocumentoModPersonal" style="position: absolute; top: 50px; left: 430px; width: 130px;text-transform: uppercase">
                                         <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(6)}" process="@this"/>
                                         <p:ajax event="change" listener="#{controlPersonaIndividual.modificarNumeroDocumentoPersona()}" process="@this"/>
-                                        <pe:keyFilter for="numeroDocumentoModPersonal" mask="num"/>
+                                         <p:keyFilter for="numeroDocumentoModPersonal" mask="num"/>
                                     </p:inputText>
 
                                     <h:outputText  value="#{msg['ciudadDocumento']}*" style="position: absolute; top: 85px; left: 290px;font-weight: bold"/>
@@ -175,7 +175,7 @@
                                     <p:inputText onclick="PF('select();" value="#{controlPersonaIndividual.nuevoEmpleado.codigoempleado}" id="codigoEmpleadoModPersonal" style="position: absolute; top: 50px; left: 705px;width: 105px;text-transform: uppercase">
                                         <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(11)}" process="@this"/>
                                         <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCodigoEmpleado()}" process="@this" update="@this" />
-                                        <pe:keyFilter for="codigoEmpleadoModPersonal" mask="num"/>
+                                         <p:keyFilter for="codigoEmpleadoModPersonal" mask="num"/>
                                     </p:inputText>
 
 
@@ -305,7 +305,7 @@
                                     <p:inputText  id="valorSueldoModSueldo" onclick="PF('select();" value="#{controlPersonaIndividual.valorSueldo}" style="position: absolute; top: 20px; left: 230px;width: 150px;text-transform: uppercase">
                                         <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemSueldo(0)}" process="@this"/>
                                         <p:ajax event="change" listener="#{controlPersonaIndividual.modificacionValorSueldo(controlPersonaIndividual.valorSueldo)}" process="@this" update="valorSueldoModSueldo"/>
-                                        <pe:keyFilter for="valorSueldoModSueldo" mask="num"/>
+                                         <p:keyFilter for="valorSueldoModSueldo" mask="num"/>
                                         <f:convertNumber currencyCode="COP"/>
                                     </p:inputText>
 

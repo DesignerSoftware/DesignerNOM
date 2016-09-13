@@ -200,7 +200,6 @@ public class ControlConcepto implements Serializable {
     }
 
     public void recibirPaginaEntrante(String pagina) {
-        System.out.println(this.getClass().getName() + ".recibirPaginaEntrante()");
         paginaAnterior = pagina;
         estadoConceptoEmpresa = "S";
         lovConceptosEmpresa = null;
@@ -216,9 +215,6 @@ public class ControlConcepto implements Serializable {
         listaConceptosEmpresa = null;
         getListaConceptosEmpresa();
         contarRegistros();
-        deshabilitarBotonLov();
-        RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.actualizar("form:datosConceptos");
     }
 
     public String redirigir() {

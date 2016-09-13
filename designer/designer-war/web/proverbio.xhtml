@@ -297,7 +297,7 @@
                             <p:selectOneMenu id="nuevoAno" value="#{controlProverbio.nuevoRegistroMensajesUsuarios.ano}"  style=" width: 122px; position: absolute; left: 120px; top: 65px; text-transform: uppercase">
                                 <f:selectItems value="#{controlProverbio.anios}"/> 
                                 <f:selectItem itemLabel="#{msg['todoslosanos']}" itemValue="0" /> 
-                                <pe:keyFilter for="nuevoAno" mask="num"/>
+                                 <p:keyFilter for="nuevoAno" mask="num"/>
                                 <p:ajax event="change" update="nuevoAno" process="@this"/>
                             </p:selectOneMenu>
 
@@ -381,7 +381,7 @@
                             <p:selectOneMenu id="duplicarAno" value="#{controlProverbio.duplicarRegistroMensajesUsuarios.ano}"  style=" width: 122px; position: absolute; left: 120px; top: 65px; text-transform: uppercase">
                                 <f:selectItems value="#{controlProverbio.anios}"/> 
                                 <f:selectItem itemLabel="#{msg['todoslosanos']}" itemValue="0" /> 
-                                <pe:keyFilter for="duplicarAno" mask="num"/>
+                                 <p:keyFilter for="duplicarAno" mask="num"/>
                                 <p:ajax event="change" update="duplicarAno" process="@this"/>
                             </p:selectOneMenu>
 

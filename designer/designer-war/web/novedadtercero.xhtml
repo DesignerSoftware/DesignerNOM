@@ -142,7 +142,7 @@
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 0)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadesTerceros.asignarIndex(novedades, 0, 0)}"/>
                                             </p:inputText>
-                                            <!-- <pe:keyFilter for="editarEmpleadoCodigo" mask="num"/>-->
+                                            <!--  <p:keyFilter for="editarEmpleadoCodigo" mask="num"/>-->
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -183,7 +183,7 @@
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 2)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadesTerceros.asignarIndex(novedades, 1, 0)}"/>
                                             </p:inputText>
-                                            <pe:keyFilter for="editarConceptoCodigo" mask="num"/>
+                                             <p:keyFilter for="editarConceptoCodigo" mask="num"/>
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -261,7 +261,7 @@
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'N', novedades.valortotal)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 6)}" process="@this"/>
                                             </p:inputText>
-                                            <!--  <pe:keyFilter for="editarValor" mask="num"/>-->
+                                            <!--   <p:keyFilter for="editarValor" mask="num"/>-->
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -279,7 +279,7 @@
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'N', novedades.saldo)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 7)}" process="@this"/>
                                             </p:inputText>
-                                            <pe:keyFilter for="editarSaldo" mask="num"/>
+                                             <p:keyFilter for="editarSaldo" mask="num"/>
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -353,7 +353,7 @@
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'N', novedades.unidadesparteentera)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 13)}" process="@this"/>
                                             </p:inputText>
-                                            <pe:keyFilter for="editarDiasHoras" mask="num"/>
+                                             <p:keyFilter for="editarDiasHoras" mask="num"/>
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -375,7 +375,7 @@
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'N', novedades.unidadespartefraccion)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 14)}" process="@this"/>
                                             </p:inputText>
-                                            <pe:keyFilter for="editarMinutosHoras" mask="num"/>
+                                             <p:keyFilter for="editarMinutosHoras" mask="num"/>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">

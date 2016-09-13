@@ -83,7 +83,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{info.codigo}" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <pe:keyFilter for="codigo" mask="num"/>
+                                                 <p:keyFilter for="codigo" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlPryPlataformas.cambiarIndice(info, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlPryPlataformas.modificarEvalPlataforma(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -230,7 +230,7 @@
 
                             <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;" /></strong>
                             <p:inputText id="nuevoCodigo" value="#{controlPryPlataformas.nuevoPryPlataforma.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
-                                <pe:keyFilter for="nuevoCodigo" mask="num"/>
+                                 <p:keyFilter for="nuevoCodigo" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
@@ -260,7 +260,7 @@
                         <p:panel id="duplicarPPL" style="border: none;">
                             <strong><h:outputText value="código "  style=" position: absolute; top: 60px;" /></strong>
                             <p:inputText id="duplicarCodigo" value="#{controlPryPlataformas.duplicarPryPlataforma.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
-                                <pe:keyFilter for="duplicarCodigo" mask="num"/>
+                                 <p:keyFilter for="duplicarCodigo" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />

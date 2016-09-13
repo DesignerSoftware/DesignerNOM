@@ -13,7 +13,7 @@
       <ui:composition template="/template.xhtml">
          <ui:define name="body">                  
             <h:form id="form">
-               <!--<pe:ajaxErrorHandler/>-->
+               <!-- <pe:ajaxErrorHandler/>-->
                <f:loadBundle basename="Recursos.emplvigenciascargos" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
@@ -109,7 +109,7 @@
                      <p:dataTable id="datosVCEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice"
                                   value="#{controlVigenciasCargos.vigenciasCargosEmpleado}" widgetVar="datosVCEmpleado"
                                   filteredValue="#{controlVigenciasCargos.filterVC}" emptyMessage="#{msg['vacio']}"
-                                  editable="true" editMode="cell" scrollable="true" scrollWidth="830" 
+                                  editable="true" editMode="cell" scrollable="true" scrollWidth="830"  
                                   scrollHeight="#{controlVigenciasCargos.altoTabla}" style="border: 1px;"
                                   selection="#{controlVigenciasCargos.vigenciaSeleccionada}" selectionMode="single">
 

@@ -150,7 +150,7 @@
                               <f:facet name="output"><h:outputText value="#{novedades.concepto.codigoSTR}" style=""/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText value="#{novedades.concepto.codigoSTR}" id="editarConceptoCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
-                                    <pe:keyFilter for="editarConceptoCodigo" mask="num"/>
+                                     <p:keyFilter for="editarConceptoCodigo" mask="num"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'CONCEPTO', novedades.concepto.codigoSTR)}"/>
                                     <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 0)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex(novedades, 1, 0)}"/>
@@ -228,7 +228,7 @@
                               <f:facet name="output"><h:outputText value="#{novedades.valortotal}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText value="#{novedades.valortotal}" id="editarValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
-                                    <pe:keyFilter for="editarValor" mask="num"/>
+                                     <p:keyFilter for="editarValor" mask="num"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'N', novedades.valortotal)}"/>
                                     <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 4)}" process="@this"/>
                                  </p:inputText>
@@ -245,7 +245,7 @@
                               <f:facet name="output"><h:outputText value="#{novedades.saldo}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText value="#{novedades.saldo}" id="editarSaldo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
-                                    <pe:keyFilter for="editarSaldo" mask="num"/>
+                                     <p:keyFilter for="editarSaldo" mask="num"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'N', novedades.saldo)}"/>
                                     <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 5)}" process="@this"/>
                                  </p:inputText>
@@ -262,7 +262,7 @@
                               <f:facet name="output"><h:outputText value="#{novedades.periodicidad.codigoStr}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText value="#{novedades.periodicidad.codigoStr}" id="editarPeriodicidadCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
-                                    <pe:keyFilter for="editarPeriodicidadCodigo" mask="num"/>
+                                     <p:keyFilter for="editarPeriodicidadCodigo" mask="num"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'CODIGOPERIODICIDAD', novedades.periodicidad.codigoStr)}"/>
                                     <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 6)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex(novedades, 3, 0)}"/>
@@ -297,7 +297,7 @@
                               <f:facet name="output"><h:outputText value="#{novedades.tercero.nitalternativo}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText value="#{novedades.tercero.nitalternativo}" id="editarTerceroNit" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
-                                    <pe:keyFilter for="editarTerceroNit" mask="num"/>
+                                     <p:keyFilter for="editarTerceroNit" mask="num"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'NIT', novedades.tercero.nitalternativo)}"/>
                                     <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 8)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex(novedades, 4, 0)}"/>
@@ -355,7 +355,7 @@
                               <f:facet name="output"><h:outputText value="#{novedades.unidadesparteentera}" /></f:facet>  
                               <f:facet name="input">
                                  <p:inputText value="#{novedades.unidadesparteentera}" id="editarDiasHoras" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
-                                    <pe:keyFilter for="editarDiasHoras" mask="num"/>
+                                     <p:keyFilter for="editarDiasHoras" mask="num"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'N', novedades.unidadesparteentera)}"/>
                                     <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 11)}" process="@this"/>
                                  </p:inputText>
@@ -376,7 +376,7 @@
                               <f:facet name="output"><h:outputText value="#{novedades.unidadespartefraccion}" /></f:facet>  
                               <f:facet name="input">
                                  <p:inputText value="#{novedades.unidadespartefraccion}" id="editarMinutosHoras" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
-                                    <pe:keyFilter for="editarMinutosHoras" mask="num"/>
+                                     <p:keyFilter for="editarMinutosHoras" mask="num"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'N', novedades.unidadespartefraccion)}"/>
                                     <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 11)}" process="@this"/>
                                  </p:inputText>
@@ -443,7 +443,7 @@
                      <p:inputText id="nuevoConcepto" widgetVar="nuevoConcepto" value="#{controlNovedadesEmpleados.nuevaNovedad.concepto.codigoSTR}"
                                   style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase">
 
-                        <pe:keyFilter for="nuevoConcepto" mask="num"/>
+                         <p:keyFilter for="nuevoConcepto" mask="num"/>
                         <p:ajax event="click" listener="#{controlNovedadesEmpleados.valoresBackupAutocompletar(1, 'CONCEPTO')}"/>
                         <p:ajax event="change" listener="#{controlNovedadesEmpleados.autocompletarNuevoyDuplicado('CONCEPTO', controlNovedadesEmpleados.nuevaNovedad.concepto.codigoSTR, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex( 1, 1)}" />
@@ -477,14 +477,14 @@
                      <strong><h:outputText value="#{msg['valorN']}" style=" position: absolute; top: 195px; left: 40px;"/></strong>
                      <p:inputText id="nuevoValor" value="#{controlNovedadesEmpleados.nuevaNovedad.valortotal}" 
                                   style=" width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase; text-align: right;" onclick="PF('select();">
-                        <pe:keyFilter for="nuevoValor" mask="num"/>
+                         <p:keyFilter for="nuevoValor" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['saldoN']}" style=" position: absolute; top: 225px; left: 40px;"/></strong>
                      <p:inputText id="nuevoSaldo" value="#{controlNovedadesEmpleados.nuevaNovedad.saldo}" 
                                   style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase; text-align: right;" onclick="PF('select();">
-                        <pe:keyFilter for="nuevoSaldo" mask="num"/>
+                         <p:keyFilter for="nuevoSaldo" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
@@ -502,7 +502,7 @@
                      <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px; left: 410px;"/></strong>
                      <p:inputText id="nuevaPeriodicidadCodigo" value="#{controlNovedadesEmpleados.nuevaNovedad.periodicidad.codigoStr}" 
                                   style=" width: 122px; position: absolute; left: 580px; top: 70px; text-transform: uppercase;" onclick="PF('select();">
-                        <pe:keyFilter for="nuevaPeriodicidadCodigo" mask="num"/>
+                         <p:keyFilter for="nuevaPeriodicidadCodigo" mask="num"/>
                         <p:ajax event="click" listener="#{controlNovedadesEmpleados.valoresBackupAutocompletar(1, 'CODIGO')}" />
                         <p:ajax event="change" listener="#{controlNovedadesEmpleados.autocompletarNuevoyDuplicado('CODIGO', controlNovedadesEmpleados.nuevaNovedad.periodicidad.codigoStr, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex( 3, 1)}" />
@@ -521,7 +521,7 @@
                      <p:inputText id="nuevoTerceroNit" value="#{controlNovedadesEmpleados.nuevaNovedad.tercero.nitalternativo}" 
                                   style=" width: 122px; position: absolute; left: 580px; top: 130px; text-transform: uppercase" onclick="PF('select();">
 
-                        <pe:keyFilter for="nuevoTerceroNit" mask="num"/>
+                         <p:keyFilter for="nuevoTerceroNit" mask="num"/>
                         <p:ajax event="click" listener="#{controlNovedadesEmpleados.valoresBackupAutocompletar(1, 'NIT')}"/>
                         <p:ajax event="change" listener="#{controlNovedadesEmpleados.autocompletarNuevoyDuplicado('NIT', controlNovedadesEmpleados.nuevaNovedad.tercero.nitalternativo, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex( 4, 1)}"/>
@@ -539,14 +539,14 @@
                      <strong><h:outputText value="#{msg['horasdiasN']}" style=" position: absolute; top: 195px; left: 410px"/></strong>
                      <p:inputText id="nuevoHorasDias" value="#{controlNovedadesEmpleados.nuevaNovedad.unidadesparteentera}" 
                                   style=" width: 122px; position: absolute; left: 580px; top: 190px; text-transform: uppercase" onclick="PF('select();">
-                        <pe:keyFilter for="nuevoHorasDias" mask="num"/>
+                         <p:keyFilter for="nuevoHorasDias" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['minutoshorasN']}" style=" position: absolute; top: 225px; left: 410px;" /></strong>
                      <p:inputText id="nuevoMinutosHoras" value="#{controlNovedadesEmpleados.nuevaNovedad.unidadespartefraccion}" 
                                   style=" width: 122px; position: absolute; left: 580px; top: 220px; text-transform: uppercase" onclick="PF('select();" >
-                        <pe:keyFilter for="nuevoMinutosHoras" mask="num"/>
+                         <p:keyFilter for="nuevoMinutosHoras" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
@@ -578,7 +578,7 @@
                      <strong><h:outputText value="#{msg['conceptoN']}" style=" position: absolute; top: 75px; left: 40px;" /></strong>
                      <p:inputText id="duplicarConcepto" value="#{controlNovedadesEmpleados.duplicarNovedad.concepto.codigo}" 
                                   style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="PF('select();">
-                        <pe:keyFilter for="duplicarConcepto" mask="num"/>
+                         <p:keyFilter for="duplicarConcepto" mask="num"/>
                         <p:ajax event="click" listener="#{controlNovedadesEmpleados.valoresBackupAutocompletar(2, 'CONCEPTO')}" />
                         <p:ajax event="change" listener="#{controlNovedadesEmpleados.autocompletarNuevoyDuplicado('CONCEPTO', controlNovedadesEmpleados.duplicarNovedad.concepto.codigo, 2)}" />
                         <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex( 1, 2)}" />
@@ -612,14 +612,14 @@
                      <strong><h:outputText value="#{msg['valorN']}" style=" position: absolute; top: 195px; left: 40px; text-align: right;" /></strong>
                      <p:inputText id="duplicarValor" value="#{controlNovedadesEmpleados.duplicarNovedad.valortotal}" 
                                   style=" width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="PF('select();">
-                        <pe:keyFilter for="duplicarValor" mask="num"/>
+                         <p:keyFilter for="duplicarValor" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['saldoN']}" style=" position: absolute; top: 225px; left: 40px; text-align: right;" /></strong>
                      <p:inputText id="duplicarSaldo" value="#{controlNovedadesEmpleados.duplicarNovedad.saldo}" 
                                   style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="PF('select();">
-                        <pe:keyFilter for="duplicarSaldo" mask="num"/>
+                         <p:keyFilter for="duplicarSaldo" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
@@ -636,7 +636,7 @@
                      <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px; left: 410px;" /></strong>
                      <p:inputText id="duplicarPeriodicidadCodigo" value="#{controlNovedadesEmpleados.duplicarNovedad.periodicidad.codigo}"
                                   style=" width: 122px; position: absolute; left: 580px; top: 70px; text-transform: uppercase" onclick="PF('select();">
-                        <pe:keyFilter for="duplicarPeriodicidadCodigo" mask="num"/>
+                         <p:keyFilter for="duplicarPeriodicidadCodigo" mask="num"/>
                         <p:ajax event="click" listener="#{controlNovedadesEmpleados.valoresBackupAutocompletar(2, 'CODIGO')}" />
                         <p:ajax event="change" listener="#{controlNovedadesEmpleados.autocompletarNuevoyDuplicado('CODIGO', controlNovedadesEmpleados.duplicarNovedad.periodicidad.codigo, 2)}" />
                         <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex( 3, 2)}" />
@@ -654,7 +654,7 @@
                      <strong><h:outputText value="#{msg['nitN']}" style=" position: absolute; top: 135px ; left: 410px;" /></strong>
                      <p:inputText id="duplicarTerceroNit" value="#{controlNovedadesEmpleados.duplicarNovedad.tercero.nitalternativo}" 
                                   style=" width: 122px; position: absolute; left: 580px; top: 130px; text-transform: uppercase" onclick="PF('select();">
-                        <pe:keyFilter for="duplicarTerceroNit" mask="num"/>
+                         <p:keyFilter for="duplicarTerceroNit" mask="num"/>
                         <p:ajax event="click" listener="#{controlNovedadesEmpleados.valoresBackupAutocompletar(2, 'NIT')}" />
                         <p:ajax event="change" listener="#{controlNovedadesEmpleados.autocompletarNuevoyDuplicado('NIT', controlNovedadesEmpleados.duplicarNovedad.tercero.nitalternativo, 2)}" />
                         <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex( 4, 2)}" />
@@ -672,14 +672,14 @@
                      <strong><h:outputText value="#{msg['horasdiasN']}" style=" position: absolute; top: 195px; left: 410px;" /></strong>
                      <p:inputText id="duplicarHorasDias" value="#{controlNovedadesEmpleados.duplicarNovedad.unidadesparteentera}"
                                   style=" width: 122px; position: absolute; left: 580px; top: 190px; text-transform: uppercase" onclick="PF('select();" >
-                        <pe:keyFilter for="duplicarHorasDias" mask="num"/>
+                         <p:keyFilter for="duplicarHorasDias" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['minutoshorasN']}" style=" position: absolute; top: 225px; left: 410px;" /></strong>
                      <p:inputText id="duplicarMinutosHoras" value="#{controlNovedadesEmpleados.duplicarNovedad.unidadespartefraccion}"
                                   style=" width: 122px; position: absolute; left: 580px; top: 220px; text-transform: uppercase" onclick="PF('select();" >
-                        <pe:keyFilter for="duplicarMinutosHoras" mask="num"/>
+                         <p:keyFilter for="duplicarMinutosHoras" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 

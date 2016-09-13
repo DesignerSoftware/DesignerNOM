@@ -124,7 +124,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.habla}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  value="#{info.habla}" id="editarConversacion" maxlength="3" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <pe:keyFilter for="editarConversacion" mask="num"/>
+                                                 <p:keyFilter for="editarConversacion" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,1)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}" process="@this" update="editarConversacion"/>                                   
                                             </p:inputText>
@@ -141,7 +141,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.lectura}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  value="#{info.lectura}" id="editarLectura" maxlength="3" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <pe:keyFilter for="editarLectura" mask="num"/>
+                                                 <p:keyFilter for="editarLectura" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,2)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}" process="@this" update="editarLectura"/>                                   
                                             </p:inputText>
@@ -158,7 +158,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.escritura}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  value="#{info.escritura}" id="editarEscritura" maxlength="3" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <pe:keyFilter for="editarEscritura" mask="num"/>
+                                                 <p:keyFilter for="editarEscritura" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,3)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}" process="@this" update="editarEscritura"/>                                   
                                             </p:inputText>
@@ -284,21 +284,21 @@
 
                             <strong><h:outputText value="#{msg['conversacionN']}" style="position: absolute; top: 105px; left: 40px;" /></strong>
                             <p:inputText id="nuevaConversacion"  maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.habla}" style="width: 122px; position: absolute; left: 180px; top: 100px;">
-                               <pe:keyFilter for="nuevaConversacion" mask="num"/>
+                                <p:keyFilter for="nuevaConversacion" mask="num"/>
                                 <p:ajax event="change" update="nuevaConversacion"/>
                             </p:inputText>
                             <p:watermark for="nuevaConversacion" value="#{msg['conversacion']}" />
 
                             <strong><h:outputText value="#{msg['lecturaN']}" style="position: absolute; top: 135px; left: 40px;" /></strong>
                             <p:inputText id="nuevaLectura" maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.lectura}" style="width: 122px; position: absolute; left: 180px; top: 130px;">
-                                <pe:keyFilter for="nuevaLectura" mask="num"/>
+                                 <p:keyFilter for="nuevaLectura" mask="num"/>
                                 <p:ajax event="change" update="nuevaLectura"/>
                             </p:inputText>
                             <p:watermark for="nuevaLectura" value="#{msg['lectura']}" />
 
                             <strong><h:outputText value="#{msg['escrituraN']}" style="position: absolute; top: 165px; left: 40px;" /></strong>
                             <p:inputText id="nuevaEscritura" maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.escritura}" style="width: 122px; position: absolute; left: 180px; top: 160px;">
-                                <pe:keyFilter for="nuevaEscritura" mask="num"/>
+                                 <p:keyFilter for="nuevaEscritura" mask="num"/>
                                 <p:ajax event="change" update="nuevaEscritura"/>
                             </p:inputText>
                             <p:watermark for="nuevaEscritura" value="#{msg['escritura']}"/>
@@ -325,21 +325,21 @@
 
                             <strong><h:outputText value="#{msg['conversacionN']}" style="position: absolute; top: 105px; left: 40px;" /></strong>
                             <p:inputText id="duplicarConversacion" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.habla}" style="width: 122px; position: absolute; left: 180px; top: 100px;">
-                                <pe:keyFilter for="duplicarConversacion" mask="num"/>
+                                 <p:keyFilter for="duplicarConversacion" mask="num"/>
                                 <p:ajax event="change" update="duplicarConversacion"/>
                             </p:inputText>
                             <p:watermark for="duplicarConversacion" value="#{msg['conversacion']}" />
 
                             <strong><h:outputText value="#{msg['lecturaN']}" style="position: absolute; top: 135px; left: 40px;" /></strong>
                             <p:inputText id="duplicarLectura" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.lectura}" style="width: 122px; position: absolute; left: 180px; top: 130px;">
-                                <pe:keyFilter for="duplicarLectura" mask="num"/>
+                                 <p:keyFilter for="duplicarLectura" mask="num"/>
                                 <p:ajax event="change" update="duplicarLectura"/>
                             </p:inputText>
                             <p:watermark for="duplicarLectura" value="#{msg['lectura']}" />
 
                             <strong><h:outputText value="#{msg['escrituraN']}" style="position: absolute; top: 165px; left: 40px;" /></strong>
                             <p:inputText id="duplicarEscritura" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.escritura}" style="width: 122px; position: absolute; left: 180px; top: 160px;">
-                                <pe:keyFilter for="duplicarEscritura" mask="num"/>
+                                 <p:keyFilter for="duplicarEscritura" mask="num"/>
                                 <p:ajax event="change" update="duplicarEscritura"/>
                             </p:inputText>
                             <p:watermark for="duplicarEscritura" value="#{msg['escritura']}" />

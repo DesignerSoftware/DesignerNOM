@@ -147,7 +147,7 @@
                                         <f:facet name="output"><h:outputText value="#{telefono.numerotelefono}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{telefono.numerotelefono}" id="editarNumeroTelefono" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
-                                                <pe:keyFilter for="editarNumeroTelefono" mask="num"/>
+                                                 <p:keyFilter for="editarNumeroTelefono" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 2)}" />
                                                 <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono, 'N', telefono.numerotelefono)}"/>
                                             </p:inputText>
@@ -206,7 +206,7 @@
 
                             <strong><h:outputText value="* #{msg['numeroN']}"  style=" position: absolute; top: 155px;" /></strong>
                             <p:inputText maxlength="12" id="nuevoNumero" value="#{controlPerTelefonos.nuevoTelefono.numerotelefono}" style=" width: 122px; position: absolute; left: 150px; top: 150px; text-transform: uppercase" onclick="PF('select();">
-                                <pe:keyFilter for="nuevoNumero" mask="num"/>
+                                 <p:keyFilter for="nuevoNumero" mask="num"/>
                                 <p:ajax event="change" update="nuevoNumero"/>
                             </p:inputText>
 
@@ -250,7 +250,7 @@
 
                             <strong><h:outputText value="* #{msg['numeroN']}" style=" position: absolute; top: 155px;" /></strong>
                             <p:inputText maxlength="12" id="duplicarNumero" value="#{controlPerTelefonos.duplicarTelefono.numerotelefono}" style=" width: 122px; position: absolute; left: 150px; top: 150px; text-transform: uppercase" onclick="PF('select();">
-                                <pe:keyFilter for="duplicarNumero" mask="num"/>
+                                 <p:keyFilter for="duplicarNumero" mask="num"/>
                                 <p:ajax event="change" update="duplicarNumero"/>
                             </p:inputText>
                             <p:watermark for="duplicarNumero" value="Numero" />
