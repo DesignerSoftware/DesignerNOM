@@ -1007,7 +1007,7 @@ public class ControlRemoto implements Serializable {
     public void actualizarInformacionTipoTrabajador() {
         System.out.println("actualizarInformacionTipoTrabajador() 1");
         informacionTiposTrabajadores = "Reg. " + (posicion + 1) + " de " + totalRegistros;
-        RequestContext.getCurrentInstance().update(":form:tabmenu:informaciontt");
+        RequestContext.getCurrentInstance().update("form:tabmenu:informaciontt");
         System.out.println("actualizarInformacionTipoTrabajador() 2");
     }
 
@@ -1616,7 +1616,7 @@ public class ControlRemoto implements Serializable {
 
     public void anularBotonEmpresas() {
         activarAceptarEmpresas = true;
-        RequestContext.getCurrentInstance().update("form:tabmenu:aceptaremp");
+        RequestContext.getCurrentInstance().update("form:aceptaremp");
     }
 
     public void eventoFiltrarEmpresas() {
@@ -1671,7 +1671,7 @@ public class ControlRemoto implements Serializable {
     public void activarAceptarEmp() {
         System.out.println("Entro en activarAceptarEmp()");
         activarAceptarEmpresas = false;
-        RequestContext.getCurrentInstance().update("form:tabmenu:aceptaremp");
+        RequestContext.getCurrentInstance().update("form:aceptaremp");
     }
 
     public void asignarUnicaEmpresa() {
