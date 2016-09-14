@@ -339,7 +339,7 @@ public class ControlInicioRed implements Serializable {
 //        } else {
 //            this.candadoLogin = "loginCandadoCerrado.png";
 //        }
-      this.candadoLogin = (inicioSesion) ? "loginCandadoAbierto.png" : "loginCandadoCerrado.p ng";
+      this.candadoLogin = (inicioSesion) ? "loginCandadoAbierto.png" : "loginCandadoCerrado.png";
    }
 
    //GETTER AND SETTER

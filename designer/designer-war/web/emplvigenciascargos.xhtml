@@ -111,7 +111,8 @@
                                   filteredValue="#{controlVigenciasCargos.filterVC}" emptyMessage="#{msg['vacio']}"
                                   editable="true" editMode="cell" scrollable="true" scrollWidth="830" 
                                   scrollHeight="#{controlVigenciasCargos.altoTabla}" style="border: 1px;"
-                                  selection="#{controlVigenciasCargos.vigenciaSeleccionada}" selectionMode="single">
+                                  selection="#{controlVigenciasCargos.vigenciaSeleccionada}" selectionMode="single"
+                                   >
 
                         <p:ajax event="filter" listener="#{controlVigenciasCargos.eventoFiltrar()}"/>
                         <f:event type="preRenderView" listener="#{controlVigenciasCargos.recordarSeleccion()}"/>
