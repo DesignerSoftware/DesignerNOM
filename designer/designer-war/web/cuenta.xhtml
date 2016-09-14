@@ -896,7 +896,7 @@
                         <p:commandButton id="aceptarE" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlCuenta.aceptar}" actionListener="#{controlCuenta.actualizarEmpresa()}" update="aceptarE" process="@this">
                             <p:resetInput target=":formularioDialogos:lovEmpresas:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" onclick="PF('EmpresasDialogo').hide(), ('lovEmpresas').clearFilters();" actionListener="#{controlCuenta.cancelarCambioEmpresa()}" update="lovEmpresas" process="@this">
+                        <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" onclick="PF('EmpresasDialogo').hide(), PF('lovEmpresas').clearFilters();" actionListener="#{controlCuenta.cancelarCambioEmpresa()}" update="lovEmpresas" process="@this">
                             <p:resetInput target=":formularioDialogos:lovEmpresas:globalFilter"/>
                         </p:commandButton>
                     </p:dialog>

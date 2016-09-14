@@ -172,7 +172,7 @@
                         <p:commandButton id="aceptarF" style="position: relative; left: 200px;" value="#{msg['aceptar']}" disabled="#{controlRastro.aceptar}" actionListener="#{controlRastro.seleccionarFecha()}" update="aceptarF" process="@this">
                             <p:resetInput target=":form:lovFecha:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasF" style="position: relative; left: 200px;" value="#{msg['atras']}" onclick="PF('fechaDialogo').hide(), ('lovFecha').clearFilters();" actionListener="#{controlRastro.cancelarSeleccionFecha()}" update="lovFecha" process="@this">
+                        <p:commandButton id="atrasF" style="position: relative; left: 200px;" value="#{msg['atras']}" onclick="PF('fechaDialogo').hide(), PF('lovFecha').clearFilters();" actionListener="#{controlRastro.cancelarSeleccionFecha()}" update="lovFecha" process="@this">
                             <p:resetInput target=":form:lovFecha:globalFilter"/>
                         </p:commandButton>
                     </p:dialog>

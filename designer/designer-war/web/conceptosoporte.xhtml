@@ -380,7 +380,7 @@
                         <p:commandButton id="aceptarNCC" style="position: relative; left: 255px;" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlBetaCentrosCostos.aceptar}" actionListener="#{controlConceptosSoportes.seleccionConceptoSoporte()}" update="lovCentrosCostos, aceptarNCC, :form:datosConceptosSoportes" process="@this">
                             <p:resetInput target=":formularioDialogos:lovCentrosCostos:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasTCC" style="position: relative; left: 255px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" onclick="PF('buscarCentrosCostosDialogo').hide(), ('lovCentrosCostos').clearFilters();" actionListener="#{controlConceptosSoportes.cancelarSeleccionConceptoSoporte()}" update="lovCentrosCostos" process="@this">
+                        <p:commandButton id="atrasTCC" style="position: relative; left: 255px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" onclick="PF('buscarCentrosCostosDialogo').hide(), PF('lovCentrosCostos').clearFilters();" actionListener="#{controlConceptosSoportes.cancelarSeleccionConceptoSoporte()}" update="lovCentrosCostos" process="@this">
                             <p:resetInput target=":formularioDialogos:lovCentrosCostos:globalFilter"/>
                         </p:commandButton>
                     </p:dialog> 

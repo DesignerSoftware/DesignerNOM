@@ -345,7 +345,7 @@
                             <p:ajax event="filter" listener="#{controlVigenciasTiposContratos.eventoFiltrarCiudades()}"/>
                             <p:ajax event="rowSelect" listener="#{controlVigenciasTiposContratos.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
                             <p:ajax event="rowDblselect" listener="#{controlVigenciasTiposContratos.actualizarCiudad()}" process="@this"
-                                    oncomplete="PF('ciudadesDialogo').hide(), ('lovCiudades').clearFilters()" update=":formularioDialogos:ciudadesDialogo"/>
+                                    oncomplete="PF('ciudadesDialogo').hide(), PF('lovCiudades').clearFilters()" update=":formularioDialogos:ciudadesDialogo"/>
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
@@ -368,9 +368,9 @@
                         <h:outputText id="infoRegistroCiudades" value="#{msg['infoRegistro']} #{controlVigenciasTiposContratos.infoRegistroCiudades}" style="position: absolute; left: 15px; top: 360px; font-weight: bold"/>
 
                         <p:commandButton id="aceptarC" value="#{msg['aceptar']}" style=" position: absolute; left: 208px; top: 360px;" disabled="#{controlVigenciasTiposContratos.aceptar}" process="@this" actionListener="#{controlVigenciasTiposContratos.actualizarCiudad()}" icon="ui-icon-circle-check"
-                                         oncomplete="PF('ciudadesDialogo').hide(), ('lovCiudades').clearFilters()" update=":formularioDialogos:ciudadesDialogo"/>
+                                         oncomplete="PF('ciudadesDialogo').hide(), PF('lovCiudades').clearFilters()" update=":formularioDialogos:ciudadesDialogo"/>
                         <p:commandButton id="atrasC" value="#{msg['cancelar']}" style=" position: absolute; left: 310px; top: 360px;" actionListener="#{controlVigenciasTiposContratos.cancelarCambioCiudad()}"  process="@this" icon="ui-icon-circle-close"
-                                         oncomplete="PF('ciudadesDialogo').hide(), ('lovCiudades').clearFilters()" update=":formularioDialogos:ciudadesDialogo"/>
+                                         oncomplete="PF('ciudadesDialogo').hide(), PF('lovCiudades').clearFilters()" update=":formularioDialogos:ciudadesDialogo"/>
 
                     </p:dialog> 
 
@@ -384,7 +384,7 @@
                             <p:ajax event="filter" listener="#{controlVigenciasTiposContratos.eventoFiltrarTiposC()}"/>
                             <p:ajax event="rowSelect" listener="#{controlVigenciasTiposContratos.activarAceptar()}" update=":formularioDialogos:aceptarTC"/>
                             <p:ajax event="rowDblselect" listener="#{controlVigenciasTiposContratos.actualizarTipoContrato()}"
-                                    oncomplete="PF('TiposContratoDialogo').hide(), ('lovTiposContrato').clearFilters()" update=":formularioDialogos:TiposContratoDialogo" process="@this"/>
+                                    oncomplete="PF('TiposContratoDialogo').hide(), PF('lovTiposContrato').clearFilters()" update=":formularioDialogos:TiposContratoDialogo" process="@this"/>
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
@@ -404,9 +404,9 @@
                             </p:column>
                         </p:dataTable>
                         <p:commandButton id="aceptarTC" value="#{msg['aceptar']}" style=" position: absolute; left: 200px; top: 360px;" disabled="#{controlVigenciasTiposContratos.aceptar}" process="@this" actionListener="#{controlVigenciasTiposContratos.actualizarTipoContrato()}"
-                                         oncomplete="PF('TiposContratoDialogo').hide(), ('lovTiposContrato').clearFilters()" update=":formularioDialogos:TiposContratoDialogo" icon="ui-icon-circle-check"/>
+                                         oncomplete="PF('TiposContratoDialogo').hide(), PF('lovTiposContrato').clearFilters()" update=":formularioDialogos:TiposContratoDialogo" icon="ui-icon-circle-check"/>
                         <p:commandButton id="atrasTC" value="#{msg['cancelar']}" style=" position: absolute; left: 300px; top: 360px;" actionListener="#{controlVigenciasTiposContratos.cancelarTipoContrato()}"  process="@this" icon="ui-icon-circle-close"
-                                         oncomplete="PF('TiposContratoDialogo').hide(), ('lovTiposContrato').clearFilters()" update=":formularioDialogos:TiposContratoDialogo"/>
+                                         oncomplete="PF('TiposContratoDialogo').hide(), PF('lovTiposContrato').clearFilters()" update=":formularioDialogos:TiposContratoDialogo"/>
 
                         <h:outputText id="infoRegistroTiposContratos" value="#{msg['infoRegistro']} #{controlVigenciasTiposContratos.infoRegistroTiposContratos}" style="position: absolute; left: 15px; top: 365px; font-weight: bold"/>
                     </p:dialog>
@@ -420,7 +420,7 @@
                             <p:ajax event="filter" listener="#{controlVigenciasTiposContratos.eventoFiltrarMotivos()}"/>
                             <p:ajax event="rowSelect" listener="#{controlVigenciasTiposContratos.activarAceptar()}" update=":formularioDialogos:aceptarMC"/>
                             <p:ajax event="rowDblselect" listener="#{controlVigenciasTiposContratos.actualizarMotivoContrato()}" process="@this" 
-                                    oncomplete="PF('MotivosContratoDialogo').hide(), ('lovMotivosContrato').clearFilters()" update=":formularioDialogos:MotivosContratoDialogo"/>
+                                    oncomplete="PF('MotivosContratoDialogo').hide(), PF('lovMotivosContrato').clearFilters()" update=":formularioDialogos:MotivosContratoDialogo"/>
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
@@ -441,9 +441,9 @@
                         </p:dataTable>
                         <h:outputText id="infoRegistroMotivos" value="#{msg['infoRegistro']} #{controlVigenciasTiposContratos.infoRegistroMotivos}" style="position: absolute; left: 15px; top: 365px; font-weight: bold"/>
                         <p:commandButton id="aceptarMC" value="#{msg['aceptar']}" style=" position: absolute; left: 155px; top: 360px;" disabled="#{controlVigenciasTiposContratos.aceptar}" process="@this" actionListener="#{controlVigenciasTiposContratos.actualizarMotivoContrato()}"
-                                         oncomplete="PF('MotivosContratoDialogo').hide(), ('lovMotivosContrato').clearFilters()" update=":formularioDialogos:MotivosContratoDialogo" icon="ui-icon-circle-check"/>
+                                         oncomplete="PF('MotivosContratoDialogo').hide(), PF('lovMotivosContrato').clearFilters()" update=":formularioDialogos:MotivosContratoDialogo" icon="ui-icon-circle-check"/>
                         <p:commandButton id="atrasMC" value="#{msg['cancelar']}" style=" position: absolute; left: 255px; top: 360px;" actionListener="#{controlVigenciasTiposContratos.cancelarCambioMotivoContrato()}"  process="@this" icon="ui-icon-circle-close"
-                                         oncomplete="PF('MotivosContratoDialogo').hide(), ('lovMotivosContrato').clearFilters()" update=":formularioDialogos:MotivosContratoDialogo"/>
+                                         oncomplete="PF('MotivosContratoDialogo').hide(), PF('lovMotivosContrato').clearFilters()" update=":formularioDialogos:MotivosContratoDialogo"/>
                     </p:dialog>
 
                     <p:dialog id="NuevoRegistroVTC" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroVTC" closable="false" resizable="false"  draggable="false" modal="true" height="370" width="400" style=" padding: 0px">  

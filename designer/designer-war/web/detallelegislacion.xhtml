@@ -420,9 +420,9 @@
                             </p:column>
                         </p:dataTable>
 
-                        <p:commandButton id="aceptarBF" style="position: relative; left: 250px;" value="#{msg['aceptar']}" actionListener="#{controlDetalleLegislacion.validarSeleccionFormula()}" disabled="#{controlDetalleLegislacion.aceptar}" onclick="PF('BuscarFormulaDialogo').hide(), ('lovBuscarFormula').clearFilters();" update="lovBuscarFormula, aceptarBF, datosFormulaContrato" process="@this"/>
+                        <p:commandButton id="aceptarBF" style="position: relative; left: 250px;" value="#{msg['aceptar']}" actionListener="#{controlDetalleLegislacion.validarSeleccionFormula()}" disabled="#{controlDetalleLegislacion.aceptar}" onclick="PF('BuscarFormulaDialogo').hide(), PF('lovBuscarFormula').clearFilters();" update="lovBuscarFormula, aceptarBF, datosFormulaContrato" process="@this"/>
 
-                        <p:commandButton id="atrasBF" style="position: relative; left: 300px;" value="#{msg['atras']}" actionListener="#{controlDetalleLegislacion.cancelarSeleccionFormula()}" onclick="PF('BuscarFormulaDialogo').hide(), ('lovBuscarFormula').clearFilters();" update="lovBuscarFormula" process="@this"/>
+                        <p:commandButton id="atrasBF" style="position: relative; left: 300px;" value="#{msg['atras']}" actionListener="#{controlDetalleLegislacion.cancelarSeleccionFormula()}" onclick="PF('BuscarFormulaDialogo').hide(), PF('lovBuscarFormula').clearFilters();" update="lovBuscarFormula" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  

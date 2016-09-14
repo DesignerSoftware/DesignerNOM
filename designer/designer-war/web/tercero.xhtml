@@ -1030,7 +1030,7 @@
                         <p:commandButton id="aceptarE" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlTercero.aceptar}" actionListener="#{controlTercero.actualizarEmpresa()}" icon="ui-icon-check" update="aceptarE" process="@this">
                             <p:resetInput target=":formularioDialogos:lovEmpresas:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasE" style="position: relative; left: 230px;" value="#{msg['atras']}" onclick="PF('EmpresasDialogo').hide(), ('lovEmpresas').clearFilters();" actionListener="#{controlTercero.cancelarCambioEmpresa()}" icon="ui-icon-arrowreturnthick-1-w" update="lovEmpresas" process="@this">
+                        <p:commandButton id="atrasE" style="position: relative; left: 230px;" value="#{msg['atras']}" onclick="PF('EmpresasDialogo').hide(), PF('lovEmpresas').clearFilters();" actionListener="#{controlTercero.cancelarCambioEmpresa()}" icon="ui-icon-arrowreturnthick-1-w" update="lovEmpresas" process="@this">
                             <p:resetInput target=":formularioDialogos:lovEmpresas:globalFilter"/>
                         </p:commandButton>
                     </p:dialog>

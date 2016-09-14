@@ -611,7 +611,7 @@
 
                             <h:outputText id="infoRegistroError" value="#{controlInterfaseContableSapBO.infoRegistroProceso}" style="position: absolute; left: 20px; top: 315px; font-weight: bold"/>
 
-                            <p:commandButton id="atrasError" style="position: relative; left: 535px;" value="#{msg['aceptar']}" onclick="PF('ErrorDialogo').hide(), ('lovError').clearFilters();"  update="lovError" process="@this" icon="ui-icon-check">
+                            <p:commandButton id="atrasError" style="position: relative; left: 535px;" value="#{msg['aceptar']}" onclick="PF('ErrorDialogo').hide(), PF('lovError').clearFilters();"  update="lovError" process="@this" icon="ui-icon-check">
                                 <p:resetInput target=":form:lovError:globalFilter"/>
                             </p:commandButton>
                         </p:dialog>

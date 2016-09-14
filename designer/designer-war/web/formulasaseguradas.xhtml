@@ -430,7 +430,7 @@
                         <p:commandButton id="aceptarNCC"  icon="ui-icon-check" style="position: relative; left: 120px;" value="#{msg['aceptar']}" disabled="#{controlFormulasAseguradas.aceptar}" actionListener="#{controlFormulasAseguradas.seleccionFormulaAsegurada()}" update="lovCentrosCostos, aceptarNCC, :form:datosFormulasAseguradas" process="@this">
                             <p:resetInput target=":formularioDialogos:lovCentrosCostos:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasTCC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 120px;" value="#{msg['atras']}" onclick="PF('buscarCentrosCostosDialogo').hide(), ('lovCentrosCostos').clearFilters();" actionListener="#{controlFormulasAseguradas.cancelarSeleccionConceptoSoporte()}" update="lovCentrosCostos" process="@this">
+                        <p:commandButton id="atrasTCC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 120px;" value="#{msg['atras']}" onclick="PF('buscarCentrosCostosDialogo').hide(), PF('lovCentrosCostos').clearFilters();" actionListener="#{controlFormulasAseguradas.cancelarSeleccionConceptoSoporte()}" update="lovCentrosCostos" process="@this">
                             <p:resetInput target=":formularioDialogos:lovCentrosCostos:globalFilter"/>
                         </p:commandButton>
                     </p:dialog> 

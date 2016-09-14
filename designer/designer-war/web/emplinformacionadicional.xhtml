@@ -271,10 +271,10 @@
 
                             <h:outputText id="infoRegistroGrupo" value="#{msg['infoRegistros']} #{controlEmplInformacionAdicional.infoRegistroGrupo}" style="position: relative; left: 15px; top: -5px; font-weight: bold"/>
 
-                            <p:commandButton id="aceptarG" icon="ui-icon-check"  style="position: relative; left: 125px;" value="#{msg['aceptar']}" disabled="#{controlEmplInformacionAdicional.aceptar}" onclick="PF('GrupoDialogo').hide(), ('lovGrupo').clearFilters();" actionListener="#{controlEmplInformacionAdicional.actualizarGrupo()}" update="lovGrupo, aceptarG, datosInfoAdEmpleado" process="@this">
+                            <p:commandButton id="aceptarG" icon="ui-icon-check"  style="position: relative; left: 125px;" value="#{msg['aceptar']}" disabled="#{controlEmplInformacionAdicional.aceptar}" onclick="PF('GrupoDialogo').hide(), PF('lovGrupo').clearFilters();" actionListener="#{controlEmplInformacionAdicional.actualizarGrupo()}" update="lovGrupo, aceptarG, datosInfoAdEmpleado" process="@this">
                                 <p:resetInput target=":form:lovGrupo:globalFilter"/>
                             </p:commandButton>
-                            <p:commandButton id="atrasG" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 135px;" value="#{msg['atras']}" onclick="PF('GrupoDialogo').hide(), ('lovGrupo').clearFilters();" actionListener="#{controlEmplInformacionAdicional.cancelarCambioGrupo()}" update="lovGrupo" process="@this">
+                            <p:commandButton id="atrasG" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 135px;" value="#{msg['atras']}" onclick="PF('GrupoDialogo').hide(), PF('lovGrupo').clearFilters();" actionListener="#{controlEmplInformacionAdicional.cancelarCambioGrupo()}" update="lovGrupo" process="@this">
                                 <p:resetInput target=":form:lovGrupo:globalFilter"/>
                             </p:commandButton>
                         </p:dialog>

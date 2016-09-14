@@ -319,7 +319,7 @@
                                 <p:ajax event="filter" listener="#{controlVigenciaJornada.eventoFiltrarJornadaL()}" update=":form:infoRegistroJornadaLaboral"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaJornada.activarAceptar()}" update=":form:aceptarJL"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaJornada.actualizarJornadaLaboral()}" immediate="true"
-                                        oncomplete="PF('JornadaLaboralDialogo').hide(), ('lovJornadaLaboral').unselectAllRows()" update=":form:JornadaLaboralDialogo" process="@this" />
+                                        oncomplete="PF('JornadaLaboralDialogo').hide(), PF('lovJornadaLaboral').unselectAllRows()" update=":form:JornadaLaboralDialogo" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarJ']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovJornadaLaboral.filter();" value="#{filtrado}" style="width:130px; position: relative; left: 65px;" />  
@@ -341,10 +341,10 @@
                             <h:outputText id="infoRegistroJornadaLaboral" value="#{msg['infoRegistro']} #{controlVigenciaJornada.infoRegistroJornadaLaboral}" style="position: relative; left: 15px; top: 1px; font-weight: bold"/>
 
                             <p:commandButton id="aceptarJL" style="position: relative; left: 115px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlVigenciaJornada.aceptar}" actionListener="#{controlVigenciaJornada.actualizarJornadaLaboral()}" process="@this" icon="ui-icon-check" 
-                                             oncomplete="PF('JornadaLaboralDialogo').hide(), ('lovJornadaLaboral').unselectAllRows()" update=":form:JornadaLaboralDialogo" onclick="PF('JornadaLaboralDialogo').hide()"/>
+                                             oncomplete="PF('JornadaLaboralDialogo').hide(), PF('lovJornadaLaboral').unselectAllRows()" update=":form:JornadaLaboralDialogo" onclick="PF('JornadaLaboralDialogo').hide()"/>
 
                             <p:commandButton id="atrasJL" style="position: relative; left: 115px; top: 15px;" value="#{msg['atras']}" actionListener="#{controlVigenciaJornada.cancelarCambioJornadaLaboral()}" process="@this" 
-                                             oncomplete="PF('JornadaLaboralDialogo').hide(), ('lovJornadaLaboral').unselectAllRows()" update=":form:JornadaLaboralDialogo" icon="ui-icon-arrowreturnthick-1-w" />
+                                             oncomplete="PF('JornadaLaboralDialogo').hide(), PF('lovJornadaLaboral').unselectAllRows()" update=":form:JornadaLaboralDialogo" icon="ui-icon-arrowreturnthick-1-w" />
 
                         </p:dialog>
 
@@ -358,7 +358,7 @@
                                 <p:ajax event="filter" listener="#{controlVigenciaJornada.eventoFiltrarTipoD()}" update=":form:infoRegistroTipoDescanso"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaJornada.activarAceptar()}" update=":form:aceptarTD"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaJornada.actualizarTipoDescanso()}" immediate="true"
-                                        oncomplete="PF('TiposDescansosDialogo').hide(), ('lovTipoDescanso').unselectAllRows()" update=":form:TiposDescansosDialogo" process="@this"  />
+                                        oncomplete="PF('TiposDescansosDialogo').hide(), PF('lovTipoDescanso').unselectAllRows()" update=":form:TiposDescansosDialogo" process="@this"  />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarD']}:"  style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovTipoDescanso.filter();" value="#{filtrado}" style="width:130px; position: relative; left: 65px;" />  
@@ -380,10 +380,10 @@
                             <h:outputText id="infoRegistroTipoDescanso" value="#{msg['infoRegistro']} #{controlVigenciaJornada.infoRegistroTipoDescanso}" style="position: relative; left: 15px; top: 1px; font-weight: bold"/>
 
                             <p:commandButton id="aceptarTD" style="position: relative; left: 115px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlVigenciaJornada.aceptar}"  actionListener="#{controlVigenciaJornada.actualizarTipoDescanso()}"  
-                                             oncomplete="PF('TiposDescansosDialogo').hide(), ('lovTipoDescanso').unselectAllRows()" update=":form:TiposDescansosDialogo" process="@this" icon="ui-icon-check" onclick="PF('TiposDescansosDialogo').hide()"/>
+                                             oncomplete="PF('TiposDescansosDialogo').hide(), PF('lovTipoDescanso').unselectAllRows()" update=":form:TiposDescansosDialogo" process="@this" icon="ui-icon-check" onclick="PF('TiposDescansosDialogo').hide()"/>
 
                             <p:commandButton id="atrasTD" style="position: relative; left: 115px; top: 15px;" value="#{msg['atras']}" actionListener="#{controlVigenciaJornada.cancelarCambioTipoDescanso()}"  
-                                             oncomplete="PF('TiposDescansosDialogo').hide(), ('lovTipoDescanso').unselectAllRows()" update=":form:TiposDescansosDialogo" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                             oncomplete="PF('TiposDescansosDialogo').hide(), PF('lovTipoDescanso').unselectAllRows()" update=":form:TiposDescansosDialogo" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
 
                         </p:dialog>
 

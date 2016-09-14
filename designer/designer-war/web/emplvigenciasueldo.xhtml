@@ -386,7 +386,7 @@
                                 
                                 <p:ajax event="filter" listener="#{controlVigenciaSueldo.eventoFiltrarMCS()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaSueldo.activarAceptar()}" update=":form:aceptarMCS"/>
-                                <p:ajax event="rowDblselect" listener="#{controlVigenciaSueldo.actualizarMotivoCambioSueldo()}" process="@this" update=":form:lovMotivoCambioSueldo" oncomplete="PF('MotivoCambioSueldoDialogo').hide(), ('lovMotivoCambioSueldo').unselectAllRows()"/>
+                                <p:ajax event="rowDblselect" listener="#{controlVigenciaSueldo.actualizarMotivoCambioSueldo()}" process="@this" update=":form:lovMotivoCambioSueldo" oncomplete="PF('MotivoCambioSueldoDialogo').hide(), PF('lovMotivoCambioSueldo').unselectAllRows()"/>
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarM']}" style="position: absolute; left: 27px; top: 14px"/>  

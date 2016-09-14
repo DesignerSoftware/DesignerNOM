@@ -121,14 +121,14 @@
                     <p:dialog id="paso1" header="#{msg['atencion']}" widgetVar="paso1"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="En este momento va a cambiar la fecha de ingreso del empleado: #{controlCambioFechaIngreso.empleado.persona.nombreCompleto}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlCambioFechaIngreso.dialogoPaso2()}" onclick="PF('paso1').hide(), ('paso2').show();" style="position: absolute; top: 50px; left: 210px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlCambioFechaIngreso.dialogoPaso2()}" onclick="PF('paso1').hide(), PF('paso2').show();" style="position: absolute; top: 50px; left: 210px;" process="@this" />
                         <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('paso1').hide()" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="paso2" header="#{msg['atencion']}" widgetVar="paso2"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="Tiene conocimiento de lo que este cambio implica?, y que es bajo su responsabilidad?" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlCambioFechaIngreso.dialogoPaso3()}" onclick="PF('paso2').hide(), ('paso3').show();" style="position: absolute; top: 50px; left: 210px;" process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlCambioFechaIngreso.dialogoPaso3()}" onclick="PF('paso2').hide(), PF('paso3').show();" style="position: absolute; top: 50px; left: 210px;" process="@this" />
                         <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('paso2').hide()" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
 

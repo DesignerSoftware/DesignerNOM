@@ -405,7 +405,7 @@
                                 <p:ajax event="filter" listener="#{controlEmplMvr.eventoFiltrarC()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlEmplMvr.activarAceptar()}" update=":form:aceptarTC"/>
                                 <p:ajax event="rowDblselect" listener="#{controlEmplMvr.actualizarTipo()}" process="@this" 
-                                        oncomplete="PF('CertificadosDialogo').hide(), ('lovCertificado').clearFilters()" update=":form:CertificadosDialogo"/>
+                                        oncomplete="PF('CertificadosDialogo').hide(), PF('lovCertificado').clearFilters()" update=":form:CertificadosDialogo"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovCertificado.filter();" value="#{filtrado}" style="width:170px; position: relative; left: 40px;" />  
@@ -426,7 +426,7 @@
 
                             <h:outputText id="infoRegistroCertificado" value="#{msg['infoRegistro']} #{controlEmplMvr.infoRegistroCertificado}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
                             <p:commandButton id="aceptarTC" icon="ui-icon-check" style="position: relative; left: 168px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlEmplMvr.aceptar}"  actionListener="#{controlEmplMvr.actualizarTipo()}" 
-                                             oncomplete="PF('CertificadosDialogo').hide(), ('lovCertificado').clearFilters()" update=":form:CertificadosDialogo" process="@this"/>
+                                             oncomplete="PF('CertificadosDialogo').hide(), PF('lovCertificado').clearFilters()" update=":form:CertificadosDialogo" process="@this"/>
                             <p:commandButton id="atrasTC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 170px; top: 15px;" value="#{msg['atras']}" actionListener="#{controlEmplMvr.cancelarCambioTipo()}" 
                                              oncomplete="PF('CertificadosDialogo').hide(), PF('lovCertificado').clearFilters()" update=":form:CertificadosDialogo" process="@this"/>
                         </p:dialog>
