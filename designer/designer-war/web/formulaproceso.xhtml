@@ -236,14 +236,14 @@
                         <p:inputText id="globalFilter" onkeyup="lovProceso.filter();" style="width: 160px; position: relative; left: 20px;" />  
                      </f:facet>
 
-                     <p:column filterBy="#{proceso.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85%">
+                     <p:column filterBy="#{proceso.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigo']}" />
                         </f:facet>
                         <h:outputText value="#{proceso.codigo}" />
                      </p:column>
 
-                     <p:column filterBy="#{proceso.descripcion}" filterMatchMode="contains" filterStyle="width: 85%">
+                     <p:column filterBy="#{proceso.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['descripcion']}" />
                         </f:facet>

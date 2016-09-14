@@ -41,7 +41,7 @@
                                     <f:facet name="header">  
                                         <h:outputText value="Fecha" />  
                                     </f:facet> 
-                                    <p:calendar pattern="dd/MM/yyyy" value="#{info.fechavigencia}" id="editFecha" showOn="button" navigator="true" showButtonPanel="true" locale="co" pattern="dd/MM/yyyy">
+                                    <p:calendar mask="true" pattern="dd/MM/yyyy" value="#{info.fechavigencia}" id="editFecha" showOn="button" navigator="true" showButtonPanel="true" locale="co" pattern="dd/MM/yyyy">
                                         <f:convertDateTime pattern="dd/MM/yyyy"/>                                    
                                     </p:calendar>
                                 </p:column>                        

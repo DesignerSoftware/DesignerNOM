@@ -249,13 +249,13 @@ public class ControlPryClientes implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             nombre = (Column) c.getViewRoot().findComponent("form:datosPryCliente:nombre");
-            nombre.setFilterStyle("width: 85%");
+            nombre.setFilterStyle("width: 85% !important");
             direccion = (Column) c.getViewRoot().findComponent("form:datosPryCliente:direccion");
-            direccion.setFilterStyle("width: 85%");
+            direccion.setFilterStyle("width: 85% !important");
             telefono = (Column) c.getViewRoot().findComponent("form:datosPryCliente:telefono");
-            telefono.setFilterStyle("width: 85%");
+            telefono.setFilterStyle("width: 85% !important");
             contacto = (Column) c.getViewRoot().findComponent("form:datosPryCliente:contacto");
-            contacto.setFilterStyle("width: 85%");
+            contacto.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosPryCliente");
             System.out.println("Activar");
             bandera = 1;

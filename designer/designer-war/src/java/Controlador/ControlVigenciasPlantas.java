@@ -234,9 +234,9 @@ public class ControlVigenciasPlantas implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosVigenciaPlanta:codigo");
-            codigo.setFilterStyle("width: 85%;");
+            codigo.setFilterStyle("width: 85% !important;");
             fecha = (Column) c.getViewRoot().findComponent("form:datosVigenciaPlanta:fecha");
-            fecha.setFilterStyle("width: 85%;");
+            fecha.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosVigenciaPlanta");
             System.out.println("Activar");
             bandera = 1;

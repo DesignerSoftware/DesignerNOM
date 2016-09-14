@@ -255,9 +255,9 @@ public class ControlConfigurarColumnas implements Serializable {
         if (bandera == 0) {
             altoTabla = "255";
             vrlFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConfigurarColumna:vrlFecha");
-            vrlFecha.setFilterStyle("width: 85%");
+            vrlFecha.setFilterStyle("width: 85% !important");
             vrlNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConfigurarColumna:vrlNombre");
-            vrlNombre.setFilterStyle("width: 85%");
+            vrlNombre.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosConfigurarColumna");
             bandera = 1;
         } else if (bandera == 1) {

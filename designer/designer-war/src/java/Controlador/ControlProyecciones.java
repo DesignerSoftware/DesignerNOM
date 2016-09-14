@@ -556,43 +556,43 @@ public class ControlProyecciones implements Serializable {
                 System.out.println("Activar");
 
                 descripcionConcepto = (Column) c.getViewRoot().findComponent("form:datosProyecciones:descripcionConcepto");
-                descripcionConcepto.setFilterStyle("width: 85%;");
+                descripcionConcepto.setFilterStyle("width: 85% !important;");
                 //1
                 nombreEmpleado = (Column) c.getViewRoot().findComponent("form:datosProyecciones:nombreEmpleado");
-                nombreEmpleado.setFilterStyle("width: 85%;");
+                nombreEmpleado.setFilterStyle("width: 85% !important;");
                 //2
                 fechaDesde = (Column) c.getViewRoot().findComponent("form:datosProyecciones:fechaDesde");
-                fechaDesde.setFilterStyle("width: 85%;");
+                fechaDesde.setFilterStyle("width: 85% !important;");
                 //3 
                 fechaHasta = (Column) c.getViewRoot().findComponent("form:datosProyecciones:fechaHasta");
-                fechaHasta.setFilterStyle("width: 85%;");
+                fechaHasta.setFilterStyle("width: 85% !important;");
                 //4
                 valor = (Column) c.getViewRoot().findComponent("form:datosProyecciones:valor");
-                valor.setFilterStyle("width: 85%;");
+                valor.setFilterStyle("width: 85% !important;");
                 //5 
                 formula = (Column) c.getViewRoot().findComponent("form:datosProyecciones:formula");
-                formula.setFilterStyle("width: 85%;");
+                formula.setFilterStyle("width: 85% !important;");
                 //6
                 centroCosto = (Column) c.getViewRoot().findComponent("form:datosProyecciones:centroCosto");
-                centroCosto.setFilterStyle("width: 85%;");
+                centroCosto.setFilterStyle("width: 85% !important;");
                 //7 
                 codigoCuentaC = (Column) c.getViewRoot().findComponent("form:datosProyecciones:codigoCuentaC");
-                codigoCuentaC.setFilterStyle("width: 85%;");
+                codigoCuentaC.setFilterStyle("width: 85% !important;");
 
                 descripcionCuentaC = (Column) c.getViewRoot().findComponent("form:datosProyecciones:descripcionCuentaC");
-                descripcionCuentaC.setFilterStyle("width: 85%;");
+                descripcionCuentaC.setFilterStyle("width: 85% !important;");
 
                 codigoCuentaD = (Column) c.getViewRoot().findComponent("form:datosProyecciones:codigoCuentaD");
-                codigoCuentaD.setFilterStyle("width: 85%;");
+                codigoCuentaD.setFilterStyle("width: 85% !important;");
 
                 descripcionCuentaD = (Column) c.getViewRoot().findComponent("form:datosProyecciones:descripcionCuentaD");
-                descripcionCuentaD.setFilterStyle("width: 85%;");
+                descripcionCuentaD.setFilterStyle("width: 85% !important;");
 
                 nit = (Column) c.getViewRoot().findComponent("form:datosProyecciones:nit");
-                nit.setFilterStyle("width: 85%;");
+                nit.setFilterStyle("width: 85% !important;");
 
                 nitNombre = (Column) c.getViewRoot().findComponent("form:datosProyecciones:nitNombre");
-                nitNombre.setFilterStyle("width: 85%;");
+                nitNombre.setFilterStyle("width: 85% !important;");
 
                 RequestContext.getCurrentInstance().update("form:datosProyecciones");
                 bandera = 1;

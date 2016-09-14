@@ -501,7 +501,7 @@ public class ControlActualizarConceptos implements Serializable {
             indiceAcredor = (Column) c.getViewRoot().findComponent("form:datosActualizarConceptos:indiceAcredor");
             indiceAcredor.setFilterStyle("width: 10px");
             fechaCreacion = (Column) c.getViewRoot().findComponent("form:datosActualizarConceptos:fechaCreacion");
-            fechaCreacion.setFilterStyle("width: 85%;");
+            fechaCreacion.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
             System.out.println("Activar");
             bandera = 1;

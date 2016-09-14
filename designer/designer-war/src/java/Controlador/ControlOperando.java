@@ -474,15 +474,15 @@ public class ControlOperando implements Serializable {
         if (bandera == 0) {
             altoTabla = "250";
             operandosNombres = (Column) c.getViewRoot().findComponent("form:datosOperandos:operandosNombres");
-            operandosNombres.setFilterStyle("width: 85%;");
+            operandosNombres.setFilterStyle("width: 85% !important;");
             operandosTipos = (Column) c.getViewRoot().findComponent("form:datosOperandos:operandosTipos");
-            operandosTipos.setFilterStyle("width: 85%;");
+            operandosTipos.setFilterStyle("width: 85% !important;");
             operandosValores = (Column) c.getViewRoot().findComponent("form:datosOperandos:operandosValores");
-            operandosValores.setFilterStyle("width: 85%;");
+            operandosValores.setFilterStyle("width: 85% !important;");
             operandosDescripciones = (Column) c.getViewRoot().findComponent("form:datosOperandos:operandosDescripciones");
-            operandosDescripciones.setFilterStyle("width: 85%;");
+            operandosDescripciones.setFilterStyle("width: 85% !important;");
             operandosCodigos = (Column) c.getViewRoot().findComponent("form:datosOperandos:operandosCodigos");
-            operandosCodigos.setFilterStyle("width: 85%;");
+            operandosCodigos.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosOperandos");
             bandera = 1;
             tipoLista = 1;

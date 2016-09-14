@@ -317,15 +317,15 @@ public class ControlHvReferencias1 implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             nombre = (Column) c.getViewRoot().findComponent("form:datosHvReferencia:nombre");
-            nombre.setFilterStyle("width: 85%");
+            nombre.setFilterStyle("width: 85% !important");
             cargo = (Column) c.getViewRoot().findComponent("form:datosHvReferencia:cargo");
-            cargo.setFilterStyle("width: 85%");
+            cargo.setFilterStyle("width: 85% !important");
             numTelefono = (Column) c.getViewRoot().findComponent("form:datosHvReferencia:numTelefono");
-            numTelefono.setFilterStyle("width: 85%");
+            numTelefono.setFilterStyle("width: 85% !important");
             numCelular = (Column) c.getViewRoot().findComponent("form:datosHvReferencia:numCelular");
-            numCelular.setFilterStyle("width: 85%");
+            numCelular.setFilterStyle("width: 85% !important");
             parentesco = (Column) c.getViewRoot().findComponent("form:datosHvReferencia:parentesco");
-            parentesco.setFilterStyle("width: 85%");
+            parentesco.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosHvReferencia");
             System.out.println("Activar");
             bandera = 1;

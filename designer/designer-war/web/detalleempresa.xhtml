@@ -577,7 +577,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaCamara" value="#{info.fechacamaracomercio}">  
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaCamara" value="#{info.fechacamaracomercio}">  
                                                 <p:ajax event="dateSelect" listener="#{controlDetalleEmpresa.modificacionesFechaCamaraComercio(indiceDE,30)}"  process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificacionesFechaCamaraComercio(indiceDE,30)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,30)}" process="@this"/> 
@@ -1233,7 +1233,7 @@
 
                                     <strong><h:outputText value="#{msg['camaraComercioN']}" style="position: absolute; top: 15px; left: 25px;" /></strong>
                                     <div id="posicionFormulaFechaCamaraNuevoReg" style="position: absolute; top: 10px; left: 230px;width: 122px">
-                                        <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaCamaraDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.fechacamaracomercio}" >
+                                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaCamaraDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.fechacamaracomercio}" >
                                             <p:ajax event="dateSelect" update="nuevaFechaCamaraDetalle" process="@this"/>
                                             <p:ajax event="change" update="nuevaFechaCamaraDetalle" process="@this"/>
                                         </p:calendar>
@@ -1556,7 +1556,7 @@
 
                                     <strong><h:outputText value="#{msg['camaraComercioN']}" style="position: absolute; top: 15px; left: 25px;" /></strong>
                                     <div id="posicionFormulaFechaCamaraNuevoReg" style="position: absolute; top: 10px; left: 230px;width: 122px">
-                                        <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaCamaraDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.fechacamaracomercio}" >
+                                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaCamaraDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.fechacamaracomercio}" >
                                             <p:ajax event="dateSelect" update="duplicarFechaCamaraDetalle" process="@this"/>
                                             <p:ajax event="change" update="duplicarFechaCamaraDetalle" process="@this"/>
                                         </p:calendar>

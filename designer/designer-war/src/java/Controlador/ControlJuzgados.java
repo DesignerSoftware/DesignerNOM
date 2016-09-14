@@ -480,15 +480,15 @@ public class ControlJuzgados implements Serializable {
             if (bandera == 0) {
                 System.out.println("Activar");
                 codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosJuzgados:codigo");
-                codigo.setFilterStyle("width: 85%;");
+                codigo.setFilterStyle("width: 85% !important;");
                 nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosJuzgados:nombre");
-                nombre.setFilterStyle("width: 85%;");
+                nombre.setFilterStyle("width: 85% !important;");
                 ciudad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosJuzgados:ciudad");
-                ciudad.setFilterStyle("width: 85%;");
+                ciudad.setFilterStyle("width: 85% !important;");
                 oficina = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosJuzgados:oficina");
-                oficina.setFilterStyle("width: 85%;");
+                oficina.setFilterStyle("width: 85% !important;");
                 observaciones = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosJuzgados:observaciones");
-                observaciones.setFilterStyle("width: 85%;");
+                observaciones.setFilterStyle("width: 85% !important;");
                 RequestContext.getCurrentInstance().update("form:datosJuzgados");
                 bandera = 1;
             } else if (bandera == 1) {

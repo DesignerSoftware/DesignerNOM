@@ -214,7 +214,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editarFechaSemillaTurno" value="#{infoTR.fechasemilla}" > 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editarFechaSemillaTurno" value="#{infoTR.fechasemilla}" > 
                                                 <p:ajax event="dateSelect" listener="#{controlATCuadrilla.modificarFechaTurno(indiceTR,2)}" update="editarFechaSemillaTurno" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarFechaTurno(indiceTR,2)}" update="editarFechaSemillaTurno" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR,2)}" process="@this"/> 
@@ -749,7 +749,7 @@
 
                             <strong><h:outputText value="#{msg['fechaSemillaN']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
                             <div id="posicionFechaSemillaNuevoReg" style=" position: absolute; top: 130px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaSemillaTurno" value="#{controlATCuadrilla.nuevaTurnoRotativo.fechasemilla}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaSemillaTurno" value="#{controlATCuadrilla.nuevaTurnoRotativo.fechasemilla}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaSemillaTurno" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaSemillaTurno" process="@this"/>
                                 </p:calendar>
@@ -806,7 +806,7 @@
 
                             <strong><h:outputText value="#{msg['fechaSemillaN']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
                             <div id="posicionFechaSemillaDuplicarReg" style=" position: absolute; top: 130px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaSemillaTurno" value="#{controlATCuadrilla.duplicarTurnoRotativo.fechasemilla}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaSemillaTurno" value="#{controlATCuadrilla.duplicarTurnoRotativo.fechasemilla}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaSemillaTurno" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaSemillaTurno" process="@this"/>
                                 </p:calendar>

@@ -378,13 +378,13 @@ public class ControlVigenciasTallas implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             fecha = (Column) c.getViewRoot().findComponent("form:datosVigenciasTallas:fecha");
-            fecha.setFilterStyle("width: 85%;");
+            fecha.setFilterStyle("width: 85% !important;");
             idTipoTalla = (Column) c.getViewRoot().findComponent("form:datosVigenciasTallas:idTipoTalla");
-            idTipoTalla.setFilterStyle("width: 85%;");
+            idTipoTalla.setFilterStyle("width: 85% !important;");
             idTalla = (Column) c.getViewRoot().findComponent("form:datosVigenciasTallas:idTalla");
-            idTalla.setFilterStyle("width: 85%;");
+            idTalla.setFilterStyle("width: 85% !important;");
             idObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasTallas:idObservaciones");
-            idObservaciones.setFilterStyle("width: 85%;");
+            idObservaciones.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosVigenciasTallas");
             System.out.println("Activar");
             bandera = 1;

@@ -104,7 +104,7 @@
 
                                 <strong><h:outputText value="#{msg['fechaInicial']}" style="position: absolute; top: 20px; left: 480px"/></strong>
                                 <div id="posicionFechaIni" style="position: absolute; top: 15px; left: 560px">
-                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaInicial"  value="#{controlInterfaseContableSapBOV8.parametroContableActual.fechainicialcontabilizacion}">
+                                    <p:calendar mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicial"  value="#{controlInterfaseContableSapBOV8.parametroContableActual.fechainicialcontabilizacion}">
                                         <p:ajax event="dateSelect" listener="#{controlInterfaseContableSapBOV8.modificarFechasParametro(3)}" update="@this"/>
                                         <p:ajax event="change" listener="#{controlInterfaseContableSapBOV8.modificarFechasParametro(3)}" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableSapBOV8.cambiarIndiceParametro(3)}" />
@@ -113,7 +113,7 @@
 
                                 <strong><h:outputText value="#{msg['fechaFinal']}" style="position: absolute; top: 50px; left: 480px"/></strong>
                                 <div id="posicionFechaFin" style="position: absolute; top: 45px; left: 560px">
-                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaFinal" value="#{controlInterfaseContableSapBOV8.parametroContableActual.fechafinalcontabilizacion}" >
+                                    <p:calendar mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinal" value="#{controlInterfaseContableSapBOV8.parametroContableActual.fechafinalcontabilizacion}" >
                                         <p:ajax event="dateSelect" listener="#{controlInterfaseContableSapBOV8.modificarFechasParametro(4)}" update="@this"/>
                                         <p:ajax event="change" listener="#{controlInterfaseContableSapBOV8.modificarFechasParametro(4)}" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableSapBOV8.cambiarIndiceParametro(4)}" />
@@ -128,7 +128,7 @@
                                 
                                 <strong><h:outputText id="textFechaGenerada" value="#{msg['fechaGenerada']}" style="position: absolute; top: 50px; left: 700px"/></strong>
                                 <div id="posicionFechaGenerada" style="position: absolute; top: 45px; left: 740px">
-                                    <p:calendar pattern="dd/MM/yyyy" id="parametroFechaGenerada" value="#{controlInterfaseContableSapBOV8.parametroContableActual.fechageneracion}" >
+                                    <p:calendar mask="true" pattern="dd/MM/yyyy" id="parametroFechaGenerada" value="#{controlInterfaseContableSapBOV8.parametroContableActual.fechageneracion}" >
                                         <p:ajax event="dateSelect" listener="#{controlInterfaseContableSapBOV8.cambiarIndiceParametro()}" update="@this"/>
                                         <p:ajax event="change" listener="#{controlInterfaseContableSapBOV8.cambiarIndiceParametro()}" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableSapBOV8.cambiarIndiceParametro(6)}" />
@@ -817,7 +817,7 @@
 
                             <strong><h:outputText value="*#{msg['fechaInicialN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
                             <div id="posicionNuevaFechaInicial" style=" position: absolute; top: 160px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicialParametro" value="#{controlInterfaseContableSapBOV8.nuevoParametroContable.fechainicialcontabilizacion}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialParametro" value="#{controlInterfaseContableSapBOV8.nuevoParametroContable.fechainicialcontabilizacion}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialParametro" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicialParametro" process="@this"/>
                                 </p:calendar>
@@ -825,7 +825,7 @@
 
                             <strong><h:outputText value="*#{msg['fechaFinalN']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
                             <div id="posicionNuevaFechaFinal" style=" position: absolute; top: 190px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinalParametro" value="#{controlInterfaseContableSapBOV8.nuevoParametroContable.fechafinalcontabilizacion}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalParametro" value="#{controlInterfaseContableSapBOV8.nuevoParametroContable.fechafinalcontabilizacion}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinalParametro" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinalParametro" process="@this"/>
                                 </p:calendar>
@@ -839,7 +839,7 @@
                             
                             <strong><h:outputText value="#{msg['fechaGeneradaN']}" style=" position: absolute; top: 255px; left: 50px;" /></strong>
                             <div id="posicionNuevaFechaGenerada" style=" position: absolute; top: 250px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaGenerada" value="#{controlInterfaseContableSapBOV8.nuevoParametroContable.fechageneracion}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaGenerada" value="#{controlInterfaseContableSapBOV8.nuevoParametroContable.fechageneracion}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaGenerada" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaGenerada" process="@this"/>
                                 </p:calendar>

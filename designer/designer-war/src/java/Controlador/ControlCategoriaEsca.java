@@ -880,15 +880,15 @@ public class ControlCategoriaEsca implements Serializable {
         if (bandera == 0) {
             algoTabla = "180";
             categoriaCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCategoria:categoriaCodigo");
-            categoriaCodigo.setFilterStyle("width: 85%");
+            categoriaCodigo.setFilterStyle("width: 85% !important");
             categoriaClase = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCategoria:categoriaClase");
-            categoriaClase.setFilterStyle("width: 85%");
+            categoriaClase.setFilterStyle("width: 85% !important");
             categoriaDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCategoria:categoriaDescripcion");
-            categoriaDescripcion.setFilterStyle("width: 85%");
+            categoriaDescripcion.setFilterStyle("width: 85% !important");
             categoriaTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCategoria:categoriaTipo");
-            categoriaTipo.setFilterStyle("width: 85%");
+            categoriaTipo.setFilterStyle("width: 85% !important");
             categoriaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCategoria:categoriaConcepto");
-            categoriaConcepto.setFilterStyle("width: 85%");
+            categoriaConcepto.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosCategoria");
             bandera = 1;
         } else if (bandera == 1) {

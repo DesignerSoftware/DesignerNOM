@@ -774,19 +774,19 @@ public class ControlVigenciasFormasPagos implements Serializable {
         if (bandera == 0) {
             //Columnas de la Tabla  
             fechaVigencia = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormasPagos:fechaVigencia");
-            fechaVigencia.setFilterStyle("width: 85%;");
+            fechaVigencia.setFilterStyle("width: 85% !important;");
             cuenta = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormasPagos:cuenta");
-            cuenta.setFilterStyle("width: 85%;");
+            cuenta.setFilterStyle("width: 85% !important;");
             fechaCuenta = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormasPagos:fechaCuenta");
-            fechaCuenta.setFilterStyle("width: 85%;");
+            fechaCuenta.setFilterStyle("width: 85% !important;");
             sucursal = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormasPagos:sucursal");
-            sucursal.setFilterStyle("width: 85%;");
+            sucursal.setFilterStyle("width: 85% !important;");
             formaPago = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormasPagos:formaPago");
-            formaPago.setFilterStyle("width: 85%;");
+            formaPago.setFilterStyle("width: 85% !important;");
             tc = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormasPagos:tc");
-            tc.setFilterStyle("width: 85%;");
+            tc.setFilterStyle("width: 85% !important;");
             metodoPago = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormasPagos:metodoPago");
-            metodoPago.setFilterStyle("width: 85%;");
+            metodoPago.setFilterStyle("width: 85% !important;");
             altoTabla = "272";
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormasPagos");
             bandera = 1;

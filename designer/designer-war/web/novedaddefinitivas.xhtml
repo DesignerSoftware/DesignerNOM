@@ -152,7 +152,7 @@
 
                                     <h:outputText value="#{msg['fechaliquidacion']}:" style=" top: 55px; right: 672px; position:absolute"/>
                                     <div id="posicionFormulaFechaLiquidacion" style=" position: absolute; top: 50px; left: 170px">
-                                        <p:calendar pattern="dd/MM/yyyy" disabled="#{controlNovedadesDefinitivas.activate}" id="fechaLiquidacion" 
+                                        <p:calendar mask="true" pattern="dd/MM/yyyy" disabled="#{controlNovedadesDefinitivas.activate}" id="fechaLiquidacion" 
                                                       value="#{controlNovedadesDefinitivas.novedadMostrar.fechainicialdisfrute}"> 
                                             <p:ajax event="dateSelect" listener="#{controlNovedadesDefinitivas.cambiosCampos()}" update="fechaLiquidacion" process="@this"/>
                                             <p:ajax event="change" listener="#{controlNovedadesDefinitivas.cambiosCampos()}" update="fechaLiquidacion" process="@this"/>
@@ -294,7 +294,7 @@
 
                             <strong><h:outputText value="#{msg['fechaliquidacionN']}" style=" position: absolute; top: 55px;" /></strong>
                             <div id="posicionFormulaFechaNuevoReg" style=" position: absolute; top: 50px; left: 220px; width: 122px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlNovedadesDefinitivas.nuevaNovedad.fechainicialdisfrute}">
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlNovedadesDefinitivas.nuevaNovedad.fechainicialdisfrute}">
                                     <p:ajax event="dateSelect" update="nuevaFecha" process="@this"/>
                                     <p:ajax event="change" update="nuevaFecha" process="@this"/>
                                 </p:calendar>
@@ -341,7 +341,7 @@
 
                             <strong><h:outputText value="#{msg['fechaliquidacionN']}" style=" position: absolute; top: 55px;" /></strong>
                             <div id="posicionFormulaFechaDuplicarReg" style=" position: absolute; top: 50px; left: 220px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlNovedadesDefinitivas.duplicarNovedad.fechainicialdisfrute}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlNovedadesDefinitivas.duplicarNovedad.fechainicialdisfrute}" >
                                     <p:ajax event="dateSelect" update="duplicarFecha" process="@this"/>
                                     <p:ajax event="change" update="duplicarFecha" process="@this"/>
                                 </p:calendar>
@@ -478,14 +478,14 @@
                                 <p:inputText id="globalFilter" onkeyup="LOVRetiros.filter();" style="width: 150px; position: relative; left: 70px;" />  
                             </f:facet>
 
-                            <p:column sortBy="#{retiros.codigo}" filterBy="#{retiros.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85%" > 
+                            <p:column sortBy="#{retiros.codigo}" filterBy="#{retiros.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85% !important" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigoR']}" />
                                 </f:facet>
                                 <h:outputText value="#{retiros.codigo}" />  
                             </p:column>
 
-                            <p:column sortBy="#{retiros.nombre}" filterBy="#{retiros.nombre}" filterMatchMode="contains" filterStyle="width: 85%" > 
+                            <p:column sortBy="#{retiros.nombre}" filterBy="#{retiros.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreR']}" />
                                 </f:facet>

@@ -84,7 +84,7 @@
                                 <legend style="color: blue;text-align:left"><strong>#{msg['parametros']}</strong></legend>
                                 <h:outputText value="#{msg['fechadesde']}:" style="position: absolute; top: 20px; left: 30px;"/>
                                 <div id="posicionFechaDesdeParametro" style="position: absolute; top: 40px; left: 30px;width: 90px">
-                                    <p:calendar pattern="dd/MM/yyyy" value="#{controlNReporteContabilidad.parametroDeInforme.fechadesde}" id="fechaDesdeParametroL">
+                                    <p:calendar mask="true" pattern="dd/MM/yyyy" value="#{controlNReporteContabilidad.parametroDeInforme.fechadesde}" id="fechaDesdeParametroL">
                                         <p:ajax event="click" listener="#{controlNReporteContabilidad.posicionCelda(1)}" process="@this"/>
                                         <p:ajax event="change" listener="#{controlNReporteContabilidad.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
                                         <p:ajax event="dateSelect" listener="#{controlNReporteContabilidad.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
@@ -93,7 +93,7 @@
 
                                 <h:outputText value="#{msg['fechahasta']}:" style="position: absolute; top: 20px; left: 150px;"/>
                                 <div id="posicionFechaHastaParametro" style="position: absolute; top: 40px; left: 150px;width: 90px">
-                                    <p:calendar pattern="dd/MM/yyyy" id="fechaHastaParametroL" value="#{controlNReporteContabilidad.parametroDeInforme.fechahasta}">
+                                    <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaHastaParametroL" value="#{controlNReporteContabilidad.parametroDeInforme.fechahasta}">
                                         <p:ajax event="click" listener="#{controlNReporteContabilidad.posicionCelda(3)}" process="@this"/> 
                                         <p:ajax event="change" listener="#{controlNReporteContabilidad.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
                                         <p:ajax event="dateSelect" listener="#{controlNReporteContabilidad.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>

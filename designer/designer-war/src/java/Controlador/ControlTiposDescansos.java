@@ -242,13 +242,13 @@ public class ControlTiposDescansos implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposDescansos:codigo");
-            codigo.setFilterStyle("width: 85%;");
+            codigo.setFilterStyle("width: 85% !important;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposDescansos:descripcion");
-            descripcion.setFilterStyle("width: 85%;");
+            descripcion.setFilterStyle("width: 85% !important;");
             diasTrabajados = (Column) c.getViewRoot().findComponent("form:datosTiposDescansos:diasTrabajados");
-            diasTrabajados.setFilterStyle("width: 85%;");
+            diasTrabajados.setFilterStyle("width: 85% !important;");
             diasDescansados = (Column) c.getViewRoot().findComponent("form:datosTiposDescansos:diasDescansados");
-            diasDescansados.setFilterStyle("width: 85%;");
+            diasDescansados.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosTiposDescansos");
             System.out.println("Activar");
             bandera = 1;

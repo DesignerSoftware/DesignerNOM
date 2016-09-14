@@ -520,21 +520,21 @@ public class ControlNovedadCesantiasRC implements Serializable {
         if (bandera == 0) {
             altotabla = 105;
             fechaCorteCesantias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:fechacortecesantias");
-            fechaCorteCesantias.setFilterStyle("width: 85%");
+            fechaCorteCesantias.setFilterStyle("width: 85% !important");
             fechaCorteIntCesantias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:fechacorteintcesantias");
             fechaCorteIntCesantias.setFilterStyle("");
             valorCesantias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:valorcesantias");
-            valorCesantias.setFilterStyle("width: 85%");
+            valorCesantias.setFilterStyle("width: 85% !important");
             valorIntCesantias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:valorintcesantias");
-            valorIntCesantias.setFilterStyle("width: 85%");
+            valorIntCesantias.setFilterStyle("width: 85% !important");
             valorSolicitado = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:valorsolicitado");
-            valorSolicitado.setFilterStyle("width: 85%");
+            valorSolicitado.setFilterStyle("width: 85% !important");
             motivoCesantia = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:motivocesantia");
-            motivoCesantia.setFilterStyle("width: 85%");
+            motivoCesantia.setFilterStyle("width: 85% !important");
             observacion = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:observaciones");
-            observacion.setFilterStyle("width: 85%");
+            observacion.setFilterStyle("width: 85% !important");
             beneficiarios = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:beneficiarios");
-            beneficiarios.setFilterStyle("width: 85%");
+            beneficiarios.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
             bandera = 1;
             tipoLista = 1;

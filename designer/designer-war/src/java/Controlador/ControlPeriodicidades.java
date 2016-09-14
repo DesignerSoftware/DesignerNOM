@@ -1814,17 +1814,17 @@ public class ControlPeriodicidades implements Serializable {
                 tamano = 250;
                 System.out.println("Activar");
                 codigoCC = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoCC");
-                codigoCC.setFilterStyle("width: width: 85%");
+                codigoCC.setFilterStyle("width: width: 85% !important");
                 nombreUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:nombreUnidad");
-                nombreUnidad.setFilterStyle("width: width: 85%");
+                nombreUnidad.setFilterStyle("width: width: 85% !important");
                 tipoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:tipoUnidad");
-                tipoUnidad.setFilterStyle("width: 85%;");
+                tipoUnidad.setFilterStyle("width: 85% !important;");
                 codigoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidad");
-                codigoUnidad.setFilterStyle("width: 85%;");
+                codigoUnidad.setFilterStyle("width: 85% !important;");
                 codigoUnidadbase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidadbase");
-                codigoUnidadbase.setFilterStyle("width: 85%;");
+                codigoUnidadbase.setFilterStyle("width: 85% !important;");
                 unidadBase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:unidadBase");
-                unidadBase.setFilterStyle("width: 85%;");
+                unidadBase.setFilterStyle("width: 85% !important;");
                 RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
                 bandera = 1;
             } else if (bandera == 1) {

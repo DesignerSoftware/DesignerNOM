@@ -163,7 +163,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaPago" value="#{encargaturas.fechapago}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaPago" value="#{encargaturas.fechapago}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaPago"/>
                                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.modificarEncargaturas(encargaturas, 'N', encargaturas.fechapago)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesReemplazos.cambiarIndice(encargaturas, 2)}" process="@this" />
@@ -184,7 +184,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaInicial" value="#{encargaturas.fechainicial}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{encargaturas.fechainicial}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaInicial"/>
                                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.modificarEncargaturas(encargaturas, 'N', encargaturas.fechainicial)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesReemplazos.cambiarIndice(encargaturas, 3)}" process="@this" />
@@ -205,7 +205,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaFinal" value="#{encargaturas.fechainicial}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{encargaturas.fechainicial}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaFinal"/>
                                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.modificarEncargaturas(encargaturas, 'N', encargaturas.fechafinal)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesReemplazos.cambiarIndice(encargaturas, 4)}" process="@this" />
@@ -601,7 +601,7 @@
 
                             <strong><h:outputText value="#{msg['fechapagoN']}" style=" position: absolute; top: 165px;" /></strong>
                             <div id="posicionFormulaFechaPagoNuevoReg" style=" position: absolute; top: 160px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaPago" value="#{controlNovedadesReemplazos.nuevaEncargatura.fechapago}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaPago" value="#{controlNovedadesReemplazos.nuevaEncargatura.fechapago}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaPago" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaPago" process="@this"/>
                                 </p:calendar>
@@ -609,7 +609,7 @@
 
                             <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top: 205px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style=" position: absolute; top: 200px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlNovedadesReemplazos.nuevaEncargatura.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlNovedadesReemplazos.nuevaEncargatura.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
                                 </p:calendar>
@@ -617,7 +617,7 @@
 
                             <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 245px;" /></strong>
                             <div id="posicionFormulaFechaFinalNuevoReg" style=" position: absolute; top: 240px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlNovedadesReemplazos.nuevaEncargatura.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlNovedadesReemplazos.nuevaEncargatura.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
                                 </p:calendar>
@@ -681,7 +681,7 @@
 
                             <strong><h:outputText value="#{msg['fechapagoN']}" style=" position: absolute; top: 165px;" /></strong>
                             <div id="posicionFormulaFechaPagoNuevoReg" style=" position: absolute; top: 160px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaPago" value="#{controlNovedadesReemplazos.duplicarEncargatura.fechapago}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaPago" value="#{controlNovedadesReemplazos.duplicarEncargatura.fechapago}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaPago" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaPago" process="@this"/>
                                 </p:calendar>
@@ -689,7 +689,7 @@
 
                             <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top: 205px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style=" position: absolute; top: 200px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlNovedadesReemplazos.duplicarEncargatura.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlNovedadesReemplazos.duplicarEncargatura.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
                                 </p:calendar>
@@ -697,7 +697,7 @@
 
                             <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 245px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style=" position: absolute; top: 240px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlNovedadesReemplazos.duplicarEncargatura.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlNovedadesReemplazos.duplicarEncargatura.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
                                 </p:calendar>

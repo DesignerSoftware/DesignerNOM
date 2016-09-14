@@ -355,17 +355,17 @@ public class ControlFirmasReportes implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosFirmasReportes:codigo");
-            codigo.setFilterStyle("width: 85%");
+            codigo.setFilterStyle("width: 85% !important");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosFirmasReportes:descripcion");
-            descripcion.setFilterStyle("width: 85%");
+            descripcion.setFilterStyle("width: 85% !important");
             pais = (Column) c.getViewRoot().findComponent("form:datosFirmasReportes:pais");
-            pais.setFilterStyle("width: 85%");
+            pais.setFilterStyle("width: 85% !important");
             subTituloFirma = (Column) c.getViewRoot().findComponent("form:datosFirmasReportes:subTituloFirma");
-            subTituloFirma.setFilterStyle("width: 85%");
+            subTituloFirma.setFilterStyle("width: 85% !important");
             personafir = (Column) c.getViewRoot().findComponent("form:datosFirmasReportes:personafir");
-            personafir.setFilterStyle("width: 85%");
+            personafir.setFilterStyle("width: 85% !important");
             cargo = (Column) c.getViewRoot().findComponent("form:datosFirmasReportes:cargo");
-            cargo.setFilterStyle("width: 85%");
+            cargo.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosFirmasReportes");
             System.out.println("Activar");
             bandera = 1;

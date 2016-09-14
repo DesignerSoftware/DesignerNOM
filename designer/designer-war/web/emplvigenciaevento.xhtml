@@ -112,7 +112,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}" >  
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}" >  
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVigenciaEvento.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,0)}" process="@this"/> 
@@ -134,7 +134,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}" >  
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}" >  
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVigenciaEvento.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,1)}" process="@this"/> 
@@ -360,7 +360,7 @@
 
                             <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialV" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicialV" process="@this"/>
                                 </p:calendar>
@@ -368,7 +368,7 @@
 
                             <strong><h:outputText value="#{msg['finalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinalV" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinalV" process="@this"/>
                                 </p:calendar>
@@ -426,7 +426,7 @@
 
                             <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicialV" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicialV" process="@this"/>
                                 </p:calendar>
@@ -434,7 +434,7 @@
 
                             <strong><h:outputText value="#{msg['finalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinalV" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinalV" process="@this"/>
                                 </p:calendar>

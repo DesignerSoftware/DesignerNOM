@@ -122,7 +122,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicialMvrs" value="#{infoMvr.fechainicial}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicialMvrs" value="#{infoMvr.fechainicial}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,0)}" update="dateFechaInicialMvrs" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,0)}" update="dateFechaInicialMvrs" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,0)}" process="@this"/> 
@@ -144,7 +144,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinalMvrs" value="#{infoMvr.fechafinal}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaFinalMvrs" value="#{infoMvr.fechafinal}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,1)}" update="dateFechaFinalMvrs" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,1)}" update="dateFechaFinalMvrs" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,1)}" process="@this"/> 
@@ -238,7 +238,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicialOC" value="#{info.fechainicial}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicialOC" value="#{info.fechainicial}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasOtros(info,0)}" update="dateFechaInicialOC" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasOtros(info,0)}" update="dateFechaInicialOC" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,0)}" process="@this"/> 
@@ -259,7 +259,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinalOC" value="#{info.fechafinal}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaFinalOC" value="#{info.fechafinal}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasOtros(info,1)}" update="dateFechaFinalOC" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasOtros(info,1)}" update="dateFechaFinalOC" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,1)}" process="@this"/> 
@@ -372,13 +372,13 @@
                                     <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovMotivo.filter();" value="#{filtrado}" style="width:160px; position: relative; left: 5px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{motivo.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{motivo.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['codigoM']}" />
                                     </f:facet>
                                     <h:outputText  value="#{motivo.codigo}" />
                                 </p:column>
-                                <p:column filterBy="#{motivo.nombre}" filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{motivo.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['nombreM']}" />
                                     </f:facet>
@@ -410,13 +410,13 @@
                                     <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovCertificado.filter();" value="#{filtrado}" style="width:170px; position: relative; left: 40px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{tipoC.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{tipoC.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['codigoM']}" />
                                     </f:facet>
                                     <h:outputText  value="#{tipoC.codigo}" />
                                 </p:column>
-                                <p:column filterBy="#{tipoC.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{tipoC.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['descripcionC']}" />
                                     </f:facet>
@@ -556,7 +556,7 @@
 
                             <strong><h:outputText value="*#{msg['inicialMVRS']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoMvrReg" style=" position: absolute; top: 70px; left: 170px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicialMVRS" value="#{controlEmplMvr.nuevaMvrs.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialMVRS" value="#{controlEmplMvr.nuevaMvrs.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialMVRS" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicialMVRS" process="@this"/>
                                 </p:calendar>
@@ -564,7 +564,7 @@
 
                             <strong><h:outputText value="#{msg['finalMVRS']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoRegMvr" style=" position: absolute; top: 100px; left: 170px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinalMVRS" value="#{controlEmplMvr.nuevaMvrs.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalMVRS" value="#{controlEmplMvr.nuevaMvrs.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinalMVRS" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinalMVRS" process="@this"/>
                                 </p:calendar>
@@ -608,7 +608,7 @@
 
                             <strong><h:outputText value="*#{msg['inicialMVRS']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniDupliMvrReg" style=" position: absolute; top: 70px; left: 170px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicialMVRS" value="#{controlEmplMvr.duplicarMvrs.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialMVRS" value="#{controlEmplMvr.duplicarMvrs.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicialMVRS" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicialMVRS" process="@this"/>
                                 </p:calendar>
@@ -617,7 +617,7 @@
 
                             <strong><h:outputText value="#{msg['finalMVRS']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinDupliMvrReg" style=" position: absolute; top: 100px; left: 170px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinalMVRS" value="#{controlEmplMvr.duplicarMvrs.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalMVRS" value="#{controlEmplMvr.duplicarMvrs.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinalMVRS" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinalMVRS" process="@this"/>
                                 </p:calendar>
@@ -660,7 +660,7 @@
 
                             <strong><h:outputText value="*#{msg['inicialOC']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoRegOC" style=" position: absolute; top: 70px; left: 170px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicialOC" value="#{controlEmplMvr.nuevaOtroCertificado.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialOC" value="#{controlEmplMvr.nuevaOtroCertificado.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialOC" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicialOC" process="@this"/>
                                 </p:calendar>
@@ -669,7 +669,7 @@
 
                             <strong><h:outputText value="*#{msg['finalOC']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoRegOC" style=" position: absolute; top: 100px; left: 170px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinalOC" value="#{controlEmplMvr.nuevaOtroCertificado.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalOC" value="#{controlEmplMvr.nuevaOtroCertificado.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinalOC" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinalOC" process="@this"/>
                                 </p:calendar>
@@ -719,7 +719,7 @@
 
                             <strong><h:outputText value="*#{msg['inicialOC']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniDupliOCReg" style=" position: absolute; top: 70px; left: 170px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicialOC" value="#{controlEmplMvr.duplicarOtrosCertificados.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialOC" value="#{controlEmplMvr.duplicarOtrosCertificados.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicialOC" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicialOC" process="@this"/>
                                 </p:calendar>
@@ -728,7 +728,7 @@
 
                             <strong><h:outputText value="*#{msg['finalOC']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinDupliOCReg" style=" position: absolute; top: 100px; left: 170px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinalOC" value="#{controlEmplMvr.duplicarOtrosCertificados.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalOC" value="#{controlEmplMvr.duplicarOtrosCertificados.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinalOC" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinalOC" process="@this"/>
                                 </p:calendar>

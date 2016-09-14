@@ -1038,11 +1038,11 @@ public class ControlTipoContrato implements Serializable {
             if (banderaDiasLab == 0) {
                 altoTablaDiasLab = "55";
                 diasLabDia = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDiasLaborables:diasLabDia");
-                diasLabDia.setFilterStyle("width: 85%");
+                diasLabDia.setFilterStyle("width: 85% !important");
                 diasLabTipoDia = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDiasLaborables:diasLabTipoDia");
-                diasLabTipoDia.setFilterStyle("width: 85%");
+                diasLabTipoDia.setFilterStyle("width: 85% !important");
                 diasLabHL = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDiasLaborables:diasLabHL");
-                diasLabHL.setFilterStyle("width: 85%");
+                diasLabHL.setFilterStyle("width: 85% !important");
                 RequestContext.getCurrentInstance().update("form:datosDiasLaborables");
                 banderaDiasLab = 1;
             } else if (banderaDiasLab == 1) {
@@ -1062,15 +1062,15 @@ public class ControlTipoContrato implements Serializable {
             if (bandera == 0) {
                 altoTablaTiposC = "166";
                 tipoCCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoContrato:tipoCCodigo");
-                tipoCCodigo.setFilterStyle("width: 85%");
+                tipoCCodigo.setFilterStyle("width: 85% !important");
                 tipoCNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoContrato:tipoCNombre");
-                tipoCNombre.setFilterStyle("width: 85%");
+                tipoCNombre.setFilterStyle("width: 85% !important");
                 tipoCPeriodo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoContrato:tipoCPeriodo");
-                tipoCPeriodo.setFilterStyle("width: 85%");
+                tipoCPeriodo.setFilterStyle("width: 85% !important");
                 tipoCVE = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoContrato:tipoCVE");
-                tipoCVE.setFilterStyle("width: 85%");
+                tipoCVE.setFilterStyle("width: 85% !important");
 //                tipoCForza = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoContrato:tipoCForza");
-//                tipoCForza.setFilterStyle("width: 85%");
+//                tipoCForza.setFilterStyle("width: 85% !important");
                 RequestContext.getCurrentInstance().update("form:datosTipoContrato");
                 bandera = 1;
             } else if (bandera == 1) {

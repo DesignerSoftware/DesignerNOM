@@ -225,9 +225,9 @@ public class ControlEvalActividades implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosEvalActividades:codigo");
-            codigo.setFilterStyle("width: 85%");
+            codigo.setFilterStyle("width: 85% !important");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEvalActividades:descripcion");
-            descripcion.setFilterStyle("width: 85%");
+            descripcion.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosEvalActividades");
             System.out.println("Activar");
             bandera = 1;

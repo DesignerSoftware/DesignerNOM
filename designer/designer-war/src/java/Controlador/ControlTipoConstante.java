@@ -204,17 +204,17 @@ public class ControlTipoConstante implements Serializable {
         if (bandera == 0) {
             altoTabla = "250";
             tiposConstantesTipos = (Column) c.getViewRoot().findComponent("form:datosTiposConstantes:tiposConstantesTipos");
-            tiposConstantesTipos.setFilterStyle("width: 85%;");
+            tiposConstantesTipos.setFilterStyle("width: 85% !important;");
             tiposConstantesIniciales = (Column) c.getViewRoot().findComponent("form:datosTiposConstantes:tiposConstantesIniciales");
-            tiposConstantesIniciales.setFilterStyle("width: 85%;");
+            tiposConstantesIniciales.setFilterStyle("width: 85% !important;");
             tiposConstantesFinales = (Column) c.getViewRoot().findComponent("form:datosTiposConstantes:tiposConstantesFinales");
-            tiposConstantesFinales.setFilterStyle("width: 85%;");
+            tiposConstantesFinales.setFilterStyle("width: 85% !important;");
             tiposConstantesReales = (Column) c.getViewRoot().findComponent("form:datosTiposConstantes:tiposConstantesReales");
-            tiposConstantesReales.setFilterStyle("width: 85%;");
+            tiposConstantesReales.setFilterStyle("width: 85% !important;");
             tiposConstantesDates = (Column) c.getViewRoot().findComponent("form:datosTiposConstantes:tiposConstantesDates");
-            tiposConstantesDates.setFilterStyle("width: 85%;");
+            tiposConstantesDates.setFilterStyle("width: 85% !important;");
             tiposConstantesCadenas = (Column) c.getViewRoot().findComponent("form:datosTiposConstantes:tiposConstantesCadenas");
-            tiposConstantesCadenas.setFilterStyle("width: 85%;");
+            tiposConstantesCadenas.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosTiposConstantes");
             bandera = 1;
             tipoLista = 1;

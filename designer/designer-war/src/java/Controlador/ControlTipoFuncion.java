@@ -250,11 +250,11 @@ public class ControlTipoFuncion implements Serializable {
         if (bandera == 0) {
             altoTabla = "250";
             tiposFuncionesIniciales = (Column) c.getViewRoot().findComponent("form:datosTiposFunciones:tiposFuncionesIniciales");
-            tiposFuncionesIniciales.setFilterStyle("width: 85%;");
+            tiposFuncionesIniciales.setFilterStyle("width: 85% !important;");
             tiposFuncionesFinales = (Column) c.getViewRoot().findComponent("form:datosTiposFunciones:tiposFuncionesFinales");
-            tiposFuncionesFinales.setFilterStyle("width: 85%;");
+            tiposFuncionesFinales.setFilterStyle("width: 85% !important;");
             tiposFuncionesObjetos = (Column) c.getViewRoot().findComponent("form:datosTiposFunciones:tiposFuncionesObjetos");
-            tiposFuncionesObjetos.setFilterStyle("width: 85%;");
+            tiposFuncionesObjetos.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosTiposFunciones");
             bandera = 1;
             tipoLista = 1;

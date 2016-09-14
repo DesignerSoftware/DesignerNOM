@@ -171,13 +171,13 @@ public class ControlUsuarios implements Serializable {
         if (bandera == 0) {
             System.out.println("Activar");
             usuarioPersona = (Column) c.getViewRoot().findComponent("form:datosUsuarios:persona");
-            usuarioPersona.setFilterStyle("width: 85%");
+            usuarioPersona.setFilterStyle("width: 85% !important");
             usuarioPerfil = (Column) c.getViewRoot().findComponent("form:datosUsuarios:perfil");
-            usuarioPerfil.setFilterStyle("width: 85%");
+            usuarioPerfil.setFilterStyle("width: 85% !important");
             usuarioAlias = (Column) c.getViewRoot().findComponent("form:datosUsuarios:alias");
-            usuarioAlias.setFilterStyle("width: 85%");
+            usuarioAlias.setFilterStyle("width: 85% !important");
             usuarioPantallaInicio = (Column) c.getViewRoot().findComponent("form:datosUsuarios:pantalla");
-            usuarioPantallaInicio.setFilterStyle("width: 85%");
+            usuarioPantallaInicio.setFilterStyle("width: 85% !important");
             altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
             bandera = 1;

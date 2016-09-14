@@ -102,7 +102,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
                                                 <p:ajax event="select" listener="#{controlVigenciasEstadosCiviles.cambiarIndice(info, 0)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlVigenciasEstadosCiviles.mostrarInfo(info,0)}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasEstadosCiviles.mostrarInfo(info,0)}" process="@this" update="dateFechaInicial"/>
@@ -274,7 +274,7 @@
 
                             <strong><h:outputText value="*Fecha: "  style=" position: absolute; top: 55px;" /></strong>
                             <div  id="nuevaFechaa" style="width: 135px; position: absolute; top: 50px; left: 135px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasEstadosCiviles.nuevoVigenciaEstadoCivil.fechavigencia}">
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasEstadosCiviles.nuevoVigenciaEstadoCivil.fechavigencia}">
                                     <p:ajax event="dateSelect" update="nuevaFecha"/>
                                     <p:ajax event="change" update="nuevaFecha"/>
                                 </p:calendar>
@@ -304,7 +304,7 @@
 
                             <strong><h:outputText value="Fecha: "  style=" position: absolute; top: 55px;" /></strong>
                             <div  id="duplicarFecha" style="width: 135px; position: absolute; top: 50px; left: 135px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaa" value="#{controlVigenciasEstadosCiviles.duplicarVigenciaEstadoCivil.fechavigencia}">
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaa" value="#{controlVigenciasEstadosCiviles.duplicarVigenciaEstadoCivil.fechavigencia}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                 </p:calendar>

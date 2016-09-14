@@ -926,15 +926,15 @@ public class ControlDeclarantes implements Serializable {
         if (bandera == 0) {
             altoScrollDeclarantes = "250";
             declarantesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesFechaInicial");
-            declarantesFechaInicial.setFilterStyle("width: 85%");
+            declarantesFechaInicial.setFilterStyle("width: 85% !important");
             declarantesFechaFinal = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesFechaFinal");
-            declarantesFechaFinal.setFilterStyle("width: 85%");
+            declarantesFechaFinal.setFilterStyle("width: 85% !important");
             declarantesBooleano = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesBooleano");
-            declarantesBooleano.setFilterStyle("width: 85%");
+            declarantesBooleano.setFilterStyle("width: 85% !important");
             declarantesPromedio = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesPromedio");
-            declarantesPromedio.setFilterStyle("width: 85%");
+            declarantesPromedio.setFilterStyle("width: 85% !important");
             declarantesTarifa = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesTarifa");
-            declarantesTarifa.setFilterStyle("width: 85%");
+            declarantesTarifa.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosDeclarantes");
             bandera = 1;
 

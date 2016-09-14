@@ -241,11 +241,11 @@ public class ControlMotivosCambiosSueldos implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioSueldo:codigo");
-            codigo.setFilterStyle("width: 85%;");
+            codigo.setFilterStyle("width: 85% !important;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioSueldo:descripcion");
-            descripcion.setFilterStyle("width: 85%;");
+            descripcion.setFilterStyle("width: 85% !important;");
             estadoSueldoPromedio = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioSueldo:estadoSueldoPromedio");
-            estadoSueldoPromedio.setFilterStyle("width: 85%;");
+            estadoSueldoPromedio.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosMotivoCambioSueldo");
             System.out.println("Activar");
             bandera = 1;

@@ -832,16 +832,16 @@ public class ControlEmplVigenciaIndicador implements Serializable {
         if (banderaV == 0) {
             altoTabla = "290";
             viFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVigencia:viFechaInicial");
-            viFechaInicial.setFilterStyle("width: 85%");
+            viFechaInicial.setFilterStyle("width: 85% !important");
 
             viFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVigencia:viFechaFinal");
-            viFechaFinal.setFilterStyle("width: 85%");
+            viFechaFinal.setFilterStyle("width: 85% !important");
 
             viTipoIndicador = (Column) c.getViewRoot().findComponent("form:datosVigencia:viTipoIndicador");
-            viTipoIndicador.setFilterStyle("width: 85%");
+            viTipoIndicador.setFilterStyle("width: 85% !important");
 
             viIndicador = (Column) c.getViewRoot().findComponent("form:datosVigencia:viIndicador");
-            viIndicador.setFilterStyle("width: 85%");
+            viIndicador.setFilterStyle("width: 85% !important");
 
             ///
             RequestContext.getCurrentInstance().update("form:datosVigencia");

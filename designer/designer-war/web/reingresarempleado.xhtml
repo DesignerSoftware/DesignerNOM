@@ -88,7 +88,7 @@
 
                             <h:outputText  value="#{msg['fechareingreso']}" style="position: absolute; top: 185px; left: 15px;font-weight: bold"/>
                             <div id="divFechaReingreso" style="position: absolute; top: 225px; left: 15px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="fechaReingreso" value="#{controlReingresarEmpleado.fechaReingreso}">
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaReingreso" value="#{controlReingresarEmpleado.fechaReingreso}">
                                     <p:ajax event="dateSelect"  update="fechaReingreso" process="@this"/>
                                     <p:ajax event="change" update="fechaReingreso" process="@this"/>
                                 </p:calendar>
@@ -97,7 +97,7 @@
                             <h:outputText  value="#{msg['fechafincontrato']}" style="position: absolute; top: 265px; left: 15px;font-weight: bold"/>
 
                             <div id="divFechaFinContrato" style="position: absolute; top: 305px; left: 15px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="fechaFinContrato" value="#{controlReingresarEmpleado.fechaFinContrato}">
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaFinContrato" value="#{controlReingresarEmpleado.fechaFinContrato}">
                                     <p:ajax event="dateSelect" update="fechaFinContrato" process="@this"/>
                                     <p:ajax event="change" update="fechaFinContrato" process="@this"/>
                                 </p:calendar>

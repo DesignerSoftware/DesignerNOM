@@ -923,11 +923,11 @@ public class ControlNReporteLaboral implements Serializable {
         if (bandera == 0) {
             altoTabla = "165";
             codigoIR = (Column) c.getViewRoot().findComponent("form:reportesLaboral:codigoIR");
-            codigoIR.setFilterStyle("width: 85%;");
+            codigoIR.setFilterStyle("width: 85% !important;");
             reporteIR = (Column) c.getViewRoot().findComponent("form:reportesLaboral:reporteIR");
-            reporteIR.setFilterStyle("width: 85%;");
+            reporteIR.setFilterStyle("width: 85% !important;");
             tipoIR = (Column) c.getViewRoot().findComponent("form:reportesLaboral:tipoIR");
-            tipoIR.setFilterStyle("width: 85%;");
+            tipoIR.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:reportesLaboral");
             tipoLista = 1;
             bandera = 1;

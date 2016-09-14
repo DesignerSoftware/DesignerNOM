@@ -740,19 +740,19 @@ public class ControlEmplVigenciaEvento implements Serializable {
         if (bandera == 0) {
             altoTabla = "252";
             veFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVigenciaEventos:veFechaInicial");
-            veFechaInicial.setFilterStyle("width: 85%");
+            veFechaInicial.setFilterStyle("width: 85% !important");
             veFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVigenciaEventos:veFechaFinal");
-            veFechaFinal.setFilterStyle("width: 85%");
+            veFechaFinal.setFilterStyle("width: 85% !important");
             veDescripcion = (Column) c.getViewRoot().findComponent("form:datosVigenciaEventos:veDescripcion");
-            veDescripcion.setFilterStyle("width: 85%");
+            veDescripcion.setFilterStyle("width: 85% !important");
             veIndividual = (Column) c.getViewRoot().findComponent("form:datosVigenciaEventos:veIndividual");
-            veIndividual.setFilterStyle("width: 85%");
+            veIndividual.setFilterStyle("width: 85% !important");
             veCIndividual = (Column) c.getViewRoot().findComponent("form:datosVigenciaEventos:veCIndividual");
-            veCIndividual.setFilterStyle("width: 85%");
+            veCIndividual.setFilterStyle("width: 85% !important");
             veGrupal = (Column) c.getViewRoot().findComponent("form:datosVigenciaEventos:veGrupal");
-            veGrupal.setFilterStyle("width: 85%");
+            veGrupal.setFilterStyle("width: 85% !important");
             veCGrupal = (Column) c.getViewRoot().findComponent("form:datosVigenciaEventos:veCGrupal");
-            veCGrupal.setFilterStyle("width: 85%");
+            veCGrupal.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosVigenciaEventos");
             bandera = 1;
         } else if (bandera == 1) {

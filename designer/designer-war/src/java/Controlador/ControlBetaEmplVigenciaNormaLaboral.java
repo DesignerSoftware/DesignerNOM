@@ -310,7 +310,7 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
             fecha = (Column) c.getViewRoot().findComponent("form:datosVNL:fecha");
-            fecha.setFilterStyle("width: 85%;");
+            fecha.setFilterStyle("width: 85% !important;");
             parentesco = (Column) c.getViewRoot().findComponent("form:datosVNL:parentesco");
             parentesco.setFilterStyle("width: 600px");
             altoTabla = "272";

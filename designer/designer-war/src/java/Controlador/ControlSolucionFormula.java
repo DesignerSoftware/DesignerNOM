@@ -174,19 +174,19 @@ public class ControlSolucionFormula implements Serializable {
         if (bandera == 0) {
             algoTabla = "280";
             fechaHasta = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:fechaHasta");
-            fechaHasta.setFilterStyle("width: 85%;");
+            fechaHasta.setFilterStyle("width: 85% !important;");
             concepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:concepto");
-            concepto.setFilterStyle("width: 85%;");
+            concepto.setFilterStyle("width: 85% !important;");
             fechaPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:fechaPago");
-            fechaPago.setFilterStyle("width: 85%;");
+            fechaPago.setFilterStyle("width: 85% !important;");
             valor = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:valor");
-            valor.setFilterStyle("width: 85%;");
+            valor.setFilterStyle("width: 85% !important;");
             saldo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:saldo");
-            saldo.setFilterStyle("width: 85%;");
+            saldo.setFilterStyle("width: 85% !important;");
             proceso = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:proceso");
-            proceso.setFilterStyle("width: 85%;");
+            proceso.setFilterStyle("width: 85% !important;");
             formula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:formula");
-            formula.setFilterStyle("width: 85%;");
+            formula.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosSolucionFormula");
             bandera = 1;
         } else if (bandera == 1) {

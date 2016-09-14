@@ -107,7 +107,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}"> 
+                                 <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}"> 
                                     <p:ajax event="dateSelect" listener="#{controlVigenciaTipoTrabajador.modificarFechasVTT(info,0)}" update="editFecha" process="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.modificarFechasVTT(info,0)}" update="editFecha" process="@this"/>
                                     <p:ajax event="click" listener="#{controlVigenciaTipoTrabajador.cambiarIndice(info,0)}" process="@this"/> 
@@ -170,7 +170,7 @@
 
                      <h:outputText value="#{msg['fechainicioP']}:" style="position: absolute; left: 5px; top: 28px; font-size: 11px;"/>
                      <div id="posicionFechaInicialDialogo" style="position: absolute; left: 5px; top: 43px; height: 10px">
-                        <p:calendar pattern="dd/MM/yyyy" id="fechaPensionInicio" value="#{controlVigenciaTipoTrabajador.pensionVigencia.fechainiciopension}">
+                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaPensionInicio" value="#{controlVigenciaTipoTrabajador.pensionVigencia.fechainiciopension}">
                            <!-- onclick="PF('peguelo1();"-->
                            <p:ajax event="dateSelect" listener="#{controlVigenciaTipoTrabajador.banderaCambiosPensionados()}" update="fechaPensionInicio" process="@this" immediate="true" />
                            <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.banderaCambiosPensionados()}" update="fechaPensionInicio" process="@this" immediate="true"/>
@@ -181,7 +181,7 @@
 
                      <h:outputText value="#{msg['fechafinalP']}:" style="position: absolute; left: 118px; top: 28px; font-size: 11px;"/>
                      <div id="posicionFechaFinalDialogo" style="position: absolute; left: 118px; top: 43px; height: 10px">
-                        <p:calendar pattern="dd/MM/yyyy" id="fechaPensionFinal" value="#{controlVigenciaTipoTrabajador.pensionVigencia.fechafinalpension}">
+                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaPensionFinal" value="#{controlVigenciaTipoTrabajador.pensionVigencia.fechafinalpension}">
                            <!-- onclick="PF('peguelo2();"-->
                            <p:ajax event="dateSelect" listener="#{controlVigenciaTipoTrabajador.banderaCambiosPensionados()}" update="fechaPensionFinal" process="@this" immediate="true" />
                            <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.banderaCambiosPensionados()}" update="fechaPensionFinal" process="@this" immediate="true"/>
@@ -249,7 +249,7 @@
                   <p:panel id="panelRetiradosInput" header="#{msg['informacionR']}" style="position: absolute; left: 440px; top: 308px;  width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden">
                      <h:outputText value="#{msg['fecharetiroR']}:" style="position: absolute; left: 10px; top: 45px"/>
                      <div id="posicionFechaRetiroDialogo" style=" position: absolute; left: 85px; top: 40px">
-                        <p:calendar pattern="dd/MM/yyyy" id="fechaRetiro" value="#{controlVigenciaTipoTrabajador.retiroVigencia.fecharetiro}" >
+                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaRetiro" value="#{controlVigenciaTipoTrabajador.retiroVigencia.fecharetiro}" >
                            <p:ajax event="dateSelect" listener="#{controlVigenciaTipoTrabajador.banderaCambiosRetirados()}" update="fechaRetiro" process="@this"/>
                            <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.banderaCambiosRetirados()}" update="fechaRetiro" process="@this"/>
                         </p:calendar>
@@ -587,7 +587,7 @@
                   <p:panel id="nuevaVTT" style="border: none;">
                      <strong><h:outputText value="*#{msg['fechaN']}" style="position: absolute; top: 55px; left: 50px;" /></strong>
                      <div id="posicionFormulaFechaVigNuevoRegVTT" style=" position: absolute; top: 50px; left: 170px">
-                        <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciaTipoTrabajador.nuevaVigencia.fechavigencia}" >
+                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciaTipoTrabajador.nuevaVigencia.fechavigencia}" >
                            <p:ajax event="dateSelect" update="nuevaFecha" process="@this"/>
                            <p:ajax event="change" update="nuevaFecha" process="@this"/>
                         </p:calendar>
@@ -620,7 +620,7 @@
                   <p:panel id="duplicarVTT" style="border: none;">
                      <strong><h:outputText value="*#{msg['fechaN']}" style=" position: absolute; top: 55px; left: 50px;" /></strong>
                      <div id="posicionFormulaFechaVigDuplicarRegVTT" style=" position: absolute; top: 50px; left: 170px">
-                        <p:calendar pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlVigenciaTipoTrabajador.duplicarVTT.fechavigencia}" >
+                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlVigenciaTipoTrabajador.duplicarVTT.fechavigencia}" >
                            <p:ajax event="dateSelect" update="duplicarFecha" process="@this"/>
                            <p:ajax event="change" update="duplicarFecha" process="@this"/>
                         </p:calendar>

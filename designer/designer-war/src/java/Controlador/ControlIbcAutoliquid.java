@@ -641,17 +641,17 @@ public class ControlIbcAutoliquid implements Serializable {
         if (bandera == 0) {
             altoTabla = "150";
             ibcFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIBCS:ibcFechaInicial");
-            ibcFechaInicial.setFilterStyle("width: 85%");
+            ibcFechaInicial.setFilterStyle("width: 85% !important");
             ibcFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIBCS:ibcFechaFinal");
-            ibcFechaFinal.setFilterStyle("width: 85%");
+            ibcFechaFinal.setFilterStyle("width: 85% !important");
             ibcEstado = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIBCS:ibcEstado");
-            ibcEstado.setFilterStyle("width: 85%");
+            ibcEstado.setFilterStyle("width: 85% !important");
             ibcProceso = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIBCS:ibcProceso");
-            ibcProceso.setFilterStyle("width: 85%");
+            ibcProceso.setFilterStyle("width: 85% !important");
             ibcValor = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIBCS:ibcValor");
-            ibcValor.setFilterStyle("width: 85%");
+            ibcValor.setFilterStyle("width: 85% !important");
             ibcFechaPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIBCS:ibcFechaPago");
-            ibcFechaPago.setFilterStyle("width: 85%");
+            ibcFechaPago.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosIBCS");
             bandera = 1;
         } else if (bandera == 1) {
@@ -663,9 +663,9 @@ public class ControlIbcAutoliquid implements Serializable {
         if (banderaTE == 0) {
             altoTablaTipoE = "75";
             codigoTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoEntidad:codigoTipoEntidad");
-            codigoTipoEntidad.setFilterStyle("width: 85%");
+            codigoTipoEntidad.setFilterStyle("width: 85% !important");
             nombreTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoEntidad:nombreTipoEntidad");
-            nombreTipoEntidad.setFilterStyle("width: 85%");
+            nombreTipoEntidad.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosTipoEntidad");
             banderaTE = 1;
         } else if (banderaTE == 1) {

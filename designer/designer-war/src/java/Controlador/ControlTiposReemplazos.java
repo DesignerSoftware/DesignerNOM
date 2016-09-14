@@ -248,11 +248,11 @@ public class ControlTiposReemplazos implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
-            codigo.setFilterStyle("width: 85%;");
+            codigo.setFilterStyle("width: 85% !important;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
-            descripcion.setFilterStyle("width: 85%;");
+            descripcion.setFilterStyle("width: 85% !important;");
             factorReemplazado = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:factorReemplazado");
-            factorReemplazado.setFilterStyle("width: 85%;");
+            factorReemplazado.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             System.out.println("Activar");
             bandera = 1;

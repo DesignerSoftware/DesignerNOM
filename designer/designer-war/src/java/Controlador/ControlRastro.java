@@ -230,21 +230,21 @@ public class ControlRastro implements Serializable {
     public void activarCtrlF11() {
         if (bandera == 0) {
             nombreTabla = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:nombreTabla");
-            nombreTabla.setFilterStyle("width: 85%;");
+            nombreTabla.setFilterStyle("width: 85% !important;");
             fechaRastro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:fechaRastro");
-            fechaRastro.setFilterStyle("width: 85%;");
+            fechaRastro.setFilterStyle("width: 85% !important;");
             estacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:estacion");
-            estacion.setFilterStyle("width: 85%;");
+            estacion.setFilterStyle("width: 85% !important;");
             usuarioSO = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:usuarioSO");
-            usuarioSO.setFilterStyle("width: 85%;");
+            usuarioSO.setFilterStyle("width: 85% !important;");
             direccionIP = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:direccionIP");
-            direccionIP.setFilterStyle("width: 85%;");
+            direccionIP.setFilterStyle("width: 85% !important;");
             usuarioID = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:usuarioID");
-            usuarioID.setFilterStyle("width: 85%;");
+            usuarioID.setFilterStyle("width: 85% !important;");
             usuarioBD = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:usuarioBD");
-            usuarioBD.setFilterStyle("width: 85%;");
+            usuarioBD.setFilterStyle("width: 85% !important;");
             tipoManipulacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRastro:tipoManipulacion");
-            tipoManipulacion.setFilterStyle("width: 85%;");
+            tipoManipulacion.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosRastro");
             bandera = 1;
         } else if (bandera == 1) {

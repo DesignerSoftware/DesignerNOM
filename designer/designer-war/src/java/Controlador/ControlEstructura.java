@@ -621,13 +621,13 @@ public class ControlEstructura implements Serializable {
         if (bandera == 0) {
             altoTabla = "45";
             organigramaFecha = (Column) c.getViewRoot().findComponent("form:datosOrganigramas:organigramaFecha");
-            organigramaFecha.setFilterStyle("width: 85%;");
+            organigramaFecha.setFilterStyle("width: 85% !important;");
             organigramaCodigo = (Column) c.getViewRoot().findComponent("form:datosOrganigramas:organigramaCodigo");
-            organigramaCodigo.setFilterStyle("width: 85%;");
+            organigramaCodigo.setFilterStyle("width: 85% !important;");
             organigramaEmpresa = (Column) c.getViewRoot().findComponent("form:datosOrganigramas:organigramaEmpresa");
-            organigramaEmpresa.setFilterStyle("width: 85%;");
+            organigramaEmpresa.setFilterStyle("width: 85% !important;");
             organigramaNit = (Column) c.getViewRoot().findComponent("form:datosOrganigramas:organigramaNit");
-            organigramaNit.setFilterStyle("width: 85%");
+            organigramaNit.setFilterStyle("width: 85% !important");
             organigramaEstado = (Column) c.getViewRoot().findComponent("form:datosOrganigramas:organigramaEstado");
             organigramaEstado.setFilterStyle("");
             RequestContext.getCurrentInstance().update("form:datosOrganigramas");

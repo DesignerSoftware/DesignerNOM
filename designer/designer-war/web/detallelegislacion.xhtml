@@ -90,7 +90,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoC.fechainicial}" > 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoC.fechainicial}" > 
                                                 <p:ajax event="select" listener="#{controlDetalleLegislacion.cambiarIndice(indice,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleLegislacion.modificacionesFechaHistoriaFormula(indice,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="dateSelect" listener="#{controlDetalleLegislacion.modificacionesFechaHistoriaFormula(indice,0)}" update="dateFechaInicial" process="@this"/>
@@ -114,7 +114,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFecha" value="#{infoC.fechafinal}" > 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{infoC.fechafinal}" > 
                                                 <p:ajax event="select" listener="#{controlDetalleLegislacion.cambiarIndice(indice,1)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleLegislacion.modificacionesFechaHistoriaFormula(indice,1)}" process="@this" update="dateFecha"/>
                                                 <p:ajax event="dateSelect" listener="#{controlDetalleLegislacion.modificacionesFechaHistoriaFormula(indice,1)}" process="@this" update="dateFecha"/>
@@ -506,7 +506,7 @@
 
                             <strong><h:outputText value="#{msg['nuevoFechaIni']}" style="font-size: 14px; position: absolute; top: 70px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="font-size: 10px; position: absolute; top: 70px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevoDateFormulaFechaInicial" value="#{controlDetalleLegislacion.nuevoFormulaContrato.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevoDateFormulaFechaInicial" value="#{controlDetalleLegislacion.nuevoFormulaContrato.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevoDateFormulaFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="nuevoDateFormulaFechaInicial" process="@this"/>
                                 </p:calendar>
@@ -514,7 +514,7 @@
 
                             <strong><h:outputText value="#{msg['nuevoFechaFin']}" style="font-size: 14px; position: absolute; top: 110px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style="font-size: 10px; position: absolute; top: 110px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevoDateFormulaFechaFinal" value="#{controlDetalleLegislacion.nuevoFormulaContrato.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevoDateFormulaFechaFinal" value="#{controlDetalleLegislacion.nuevoFormulaContrato.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevoDateFormulaFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="nuevoDateFormulaFechaFinal" process="@this"/>
                                 </p:calendar>
@@ -591,7 +591,7 @@
 
                             <strong><h:outputText value="#{msg['nuevoFechaIni']}" style="font-size: 14px; position: absolute; top: 70px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="font-size: 10px; position: absolute; top: 70px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFormulaFechaInicial" value="#{controlDetalleLegislacion.duplicarFormulaContrato.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarDateFormulaFechaInicial" value="#{controlDetalleLegislacion.duplicarFormulaContrato.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFormulaFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="duplicarDateFormulaFechaInicial" process="@this"/>
                                 </p:calendar>
@@ -599,7 +599,7 @@
 
                             <strong><h:outputText value="#{msg['nuevoFechaFin']}" style="font-size: 14px; position: absolute; top: 110px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style="font-size: 10px; position: absolute; top: 110px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFormulaFechaFinal" value="#{controlDetalleLegislacion.duplicarFormulaContrato.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarDateFormulaFechaFinal" value="#{controlDetalleLegislacion.duplicarFormulaContrato.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFormulaFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="duplicarDateFormulaFechaFinal" process="@this"/>
                                 </p:calendar>

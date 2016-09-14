@@ -375,7 +375,7 @@ public class ControlFestivos implements Serializable {
         if (bandera == 0) {
             tamano = 160;
             fecha = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:fecha");
-            fecha.setFilterStyle("width: 85%;");
+            fecha.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
             System.out.println("Activar");
             bandera = 1;

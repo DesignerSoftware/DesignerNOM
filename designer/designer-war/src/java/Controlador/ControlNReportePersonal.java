@@ -1660,11 +1660,11 @@ public class ControlNReportePersonal implements Serializable {
         if (bandera == 0) {
             altoTabla = "90";
             codigoIR = (Column) c.getViewRoot().findComponent("form:reportesPersonal:codigoIR");
-            codigoIR.setFilterStyle("width: 85%");
+            codigoIR.setFilterStyle("width: 85% !important");
             reporteIR = (Column) c.getViewRoot().findComponent("form:reportesPersonal:reporteIR");
-            reporteIR.setFilterStyle("width: 85%");
+            reporteIR.setFilterStyle("width: 85% !important");
 //            tipoIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesPersonal:tipoIR");
-//            tipoIR.setFilterStyle("width: 85%");
+//            tipoIR.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:reportesPersonal");
             tipoLista = 1;
             bandera = 1;

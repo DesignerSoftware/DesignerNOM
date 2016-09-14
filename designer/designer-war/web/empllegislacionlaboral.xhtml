@@ -105,7 +105,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasContratos.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasContratos.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciasContratos.cambiarIndice(info,0)}" process="@this"/> 
@@ -126,7 +126,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasContratos.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasContratos.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciasContratos.cambiarIndice(info,1)}" process="@this"/> 
@@ -198,13 +198,13 @@
                                     <h:outputText value="#{msg['buscarL']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovContratos.filter();" value="#{filtrado}" style="width:150px; position: relative; left: 70px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{contratos.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{contratos.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['codigoL']}" />
                                     </f:facet>
                                     <h:outputText value="#{contratos.codigo}" />
                                 </p:column>
-                                <p:column filterBy="#{contratos.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{contratos.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['descripcionL']}" />
                                     </f:facet>
@@ -342,7 +342,7 @@
                         <p:panel id="nuevaVC" style="border: none;">
                             <strong><h:outputText value="#{msg['inicialN']}*" style=" position: absolute; top: 55px; left: 40px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style=" position: absolute; top: 50px; left: 180px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlVigenciasContratos.nuevaVigencia.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlVigenciasContratos.nuevaVigencia.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
                                 </p:calendar>
@@ -350,7 +350,7 @@
 
                             <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 85px; left: 40px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style=" position: absolute; top: 80px; left: 180px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlVigenciasContratos.nuevaVigencia.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlVigenciasContratos.nuevaVigencia.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
                                 </p:calendar>
@@ -387,14 +387,14 @@
                         <p:panel id="duplicarVC" style="border: none;">
                             <strong><h:outputText value="#{msg['inicialN']}*" style=" position: absolute; top: 55px; left: 40px;" /></strong>
                             <div id="posicionFormulaFechaIniDupliReg" style=" position: absolute; top: 50px; left: 180px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlVigenciasContratos.duplicarVC.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlVigenciasContratos.duplicarVC.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
                                 </p:calendar>
                             </div>
                             <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 85px; left: 40px;" /></strong>
                             <div id="posicionFormulaFechaFinDupliReg" style=" position: absolute; top: 80px; left: 180px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlVigenciasContratos.duplicarVC.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlVigenciasContratos.duplicarVC.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
                                 </p:calendar>

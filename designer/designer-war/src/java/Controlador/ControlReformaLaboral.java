@@ -1164,11 +1164,11 @@ public class ControlReformaLaboral implements Serializable {
             if (bandera == 0) {
                 altoTablaReforma = "137";
                 reformaCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosReformaLaboral:reformaCodigo");
-                reformaCodigo.setFilterStyle("width: 85%;");
+                reformaCodigo.setFilterStyle("width: 85% !important;");
                 reformaNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosReformaLaboral:reformaNombre");
-                reformaNombre.setFilterStyle("width: 85%;");
+                reformaNombre.setFilterStyle("width: 85% !important;");
                 reformaIntegral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosReformaLaboral:reformaIntegral");
-                reformaIntegral.setFilterStyle("width: 85%;");
+                reformaIntegral.setFilterStyle("width: 85% !important;");
                 RequestContext.getCurrentInstance().update("form:datosReformaLaboral");
                 bandera = 1;
             } else if (bandera == 1) {
@@ -1189,9 +1189,9 @@ public class ControlReformaLaboral implements Serializable {
             if (banderaDetalle == 0) {
                 altoTablaDetalles = "113";
                 detalleFactor = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalleReformaLaboral:detalleFactor");
-                detalleFactor.setFilterStyle("width: 85%;");
+                detalleFactor.setFilterStyle("width: 85% !important;");
                 detalleTipoPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalleReformaLaboral:detalleTipoPago");
-                detalleTipoPago.setFilterStyle("width: 85%;");
+                detalleTipoPago.setFilterStyle("width: 85% !important;");
                 RequestContext.getCurrentInstance().update("form:datosDetalleReformaLaboral");
                 banderaDetalle = 1;
             } else if (banderaDetalle == 1) {

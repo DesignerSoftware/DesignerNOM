@@ -53,7 +53,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaVigencia" value="#{v.fechavigencia}" > 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaVigencia" value="#{v.fechavigencia}" > 
                                                 <p:ajax event="dateSelect" listener="#{controlRetencionMinima.modificarFechas(indice,1)}" update="dateFechaVigencia" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlRetencionMinima.modificarFechas(indice,1)}" update="dateFechaVigencia" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlRetencionMinima.cambiarIndice(indice,1)}" process="@this"/> 
@@ -231,7 +231,7 @@
 
                                 <strong><h:outputText value="#{msg['fechavigenciaN']}"  style="font-size: 12px; position: absolute; top: 59px;" /></strong>
                                 <div id="posicionFechaVigenciaNuevo" style="font-size: 10px; position: absolute; top: 57px; left: 152px">
-                                    <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlRetencionMinima.nuevoVigenciasRetenciones.fechavigencia}" >
+                                    <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlRetencionMinima.nuevoVigenciasRetenciones.fechavigencia}" >
                                         <p:ajax event="dateSelect" update="nuevaFechaVigencia" process="@this"/>
                                         <p:ajax event="change" update="nuevaFechaVigencia" process="@this"/>
                                     </p:calendar>
@@ -263,7 +263,7 @@
 
                                 <strong><h:outputText value="#{msg['fechavigenciaN']}"  style="font-size: 12px; position: absolute; top: 57px;" /></strong>
                                 <div id="posicionFechaVigenciaNuevo" style="font-size: 10px; position: absolute; top: 57px; left: 152px">
-                                    <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlRetencionMinima.duplicarVigenciasRetenciones.fechavigencia}" >
+                                    <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlRetencionMinima.duplicarVigenciasRetenciones.fechavigencia}" >
                                         <p:ajax event="dateSelect" update="duplicarFechaVigencia" process="@this"/>
                                         <p:ajax event="change" update="duplicarFechaVigencia" process="@this"/>
                                     </p:calendar>

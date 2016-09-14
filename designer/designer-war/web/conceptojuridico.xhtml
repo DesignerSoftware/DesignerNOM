@@ -41,7 +41,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFecha" value="#{infoC.fecha}" > 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{infoC.fecha}" > 
                                                 <p:ajax event="select" listener="#{controlConceptoJuridico.cambiarIndice(indice,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlConceptoJuridico.modificarFecha(indice,0)}" process="@this" update="dateFecha"/>
                                                 <p:ajax event="dateSelect" listener="#{controlConceptoJuridico.modificarFecha(indice,0)}" process="@this" update="dateFecha"/>
@@ -279,7 +279,7 @@
 
                             <strong><h:outputText value="*#{msg['fechaN']}" style="position: absolute; top: 75px; left: 40px;" /></strong>
                             <div id="posicionFechaNuevoReg" style="position: absolute; top: 70px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFecha" value="#{controlConceptoJuridico.nuevoConcepto.fecha}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaDateFecha" value="#{controlConceptoJuridico.nuevoConcepto.fecha}" >
                                     <p:ajax event="dateSelect" update="nuevaDateFecha" process="@this"/>
                                     <p:ajax event="change" update="nuevaDateFecha" process="@this"/>
                                 </p:calendar>
@@ -316,7 +316,7 @@
 
                             <strong><h:outputText value="*#{msg['fechaN']}" style="position: absolute; top: 75px; left: 40px;" /></strong>
                             <div style="position: absolute;  top: 70px; left: 200px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFecha" value="#{controlConceptoJuridico.duplicarConcepto.fecha}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarDateFecha" value="#{controlConceptoJuridico.duplicarConcepto.fecha}" >
                                     <p:ajax event="dateSelect" update="duplicarDateFecha"/>
                                     <p:ajax event="change" update="duplicarDateFecha"/>
                                 </p:calendar>

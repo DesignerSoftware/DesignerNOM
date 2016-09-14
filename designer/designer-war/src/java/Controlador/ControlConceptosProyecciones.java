@@ -259,9 +259,9 @@ public class ControlConceptosProyecciones implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             porcentaje = (Column) c.getViewRoot().findComponent("form:datosConceptosProyecciones:porcentaje");
-            porcentaje.setFilterStyle("width: 85%");
+            porcentaje.setFilterStyle("width: 85% !important");
             concepto = (Column) c.getViewRoot().findComponent("form:datosConceptosProyecciones:concepto");
-            concepto.setFilterStyle("width: 85%");
+            concepto.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosConceptosProyecciones");
             System.out.println("Activar");
             bandera = 1;

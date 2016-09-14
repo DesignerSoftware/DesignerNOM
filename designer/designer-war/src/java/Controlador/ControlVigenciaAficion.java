@@ -820,19 +820,19 @@ public class ControlVigenciaAficion implements Serializable {
         if (bandera == 0) {
             altoTabla = "280";
             veFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasAficiones:veFechaInicial");
-            veFechaInicial.setFilterStyle("width: 85%");
+            veFechaInicial.setFilterStyle("width: 85% !important");
             veFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasAficiones:veFechaFinal");
-            veFechaFinal.setFilterStyle("width: 85%");
+            veFechaFinal.setFilterStyle("width: 85% !important");
             veDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasAficiones:veDescripcion");
-            veDescripcion.setFilterStyle("width: 85%;");
+            veDescripcion.setFilterStyle("width: 85% !important;");
             veIndividual = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasAficiones:veIndividual");
-            veIndividual.setFilterStyle("width: 85%;");
+            veIndividual.setFilterStyle("width: 85% !important;");
             veCIndividual = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasAficiones:veCIndividual");
-            veCIndividual.setFilterStyle("width: 85%;");
+            veCIndividual.setFilterStyle("width: 85% !important;");
             veGrupal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasAficiones:veGrupal");
-            veGrupal.setFilterStyle("width: 85%;");
+            veGrupal.setFilterStyle("width: 85% !important;");
             veCGrupal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasAficiones:veCGrupal");
-            veCGrupal.setFilterStyle("width: 85%;");
+            veCGrupal.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
             bandera = 1;
         } else if (bandera == 1) {

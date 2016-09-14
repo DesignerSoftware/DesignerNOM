@@ -787,19 +787,19 @@ public class ControlVigenciasTiposContratos implements Serializable {
         if (bandera == 0) {
             System.out.println("Activar");
             vtcFecha = (Column) c.getViewRoot().findComponent("form:datosVTCEmpleado:vtcFecha");
-            vtcFecha.setFilterStyle("width: 85%");
+            vtcFecha.setFilterStyle("width: 85% !important");
             vtcContrato = (Column) c.getViewRoot().findComponent("form:datosVTCEmpleado:vtcContrato");
-            vtcContrato.setFilterStyle("width: 85%");
+            vtcContrato.setFilterStyle("width: 85% !important");
             vtcTipoContrato = (Column) c.getViewRoot().findComponent("form:datosVTCEmpleado:vtcTipoContrato");
-            vtcTipoContrato.setFilterStyle("width: 85%");
+            vtcTipoContrato.setFilterStyle("width: 85% !important");
             vtcCiudad = (Column) c.getViewRoot().findComponent("form:datosVTCEmpleado:vtcCiudad");
-            vtcCiudad.setFilterStyle("width: 85%");
+            vtcCiudad.setFilterStyle("width: 85% !important");
             vtcFechaSP = (Column) c.getViewRoot().findComponent("form:datosVTCEmpleado:vtcFechaSP");
-            vtcFechaSP.setFilterStyle("width: 85%");
+            vtcFechaSP.setFilterStyle("width: 85% !important");
             vtcInicioFlexibilizacion = (Column) c.getViewRoot().findComponent("form:datosVTCEmpleado:vtcInicioFlexibilizacion");
-            vtcInicioFlexibilizacion.setFilterStyle("width: 85%");
+            vtcInicioFlexibilizacion.setFilterStyle("width: 85% !important");
             vtcObservacion = (Column) c.getViewRoot().findComponent("form:datosVTCEmpleado:vtcObservacion");
-            vtcObservacion.setFilterStyle("width: 85%");
+            vtcObservacion.setFilterStyle("width: 85% !important");
             altoTabla = "260";
             RequestContext.getCurrentInstance().update("form:datosVTCEmpleado");
             bandera = 1;

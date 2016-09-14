@@ -2233,27 +2233,27 @@ public class ControlCargo implements Serializable {
                 if (bandera == 0) {
                     altoTablaCargo = "72";
                     cargoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCargo:cargoCodigo");
-                    cargoCodigo.setFilterStyle("width: 85%");
+                    cargoCodigo.setFilterStyle("width: 85% !important");
                     cargoNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCargo:cargoNombre");
-                    cargoNombre.setFilterStyle("width: 85%");
+                    cargoNombre.setFilterStyle("width: 85% !important");
                     cargoGrupoSalarial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCargo:cargoGrupoSalarial");
-                    cargoGrupoSalarial.setFilterStyle("width: 85%");
+                    cargoGrupoSalarial.setFilterStyle("width: 85% !important");
                     cargoSalario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCargo:cargoSalario");
-                    cargoSalario.setFilterStyle("width: 85%");
+                    cargoSalario.setFilterStyle("width: 85% !important");
                     cargoSueldoMinimo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCargo:cargoSueldoMinimo");
-                    cargoSueldoMinimo.setFilterStyle("width: 85%");
+                    cargoSueldoMinimo.setFilterStyle("width: 85% !important");
                     cargoSueldoMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCargo:cargoSueldoMaximo");
-                    cargoSueldoMaximo.setFilterStyle("width: 85%");
+                    cargoSueldoMaximo.setFilterStyle("width: 85% !important");
                     cargoGrupoViatico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCargo:cargoGrupoViatico");
-                    cargoGrupoViatico.setFilterStyle("width: 85%");
+                    cargoGrupoViatico.setFilterStyle("width: 85% !important");
                     cargoCargoRotativo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCargo:cargoCargoRotativo");
-                    cargoCargoRotativo.setFilterStyle("width: 85%");
+                    cargoCargoRotativo.setFilterStyle("width: 85% !important");
                     cargoJefe = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCargo:cargoJefe");
-                    cargoJefe.setFilterStyle("width: 85%");
+                    cargoJefe.setFilterStyle("width: 85% !important");
                     cargoProcesoProductivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCargo:cargoProcesoProductivo");
-                    cargoProcesoProductivo.setFilterStyle("width: 85%");
+                    cargoProcesoProductivo.setFilterStyle("width: 85% !important");
                     cargoCodigoAlternativo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCargo:cargoCodigoAlternativo");
-                    cargoCodigoAlternativo.setFilterStyle("width: 85%");
+                    cargoCodigoAlternativo.setFilterStyle("width: 85% !important");
                     RequestContext.getCurrentInstance().update("form:datosCargo");
                     bandera = 1;
                 } else if (bandera == 1) {
@@ -2265,11 +2265,11 @@ public class ControlCargo implements Serializable {
                 if (banderaSueldoMercado == 0) {
                     altoTablaSueldoMercado = "50";
                     sueldoMercadoTipoEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSueldoMercado:sueldoMercadoTipoEmpresa");
-                    sueldoMercadoTipoEmpresa.setFilterStyle("width: 85%");
+                    sueldoMercadoTipoEmpresa.setFilterStyle("width: 85% !important");
                     sueldoMercadoSueldoMinimo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSueldoMercado:sueldoMercadoSueldoMinimo");
-                    sueldoMercadoSueldoMinimo.setFilterStyle("width: 85%");
+                    sueldoMercadoSueldoMinimo.setFilterStyle("width: 85% !important");
                     sueldoMercadoSueldoMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSueldoMercado:sueldoMercadoSueldoMaximo");
-                    sueldoMercadoSueldoMaximo.setFilterStyle("width: 85%");
+                    sueldoMercadoSueldoMaximo.setFilterStyle("width: 85% !important");
                     RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
                     banderaSueldoMercado = 1;
                 } else if (banderaSueldoMercado == 1) {
@@ -2281,7 +2281,7 @@ public class ControlCargo implements Serializable {
                 if (banderaCompetencia == 0) {
                     altoTablaCompetencia = "50";
                     competenciaCargoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCompetenciaCargo:competenciaCargoDescripcion");
-                    competenciaCargoDescripcion.setFilterStyle("width: 85%");
+                    competenciaCargoDescripcion.setFilterStyle("width: 85% !important");
                     RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
                     banderaCompetencia = 1;
                 } else if (banderaCompetencia == 1) {
@@ -2294,11 +2294,11 @@ public class ControlCargo implements Serializable {
                     altoTablaTipoDetalle = "50";
 
                     tipoDetalleDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoDetalle:tipoDetalleDescripcion");
-                    tipoDetalleDescripcion.setFilterStyle("width: 85%");
+                    tipoDetalleDescripcion.setFilterStyle("width: 85% !important");
                     tipoDetalleCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoDetalle:tipoDetalleCodigo");
-                    tipoDetalleCodigo.setFilterStyle("width: 85%");
+                    tipoDetalleCodigo.setFilterStyle("width: 85% !important");
                     tipoDetalleEnfoque = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoDetalle:tipoDetalleEnfoque");
-                    tipoDetalleEnfoque.setFilterStyle("width: 85%");
+                    tipoDetalleEnfoque.setFilterStyle("width: 85% !important");
                     RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
                     banderaTipoDetalle = 1;
                 } else if (banderaTipoDetalle == 1) {

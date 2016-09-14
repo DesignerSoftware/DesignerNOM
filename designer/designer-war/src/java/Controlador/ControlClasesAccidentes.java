@@ -226,9 +226,9 @@ public class ControlClasesAccidentes implements Serializable {
             FacesContext c = FacesContext.getCurrentInstance();
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosClasesAccidentes:codigo");
-            codigo.setFilterStyle("width: 85%");
+            codigo.setFilterStyle("width: 85% !important");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosClasesAccidentes:descripcion");
-            descripcion.setFilterStyle("width: 85%");
+            descripcion.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosClasesAccidentes");
             System.out.println("Activar");
             bandera = 1;

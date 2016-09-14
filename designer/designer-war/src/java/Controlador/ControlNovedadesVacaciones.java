@@ -395,21 +395,21 @@ public class ControlNovedadesVacaciones implements Serializable {
         if (bandera == 0) {
             altoTabla = "105";
             nEFechaInicialDisfrute = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaInicialDisfrute");
-            nEFechaInicialDisfrute.setFilterStyle("width: 85%");
+            nEFechaInicialDisfrute.setFilterStyle("width: 85% !important");
             nEPeriodo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEPeriodo");
             nEPeriodo.setFilterStyle("85%");
             nEDias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEDias");
-            nEDias.setFilterStyle("width: 85%");
+            nEDias.setFilterStyle("width: 85% !important");
             nEFechaSiguiente = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaSiguiente");
-            nEFechaSiguiente.setFilterStyle("width: 85%");
+            nEFechaSiguiente.setFilterStyle("width: 85% !important");
             nESubTipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nESubTipo");
-            nESubTipo.setFilterStyle("width: 85%");
+            nESubTipo.setFilterStyle("width: 85% !important");
             nEAdelantoHasta = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEAdelantoHasta");
-            nEAdelantoHasta.setFilterStyle("width: 85%");
+            nEAdelantoHasta.setFilterStyle("width: 85% !important");
             nEFechaPago = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaPago");
-            nEFechaPago.setFilterStyle("width: 85%");
+            nEFechaPago.setFilterStyle("width: 85% !important");
             nEDiasAplazados = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEDiasAplazados");
-            nEDiasAplazados.setFilterStyle("width: 85%");
+            nEDiasAplazados.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
             bandera = 1;
             tipoLista = 1;

@@ -432,11 +432,11 @@ public class ControlTiposEntidades implements Serializable {
         if (bandera == 0) {
             tamano = 270;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTipoEntidad:codigo");
-            codigo.setFilterStyle("width: 85%");
+            codigo.setFilterStyle("width: 85% !important");
             nombre = (Column) c.getViewRoot().findComponent("form:datosTipoEntidad:nombre");
-            nombre.setFilterStyle("width: 85%");
+            nombre.setFilterStyle("width: 85% !important");
             grupoAsociado = (Column) c.getViewRoot().findComponent("form:datosTipoEntidad:grupoAsociado");
-            grupoAsociado.setFilterStyle("width: 85%");
+            grupoAsociado.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosTipoEntidad");
             System.out.println("Activar");
             bandera = 1;

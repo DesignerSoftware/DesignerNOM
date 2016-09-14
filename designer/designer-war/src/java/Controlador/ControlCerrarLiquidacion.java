@@ -150,9 +150,9 @@ public class ControlCerrarLiquidacion implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
             codigoEmpleado = (Column) c.getViewRoot().findComponent("form:datosEmpleadosParametros:codigoEmpleado");
-            codigoEmpleado.setFilterStyle("width: 85%");
+            codigoEmpleado.setFilterStyle("width: 85% !important");
             nombreEmpleado = (Column) c.getViewRoot().findComponent("form:datosEmpleadosParametros:nombreEmpleado");
-            nombreEmpleado.setFilterStyle("width: 85%");
+            nombreEmpleado.setFilterStyle("width: 85% !important");
             altoTabla = "140";
             RequestContext.getCurrentInstance().update("form:datosEmpleadosParametros");
             bandera = 1;

@@ -296,11 +296,11 @@ public class ControlValoresConceptos implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosValoresConceptos:codigo");
-            codigo.setFilterStyle("width: 85%;");
+            codigo.setFilterStyle("width: 85% !important;");
             personafir = (Column) c.getViewRoot().findComponent("form:datosValoresConceptos:personafir");
-            personafir.setFilterStyle("width: 85%");
+            personafir.setFilterStyle("width: 85% !important");
             cargo = (Column) c.getViewRoot().findComponent("form:datosValoresConceptos:cargo");
-            cargo.setFilterStyle("width: 85%;");
+            cargo.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosValoresConceptos");
             System.out.println("Activar");
             bandera = 1;

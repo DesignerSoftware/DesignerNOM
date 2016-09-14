@@ -719,11 +719,11 @@ public class ControlEscalafon implements Serializable {
         if (bandera == 0) {
             algoTabla = "280";
             escalafonCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafon:escalafonCodigo");
-            escalafonCodigo.setFilterStyle("width: 85%;");
+            escalafonCodigo.setFilterStyle("width: 85% !important;");
             escalafonSubCategoria = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafon:escalafonSubCategoria");
-            escalafonSubCategoria.setFilterStyle("width: 85%;");
+            escalafonSubCategoria.setFilterStyle("width: 85% !important;");
             escalafonCategoria = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafon:escalafonCategoria");
-            escalafonCategoria.setFilterStyle("width: 85%;");
+            escalafonCategoria.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosEscalafon");
             bandera = 1;
         } else if (bandera == 1) {

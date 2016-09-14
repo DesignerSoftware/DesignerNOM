@@ -2207,19 +2207,19 @@ public class ControlInterfaseContableDynamicsMT implements Serializable {
             if (banderaGenerado == 0) {
                 altoTablaGenerada = "55";
                 genProceso = (Column) c.getViewRoot().findComponent("form:datosGenerados:genProceso");
-                genProceso.setFilterStyle("width: 85%;");
+                genProceso.setFilterStyle("width: 85% !important;");
                 genEmpleado = (Column) c.getViewRoot().findComponent("form:datosGenerados:genEmpleado");
-                genEmpleado.setFilterStyle("width: 85%;");
+                genEmpleado.setFilterStyle("width: 85% !important;");
                 genCntCredito = (Column) c.getViewRoot().findComponent("form:datosGenerados:genCntCredito");
-                genCntCredito.setFilterStyle("width: 85%;");
+                genCntCredito.setFilterStyle("width: 85% !important;");
                 genCntDebito = (Column) c.getViewRoot().findComponent("form:datosGenerados:genCntDebito");
-                genCntDebito.setFilterStyle("width: 85%;");
+                genCntDebito.setFilterStyle("width: 85% !important;");
                 genTercero = (Column) c.getViewRoot().findComponent("form:datosGenerados:genTercero");
-                genTercero.setFilterStyle("width: 85%;");
+                genTercero.setFilterStyle("width: 85% !important;");
                 genValor = (Column) c.getViewRoot().findComponent("form:datosGenerados:genValor");
-                genValor.setFilterStyle("width: 85%;");
+                genValor.setFilterStyle("width: 85% !important;");
                 genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
-                genConcepto.setFilterStyle("width: 85%;");
+                genConcepto.setFilterStyle("width: 85% !important;");
                 RequestContext.getCurrentInstance().update("form:datosGenerados");
                 banderaGenerado = 1;
             } else if (banderaGenerado == 1) {
@@ -2248,29 +2248,29 @@ public class ControlInterfaseContableDynamicsMT implements Serializable {
             if (banderaIntercon == 0) {
                 altoTablaIntercon = "53";
                 interEmpleado = (Column) c.getViewRoot().findComponent("form:datosIntercon:interEmpleado");
-                interEmpleado.setFilterStyle("width: 85%;");
+                interEmpleado.setFilterStyle("width: 85% !important;");
                 interTercero = (Column) c.getViewRoot().findComponent("form:datosIntercon:interTercero");
-                interTercero.setFilterStyle("width: 85%;");
+                interTercero.setFilterStyle("width: 85% !important;");
                 interCuenta = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCuenta");
-                interCuenta.setFilterStyle("width: 85%;");
+                interCuenta.setFilterStyle("width: 85% !important;");
                 interDebito = (Column) c.getViewRoot().findComponent("form:datosIntercon:interDebito");
-                interDebito.setFilterStyle("width: 85%;");
+                interDebito.setFilterStyle("width: 85% !important;");
                 interCredito = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCredito");
-                interCredito.setFilterStyle("width: 85%;");
+                interCredito.setFilterStyle("width: 85% !important;");
                 interConcepto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interConcepto");
-                interConcepto.setFilterStyle("width: 85%;");
+                interConcepto.setFilterStyle("width: 85% !important;");
                 interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
-                interCentroCosto.setFilterStyle("width: 85%;");
+                interCentroCosto.setFilterStyle("width: 85% !important;");
                 interFechaVencimiento = (Column) c.getViewRoot().findComponent("form:datosIntercon:interFechaVencimiento");
-                interFechaVencimiento.setFilterStyle("width: 85%;");
+                interFechaVencimiento.setFilterStyle("width: 85% !important;");
                 interOriginalDebito = (Column) c.getViewRoot().findComponent("form:datosIntercon:interOriginalDebito");
-                interOriginalDebito.setFilterStyle("width: 85%;");
+                interOriginalDebito.setFilterStyle("width: 85% !important;");
                 interOriginalCredito = (Column) c.getViewRoot().findComponent("form:datosIntercon:interOriginalCredito");
-                interOriginalCredito.setFilterStyle("width: 85%;");
+                interOriginalCredito.setFilterStyle("width: 85% !important;");
                 interPreradicacion = (Column) c.getViewRoot().findComponent("form:datosIntercon:interPreradicacion");
-                interPreradicacion.setFilterStyle("width: 85%;");
+                interPreradicacion.setFilterStyle("width: 85% !important;");
                 interCodAlternativo = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCodAlternativo");
-                interCodAlternativo.setFilterStyle("width: 85%;");
+                interCodAlternativo.setFilterStyle("width: 85% !important;");
                 RequestContext.getCurrentInstance().update("form:datosIntercon");
                 banderaIntercon = 1;
             } else if (banderaIntercon == 1) {

@@ -1319,15 +1319,15 @@ public class ControlEmplMvr implements Serializable {
         if (mvrSeleccionado != null) {
             if (banderaMvrs == 0) {
                 mvrValorAnual = (Column) c.getViewRoot().findComponent("form:datosMvrEmpleado:mvrValorAnual");
-                mvrValorAnual.setFilterStyle("width: 85%");
+                mvrValorAnual.setFilterStyle("width: 85% !important");
                 mvrMotivo = (Column) c.getViewRoot().findComponent("form:datosMvrEmpleado:mvrMotivo");
-                mvrMotivo.setFilterStyle("width: 85%");
+                mvrMotivo.setFilterStyle("width: 85% !important");
                 mvrValor = (Column) c.getViewRoot().findComponent("form:datosMvrEmpleado:mvrValor");
-                mvrValor.setFilterStyle("width: 85%");
+                mvrValor.setFilterStyle("width: 85% !important");
                 mvrFechaFinal = (Column) c.getViewRoot().findComponent("form:datosMvrEmpleado:mvrFechaFinal");
-                mvrFechaFinal.setFilterStyle("width: 85%");
+                mvrFechaFinal.setFilterStyle("width: 85% !important");
                 mvrFechaInicial = (Column) c.getViewRoot().findComponent("form:datosMvrEmpleado:mvrFechaInicial");
-                mvrFechaInicial.setFilterStyle("width: 85%");
+                mvrFechaInicial.setFilterStyle("width: 85% !important");
                 altoTabla1 = "95";
                 RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
                 banderaMvrs = 1;
@@ -1386,17 +1386,17 @@ public class ControlEmplMvr implements Serializable {
             if (banderaOC == 0) {
                 //Columnas Tabla VPP
                 ocDias = (Column) c.getViewRoot().findComponent("form:datosOCEmpleado:ocDias");
-                ocDias.setFilterStyle("width: 85%");
+                ocDias.setFilterStyle("width: 85% !important");
                 ocCertificado = (Column) c.getViewRoot().findComponent("form:datosOCEmpleado:ocCertificado");
-                ocCertificado.setFilterStyle("width: 85%");
+                ocCertificado.setFilterStyle("width: 85% !important");
                 ocEstado = (Column) c.getViewRoot().findComponent("form:datosOCEmpleado:ocEstado");
-                ocEstado.setFilterStyle("width: 85%");
+                ocEstado.setFilterStyle("width: 85% !important");
                 ocValor = (Column) c.getViewRoot().findComponent("form:datosOCEmpleado:ocValor");
-                ocValor.setFilterStyle("width: 85%");
+                ocValor.setFilterStyle("width: 85% !important");
                 ocFechaFinal = (Column) c.getViewRoot().findComponent("form:datosOCEmpleado:ocFechaFinal");
-                ocFechaFinal.setFilterStyle("width: 85%");
+                ocFechaFinal.setFilterStyle("width: 85% !important");
                 ocFechaInicial = (Column) c.getViewRoot().findComponent("form:datosOCEmpleado:ocFechaInicial");
-                ocFechaInicial.setFilterStyle("width: 85%");
+                ocFechaInicial.setFilterStyle("width: 85% !important");
                 altoTabla2 = "95";
                 RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
                 banderaOC = 1;

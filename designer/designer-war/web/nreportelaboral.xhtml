@@ -355,7 +355,7 @@
 
                         <h:outputText value="#{msg['fechadesde']}:" style="position: absolute; top: 20px; left: 10px"/>
                         <div id="posicionFechaDesdeParametro" style="position: absolute; top: 15px; left: 120px;width: 90px;">
-                            <p:calendar pattern="dd/MM/yyyy" value="#{controlNReporteLaboral.parametroDeInforme.fechadesde}" id="fechaDesdeParametroL">
+                            <p:calendar mask="true" pattern="dd/MM/yyyy" value="#{controlNReporteLaboral.parametroDeInforme.fechadesde}" id="fechaDesdeParametroL">
                                 <p:ajax event="click" listener="#{controlNReporteLaboral.posicionCelda(1)}" process="@this"/>
                                 <p:ajax event="change" listener="#{controlNReporteLaboral.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
                                 <p:ajax event="dateSelect" listener="#{controlNReporteLaboral.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
@@ -370,7 +370,7 @@
 
                         <h:outputText value="#{msg['hasta']}:" style="position: absolute; top: 20px; left: 230px;"/>
                         <div id="posicionFechaHastaParametro" style="position: absolute; top: 15px; left: 290px;width: 90px">
-                            <p:calendar pattern="dd/MM/yyyy" value="#{controlNReporteLaboral.parametroDeInforme.fechahasta}" id="fechaHastaParametroL">
+                            <p:calendar mask="true" pattern="dd/MM/yyyy" value="#{controlNReporteLaboral.parametroDeInforme.fechahasta}" id="fechaHastaParametroL">
                                 <p:ajax event="click" listener="#{controlNReporteLaboral.posicionCelda(3)}" process="@this"/> 
                                 <p:ajax event="change" listener="#{controlNReporteLaboral.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
                                 <p:ajax event="dateSelect" listener="#{controlNReporteLaboral.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>

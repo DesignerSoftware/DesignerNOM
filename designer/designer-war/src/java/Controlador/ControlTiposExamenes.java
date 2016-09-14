@@ -248,15 +248,15 @@ public class ControlTiposExamenes implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTipoExamen:codigo");
-            codigo.setFilterStyle("width: 85%;");
+            codigo.setFilterStyle("width: 85% !important;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoExamen:descripcion");
-            descripcion.setFilterStyle("width: 85%;");
+            descripcion.setFilterStyle("width: 85% !important;");
             minimoNormal = (Column) c.getViewRoot().findComponent("form:datosTipoExamen:minimoNormal");
-            minimoNormal.setFilterStyle("width: 85%;");
+            minimoNormal.setFilterStyle("width: 85% !important;");
             maximoNormal = (Column) c.getViewRoot().findComponent("form:datosTipoExamen:maximoNormal");
-            maximoNormal.setFilterStyle("width: 85%;");
+            maximoNormal.setFilterStyle("width: 85% !important;");
             diasRecurrencia = (Column) c.getViewRoot().findComponent("form:datosTipoExamen:diasRecurrencia");
-            diasRecurrencia.setFilterStyle("width: 85%;");
+            diasRecurrencia.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosTipoExamen");
             System.out.println("Activar");
             bandera = 1;

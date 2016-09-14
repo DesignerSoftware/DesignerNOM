@@ -270,7 +270,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
       if (bandera == 0) {
          tamano = 250;
          personafir = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulasContratosEntidades:personafir");
-         personafir.setFilterStyle("width: 85%");
+         personafir.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
          System.out.println("Activar");
          bandera = 1;

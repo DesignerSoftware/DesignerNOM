@@ -43,7 +43,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}" > 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}" > 
                                                 <p:ajax event="select" listener="#{controlVigenciasPlantas.cambiarIndice(indice,1)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlVigenciasPlantas.mostrarInfo(indice,1)}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasPlantas.mostrarInfo(indice,1)}" process="@this" update="editFecha"/>
@@ -239,7 +239,7 @@
 
                             <strong><h:outputText value="*Fecha: "  style=" position: absolute; top: 60px;" /></strong>
                             <div  id="nuevoNombrea" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevoNombre" value="#{controlVigenciasPlantas.nuevoVigenciaPlanta.fechavigencia}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevoNombre" value="#{controlVigenciasPlantas.nuevoVigenciaPlanta.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="nuevoNombre"/>
                                     <p:ajax event="change" update="nuevoNombre"/>
                                 </p:calendar>
@@ -265,7 +265,7 @@
 
                             <strong><h:outputText value="*Fecha: "  style=" position: absolute; top: 60px;" /></strong>
                             <div  id="duplicarNombreaa" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarNombre" value="#{controlVigenciasPlantas.duplicarVigenciaPlanta.fechavigencia}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarNombre" value="#{controlVigenciasPlantas.duplicarVigenciaPlanta.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="duplicarNombre"/>
                                     <p:ajax event="change" update="duplicarNombre"/>
                                 </p:calendar>

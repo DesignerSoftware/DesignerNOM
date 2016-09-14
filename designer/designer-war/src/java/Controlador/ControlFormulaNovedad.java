@@ -628,17 +628,17 @@ public class ControlFormulaNovedad implements Serializable {
         if (bandera == 0) {
             altoTabla = "290";
             formulaCorto = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCorto");
-            formulaCorto.setFilterStyle("width: 85%");
+            formulaCorto.setFilterStyle("width: 85% !important");
             formulaNombre = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaNombre");
-            formulaNombre.setFilterStyle("width: 85%");
+            formulaNombre.setFilterStyle("width: 85% !important");
             formulaUsa = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaUsa");
-            formulaUsa.setFilterStyle("width: 85%");
+            formulaUsa.setFilterStyle("width: 85% !important");
             formulaGarantiza = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaGarantiza");
-            formulaGarantiza.setFilterStyle("width: 85%");
+            formulaGarantiza.setFilterStyle("width: 85% !important");
             formulaSugerida = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaSugerida");
-            formulaSugerida.setFilterStyle("width: 85%");
+            formulaSugerida.setFilterStyle("width: 85% !important");
             formulaCargue = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCargue");
-            formulaCargue.setFilterStyle("width: 85%");
+            formulaCargue.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
             bandera = 1;
         } else if (bandera == 1) {

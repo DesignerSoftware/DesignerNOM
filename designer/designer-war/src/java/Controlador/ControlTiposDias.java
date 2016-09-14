@@ -243,11 +243,11 @@ public class ControlTiposDias implements Serializable {
             FacesContext c = FacesContext.getCurrentInstance();
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
-            codigo.setFilterStyle("width: 85%;");
+            codigo.setFilterStyle("width: 85% !important;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
-            descripcion.setFilterStyle("width: 85%;");
+            descripcion.setFilterStyle("width: 85% !important;");
             tipo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:tipo");
-            tipo.setFilterStyle("width: 85%;");
+            tipo.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             System.out.println("Activar");
             bandera = 1;

@@ -8,110 +8,108 @@ and open the template in the editor.
     Author     : Administrator
 */
 .panelTotal{
-    position: absolute; 
-    width: 874px; 
-    height: 530px;
-    box-shadow: 5px 5px 5px 0px rgba(0,12,92,1);
+   position: absolute; 
+   width: 874px; 
+   height: 530px;
+   box-shadow: 5px 5px 5px 0px rgba(0,12,92,1);
 }
 .ui-widget {
-    font-family: Tahoma;
-    font-size: 12px;
+   font-family: Tahoma;
+   font-size: 12px;
 }
-ui-widget-header ui-datatable-scrollable-footer{
-    height: 10px;
-}
+
 .ui-widget input,
 .ui-widget select,
 .ui-widget textarea,
 .ui-widget button {
-    font-family: Tahoma;
-    font-size: 12px;
+   font-family: Tahoma;
+   font-size: 12px;
 }
 .ui-widget-content {
-    border: 1px solid #1E63A4;
-    /*background: #CBCFDA;*/
-    background: #FFFFFF;
-    color: #1F2429;
+   border: 1px solid #1E63A4;
+   /*background: #CBCFDA;*/
+   background: #FFFFFF;
+   color: #1F2429;
 }
 .ui-widget-content a {
-    color: #000000;
+   color: #000000;
 }
 .ui-widget-header {
-    border: 1px solid #ffffff;
-    background: #61A0CA url("images/ui-bg_highlight-hard_50_61A0CA_1x100.png") 50% 50% repeat-x;
-    color: #FFFFFF;
-    font-weight: bold;
-    text-shadow: none;
+   border: 1px solid #ffffff;
+   background: #61A0CA url("images/ui-bg_highlight-hard_50_61A0CA_1x100.png") 50% 50% repeat-x;
+   color: #FFFFFF;
+   font-weight: bold;
+   text-shadow: none;
 }
 .ui-widget-header a {
-    color: #ffffff;
+   color: #ffffff;
 }
 /* Interaction states
 ----------------------------------*/
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default{
-    border: 1px solid #a8a8a8;
-    box-shadow:none;
-    background-color:transparent;
-    color: #1F2429;
-    text-shadow: none;
+   border: 1px solid #a8a8a8;
+   box-shadow:none;
+   background-color:transparent;
+   color: #1F2429;
+   text-shadow: none;
 }
 
 button .ui-state-default,
 button .ui-widget-content,
 button .ui-widget-header{
-    border: none;
-    box-shadow:none;
-    background-color:transparent;
-    color: #1F2429;
-    text-shadow: none;
+   border: none;
+   box-shadow:none;
+   background-color:transparent;
+   color: #1F2429;
+   text-shadow: none;
 }
 
 .ui-state-default a,
 .ui-state-default a:link,
 .ui-state-default a:visited {
-    color: #000000;
-    text-decoration: none;
+   color: #000000;
+   text-decoration: none;
 }
 .ui-state-hover,
 .ui-widget-content .ui-state-hover,
 .ui-widget-header .ui-state-hover {
-    border: 1px solid #bbbbbb;
-    background: #1E63A4 url("images/ui-bg_inset-hard_60_1E63A4_1x100.png") 50% 50% repeat-x;
-    color: #ffffff;
+   border: 1px solid #bbbbbb;
+   /*background: #1E63A4 url("images/ui-bg_inset-hard_60_1E63A4_1x100.png") 50% 50% repeat-x;*/
+   color: #ffffff;
 }
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-    border: 1px solid #bbbbbb;
-    border-color: #1E63A4;
-    background: #ffffff;
-    color: black;
+   border: 1px solid #bbbbbb;
+   border-color: #1E63A4;
+   background: #ffffff;
+   color: black;
 }
 /*ARREGLAR*/
 .ui-state-hover a,
 .ui-state-hover a:hover,
 .ui-state-hover a:link,
 .ui-state-hover a:visited {
-    color: #ffffff !important;
-    text-decoration: none;
+   color: #ffffff !important;
+   text-decoration: none;
 }
 /*ARREGLAR ESTADO SELECCIONADO*/
 .ui-state-active,
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
-    border: 1px solid #ffffff;
-    background: #1E63A4 url("images/ui-bg_flat_45_1E63A4_40x100.png") 50% 50% repeat-x;
-    font-weight: bold;
-    color: #ffffff;
+   border: 1px solid #ffffff;
+   background: #1E63A4 url("images/ui-bg_flat_45_1E63A4_40x100.png") 50% 50% repeat-x;
+   font-weight: bold;
+   color: #ffffff;
 }
 .ui-state-active a,
 .ui-state-active a:link,
 .ui-state-active a:visited {
-    color: #ffffff;
-    background: #1E63A4 url("images/ui-bg_flat_45_1E63A4_40x100.png") 50% 50% repeat-x;
-    text-decoration: none;
+   color: #ffffff;
+   background: #1E63A4 url("images/ui-bg_flat_45_1E63A4_40x100.png") 50% 50% repeat-x;
+   text-decoration: none;
 }
 /*------------------------------*/
 /* Interaction Cues
@@ -119,49 +117,49 @@ button .ui-widget-header{
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
-    border: 1px solid #ffffff;
-    background: #0A246A url("images/ui-bg_flat_30_0A246A_40x100.png") 50% 50% repeat-x;
-    color: #ffffff;
+   border: 1px solid #ffffff;
+   background: #0A246A;
+   color: #ffffff;
 }
 .ui-state-highlight a,
 .ui-widget-content .ui-state-highlight a,
 .ui-widget-header .ui-state-highlight a {
-    color: #ffffff;
+   color: #ffffff;
 }
 /* Icons
 ----------------------------------*/
 
 /* states and images */
 .ui-icon {
-    width: 16px;
-    height: 16px;
+   width: 16px;
+   height: 16px;
 }
 .ui-icon,
 .ui-widget-content .ui-icon {
-    background-image: url("images/ui-icons_999999_256x240.png");
+   background-image: url("images/ui-icons_999999_256x240.png");
 }
 .ui-widget-header .ui-icon {
-    background-image: url("images/ui-icons_ffffff_256x240.png");
+   background-image: url("images/ui-icons_ffffff_256x240.png");
 }
 .ui-state-default .ui-icon {
-    background-image: url("images/ui-icons_255ac2_256x240.png");
+   background-image: url("images/ui-icons_255ac2_256x240.png");
 }
 .ui-state-hover .ui-icon{
-    background-image: url("images/ui-icons_ffffff_256x240.png");
+   background-image: url("images/ui-icons_ffffff_256x240.png");
 }
 .ui-state-focus .ui-icon {
-    background-image: url("images/ui-icons_255ac2_256x240.png");
+   background-image: url("images/ui-icons_255ac2_256x240.png");
 }
 .ui-state-active .ui-icon {
-    background-image: url("images/ui-icons_ffffff_256x240.png");
+   background-image: url("images/ui-icons_ffffff_256x240.png");
 }
 .ui-state-highlight .ui-icon {
-    /*background-image: url("images/ui-icons_255ac2_256x240.png");*/
-    background-image: url("images/ui-icons_ffffff_256x240.png");
+   /*background-image: url("images/ui-icons_255ac2_256x240.png");*/
+   background-image: url("images/ui-icons_ffffff_256x240.png");
 }
 .ui-state-error .ui-icon,
 .ui-state-error-text .ui-icon {
-    background-image: url("images/ui-icons_fbc856_256x240.png");
+   background-image: url("images/ui-icons_fbc856_256x240.png");
 }
 /* positioning */
 .ui-icon-blank { background-position: 16px 16px; }
@@ -348,128 +346,128 @@ button .ui-widget-header{
 .ui-corner-top,
 .ui-corner-left,
 .ui-corner-tl {
-    border-radius: 3px;
+   border-radius: 3px;
 }
 /* Overlays */
 .ui-widget-overlay {
-    background: #AAAAAA url("images/ui-bg_highlight-soft_30_AAAAAA_1x100.png") 50% top repeat-x;
-    opacity: .9;
-    filter: Alpha(Opacity=90);
+   background: #AAAAAA url("images/ui-bg_highlight-soft_30_AAAAAA_1x100.png") 50% top repeat-x;
+   opacity: .9;
+   filter: Alpha(Opacity=90);
 }
 .ui-widget-shadow {
-    margin: -1px 0 0 -1px;
-    padding: 2px;
-    background: #676767 url("images/ui-bg_flat_0_676767_40x100.png") 50% 50% repeat-x;
-    opacity: .4;
-    filter: Alpha(Opacity=40);
-    border-radius: 3px;
+   margin: -1px 0 0 -1px;
+   padding: 2px;
+   background: #676767 url("images/ui-bg_flat_0_676767_40x100.png") 50% 50% repeat-x;
+   opacity: .4;
+   filter: Alpha(Opacity=40);
+   border-radius: 3px;
 }
 /* PrimeFaces Extensions */
 .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
-    background: #ffffff;
-    /*-moz-box-shadow: inset 0 2px 2px #8f8f8f;
-    -webkit-box-shadow: inset 0 2px 2px #8f8f8f;
-    box-shadow: inset 0 2px 2px #8f8f8f;*/
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    color: #313131;
+   background: #ffffff;
+   /*-moz-box-shadow: inset 0 2px 2px #8f8f8f;
+   -webkit-box-shadow: inset 0 2px 2px #8f8f8f;
+   box-shadow: inset 0 2px 2px #8f8f8f;*/
+   -moz-box-shadow: none;
+   -webkit-box-shadow: none;
+   box-shadow: none;
+   color: #313131;
 }
 
 .ui-inputfield.ui-state-focus, .ui-widget-content .ui-inputfield.ui-state-focus, .ui-widget-header .ui-inputfield.ui-state-focus {
-    /*-moz-box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;
-    -webkit-box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;
-    box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;*/
-    box-shadow: none;
+   /*-moz-box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;
+   -webkit-box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;
+   box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;*/
+   box-shadow: none;
 }
 
 .ui-datatable{
-    border: none;
+   border: none;
 }
 .ui-tooltip {
-    background: white !important;
+   background: white !important;
 }
 
 .ui-clock {
-    padding: 4px 0px;
-    background: initial;
-    color: black;
-    border: 0px;
+   padding: 4px 0px;
+   background: initial;
+   color: black;
+   border: 0px;
 }
 
 .outputTextFielset{
-    font-weight: bold;
-    color: #0000FF;
-    position: absolute;
-    top: -9px;
-    left: 10px;
-    /*background: #CBCFDA;*/
-    background: #FFFFFF;
-    padding: 0px 3px;
+   font-weight: bold;
+   color: #0000FF;
+   position: absolute;
+   top: -9px;
+   left: 10px;
+   /*background: #CBCFDA;*/
+   background: #FFFFFF;
+   padding: 0px 3px;
 }
 
 .cssBotonesEmpleado{
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    padding-left: 0px;
-    padding-right: 0px;
+   position: absolute;
+   width: 30px;
+   height: 30px;
+   padding-left: 0px;
+   padding-right: 0px;
 }
 
 .ui-button-text-only .ui-button-text{
-    padding: 0 0 0;
+   padding: 0 0 0;
 }
 .ui-button{
-    padding-left: 5px;
-    padding-right: 5px;
+   padding-left: 5px;
+   padding-right: 5px;
 }
 .bticon{
-    padding-left: 0px;
-    padding-right: 0px;
-    border: none;
+   padding-left: 0px;
+   padding-right: 0px;
+   border: none;
 }
 
 .cssToolbar{
-    background: transparent;
-    /*border-color: #61A0CA;*/
-    border-color: #C7BFBF;
-    position: absolute; 
-    top: 37px; 
-    left: 12px; 
-    height: 25px;
-    width: 96%;
+   background: transparent;
+   /*border-color: #61A0CA;*/
+   border-color: #C7BFBF;
+   position: absolute; 
+   top: 37px; 
+   left: 12px; 
+   height: 25px;
+   width: 96%;
 }
 
 .cssToolbar .ui-button {
-    width: 25px; 
-    height: 25px;
-    border: none;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+   width: 25px; 
+   height: 25px;
+   border: none;
+   background-size: 100% 100%;
+   background-repeat: no-repeat;
 }
 
 .cssBotonAceptar {
-    width: 90px;
-    height: 30px;
-    background-image: url(../../Imagenes/Iconos/aceptar.png) !important;
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    border: none !important;
-    position: absolute;
-    left: 685px;
-    top: 501px;
+   width: 90px;
+   height: 30px;
+   background-image: url(../../Imagenes/Iconos/aceptar.png) !important;
+   background-size: 100% 100% !important;
+   background-repeat: no-repeat !important;
+   border: none !important;
+   position: absolute;
+   left: 685px;
+   top: 501px;
 }
 
 .cssBotonCancelar {
-    width: 90px;
-    height: 30px;
-    background-image: url(../../Imagenes/Iconos/cancelar.png) !important;
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    border: none !important;
-    position: absolute;
-    left: 775px;
-    top: 501px;
+   width: 90px;
+   height: 30px;
+   background-image: url(../../Imagenes/Iconos/cancelar.png) !important;
+   background-size: 100% 100% !important;
+   background-repeat: no-repeat !important;
+   border: none !important;
+   position: absolute;
+   left: 775px;
+   top: 501px;
 }
 
 .cssBotonLovDialogos {
@@ -481,33 +479,83 @@ button .ui-widget-header{
    height: 23px;
 }
 
-.ui-state-default ui-sortable-column ui-filter-column input, .ui-inputfield{
-    padding-top: 2px !important;
-    padding-bottom: 2px !important;
-}
-
-.ui-datatable thead th {
-    /*position: rela;*/
-    padding: 3px 10px !important;
-}
+/*.ui-datatable thead th {
+   position: rela;
+   padding: 3px 10px !important;
+}*/
 
 .ui-datatable-scrollable .ui-datatable-scrollable-footer {
-    /*position: rela;*/
-    height: 11px;
+   /*position: rela;*/
+   height: 11px;
 }
 
 .ui-datatable-scrollable .ui-datatable-scrollable-footer button {
-    top: -7px;
-    height: 20px;
-    border-radius: 0px;
-    margin-left: -10px; 
-    margin-right: -10px;
-    background-color: #61A0CA;
+   top: -7px;
+   height: 20px;
+   border-radius: 0px;
+   margin-left: -10px; 
+   margin-right: -10px;
+   background-color: #61A0CA;
 }
 
 .ui-inputfield.ui-widget.ui-state-default.ui-corner-all.hasDatepicker{
-    width: 78px;
-    text-align: center;
-    padding-left: 0px;
-    padding-right: 0px;
+   width: 78px;
+   text-align: center;
+   padding-left: 0px;
+   padding-right: 0px;
+}
+
+.ui-datatable-scrollable td div .ui-cell-editor-output {
+   height: 10px;
+   position: relative;
+   width: -moz-max-content;
+}
+
+/*.ui-datatable thead th span,
+.ui-datatable thead td span
+{
+   padding: 2px 0px !important;
+   margin: 2px !important;
+   position: relative;
+}*/
+
+.ui-datatable thead th,
+.ui-datatable thead td,
+.ui-datatable tfoot th,
+.ui-datatable tfoot td, 
+.ui-datatable tbody td,
+.ui-datatable tbody th 
+{
+   padding: 0px 0px !important;
+}
+.ui-datatable-scrollable input,
+.ui-datatable-scrollable .ui-input,
+.ui-datatable-scrollable .ui-inputfield {
+   height: 100% !important;
+   width: 100% !important;
+}
+
+.ui-datatable-scrollable .ui-state-highlight input,
+.ui-datatable-scrollable .ui-state-highlight .ui-input,
+.ui-datatable-scrollable .ui-state-highlight .ui-inputfield {
+   margin: 0px !important;
+   background-color: #0A246A !important;
+   color: white !important;
+   border-radius: 3px !important;
+}
+
+.ui-inputfield.ui-inputtext.ui-widget.ui-state-focus.ui-corner-all,
+.ui-inputfield.ui-widget.ui-state-focus.ui-corner-all.hasDatepicker {
+   background-color: white !important;
+   color: black !important;
+}
+
+.ui-state-default ui-sortable-column ui-filter-column input{
+   padding-top: 2px !important;
+   padding-bottom: 2px !important;
+}
+
+.ui-column-filter.ui-inputfield {
+   height: 10px !important;
+   margin-bottom: 2px !important;
 }

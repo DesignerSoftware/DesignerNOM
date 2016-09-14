@@ -253,13 +253,13 @@ public class ControlEventos implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosEvento:codigo");
-            codigo.setFilterStyle("width: 85%");
+            codigo.setFilterStyle("width: 85% !important");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEvento:descripcion");
-            descripcion.setFilterStyle("width: 85%");
+            descripcion.setFilterStyle("width: 85% !important");
             organizador = (Column) c.getViewRoot().findComponent("form:datosEvento:organizador");
-            organizador.setFilterStyle("width: 85%");
+            organizador.setFilterStyle("width: 85% !important");
             objetivo = (Column) c.getViewRoot().findComponent("form:datosEvento:objetivo");
-            objetivo.setFilterStyle("width: 85%");
+            objetivo.setFilterStyle("width: 85% !important");
 
             RequestContext.getCurrentInstance().update("form:datosEvento");
             System.out.println("Activar");

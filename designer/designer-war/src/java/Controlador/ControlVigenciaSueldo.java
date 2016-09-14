@@ -1698,19 +1698,19 @@ public class ControlVigenciaSueldo implements Serializable {
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 0) {
                 vSFechaVigencia = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSFechaVigencia");
-                vSFechaVigencia.setFilterStyle("width: 85%");
+                vSFechaVigencia.setFilterStyle("width: 85% !important");
                 vSMotivoCambioSueldo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSMotivoCambioSueldo");
-                vSMotivoCambioSueldo.setFilterStyle("width: 85%");
+                vSMotivoCambioSueldo.setFilterStyle("width: 85% !important");
                 vSTipoSueldo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSTipoSueldo");
-                vSTipoSueldo.setFilterStyle("width: 85%");
+                vSTipoSueldo.setFilterStyle("width: 85% !important");
                 vSVigenciaRetroactivo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSVigenciaRetroactivo");
-                vSVigenciaRetroactivo.setFilterStyle("width: 85%");
+                vSVigenciaRetroactivo.setFilterStyle("width: 85% !important");
                 vSValor = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSValor");
-                vSValor.setFilterStyle("width: 85%");
+                vSValor.setFilterStyle("width: 85% !important");
                 vSObservaciones = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSObservaciones");
-                vSObservaciones.setFilterStyle("width: 85%");
+                vSObservaciones.setFilterStyle("width: 85% !important");
                 vSRetroactivo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSRetroactivo");
-                vSRetroactivo.setFilterStyle("width: 85%");
+                vSRetroactivo.setFilterStyle("width: 85% !important");
                 altoTabla1 = "85";
                 RequestContext.getCurrentInstance().update("form:datosVSEmpleado");
                 bandera = 1;
@@ -1747,15 +1747,15 @@ public class ControlVigenciaSueldo implements Serializable {
             if (banderaVA == 0) {
                 //Columnas Tabla VPP
                 vAFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaInicial");
-                vAFechaInicial.setFilterStyle("width: 85%");
+                vAFechaInicial.setFilterStyle("width: 85% !important");
                 vAFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaFinal");
-                vAFechaFinal.setFilterStyle("width: 85%");
+                vAFechaFinal.setFilterStyle("width: 85% !important");
                 vATercero = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vATercero");
-                vATercero.setFilterStyle("width: 85%");
+                vATercero.setFilterStyle("width: 85% !important");
                 vATipoEntidad = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vATipoEntidad");
-                vATipoEntidad.setFilterStyle("width: 85%");
+                vATipoEntidad.setFilterStyle("width: 85% !important");
                 vAValor = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAValor");
-                vAValor.setFilterStyle("width: 85%");
+                vAValor.setFilterStyle("width: 85% !important");
                 altoTabla2 = "85";
                 RequestContext.getCurrentInstance().update("form:datosVAVigencia");
                 banderaVA = 1;

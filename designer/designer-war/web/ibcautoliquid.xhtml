@@ -134,7 +134,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoIBC.fechainicial}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoIBC.fechainicial}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlIbcAutoliquid.modificarFechas(infoIBC,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlIbcAutoliquid.modificarFechas(infoIBC,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlIbcAutoliquid.cambiarIndice(infoIBC,0)}" process="@this"/> 
@@ -151,7 +151,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{infoIBC.fechafinal}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{infoIBC.fechafinal}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlIbcAutoliquid.modificarFechas(infoIBC,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlIbcAutoliquid.modificarFechas(infoIBC,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlIbcAutoliquid.cambiarIndice(infoIBC,1)}" process="@this"/> 
@@ -212,7 +212,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editarFechaPagoIBC" value="#{infoIBC.fechapago}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editarFechaPagoIBC" value="#{infoIBC.fechapago}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlIbcAutoliquid.modificarIBCS(infoIBC)}" update="editarFechaPagoIBC" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlIbcAutoliquid.modificarIBCS(infoIBC)}" update="editarFechaPagoIBC" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlIbcAutoliquid.cambiarIndice(infoIBC,5)}" process="@this"/> 
@@ -348,7 +348,7 @@
 
                             <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 170px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlIbcAutoliquid.nuevoIBC.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlIbcAutoliquid.nuevoIBC.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
                                 </p:calendar>
@@ -356,7 +356,7 @@
 
                             <strong><h:outputText value="#{msg['fechafinalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 170px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlIbcAutoliquid.nuevoIBC.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlIbcAutoliquid.nuevoIBC.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
                                 </p:calendar>
@@ -385,7 +385,7 @@
 
                             <strong><h:outputText value="#{msg['fechapagoN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
                             <div id="posicionFechaPagoIBCSNuevoReg" style="position: absolute; top: 220px; left: 170px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaPago" value="#{controlIbcAutoliquid.nuevoIBC.fechapago}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaPago" value="#{controlIbcAutoliquid.nuevoIBC.fechapago}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaPago"/>
                                     <p:ajax event="change" update="nuevaFechaPago"/>
                                 </p:calendar>
@@ -404,14 +404,14 @@
 
                             <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniDupliReg" style="position: absolute; top: 70px; left: 170px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlIbcAutoliquid.duplicarIBC.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlIbcAutoliquid.duplicarIBC.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
                                 </p:calendar>
                             </div>
                             <strong><h:outputText value="#{msg['fechafinalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinDupliReg" style="position: absolute; top: 100px; left: 170px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlIbcAutoliquid.duplicarIBC.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlIbcAutoliquid.duplicarIBC.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
                                 </p:calendar>
@@ -439,7 +439,7 @@
 
                             <strong><h:outputText value="#{msg['fechapagoN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
                             <div id="posicionFormulaPagoFinDupliReg" style="position: absolute; left: 170px; top: 220px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaPago" value="#{controlIbcAutoliquid.duplicarIBC.fechapago}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaPago" value="#{controlIbcAutoliquid.duplicarIBC.fechapago}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaPago" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaPago" process="@this"/>
                                 </p:calendar>

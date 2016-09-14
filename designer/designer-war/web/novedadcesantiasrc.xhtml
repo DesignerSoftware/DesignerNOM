@@ -360,14 +360,14 @@
 
                             <strong><h:outputText value="#{msg['fechacortecesantias']}" style=" position: absolute; top: 65px;" /></strong>
                             <div id="posicionFechaCorteCesantia" style=" position: absolute; top: 60px; left: 220px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlNovedadCesantiasRC.nuevaNovedad.fechainicialdisfrute}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlNovedadCesantiasRC.nuevaNovedad.fechainicialdisfrute}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this" />
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['fechacorteint']} " style=" position: absolute; top: 105px;" /></strong>
                             <div id="posicionFechaCorteIntCesantia" style=" position: absolute; top: 100px; left: 220px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicialInt" value="#{controlNovedadCesantiasRC.nuevaNovedad.fechacortecesantia}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialInt" value="#{controlNovedadCesantiasRC.nuevaNovedad.fechacortecesantia}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialInt" process="@this"/>
                                     <!--<p:ajax event="change" update="nuevaFechaInicialInt"  process="@this"/>-->
                                 </p:calendar>
@@ -435,14 +435,14 @@
 
                            <strong><h:outputText value="#{msg['fechacortecesantias']}" style=" position: absolute; top: 65px;" /></strong>
                             <div id="duplicarposicionFechaCorteCesantia" style=" position: absolute; top: 60px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarnuevaFechaInicial" value="#{controlNovedadCesantiasRC.duplicarNovedad.fechainicialdisfrute}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarnuevaFechaInicial" value="#{controlNovedadCesantiasRC.duplicarNovedad.fechainicialdisfrute}" >
                                     <p:ajax event="dateSelect" update="duplicarnuevaFechaInicial"  process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['fechacorteint']}" style=" position: absolute; top: 105px;" /></strong>
                             <div id="duplicarposicionFechaCorteIntCesantia" style=" position: absolute; top: 100px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarnuevaFechaInicialInt" value="#{controlNovedadCesantiasRC.duplicarNovedad.fechacortecesantia}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarnuevaFechaInicialInt" value="#{controlNovedadCesantiasRC.duplicarNovedad.fechacortecesantia}" >
                                     <p:ajax event="dateSelect" update="duplicarnuevaFechaInicialInt" process="@this"/>
                                     <p:ajax event="change" update="duplicarnuevaFechaInicialInt" process="@this"/>
                                 </p:calendar>

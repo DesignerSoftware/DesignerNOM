@@ -1054,11 +1054,11 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
             vttFecha = (Column) c.getViewRoot().findComponent("form:datosVTTEmpleado:vttFecha");
-            vttFecha.setFilterStyle("width: 85%;");
+            vttFecha.setFilterStyle("width: 85% !important;");
             vttTipoTrabajador = (Column) c.getViewRoot().findComponent("form:datosVTTEmpleado:vttTipoTrabajador");
-            vttTipoTrabajador.setFilterStyle("width: 85%;");
+            vttTipoTrabajador.setFilterStyle("width: 85% !important;");
             vttTipoCotizante = (Column) c.getViewRoot().findComponent("form:datosVTTEmpleado:vttTipoCotizante");
-            vttTipoCotizante.setFilterStyle("width: 85%;");
+            vttTipoCotizante.setFilterStyle("width: 85% !important;");
             altoTabla = "96";
             RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
             bandera = 1;

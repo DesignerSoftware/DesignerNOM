@@ -1318,7 +1318,7 @@ public class ControlATHoraExtra implements Serializable {
                 empleadoCodigo = (Column) c.getViewRoot().findComponent("form:datosEmpleado:empleadoCodigo");
                 empleadoCodigo.setFilterStyle("width: 50px");
                 empleadoNombre = (Column) c.getViewRoot().findComponent("form:datosEmpleado:empleadoNombre");
-                empleadoNombre.setFilterStyle("width: 85%;");
+                empleadoNombre.setFilterStyle("width: 85% !important;");
                 altoTablaEmpleado = "52";
                 RequestContext.getCurrentInstance().update("form:datosCuadrilla");
                 banderaEmpleado = 1;
@@ -1340,11 +1340,11 @@ public class ControlATHoraExtra implements Serializable {
                 horaExtraProcesado = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraProcesado");
                 horaExtraProcesado.setFilterStyle("display: none; visibility: hidden;");
                 horaExtraFechaInicial = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraFechaInicial");
-                horaExtraFechaInicial.setFilterStyle("width: 85%;");
+                horaExtraFechaInicial.setFilterStyle("width: 85% !important;");
                 horaExtraFechaFinal = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraFechaFinal");
-                horaExtraFechaFinal.setFilterStyle("width: 85%;");
+                horaExtraFechaFinal.setFilterStyle("width: 85% !important;");
                 horaExtraMotivo = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraMotivo");
-                horaExtraMotivo.setFilterStyle("width: 85%;");
+                horaExtraMotivo.setFilterStyle("width: 85% !important;");
                 horaExtraNHA = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraNHA");
                 horaExtraNHA.setFilterStyle("width: 50px");
                 horaExtraNVA = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraNVA");
@@ -1352,9 +1352,9 @@ public class ControlATHoraExtra implements Serializable {
                 horaExtraPagaVale = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraPagaVale");
                 horaExtraPagaVale.setFilterStyle("display: none; visibility: hidden;");
                 horaExtraEstructura = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraEstructura");
-                horaExtraEstructura.setFilterStyle("width: 85%;");
+                horaExtraEstructura.setFilterStyle("width: 85% !important;");
                 horaExtraComentario = (Column) c.getViewRoot().findComponent("form:datosHoraExtra:horaExtraComentario");
-                horaExtraComentario.setFilterStyle("width: 85%;");
+                horaExtraComentario.setFilterStyle("width: 85% !important;");
                 altoTablaHorasExtras = "43";
                 RequestContext.getCurrentInstance().update("form:datosHoraExtra");
                 banderaHorasExtras = 1;
@@ -1388,19 +1388,19 @@ public class ControlATHoraExtra implements Serializable {
             if (banderaDetalleHoraExtra == 0) {
 
                 detalleConcepto = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleConcepto");
-                detalleConcepto.setFilterStyle("width: 85%;");
+                detalleConcepto.setFilterStyle("width: 85% !important;");
                 detalleFechaPago = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleFechaPago");
-                detalleFechaPago.setFilterStyle("width: 85%;");
+                detalleFechaPago.setFilterStyle("width: 85% !important;");
                 detalleHoras = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleHoras");
-                detalleHoras.setFilterStyle("width: 85%;");
+                detalleHoras.setFilterStyle("width: 85% !important;");
                 detalleMinutos = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleMinutos");
-                detalleMinutos.setFilterStyle("width: 85%;");
+                detalleMinutos.setFilterStyle("width: 85% !important;");
                 detalleAprobado = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleAprobado");
-                detalleAprobado.setFilterStyle("width: 85%;");
+                detalleAprobado.setFilterStyle("width: 85% !important;");
                 detalleDescripcion = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleDescripcion");
-                detalleDescripcion.setFilterStyle("width: 85%;");
+                detalleDescripcion.setFilterStyle("width: 85% !important;");
                 detalleOpcion = (Column) c.getViewRoot().findComponent("form:datosDetalle:detalleOpcion");
-                detalleOpcion.setFilterStyle("width: 85%;");
+                detalleOpcion.setFilterStyle("width: 85% !important;");
                 altoTablaDetalleHoraExtra = "38";
                 RequestContext.getCurrentInstance().update("form:datosDetalle");
                 banderaHorasExtras = 1;

@@ -228,9 +228,9 @@ public class ControlDeportes implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosDeporte:codigo");
-            codigo.setFilterStyle("width: 85%");
+            codigo.setFilterStyle("width: 85% !important");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosDeporte:descripcion");
-            descripcion.setFilterStyle("width: 85%");
+            descripcion.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosDeporte");
             System.out.println("Activar");
             bandera = 1;

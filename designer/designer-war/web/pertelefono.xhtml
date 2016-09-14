@@ -110,7 +110,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFecha" value="#{telefono.fechavigencia}">
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{telefono.fechavigencia}">
                                                 <p:ajax event="dateSelect"  update="editFecha"/>
                                                 <p:ajax event="change" />
                                                 <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 0)}" />
@@ -190,7 +190,7 @@
                         <p:panel id="nuevoTelefono" style="border: none;">
                             <strong><h:outputText value="* #{msg['fechaN']}" style=" position: absolute; top: 85px;" /></strong>
                             <div style=" position: absolute; top: 80px; left: 150px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlPerTelefonos.nuevoTelefono.fechavigencia}">
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlPerTelefonos.nuevoTelefono.fechavigencia}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                 </p:calendar>
@@ -234,7 +234,7 @@
 
                             <strong><h:outputText value="* #{msg['fechaN']}" style=" position: absolute; top: 85px;" /></strong>
                             <div style=" position: absolute; top: 80px; left: 150px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlPerTelefonos.duplicarTelefono.fechavigencia}">
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlPerTelefonos.duplicarTelefono.fechavigencia}">
                                     <p:ajax event="dateSelect" update="duplicarFecha"/>
                                     <p:ajax event="change" update="duplicarFecha"/>
                                 </p:calendar>

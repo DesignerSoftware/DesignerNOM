@@ -296,7 +296,7 @@
                                               style="position: absolute; left: 370px; top: 149px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
                                 <div id="posicionFechaNacimiento" 
                                      style="display: inline; position: absolute; left: 510px; top: 144px; width: 95px; height: 12px;">
-                                    <p:calendar pattern="dd/MM/yyyy" id="calendarFechaNacimiento" value="#{controlEmpleadoIndividual.persona.fechanacimiento}" >
+                                    <p:calendar mask="true" pattern="dd/MM/yyyy" id="calendarFechaNacimiento" value="#{controlEmpleadoIndividual.persona.fechanacimiento}" >
                                         <p:ajax process="@this" event="dateSelect" listener="#{controlEmpleadoIndividual.eventoDataSelectFechaNacimiento('P')}" update="@this"/>
                                         <p:ajax process="@this" event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                         <p:ajax process="@this" event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}"  update="@this"/>
@@ -307,7 +307,7 @@
                                 <h:outputText value="#{msg['fechavencimiento']}" 
                                               style="position: absolute; left: 370px; top: 173px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                                 <div id="posicionFechaVencimiento" style="display: inline; position: absolute; left: 510px; top: 168px; width: 95px; height: 12px;">
-                                    <p:calendar pattern="dd/MM/yyyy" id="fechaVencimientoCJ" value="#{controlEmpleadoIndividual.persona.fechavencimientocertificado}" >
+                                    <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaVencimientoCJ" value="#{controlEmpleadoIndividual.persona.fechavencimientocertificado}" >
                                         <p:ajax event="dateSelect" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" process="@this" update="@this"/>
                                         <p:ajax event="click" process="@this" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                         <p:ajax event="change" process="@this" listener="#{controlEmpleadoIndividual.eventoDataSelectFechaVencimiento('P')}" update="@this"/>
@@ -370,7 +370,7 @@
                                 <p:tooltip for="lbfechafalle" value="#{msg['fechafallecimientowm']}" />
                                 <div id="posicionFechaFallecimiento" 
                                      style="position: absolute; left: 510px; top: 312px; width: 95px; height: 12px;">
-                                    <p:calendar pattern="dd/MM/yyyy" id="fechaFallecimiento" value="#{controlEmpleadoIndividual.persona.fechafallecimiento}" >
+                                    <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaFallecimiento" value="#{controlEmpleadoIndividual.persona.fechafallecimiento}" >
                                         <p:ajax process="@this" event="dateSelect" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                                         <p:ajax process="@this" event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                                         <p:ajax process="@this" event="change" listener="#{controlEmpleadoIndividual.eventoDataSelectFechaFallecimiento('P')}" update="@this"/>

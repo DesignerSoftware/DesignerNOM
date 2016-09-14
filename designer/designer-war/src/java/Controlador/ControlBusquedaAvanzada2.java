@@ -7901,7 +7901,7 @@ public class ControlBusquedaAvanzada2 implements Serializable {
             if (bandera == 0) {
                 altoTabla = "58";
                 columnasDinamicas = (Columns) c.getViewRoot().findComponent("form:resultadoBusquedaAvanzada:columnasDinamicas");
-                columnasDinamicas.setFilterStyle("width: 85%;");
+                columnasDinamicas.setFilterStyle("width: 85% !important;");
                 RequestContext.getCurrentInstance().update("form:resultadoBusquedaAvanzada");
                 bandera = 1;
             } else if (bandera == 1) {

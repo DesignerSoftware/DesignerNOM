@@ -629,11 +629,11 @@ public class ControlVigenciasUbicaciones implements Serializable {
         if (bandera == 0) {
             System.out.println("Activar");
             vuFecha = (Column) c.getViewRoot().findComponent("form:datosVUEmpleado:vuFecha");
-            vuFecha.setFilterStyle("width: 85%;");
+            vuFecha.setFilterStyle("width: 85% !important;");
             vuDescripcion = (Column) c.getViewRoot().findComponent("form:datosVUEmpleado:vuDescripcion");
-            vuDescripcion.setFilterStyle("width: 85%;");
+            vuDescripcion.setFilterStyle("width: 85% !important;");
             vuCiudad = (Column) c.getViewRoot().findComponent("form:datosVUEmpleado:vuCiudad");
-            vuCiudad.setFilterStyle("width: 85%;");
+            vuCiudad.setFilterStyle("width: 85% !important;");
             altoTabla = "272";
             RequestContext.getCurrentInstance().update("form:datosVUEmpleado");
             bandera = 1;

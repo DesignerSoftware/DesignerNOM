@@ -119,7 +119,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoFC.fechainicial}"> 
+                                 <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoFC.fechainicial}"> 
                                     <p:ajax event="select" listener="#{controlFormulaContrato.cambiarIndiceFormulaContrato(infoFC,0)}" process="@this"/>
                                     <p:ajax event="change" listener="#{controlFormulaContrato.modificacionesFechaFormula(infoFC,0)}" process="@this" update="dateFechaInicial"/>
                                     <p:ajax event="dateSelect" listener="#{controlFormulaContrato.modificacionesFechaFormula(infoFC,0)}" process="@this" update="dateFechaInicial"/>
@@ -140,7 +140,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar pattern="dd/MM/yyyy" id="dateFecha" value="#{infoFC.fechafinal}"> 
+                                 <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{infoFC.fechafinal}"> 
                                     <p:ajax event="select" listener="#{controlFormulaContrato.cambiarIndiceFormulaContrato(infoFC,1)}" process="@this"/>
                                     <p:ajax event="change" listener="#{controlFormulaContrato.modificacionesFechaFormula(infoFC,1)}" process="@this" update="dateFecha"/>
                                     <p:ajax event="dateSelect" listener="#{controlFormulaContrato.modificacionesFechaFormula(infoFC,1)}" process="@this" update="dateFecha"/>
@@ -302,14 +302,14 @@
                            <p:inputText id="globalFilter" onkeyup="lovContrato.filter();" style="width: 140px; position: relative; left: 30px;" />  
                         </f:facet>
 
-                        <p:column filterBy="#{contrato.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85%;">
+                        <p:column filterBy="#{contrato.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['codigo']}" />
                            </f:facet>
                            <h:outputText value="#{contrato.codigo}" />
                         </p:column>
 
-                        <p:column filterBy="#{contrato.descripcion}" filterMatchMode="contains" filterStyle="width: 85%;">
+                        <p:column filterBy="#{contrato.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['descripcion']}" />
                            </f:facet>
@@ -337,14 +337,14 @@
                            <p:inputText id="globalFilter" onkeyup="lovPeriodicidad.filter();" style="width: 140px; position: relative; left: 45px;"/>  
                         </f:facet>
 
-                        <p:column filterBy="#{periodicidad.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85%;">
+                        <p:column filterBy="#{periodicidad.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['codigo']}" />
                            </f:facet>
                            <h:outputText value="#{periodicidad.codigo}" />
                         </p:column>
 
-                        <p:column filterBy="#{periodicidad.nombre}" filterMatchMode="contains" filterStyle="width: 85%;">
+                        <p:column filterBy="#{periodicidad.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombre']}" />
                            </f:facet>
@@ -373,13 +373,13 @@
                            <p:inputText id="globalFilter" onkeyup="lovTercero.filter();" style="width: 140px; position: relative; left: -5px;" />  
                         </f:facet>
 
-                        <p:column filterBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 85%;">
+                        <p:column filterBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombre']}" />
                            </f:facet>
                            <h:outputText value="#{tercero.nombre}" />
                         </p:column>
-                        <p:column filterBy="#{tercero.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85%;">
+                        <p:column filterBy="#{tercero.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nit']}" />
                            </f:facet>
@@ -406,7 +406,7 @@
 
                      <strong><h:outputText value="*#{msg['fechaInicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                      <div id="posicionFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
-                        <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaInicial" value="#{controlFormulaContrato.nuevaFormulaContrato.fechainicial}" >
+                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaInicial" value="#{controlFormulaContrato.nuevaFormulaContrato.fechainicial}" >
                            <p:ajax event="dateSelect" update="nuevaDateFechaInicial" process="@this"/>
                            <p:ajax event="change" update="nuevaDateFechaInicial" process="@this"/>
                         </p:calendar>
@@ -414,7 +414,7 @@
 
                      <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                      <div id="posicionFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
-                        <p:calendar pattern="dd/MM/yyyy" id="nuevaDateFechaFinal" value="#{controlFormulaContrato.nuevaFormulaContrato.fechafinal}" >
+                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaFinal" value="#{controlFormulaContrato.nuevaFormulaContrato.fechafinal}" >
                            <p:ajax event="dateSelect" update="nuevaDateFechaFinal" process="@this"/>
                            <p:ajax event="change" update="nuevaDateFechaFinal" process="@this"/>
                         </p:calendar>
@@ -464,7 +464,7 @@
 
                      <strong><h:outputText value="*#{msg['fechaInicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                      <div id="posicionFechaIniDuplicarReg" style="position: absolute; top: 70px; left: 220px">
-                        <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaInicial" value="#{controlFormulaContrato.duplicarFormulaContrato.fechainicial}" >
+                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarDateFechaInicial" value="#{controlFormulaContrato.duplicarFormulaContrato.fechainicial}" >
                            <p:ajax event="dateSelect" update="duplicarDateFechaInicial" process="@this"/>
                            <p:ajax event="change" update="duplicarDateFechaInicial" process="@this"/>
                         </p:calendar>
@@ -472,7 +472,7 @@
 
                      <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                      <div id="posicionFechaFinDuplicarReg" style="position: absolute; top: 100px; left: 220px">
-                        <p:calendar pattern="dd/MM/yyyy" id="duplicarDateFechaFinal" value="#{controlFormulaContrato.duplicarFormulaContrato.fechafinal}" >
+                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarDateFechaFinal" value="#{controlFormulaContrato.duplicarFormulaContrato.fechafinal}" >
                            <p:ajax event="dateSelect" update="duplicarDateFechaFinal" process="@this"/>
                            <p:ajax event="change" update="duplicarDateFechaFinal" process="@this"/>
                         </p:calendar>

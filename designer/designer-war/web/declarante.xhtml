@@ -100,7 +100,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{dec.fechainicial}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{dec.fechainicial}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlDeclarantes.modificarFechas(indice,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDeclarantes.modificarFechas(indice,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(indice,0)}" process="@this"/> 
@@ -122,7 +122,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{dec.fechafinal}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{dec.fechafinal}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlDeclarantes.modificarFechas(indice,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDeclarantes.modificarFechas(indice,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(indice,1)}" process="@this"/> 
@@ -235,7 +235,7 @@
 
                                 <strong><h:outputText value="#{msg['fechainicioN']}"  style=" position: absolute; top: 17px;" /></strong>
                                 <div id="posicionFechaInicialNuevo" style="; position: absolute; top: 17px; left: 152px">
-                                    <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlDeclarantes.nuevoDeclarante.fechainicial}" >
+                                    <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlDeclarantes.nuevoDeclarante.fechainicial}" >
                                         <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                                         <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
                                     </p:calendar>
@@ -243,7 +243,7 @@
 
                                 <strong><h:outputText value="#{msg['fechafinalN']}"  style=" position: absolute; top: 57px;" /></strong>
                                 <div id="posicionFechaInicialNuevo" style=" position: absolute; top: 57px; left: 152px">
-                                    <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlDeclarantes.nuevoDeclarante.fechafinal}" >
+                                    <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlDeclarantes.nuevoDeclarante.fechafinal}" >
                                         <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                                         <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
                                     </p:calendar>
@@ -286,7 +286,7 @@
 
                                 <strong><h:outputText value="#{msg['fechainicioN']}"  style=" position: absolute; top: 17px;" /></strong>
                                 <div id="posicionFechaInicioDuplicar" style=" position: absolute; top: 17px; left: 152px">
-                                    <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlDeclarantes.duplicarDeclarante.fechainicial}" >
+                                    <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlDeclarantes.duplicarDeclarante.fechainicial}" >
                                         <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                                         <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
                                     </p:calendar>
@@ -294,7 +294,7 @@
 
                                 <strong><h:outputText value="#{msg['fechafinalN']}"  style=" position: absolute; top: 57px;" /></strong>
                                 <div id="posicionFechaFinalDuplicar" style=" position: absolute; top: 57px; left: 152px">
-                                    <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlDeclarantes.duplicarDeclarante.fechafinal}" >
+                                    <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlDeclarantes.duplicarDeclarante.fechafinal}" >
                                         <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                                         <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
                                     </p:calendar>

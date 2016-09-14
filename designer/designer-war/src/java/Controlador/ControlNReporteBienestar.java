@@ -755,11 +755,11 @@ public class ControlNReporteBienestar implements Serializable {
         if (bandera == 0) {
             altoTabla = "165";
             codigoIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesBienestar:codigoIR");
-            codigoIR.setFilterStyle("width: 85%;");
+            codigoIR.setFilterStyle("width: 85% !important;");
             reporteIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesBienestar:reporteIR");
-            reporteIR.setFilterStyle("width: 85%;");
+            reporteIR.setFilterStyle("width: 85% !important;");
             tipoIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesBienestar:tipoIR");
-            tipoIR.setFilterStyle("width: 85%;");
+            tipoIR.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:reportesBienestar");
             tipoLista = 1;
             bandera = 1;

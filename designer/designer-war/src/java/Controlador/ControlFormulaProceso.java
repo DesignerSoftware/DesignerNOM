@@ -462,10 +462,10 @@ public class ControlFormulaProceso implements Serializable {
         if (bandera == 0) {
             altoTabla = "259";
             formulaProceso = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaProceso");
-            formulaProceso.setFilterStyle("width: 85%");
+            formulaProceso.setFilterStyle("width: 85% !important");
 
 //            formulaPeriodicidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaPeriodicidad");
-//            formulaPeriodicidad.setFilterStyle("width: 85%");
+//            formulaPeriodicidad.setFilterStyle("width: 85% !important");
 
             RequestContext.getCurrentInstance().update("form:datosFormulaProceso");
             bandera = 1;

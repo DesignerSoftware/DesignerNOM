@@ -160,11 +160,11 @@ public class ControlUnidad implements Serializable {
         if (bandera == 0) {
             System.out.println("Activar");
             unidadesCodigos = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesCodigos");
-            unidadesCodigos.setFilterStyle("width: 85%;");
+            unidadesCodigos.setFilterStyle("width: 85% !important;");
             unidadesNombres = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesNombres");
-            unidadesNombres.setFilterStyle("width: 85%;");
+            unidadesNombres.setFilterStyle("width: 85% !important;");
             unidadesTipos = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesTipos");
-            unidadesTipos.setFilterStyle("width: 85%;");
+            unidadesTipos.setFilterStyle("width: 85% !important;");
             altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosUnidades");
             bandera = 1;

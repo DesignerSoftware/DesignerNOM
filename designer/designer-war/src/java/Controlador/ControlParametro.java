@@ -759,19 +759,19 @@ public class ControlParametro implements Serializable {
     public void activarCtrlF11() {
         if (bandera == 0) {
             FechaDesde = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:FechaDesde");
-            FechaDesde.setFilterStyle("width: 85%;");
+            FechaDesde.setFilterStyle("width: 85% !important;");
             FechaHasta = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:FechaHasta");
-            FechaHasta.setFilterStyle("width: 85%;");
+            FechaHasta.setFilterStyle("width: 85% !important;");
             Codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:Codigo");
-            Codigo.setFilterStyle("width: 85%;");
+            Codigo.setFilterStyle("width: 85% !important;");
             pApellido = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:pApellido");
-            pApellido.setFilterStyle("width: 85%;");
+            pApellido.setFilterStyle("width: 85% !important;");
             sApellido = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:sApellido");
-            sApellido.setFilterStyle("width: 85%;");
+            sApellido.setFilterStyle("width: 85% !important;");
             nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:nombre");
-            nombre.setFilterStyle("width: 85%;");
+            nombre.setFilterStyle("width: 85% !important;");
             estadoParametro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:empleadosParametros:estadoParametro");
-            estadoParametro.setFilterStyle("width: 85%;");
+            estadoParametro.setFilterStyle("width: 85% !important;");
             altoTabla = "170";
             RequestContext.getCurrentInstance().update("form:empleadosParametros");
             bandera = 1;

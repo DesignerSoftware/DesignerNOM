@@ -344,17 +344,17 @@ public class ControlDiagnosticosCategorias implements Serializable {
         if (bandera == 0) {
             altoTabla = "30";
             codigo = (Column) c.getViewRoot().findComponent("form:datosCategorias:codigo");
-            codigo.setFilterStyle("width: 85%");
+            codigo.setFilterStyle("width: 85% !important");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosCategorias:descripcion");
-            descripcion.setFilterStyle("width: 85%");
+            descripcion.setFilterStyle("width: 85% !important");
             codCapitulo = (Column) c.getViewRoot().findComponent("form:datosCapitulos:codigoCapitulo");
-            codCapitulo.setFilterStyle("width: 85%");
+            codCapitulo.setFilterStyle("width: 85% !important");
             descCapitulo = (Column) c.getViewRoot().findComponent("form:datosCapitulos:descripcionCapitulo");
-            descCapitulo.setFilterStyle("width: 85%");
+            descCapitulo.setFilterStyle("width: 85% !important");
             codSeccion = (Column) c.getViewRoot().findComponent("form:datosSecciones:codigoSeccion");
-            codSeccion.setFilterStyle("width: 85%");
+            codSeccion.setFilterStyle("width: 85% !important");
             descSeccion = (Column) c.getViewRoot().findComponent("form:datosSecciones:descripcionSeccion");
-            descSeccion.setFilterStyle("width: 85%");
+            descSeccion.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosCategorias");
             RequestContext.getCurrentInstance().update("form:datosCapitulos");
             RequestContext.getCurrentInstance().update("form:datosSecciones");

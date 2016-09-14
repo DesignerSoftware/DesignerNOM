@@ -317,7 +317,7 @@ public class ControlNovedadOperando implements Serializable {
         if (bandera == 0) {
             altoTabla = "225";
             novedadesOperandosNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNovedadesOperandos:novedadesOperandosNombre");
-            novedadesOperandosNombre.setFilterStyle("width: 85%;");
+            novedadesOperandosNombre.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosNovedadesOperandos");
             bandera = 1;
             tipoLista = 1;

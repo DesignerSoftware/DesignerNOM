@@ -1704,25 +1704,25 @@ public class ControlProceso implements Serializable {
             if (bandera == 0) {
                 altoTablaProcesos = "90";
                 procesoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosProceso:procesoCodigo");
-                procesoCodigo.setFilterStyle("width: 85%");
+                procesoCodigo.setFilterStyle("width: 85% !important");
                 procesoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosProceso:procesoDescripcion");
-                procesoDescripcion.setFilterStyle("width: 85%");
+                procesoDescripcion.setFilterStyle("width: 85% !important");
                 procesoTipoPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosProceso:procesoTipoPago");
-                procesoTipoPago.setFilterStyle("width: 85%");
+                procesoTipoPago.setFilterStyle("width: 85% !important");
                 procesoComentario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosProceso:procesoComentario");
-                procesoComentario.setFilterStyle("width: 85%;");
+                procesoComentario.setFilterStyle("width: 85% !important;");
                 procesoNumero = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosProceso:procesoNumero");
-                procesoNumero.setFilterStyle("width: 85%");
+                procesoNumero.setFilterStyle("width: 85% !important");
                 procesoContabilizacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosProceso:procesoContabilizacion");
-                procesoContabilizacion.setFilterStyle("width: 85%");
+                procesoContabilizacion.setFilterStyle("width: 85% !important");
                 procesoSolucionNodo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosProceso:procesoSolucionNodo");
-                procesoSolucionNodo.setFilterStyle("width: 85%");
+                procesoSolucionNodo.setFilterStyle("width: 85% !important");
                 procesoAdelanto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosProceso:procesoAdelanto");
-                procesoAdelanto.setFilterStyle("width: 85%");
+                procesoAdelanto.setFilterStyle("width: 85% !important");
                 procesoSobregiro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosProceso:procesoSobregiro");
-                procesoSobregiro.setFilterStyle("width: 85%");
+                procesoSobregiro.setFilterStyle("width: 85% !important");
                 procesoAutomatico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosProceso:procesoAutomatico");
-                procesoAutomatico.setFilterStyle("width: 85%");
+                procesoAutomatico.setFilterStyle("width: 85% !important");
                 RequestContext.getCurrentInstance().update("form:datosProceso");
 
                 bandera = 1;
@@ -1758,7 +1758,7 @@ public class ControlProceso implements Serializable {
             if (banderaFormulasProcesos == 0) {
                 altoTablaFormulasProcesos = "93";
                 formulaProcesoPeriodicidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaProcesoPeriodicidad");
-                formulaProcesoPeriodicidad.setFilterStyle("width: 85%;");
+                formulaProcesoPeriodicidad.setFilterStyle("width: 85% !important;");
                 formulaProcesoFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaProcesoFormula");
                 formulaProcesoFormula.setFilterStyle("width: 10px");
                 RequestContext.getCurrentInstance().update("form:datosFormulaProceso");
@@ -1780,9 +1780,9 @@ public class ControlProceso implements Serializable {
             if (banderaOperandosLogs == 0) {
                 altoTablaOperandosLogs = "93";
                 operandoOperando = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperando:operandoOperando");
-                operandoOperando.setFilterStyle("width: 85%;");
+                operandoOperando.setFilterStyle("width: 85% !important;");
                 operandoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperando:operandoDescripcion");
-                operandoDescripcion.setFilterStyle("width: 85%;");
+                operandoDescripcion.setFilterStyle("width: 85% !important;");
                 RequestContext.getCurrentInstance().update("form:datosOperando");
                 banderaOperandosLogs = 1;
             } else if (banderaOperandosLogs == 1) {

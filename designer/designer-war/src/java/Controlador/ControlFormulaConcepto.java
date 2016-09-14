@@ -981,19 +981,19 @@ public class ControlFormulaConcepto implements Serializable {
       if (bandera == 0) {
          altoTabla = "290";
          formulaFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaConcepto:formulaFechaInicial");
-         formulaFechaInicial.setFilterStyle("width: 85%;");
+         formulaFechaInicial.setFilterStyle("width: 85% !important;");
          formulaFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaConcepto:formulaFechaFinal");
-         formulaFechaFinal.setFilterStyle("width: 85%;");
+         formulaFechaFinal.setFilterStyle("width: 85% !important;");
          formulaCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaConcepto:formulaCodigo");
-         formulaCodigo.setFilterStyle("width: 85%");
+         formulaCodigo.setFilterStyle("width: 85% !important");
          formulaDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaConcepto:formulaDescripcion");
-         formulaDescripcion.setFilterStyle("width: 85%");
+         formulaDescripcion.setFilterStyle("width: 85% !important");
          formulaOrden = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaConcepto:formulaOrden");
-         formulaOrden.setFilterStyle("width: 85%");
+         formulaOrden.setFilterStyle("width: 85% !important");
          formulaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaConcepto:formulaEmpresa");
-         formulaEmpresa.setFilterStyle("width: 85%");
+         formulaEmpresa.setFilterStyle("width: 85% !important");
          formulaNIT = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaConcepto:formulaNIT");
-         formulaNIT.setFilterStyle("width: 85%");
+         formulaNIT.setFilterStyle("width: 85% !important");
 
          RequestContext.getCurrentInstance().update("form:datosFormulaConcepto");
          bandera = 1;

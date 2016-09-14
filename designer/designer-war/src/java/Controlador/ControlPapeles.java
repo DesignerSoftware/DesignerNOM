@@ -904,11 +904,11 @@ public class ControlPapeles implements Serializable {
             if (bandera == 0) {
                 System.out.println("Activar");
                 codigoCC = (Column) c.getViewRoot().findComponent("form:datosPapeles:codigoCC");
-                codigoCC.setFilterStyle("width: 85%;");
+                codigoCC.setFilterStyle("width: 85% !important;");
                 nombrePapel = (Column) c.getViewRoot().findComponent("form:datosPapeles:nombrePapel");
-                nombrePapel.setFilterStyle("width: 85%;");
+                nombrePapel.setFilterStyle("width: 85% !important;");
                 codigoAT = (Column) c.getViewRoot().findComponent("form:datosPapeles:codigoAT");
-                codigoAT.setFilterStyle("width: 85%;");
+                codigoAT.setFilterStyle("width: 85% !important;");
                 RequestContext.getCurrentInstance().update("form:datosPapeles");
                 bandera = 1;
                 tamano = 250;

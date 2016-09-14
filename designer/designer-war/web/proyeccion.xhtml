@@ -69,7 +69,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaDeste" value="#{info.fechaDesde}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaDeste" value="#{info.fechaDesde}"> 
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 2)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlProyecciones.mostrarInfo(indice,2)}" process="@this" update="@this"/>
                                                 <p:ajax event="dateSelect" listener="#{controlProyecciones.mostrarInfo(indice,2)}" process="@this" update="@this"/>
@@ -88,7 +88,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaHasta" value="#{info.fechaHasta}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaHasta" value="#{info.fechaHasta}"> 
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 3)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlProyecciones.mostrarInfo(indice,3)}" process="@this" update="@this"/>
                                                 <p:ajax event="dateSelect" listener="#{controlProyecciones.mostrarInfo(indice,3)}" process="@this" update="@this"/>

@@ -603,13 +603,13 @@ public class ControlIdiomaPersona implements Serializable {
         if (bandera == 0) {
             altoTabla = "284";
             idIdioma = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idIdioma");
-            idIdioma.setFilterStyle("width: 85%");
+            idIdioma.setFilterStyle("width: 85% !important");
             idConversacion = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idConversacion");
-            idConversacion.setFilterStyle("width: 85%");
+            idConversacion.setFilterStyle("width: 85% !important");
             idLectura = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idLectura");
-            idLectura.setFilterStyle("width: 85%");
+            idLectura.setFilterStyle("width: 85% !important");
             idEscritura = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idEscritura");
-            idEscritura.setFilterStyle("width: 85%");
+            idEscritura.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosIdiomas");
             bandera = 1;
         } else if (bandera == 1) {

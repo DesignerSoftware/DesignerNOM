@@ -1765,21 +1765,21 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
         if (banderaVA == 0) {
             //Columnas Tabla VPP
             vAFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaInicial");
-            vAFechaInicial.setFilterStyle("width: 85%");
+            vAFechaInicial.setFilterStyle("width: 85% !important");
             vAFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaFinal");
-            vAFechaFinal.setFilterStyle("width: 85%");
+            vAFechaFinal.setFilterStyle("width: 85% !important");
             vATercero = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vATercero");
-            vATercero.setFilterStyle("width: 85%");
+            vATercero.setFilterStyle("width: 85% !important");
             vATipoEntidad = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vATipoEntidad");
-            vATipoEntidad.setFilterStyle("width: 85%");
+            vATipoEntidad.setFilterStyle("width: 85% !important");
             vANITTercero = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vANITTercero");
-            vANITTercero.setFilterStyle("width: 85%");
+            vANITTercero.setFilterStyle("width: 85% !important");
             vACodigo = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vACodigo");
-            vACodigo.setFilterStyle("width: 85%");
+            vACodigo.setFilterStyle("width: 85% !important");
             vAEstadoAfiliacion = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAEstadoAfiliacion");
-            vAEstadoAfiliacion.setFilterStyle("width: 85%");
+            vAEstadoAfiliacion.setFilterStyle("width: 85% !important");
             vAObservaciones = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAObservaciones");
-            vAObservaciones.setFilterStyle("width: 85%");
+            vAObservaciones.setFilterStyle("width: 85% !important");
             altoTabla = "272";
             RequestContext.getCurrentInstance().update("form:datosVAVigencia");
             banderaVA = 1;

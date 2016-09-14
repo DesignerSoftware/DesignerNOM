@@ -70,7 +70,6 @@ a:link:hover, a:visited:hover  {
     padding: 0px 10px !important;
     height: 10px !important;
     /*padding: 0px 0px;*/
-    height: 10px;
 }
 
 .ui-datagrid .ui-paginator .ui-paginator-next,
@@ -286,8 +285,17 @@ textarea {
 
 .ui-datatable .ui-datatable-data tr.ui-state-hover {
     color: black !important;
-    background: none ;
-    cursor:  inherit;
+    background-color: #d3f5ff;
+    /*cursor:  inherit;*/
+    box-shadow: none;
+}
+
+.ui-datatable .ui-datatable-data tr.ui-state-hover input,
+.ui-datatable .ui-datatable-data tr.ui-state-hover .ui-input,
+.ui-datatable .ui-datatable-data tr.ui-state-hover .ui-inputfield {
+    color: black !important;
+    background-color: #d3f5ff;
+    /*cursor:  inherit;*/
     box-shadow: none;
 }
 
@@ -296,9 +304,7 @@ textarea {
     background: none ;
     cursor:  inherit;
 }
+
 .ui-selectmanycheckbox label, .ui-selectoneradio label{
     margin-top: 0px;
-}
-[id*=calendarFechaNacimiento]{
-    width: 95px;
 }

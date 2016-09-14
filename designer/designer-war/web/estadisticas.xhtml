@@ -97,14 +97,14 @@
                                 </div>
                                 <div>
                                     <div style="position: relative; top: 11px; left: 0px; display: inline-block;">
-                                        <p:calendar pattern="dd/MM/yyyy" id="fechaDesde" value="#{controlParametrosConjuntos.parametrosActuales.fechaDesde}">
+                                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaDesde" value="#{controlParametrosConjuntos.parametrosActuales.fechaDesde}">
                                             <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActuales()}" 
                                                     onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                         </p:calendar>
                                     </div>
 
                                     <div style="position: relative; top: 11px; left: 2px; display: inline-block;">
-                                        <p:calendar pattern="dd/MM/yyyy" id="fechaHasta" value="#{controlParametrosConjuntos.parametrosActuales.fechaHasta}">
+                                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaHasta" value="#{controlParametrosConjuntos.parametrosActuales.fechaHasta}">
                                             <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActuales()}" 
                                                     onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                         </p:calendar>
@@ -173,14 +173,14 @@
                                 </div>
                                 <div>
                                     <div style="position: relative; top: 11px; left: 0px; display: inline-block;">
-                                        <p:calendar pattern="dd/MM/yyyy" id="fechaDesdeLB" value="#{controlParametrosConjuntos.parametrosActuales.fechaDesdeLineaBase}">
+                                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaDesdeLB" value="#{controlParametrosConjuntos.parametrosActuales.fechaDesdeLineaBase}">
                                             <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActuales()}" 
                                                     onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                         </p:calendar>
                                     </div>
 
                                     <div style="position: relative; top: 11px; left: 2px; display: inline-block;">
-                                        <p:calendar pattern="dd/MM/yyyy" id="fechaHastaLB" value="#{controlParametrosConjuntos.parametrosActuales.fechaHastaLineaBase}">
+                                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaHastaLB" value="#{controlParametrosConjuntos.parametrosActuales.fechaHastaLineaBase}">
                                             <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActuales()}" 
                                                     onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                         </p:calendar>
@@ -4345,21 +4345,21 @@
                                 <p:inputText id="globalFilter" onkeyup="LOVConceptos.filter();" style="width: 200px; position: relative; left: 40px;" />  
                             </f:facet>
 
-                            <p:column sortBy="#{conceptos.codigo}" filterBy="#{conceptos.codigo}" width="60" filterStyle="width: 85%;" filterMatchMode="contains" > 
+                            <p:column sortBy="#{conceptos.codigo}" filterBy="#{conceptos.codigo}" width="60" filterStyle="width: 85% !important;" filterMatchMode="contains" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigo']}" />
                                 </f:facet>
                                 <h:outputText value="#{conceptos.codigo}" />  
                             </p:column>
 
-                            <p:column sortBy="#{conceptos.descripcion}" filterBy="#{conceptos.descripcion}" filterStyle="width: 85%;" filterMatchMode="contains" > 
+                            <p:column sortBy="#{conceptos.descripcion}" filterBy="#{conceptos.descripcion}" filterStyle="width: 85% !important;" filterMatchMode="contains" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['descripcionm']}" />
                                 </f:facet>
                                 <h:outputText value="#{conceptos.descripcion}" />  
                             </p:column>
 
-                            <p:column sortBy="#{conceptos.conjunto}" filterBy="#{conceptos.conjunto}" width="32" filterStyle="width: 85%;" filterMatchMode="contains" > 
+                            <p:column sortBy="#{conceptos.conjunto}" filterBy="#{conceptos.conjunto}" width="32" filterStyle="width: 85% !important;" filterMatchMode="contains" > 
                                 <f:facet name="header">
                                     <h:outputText id="headerConjunto" value="Con" />
                                     <p:tooltip for="headerConjunto" value="#{msg['conjunto']}" />

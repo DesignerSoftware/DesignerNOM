@@ -38,7 +38,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fecha}" > 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fecha}" > 
                                                 <p:ajax event="select" listener="#{controlHvEntrevistas.cambiarIndice(indice, 0)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlHvEntrevistas.mostrarInfo(indice,0)}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlHvEntrevistas.mostrarInfo(indice,0)}" process="@this" update="editFecha"/>
@@ -271,7 +271,7 @@
 
                             <strong><h:outputText value="*Fecha: "  style=" position: absolute; top: 60px;" /></strong>
                             <div  id="nuevaFechaa" style="width: 150px; position: absolute; top: 55px; left: 160px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlHvEntrevistas.nuevoHvEntrevista.fecha}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlHvEntrevistas.nuevoHvEntrevista.fecha}" >
                                     <p:ajax event="dateSelect" update="nuevaFecha"/>
                                     <p:ajax event="change" update="nuevaFecha"/>
                                 </p:calendar>
@@ -310,7 +310,7 @@
                         <p:panel id="duplicarEvC" style="border: none;">
                             <strong><h:outputText value="*Fecha:"  style=" position: absolute; top: 60px;" /></strong>
                             <div  id="duplicarFechaa" style="width: 150px; position: absolute; top: 55px; left: 160px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlHvEntrevistas.duplicarHvEntrevista.fecha}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlHvEntrevistas.duplicarHvEntrevista.fecha}" >
                                     <p:ajax event="dateSelect" update="duplicarFecha"/>
                                     <p:ajax event="change" update="duplicarFecha"/>
                                 </p:calendar>

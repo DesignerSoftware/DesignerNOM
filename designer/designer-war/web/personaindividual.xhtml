@@ -148,7 +148,7 @@
 
                                     <h:outputText  value="#{msg['fechaNacimiento']}*" style="position: absolute; top: 115px; left: 290px;font-weight: bold"/>
                                     <div id="divFechaNacimientoModPersonal" style="position: absolute; top: 110px; left: 430px;">
-                                        <p:calendar pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaPersona.fechanacimiento}" id="fechaNacimientoModPersonal" >
+                                        <p:calendar mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaPersona.fechanacimiento}" id="fechaNacimientoModPersonal" >
                                             <p:ajax event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaNacimientoInformacionPersonal(8)}" update="@this" process="@this"/>
                                             <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaNacimientoInformacionPersonal(8)}" update="@this" process="@this"/>
                                         </p:calendar>
@@ -163,7 +163,7 @@
 
                                     <h:outputText  value="#{msg['fechaIngreso']}*" style="position: absolute; top: 25px; left: 580px;font-weight: bold"/>
                                     <div id="divFechaIngresoModPersonal" style="position: absolute; top: 20px; left: 705px;">
-                                        <p:calendar pattern="dd/MM/yyyy" id="fechaIngresoModPersonal" value="#{controlPersonaIndividual.fechaIngreso}" >
+                                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaIngresoModPersonal" value="#{controlPersonaIndividual.fechaIngreso}" >
                                             <p:ajax event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaIngresoInformacionPersonal(10)}" 
                                                     update="fechaIngresoModPersonal" process="@this" immediate="operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                                             <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaIngresoInformacionPersonal(10)}"
@@ -187,7 +187,7 @@
 
                                     <h:outputText  value="#{msg['fechaUltimoPago']}" style="position: absolute; top: 115px; left: 580px;font-weight: bold"/>
                                     <div id="divFechaUltimoPagoModPersonal" style="position: absolute; top: 110px; left: 705px;">
-                                        <p:calendar pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.fechaCorte}" id="fechaUltimoPagoModPersonal" >
+                                        <p:calendar mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.fechaCorte}" id="fechaUltimoPagoModPersonal" >
 
                                             <p:ajax event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaUltimoPagoInformacionPersonal(13)}" update="@this" process="@this"/>
                                             <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaUltimoPagoInformacionPersonal(13)}" update="@this" process="@this"/>
@@ -357,7 +357,7 @@
 
                                     <h:outputText  value="#{msg['fechaFinalContrato']}" style="position: absolute; top: 85px; left: 65px;font-weight: bold"/>
                                     <div id="divFechaFinalContratoModTipoContrato" style="position: absolute; top: 80px; left: 245px;">
-                                        <p:calendar pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.fechavigencia}" id="fechaFinalContratoModTipoContrato" >
+                                        <p:calendar mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.fechavigencia}" id="fechaFinalContratoModTipoContrato" >
                                             <p:ajax  event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaFechaVigenciaTipoContrato(2)}" process="@this"/>
                                             <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaFechaVigenciaTipoContrato(2)}" update="@this" process="@this"/>
                                         </p:calendar>
@@ -644,13 +644,13 @@
                                         <h:outputText value="#{msg['buscarEIP']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovEmpresaInformacionPersonal.filter();" style="width:150px; position: relative; left: 40px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{empresaIP.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{empresaIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['nombreEmpresa']}" />
                                         </f:facet>
                                         <h:outputText  value="#{empresaIP.nombre}" />
                                     </p:column>
-                                    <p:column filterBy="#{empresaIP.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{empresaIP.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText value="#{msg['nitEmpresa']}" />
                                         </f:facet>
@@ -684,13 +684,13 @@
                                         <h:outputText value="#{msg['buscarTDIP']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovTipoDocumentoInformacionPersonal.filter();" style="width:150px; position: relative; left: 75px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{tipoDIP.nombrecorto}" width="100" filterMatchMode="contains" filterStyle="width: 85%">
+                                    <p:column filterBy="#{tipoDIP.nombrecorto}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important">
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['nombreCorto']}" />
                                         </f:facet>
                                         <h:outputText  value="#{tipoDIP.nombrecorto}" />
                                     </p:column>
-                                    <p:column filterBy="#{tipoDIP.nombrelargo}" filterMatchMode="contains" filterStyle="width: 85%">
+                                    <p:column filterBy="#{tipoDIP.nombrelargo}" filterMatchMode="contains" filterStyle="width: 85% !important">
                                         <f:facet name="header">
                                             <h:outputText value="#{msg['tipoDocumento']}" />
                                         </f:facet>
@@ -722,13 +722,13 @@
                                         <h:outputText value="#{msg['buscarCDIP']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovCiudadDocumentoInformacionPersonal.filter();" style="width:150px; position: relative; left: 30px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                         </f:facet>
                                         <h:outputText  value="#{ciudadDIP.nombre}" />
                                     </p:column>
-                                    <p:column filterBy="#{ciudadDIP.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{ciudadDIP.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText value="#{msg['departamento']}" />
                                         </f:facet>
@@ -761,13 +761,13 @@
                                         <h:outputText value="#{msg['buscarCNIP']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovCiudadNacimientoInformacionPersonal.filter();" style="width:150px; position: relative; left: 30px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                         </f:facet>
                                         <h:outputText  value="#{ciudadDIP.nombre}" />
                                     </p:column>
-                                    <p:column filterBy="#{ciudadDIP.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{ciudadDIP.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText value="#{msg['departamento']}" />
                                         </f:facet>
@@ -802,7 +802,7 @@
                                         <h:outputText value="#{msg['buscarCCD']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovCargoCargoDesempeñado.filter();" style="width:150px; position: relative; left: 5px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{cargoCD.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{cargoCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['nombreCargo']}" />
                                         </f:facet>
@@ -834,7 +834,7 @@
                                         <h:outputText value="#{msg['buscarMCCCD']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovMotivoCambioCargoCargoDesempeñado.filter();" style="width:150px; position: relative; left: 25px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{motivoCambioCD.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{motivoCambioCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['nombreMotivoCargo']}" />
                                         </f:facet>
@@ -867,7 +867,7 @@
                                         <h:outputText value="#{msg['buscarECD']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovEstructuraCargoDesempeñado.filter();" style="width:150px; position: relative; left: 45px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{estructuraCD.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{estructuraCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['nombreEstructura']}" />
                                         </f:facet>
@@ -900,7 +900,7 @@
                                         <h:outputText value="#{msg['buscarPCD']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovPapelCargoDesempeñado.filter();" style="width:150px; position: relative; left: 15px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{papelCD.descripcion}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{papelCD.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['nombrePapel']}" />
                                         </f:facet>
@@ -932,7 +932,7 @@
                                         <h:outputText value="#{msg['buscarEJCD']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovEmpleadoJefeCargoDesempeñado.filter();" style="width:150px; position: relative; left: 35px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{jefeCD.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{jefeCD.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['empleado']}" />
                                         </f:facet>
@@ -967,7 +967,7 @@
                                         <h:outputText value="#{msg['buscarMLCC']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovMotivoLocalizacionCentroCosto.filter();" style="width:150px; position: relative; left: 25px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{motivoLCC.descripcion}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{motivoLCC.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['descripcionMotivo']}" />
                                         </f:facet>
@@ -999,20 +999,20 @@
                                         <h:outputText value="#{msg['buscarECC']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovEstructuraCentroCosto.filter();" style="width:150px; position: relative; left: 5px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{estructuraCC.centrocosto.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{estructuraCC.centrocosto.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText id="codCCLOV" style="text-align: center;" value="#{msg['codigo']}"/>
                                             <p:tooltip for="codCCLOV" value="#{msg['codigoCentroCosto']}"/>
                                         </f:facet>
                                         <h:outputText  value="#{estructuraCC.centrocosto.codigo}" />
                                     </p:column>
-                                    <p:column filterBy="#{estructuraCC.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{estructuraCC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['nombreEstructura']}" />
                                         </f:facet>
                                         <h:outputText  value="#{estructuraCC.nombre}" />
                                     </p:column>
-                                    <p:column filterBy="#{estructuraCC.centrocosto.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{estructuraCC.centrocosto.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['nombreCentroCosto']}" />
                                         </f:facet>
@@ -1046,7 +1046,7 @@
                                     <h:outputText value="#{msg['buscarTTTT']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovTipoTrabajadorTipoTrabajador.filter();" style="width:150px; position: relative; left: 65px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{tipoTTT.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{tipoTTT.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['nombreTipoTrabajador']}" />
                                     </f:facet>
@@ -1079,7 +1079,7 @@
                                     <h:outputText value="#{msg['buscarRLTS']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovReformaLaboralTipoSalario.filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{reformaLTS.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{reformaLTS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['nombreReformaLaboral']}" />
                                     </f:facet>
@@ -1113,7 +1113,7 @@
                                         <h:outputText value="#{msg['buscarMCSS']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovMotivoCambioSueldoSueldo.filter();" style="width:150px; position: relative; left: 25px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{motivoCambioSS.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{motivoCambioSS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['motivoSueldo']}" />
                                         </f:facet>
@@ -1145,7 +1145,7 @@
                                         <h:outputText value="#{msg['buscarTSS']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovTipoSueldoSueldo.filter();" style="width:150px; position: relative; left: 55px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{tipoSueldoS.descripcion}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{tipoSueldoS.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['tipoSueldo']}" />
                                         </f:facet>
@@ -1177,7 +1177,7 @@
                                         <h:outputText value="#{msg['buscarUS']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovUnidadSueldo.filter();" style="width:150px; position: relative; left: 35px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{unidadS.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{unidadS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['nombreUnidad']}" />
                                         </f:facet>
@@ -1212,7 +1212,7 @@
                                         <h:outputText value="#{msg['buscarMCTC']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovMotivoContratoTipoContrato.filter();" style="width:150px; position: relative; left: 25px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{motivoContratoTC.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{motivoContratoTC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['motivoContrato']}" />
                                         </f:facet>
@@ -1244,7 +1244,7 @@
                                         <h:outputText value="#{msg['buscarTCTC']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovTipoContratoTipoContrato.filter();" style="width:150px; position: relative; left: 55px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{tipoContratoTC.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{tipoContratoTC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['tipoContrato']}" />
                                         </f:facet>
@@ -1278,7 +1278,7 @@
                                     <h:outputText value="#{msg['buscarNLNL']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovNormaLaboralNormaLaboral.filter();" style="width:150px; position: relative; left: 25px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{normaLaboralNL.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{normaLaboralNL.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['normaLaboral']}" />
                                     </f:facet>
@@ -1313,7 +1313,7 @@
                                     <h:outputText value="#{msg['buscarCLL']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovContratoLegislacionLaboral.filter();" style="width:150px; position: relative; left: 25px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{contratoLL.descripcion}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{contratoLL.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['descripcionContrato']}" />
                                     </f:facet>
@@ -1347,37 +1347,37 @@
                                     <h:outputText value="#{msg['buscarUGUGL']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovUbicacionUbicacionGeografica.filter();" style="width:150px; position: relative; left: -105px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{ubicacionGUG.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{ubicacionGUG.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['descripcion']}" />
                                     </f:facet>
                                     <h:outputText  value="#{ubicacionGUG.descripcion}" />
                                 </p:column>
-                                <p:column filterBy="#{ubicacionGUG.ciudad.nombre}" width="140" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{ubicacionGUG.ciudad.nombre}" width="140" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['ciudad']}" />
                                     </f:facet>
                                     <h:outputText  value="#{ubicacionGUG.ciudad.nombre}" />
                                 </p:column>
-                                <p:column filterBy="#{ubicacionGUG.direccion}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{ubicacionGUG.direccion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['direccion']}" />
                                     </f:facet>
                                     <h:outputText  value="#{ubicacionGUG.direccion}" />
                                 </p:column>
-                                <p:column filterBy="#{ubicacionGUG.telefono}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{ubicacionGUG.telefono}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['telefono']}" />
                                     </f:facet>
                                     <h:outputText  value="#{ubicacionGUG.telefono}" />
                                 </p:column>
-                                <p:column filterBy="#{ubicacionGUG.fax}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{ubicacionGUG.fax}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['fax']}" />
                                     </f:facet>
                                     <h:outputText  value="#{ubicacionGUG.fax}" />
                                 </p:column>
-                                <p:column filterBy="#{ubicacionGUG.zona}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{ubicacionGUG.zona}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['zona']}" />
                                     </f:facet>
@@ -1411,7 +1411,7 @@
                                     <h:outputText value="#{msg['buscarJLJL']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovJornadaJornadaLaboral.filter();" style="width:150px; position: relative; left: 35px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{jornadaLJL.descripcion}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{jornadaLJL.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['jornadaLaboral']}" />
                                     </f:facet>
@@ -1446,7 +1446,7 @@
                                         <h:outputText value="#{msg['buscarPFP']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovPeriodicidadFormaPago.filter();" style="width:150px; position: relative; left: 55px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{periodicidadFP.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{periodicidadFP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                         </f:facet>
@@ -1478,7 +1478,7 @@
                                         <h:outputText value="#{msg['buscarSFP']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovSucursalPagoFormaPago.filter();" style="width:150px; position: relative; left: 25px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{sucursalFP.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{sucursalFP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                         </f:facet>
@@ -1510,7 +1510,7 @@
                                         <h:outputText value="#{msg['buscarMPFP']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovMetodoPagoFormaPago.filter();" style="width:150px; position: relative; left: 15px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{metodoPFP.descripcion}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{metodoPFP.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['descripcion']}" />
                                         </f:facet>
@@ -1543,19 +1543,19 @@
                                     <h:outputText value="#{msg['buscarTA']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovTerceroAfiliacion.filter();" style="width:150px; position: relative; left: -70px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{terceroSA.descripcion}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{terceroSA.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['tercero']}" />
                                     </f:facet>
                                     <h:outputText  value="#{terceroSA.descripcion}" />
                                 </p:column>
-                                <p:column filterBy="#{terceroSA.tercero.nit}" width="100" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{terceroSA.tercero.nit}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['nit']}" />
                                     </f:facet>
                                     <h:outputText  value="#{terceroSA.tercero.nit}" />
                                 </p:column>
-                                <p:column filterBy="#{terceroSA.tercero.empresa.nombre}" width="200" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{terceroSA.tercero.empresa.nombre}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                     </f:facet>
@@ -1591,7 +1591,7 @@
                                         <h:outputText value="#{msg['buscarTTT']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovTipoTelefonoTelefono.filter();" style="width:150px; position: relative; left: 55px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{tipoTT.nombre}"  filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{tipoTT.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                         </f:facet>
@@ -1623,13 +1623,13 @@
                                         <h:outputText value="#{msg['buscarCT']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                         <p:inputText id="globalFilter" onkeyup="lovCiudadTelefono.filter();" style="width:150px; position: relative; left: 15px;" />  
                                     </f:facet>
-                                    <p:column filterBy="#{ciudadT.nombre}"  filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{ciudadT.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                         </f:facet>
                                         <h:outputText  value="#{ciudadT.nombre}" />
                                     </p:column>
-                                    <p:column filterBy="#{ciudadT.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                    <p:column filterBy="#{ciudadT.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
                                             <h:outputText value="#{msg['departamento']}" />
                                         </f:facet>
@@ -1664,13 +1664,13 @@
                                     <h:outputText value="#{msg['buscarCD']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovCiudadDireccion.filter();" style="width:150px; position: relative; left: 15px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{ciudadD.nombre}"  filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{ciudadD.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                     </f:facet>
                                     <h:outputText  value="#{ciudadD.nombre}" />
                                 </p:column>
-                                <p:column filterBy="#{ciudadD.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{ciudadD.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['departamento']}" />
                                     </f:facet>
@@ -1703,7 +1703,7 @@
                                     <h:outputText value="#{msg['buscarECEC']}"  style="position: absolute; left: 27px; top: 14px;"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovEstadoCivilEstadoCivil.filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{estadoCivilEC.descripcion}" filterMatchMode="contains" filterStyle="width: 85%" >
+                                <p:column filterBy="#{estadoCivilEC.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['descripcion']}" />
                                     </f:facet>

@@ -4102,25 +4102,25 @@ public class ControlDetalleConcepto implements Serializable {
       if (banderaVigenciaCuenta == 0) {
          altoTablaVigenciaCuenta = "85";
          vigenciaCuentaFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVigenciaCuenta:vigenciaCuentaFechaInicial");
-         vigenciaCuentaFechaInicial.setFilterStyle("width: 85%;");
+         vigenciaCuentaFechaInicial.setFilterStyle("width: 85% !important;");
          vigenciaCuentaFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVigenciaCuenta:vigenciaCuentaFechaFinal");
-         vigenciaCuentaFechaFinal.setFilterStyle("width: 85%;");
+         vigenciaCuentaFechaFinal.setFilterStyle("width: 85% !important;");
          vigenciaCuentaTipoCC = (Column) c.getViewRoot().findComponent("form:datosVigenciaCuenta:vigenciaCuentaTipoCC");
-         vigenciaCuentaTipoCC.setFilterStyle("width: 85%;");
+         vigenciaCuentaTipoCC.setFilterStyle("width: 85% !important;");
          vigenciaCuentaDebitoCod = (Column) c.getViewRoot().findComponent("form:datosVigenciaCuenta:vigenciaCuentaDebitoCod");
-         vigenciaCuentaDebitoCod.setFilterStyle("width: 85%;");
+         vigenciaCuentaDebitoCod.setFilterStyle("width: 85% !important;");
          vigenciaCuentaDebitoDes = (Column) c.getViewRoot().findComponent("form:datosVigenciaCuenta:vigenciaCuentaDebitoDes");
-         vigenciaCuentaDebitoDes.setFilterStyle("width: 85%;");
+         vigenciaCuentaDebitoDes.setFilterStyle("width: 85% !important;");
          vigenciaCuentaCCConsolidadorD = (Column) c.getViewRoot().findComponent("form:datosVigenciaCuenta:vigenciaCuentaCCConsolidadorD");
-         vigenciaCuentaCCConsolidadorD.setFilterStyle("width: 85%;");
+         vigenciaCuentaCCConsolidadorD.setFilterStyle("width: 85% !important;");
          vigenciaCuentaCreditoCod = (Column) c.getViewRoot().findComponent("form:datosVigenciaCuenta:vigenciaCuentaCreditoCod");
-         vigenciaCuentaCreditoCod.setFilterStyle("width: 85%;");
+         vigenciaCuentaCreditoCod.setFilterStyle("width: 85% !important;");
          vigenciaCuentaCreditoDes = (Column) c.getViewRoot().findComponent("form:datosVigenciaCuenta:vigenciaCuentaCreditoDes");
-         vigenciaCuentaCreditoDes.setFilterStyle("width: 85%;");
+         vigenciaCuentaCreditoDes.setFilterStyle("width: 85% !important;");
          vigenciaCuentaCCConsolidadorC = (Column) c.getViewRoot().findComponent("form:datosVigenciaCuenta:vigenciaCuentaCCConsolidadorC");
-         vigenciaCuentaCCConsolidadorC.setFilterStyle("width: 85%;");
+         vigenciaCuentaCCConsolidadorC.setFilterStyle("width: 85% !important;");
          vigenciaCuentaCCProceso = (Column) c.getViewRoot().findComponent("form:datosVigenciaCuenta:vigenciaCuentaCCProceso");
-         vigenciaCuentaCCProceso.setFilterStyle("width: 85%;");
+         vigenciaCuentaCCProceso.setFilterStyle("width: 85% !important;");
          banderaVigenciaCuenta = 1;
       } else if (banderaVigenciaCuenta == 1) {
          recargarVigenciaCuentaDefault();
@@ -4134,13 +4134,13 @@ public class ControlDetalleConcepto implements Serializable {
       if (banderaVigenciaGrupoConcepto == 0) {
          altoTablaVigenciaGrupoC = "100";
          vigenciaGCFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVigenciaGrupoConcepto:vigenciaGCFechaInicial");
-         vigenciaGCFechaInicial.setFilterStyle("width: 85%;");
+         vigenciaGCFechaInicial.setFilterStyle("width: 85% !important;");
          vigenciaGCFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVigenciaGrupoConcepto:vigenciaGCFechaFinal");
-         vigenciaGCFechaFinal.setFilterStyle("width: 85%;");
+         vigenciaGCFechaFinal.setFilterStyle("width: 85% !important;");
          vigenciaGCCodigo = (Column) c.getViewRoot().findComponent("form:datosVigenciaGrupoConcepto:vigenciaGCCodigo");
-         vigenciaGCCodigo.setFilterStyle("width: 85%;");
+         vigenciaGCCodigo.setFilterStyle("width: 85% !important;");
          vigenciaGCDescripcion = (Column) c.getViewRoot().findComponent("form:datosVigenciaGrupoConcepto:vigenciaGCDescripcion");
-         vigenciaGCDescripcion.setFilterStyle("width: 85%;");
+         vigenciaGCDescripcion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoConcepto");
          banderaVigenciaGrupoConcepto = 1;
       } else if (banderaVigenciaGrupoConcepto == 1) {
@@ -4155,11 +4155,11 @@ public class ControlDetalleConcepto implements Serializable {
       if (banderaVigenciaConceptoTT == 0) {
          altoTablaVigenciaConceptoTT = "85";
          vigenciaCTTFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVigenciaConceptoTT:vigenciaCTTFechaFinal");
-         vigenciaCTTFechaFinal.setFilterStyle("width: 85%;");
+         vigenciaCTTFechaFinal.setFilterStyle("width: 85% !important;");
          vigenciaCTTFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVigenciaConceptoTT:vigenciaCTTFechaInicial");
-         vigenciaCTTFechaInicial.setFilterStyle("width: 85%;");
+         vigenciaCTTFechaInicial.setFilterStyle("width: 85% !important;");
          vigenciaCTTDescripcion = (Column) c.getViewRoot().findComponent("form:datosVigenciaConceptoTT:vigenciaCTTDescripcion");
-         vigenciaCTTDescripcion.setFilterStyle("width: 85%;");
+         vigenciaCTTDescripcion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosVigenciaConceptoTT");
          banderaVigenciaConceptoTT = 1;
       } else if (banderaVigenciaConceptoTT == 1) {
@@ -4174,11 +4174,11 @@ public class ControlDetalleConcepto implements Serializable {
       if (banderaVigenciaConceptoTC == 0) {
          altoTablaVigenciaConceptoTC = "85";
          vigenciaCTCFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVigenciaConceptoTC:vigenciaCTCFechaFinal");
-         vigenciaCTCFechaFinal.setFilterStyle("width: 85%;");
+         vigenciaCTCFechaFinal.setFilterStyle("width: 85% !important;");
          vigenciaCTCFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVigenciaConceptoTC:vigenciaCTCFechaInicial");
-         vigenciaCTCFechaInicial.setFilterStyle("width: 85%;");
+         vigenciaCTCFechaInicial.setFilterStyle("width: 85% !important;");
          vigenciaCTCDescripcion = (Column) c.getViewRoot().findComponent("form:datosVigenciaConceptoTC:vigenciaCTCDescripcion");
-         vigenciaCTCDescripcion.setFilterStyle("width: 85%;");
+         vigenciaCTCDescripcion.setFilterStyle("width: 85% !important;");
          banderaVigenciaConceptoTC = 1;
       } else if (banderaVigenciaConceptoTC == 1) {
          recargarVigenciaConceptoTC();
@@ -4192,11 +4192,11 @@ public class ControlDetalleConcepto implements Serializable {
       if (banderaVigenciaConceptoRL == 0) {
          altoTablaVigenciaConceptoRL = "85";
          vigenciaCRLFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVigenciaConceptoRL:vigenciaCRLFechaFinal");
-         vigenciaCRLFechaFinal.setFilterStyle("width: 85%;");
+         vigenciaCRLFechaFinal.setFilterStyle("width: 85% !important;");
          vigenciaCRLFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVigenciaConceptoRL:vigenciaCRLFechaInicial");
-         vigenciaCRLFechaInicial.setFilterStyle("width: 85%;");
+         vigenciaCRLFechaInicial.setFilterStyle("width: 85% !important;");
          vigenciaCRLDescripcion = (Column) c.getViewRoot().findComponent("form:datosVigenciaConceptoRL:vigenciaCRLDescripcion");
-         vigenciaCRLDescripcion.setFilterStyle("width: 85%;");
+         vigenciaCRLDescripcion.setFilterStyle("width: 85% !important;");
          banderaVigenciaConceptoRL = 1;
       } else if (banderaVigenciaConceptoRL == 1) {
          recargarVigenciaConceptoRT();
@@ -4210,13 +4210,13 @@ public class ControlDetalleConcepto implements Serializable {
       if (banderaFormulasConceptos == 0) {
          altoTablaFormulaConcepto = "102";
          formulaCFechaInicial = (Column) c.getViewRoot().findComponent("form:datosFormulaConcepto:formulaCFechaInicial");
-         formulaCFechaInicial.setFilterStyle("width: 85%;");
+         formulaCFechaInicial.setFilterStyle("width: 85% !important;");
          formulaCFechaFinal = (Column) c.getViewRoot().findComponent("form:datosFormulaConcepto:formulaCFechaFinal");
-         formulaCFechaFinal.setFilterStyle("width: 85%;");
+         formulaCFechaFinal.setFilterStyle("width: 85% !important;");
          formulaCNombre = (Column) c.getViewRoot().findComponent("form:datosFormulaConcepto:formulaCNombre");
-         formulaCNombre.setFilterStyle("width: 85%;");
+         formulaCNombre.setFilterStyle("width: 85% !important;");
          formulaCOrden = (Column) c.getViewRoot().findComponent("form:datosFormulaConcepto:formulaCOrden");
-         formulaCOrden.setFilterStyle("width: 85%;");
+         formulaCOrden.setFilterStyle("width: 85% !important;");
          banderaFormulasConceptos = 1;
       } else if (banderaFormulasConceptos == 1) {
          recargarFormulaConcepto();

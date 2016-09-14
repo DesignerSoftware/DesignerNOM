@@ -119,7 +119,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaInicial" value="#{info.inicialcausacion}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{info.inicialcausacion}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVacaPendiente.modificarFechasPendientes(info,2)}" update="editFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificarFechasPendientes(info,2)}" update="editFechaInicial" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(1, info, 2)}" process="@this"/> 
@@ -139,7 +139,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaFinal" value="#{info.finalcausacion}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{info.finalcausacion}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVacaPendiente.modificarFechasPendientes(info,3)}" update="editFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificarFechasPendientes(info,3)}" update="editFechaFinal" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(1, info, 3)}" process="@this"/> 
@@ -201,7 +201,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaInicialD" value="#{info2.inicialcausacion}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaInicialD" value="#{info2.inicialcausacion}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVacaPendiente.modificarFechasDisfrutadas(info2,2)}" update="editFechaInicialD" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificarFechasDisfrutadas(info2,2)}" update="editFechaInicialD" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(2, info2, 2)}" process="@this"/> 
@@ -221,7 +221,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaFinalD" value="#{info2.inicialcausacion}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaFinalD" value="#{info2.inicialcausacion}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVacaPendiente.modificarFechasDisfrutadas(info2,3)}" update="editFechaFinalD" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificarFechasDisfrutadas(info2,3)}" update="editFechaFinalD" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(2, info2, 3) }" process="@this"/> 
@@ -389,7 +389,7 @@
 
                             <strong><h:outputText value="*#{msg['fechainicialVP']}" style=" position: absolute; top: 95px; left: 55px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoRegP" style=" position: absolute; top: 90px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicialP" value="#{controlEmplVacaPendiente.nuevaVacacion.inicialcausacion}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialP" value="#{controlEmplVacaPendiente.nuevaVacacion.inicialcausacion}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialP" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicialP" process="@this"/>
                                 </p:calendar>
@@ -397,7 +397,7 @@
 
                             <strong><h:outputText value="*#{msg['fechafinalVP']}" style=" position: absolute; top: 125px; left: 55px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoRegP" style=" position: absolute; top: 120px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinalP" value="#{controlEmplVacaPendiente.nuevaVacacion.finalcausacion}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalP" value="#{controlEmplVacaPendiente.nuevaVacacion.finalcausacion}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinalP" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinalP" process="@this"/>
                                 </p:calendar>
@@ -423,14 +423,14 @@
 
                             <strong><h:outputText value="*#{msg['fechainicialVP']}" style=" position: absolute; top: 95px; left: 55px;" /></strong>
                             <div id="posicionFormulaFechaIniDuplicarRegP" style=" position: absolute; top: 90px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicialP" value="#{controlEmplVacaPendiente.duplicarVacacion.inicialcausacion}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialP" value="#{controlEmplVacaPendiente.duplicarVacacion.inicialcausacion}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicialP" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicialP" process="@this"/>
                                 </p:calendar>
                             </div>
                             <strong><h:outputText value="*#{msg['fechafinalVP']}" style=" position: absolute; top: 125px; left: 55px;" /></strong>
                             <div id="posicionFormulaFechaFinDuplicarRegP" style=" position: absolute; top: 120px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinalP" value="#{controlEmplVacaPendiente.duplicarVacacion.finalcausacion}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalP" value="#{controlEmplVacaPendiente.duplicarVacacion.finalcausacion}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinalP" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinalP" process="@this"/>
                                 </p:calendar>

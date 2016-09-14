@@ -1983,21 +1983,21 @@ public class ControlEmpresa implements Serializable {
             if (bandera == 0) {
                 altoTablaEmpresa = "92";
                 empresaCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEmpresa:empresaCodigo");
-                empresaCodigo.setFilterStyle("width: 85%");
+                empresaCodigo.setFilterStyle("width: 85% !important");
                 empresaNIT = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEmpresa:empresaNIT");
-                empresaNIT.setFilterStyle("width: 85%");
+                empresaNIT.setFilterStyle("width: 85% !important");
                 empresaNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEmpresa:empresaNombre");
-                empresaNombre.setFilterStyle("width: 85%");
+                empresaNombre.setFilterStyle("width: 85% !important");
                 empresaReglamento = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEmpresa:empresaReglamento");
-                empresaReglamento.setFilterStyle("width: 85%");
+                empresaReglamento.setFilterStyle("width: 85% !important");
                 empresaManual = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEmpresa:empresaManual");
-                empresaManual.setFilterStyle("width: 85%");
+                empresaManual.setFilterStyle("width: 85% !important");
                 empresaLogo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEmpresa:empresaLogo");
-                empresaLogo.setFilterStyle("width: 85%");
+                empresaLogo.setFilterStyle("width: 85% !important");
                 empresaCentroCosto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEmpresa:empresaCentroCosto");
-                empresaCentroCosto.setFilterStyle("width: 85%");
+                empresaCentroCosto.setFilterStyle("width: 85% !important");
                 empresaCodigoAlternativo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEmpresa:empresaCodigoAlternativo");
-                empresaCodigoAlternativo.setFilterStyle("width: 85%");
+                empresaCodigoAlternativo.setFilterStyle("width: 85% !important");
                 RequestContext.getCurrentInstance().update("form:datosEmpresa");
                 bandera = 1;
             } else if (bandera == 1) {
@@ -2033,11 +2033,11 @@ public class ControlEmpresa implements Serializable {
             if (banderaVigencia == 0) {
                 altoTablaVigencia = "88";
                 vigenciaCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciaMonedaBase:vigenciaCodigo");
-                vigenciaCodigo.setFilterStyle("width: 85%;");
+                vigenciaCodigo.setFilterStyle("width: 85% !important;");
                 vigenciaFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciaMonedaBase:vigenciaFecha");
-                vigenciaFecha.setFilterStyle("width: 85%;");
+                vigenciaFecha.setFilterStyle("width: 85% !important;");
                 vigenciaMoneda = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciaMonedaBase:vigenciaMoneda");
-                vigenciaMoneda.setFilterStyle("width: 85%;");
+                vigenciaMoneda.setFilterStyle("width: 85% !important;");
                 RequestContext.getCurrentInstance().update("form:datosVigenciaMonedaBase");
                 banderaVigencia = 1;
             } else if (banderaVigencia == 1) {
@@ -2058,11 +2058,11 @@ public class ControlEmpresa implements Serializable {
             if (banderaCircular == 0) {
                 altoTablaCircular = "93";
                 circularFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCircular:circularFecha");
-                circularFecha.setFilterStyle("width: 85%;");
+                circularFecha.setFilterStyle("width: 85% !important;");
                 circularExpedido = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCircular:circularExpedido");
-                circularExpedido.setFilterStyle("width: 85%;");
+                circularExpedido.setFilterStyle("width: 85% !important;");
                 circularContenido = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:circularContenido:circularFecha");
-                circularContenido.setFilterStyle("width: 85%;");
+                circularContenido.setFilterStyle("width: 85% !important;");
                 RequestContext.getCurrentInstance().update("form:datosCircular");
                 banderaCircular = 1;
             } else if (banderaCircular == 1) {

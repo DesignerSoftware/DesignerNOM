@@ -58,7 +58,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tc.fechainicial}">
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tc.fechainicial}">
                                                 <p:ajax event="dateSelect" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.fechainicial)}" update="@this"/>
                                                 <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.fechainicial)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(indice, 1)}" process="@this" />
@@ -79,7 +79,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tc.fechafinal}">
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tc.fechafinal}">
                                                 <p:ajax event="dateSelect" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.fechafinal)}" update="@this"/>
                                                 <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.fechafinal)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(indice, 2)}" process="@this" />
@@ -119,7 +119,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editValores" value="#{tc.fechafinal}">
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editValores" value="#{tc.fechafinal}">
                                                 <p:ajax event="dateSelect" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.valordate)}" update="@this"/>
                                                 <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.valordate)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(indice, 4)}" process="@this" />
@@ -229,7 +229,7 @@
                     </p:dialog>
 
                     <p:dialog id="editarValoresDates" header="#{msg['editarValoresDates']}" widgetVar="editarValoresDates" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:calendar pattern="dd/MM/yyyy"   value="#{controlTipoConstante.editarTiposConstantes.valordate}" id="editarValoresD"  styleClass="ui-datepicker, myClass"  
+                        <p:calendar mask="true" pattern="dd/MM/yyyy"   value="#{controlTipoConstante.editarTiposConstantes.valordate}" id="editarValoresD"  styleClass="ui-datepicker, myClass"  
                                       navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
                         </p:calendar>
                     </p:dialog>
@@ -264,7 +264,7 @@
 
                             <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 125px;" /></strong>
                             <div style=" position: absolute; top: 120px; left: 150px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoConstante.nuevoTipoConstante.fechainicial}">
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoConstante.nuevoTipoConstante.fechainicial}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                 </p:calendar>
@@ -272,7 +272,7 @@
 
                             <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 165px;" /></strong>
                             <div style=" position: absolute; top: 160px; left: 150px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoConstante.nuevoTipoConstante.fechafinal}">
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoConstante.nuevoTipoConstante.fechafinal}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                 </p:calendar>
@@ -285,7 +285,7 @@
 
                             <strong><h:outputText value="#{msg['valordateN']}" style=" position: absolute; top: 245px;" /></strong>
                             <div style=" position: absolute; top: 240px; left: 150px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevoValorDate" value="#{controlTipoConstante.nuevoTipoConstante.valordate}">
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevoValorDate" value="#{controlTipoConstante.nuevoTipoConstante.valordate}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                     <p:ajax event="click" listener="#{controlTipoConstante.revisarTipoN()}" update="@this"/>
@@ -321,7 +321,7 @@
 
                             <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 125px;" /></strong>
                             <div style=" position: absolute; top: 120px; left: 150px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoConstante.duplicarTipoConstante.fechainicial}">
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoConstante.duplicarTipoConstante.fechainicial}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                 </p:calendar>
@@ -329,7 +329,7 @@
 
                             <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 165px;" /></strong>
                             <div style=" position: absolute; top: 160px; left: 150px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoConstante.duplicarTipoConstante.fechafinal}">
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoConstante.duplicarTipoConstante.fechafinal}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                 </p:calendar>
@@ -342,7 +342,7 @@
 
                             <strong><h:outputText value="#{msg['valordateN']}" style=" position: absolute; top: 245px;" /></strong>
                             <div style=" position: absolute; top: 240px; left: 150px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarValorDate" value="#{controlTipoConstante.duplicarTipoConstante.valordate}">
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarValorDate" value="#{controlTipoConstante.duplicarTipoConstante.valordate}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                     <p:ajax event="click" listener="#{controlTipoConstante.revisarTipoD()}" update="@this"/>

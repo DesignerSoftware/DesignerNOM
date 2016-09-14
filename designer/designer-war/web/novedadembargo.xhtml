@@ -88,7 +88,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaOficio" value="#{embargos.fechadocumento}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaOficio" value="#{embargos.fechadocumento}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaInicial"/>
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.fechadocumento)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 2)}" />
@@ -240,7 +240,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy"   value="#{embargos.fechainiciodescuento}" id="editFechaInicial"   styleClass="ui-datepicker, myClass"  
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy"   value="#{embargos.fechainiciodescuento}" id="editFechaInicial"   styleClass="ui-datepicker, myClass"  
                                                           navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy" autocomplete="true">                                         
                                                 <p:ajax event="dateSelect"  update="editFechaInicial"/>
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.fechainiciodescuento)}"/>
@@ -301,7 +301,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaCancelacion" value="#{embargos.cancelacionfechahasta}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaCancelacion" value="#{embargos.cancelacionfechahasta}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaCancelacion"/>
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.cancelacionfechahasta)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 13)}" />
@@ -663,7 +663,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editDescuentosFechaDesde" value="#{descuentos.fechaDesde}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editDescuentosFechaDesde" value="#{descuentos.fechaDesde}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaCancelacion"/>
                                             </p:calendar>
                                         </f:facet>   
@@ -682,7 +682,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy"  readonly="true"  value="#{descuentos.fechaHasta}" id="editDescuentosFechaHasta"   styleClass="ui-datepicker, myClass"  
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy"  readonly="true"  value="#{descuentos.fechaHasta}" id="editDescuentosFechaHasta"   styleClass="ui-datepicker, myClass"  
                                                          navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy" autocomplete="true">                                         
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:calendar>
@@ -717,7 +717,7 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 15px;  " id="btnNuevoTipoEmbargo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['fechaoficioN']}" style=" position: absolute; top: 57px;" /></strong>
-                                <p:calendar pattern="dd/MM/yyyy"  id="nuevaFechaOficio" style=" position: absolute; top: 55px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.fechadocumento}"  styleClass="ui-datepicker, myClass2"  
+                                <p:calendar mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaOficio" style=" position: absolute; top: 55px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.fechadocumento}"  styleClass="ui-datepicker, myClass2"  
                                              navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                     <p:ajax event="dateSelect" update="nuevaFechaOficio"/>
                                     <p:ajax event="change" update="nuevaFechaOficio"/>
@@ -742,14 +742,14 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 175px;  " id="btnNuevoNIT" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['fechainicialdescuentoN']}" style=" position: absolute; top: 217px;" /></strong>
-                                <p:calendar pattern="dd/MM/yyyy"  id="nuevaFechaInicio" style=" position: absolute; top: 215px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.fechainiciodescuento}"  styleClass="ui-datepicker, myClass2"  
+                                <p:calendar mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaInicio" style=" position: absolute; top: 215px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.fechainiciodescuento}"  styleClass="ui-datepicker, myClass2"  
                                              navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                     <p:ajax event="dateSelect" update="nuevaFechaInicio"/>
                                     <p:ajax event="change" update="nuevaFechaInicio"/>
                                 </p:calendar>
 
                                 <strong><h:outputText value="#{msg['fechacancelacionN']}" style=" position: absolute; top: 257px;" /></strong>
-                                <p:calendar pattern="dd/MM/yyyy"  id="nuevaFechaCancelacion" style=" position: absolute; top: 255px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.cancelacionfechahasta}"  styleClass="ui-datepicker, myClass2"  
+                                <p:calendar mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaCancelacion" style=" position: absolute; top: 255px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.cancelacionfechahasta}"  styleClass="ui-datepicker, myClass2"  
                                              navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                     <p:ajax event="dateSelect" update="nuevaFechaCancelacion"/>
                                     <p:ajax event="change" update="nuevaFechaCancelacion"/>
@@ -843,7 +843,7 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 15px;  " id="btnDuplicarTipoEmbargo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['fechaoficioN']}" style=" position: absolute; top: 57px;" /></strong>
-                                <p:calendar pattern="dd/MM/yyyy"  id="duplicarFechaOficio" style=" position: absolute; top: 55px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.fechadocumento}"  styleClass="ui-datepicker, myClass2"  
+                                <p:calendar mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaOficio" style=" position: absolute; top: 55px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.fechadocumento}"  styleClass="ui-datepicker, myClass2"  
                                              navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                     <p:ajax event="dateSelect" update="duplicarFechaOficio"/>
                                     <p:ajax event="change" update="duplicarFechaOficio"/>
@@ -868,14 +868,14 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 175px;  " id="btnDuplicarNIT" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['fechainicialdescuentoN']}" style=" position: absolute; top: 217px;" /></strong>
-                                <p:calendar pattern="dd/MM/yyyy"  id="duplicarFechaInicio" style=" position: absolute; top: 215px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.fechainiciodescuento}"  styleClass="ui-datepicker, myClass2"  
+                                <p:calendar mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicio" style=" position: absolute; top: 215px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.fechainiciodescuento}"  styleClass="ui-datepicker, myClass2"  
                                              navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                     <p:ajax event="dateSelect" update="duplicarFechaInicio"/>
                                     <p:ajax event="change" update="duplicarFechaInicio"/>
                                 </p:calendar>
 
                                 <strong><h:outputText value="#{msg['fechacancelacionN']}" style=" position: absolute; top: 257px;" /></strong>
-                                <p:calendar pattern="dd/MM/yyyy"  id="duplicarFechaCancelacion" style=" position: absolute; top: 255px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.cancelacionfechahasta}"  styleClass="ui-datepicker, myClass2"  
+                                <p:calendar mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaCancelacion" style=" position: absolute; top: 255px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.cancelacionfechahasta}"  styleClass="ui-datepicker, myClass2"  
                                              navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                     <p:ajax event="dateSelect" update="duplicarFechaCancelacion"/>
                                     <p:ajax event="change" update="duplicarFechaCancelacion"/>

@@ -277,13 +277,13 @@ public class ControlClavesSap implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             clave = (Column) c.getViewRoot().findComponent("form:datosClavesSap:clave");
-            clave.setFilterStyle("width: 85%;");
+            clave.setFilterStyle("width: 85% !important;");
             claveajuste = (Column) c.getViewRoot().findComponent("form:datosClavesSap:claveajuste");
-            claveajuste.setFilterStyle("width: 85%;");
+            claveajuste.setFilterStyle("width: 85% !important;");
             clasificacion = (Column) c.getViewRoot().findComponent("form:datosClavesSap:clasificacion");
-            clasificacion.setFilterStyle("width: 85%;");
+            clasificacion.setFilterStyle("width: 85% !important;");
             naturaleza = (Column) c.getViewRoot().findComponent("form:datosClavesSap:naturaleza");
-            naturaleza.setFilterStyle("width: 85%;");
+            naturaleza.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosClavesSap");
             System.out.println("Activar");
             bandera = 1;

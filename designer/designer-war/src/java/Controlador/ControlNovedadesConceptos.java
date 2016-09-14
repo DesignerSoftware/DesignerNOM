@@ -1098,33 +1098,33 @@ public class ControlNovedadesConceptos implements Serializable {
 
         if (bandera == 0) {
             nCEmpleadoCodigo = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCEmpleadoCodigo");
-            nCEmpleadoCodigo.setFilterStyle("width: 85%;");
+            nCEmpleadoCodigo.setFilterStyle("width: 85% !important;");
             nCEmpleadoNombre = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCEmpleadoNombre");
             nCEmpleadoNombre.setFilterStyle("85%");
             nCFechasInicial = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCFechasInicial");
-            nCFechasInicial.setFilterStyle("width: 85%;");
+            nCFechasInicial.setFilterStyle("width: 85% !important;");
             nCFechasFinal = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCFechasFinal");
-            nCFechasFinal.setFilterStyle("width: 85%;");
+            nCFechasFinal.setFilterStyle("width: 85% !important;");
             nCValor = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCValor");
-            nCValor.setFilterStyle("width: 85%;");
+            nCValor.setFilterStyle("width: 85% !important;");
             nCSaldo = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCSaldo");
-            nCSaldo.setFilterStyle("width: 85%;");
+            nCSaldo.setFilterStyle("width: 85% !important;");
             nCPeriodicidadCodigo = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCPeriodicidadCodigo");
-            nCPeriodicidadCodigo.setFilterStyle("width: 85%;");
+            nCPeriodicidadCodigo.setFilterStyle("width: 85% !important;");
             nCDescripcionPeriodicidad = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCDescripcionPeriodicidad");
-            nCDescripcionPeriodicidad.setFilterStyle("width: 85%;");
+            nCDescripcionPeriodicidad.setFilterStyle("width: 85% !important;");
             nCTercerosNit = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCTercerosNit");
-            nCTercerosNit.setFilterStyle("width: 85%;");
+            nCTercerosNit.setFilterStyle("width: 85% !important;");
             nCTercerosNombre = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCTercerosNombre");
-            nCTercerosNombre.setFilterStyle("width: 85%;");
+            nCTercerosNombre.setFilterStyle("width: 85% !important;");
             nCFormulas = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCFormulas");
-            nCFormulas.setFilterStyle("width: 85%;");
+            nCFormulas.setFilterStyle("width: 85% !important;");
             nCHorasDias = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCHorasDias");
-            nCHorasDias.setFilterStyle("width: 85%;");
+            nCHorasDias.setFilterStyle("width: 85% !important;");
             nCMinutosHoras = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCMinutosHoras");
-            nCMinutosHoras.setFilterStyle("width: 85%;");
+            nCMinutosHoras.setFilterStyle("width: 85% !important;");
             nCTipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCTipo");
-            nCTipo.setFilterStyle("width: 85%;");
+            nCTipo.setFilterStyle("width: 85% !important;");
             altoTabla = "135";
 
             RequestContext.getCurrentInstance().update("form:datosNovedadesConcepto");

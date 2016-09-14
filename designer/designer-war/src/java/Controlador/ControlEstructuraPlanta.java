@@ -1332,15 +1332,15 @@ public class ControlEstructuraPlanta implements Serializable {
         if (bandera == 0) {
             altoTablaOrganigrama = "45";
             organigramaFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOrganigramas:organigramaFecha");
-            organigramaFecha.setFilterStyle("width: 85%");
+            organigramaFecha.setFilterStyle("width: 85% !important");
             organigramaCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOrganigramas:organigramaCodigo");
-            organigramaCodigo.setFilterStyle("width: 85%");
+            organigramaCodigo.setFilterStyle("width: 85% !important");
             organigramaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOrganigramas:organigramaEmpresa");
-            organigramaEmpresa.setFilterStyle("width: 85%");
+            organigramaEmpresa.setFilterStyle("width: 85% !important");
             organigramaNIT = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOrganigramas:organigramaNIT");
-            organigramaNIT.setFilterStyle("width: 85%");
+            organigramaNIT.setFilterStyle("width: 85% !important");
             organigramaEstado = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOrganigramas:organigramaEstado");
-            organigramaEstado.setFilterStyle("width: 85%");
+            organigramaEstado.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosOrganigramas");
             bandera = 1;
         } else if (bandera == 1) {
@@ -1349,17 +1349,17 @@ public class ControlEstructuraPlanta implements Serializable {
         if (banderaEstructura == 0) {
             altoTablaEstructura = "190";
             estructuraEstructura = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEstructura:estructuraEstructura");
-            estructuraEstructura.setFilterStyle("width: 85%");
+            estructuraEstructura.setFilterStyle("width: 85% !important");
             estructuraCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEstructura:estructuraCodigo");
-            estructuraCodigo.setFilterStyle("width: 85%");
+            estructuraCodigo.setFilterStyle("width: 85% !important");
             estructuraCantidadControlar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEstructura:estructuraCantidadControlar");
-            estructuraCantidadControlar.setFilterStyle("width: 85%");
+            estructuraCantidadControlar.setFilterStyle("width: 85% !important");
             estructuraCantidadActivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEstructura:estructuraCantidadActivo");
-            estructuraCantidadActivo.setFilterStyle("width: 85%");
+            estructuraCantidadActivo.setFilterStyle("width: 85% !important");
             estructuraCentroCosto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEstructura:estructuraCentroCosto");
-            estructuraCentroCosto.setFilterStyle("width: 85%");
+            estructuraCentroCosto.setFilterStyle("width: 85% !important");
             estructuraEstructuraPadre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEstructura:estructuraEstructuraPadre");
-            estructuraEstructuraPadre.setFilterStyle("width: 85%");
+            estructuraEstructuraPadre.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosEstructura");
             banderaEstructura = 1;
         } else if (banderaEstructura == 1) {

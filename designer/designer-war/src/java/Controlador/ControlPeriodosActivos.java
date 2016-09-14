@@ -491,9 +491,9 @@ public class ControlPeriodosActivos implements Serializable {
                 tamano = 240;
                 System.out.println("Activar");
                 fechaInicial = (Column) c.getViewRoot().findComponent("form:datosEmpresas:fechaInicial");
-                fechaInicial.setFilterStyle("width: 85%;");
+                fechaInicial.setFilterStyle("width: 85% !important;");
                 fechaFinal = (Column) c.getViewRoot().findComponent("form:datosEmpresas:fechaFinal");
-                fechaFinal.setFilterStyle("width: 85%;");
+                fechaFinal.setFilterStyle("width: 85% !important;");
 
                 RequestContext.getCurrentInstance().update("form:datosEmpresas");
                 bandera = 1;

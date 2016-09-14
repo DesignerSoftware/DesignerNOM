@@ -765,19 +765,19 @@ public class ControlVigenciaDeporte implements Serializable {
         if (bandera == 0) {
             altoTabla = "295";
             veFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veFechaInicial");
-            veFechaInicial.setFilterStyle("width: 85%");
+            veFechaInicial.setFilterStyle("width: 85% !important");
             veFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veFechaFinal");
-            veFechaFinal.setFilterStyle("width: 85%");
+            veFechaFinal.setFilterStyle("width: 85% !important");
             veDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veDescripcion");
-            veDescripcion.setFilterStyle("width: 85%");
+            veDescripcion.setFilterStyle("width: 85% !important");
             veIndividual = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veIndividual");
-            veIndividual.setFilterStyle("width: 85%");
+            veIndividual.setFilterStyle("width: 85% !important");
             veCIndividual = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veCIndividual");
-            veCIndividual.setFilterStyle("width: 85%");
+            veCIndividual.setFilterStyle("width: 85% !important");
             veGrupal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veGrupal");
-            veGrupal.setFilterStyle("width: 85%");
+            veGrupal.setFilterStyle("width: 85% !important");
             veCGrupal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veCGrupal");
-            veCGrupal.setFilterStyle("width: 85%");
+            veCGrupal.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosVigenciasDeportes");
             bandera = 1;
         } else if (bandera == 1) {

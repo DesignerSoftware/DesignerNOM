@@ -264,11 +264,11 @@ public class ControlDependenciaOperando implements Serializable {
         if (bandera == 0) {
             altoTabla = "225";
             dependenciasOperandosCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosCodigo");
-            dependenciasOperandosCodigo.setFilterStyle("width: 85%");
+            dependenciasOperandosCodigo.setFilterStyle("width: 85% !important");
             dependenciasOperandosNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosNombre");
-            dependenciasOperandosNombre.setFilterStyle("width: 85%");
+            dependenciasOperandosNombre.setFilterStyle("width: 85% !important");
             dependenciasOperandosConsecutivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosConsecutivo");
-            dependenciasOperandosConsecutivo.setFilterStyle("width: 85%");
+            dependenciasOperandosConsecutivo.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosDependenciasOperandos");
             bandera = 1;
             tipoLista = 1;

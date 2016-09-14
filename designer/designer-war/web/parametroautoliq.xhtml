@@ -1165,7 +1165,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editarFechaIngresoAporte" value="#{infoAE.fechaingreso}" >
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editarFechaIngresoAporte" value="#{infoAE.fechaingreso}" >
                                                 <p:ajax event="dateSelect" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="editarFechaIngresoAporte"/>
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 52)}" />
@@ -1383,7 +1383,7 @@
                                 <p:inputText id="globalFilter" onkeyup="lovTipoTrabajador.filter();" style="width: 150px; position: relative; left: 50px;" />  
                             </f:facet>
 
-                            <p:column filterBy="#{tipoT.nombre}"  filterMatchMode="contains" filterStyle="width: 85%">
+                            <p:column filterBy="#{tipoT.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center;" value="#{msg['nombre']}" />
                                 </f:facet>
@@ -1415,19 +1415,19 @@
                                 <p:inputText id="globalFilter" onkeyup="lovEmpresa.filter();" style="width:150px; position: relative; left: -40px;" />  
                             </f:facet>
 
-                            <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                            <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                 </f:facet>
                                 <h:outputText  value="#{empresa.nombre}" />
                             </p:column>
-                            <p:column filterBy="#{empresa.nit}" width="90" filterMatchMode="contains" filterStyle="width: 85%">
+                            <p:column filterBy="#{empresa.nit}" width="90" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['nit']}" />
                                 </f:facet>
                                 <h:outputText  value="#{empresa.nit}" />
                             </p:column>
-                            <p:column filterBy="#{empresa.codigo}" width="90" filterMatchMode="contains" filterStyle="width: 85%">
+                            <p:column filterBy="#{empresa.codigo}" width="90" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['codigo']}" />
                                 </f:facet>
@@ -1459,7 +1459,7 @@
                                 <p:inputText id="globalFilter" onkeyup="lovTipoEntidad.filter();" style="width:150px; position: relative; left: 50px;" />  
                             </f:facet>
 
-                            <p:column filterBy="#{tipoE.nombre}"  filterMatchMode="contains" filterStyle="width: 85%">
+                            <p:column filterBy="#{tipoE.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                 </f:facet>
@@ -1491,14 +1491,14 @@
                                 <p:inputText id="globalFilter" onkeyup="lovEmpleado.filter();" style="width:150px; position: relative; left: 50px;" />  
                             </f:facet>
 
-                            <p:column filterBy="#{empleado.codigoempleado}" filterStyle="width: 85%" width="80" filterMatchMode="contains">
+                            <p:column filterBy="#{empleado.codigoempleado}" filterStyle="width: 85% !important" width="80" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['codigo']}" />
                                 </f:facet>
                                 <h:outputText  value="#{empleado.codigoempleado}" />
                             </p:column>
 
-                            <p:column filterBy="#{empleado.persona.nombreCompleto}"  filterStyle="width: 85%" filterMatchMode="contains">
+                            <p:column filterBy="#{empleado.persona.nombreCompleto}"  filterStyle="width: 85% !important" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                 </f:facet>
@@ -1530,19 +1530,19 @@
                                 <p:inputText id="globalFilter" onkeyup="lovTercero.filter();" style="width:200px; position: relative; left: -40px;" />  
                             </f:facet>
 
-                            <p:column filterBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                            <p:column filterBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                 </f:facet>
                                 <h:outputText  value="#{tercero.nombre}" />
                             </p:column>
-                            <p:column filterBy="#{tercero.nit}" width="90" filterMatchMode="contains" filterStyle="width: 85%">
+                            <p:column filterBy="#{tercero.nit}" width="90" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['nit']}" />
                                 </f:facet>
                                 <h:outputText  value="#{tercero.nit}" />
                             </p:column>
-                            <p:column filterBy="#{tercero.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 85%" >
+                            <p:column filterBy="#{tercero.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['empresa']}" />
                                 </f:facet>
@@ -1574,19 +1574,19 @@
                                 <p:inputText id="globalFilter" onkeyup="lovBuscarAporte.filter();" style="width:200px; position: relative; left: -40px;" />  
                             </f:facet>
 
-                            <p:column filterBy="#{buscarA.ano}" width="90" filterMatchMode="contains" filterStyle="width: 85%">
+                            <p:column filterBy="#{buscarA.ano}" width="90" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['ano']}" />
                                 </f:facet>
                                 <h:outputText  value="#{buscarA.ano}" />
                             </p:column>
-                            <p:column filterBy="#{buscarA.mes}" width="90" filterMatchMode="contains" filterStyle="width: 85%">
+                            <p:column filterBy="#{buscarA.mes}" width="90" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['mes']}" />
                                 </f:facet>
                                 <h:outputText  value="#{buscarA.mes}" />
                             </p:column>
-                            <p:column filterBy="#{buscarA.empleado.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85%" >
+                            <p:column filterBy="#{buscarA.empleado.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['empleado']}" />
                                 </f:facet>
@@ -2170,7 +2170,7 @@
 
                             <strong><h:outputText value="Fecha Ingreso" style="position: absolute; top: 505px; left: 450px;" /></strong>
                             <div id="nuevaFechaIngreso" style="position: absolute; top: 500px; left: 600px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaI" value="#{controlParametroAutoliq.nuevoAporteEntidad.fechaingreso}"  >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaI" value="#{controlParametroAutoliq.nuevoAporteEntidad.fechaingreso}"  >
                                     <p:ajax event="dateSelect" update="nuevaFechaI" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaI" process="@this"/>
                                 </p:calendar>
@@ -2544,7 +2544,7 @@
 
                             <strong><h:outputText value="Fecha Ingreso" style="position: absolute; top: 505px; left: 450px;" /></strong>
                             <div id="duplicarFechaIngreso" style="position: absolute; top: 500px; left: 600px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaI" value="#{controlParametroAutoliq.duplicarAporteEntidad.fechaingreso}"  >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaI" value="#{controlParametroAutoliq.duplicarAporteEntidad.fechaingreso}"  >
                                     <p:ajax event="dateSelect" update="duplicarFechaI" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaI" process="@this"/>
                                 </p:calendar>

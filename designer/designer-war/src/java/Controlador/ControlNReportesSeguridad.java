@@ -1022,9 +1022,9 @@ public class ControlNReportesSeguridad implements Serializable {
         if (bandera == 0) {
             altoTabla = "120";
             codigoIR = (Column) c.getViewRoot().findComponent("form:reportesSeguridad:codigoIR");
-            codigoIR.setFilterStyle("width: 85%");
+            codigoIR.setFilterStyle("width: 85% !important");
             reporteIR = (Column) c.getViewRoot().findComponent("form:reportesSeguridad:reporteIR");
-            reporteIR.setFilterStyle("width: 85%");
+            reporteIR.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:reportesSeguridad");
             bandera = 1;
         } else if (bandera == 1) {

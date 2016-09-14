@@ -1068,9 +1068,9 @@ public class ControlReportesBancos implements Serializable {
         if (bandera == 0) {
             altoTabla = "140";
             codigoIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesBancos:codigoIR");
-            codigoIR.setFilterStyle("width: 85%;");
+            codigoIR.setFilterStyle("width: 85% !important;");
             reporteIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesBancos:reporteIR");
-            reporteIR.setFilterStyle("width: 85%;");
+            reporteIR.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:reportesBancos");
             tipoLista = 1;
             bandera = 1;

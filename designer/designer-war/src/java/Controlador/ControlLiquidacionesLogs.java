@@ -427,17 +427,17 @@ public class ControlLiquidacionesLogs implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             fechaInicial = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:fechaInicial");
-            fechaInicial.setFilterStyle("width: 85%;");
+            fechaInicial.setFilterStyle("width: 85% !important;");
             fechaFinal = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:fechaFinal");
-            fechaFinal.setFilterStyle("width: 85%;");
+            fechaFinal.setFilterStyle("width: 85% !important;");
             empleado = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:empleado");
-            empleado.setFilterStyle("width: 85%;");
+            empleado.setFilterStyle("width: 85% !important;");
             operando = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:operando");
-            operando.setFilterStyle("width: 85%;");
+            operando.setFilterStyle("width: 85% !important;");
             proceso = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:proceso");
-            proceso.setFilterStyle("width: 85%;");
+            proceso.setFilterStyle("width: 85% !important;");
             valor = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:valor");
-            valor.setFilterStyle("width: 85%;");
+            valor.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
 
             System.out.println("Activar");

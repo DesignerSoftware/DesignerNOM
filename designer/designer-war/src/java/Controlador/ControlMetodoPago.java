@@ -237,11 +237,11 @@ public class ControlMetodoPago implements Serializable {
 
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:codigo");
-            codigo.setFilterStyle("width: 85%;");
+            codigo.setFilterStyle("width: 85% !important;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:descripcion");
-            descripcion.setFilterStyle("width: 85%;");
+            descripcion.setFilterStyle("width: 85% !important;");
             pago = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:pago");
-            pago.setFilterStyle("width: 85%;");
+            pago.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosMetodoPago");
             System.out.println("Activar");
             bandera = 1;

@@ -228,12 +228,12 @@ public class ControlGruposInfAdicionales implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:codigo");
-            codigo.setFilterStyle("width: 85%");
+            codigo.setFilterStyle("width: 85% !important");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:descripcion");
-            descripcion.setFilterStyle("width: 85%");
+            descripcion.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
             estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
-            estado.setFilterStyle("width: 85%");
+            estado.setFilterStyle("width: 85% !important");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
@@ -897,11 +897,10 @@ public class ControlGruposInfAdicionales implements Serializable {
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
-            RequestContext context = RequestContext.getCurrentInstance();
             modificarInfoRegistro(filtrarGruposInfAdicionales.size());
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
-            System.out.println("ERROR ControlGruposInfAdicionales eventoFiltrar ERROR===" + e.getMessage());
+//            System.out.println("ERROR ControlGruposInfAdicionales eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 

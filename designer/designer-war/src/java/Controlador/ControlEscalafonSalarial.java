@@ -1187,11 +1187,11 @@ public class ControlEscalafonSalarial implements Serializable {
             if (bandera == 0) {
                 altoTablaEscalafon = "150";
                 escalafonCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafonSalarial:escalafonCodigo");
-                escalafonCodigo.setFilterStyle("width: 85%");
+                escalafonCodigo.setFilterStyle("width: 85% !important");
                 escalafonDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafonSalarial:escalafonDescripcion");
-                escalafonDescripcion.setFilterStyle("width: 85%;");
+                escalafonDescripcion.setFilterStyle("width: 85% !important;");
                 escalafonTipoTrabajador = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafonSalarial:escalafonTipoTrabajador");
-                escalafonTipoTrabajador.setFilterStyle("width: 85%");
+                escalafonTipoTrabajador.setFilterStyle("width: 85% !important");
                 RequestContext.getCurrentInstance().update("form:datosEscalafonSalarial");
                 bandera = 1;
             } else if (bandera == 1) {
@@ -1212,9 +1212,9 @@ public class ControlEscalafonSalarial implements Serializable {
             if (banderaGS == 0) {
                 altoTablaGrupo = "98";
                 grupoSalario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGrupoSalarial:grupoSalario");
-                grupoSalario.setFilterStyle("width: 85%;");
+                grupoSalario.setFilterStyle("width: 85% !important;");
                 grupoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGrupoSalarial:grupoDescripcion");
-                grupoDescripcion.setFilterStyle("width: 85%;");
+                grupoDescripcion.setFilterStyle("width: 85% !important;");
                 RequestContext.getCurrentInstance().update("form:datosGrupoSalarial");
                 banderaGS = 1;
             } else if (banderaGS == 1) {

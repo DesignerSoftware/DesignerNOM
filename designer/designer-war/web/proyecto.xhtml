@@ -220,7 +220,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}" >  
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}" >  
                                                 <p:ajax event="dateSelect" listener="#{controlProyecto.modificacionesFechas(info,8)}"  process="@this"/>
                                                 <p:ajax event="change" listener="#{controlProyecto.modificacionesFechas(info,8)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,8)}" process="@this"/> 
@@ -239,7 +239,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editarFechaFinalP" value="#{info.fechafinal}" >  
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editarFechaFinalP" value="#{info.fechafinal}" >  
                                                 <p:ajax event="dateSelect" listener="#{controlProyecto.modificacionesFechas(info,9)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlProyecto.modificacionesFechas(info,9)}"  process="@this"/>
                                                 <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,9)}" process="@this"/> 
@@ -589,14 +589,14 @@
 
 
                             <strong><h:outputText value="#{msg['fechainicioN']}" style="position: absolute; top: 285px; left: 50px;" /></strong>
-                            <p:calendar pattern="dd/MM/yyyy"  id="nuevaFechaInicialP" value="#{controlProyecto.nuevaProyectos.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                            <p:calendar mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaInicialP" value="#{controlProyecto.nuevaProyectos.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
                                          navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                 <p:ajax event="dateSelect" update="nuevaFechaInicialP"/>
                                 <p:ajax event="change" update="nuevaFechaInicialP"/>
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['fechafinalizacionN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
-                            <p:calendar pattern="dd/MM/yyyy"  id="nuevaFechaFinalP" value="#{controlProyecto.nuevaProyectos.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                            <p:calendar mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaFinalP" value="#{controlProyecto.nuevaProyectos.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
                                          navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                 <p:ajax event="dateSelect" update="nuevaFechaFinalP"/>
                                 <p:ajax event="change" update="nuevaFechaFinalP"/>
@@ -676,14 +676,14 @@
                             <p:watermark for="duplicarMonedaP" value="#{msg['tipomoneda']}" />
 
                             <strong><h:outputText value="#{msg['fechainicioN']}" style="position: absolute; top: 285px; left: 50px;" /></strong>
-                            <p:calendar pattern="dd/MM/yyyy"  id="duplicarFechaInicialP" value="#{controlProyecto.duplicarProyecto.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                            <p:calendar mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicialP" value="#{controlProyecto.duplicarProyecto.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
                                          navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                 <p:ajax event="dateSelect" update="duplicarFechaInicialP"/>
                                 <p:ajax event="change" update="duplicarFechaInicialP"/>
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['fechafinalizacionN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
-                            <p:calendar pattern="dd/MM/yyyy"  id="duplicarFechaFinalP" value="#{controlProyecto.duplicarProyecto.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                            <p:calendar mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaFinalP" value="#{controlProyecto.duplicarProyecto.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
                                          navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                 <p:ajax event="dateSelect" update="duplicarFechaFinalP"/>
                                 <p:ajax event="change" update="duplicarFechaFinalP"/>

@@ -1558,9 +1558,9 @@ public class ControlNReporteNomina implements Serializable {
         if (bandera == 0) {
             altoTabla = "120";
             codigoIR = (Column) c.getViewRoot().findComponent("form:reportesNomina:codigoIR");
-            codigoIR.setFilterStyle("width: 85%");
+            codigoIR.setFilterStyle("width: 85% !important");
             reporteIR = (Column) c.getViewRoot().findComponent("form:reportesNomina:reporteIR");
-            reporteIR.setFilterStyle("width: 85%");
+            reporteIR.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:reportesNomina");
             bandera = 1;
         } else if (bandera == 1) {

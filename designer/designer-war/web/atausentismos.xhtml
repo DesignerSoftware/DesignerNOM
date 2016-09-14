@@ -319,7 +319,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFecha" value="#{ausentismos.fecha}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{ausentismos.fecha}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fecha)}" process="@this" update="editFecha"/>
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fecha)}" update="@this" process="@this"/>
                                                 <p:ajax event="click" listener="#{controlAusentismos.cambiarIndice(ausentismos, 5)}" process="@this" />
@@ -336,7 +336,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaFinaus" value="#{ausentismos.fechafinaus}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaFinaus" value="#{ausentismos.fechafinaus}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechafinaus)}" process="@this" update="editFechaFinaus"/>
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechafinaus)}" update="@this" process="@this"/>
                                                 <p:ajax event="click" listener="#{controlAusentismos.cambiarIndice(ausentismos, 6)}" process="@this" />
@@ -354,7 +354,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaExpedicion" value="#{ausentismos.fechaexpedicion}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaExpedicion" value="#{ausentismos.fechaexpedicion}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechaexpedicion)}" process="@this" update="editFechaExpedicion"/>
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechaexpedicion)}" update="@this" process="@this"/>
                                                 <p:ajax event="click" listener="#{controlAusentismos.cambiarIndice(ausentismos, 7)}" process="@this" />
@@ -371,7 +371,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaInipago" value="#{ausentismos.fechainipago}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaInipago" value="#{ausentismos.fechainipago}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechainipago)}"  process="@this" update="editFechaInipago"/>
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechainipago)}"  process="@this" update="editFechaInipago"/>
                                                 <p:ajax event="click" listener="#{controlAusentismos.cambiarIndice(ausentismos, 8)}" process="@this" />
@@ -388,7 +388,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaFinpago" value="#{ausentismos.fechafinpago}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaFinpago" value="#{ausentismos.fechafinpago}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechafinpago)}" process="@this" update="editFechaFinpago"/>
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechafinpago)}" process="@this" update="editFechaFinpago"/>
                                                 <p:ajax event="click" listener="#{controlAusentismos.cambiarIndice(ausentismos, 9)}" process="@this" />
@@ -605,7 +605,7 @@
 
                             <strong><h:outputText value="#{msg['iausenciaN']}" style=" position: absolute; top: 285px;" /></strong>
                             <div id="posicionFechaInicialNuevoReg" style=" position: absolute; top: 280px; left: 110px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlAusentismos.nuevoAusentismo.fecha}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlAusentismos.nuevoAusentismo.fecha}" >
                                     <p:ajax event="dateSelect" update="nuevaFecha" process="@this"/>
                                     <p:ajax event="change" update="nuevaFecha" process="@this"/>
                                 </p:calendar>
@@ -613,7 +613,7 @@
 
                             <strong><h:outputText value="#{msg['fausenciaN']}" style=" position: absolute; top: 325px;" /></strong>
                             <div id="posicionFechaFinalNuevoReg" style=" position: absolute; top: 320px; left: 110px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinaus" value="#{controlAusentismos.nuevoAusentismo.fechafinaus}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinaus" value="#{controlAusentismos.nuevoAusentismo.fechafinaus}" >
                                     <p:ajax event="dateSelect"  update="nuevaFechaFinaus" process="@this"/>
                                     <p:ajax event="change"  update="nuevaFechaFinaus" process="@this"/>
                                 </p:calendar>
@@ -621,7 +621,7 @@
 
                             <strong><h:outputText value="#{msg['expedicionN']}" style=" position: absolute; top: 85px; left: 300px;" /></strong>
                             <div id="posicionFechaExpedicionNuevoReg" style=" position: absolute; top: 80px; left: 400px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaExpedicion" value="#{controlAusentismos.nuevoAusentismo.fechaexpedicion}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaExpedicion" value="#{controlAusentismos.nuevoAusentismo.fechaexpedicion}" >
                                     <p:ajax event="dateSelect"  update="nuevaFechaExpedicion" process="@this"/>
                                     <p:ajax event="change"  update="nuevaFechaExpedicion" process="@this"/>
                                 </p:calendar>
@@ -629,7 +629,7 @@
 
                             <strong><h:outputText value="#{msg['ipagoN']}" style=" position: absolute; top: 125px; left: 300px;"  /></strong>
                             <div id="posicionFechaInicioPagoNuevoReg" style=" position: absolute; top: 120px; left: 400px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicioPago" value="#{controlAusentismos.nuevoAusentismo.fechainipago}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicioPago" value="#{controlAusentismos.nuevoAusentismo.fechainipago}" >
                                     <p:ajax event="dateSelect"  update="nuevaFechaInicioPago" process="@this"/>
                                     <p:ajax event="change"  update="nuevaFechaInicioPago" process="@this"/>
                                 </p:calendar>
@@ -637,7 +637,7 @@
 
                             <strong><h:outputText value="#{msg['fpagoN']}" style=" position: absolute; top: 165px; left: 300px;" /></strong>
                             <div id="posicionFechaFinalPagoNuevoReg" style=" position: absolute; top: 160px; left: 400px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinalPago" value="#{controlAusentismos.nuevoAusentismo.fechafinpago}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalPago" value="#{controlAusentismos.nuevoAusentismo.fechafinpago}" >
                                     <p:ajax event="dateSelect"  update="nuevaFechaFinalPago" process="@this"/>
                                     <p:ajax event="change"  update="nuevaFechaFinalPago" process="@this"/>
                                 </p:calendar>
@@ -798,7 +798,7 @@
 
                             <strong><h:outputText value="#{msg['iausenciaN']}" style=" position: absolute; top: 285px;" /></strong>
                             <div id="posicionFechaInicialDuplicarReg" style=" position: absolute; top: 280px; left: 110px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlAusentismos.duplicarAusentismo.fecha}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlAusentismos.duplicarAusentismo.fecha}" >
                                     <p:ajax event="dateSelect"  update="duplicarFecha" process="@this"/>
                                     <p:ajax event="change" update="duplicarFecha" process="@this"/>
                                 </p:calendar>
@@ -806,7 +806,7 @@
 
                             <strong><h:outputText value="#{msg['fausenciaN']}" style=" position: absolute; top: 325px;" /></strong>
                             <div id="posicionFechaFinalDuplicarReg" style=" position: absolute; top: 320px; left: 110px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinaus" value="#{controlAusentismos.duplicarAusentismo.fechafinaus}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinaus" value="#{controlAusentismos.duplicarAusentismo.fechafinaus}" >
                                     <p:ajax event="dateSelect"  update="duplicarFechaFinaus" process="@this"/>
                                     <p:ajax event="change"  update="duplicarFechaFinaus" process="@this"/>
                                 </p:calendar>
@@ -814,7 +814,7 @@
 
                             <strong><h:outputText value="#{msg['expedicionN']}" style=" position: absolute; top: 85px; left: 300px;" /></strong>
                             <div id="posicionFechaExpedicionDuplicarReg" style=" position: absolute; top: 80px; left: 400px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaExpedicion" value="#{controlAusentismos.duplicarAusentismo.fechaexpedicion}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaExpedicion" value="#{controlAusentismos.duplicarAusentismo.fechaexpedicion}" >
                                     <p:ajax event="dateSelect"  update="duplicarFechaExpedicion" process="@this"/>
                                     <p:ajax event="change"  update="duplicarFechaExpedicion" process="@this"/>
                                 </p:calendar>
@@ -822,7 +822,7 @@
 
                             <strong><h:outputText value="#{msg['ipagoN']}" style=" position: absolute; top: 125px; left: 300px;"  /></strong>
                             <div id="posicionFechaInicioPagoDuplicarReg" style=" position: absolute; top: 120px; left: 400px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicioPago" value="#{controlAusentismos.duplicarAusentismo.fechainipago}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicioPago" value="#{controlAusentismos.duplicarAusentismo.fechainipago}" >
                                     <p:ajax event="dateSelect"  update="duplicarFechaInicioPago" process="@this"/>
                                     <p:ajax event="change"  update="duplicarFechaInicioPago" process="@this"/>
                                 </p:calendar>
@@ -830,7 +830,7 @@
 
                             <strong><h:outputText value="#{msg['fpago']}" style=" position: absolute; top: 165px; left:300px;" /></strong>
                             <div id="posicionFechaInicioPagoDuplicarReg" style=" position: absolute; top: 160px; left: 400px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinPago" value="#{controlAusentismos.duplicarAusentismo.fechafinpago}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinPago" value="#{controlAusentismos.duplicarAusentismo.fechafinpago}" >
                                     <p:ajax event="dateSelect"  update="duplicarFechaFinPago" process="@this"/>
                                     <p:ajax event="change"  update="duplicarFechaFinPago" process="@this"/>
                                 </p:calendar>
@@ -1011,31 +1011,31 @@
                     </p:dialog>
 
                     <p:dialog id="editarFIausencias" header="#{msg['iausencia']}" widgetVar="editarFIausencias" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:calendar pattern="dd/MM/yyyy" value="#{controlAusentismos.editarAusentismos.fecha}" id="editarFechaInicialAusencia"  styleClass="ui-datepicker, myClass"  
+                        <p:calendar mask="true" pattern="dd/MM/yyyy" value="#{controlAusentismos.editarAusentismos.fecha}" id="editarFechaInicialAusencia"  styleClass="ui-datepicker, myClass"  
                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editFFausencias" header="#{msg['fausencia']}" widgetVar="editarFFausencias" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:calendar pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechafinaus}" id="editarFechaFinalAusencia"  styleClass="ui-datepicker, myClass"  
+                        <p:calendar mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechafinaus}" id="editarFechaFinalAusencia"  styleClass="ui-datepicker, myClass"  
                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editarFexpediciones" header="#{msg['expediciones']}" widgetVar="editarFexpediciones" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:calendar pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechaexpedicion}" id="editarFechaExpedicion"  styleClass="ui-datepicker, myClass"  
+                        <p:calendar mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechaexpedicion}" id="editarFechaExpedicion"  styleClass="ui-datepicker, myClass"  
                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editarFIpagos" header="#{msg['ipago']}" widgetVar="editarFIpagos" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:calendar pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechainipago}" id="editarFechaInicialPagos"  styleClass="ui-datepicker, myClass"  
+                        <p:calendar mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechainipago}" id="editarFechaInicialPagos"  styleClass="ui-datepicker, myClass"  
                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editarFFpagos" header="#{msg['fpago']}" widgetVar="editarFFpagos" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:calendar pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechafinpago}" id="editarFechaFinalPagos"  styleClass="ui-datepicker, myClass"  
+                        <p:calendar mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechafinpago}" id="editarFechaFinalPagos"  styleClass="ui-datepicker, myClass"  
                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>

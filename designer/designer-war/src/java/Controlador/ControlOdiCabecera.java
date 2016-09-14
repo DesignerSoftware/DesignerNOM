@@ -783,41 +783,41 @@ public class ControlOdiCabecera implements Serializable {
         if (bandera == 0) {
             //ODIS CABECERA
             empresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCabecera:empresa");
-            empresa.setFilterStyle("width: 85%");
+            empresa.setFilterStyle("width: 85% !important");
             sucursal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCabecera:sucursal");
-            sucursal.setFilterStyle("width: 85%");
+            sucursal.setFilterStyle("width: 85% !important");
             nombreTercero = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCabecera:tercero");
-            nombreTercero.setFilterStyle("width: 85%");
+            nombreTercero.setFilterStyle("width: 85% !important");
             tipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCabecera:tipoentidad");
-            tipoEntidad.setFilterStyle("width: 85%");
+            tipoEntidad.setFilterStyle("width: 85% !important");
             valor = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCabecera:valor");
-            valor.setFilterStyle("width: 85%");
+            valor.setFilterStyle("width: 85% !important");
             numautorizacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCabecera:numautorizacion");
-            numautorizacion.setFilterStyle("width: 85%");
+            numautorizacion.setFilterStyle("width: 85% !important");
             origen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCabecera:origenIncapacidad");
-            origen.setFilterStyle("width: 85%");
+            origen.setFilterStyle("width: 85% !important");
             detalle = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCabecera:detalle");
-            detalle.setFilterStyle("width: 85%");
+            detalle.setFilterStyle("width: 85% !important");
             anio = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCabecera:anio");
-            anio.setFilterStyle("width: 85%");
+            anio.setFilterStyle("width: 85% !important");
             mes = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCabecera:mes");
-            mes.setFilterStyle("width: 85%");
+            mes.setFilterStyle("width: 85% !important");
 
             //ODIS DETALLES
             empleado = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalles:empleado");
-            empleado.setFilterStyle("width: 85%");
+            empleado.setFilterStyle("width: 85% !important");
             numdetalle = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalles:numdetalle");
-            numdetalle.setFilterStyle("width: 85%");
+            numdetalle.setFilterStyle("width: 85% !important");
             observacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalles:observacion");
-            observacion.setFilterStyle("width: 85%");
+            observacion.setFilterStyle("width: 85% !important");
             valordetalle = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalles:valor");
-            valordetalle.setFilterStyle("width: 85%");
+            valordetalle.setFilterStyle("width: 85% !important");
             relacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalles:relacion");
-            relacion.setFilterStyle("width: 85%");
+            relacion.setFilterStyle("width: 85% !important");
             numcertificado = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalles:numcertificado");
-            numcertificado.setFilterStyle("width: 85%");
+            numcertificado.setFilterStyle("width: 85% !important");
             valorcobrado = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetalles:valorcobrado");
-            valorcobrado.setFilterStyle("width: 85%");
+            valorcobrado.setFilterStyle("width: 85% !important");
             altotabla = 89;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosCabecera");

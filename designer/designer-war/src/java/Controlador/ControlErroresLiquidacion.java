@@ -582,23 +582,23 @@ public class ControlErroresLiquidacion implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             fechaInicial = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fechaInicial");
-            fechaInicial.setFilterStyle("width: 85%;");
+            fechaInicial.setFilterStyle("width: 85% !important;");
             fechaFinal = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fechaFinal");
-            fechaFinal.setFilterStyle("width: 85%;");
+            fechaFinal.setFilterStyle("width: 85% !important;");
             empleado = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:empleado");
-            empleado.setFilterStyle("width: 85%;");
+            empleado.setFilterStyle("width: 85% !important;");
             tipoCentroCosto = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:tipoCentroCosto");
-            tipoCentroCosto.setFilterStyle("width: 85%;");
+            tipoCentroCosto.setFilterStyle("width: 85% !important;");
             concepto = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:concepto");
-            concepto.setFilterStyle("width: 85%;");
+            concepto.setFilterStyle("width: 85% !important;");
             nombreLargo = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:nombreLargo");
-            nombreLargo.setFilterStyle("width: 85%;");
+            nombreLargo.setFilterStyle("width: 85% !important;");
             fecha = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fecha");
-            fecha.setFilterStyle("width: 85%;");
+            fecha.setFilterStyle("width: 85% !important;");
             error = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:error");
-            error.setFilterStyle("width: 85%;");
+            error.setFilterStyle("width: 85% !important;");
             paquete = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:paquete");
-            paquete.setFilterStyle("width: 85%;");
+            paquete.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
 
             System.out.println("Activar");

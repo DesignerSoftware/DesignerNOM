@@ -733,20 +733,20 @@ public class ControlEmplInformacionAdicional implements Serializable {
         if (bandera == 0) {
             altoTabla ="285";
             infoAdFechaInicial = (Column) c.getViewRoot().findComponent("form:datosInfoAdEmpleado:infoAdFechaInicial");
-            infoAdFechaInicial.setFilterStyle("width: 85%");
+            infoAdFechaInicial.setFilterStyle("width: 85% !important");
             infoAdFechaFinal = (Column) c.getViewRoot().findComponent("form:datosInfoAdEmpleado:infoAdFechaFinal");
-            infoAdFechaFinal.setFilterStyle("width: 85%");
+            infoAdFechaFinal.setFilterStyle("width: 85% !important");
             infoAdGrupo = (Column) c.getViewRoot().findComponent("form:datosInfoAdEmpleado:infoAdGrupo");
-            infoAdGrupo.setFilterStyle("width: 85%;");
+            infoAdGrupo.setFilterStyle("width: 85% !important;");
             infoAdCaracter = (Column) c.getViewRoot().findComponent("form:datosInfoAdEmpleado:infoAdCaracter");
-            infoAdCaracter.setFilterStyle("width: 85%;");
+            infoAdCaracter.setFilterStyle("width: 85% !important;");
             ////
             infoAdNumerico = (Column) c.getViewRoot().findComponent("form:datosInfoAdEmpleado:infoAdNumerico");
-            infoAdNumerico.setFilterStyle("width: 85%");
+            infoAdNumerico.setFilterStyle("width: 85% !important");
             infoAdFecha = (Column) c.getViewRoot().findComponent("form:datosInfoAdEmpleado:infoAdFecha");
-            infoAdFecha.setFilterStyle("width: 85%");
+            infoAdFecha.setFilterStyle("width: 85% !important");
             infoAdObservacion = (Column) c.getViewRoot().findComponent("form:datosInfoAdEmpleado:infoAdObservacion");
-            infoAdObservacion.setFilterStyle("width: 85%");
+            infoAdObservacion.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosInfoAdEmpleado");
             bandera = 1;
         } else if (bandera == 1) {

@@ -1023,9 +1023,9 @@ public class ControlSucursalesPila implements Serializable {
                 tamano = 250;
                 System.out.println("Activar");
                 codigoCC = (Column) c.getViewRoot().findComponent("form:datosSucursalesPila:codigoCC");
-                codigoCC.setFilterStyle("width: 85%;");
+                codigoCC.setFilterStyle("width: 85% !important;");
                 nombreCentroCosto = (Column) c.getViewRoot().findComponent("form:datosSucursalesPila:nombreCentroCosto");
-                nombreCentroCosto.setFilterStyle("width: 85%;");
+                nombreCentroCosto.setFilterStyle("width: 85% !important;");
                 RequestContext.getCurrentInstance().update("form:datosSucursalesPila");
                 bandera = 1;
             } else if (bandera == 1) {

@@ -229,15 +229,15 @@ public class ControlEmpleado implements Serializable {
         if (bandera == 0) {
             altoTabla = "291";
             codigoEmpl = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEmpleados:codigoEmpl");
-            codigoEmpl.setFilterStyle("width: 85%");
+            codigoEmpl.setFilterStyle("width: 85% !important");
             nombreEmpl = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEmpleados:nombreEmpl");
-            nombreEmpl.setFilterStyle("width: 85%");
+            nombreEmpl.setFilterStyle("width: 85% !important");
             codDeudor = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEmpleados:codDeudor");
-            codDeudor.setFilterStyle("width: 85%");
+            codDeudor.setFilterStyle("width: 85% !important");
             codAcreedor = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEmpleados:codAcreedor");
-            codAcreedor.setFilterStyle("width: 85%");
+            codAcreedor.setFilterStyle("width: 85% !important");
             fechaCreacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEmpleados:fechaCreacion");
-            fechaCreacion.setFilterStyle("width: 85%");
+            fechaCreacion.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosEmpleados");
             bandera = 1;
         } else if (bandera == 1) {

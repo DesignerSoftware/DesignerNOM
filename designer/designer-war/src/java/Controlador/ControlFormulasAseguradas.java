@@ -412,11 +412,11 @@ public class ControlFormulasAseguradas implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             personafir = (Column) c.getViewRoot().findComponent("form:datosFormulasAseguradas:personafir");
-            personafir.setFilterStyle("width: 85%");
+            personafir.setFilterStyle("width: 85% !important");
             proceso = (Column) c.getViewRoot().findComponent("form:datosFormulasAseguradas:proceso");
-            proceso.setFilterStyle("width: 85%");
+            proceso.setFilterStyle("width: 85% !important");
             periodicidad = (Column) c.getViewRoot().findComponent("form:datosFormulasAseguradas:periodicidad");
-            periodicidad.setFilterStyle("width: 85%");
+            periodicidad.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosFormulasAseguradas");
             System.out.println("Activar");
             bandera = 1;

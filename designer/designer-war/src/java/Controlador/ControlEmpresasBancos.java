@@ -334,15 +334,15 @@ public class ControlEmpresasBancos implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             obsoleto = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:obsoleto");
-            obsoleto.setFilterStyle("width: 85%;");
+            obsoleto.setFilterStyle("width: 85% !important;");
             pais = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:pais");
-            pais.setFilterStyle("width: 85%;");
+            pais.setFilterStyle("width: 85% !important;");
             subTituloFirma = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:subTituloFirma");
-            subTituloFirma.setFilterStyle("width: 85%;");
+            subTituloFirma.setFilterStyle("width: 85% !important;");
             personafir = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:personafir");
-            personafir.setFilterStyle("width: 85%;");
+            personafir.setFilterStyle("width: 85% !important;");
             cargo = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:cargo");
-            cargo.setFilterStyle("width: 85%;");
+            cargo.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
             System.out.println("Activar");
             bandera = 1;

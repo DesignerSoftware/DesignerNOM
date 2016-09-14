@@ -93,7 +93,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fecha}" > 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fecha}" > 
                                                 <p:ajax event="dateSelect" listener="#{controlEmplDemanda.modificacionesFechas(indiceD,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplDemanda.modificacionesFechas(indiceD,0)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplDemanda.cambiarIndiceD(indiceD,0)}" process="@this"/> 
@@ -247,7 +247,7 @@
 
                             <strong><h:outputText value="*#{msg['fechaN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaD" value="#{controlEmplDemanda.nuevaDemandaEmpleado.fecha}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaD" value="#{controlEmplDemanda.nuevaDemandaEmpleado.fecha}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaD" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaD" process="@this"/>
                                 </p:calendar>
@@ -283,7 +283,7 @@
 
                             <strong><h:outputText value="*#{msg['fechaN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniDuplicarReg" style="position: absolute; top: 70px; left: 200px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlEmplDemanda.duplicarDemandaEmpleado.fecha}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlEmplDemanda.duplicarDemandaEmpleado.fecha}" >
                                     <p:ajax event="dateSelect" update="duplicarFecha" process="@this"/>
                                     <p:ajax event="change" update="duplicarFecha" process="@this"/>
                                 </p:calendar>

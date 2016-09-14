@@ -395,11 +395,11 @@ public class ControlTipoFormula implements Serializable {
         if (bandera == 0) {
             altoTabla = "250";
             tiposFormulasIniciales = (Column) c.getViewRoot().findComponent("form:datosTiposFormulas:tiposFormulasIniciales");
-            tiposFormulasIniciales.setFilterStyle("width: 85%;");
+            tiposFormulasIniciales.setFilterStyle("width: 85% !important;");
             tiposFormulasFinales = (Column) c.getViewRoot().findComponent("form:datosTiposFormulas:tiposFormulasFinales");
-            tiposFormulasFinales.setFilterStyle("width: 85%;");
+            tiposFormulasFinales.setFilterStyle("width: 85% !important;");
             tiposFormulasObjetos = (Column) c.getViewRoot().findComponent("form:datosTiposFormulas:tiposFormulasObjetos");
-            tiposFormulasObjetos.setFilterStyle("width: 85%;");
+            tiposFormulasObjetos.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
             bandera = 1;
             tipoLista = 1;

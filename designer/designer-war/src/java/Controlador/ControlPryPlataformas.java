@@ -229,11 +229,11 @@ public class ControlPryPlataformas implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosPrtPlataforma:codigo");
-            codigo.setFilterStyle("width: 85%");
+            codigo.setFilterStyle("width: 85% !important");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosPrtPlataforma:descripcion");
-            descripcion.setFilterStyle("width: 85%");
+            descripcion.setFilterStyle("width: 85% !important");
             observacion = (Column) c.getViewRoot().findComponent("form:datosPrtPlataforma:observacion");
-            observacion.setFilterStyle("width: 85%");
+            observacion.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosPrtPlataforma");
             System.out.println("Activar");
             bandera = 1;

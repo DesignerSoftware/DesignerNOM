@@ -122,7 +122,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaVigencia" value="#{infoDVL.fechavigencia}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaVigencia" value="#{infoDVL.fechavigencia}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciaLocalizacion.modificarFechas(infoDVL,0)}" update="dateFechaVigencia" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarFechas(infoDVL,0)}" update="dateFechaVigencia" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndice(infoDVL,0)}" update=":form:datosVPVigencia, :form:datosVPPVigencia" process="@this"/> 
@@ -292,7 +292,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicialVP" value="#{info.fechainicial}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicialVP" value="#{info.fechainicial}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciaLocalizacion.modificarFechasVigenciasProrrateos(indiceVP,2)}" update="dateFechaInicialVP" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarFechasVigenciasProrrateos(indiceVP,2)}" update="dateFechaInicialVP" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVP(info,2)}" update=":form:datosVPPVigencia" process="@this"/> 
@@ -317,7 +317,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinalVP" value="#{info.fechafinal}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaFinalVP" value="#{info.fechafinal}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciaLocalizacion.modificarFechasVigenciasProrrateos(indiceVP,3)}" update="dateFechaFinalVP" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarFechasVigenciasProrrateos(indiceVP,3)}" update="dateFechaFinalVP" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVP(info,3)}" update=":form:datosVPPVigencia" process="@this"/> 
@@ -441,7 +441,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicialVPP" value="#{info2.fechainicial}" > 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicialVPP" value="#{info2.fechainicial}" > 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciaLocalizacion.modificarFechasVigenciasProrrateosProyecto(info2,2)}" update="dateFechaInicialVPP" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarFechasVigenciasProrrateosProyecto(info2,2)}" update="dateFechaInicialVPP" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVPP(info2,2)}" update=":form:datosVPVigencia" process="@this"/> 
@@ -467,7 +467,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinalVPP" value="#{info2.fechafinal}"> 
+                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaFinalVPP" value="#{info2.fechafinal}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciaLocalizacion.modificarFechasVigenciasProrrateosProyecto(info2,3)}" update="dateFechaFinalVPP" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarFechasVigenciasProrrateosProyecto(info2,3)}" update="dateFechaFinalVPP" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVPP(info2,3)}" update=":form:datosVPVigencia" process="@this"/> 
@@ -505,19 +505,19 @@
                                     <h:outputText value="#{msg['buscarL']}" style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovLocalizacion.filter();" value="#{filtrado}" style="width:200px; position: relative;left: -110px"/>  
                                 </f:facet>
-                                <p:column filterBy="#{localizacion.centrocosto.codigoNombre}" filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{localizacion.centrocosto.codigoNombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['centroL']}"/>
                                     </f:facet>
                                     <h:outputText  value="#{localizacion.centrocosto.codigoNombre}" />
                                 </p:column>
-                                <p:column filterBy="#{localizacion.nombre}" filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{localizacion.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['nombreL']}" />
                                     </f:facet>
                                     <h:outputText value="#{localizacion.nombre}" />
                                 </p:column>
-                                <p:column filterBy="#{localizacion.centrocosto.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{localizacion.centrocosto.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['empresaLP']}" />
                                     </f:facet>
@@ -547,13 +547,13 @@
                                     <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovMotivo.filter();" value="#{filtrado}" style="width:200px; position: relative; left: 10px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{motivo.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{motivo.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['codigoM']}" />
                                     </f:facet>
                                     <h:outputText  value="#{motivo.codigo}" />
                                 </p:column>
-                                <p:column filterBy="#{motivo.descripcion}" width="200"  filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{motivo.descripcion}" width="200"  filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['descripcionM']}" />
                                     </f:facet>
@@ -581,19 +581,19 @@
                                     <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovProyectos.filter();" value="#{filtrado}" style="width:200px; position: relative; left: -60px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{proyecto.codigo}" width="160" filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{proyecto.codigo}" width="160" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['codigoP']}" />
                                     </f:facet>
                                     <h:outputText  value="#{proyecto.codigo}" />
                                 </p:column>
-                                <p:column filterBy="#{proyecto.nombreproyecto}" width="160"  filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{proyecto.nombreproyecto}" width="160"  filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['nombreP']}" />
                                     </f:facet>
                                     <h:outputText value="#{proyecto.nombreproyecto}" />
                                 </p:column>
-                                <p:column filterBy="#{proyecto.empresa.nombre}" width="160"  filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{proyecto.empresa.nombre}" width="160"  filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['empresaP']}" />
                                     </f:facet>
@@ -620,19 +620,19 @@
                                     <h:outputText value="#{msg['buscarLP']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText id="globalFilter" onkeyup="lovCentroCostos.filter();" value="#{filtrado}" style="width:200px; position: relative; left: -100px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{centro.codigo}" width="200" filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{centro.codigo}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['codigoLP']}" />
                                     </f:facet>
                                     <h:outputText  value="#{centro.codigo}" />
                                 </p:column>
-                                <p:column filterBy="#{centro.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{centro.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['localLP']}" />
                                     </f:facet>
                                     <h:outputText value="#{centro.nombre}" />
                                 </p:column>
-                                <p:column filterBy="#{centro.empresa.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 85%">
+                                <p:column filterBy="#{centro.empresa.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['empresaLP']}" />
                                     </f:facet>
@@ -770,7 +770,7 @@
                             
                             <strong><h:outputText value="*#{msg['fechavigenciaVL']}" style=" position: absolute; top: 65px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style=" position: absolute; top: 60px; left: 160px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlVigenciaLocalizacion.nuevaVigencia.fechavigencia}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlVigenciaLocalizacion.nuevaVigencia.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaVigencia" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaVigencia" process="@this"/>
                                 </p:calendar>
@@ -828,7 +828,7 @@
                             
                             <strong><h:outputText value="*#{msg['fechavigenciaVL']}" style=" position: absolute; top: 65px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniDupliReg" style=" position: absolute; top: 60px; left: 160px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlVigenciaLocalizacion.duplicarVL.fechavigencia}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlVigenciaLocalizacion.duplicarVL.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaVigencia" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaVigencia" process="@this"/>
                                 </p:calendar>
@@ -897,7 +897,7 @@
 
                             <strong><h:outputText value="*#{msg['inicialVP']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoRegVP" style=" width: 110px; position: absolute; left: 170px; top: 100px; text-transform: uppercase">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicialVP" value="#{controlVigenciaLocalizacion.nuevaVigenciaP.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialVP" value="#{controlVigenciaLocalizacion.nuevaVigenciaP.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialVP" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicialVP" process="@this"/>
                                 </p:calendar>
@@ -905,7 +905,7 @@
 
                             <strong><h:outputText value="#{msg['finalVP']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoRegVP" style=" width: 110px; position: absolute; top: 130px; left: 170px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinalVP" value="#{controlVigenciaLocalizacion.nuevaVigenciaP.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalVP" value="#{controlVigenciaLocalizacion.nuevaVigenciaP.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinalVP" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinalVP" process="@this"/>
                                 </p:calendar>
@@ -961,7 +961,7 @@
 
                             <strong><h:outputText value="*#{msg['inicialVP']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniDupliRegVP" style=" width: 110px; position: absolute; left: 170px; top: 100px; text-transform: uppercase">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicadoFechaInicialVP" value="#{controlVigenciaLocalizacion.duplicarVP.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicadoFechaInicialVP" value="#{controlVigenciaLocalizacion.duplicarVP.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicadoFechaInicialVP" process="@this"/>
                                     <p:ajax event="change" update="duplicadoFechaInicialVP" process="@this"/>
                                 </p:calendar>
@@ -969,7 +969,7 @@
 
                             <strong><h:outputText value="#{msg['finalVP']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinDupliRegVP" style=" width: 110px; position: absolute; top: 130px; left: 170px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicadoFechaFinalVP" value="#{controlVigenciaLocalizacion.duplicarVP.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicadoFechaFinalVP" value="#{controlVigenciaLocalizacion.duplicarVP.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicadoFechaFinalVP" process="@this"/>
                                     <p:ajax event="change" update="duplicadoFechaFinalVP" process="@this"/>
                                 </p:calendar>
@@ -1025,7 +1025,7 @@
 
                             <strong><h:outputText value="*#{msg['inicialVPP']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoRegVPP" style=" width: 110px; position: absolute; left: 160px; top: 100px; text-transform: uppercase">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicialVPP" value="#{controlVigenciaLocalizacion.nuevaVigenciaPP.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialVPP" value="#{controlVigenciaLocalizacion.nuevaVigenciaPP.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialVPP" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicialVPP" process="@this"/>
                                 </p:calendar>
@@ -1033,7 +1033,7 @@
 
                             <strong><h:outputText value="#{msg['finalVPP']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoRegVPP" style=" width: 110px; position: absolute; top: 130px; left: 160px">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinalVPP" value="#{controlVigenciaLocalizacion.nuevaVigenciaPP.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalVPP" value="#{controlVigenciaLocalizacion.nuevaVigenciaPP.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinalVPP" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinalVPP" process="@this"/>
                                 </p:calendar>
@@ -1072,7 +1072,7 @@
 
                             <strong><h:outputText value="*#{msg['inicialVPP']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniDupliRegVPP" style=" width: 110px; position: absolute; left: 160px; top: 100px; text-transform: uppercase">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicadoFechaInicialVPP" value="#{controlVigenciaLocalizacion.duplicarVPP.fechainicial}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicadoFechaInicialVPP" value="#{controlVigenciaLocalizacion.duplicarVPP.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicadoFechaInicialVPP" process="@this"/>
                                     <p:ajax event="change" update="duplicadoFechaInicialVPP" process="@this"/>
                                 </p:calendar>
@@ -1080,7 +1080,7 @@
 
                             <strong><h:outputText value="#{msg['finalVP']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinDupliRegVPP" style=" width: 110px; position: absolute; top: 130px; left: 160px">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicadoFechaFinalVPP" value="#{controlVigenciaLocalizacion.duplicarVPP.fechafinal}" >
+                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicadoFechaFinalVPP" value="#{controlVigenciaLocalizacion.duplicarVPP.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicadoFechaFinalVPP" process="@this"/>
                                     <p:ajax event="change" update="duplicadoFechaFinalVPP" process="@this"/>
                                 </p:calendar>

@@ -402,19 +402,19 @@ public class ControlUsuariosVistas implements Serializable {
         if (bandera == 0) {
             System.out.println("Activar");
             usuariovistaDescripcion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:descripcion");
-            usuariovistaDescripcion.setFilterStyle("width: 85%");
+            usuariovistaDescripcion.setFilterStyle("width: 85% !important");
             usuariovistaNombreVista = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:nombrevista");
-            usuariovistaNombreVista.setFilterStyle("width: 85%");
+            usuariovistaNombreVista.setFilterStyle("width: 85% !important");
             usuariovistaObjetoDB = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:objetodb");
-            usuariovistaObjetoDB.setFilterStyle("width: 85%");
+            usuariovistaObjetoDB.setFilterStyle("width: 85% !important");
             usuariovistaAlias = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:alias");
-            usuariovistaAlias.setFilterStyle("width: 85%");
+            usuariovistaAlias.setFilterStyle("width: 85% !important");
             usuariovistaEstructuraJOIN = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:estructurajoin");
-            usuariovistaEstructuraJOIN.setFilterStyle("width: 85%;");
+            usuariovistaEstructuraJOIN.setFilterStyle("width: 85% !important;");
             usuariovistaCondicion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:condicion");
-            usuariovistaCondicion.setFilterStyle("width: 85%;");
+            usuariovistaCondicion.setFilterStyle("width: 85% !important;");
             usuariovistaHINTPrincipal = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:hintprincipal");
-            usuariovistaHINTPrincipal.setFilterStyle("width: 85%;");
+            usuariovistaHINTPrincipal.setFilterStyle("width: 85% !important;");
             altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
             bandera = 1;

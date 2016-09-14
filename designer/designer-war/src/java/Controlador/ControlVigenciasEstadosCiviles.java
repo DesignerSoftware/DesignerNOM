@@ -354,9 +354,9 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
             fecha = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:fecha");
-            fecha.setFilterStyle("width: 85%;");
+            fecha.setFilterStyle("width: 85% !important;");
             parentesco = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:parentesco");
-            parentesco.setFilterStyle("width: 85%;");
+            parentesco.setFilterStyle("width: 85% !important;");
             altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
             System.out.println("Activar");

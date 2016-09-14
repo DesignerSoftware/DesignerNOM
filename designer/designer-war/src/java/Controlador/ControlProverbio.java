@@ -308,7 +308,7 @@ public class ControlProverbio implements Serializable {
         if (bandera == 0 && CualTabla == 0) {
             altoTabla = "95";
             pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
-            pMensaje.setFilterStyle("width: 85%");
+            pMensaje.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosProverbios");
             bandera = 1;
         } else if (bandera == 1 && CualTabla == 0) {
@@ -322,13 +322,13 @@ public class ControlProverbio implements Serializable {
         } else if (banderaNF == 0 && CualTabla == 1) {
             altoTablaNF = "91";
             mAno = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mAno");
-            mAno.setFilterStyle("width: 85%");
+            mAno.setFilterStyle("width: 85% !important");
             mMes = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMes");
-            mMes.setFilterStyle("width: 85%");
+            mMes.setFilterStyle("width: 85% !important");
             mDia = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mDia");
-            mDia.setFilterStyle("width: 85%");
+            mDia.setFilterStyle("width: 85% !important");
             mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
-            mMensaje.setFilterStyle("width: 85%");
+            mMensaje.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
             banderaNF = 1;
         } else if (banderaNF == 1 && CualTabla == 1) {

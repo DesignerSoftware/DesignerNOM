@@ -296,13 +296,13 @@
                                 <h:outputText value="#{msg['buscarD']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                 <p:inputText id="globalFilter" widgetVar="globalFilter" onkeyup="LOVDepartamentos.filter();" value="#{filtrado}" style="width:120px; position: relative; left: 70px;" />  
                             </f:facet>
-                            <p:column filterBy="#{departamentos.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 85%;">
+                            <p:column filterBy="#{departamentos.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 85% !important;">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigo']}" />
                                 </f:facet>
                                 <h:outputText value="#{departamentos.codigo}" />
                             </p:column>
-                            <p:column filterBy="#{departamentos.nombre}" filterMatchMode="contains" filterStyle="width: 85%;">
+                            <p:column filterBy="#{departamentos.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['departamentoN']}" />
                                 </f:facet>

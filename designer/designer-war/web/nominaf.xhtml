@@ -730,23 +730,23 @@
                         <p:watermark for="globalFilter" value="#{msg['ingresarvalor']}"/>
                      </f:facet>
 
-                     <p:column  headerText="#{msg['codigoE']}" filterOptions="" width="80" filterBy="#{item.codigoEmpleado}" filterStyle="width: 85%;" filterMatchMode="contains">  
+                     <p:column  headerText="#{msg['codigoE']}" filterOptions="" width="80" filterBy="#{item.codigoEmpleado}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.codigoEmpleado}"/>
                      </p:column>  
 
-                     <p:column headerText="#{msg['primerapellidoE']}" width="120" filterBy="#{item.primerApellido}" filterStyle="width: 85%;" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['primerapellidoE']}" width="120" filterBy="#{item.primerApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.primerApellido}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['segundoapellidoE']}" width="120" filterBy="#{item.segundoApellido}" filterStyle="width: 85%;" filterMatchMode="contains" >  
+                     <p:column headerText="#{msg['segundoapellidoE']}" width="120" filterBy="#{item.segundoApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains" >  
                         <h:outputText value="#{item.segundoApellido}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['nombre']}" filterBy="#{item.nombre}" filterStyle="width: 85%;" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['nombre']}" filterBy="#{item.nombre}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.nombre}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['tipo']}" width="80" filterBy="#{item.tipo}" filterStyle="width: 85%;" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['tipo']}" width="80" filterBy="#{item.tipo}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.tipo}"/>  
                      </p:column>
 
@@ -777,19 +777,19 @@
                         <p:watermark for="globalFilter" value="#{msg['ingresarvalor']}" />
                      </f:facet>
 
-                     <p:column  headerText="#{msg['codigoE']}" filterOptions="" width="80" filterBy="#{item.codigoEmpleado}" filterStyle="width: 85%;" filterMatchMode="contains">  
+                     <p:column  headerText="#{msg['codigoE']}" filterOptions="" width="80" filterBy="#{item.codigoEmpleado}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.codigoEmpleado}" />  
                      </p:column>  
 
-                     <p:column headerText="#{msg['primerapellidoE']}" width="120" filterBy="#{item.primerApellido}" filterStyle="width: 85%;" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['primerapellidoE']}" width="120" filterBy="#{item.primerApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.primerApellido}" />  
                      </p:column>  
 
-                     <p:column headerText="#{msg['segundoapellidoE']}" width="120" filterBy="#{item.segundoApellido}" filterStyle="width: 85%;" filterMatchMode="contains" >  
+                     <p:column headerText="#{msg['segundoapellidoE']}" width="120" filterBy="#{item.segundoApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains" >  
                         <h:outputText value="#{item.segundoApellido}" />  
                      </p:column>  
 
-                     <p:column headerText="#{msg['nombre']}" filterBy="#{item.nombre}"  filterStyle="width: 85%;" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['nombre']}" filterBy="#{item.nombre}"  filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.nombre}" />  
                      </p:column>  
                   </p:dataTable> 
@@ -838,7 +838,7 @@
                                emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlRemoto.filtradoLOVEmpresas}">
 
                      <p:ajax event="filter" listener="#{controlRemoto.eventoFiltrarEmpresas()}"/>
-                     <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlRemoto.activarAceptarEmp()}" update=":form:aceptarEmp"/>
+                     <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlRemoto.activarAceptarEmp()}" update=":form:aceptaremp"/>
                      <p:ajax event="rowDblselect" listener="#{controlRemoto.redireccionPersonaIndividual()}"
                              immediate="#{controlPersonaIndividual.actualizarParametroEmpresaInformacionPersonalVisible(controlRemoto.empresaSeleccionada)}" process="@this"/>
 
@@ -847,14 +847,14 @@
                         <p:inputText id="globalFilter" onkeyup="LovEmpresasTabla.filter();" style="width: 240px; position: relative; left: 40px; height: 12px; text-transform: uppercase;"/>  
                      </f:facet>
 
-                     <p:column filterBy="#{empresaIPV.nombre}" filterMatchMode="contains" filterStyle="width: 85%; height: 12px; text-transform: uppercase;">
+                     <p:column filterBy="#{empresaIPV.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important; height: 12px; text-transform: uppercase;">
                         <f:facet name="header">
                            <h:outputText style="text-align: center" value="#{msg['nombreEmpresa']}" />
                         </f:facet>
                         <h:outputText  value="#{empresaIPV.nombre}" />
                      </p:column>
 
-                     <p:column style="text-align: center" filterBy="#{empresaIPV.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85%; height: 12px; text-transform: uppercase;">
+                     <p:column style="text-align: center" filterBy="#{empresaIPV.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important; height: 12px; text-transform: uppercase;">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nitEmpresa']}" />
                         </f:facet>
@@ -865,9 +865,9 @@
                   <h:outputText id="infoRegistroEmpresas" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroEmpresas}" 
                                 style="position: relative; left: 10px; top: 0px; font-weight: bold"/>
 
-                  <p:commandButton id="aceptarEmp" style="position: relative; left: 185px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlRemoto.activarAceptarEmpresas}" 
+                  <p:commandButton id="aceptaremp" style="position: relative; left: 185px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlRemoto.activarAceptarEmpresas}" 
                                    process="@this" immediate="#{controlPersonaIndividual.actualizarParametroEmpresaInformacionPersonalVisible(controlRemoto.empresaSeleccionada)}" icon="ui-icon-check"
-                                   actionListener="#{controlRemoto.redireccionPersonaIndividual()}" widgetVar="aceptarEmp"/>
+                                   actionListener="#{controlRemoto.redireccionPersonaIndividual()}" widgetVar="aceptaremp"/>
 
                   <p:commandButton id="atrasEmp" style="position: relative; left: 185px; top: 15px;" value="#{msg['atras']}" oncomplete="PF('LovEmpresasDialogo').hide()"
                                    process="@this" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlRemoto.anularBotonEmpresas()}"/>

@@ -335,13 +335,13 @@ public class ControlHvEntrevistas implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             fecha = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:fecha");
-            fecha.setFilterStyle("width: 85%;");
+            fecha.setFilterStyle("width: 85% !important;");
             nombre = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:nombre");
-            nombre.setFilterStyle("width: 85%");
+            nombre.setFilterStyle("width: 85% !important");
             tipoPuntaje = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:tipoPuntaje");
-            tipoPuntaje.setFilterStyle("width: 85%");
+            tipoPuntaje.setFilterStyle("width: 85% !important");
             puntaje = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:puntaje");
-            puntaje.setFilterStyle("width: 85%");
+            puntaje.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
             System.out.println("Activar");
             bandera = 1;

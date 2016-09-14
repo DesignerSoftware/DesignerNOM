@@ -215,7 +215,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{v.fechainicial}" > 
+                                 <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{v.fechainicial}" > 
                                     <p:ajax event="dateSelect" listener="#{controlGrupoConcepto.modificarFechas(indiceD,3)}" update="dateFechaInicial" process="@this"/>
                                     <p:ajax event="change" listener="#{controlGrupoConcepto.modificarFechas(indiceD,3)}" update="dateFechaInicial" process="@this"/>
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndiceD(indiceD,3)}" process="@this"/> 
@@ -235,7 +235,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{v.fechafinal}" > 
+                                 <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{v.fechafinal}" > 
                                     <p:ajax event="dateSelect" listener="#{controlGrupoConcepto.modificarFechas(indiceD,4)}" update="dateFechaFinal" process="@this"/>
                                     <p:ajax event="change" listener="#{controlGrupoConcepto.modificarFechas(indiceD,4)}" update="dateFechaFinal" process="@this"/>
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndiceD(indiceD,4)}" process="@this"/> 
@@ -371,7 +371,7 @@
 
                         <strong><h:outputText value="#{msg['inicialN']}" style="font-size: 14px; position: absolute; top: 137px;" /></strong>
                         <div id="posicionFechaIniNuevoReg" style="font-size: 10px; position: absolute; top: 135px; left: 152px">
-                           <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.fechainicial}" >
+                           <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.fechainicial}" >
                               <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                               <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
                            </p:calendar>
@@ -379,7 +379,7 @@
 
                         <strong><h:outputText value="#{msg['finalN']}" style="font-size: 14px; position: absolute; top: 177px;" /></strong>
                         <div id="posicionFechaFinNuevoReg" style="font-size: 10px; position: absolute; top: 175px; left: 152px">
-                           <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.fechafinal}" >
+                           <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.fechafinal}" >
                               <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                               <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
                            </p:calendar>
@@ -428,7 +428,7 @@
 
                         <strong><h:outputText value="#{msg['inicialN']}" style="font-size: 14px; position: absolute; top: 137px;" /></strong>
                         <div id="posicionFechaIniNuevoRegDuplicar" style="font-size: 10px; position: absolute; top: 135px; left: 152px">
-                           <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.fechainicial}" >
+                           <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.fechainicial}" >
                               <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                               <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
                            </p:calendar>
@@ -436,7 +436,7 @@
 
                         <strong><h:outputText value="#{msg['finalN']}" style="font-size: 14px; position: absolute; top: 177px;" /></strong>
                         <div id="posicionFechaFinNuevoRegDuplicar" style="font-size: 10px; position: absolute; top: 175px; left: 152px">
-                           <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.fechafinal}" >
+                           <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.fechafinal}" >
                               <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                               <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
                            </p:calendar>
@@ -599,14 +599,14 @@
                </p:dialog>
 
                <p:dialog id="editarFechaInicialV" header="#{msg['editarFechaInicialV']}" widgetVar="editarFechaInicialV" resizable="false" draggable="false" modal="true" height="30" width="240" style="font-size: 12px; padding: 0px">  
-                  <p:calendar pattern="dd/MM/yyyy"  style="font-size: 10px; left: 4px; top: 4px; position: absolute" value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechainicial}" id="editFechaInicialCelda"  styleClass="ui-datepicker, myClass"  
+                  <p:calendar mask="true" pattern="dd/MM/yyyy"  style="font-size: 10px; left: 4px; top: 4px; position: absolute" value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechainicial}" id="editFechaInicialCelda"  styleClass="ui-datepicker, myClass"  
                               navigator="true" showButtonPanel="true" locale="es">
                   </p:calendar>
                   <p:commandButton id="cancelarFechaInicialV" value="#{msg['atras']}" onclick="PF('editarFechaInicialV').hide();" style="position: absolute; top: 5px; left: 148px; font-size: 11px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="editarFechaFinalV" header="#{msg['editarFechaFinalV']}" widgetVar="editarFechaFinalV" resizable="false" draggable="false" modal="true" height="30" width="240" style="font-size: 12px; padding: 0px">  
-                  <p:calendar pattern="dd/MM/yyyy"  style="font-size: 10px; left: 4px; top: 4px; position: absolute" value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechafinal}" id="editFechaFinalCelda"  styleClass="ui-datepicker, myClass"  
+                  <p:calendar mask="true" pattern="dd/MM/yyyy"  style="font-size: 10px; left: 4px; top: 4px; position: absolute" value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechafinal}" id="editFechaFinalCelda"  styleClass="ui-datepicker, myClass"  
                               navigator="true" showButtonPanel="true" locale="es">
                   </p:calendar>
                   <p:commandButton id="cancelarFechaFinalV" value="#{msg['atras']}" onclick="PF('editarFechaFinalV').hide();" style="position: absolute; top: 5px; left: 148px; font-size: 11px;" process="@this" />
