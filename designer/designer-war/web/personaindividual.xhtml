@@ -136,7 +136,7 @@
                                     <p:inputText onclick="PF('select();" value="#{controlPersonaIndividual.nuevaPersona.numerodocumento}" id="numeroDocumentoModPersonal" widgetVar="numeroDocumentoModPersonal" style="position: absolute; top: 50px; left: 430px; width: 130px;text-transform: uppercase">
                                         <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(6)}" process="@this"/>
                                         <p:ajax event="change" listener="#{controlPersonaIndividual.modificarNumeroDocumentoPersona()}" process="@this"/>
-                                         <p:keyFilter for="numeroDocumentoModPersonal" mask="num"/>
+                                        <p:keyFilter for="numeroDocumentoModPersonal" mask="num"/>
                                     </p:inputText>
 
                                     <h:outputText  value="#{msg['ciudadDocumento']}*" style="position: absolute; top: 85px; left: 290px; font-weight: bold"/>
@@ -175,7 +175,7 @@
                                     <p:inputText onclick="PF('select();" value="#{controlPersonaIndividual.nuevoEmpleado.codigoempleado}" id="codigoEmpleadoModPersonal" style="position: absolute; top: 50px; left: 705px;width: 105px;text-transform: uppercase">
                                         <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(11)}" process="@this"/>
                                         <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCodigoEmpleado()}" process="@this" update="@this" />
-                                         <p:keyFilter for="codigoEmpleadoModPersonal" mask="num"/>
+                                        <p:keyFilter for="codigoEmpleadoModPersonal" mask="num"/>
                                     </p:inputText>
 
 
@@ -305,7 +305,7 @@
                                     <p:inputText  id="valorSueldoModSueldo" onclick="PF('select();" value="#{controlPersonaIndividual.valorSueldo}" style="position: absolute; top: 20px; left: 230px;width: 150px;text-transform: uppercase">
                                         <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemSueldo(0)}" process="@this"/>
                                         <p:ajax event="change" listener="#{controlPersonaIndividual.modificacionValorSueldo(controlPersonaIndividual.valorSueldo)}" process="@this" update="valorSueldoModSueldo"/>
-                                         <p:keyFilter for="valorSueldoModSueldo" mask="num"/>
+                                        <p:keyFilter for="valorSueldoModSueldo" mask="num"/>
                                         <f:convertNumber currencyCode="COP"/>
                                     </p:inputText>
 
@@ -631,8 +631,8 @@
                     <h:form id="formDInformacionPersonal">
                         <h:form id="formEmpresa">
                             <p:dialog header="#{msg['empresaM']}" widgetVar="EmpresaInformacionPersonalDialogo" draggable="false" resizable="false" closable="false" id="EmpresaInformacionPersonalDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="414" height="345">
-                                <p:dataTable id="lovEmpresaInformacionPersonal" style=" width: 370px;" var="empresaIP" value="#{controlPersonaIndividual.lovEmpresas}" rowKey="#{empresaIP.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="414" >
+                                <p:dataTable id="lovEmpresaInformacionPersonal" var="empresaIP" value="#{controlPersonaIndividual.lovEmpresas}" rowKey="#{empresaIP.secuencia}"
                                              selection="#{controlPersonaIndividual.empresaSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovEmpresaInformacionPersonal" scrollable="true" scrollHeight="200"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovEmpresas}">
 
@@ -641,8 +641,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDInformacionPersonal:formEmpresa:aceptarEIP"/>
 
                                     <f:facet name="header"> 
-                                        <h:outputText value="#{msg['buscarEIP']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovEmpresaInformacionPersonal').filter();" style="width:150px; position: relative; left: 40px;" />  
+                                        <h:outputText value="#{msg['buscarEIP']}" />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovEmpresaInformacionPersonal').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{empresaIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -658,21 +658,23 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroEmpresaInformacionPersonal" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroEmpresaInfoPersonal}" style="position: relative; left: 10px; top: 15px; font-weight: bold"/>
+                                <div class="cssBotonesLOV">
+                                    <h:outputText id="infoRegistroEmpresaInformacionPersonal" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroEmpresaInfoPersonal}" class="cssinfoRegistroLOV"/>
 
-                                <p:commandButton id="aceptarEIP" style="position: relative; left: 120px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()"
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:primerApellidoModPersonal');});" 
-                                                 actionListener="#{controlPersonaIndividual.actualizarParametroEmpresaInformacionPersonal()}" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="aceptarEIP" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()"
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:primerApellidoModPersonal');});" 
+                                                     actionListener="#{controlPersonaIndividual.actualizarParametroEmpresaInformacionPersonal()}" process="@this" icon="ui-icon-check"/>
 
-                                <p:commandButton id="atrasEIP" style="position: relative; left: 121px; top: 15px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroEmpresaInformacionPersonal()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                    <p:commandButton id="atrasEIP" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroEmpresaInformacionPersonal()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
 
                         <h:form id="infoP_tipoD">
                             <p:dialog header="#{msg['ingresetd']}" widgetVar="TipoDocumentoInformacionPersonalDialogo" draggable="false" resizable="false" closable="false" id="TipoDocumentoInformacionPersonalDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" height="340" >
-                                <p:dataTable id="lovTipoDocumentoInformacionPersonal" style=" width: 370px;" var="tipoDIP" value="#{controlPersonaIndividual.lovTiposDocumentos}" rowKey="#{tipoDIP.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" >
+                                <p:dataTable id="lovTipoDocumentoInformacionPersonal" var="tipoDIP" value="#{controlPersonaIndividual.lovTiposDocumentos}" rowKey="#{tipoDIP.secuencia}"
                                              selection="#{controlPersonaIndividual.tipoDocumentoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovTipoDocumentoInformacionPersonal" scrollable="true" scrollHeight="200"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovTiposDocumentos}">
 
@@ -681,8 +683,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDInformacionPersonal:infoP_tipoD:aceptarTDIP"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarTDIP']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovTipoDocumentoInformacionPersonal').filter();" style="width:150px; position: relative; left: 75px;" />  
+                                        <h:outputText value="#{msg['buscarTDIP']}"  />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovTipoDocumentoInformacionPersonal').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{tipoDIP.nombrecorto}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important">
                                         <f:facet name="header">
@@ -698,19 +700,21 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroTipoDocumentoInformacionPersonal" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTipoDocInfoPersonal}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                                <div class="cssBotonesLOV">
+                                    <h:outputText id="infoRegistroTipoDocumentoInformacionPersonal" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTipoDocInfoPersonal}" class="cssinfoRegistroLOV"/>
 
-                                <p:commandButton id="aceptarTDIP" style="position: relative; left: 120px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" actionListener="#{controlPersonaIndividual.actualizarParametroTipoDocumentoInformacionPersonal()}" 
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:numeroDocumentoModPersonal');});" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasTDIP" style="position: relative; left: 120px; top: 15px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroTipoDocumentoInformacionPersonal()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                    <p:commandButton id="aceptarTDIP" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" actionListener="#{controlPersonaIndividual.actualizarParametroTipoDocumentoInformacionPersonal()}" 
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:numeroDocumentoModPersonal');});" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasTDIP" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroTipoDocumentoInformacionPersonal()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>   
                             </p:dialog>
                         </h:form>
 
                         <h:form id="infoP_ciudadD">
                             <p:dialog header="#{msg['ingreseciudadtd']}" widgetVar="CiudadDocumentoInformacionPersonalDialogo" draggable="false" resizable="false" closable="false" id="CiudadDocumentoInformacionPersonalDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="390" >
-                                <p:dataTable id="lovCiudadDocumentoInformacionPersonal" style=" width: 370px;" var="ciudadDIP" value="#{controlPersonaIndividual.lovCiudades}" rowKey="#{ciudadDIP.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                                <p:dataTable id="lovCiudadDocumentoInformacionPersonal" var="ciudadDIP" value="#{controlPersonaIndividual.lovCiudades}" rowKey="#{ciudadDIP.secuencia}"
                                              selection="#{controlPersonaIndividual.ciudadSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovCiudadDocumentoInformacionPersonal" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovCiudades}" liveScroll="true" scrollRows="50">
 
@@ -719,8 +723,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDInformacionPersonal:infoP_ciudadD:aceptarCDIP" />
 
                                     <f:facet name="header"> 
-                                        <h:outputText value="#{msg['buscarCDIP']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovCiudadDocumentoInformacionPersonal').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                        <h:outputText value="#{msg['buscarCDIP']}" />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovCiudadDocumentoInformacionPersonal').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -736,19 +740,21 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroCiudadDocumentoInformacionPersonal" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroCiudadDocInfoPersonal}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                                <div class="cssBotonesLOV">
+                                    <h:outputText id="infoRegistroCiudadDocumentoInformacionPersonal" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroCiudadDocInfoPersonal}" class="cssinfoRegistroLOV"/>
 
-                                <p:commandButton id="aceptarCDIP" style="position: relative; left: 120px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:divFechaNacimientoModPersonal');});" actionListener="#{controlPersonaIndividual.actualizarParametroCiudadDocumentoInformacionPersonal()}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasCDIP" style="position: relative; left: 120px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroCiudadDocumentoInformacionPersonal()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                    <p:commandButton id="aceptarCDIP" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:divFechaNacimientoModPersonal');});" actionListener="#{controlPersonaIndividual.actualizarParametroCiudadDocumentoInformacionPersonal()}" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasCDIP" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroCiudadDocumentoInformacionPersonal()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
 
                         <h:form id="infoP_ciudadN">
                             <p:dialog header="#{msg['ingreseciudadna']}" widgetVar="CiudadNacimientoInformacionPersonalDialogo" draggable="false" resizable="false" closable="false" id="CiudadNacimientoInformacionPersonalDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="390">
-                                <p:dataTable id="lovCiudadNacimientoInformacionPersonal" style=" width: 370px;" var="ciudadDIP" value="#{controlPersonaIndividual.lovCiudades}" rowKey="#{ciudadDIP.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                                <p:dataTable id="lovCiudadNacimientoInformacionPersonal" var="ciudadDIP" value="#{controlPersonaIndividual.lovCiudades}" rowKey="#{ciudadDIP.secuencia}"
                                              selection="#{controlPersonaIndividual.ciudadSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovCiudadNacimientoInformacionPersonal" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovCiudades}"
                                              liveScroll="true" scrollRows="50">
@@ -758,8 +764,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDInformacionPersonal:infoP_ciudadN:aceptarCNIP"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarCNIP']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovCiudadNacimientoInformacionPersonal').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                        <h:outputText value="#{msg['buscarCNIP']}" />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovCiudadNacimientoInformacionPersonal').filter();" class="cssFiltroLOV"/>  
                                     </f:facet>
                                     <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -775,12 +781,13 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroCiudadNacimientoInformacionPersonal" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroCiudadNacInfoPersonal}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarCNIP" style="position: relative; left: 105px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:fechaIngresoModPersonal');});" actionListener="#{controlPersonaIndividual.actualizarParametroCiudadNacimientoInformacionPersonal()}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasCNIP" style="position: relative; left: 105px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroCiudadNacimientoInformacionPersonal()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                <div>
+                                    <h:outputText id="infoRegistroCiudadNacimientoInformacionPersonal" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroCiudadNacInfoPersonal}" class="cssinfoRegistroLOV"/>
+                                    <p:commandButton id="aceptarCNIP" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:fechaIngresoModPersonal');});" actionListener="#{controlPersonaIndividual.actualizarParametroCiudadNacimientoInformacionPersonal()}" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasCNIP" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroCiudadNacimientoInformacionPersonal()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
                     </h:form>
@@ -789,8 +796,8 @@
 
                         <h:form id="formCargo">
                             <p:dialog header="#{msg['nombrecargo']}" widgetVar="CargoCargoDesempeñadoDialogo" draggable="false" resizable="false" closable="false" id="CargoCargoDesempeñadoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="390">
-                                <p:dataTable id="lovCargoCargoDesempeñado" style=" width: 370px;" var="cargoCD" value="#{controlPersonaIndividual.lovCargos}" rowKey="#{cargoCD.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                                <p:dataTable id="lovCargoCargoDesempeñado" var="cargoCD" value="#{controlPersonaIndividual.lovCargos}" rowKey="#{cargoCD.secuencia}"
                                              selection="#{controlPersonaIndividual.cargoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovCargoCargoDesempeñado" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovCargos}">
 
@@ -799,8 +806,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formCargo:aceptarCCD"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarCCD']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovCargoCargoDesempeñado').filter();" style="width:150px; position: relative; left: 5px;" />  
+                                        <h:outputText value="#{msg['buscarCCD']}" />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovCargoCargoDesempeñado').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{cargoCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -810,19 +817,21 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroCargoCargoDesempenado" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroCargoDesempenado}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                                <div class="cssBotonesLOV">
+                                    <h:outputText id="infoRegistroCargoCargoDesempenado" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroCargoDesempenado}" class="cssinfoRegistroLOV"/>
 
-                                <p:commandButton id="aceptarCCD" style="position: relative; left: 120px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:motivoModCargoDesempeñado');});" actionListener="#{controlPersonaIndividual.actualizarParametroCargoCargoDesempeñado()}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasCCD" style="position: relative; left: 120px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroCargoCargoDesempeñado()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                    <p:commandButton id="aceptarCCD" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:motivoModCargoDesempeñado');});" actionListener="#{controlPersonaIndividual.actualizarParametroCargoCargoDesempeñado()}" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasCCD" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroCargoCargoDesempeñado()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
 
                         <h:form id="formMotcargo">
                             <p:dialog header="#{msg['motivocargo']}" widgetVar="MotivoCambioCargoCargoDesempeñadoDialogo" draggable="false" resizable="false" closable="false" id="MotivoCambioCargoCargoDesempeñadoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="390">
-                                <p:dataTable id="lovMotivoCambioCargoCargoDesempeñado" style=" width: 370px;" var="motivoCambioCD" value="#{controlPersonaIndividual.lovMotivosCargos}" rowKey="#{motivoCambioCD.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true">
+                                <p:dataTable id="lovMotivoCambioCargoCargoDesempeñado" var="motivoCambioCD" value="#{controlPersonaIndividual.lovMotivosCargos}" rowKey="#{motivoCambioCD.secuencia}"
                                              selection="#{controlPersonaIndividual.motivoCambioCargoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovMotivoCambioCargoCargoDesempeñado" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovMotivosCambiosCargos}">
 
@@ -831,8 +840,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formMotcargo:aceptarMCCCD"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarMCCCD']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovMotivoCambioCargoCargoDesempeñado').filter();" style="width:150px; position: relative; left: 25px;" />  
+                                        <h:outputText value="#{msg['buscarMCCCD']}" />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovMotivoCambioCargoCargoDesempeñado').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{motivoCambioCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -842,20 +851,21 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroMotivoCargoCargoDesempenado" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMotivoCargoDesempenado}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarMCCCD" style="position: relative; left: 115px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:estructuraModCargoDesempeñado');});" actionListener="#{controlPersonaIndividual.actualizarParametroMotivoCambioCargoCargoDesempeñado()}" 
-                                                 process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasMCCCD" style="position: relative; left: 115px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroMotivoCambioCargoCargoDesempeñado()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                <div class="cssBotonesLOV">
+                                    <h:outputText id="infoRegistroMotivoCargoCargoDesempenado" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMotivoCargoDesempenado}" class="cssinfoRegistroLOV"/>
+                                    <p:commandButton id="aceptarMCCCD" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:estructuraModCargoDesempeñado');});" actionListener="#{controlPersonaIndividual.actualizarParametroMotivoCambioCargoCargoDesempeñado()}" 
+                                                     process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasMCCCD" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroMotivoCambioCargoCargoDesempeñado()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
 
                         <h:form id="formEstruCargo">
                             <p:dialog header="#{msg['estructuracargo']}" widgetVar="EstructuraCargoDesempeñadoDialogo" draggable="false" resizable="false" closable="false" id="EstructuraCargoDesempeñadoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="390">
-                                <p:dataTable id="lovEstructuraCargoDesempeñado" style=" width: 370px;" var="estructuraCD" value="#{controlPersonaIndividual.lovEstructuras}" rowKey="#{estructuraCD.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true">
+                                <p:dataTable id="lovEstructuraCargoDesempeñado" var="estructuraCD" value="#{controlPersonaIndividual.lovEstructuras}" rowKey="#{estructuraCD.secuencia}"
                                              selection="#{controlPersonaIndividual.estructuraSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovEstructuraCargoDesempeñado" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovEstructuras}">
 
@@ -864,8 +874,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formEstruCargo:aceptarECD"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarECD']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovEstructuraCargoDesempeñado').filter();" style="width:150px; position: relative; left: 45px;" />  
+                                        <h:outputText value="#{msg['buscarECD']}" />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovEstructuraCargoDesempeñado').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{estructuraCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -875,20 +885,21 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroEstructuraCargoDesempenado" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroEstructuraCargoDesempenado}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarECD" style="position: relative; left: 105px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                                 oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlPersonaIndividual.actualizarParametroEstructuraCargoDesempeñado()}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasECD" style="position: relative; left: 105px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" icon="ui-icon-arrowreturnthick-1-w"
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:papelModCargoDesempeñado');});"
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroEstructuraCargoDesempeñado()}" process="@this"/>
+                                <div class="cssBotonesLOV">
+                                    <h:outputText id="infoRegistroEstructuraCargoDesempenado" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroEstructuraCargoDesempenado}" class="cssinfoRegistroLOV"/>
+                                    <p:commandButton id="aceptarECD" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                     oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlPersonaIndividual.actualizarParametroEstructuraCargoDesempeñado()}" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasECD" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" icon="ui-icon-arrowreturnthick-1-w"
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:papelModCargoDesempeñado');});"
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroEstructuraCargoDesempeñado()}" process="@this"/>
+                                </div>
                             </p:dialog>
                         </h:form>
 
                         <h:form id="formPapelD">
                             <p:dialog header="#{msg['papeldesem']}" widgetVar="PapelCargoDesempeñadoDialogo" draggable="false" resizable="false" closable="false" id="PapelCargoDesempeñadoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="390">
-                                <p:dataTable id="lovPapelCargoDesempeñado" style=" width: 370px;" var="papelCD" value="#{controlPersonaIndividual.lovPapeles}" rowKey="#{papelCD.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                                <p:dataTable id="lovPapelCargoDesempeñado" var="papelCD" value="#{controlPersonaIndividual.lovPapeles}" rowKey="#{papelCD.secuencia}"
                                              selection="#{controlPersonaIndividual.papelSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovPapelCargoDesempeñado" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovPapeles}">
 
@@ -897,8 +908,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formPapelD:aceptarPCD"/>
 
                                     <f:facet name="header"> 
-                                        <h:outputText value="#{msg['buscarPCD']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovPapelCargoDesempeñado').filter();" style="width:150px; position: relative; left: 15px;" />  
+                                        <h:outputText value="#{msg['buscarPCD']}" />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovPapelCargoDesempeñado').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{papelCD.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -908,19 +919,20 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroPapelCargoDesempenado" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroPapelCargoDesempenado}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarPCD" style="position: relative; left: 115px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:empleadoJefeModCargoDesempeñado');});" actionListener="#{controlPersonaIndividual.actualizarParametroPapelCargoDesempeñado}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasPCD" style="position: relative; left: 115px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroPapelCargoDesempeñado()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                <div class="cssBotonesLOV"> 
+                                    <h:outputText id="infoRegistroPapelCargoDesempenado" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroPapelCargoDesempenado}" class="cssinfoRegistroLOV"/>
+                                    <p:commandButton id="aceptarPCD" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:empleadoJefeModCargoDesempeñado');});" actionListener="#{controlPersonaIndividual.actualizarParametroPapelCargoDesempeñado}" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasPCD" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroPapelCargoDesempeñado()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>    
                             </p:dialog>
                         </h:form>
 
                         <h:form id="formjefe">
                             <p:dialog header="#{msg['empleadojefe']}" widgetVar="EmpleadoJefeCargoDesempeñadoDialogo" draggable="false" resizable="false" closable="false" id="EmpleadoJefeCargoDesempeñadoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="390">
-                                <p:dataTable id="lovEmpleadoJefeCargoDesempeñado" style=" width: 370px;" var="jefeCD" value="#{controlPersonaIndividual.lovEmpleados}" rowKey="#{jefeCD.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                                <p:dataTable id="lovEmpleadoJefeCargoDesempeñado" var="jefeCD" value="#{controlPersonaIndividual.lovEmpleados}" rowKey="#{jefeCD.secuencia}"
                                              selection="#{controlPersonaIndividual.empleadoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovEmpleadoJefeCargoDesempeñado" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovEmpleados}">
 
@@ -929,8 +941,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formjefe:aceptarEJCD"/>
 
                                     <f:facet name="header"> 
-                                        <h:outputText value="#{msg['buscarEJCD']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovEmpleadoJefeCargoDesempeñado').filter();" style="width:150px; position: relative; left: 35px;" />  
+                                        <h:outputText value="#{msg['buscarEJCD']}"/>  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovEmpleadoJefeCargoDesempeñado').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{jefeCD.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -940,12 +952,13 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroJefeCargoDesempenado" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroJefeCargoDesempenado}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarEJCD" style="position: relative; left: 105px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:motivoModCentroCosto');});" actionListener="#{controlPersonaIndividual.actualizarParametroJefeCargoDesempeñado}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasEJCD" style="position: relative; left: 105px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroJefeCargoDesempeñado()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                <div class="cssBotonesLOV">
+                                    <h:outputText id="infoRegistroJefeCargoDesempenado" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroJefeCargoDesempenado}" class="cssinfoRegistroLOV"/>
+                                    <p:commandButton id="aceptarEJCD" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:motivoModCentroCosto');});" actionListener="#{controlPersonaIndividual.actualizarParametroJefeCargoDesempeñado}" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasEJCD" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroJefeCargoDesempeñado()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
                     </h:form>
@@ -954,8 +967,8 @@
 
                         <h:form id="formCentroC">
                             <p:dialog header="#{msg['motivolocalizacion']}" widgetVar="MotivoLocalizacionCentroCostoDialogo" draggable="false" resizable="false" closable="false" id="MotivoLocalizacionCentroCostoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="390">
-                                <p:dataTable id="lovMotivoLocalizacionCentroCosto" style=" width: 370px;" var="motivoLCC" value="#{controlPersonaIndividual.lovMotivosLocalizaciones}" rowKey="#{motivoLCC.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true">
+                                <p:dataTable id="lovMotivoLocalizacionCentroCosto" var="motivoLCC" value="#{controlPersonaIndividual.lovMotivosLocalizaciones}" rowKey="#{motivoLCC.secuencia}"
                                              selection="#{controlPersonaIndividual.motivoLocalizacionSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovMotivoLocalizacionCentroCosto" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovMotivosCC}">
 
@@ -964,8 +977,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCentroCosto:formCentroC:aceptarMLCC"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarMLCC']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovMotivoLocalizacionCentroCosto').filter();" style="width:150px; position: relative; left: 25px;" />  
+                                        <h:outputText value="#{msg['buscarMLCC']}" />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovMotivoLocalizacionCentroCosto').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{motivoLCC.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -975,19 +988,20 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroMotivoCentroCosto" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMotivoCentroCosto}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarMLCC" style="position: relative; left: 115px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()"
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:estructuraModCentroCosto');});" actionListener="#{controlPersonaIndividual.actualizarParametroMotivoCentroCosto()}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasMLCC" style="position: relative; left: 115px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroMotivoCentroCosto()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                <div class="cssBotonesLOV">
+                                    <h:outputText id="infoRegistroMotivoCentroCosto" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMotivoCentroCosto}" class="cssinfoRegistroLOV"/>
+                                    <p:commandButton id="aceptarMLCC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()"
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:estructuraModCentroCosto');});" actionListener="#{controlPersonaIndividual.actualizarParametroMotivoCentroCosto()}" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasMLCC" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroMotivoCentroCosto()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>    
                             </p:dialog>
                         </h:form>
 
                         <h:form id="formEstrucCC">
                             <p:dialog header="#{msg['estructuracc']}" widgetVar="EstructuraCentroCostoDialogo" draggable="false" resizable="false" closable="false" id="EstructuraCentroCostoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="510" modal="true" height="390">
-                                <p:dataTable id="lovEstructuraCentroCosto" style=" width: 470px;" var="estructuraCC" value="#{controlPersonaIndividual.lovEstructurasCentroCosto}" rowKey="#{estructuraCC.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="510" modal="true">
+                                <p:dataTable id="lovEstructuraCentroCosto" var="estructuraCC" value="#{controlPersonaIndividual.lovEstructurasCentroCosto}" rowKey="#{estructuraCC.secuencia}"
                                              selection="#{controlPersonaIndividual.estructuraCentroCostoSeleccionada}" scrollWidth="488" selectionMode="single" widgetVar="lovEstructuraCentroCosto" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovEstructurasCentroCosto}">
 
@@ -996,8 +1010,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCentroCosto:formEstrucCC:aceptarECC"/>
 
                                     <f:facet name="header"> 
-                                        <h:outputText value="#{msg['buscarECC']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovEstructuraCentroCosto').filter();" style="width:150px; position: relative; left: 5px;" />  
+                                        <h:outputText value="#{msg['buscarECC']}" />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovEstructuraCentroCosto').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{estructuraCC.centrocosto.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -1020,12 +1034,13 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroEstructuraCentroCosto" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroEstructuraCentroCosto}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarECC" style="position: relative; left: 220px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:tipoTrabajadorModTipoTrabajador');});" actionListener="#{controlPersonaIndividual.actualizarParametroEstructuraCentroCosto()}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasECC" style="position: relative; left: 220px; top: 15px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroEstructuraCentroCosto()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                <div class="cssBotonesLOV"> 
+                                    <h:outputText id="infoRegistroEstructuraCentroCosto" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroEstructuraCentroCosto}" class="cssinfoRegistroLOV" />
+                                    <p:commandButton id="aceptarECC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:tipoTrabajadorModTipoTrabajador');});" actionListener="#{controlPersonaIndividual.actualizarParametroEstructuraCentroCosto()}" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasECC" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroEstructuraCentroCosto()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
                     </h:form>
@@ -1033,8 +1048,8 @@
                     <h:form id="formDTipoTrabajador">
 
                         <p:dialog header="#{msg['tipotrabajador']}" widgetVar="TipoTrabajadorTipoTrabajadorDialogo" draggable="false" resizable="false" closable="false" id="TipoTrabajadorTipoTrabajadorDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="410" modal="true" height="390">
-                            <p:dataTable id="lovTipoTrabajadorTipoTrabajador" style=" width: 370px;" var="tipoTTT" value="#{controlPersonaIndividual.lovTiposTrabajadores}" rowKey="#{tipoTTT.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                            <p:dataTable id="lovTipoTrabajadorTipoTrabajador" var="tipoTTT" value="#{controlPersonaIndividual.lovTiposTrabajadores}" rowKey="#{tipoTTT.secuencia}"
                                          selection="#{controlPersonaIndividual.tipoTrabajadorSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovTipoTrabajadorTipoTrabajador" scrollable="true" scrollHeight="250"
                                          emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovTiposTrabajadores}">
 
@@ -1043,8 +1058,8 @@
                                 <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTipoTrabajador:aceptarTTTT"/>
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarTTTT']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoTrabajadorTipoTrabajador').filter();" style="width:150px; position: relative; left: 65px;" />  
+                                    <h:outputText value="#{msg['buscarTTTT']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoTrabajadorTipoTrabajador').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipoTTT.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
@@ -1054,20 +1069,21 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroTipoTrabajadorTipoTrabajador" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTipoTrabajadorTT}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarTTTT" style="position: relative; left: 110px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                             oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:tipoSalarioModTipoSalario');});" actionListener="#{controlPersonaIndividual.actualizarParametroTipoTrabajadorTipoTrabajador()}"  process="@this" icon="ui-icon-check"/>
-                            <p:commandButton id="atrasTTTT" style="position: relative; left: 110px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                             actionListener="#{controlPersonaIndividual.cancelarParametroTipoTrabajadorTipoTrabajador()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            <div class="cssBotonesLOV"> 
+                                <h:outputText id="infoRegistroTipoTrabajadorTipoTrabajador" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTipoTrabajadorTT}" class="cssinfoRegistroLOV" />
+                                <p:commandButton id="aceptarTTTT" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:tipoSalarioModTipoSalario');});" actionListener="#{controlPersonaIndividual.actualizarParametroTipoTrabajadorTipoTrabajador()}"  process="@this" icon="ui-icon-check"/>
+                                <p:commandButton id="atrasTTTT" class="cssAtrasLOV"  value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                 actionListener="#{controlPersonaIndividual.cancelarParametroTipoTrabajadorTipoTrabajador()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            </div>
                         </p:dialog>
                     </h:form>
 
                     <h:form id="formDTipoSalario">
 
                         <p:dialog header="#{msg['tiposalarios']}" widgetVar="ReformaLaboralTipoSalarioDialogo" draggable="false" resizable="false" closable="false" id="ReformaLaboralTipoSalarioDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="410" modal="true" height="390">
-                            <p:dataTable id="lovReformaLaboralTipoSalario" style=" width: 370px;" var="reformaLTS" value="#{controlPersonaIndividual.lovReformasLaborales}" rowKey="#{reformaLTS.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="410" modal="true">
+                            <p:dataTable id="lovReformaLaboralTipoSalario" var="reformaLTS" value="#{controlPersonaIndividual.lovReformasLaborales}" rowKey="#{reformaLTS.secuencia}"
                                          selection="#{controlPersonaIndividual.reformaLaboralSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovReformaLaboralTipoSalario" scrollable="true" scrollHeight="250"
                                          emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovReformasLaborales}">
 
@@ -1076,8 +1092,8 @@
                                 <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTipoSalario:aceptarRLTS"/>
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarRLTS']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovReformaLaboralTipoSalario').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <h:outputText value="#{msg['buscarRLTS']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovReformaLaboralTipoSalario').filter();" class="cssFiltroLOV"/>  
                                 </f:facet>
                                 <p:column filterBy="#{reformaLTS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
@@ -1087,12 +1103,13 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroReformaTipoSalario" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroReformaTipoSalario}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarRLTS" style="position: relative; left: 115px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                             oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:valorSueldoModSueldo');});" actionListener="#{controlPersonaIndividual.actualizarParametroReformaLaboralTipoSalario()}" process="@this" icon="ui-icon-check"/>
-                            <p:commandButton id="atrasRLTS" style="position: relative; left: 115px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                             actionListener="#{controlPersonaIndividual.cancelarParametroReformaLaboralTipoSalario()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            <div class="cssBotonesLOV">
+                                <h:outputText id="infoRegistroReformaTipoSalario" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroReformaTipoSalario}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarRLTS" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:valorSueldoModSueldo');});" actionListener="#{controlPersonaIndividual.actualizarParametroReformaLaboralTipoSalario()}" process="@this" icon="ui-icon-check"/>
+                                <p:commandButton id="atrasRLTS" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                 actionListener="#{controlPersonaIndividual.cancelarParametroReformaLaboralTipoSalario()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            </div>
                         </p:dialog>
 
                     </h:form>
@@ -1100,8 +1117,8 @@
                     <h:form id="formDSueldo">
                         <h:form id="formMotivoSu">
                             <p:dialog header="#{msg['motivosueldo']}" widgetVar="MotivoCambioSueldoSueldoDialogo" draggable="false" resizable="false" closable="false" id="MotivoCambioSueldoSueldoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="390">
-                                <p:dataTable id="lovMotivoCambioSueldoSueldo" style=" width: 370px;" var="motivoCambioSS" value="#{controlPersonaIndividual.lovMotivosCambiosSueldos}" rowKey="#{motivoCambioSS.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true">
+                                <p:dataTable id="lovMotivoCambioSueldoSueldo" var="motivoCambioSS" value="#{controlPersonaIndividual.lovMotivosCambiosSueldos}" rowKey="#{motivoCambioSS.secuencia}"
                                              selection="#{controlPersonaIndividual.motivoCambioSueldoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovMotivoCambioSueldoSueldo" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovMotivosCambiosSueldos}">
 
@@ -1110,8 +1127,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDSueldo:formMotivoSu:aceptarMCSS"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarMCSS']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovMotivoCambioSueldoSueldo').filter();" style="width:150px; position: relative; left: 25px;" />  
+                                        <h:outputText value="#{msg['buscarMCSS']}"/>  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovMotivoCambioSueldoSueldo').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{motivoCambioSS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -1121,19 +1138,20 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroMotivoSueldo" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMotivoSueldo}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarMCSS" style="position: relative; left: 120px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:tipoSueldoModSueldo');});" actionListener="#{controlPersonaIndividual.actualizarParametroMotivoCambioSueldoSueldo()}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasMCSS" style="position: relative; left: 120px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroMotivoCambioSueldoSueldo()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                <div class="cssBotonesLOV" >
+                                    <h:outputText id="infoRegistroMotivoSueldo" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMotivoSueldo}" class="cssinfoRegistroLOV" />
+                                    <p:commandButton id="aceptarMCSS" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:tipoSueldoModSueldo');});" actionListener="#{controlPersonaIndividual.actualizarParametroMotivoCambioSueldoSueldo()}" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasMCSS" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroMotivoCambioSueldoSueldo()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
 
                         <h:form id="formTipoSueldo">
                             <p:dialog header="#{msg['tipocompensacion']}" widgetVar="TipoSueldoSueldoDialogo" draggable="false" resizable="false" closable="false" id="TipoSueldoSueldoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="390">
-                                <p:dataTable id="lovTipoSueldoSueldo" style=" width: 370px;" var="tipoSueldoS" value="#{controlPersonaIndividual.lovTiposSueldos}" rowKey="#{tipoSueldoS.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                                <p:dataTable id="lovTipoSueldoSueldo" var="tipoSueldoS" value="#{controlPersonaIndividual.lovTiposSueldos}" rowKey="#{tipoSueldoS.secuencia}"
                                              selection="#{controlPersonaIndividual.tipoSueldoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovTipoSueldoSueldo" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovTiposSueldos}">
 
@@ -1142,8 +1160,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDSueldo:formTipoSueldo:aceptarTSS"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarTSS']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovTipoSueldoSueldo').filter();" style="width:150px; position: relative; left: 55px;" />  
+                                        <h:outputText value="#{msg['buscarTSS']}" />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovTipoSueldoSueldo').filter();" class="cssFiltroLOV"/>  
                                     </f:facet>
                                     <p:column filterBy="#{tipoSueldoS.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -1153,19 +1171,20 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroTipoSueldoSueldo" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTipoSueldoS}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarTSS" style="position: relative; left: 110px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:motivoContratoModTipoContrato');});" actionListener="#{controlPersonaIndividual.actualizarParametroTipoSueldoSueldo()}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasTSS" style="position: relative; left: 110px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroTipoSueldoSueldo()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                <div class="cssBotonesLOV">
+                                    <h:outputText id="infoRegistroTipoSueldoSueldo" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTipoSueldoS}" class="cssinfoRegistroLOV"/>
+                                    <p:commandButton id="aceptarTSS" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:motivoContratoModTipoContrato');});" actionListener="#{controlPersonaIndividual.actualizarParametroTipoSueldoSueldo()}" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasTSS" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroTipoSueldoSueldo()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
 
                         <h:form id="formUnidadS">
                             <p:dialog header="#{msg['ingreseunidad']}" widgetVar="UnidadSueldoDialogo" draggable="false" resizable="false" closable="false" id="UnidadSueldoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="340">
-                                <p:dataTable id="lovUnidadSueldo" style=" width: 370px;" var="unidadS" value="#{controlPersonaIndividual.lovUnidades}" rowKey="#{unidadS.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true">
+                                <p:dataTable id="lovUnidadSueldo" var="unidadS" value="#{controlPersonaIndividual.lovUnidades}" rowKey="#{unidadS.secuencia}"
                                              selection="#{controlPersonaIndividual.unidadSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovUnidadSueldo" scrollable="true" scrollHeight="200"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovUnidades}" >
 
@@ -1174,8 +1193,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDSueldo:formUnidadS:aceptarUS"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarUS']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovUnidadSueldo').filter();" style="width:150px; position: relative; left: 35px;" />  
+                                        <h:outputText value="#{msg['buscarUS']}" />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovUnidadSueldo').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{unidadS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -1185,12 +1204,13 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroUnidadSueldo" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroUnidadSueldo}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarUS" style="position: relative; left: 120px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('UnidadSueldoDialogo').hide();
+                                <div class="cssBotonesLOV">    
+                                    <h:outputText id="infoRegistroUnidadSueldo" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroUnidadSueldo}" class="cssinfoRegistroLOV"/>
+                                    <p:commandButton id="aceptarUS" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('UnidadSueldoDialogo').hide();
                                         operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlPersonaIndividual.actualizarParametroUnidadSueldo()}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasUS" style="position: relative; left: 120px; top: 20px;" value="#{msg['atras']}" onclick="PF('UnidadSueldoDialogo').hide();
+                                    <p:commandButton id="atrasUS" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('UnidadSueldoDialogo').hide();
                                         operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlPersonaIndividual.cancelarParametroUnidadSueldo()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
                     </h:form>
@@ -1199,8 +1219,8 @@
 
                         <h:form id="formTipoContrat">
                             <p:dialog header="#{msg['motivocontrato']}" widgetVar="MotivoContratoTipoContratoDialogo" draggable="false" resizable="false" closable="false" id="MotivoContratoTipoContratoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="390">
-                                <p:dataTable id="lovMotivoContratoTipoContrato" style=" width: 370px;" var="motivoContratoTC" value="#{controlPersonaIndividual.lovMotivosContratos}" rowKey="#{motivoContratoTC.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                                <p:dataTable id="lovMotivoContratoTipoContrato" var="motivoContratoTC" value="#{controlPersonaIndividual.lovMotivosContratos}" rowKey="#{motivoContratoTC.secuencia}"
                                              selection="#{controlPersonaIndividual.motivoContratoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovMotivoContratoTipoContrato" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovMotivosContratos}">
 
@@ -1209,8 +1229,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTipoContrato:formTipoContrat:aceptarMCTC"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarMCTC']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovMotivoContratoTipoContrato').filter();" style="width:150px; position: relative; left: 25px;" />  
+                                        <h:outputText value="#{msg['buscarMCTC']}"  />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovMotivoContratoTipoContrato').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{motivoContratoTC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -1220,19 +1240,20 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroMotivoTipoContrato" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMotivoTipoContrato}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarMCTC" style="position: relative; left: 115px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:tipoContratoModTipoContrato');});" actionListener="#{controlPersonaIndividual.actualizarParametroMotivoContratoTipoContrato()}"
-                                                 process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasMCTC" style="position: relative; left: 115px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlPersonaIndividual.cancelarParametroMotivoContratoTipoContrato()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                <div class="cssBotonesLOV">
+                                    <h:outputText id="infoRegistroMotivoTipoContrato" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMotivoTipoContrato}" class="cssinfoRegistroLOV"/>
+                                    <p:commandButton id="aceptarMCTC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:tipoContratoModTipoContrato');});" actionListener="#{controlPersonaIndividual.actualizarParametroMotivoContratoTipoContrato()}"
+                                                     process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasMCTC" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlPersonaIndividual.cancelarParametroMotivoContratoTipoContrato()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
 
                         <h:form id="formTipoContrato">
                             <p:dialog header="#{msg['tipocontrato']}" widgetVar="TipoContratoTipoContratoDialogo" draggable="false" resizable="false" closable="false" id="TipoContratoTipoContratoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="390">
-                                <p:dataTable id="lovTipoContratoTipoContrato" style=" width: 370px;" var="tipoContratoTC" value="#{controlPersonaIndividual.lovTiposContratos}" rowKey="#{tipoContratoTC.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                                <p:dataTable id="lovTipoContratoTipoContrato" var="tipoContratoTC" value="#{controlPersonaIndividual.lovTiposContratos}" rowKey="#{tipoContratoTC.secuencia}"
                                              selection="#{controlPersonaIndividual.tipoContratoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovTipoContratoTipoContrato" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovTiposContratos}">
 
@@ -1241,8 +1262,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTipoContrato:formTipoContrato:aceptarTCTC"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarTCTC']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovTipoContratoTipoContrato').filter();" style="width:150px; position: relative; left: 55px;" />  
+                                        <h:outputText value="#{msg['buscarTCTC']}"/>
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovTipoContratoTipoContrato').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{tipoContratoTC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -1252,12 +1273,13 @@
                                     </p:column>
                                 </p:dataTable>
 
-                                <h:outputText id="infoRegistroTipoTipoContrato" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTipoContrato}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarTCTC" style="position: relative; left: 115px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:fechaFinalContratoModTipoContrato');});" actionListener="#{controlPersonaIndividual.actualizarParametroTipoContratoTipoContrato()}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasTCTC" style="position: relative; left: 115px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroTipoContratoTipoContrato()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                <div class="cssBotonesLOV">
+                                    <h:outputText id="infoRegistroTipoTipoContrato" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTipoContrato}" class="cssinfoRegistroLOV"/>
+                                    <p:commandButton id="aceptarTCTC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:fechaFinalContratoModTipoContrato');});" actionListener="#{controlPersonaIndividual.actualizarParametroTipoContratoTipoContrato()}" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasTCTC" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroTipoContratoTipoContrato()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
                     </h:form>
@@ -1265,8 +1287,8 @@
                     <h:form id="formDNormaLaboral">
 
                         <p:dialog header="#{msg['normalaboral']}" widgetVar="NormaLaboralNormaLaboralDialogo" draggable="false" resizable="false" closable="false" id="NormaLaboralNormaLaboralDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="410" modal="true" height="390">
-                            <p:dataTable id="lovNormaLaboralNormaLaboral" style=" width: 370px;" var="normaLaboralNL" value="#{controlPersonaIndividual.lovNormasLaborales}" rowKey="#{normaLaboralNL.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                            <p:dataTable id="lovNormaLaboralNormaLaboral" var="normaLaboralNL" value="#{controlPersonaIndividual.lovNormasLaborales}" rowKey="#{normaLaboralNL.secuencia}"
                                          selection="#{controlPersonaIndividual.normaLaboralSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovNormaLaboralNormaLaboral" scrollable="true" scrollHeight="250"
                                          emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovNormasLaborales}">
 
@@ -1275,8 +1297,8 @@
                                 <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDNormaLaboral:aceptarNLNL"/>
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarNLNL']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovNormaLaboralNormaLaboral').filter();" style="width:150px; position: relative; left: 25px;" />  
+                                    <h:outputText value="#{msg['buscarNLNL']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovNormaLaboralNormaLaboral').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{normaLaboralNL.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
@@ -1286,13 +1308,14 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroNormaNormaLaboral" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroNormaLaboral}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarNLNL" style="position: relative; left: 120px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                             oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:gislacionLaboralModLegislacionLaboral');});" actionListener="#{controlPersonaIndividual.actualizarParametroNormaNormaLaboral()}" 
-                                             process="@this" icon="ui-icon-check"/>
-                            <p:commandButton id="atrasNLNL" style="position: relative; left: 120px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                             actionListener="#{controlPersonaIndividual.cancelarParametroNormaNormaLaboral()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            <div class="cssBotonesLOV">
+                                <h:outputText id="infoRegistroNormaNormaLaboral" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroNormaLaboral}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarNLNL" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:gislacionLaboralModLegislacionLaboral');});" actionListener="#{controlPersonaIndividual.actualizarParametroNormaNormaLaboral()}" 
+                                                 process="@this" icon="ui-icon-check"/>
+                                <p:commandButton id="atrasNLNL" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                 actionListener="#{controlPersonaIndividual.cancelarParametroNormaNormaLaboral()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            </div>
                         </p:dialog>
 
                     </h:form>
@@ -1300,8 +1323,8 @@
                     <h:form id="formDLegislacionLaboral">
 
                         <p:dialog header="#{msg['legislaboral']}" widgetVar="ContratoLegislacionLaboralDialogo" draggable="false" resizable="false" closable="false" id="ContratoLegislacionLaboralDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="410" modal="true" height="390">
-                            <p:dataTable id="lovContratoLegislacionLaboral" style=" width: 370px;" var="contratoLL" value="#{controlPersonaIndividual.lovContratos}" rowKey="#{contratoLL.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="410" modal="true">
+                            <p:dataTable id="lovContratoLegislacionLaboral"  var="contratoLL" value="#{controlPersonaIndividual.lovContratos}" rowKey="#{contratoLL.secuencia}"
                                          selection="#{controlPersonaIndividual.contratoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovContratoLegislacionLaboral" scrollable="true" scrollHeight="250"
                                          emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovContratos}">
 
@@ -1310,8 +1333,8 @@
                                 <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDLegislacionLaboral:aceptarCLL"/>
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarCLL']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovContratoLegislacionLaboral').filter();" style="width:150px; position: relative; left: 25px;" />  
+                                    <h:outputText value="#{msg['buscarCLL']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovContratoLegislacionLaboral').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{contratoLL.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
@@ -1321,12 +1344,13 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroContratoLegislacionLaboral" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroContratoLegislacionL}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarCLL" style="position: relative; left: 115px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                             oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:ubicacionGeograficaModUbicacionGeografica');});" actionListener="#{controlPersonaIndividual.actualizarParametroContratoLegislacionLaboral()}" process="@this" icon="ui-icon-check"/>
-                            <p:commandButton id="atrasCLL" style="position: relative; left: 115px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:numeroDocumentoModPersonal');});" 
-                                             actionListener="#{controlPersonaIndividual.cancelarParametroContratoLegislacionLaboral()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            <div class="cssBotonesLOV">
+                                <h:outputText id="infoRegistroContratoLegislacionLaboral" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroContratoLegislacionL}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarCLL" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:ubicacionGeograficaModUbicacionGeografica');});" actionListener="#{controlPersonaIndividual.actualizarParametroContratoLegislacionLaboral()}" process="@this" icon="ui-icon-check"/>
+                                <p:commandButton id="atrasCLL" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:numeroDocumentoModPersonal');});" 
+                                                 actionListener="#{controlPersonaIndividual.cancelarParametroContratoLegislacionLaboral()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            </div>
                         </p:dialog>
 
                     </h:form>
@@ -1334,8 +1358,8 @@
                     <h:form id="formDUbicacion">
 
                         <p:dialog header="#{msg['ubgeografica']}" widgetVar="UbicacionUbicacionGeograficaDialogo" draggable="false" resizable="false" closable="false" id="UbicacionUbicacionGeograficaDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="810" modal="true" height="390">
-                            <p:dataTable id="lovUbicacionUbicacionGeografica" style=" width: 770px;" var="ubicacionGUG" value="#{controlPersonaIndividual.lovUbicacionesGeograficas}" rowKey="#{ubicacionGUG.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="810" modal="true" >
+                            <p:dataTable id="lovUbicacionUbicacionGeografica"  var="ubicacionGUG" value="#{controlPersonaIndividual.lovUbicacionesGeograficas}" rowKey="#{ubicacionGUG.secuencia}"
                                          selection="#{controlPersonaIndividual.ubicacionGeograficaSeleccionada}" scrollWidth="788" selectionMode="single" widgetVar="lovUbicacionUbicacionGeografica" scrollable="true" scrollHeight="250"
                                          emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovUbicacionesGeograficas}">
 
@@ -1344,8 +1368,8 @@
                                 <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDUbicacion:aceptarUGUGL"/>
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarUGUGL']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovUbicacionUbicacionGeografica').filter();" style="width:150px; position: relative; left: -105px;" />  
+                                    <h:outputText value="#{msg['buscarUGUGL']}"  />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovUbicacionUbicacionGeografica').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{ubicacionGUG.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
@@ -1385,12 +1409,13 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroUbicacionUbicacion" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroUbicacionUb}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarUGUGL" style="position: relative; left: 500px; top: 5px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                             oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:jornadaLaboralModJornadaLaboral');});" actionListener="#{controlPersonaIndividual.actualizarParametroUbicacionUbicacionGeografica()}" process="@this" icon="ui-icon-check"/>
-                            <p:commandButton id="atrasUGUGL" style="position: relative; left: 500px; top: 5px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                             actionListener="#{controlPersonaIndividual.cancelarParametroUbicacionUbicacionGeografica()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            <div class="cssBotonesLOV">
+                                <h:outputText id="infoRegistroUbicacionUbicacion" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroUbicacionUb}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarUGUGL" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:jornadaLaboralModJornadaLaboral');});" actionListener="#{controlPersonaIndividual.actualizarParametroUbicacionUbicacionGeografica()}" process="@this" icon="ui-icon-check"/>
+                                <p:commandButton id="atrasUGUGL" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                 actionListener="#{controlPersonaIndividual.cancelarParametroUbicacionUbicacionGeografica()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            </div>
                         </p:dialog>
 
                     </h:form>
@@ -1398,8 +1423,8 @@
                     <h:form id="formDJornadaLaboral">
 
                         <p:dialog header="#{msg['jornadala']}" widgetVar="JornadaJornadaLaboralDialogo" draggable="false" resizable="false" closable="false" id="JornadaJornadaLaboralDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="410" modal="true" height="340">
-                            <p:dataTable id="lovJornadaJornadaLaboral" style=" width: 370px;" var="jornadaLJL" value="#{controlPersonaIndividual.lovJornadasLaborales}" rowKey="#{jornadaLJL.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                            <p:dataTable id="lovJornadaJornadaLaboral"  var="jornadaLJL" value="#{controlPersonaIndividual.lovJornadasLaborales}" rowKey="#{jornadaLJL.secuencia}"
                                          selection="#{controlPersonaIndividual.jornadaLaboralSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovJornadaJornadaLaboral" scrollable="true" scrollHeight="200"
                                          emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovJornadasLaborales}">
 
@@ -1408,8 +1433,8 @@
                                 <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDJornadaLaboral:aceptarJLJL"/>
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarJLJL']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovJornadaJornadaLaboral').filter();" style="width:150px; position: relative; left: 35px;" />  
+                                    <h:outputText value="#{msg['buscarJLJL']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovJornadaJornadaLaboral').filter();" class="cssFiltroLOV"/>  
                                 </f:facet>
                                 <p:column filterBy="#{jornadaLJL.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
@@ -1419,12 +1444,13 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroJornadaJornadaLaboral" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroJornadaLaboral}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarJLJL" style="position: relative; left: 120px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                             oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:formaPagoModFormaPago');});" actionListener="#{controlPersonaIndividual.actualizarParametroJornadaJornadaLaboral()}" process="@this" icon="ui-icon-check"/>
-
-                            <p:commandButton id="atrasJLJL" style="position: relative; left: 120px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlPersonaIndividual.cancelarParametroJornadaJornadaLaboral()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            <div class="cssBotonesLOV">
+                                <h:outputText id="infoRegistroJornadaJornadaLaboral" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroJornadaLaboral}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarJLJL" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:formaPagoModFormaPago');});" actionListener="#{controlPersonaIndividual.actualizarParametroJornadaJornadaLaboral()}" process="@this" icon="ui-icon-check"/>
+                                <p:commandButton id="atrasJLJL" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                 actionListener="#{controlPersonaIndividual.cancelarParametroJornadaJornadaLaboral()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            </div>
                         </p:dialog>
 
                     </h:form>
@@ -1433,8 +1459,8 @@
 
                         <h:form id="formPeriodicidad">
                             <p:dialog header="#{msg['formapago']}" widgetVar="PeriodicidadFormaPagoDialogo" draggable="false" resizable="false" closable="false" id="PeriodicidadFormaPagoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="390" >
-                                <p:dataTable id="lovPeriodicidadFormaPago" style=" width: 370px;" var="periodicidadFP" value="#{controlPersonaIndividual.lovPeriodicidades}" rowKey="#{periodicidadFP.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true"  >
+                                <p:dataTable id="lovPeriodicidadFormaPago"  var="periodicidadFP" value="#{controlPersonaIndividual.lovPeriodicidades}" rowKey="#{periodicidadFP.secuencia}"
                                              selection="#{controlPersonaIndividual.periodicidadSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovPeriodicidadFormaPago" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovPeriodicidades}">
 
@@ -1443,8 +1469,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDFormaPago:formPeriodicidad:aceptarPFP"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarPFP']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovPeriodicidadFormaPago').filter();" style="width:150px; position: relative; left: 55px;" />  
+                                        <h:outputText value="#{msg['buscarPFP']}" />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovPeriodicidadFormaPago').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{periodicidadFP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -1453,20 +1479,20 @@
                                         <h:outputText  value="#{periodicidadFP.nombre}" />
                                     </p:column>
                                 </p:dataTable>
-
-                                <h:outputText id="infoRegistroFormaFormaPago" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroFormaPago}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarPFP" style="position: relative; left: 115px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()"
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:cuentaPagoModFormaPago');});" actionListener="#{controlPersonaIndividual.actualizarParametroPeriodicidadFormaPago()}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasPFP" style="position: relative; left: 115px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroPeriodicidadFormaPago()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                <div class="cssBotonesLOV">
+                                    <h:outputText id="infoRegistroFormaFormaPago" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroFormaPago}" class="cssinfoRegistroLOV"/>
+                                    <p:commandButton id="aceptarPFP" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()"
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:cuentaPagoModFormaPago');});" actionListener="#{controlPersonaIndividual.actualizarParametroPeriodicidadFormaPago()}" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasPFP" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroPeriodicidadFormaPago()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
 
                         <h:form id="formSucursal">
                             <p:dialog header="#{msg['sucursalPago']}" widgetVar="SucursalFormaPagoDialogo" draggable="false" resizable="false" closable="false" id="SucursalFormaPagoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="390" >
-                                <p:dataTable id="lovSucursalPagoFormaPago" style=" width: 370px;" var="sucursalFP" value="#{controlPersonaIndividual.lovSucursales}" rowKey="#{sucursalFP.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true">
+                                <p:dataTable id="lovSucursalPagoFormaPago" var="sucursalFP" value="#{controlPersonaIndividual.lovSucursales}" rowKey="#{sucursalFP.secuencia}"
                                              selection="#{controlPersonaIndividual.sucursalSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovSucursalPagoFormaPago" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovSucursales}">
 
@@ -1475,8 +1501,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDFormaPago:formSucursal:aceptarSFP"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarSFP']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovSucursalPagoFormaPago').filter();" style="width:150px; position: relative; left: 25px;" />  
+                                        <h:outputText value="#{msg['buscarSFP']}" />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovSucursalPagoFormaPago').filter();" class="cssFiltroLOV"/>  
                                     </f:facet>
                                     <p:column filterBy="#{sucursalFP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -1485,20 +1511,20 @@
                                         <h:outputText  value="#{sucursalFP.nombre}" />
                                     </p:column>
                                 </p:dataTable>
-
-                                <h:outputText id="infoRegistroSucursalFormaPago" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroSucursalFormaPago}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarSFP" style="position: relative; left: 115px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:metodoPagoModFormaPago');});" actionListener="#{controlPersonaIndividual.actualizarParametroSucursalFormaPago()}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasSFP" style="position: relative; left: 115px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroSucursalFormaPago()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                <div class="cssBotonesLOV">
+                                    <h:outputText id="infoRegistroSucursalFormaPago" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroSucursalFormaPago}" class="cssinfoRegistroLOV"/>
+                                    <p:commandButton id="aceptarSFP" class="cssAtrasLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:metodoPagoModFormaPago');});" actionListener="#{controlPersonaIndividual.actualizarParametroSucursalFormaPago()}" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasSFP" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroSucursalFormaPago()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
 
                         <h:form id="formMetodo">
                             <p:dialog header="#{msg['metodopago']}" widgetVar="MetodoPagoFormaPagoDialogo" draggable="false" resizable="false" closable="false" id="MetodoPagoFormaPagoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="340" >
-                                <p:dataTable id="lovMetodoPagoFormaPago" style=" width: 370px;" var="metodoPFP" value="#{controlPersonaIndividual.lovMetodosPagos}" rowKey="#{metodoPFP.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                                <p:dataTable id="lovMetodoPagoFormaPago"  var="metodoPFP" value="#{controlPersonaIndividual.lovMetodosPagos}" rowKey="#{metodoPFP.secuencia}"
                                              selection="#{controlPersonaIndividual.metodoPagoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovMetodoPagoFormaPago" scrollable="true" scrollHeight="200"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovMetodosPagos}">
 
@@ -1507,8 +1533,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDFormaPago:formMetodo:aceptarMPFP"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarMPFP']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovMetodoPagoFormaPago').filter();" style="width:150px; position: relative; left: 15px;" />  
+                                        <h:outputText value="#{msg['buscarMPFP']}" />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovMetodoPagoFormaPago').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{metodoPFP.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -1517,12 +1543,14 @@
                                         <h:outputText  value="#{metodoPFP.descripcion}" />
                                     </p:column>
                                 </p:dataTable>
-
-                                <h:outputText id="infoRegistroMetodoFormaPago" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMetodoFormaPago}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarMPFP" style="position: relative; left: 130px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:epsModAfiliaciones');});" actionListener="#{controlPersonaIndividual.actualizarParametroMetodoFormaPago()}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasMPFP" style="position: relative; left: 130px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlPersonaIndividual.cancelarParametroMetodoFormaPago()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                <div class="cssBotonesLOV">
+                                    <h:outputText id="infoRegistroMetodoFormaPago" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMetodoFormaPago}" class="cssinfoRegistroLOV"/>
+                                    <p:commandButton id="aceptarMPFP" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:epsModAfiliaciones');});" actionListener="#{controlPersonaIndividual.actualizarParametroMetodoFormaPago()}" 
+                                                     process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasMPFP" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroMetodoFormaPago()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
                     </h:form>
@@ -1530,8 +1558,8 @@
                     <h:form id="formDAfiliacion">
 
                         <p:dialog header="#{msg['selecciontercero']} #{controlPersonaIndividual.tituloTercero}" widgetVar="TerceroAfiliacionDialogo" draggable="false" resizable="false" closable="false" id="TerceroAfiliacionDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="610" modal="true" height="390" >
-                            <p:dataTable id="lovTerceroAfiliacion" style=" width: 570px;" var="terceroSA" value="#{controlPersonaIndividual.lovTercerosSucursales}" rowKey="#{terceroSA.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="610" modal="true"  >
+                            <p:dataTable id="lovTerceroAfiliacion" var="terceroSA" value="#{controlPersonaIndividual.lovTercerosSucursales}" rowKey="#{terceroSA.secuencia}"
                                          selection="#{controlPersonaIndividual.terceroSucursalSeleccionado}" scrollWidth="588" selectionMode="single" widgetVar="lovTerceroAfiliacion" scrollable="true" scrollHeight="250"
                                          emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovTercerosSucursales}">
 
@@ -1540,8 +1568,8 @@
                                 <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDAfiliacion:aceptarTSA"/>
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarTA']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTerceroAfiliacion').filter();" style="width:150px; position: relative; left: -70px;" />  
+                                    <h:outputText value="#{msg['buscarTA']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTerceroAfiliacion').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{terceroSA.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
@@ -1563,13 +1591,13 @@
                                 </p:column>
 
                             </p:dataTable>
-
-                            <h:outputText id="infoRegistroTerceroAfiliacion" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTerceroAfiliacion}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarTSA" style="position: relative; left: 305px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                             oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlPersonaIndividual.actualizarParametroTerceroAfiliacion()}" process="@this" icon="ui-icon-check"/>
-                            <p:commandButton id="atrasTA" style="position: relative; left: 305px; top: 15px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                             actionListener="#{controlPersonaIndividual.cancelarParametroTerceroAfiliacion()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            <div class="cssBotonesLOV">
+                                <h:outputText id="infoRegistroTerceroAfiliacion" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTerceroAfiliacion}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarTSA" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                 oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlPersonaIndividual.actualizarParametroTerceroAfiliacion()}" process="@this" icon="ui-icon-check"/>
+                                <p:commandButton id="atrasTA" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                 actionListener="#{controlPersonaIndividual.cancelarParametroTerceroAfiliacion()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            </div>
                         </p:dialog>
 
                     </h:form>
@@ -1578,8 +1606,8 @@
 
                         <h:form id="formTel">
                             <p:dialog header="#{msg['tipotelefono']}" widgetVar="TipoTelefonoTelefonoDialogo" draggable="false" resizable="false" closable="false" id="TipoTelefonoTelefonoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="340" >
-                                <p:dataTable id="lovTipoTelefonoTelefono" style=" width: 370px;" var="tipoTT" value="#{controlPersonaIndividual.lovTiposTelefonos}" rowKey="#{tipoTT.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                                <p:dataTable id="lovTipoTelefonoTelefono"  var="tipoTT" value="#{controlPersonaIndividual.lovTiposTelefonos}" rowKey="#{tipoTT.secuencia}"
                                              selection="#{controlPersonaIndividual.tipoTelefonoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovTipoTelefonoTelefono" scrollable="true" scrollHeight="200"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovTiposTelefonos}">
 
@@ -1588,8 +1616,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTelefono:formTel:aceptarTTT"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarTTT']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovTipoTelefonoTelefono').filter();" style="width:150px; position: relative; left: 55px;" />  
+                                        <h:outputText value="#{msg['buscarTTT']}" />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovTipoTelefonoTelefono').filter();" class="cssFiltroLOV" />  
                                     </f:facet>
                                     <p:column filterBy="#{tipoTT.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -1598,20 +1626,20 @@
                                         <h:outputText  value="#{tipoTT.nombre}" />
                                     </p:column>
                                 </p:dataTable>
-
-                                <h:outputText id="infoRegistroTipoTelefonoTelefono" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTipoTelTelefono}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarTTT" style="position: relative; left: 120px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                                 oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:ciudadModTelefono');});" actionListener="#{controlPersonaIndividual.actualizarParametroTipoTelefonoTelefono()}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasTTT" style="position: relative; left: 120px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
-                                                 actionListener="#{controlPersonaIndividual.cancelarParametroTipoTelefonoTelefono()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                <div class="cssBotonesLOV">
+                                    <h:outputText id="infoRegistroTipoTelefonoTelefono" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTipoTelTelefono}" class="cssinfoRegistroLOV"/>
+                                    <p:commandButton id="aceptarTTT" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                                     oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:ciudadModTelefono');});" actionListener="#{controlPersonaIndividual.actualizarParametroTipoTelefonoTelefono()}" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton id="atrasTTT" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                                     actionListener="#{controlPersonaIndividual.cancelarParametroTipoTelefonoTelefono()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
 
                         <h:form id="formCiudadTel">
                             <p:dialog header="#{msg['ciudadtelefono']}" widgetVar="CiudadTelefonoDialogo" draggable="false" resizable="false" closable="false" id="CiudadTelefonoDialogo"  
-                                      showEffect="fade" hideEffect="fade" width="410" modal="true" height="390" >
-                                <p:dataTable id="lovCiudadTelefono" style=" width: 370px;" var="ciudadT" value="#{controlPersonaIndividual.lovCiudades}" rowKey="#{ciudadT.secuencia}"
+                                      showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                                <p:dataTable id="lovCiudadTelefono"  var="ciudadT" value="#{controlPersonaIndividual.lovCiudades}" rowKey="#{ciudadT.secuencia}"
                                              selection="#{controlPersonaIndividual.ciudadSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovCiudadTelefono" scrollable="true" scrollHeight="250"
                                              emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovCiudades}">
 
@@ -1620,8 +1648,8 @@
                                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTelefono:formCiudadTel:aceptarCT"/>
 
                                     <f:facet name="header">  
-                                        <h:outputText value="#{msg['buscarCT']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                        <p:inputText id="globalFilter" onkeyup="PF('lovCiudadTelefono').filter();" style="width:150px; position: relative; left: 15px;" />  
+                                        <h:outputText value="#{msg['buscarCT']}"  />  
+                                        <p:inputText id="globalFilter" onkeyup="PF('lovCiudadTelefono').filter();" />  
                                     </f:facet>
                                     <p:column filterBy="#{ciudadT.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important" >
                                         <f:facet name="header">
@@ -1636,13 +1664,14 @@
                                         <h:outputText value="#{ciudadT.departamento.nombre}" />
                                     </p:column>
                                 </p:dataTable>
-
-                                <h:outputText id="infoRegistroCiudadTelefono" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroCiudadTelefono}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                                <p:commandButton id="aceptarCT" style="position: relative; left: 105px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                                
+                                <div class="cssBotonesLOV">
+                                <h:outputText id="infoRegistroCiudadTelefono" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroCiudadTelefono}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarCT" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
                                                  oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:numeroTelefonoModTelefono');});" actionListener="#{controlPersonaIndividual.actualizarParametroCiudadTelefono()}" process="@this" icon="ui-icon-check"/>
-                                <p:commandButton id="atrasCT" style="position: relative; left: 105px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                                <p:commandButton id="atrasCT" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                                  actionListener="#{controlPersonaIndividual.cancelarParametroCiudadTelefono()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </div>
                             </p:dialog>
                         </h:form>
                     </h:form>
@@ -1650,8 +1679,8 @@
                     <h:form id="formDDireccion">
 
                         <p:dialog header="#{msg['ciudadresidencia']}" widgetVar="CiudadDireccionDialogo" draggable="false" resizable="false" closable="false" id="CiudadDireccionDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="410" modal="true" height="390" >
-                            <p:dataTable id="lovCiudadDireccion" style=" width: 370px;" var="ciudadD" value="#{controlPersonaIndividual.lovCiudades}" rowKey="#{ciudadD.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                            <p:dataTable id="lovCiudadDireccion" var="ciudadD" value="#{controlPersonaIndividual.lovCiudades}" rowKey="#{ciudadD.secuencia}"
                                          selection="#{controlPersonaIndividual.ciudadSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovCiudadDireccion" scrollable="true" scrollHeight="250"
                                          emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovCiudades}"
                                          liveScroll="true" scrollRows="50">
@@ -1661,8 +1690,8 @@
                                 <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDDireccion:aceptarCD"/>
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarCD']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovCiudadDireccion').filter();" style="width:150px; position: relative; left: 15px;" />  
+                                    <h:outputText value="#{msg['buscarCD']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovCiudadDireccion').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{ciudadD.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
@@ -1677,21 +1706,22 @@
                                     <h:outputText value="#{ciudadD.departamento.nombre}" />
                                 </p:column>
                             </p:dataTable>
-
-                            <h:outputText id="infoRegistroCiudadDireccion" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroCiudadDireccion}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarCD" style="position: relative; left: 105px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                            
+                            <div class="cssBotonesLOV"
+                            <h:outputText id="infoRegistroCiudadDireccion" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroCiudadDireccion}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarCD" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
                                              oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:tipoTelefonoModTelefono');});" actionListener="#{controlPersonaIndividual.actualizarParametroCiudadDireccion()}" process="@this" icon="ui-icon-check"/>
-                            <p:commandButton id="atrasCD" style="position: relative; left: 105px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                            <p:commandButton id="atrasCD" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                              actionListener="#{controlPersonaIndividual.cancelarParametroCiudadDireccion()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            </div>
                         </p:dialog>
                     </h:form>
 
                     <h:form id="formDEstadoCivil">
 
                         <p:dialog header="#{msg['estadocivil']}" widgetVar="EstadoCivilEstadoCivilDialogo" draggable="false" resizable="false" closable="false" id="EstadoCivilEstadoCivilDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="410" modal="true" height="340" >
-                            <p:dataTable id="lovEstadoCivilEstadoCivil" style=" width: 370px;" var="estadoCivilEC" value="#{controlPersonaIndividual.lovEstadosCiviles}" rowKey="#{estadoCivilEC.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                            <p:dataTable id="lovEstadoCivilEstadoCivil"  var="estadoCivilEC" value="#{controlPersonaIndividual.lovEstadosCiviles}" rowKey="#{estadoCivilEC.secuencia}"
                                          selection="#{controlPersonaIndividual.estadoCivilSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovEstadoCivilEstadoCivil" scrollable="true" scrollHeight="200"
                                          emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovEstadosCiviles}">
 
@@ -1700,8 +1730,8 @@
                                 <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDEstadoCivil:aceptarECEC"/>
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarECEC']}"  style="position: absolute; left: 27px; top: 14px;"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovEstadoCivilEstadoCivil').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <h:outputText value="#{msg['buscarECEC']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovEstadoCivilEstadoCivil').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{estadoCivilEC.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                     <f:facet name="header">
@@ -1711,12 +1741,13 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroEstadoCivilEstadoCivil" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistrolEstadoCivil}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarECEC" style="position: relative; left: 120px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
+                            <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroEstadoCivilEstadoCivil" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistrolEstadoCivil}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarECEC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
                                              oncomplete="PF('operacionEnProceso').hide(), PF('$(function(){PrimeFaces.focus('form:direccionModDireccion');});" actionListener="#{controlPersonaIndividual.actualizarParametroEstadoEstadoCivil()}" process="@this" icon="ui-icon-check"/>
-                            <p:commandButton id="atrasECEC" style="position: relative; left: 120px; top: 20px;" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                            <p:commandButton id="atrasECEC" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                              actionListener="#{controlPersonaIndividual.cancelarParametroEstadoEstadoCivil()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            </div>
                         </p:dialog>
 
                     </h:form> 
