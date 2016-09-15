@@ -505,43 +505,21 @@ button .ui-widget-header{
    padding-right: 0px;
 }
 
-.ui-datatable-scrollable td div .ui-cell-editor-output {
-   height: 10px;
-   position: relative;
-   width: -moz-max-content;
-}
-
-/*.ui-datatable thead th span,
-.ui-datatable thead td span
-{
-   padding: 2px 0px !important;
-   margin: 2px !important;
-   position: relative;
-}*/
-
 .ui-datatable thead th,
 .ui-datatable thead td,
 .ui-datatable tfoot th,
 .ui-datatable tfoot td, 
-.ui-datatable tbody td,
-.ui-datatable tbody th 
+.ui-datatable tbody th, 
+.ui-datatable tbody td
 {
    padding: 0px 0px !important;
 }
+
 .ui-datatable-scrollable input,
 .ui-datatable-scrollable .ui-input,
 .ui-datatable-scrollable .ui-inputfield {
    height: 100% !important;
    width: 100% !important;
-}
-
-.ui-datatable-scrollable .ui-state-highlight input,
-.ui-datatable-scrollable .ui-state-highlight .ui-input,
-.ui-datatable-scrollable .ui-state-highlight .ui-inputfield {
-   margin: 0px !important;
-   background-color: #0A246A !important;
-   color: white !important;
-   border-radius: 3px !important;
 }
 
 .ui-inputfield.ui-inputtext.ui-widget.ui-state-focus.ui-corner-all,
@@ -557,5 +535,47 @@ button .ui-widget-header{
 
 .ui-column-filter.ui-inputfield {
    height: 10px !important;
+   padding: 3px;
    margin-bottom: 2px !important;
 }
+
+.ui-datatable tbody td {
+   padding-left: 3px !important;
+}
+
+.ui-datatable-scrollable td div .ui-cell-editor-output {
+   height: 10px; position: relative; width: -moz-max-content;
+}
+
+.ui-datatable-scrollable .ui-state-highlight input,
+.ui-datatable-scrollable .ui-state-highlight .ui-input,
+.ui-datatable-scrollable .ui-state-highlight .ui-inputfield {
+   margin: 0px !important;
+   background-color: #0A246A !important;
+   color: white !important;
+   margin-left: -3px !important;
+   border-radius: 3px !important;
+}
+
+.cssBotonesLOV {
+   position: relative; width: 100%; height: 40px;
+}
+
+.cssinfoRegistroLOV {
+   position: relative; top: 5px; font-weight: bold;
+}
+
+.cssAceptarLOV {
+   position: absolute; margin-top: 10px;
+   right: 110px; width: 100px;
+}
+
+.cssAtrasLOV {
+   position: absolute; margin-top: 10px;
+   right: 10px; width: 100px;
+}
+
+.ui-datatable .cssFiltroLOV {
+   width: 50% !important;
+   display: inline-block; margin-left: 15px;
+} 
