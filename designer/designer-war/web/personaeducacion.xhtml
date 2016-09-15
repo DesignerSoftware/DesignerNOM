@@ -103,9 +103,9 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{vigenciasFormales.fechavigencia}"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFecha" value="#{vigenciasFormales.fechavigencia}"> 
                                                 <p:ajax event="dateSelect"  update="editFecha"/>
-                                                <p:ajax event="change" listener="#{controlPersonaEducacion.modificarVigenciasFormales(vigenciasFormales, 'N', vigenciasFormales.fechavigencia)}"/>/>
+                                                <p:ajax event="change" listener="#{controlPersonaEducacion.modificarVigenciasFormales(vigenciasFormales)}"/>/>
                                                 <p:ajax event="select" listener="#{controlPersonaEducacion.cambiarIndice(vigenciasFormales, 0)}" />
                                             </p:calendar>
 
@@ -130,7 +130,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px;" id="fooTipoEducacion" value="" />
+                                        <p:commandButton style="width: 170px;" id="fooTipoEducacion" value="" action="tipoEducacion" onclick="#{controlTiposEducaciones.recibirPaginaEntrante('personaeducacion')}" />
                                     </f:facet>
                                 </p:column>
 
@@ -147,7 +147,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px;" id="fooProfesion" value="" />
+                                        <p:commandButton style="width: 170px;" id="fooProfesion" value="" action="profesion" onclick="#{controlProfesiones.recibirPaginaEntrante('personaeducacion')}" />
                                     </f:facet>
                                 </p:column>
 
@@ -181,7 +181,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px;" id="fooAdiestramientoF" value="" />
+                                        <h:outputText value =""/>
                                     </f:facet>
                                 </p:column>
 
@@ -226,9 +226,9 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaExpedicion" value="#{vigenciasFormales.fechaexpediciontarjeta}"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaExpedicion" value="#{vigenciasFormales.fechaexpediciontarjeta}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaExpedicion"/>
-                                                <p:ajax event="change" listener="#{controlPersonaEducacion.modificarVigenciasFormales(vigenciasFormales, 'N', vigenciasFormales.fechaexpediciontarjeta)}"/>
+                                                <p:ajax event="change" listener="#{controlPersonaEducacion.modificarVigenciasFormales(vigenciasFormales)}"/>
                                                 <p:ajax event="select" listener="#{controlPersonaEducacion.cambiarIndice(vigenciasFormales, 7)}" />
                                             </p:calendar>
 
@@ -248,9 +248,9 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaVencimiento" value="#{vigenciasFormales.fechavencimientotarjeta}"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaVencimiento" value="#{vigenciasFormales.fechavencimientotarjeta}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaVencimiento"/>
-                                                <p:ajax event="change" listener="#{controlPersonaEducacion.modificarVigenciasFormales(vigenciasFormales, 'N', vigenciasFormales.fechavencimientotarjeta)}"/>
+                                                <p:ajax event="change" listener="#{controlPersonaEducacion.modificarVigenciasFormales(vigenciasFormales)}"/>
                                                 <p:ajax event="select" listener="#{controlPersonaEducacion.cambiarIndice(vigenciasFormales, 8)}" />
                                             </p:calendar>
                                         </f:facet>   
@@ -302,9 +302,9 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaNF" value="#{vigenciasFormales.fechavencimientotarjeta}"> 
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFechaNF" value="#{vigenciasFormales.fechavencimientotarjeta}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaNF"/>
-                                                <p:ajax event="change" listener="#{controlPersonaEducacion.modificarVigenciasNoFormales(vigenciasNoFormales, 'N', vigenciasNoFormales.fechavigencia)}"/>
+                                                <p:ajax event="change" listener="#{controlPersonaEducacion.modificarVigenciasNoFormales(vigenciasNoFormales)}"/>
                                                 <p:ajax event="select" listener="#{controlPersonaEducacion.cambiarIndiceNF(vigenciasNoFormales, 0)}" />
                                             </p:calendar>
                                         </f:facet>   
@@ -380,7 +380,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px;  border: none; color: blue" id="fooAdiestramientoNF" value="" />
+                                        <h:outputText value =" "/>
                                     </f:facet>
                                 </p:column>
 
@@ -432,7 +432,7 @@
 
                             <strong><h:outputText value="#{msg['fechaN']}" style=" position: absolute; top: 85px;" /></strong>
                             <div id="posicionFormulaFechaVigenciaNuevoReg" style=" position: absolute; top: 80px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechavigencia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="nuevaFecha" process="@this"/>
                                     <p:ajax event="change" update="nuevaFecha" process="@this"/>
                                 </p:calendar>
@@ -488,7 +488,7 @@
 
                             <strong><h:outputText value="#{msg['expedicionN']}" style=" position: absolute; top: 365px;" /></strong>
                             <div id="posicionFormulaFechaExpedicionNuevoReg" style=" position: absolute; top: 360px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaExpedicion" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechaexpediciontarjeta}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaExpedicion" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechaexpediciontarjeta}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaExpedicion" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaExpedicion" process="@this"/>
                                 </p:calendar>
@@ -496,7 +496,7 @@
                             
                             <strong><h:outputText value="#{msg['vencimientoN']}" style=" position: absolute; top: 405px;" /></strong>
                             <div id="posicionFormulaFechaVencimientoNuevoReg" style=" position: absolute; top: 400px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaVencimiento" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechavencimientotarjeta}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaVencimiento" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechavencimientotarjeta}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaVencimiento" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaVencimiento" process="@this"/>
                                 </p:calendar>
@@ -524,7 +524,7 @@
 
                             <strong><h:outputText value="#{msg['fechaN']}" style=" position: absolute; top: 85px;" /></strong>
                             <div id="posicionFormulaFechaVigenciaDuplicarReg" style=" position: absolute; top: 80px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlPersonaEducacion.duplicarVigenciaFormal.fechavigencia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlPersonaEducacion.duplicarVigenciaFormal.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="duplicarFecha" process="@this"/>
                                     <p:ajax event="change" update="duplicarFecha" process="@this"/>
                                 </p:calendar>
@@ -581,7 +581,7 @@
 
                             <strong><h:outputText value="#{msg['expedicionN']}" style=" position: absolute; top: 365px;" /></strong>
                             <div id="posicionFormulaFechaExpedicionDuplicarReg" style=" position: absolute; top: 360px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaExpedicion" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechaexpediciontarjeta}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaExpedicion" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechaexpediciontarjeta}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaExpedicion" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaExpedicion" process="@this"/>
                                 </p:calendar>
@@ -589,7 +589,7 @@
                             
                             <strong><h:outputText value="#{msg['vencimientoN']}" style=" position: absolute; top: 405px;" /></strong>
                             <div id="posicionFormulaFechaVencimientoDuplicarReg" style=" position: absolute; top: 400px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaVencimiento" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechavencimientotarjeta}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaVencimiento" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechavencimientotarjeta}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaVencimiento" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaVencimiento" process="@this"/>
                                 </p:calendar>
@@ -617,7 +617,7 @@
                                                         
                             <strong><h:outputText value="#{msg['fechaN']}" style=" position: absolute; top: 85px;" /></strong>
                             <div id="posicionFormulaFechaVigenciaNuevoReg" style=" position: absolute; top: 80px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaNF" value="#{controlPersonaEducacion.nuevaVigenciaNoFormal.fechavigencia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaNF" value="#{controlPersonaEducacion.nuevaVigenciaNoFormal.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaNF" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaNF" process="@this"/>
                                 </p:calendar>
@@ -684,7 +684,7 @@
 
                             <strong><h:outputText value="#{msg['fechaN']}" style=" position: absolute; top: 85px;" /></strong>
                             <div id="posicionFormulaFechaVigenciaDuplicarReg" style=" position: absolute; top: 80px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaNF" value="#{controlPersonaEducacion.duplicarVigenciaNoFormal.fechavigencia}" >
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaNF" value="#{controlPersonaEducacion.duplicarVigenciaNoFormal.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaNF" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaNF" process="@this"/>
                                 </p:calendar>
@@ -775,7 +775,7 @@
                             <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarEducacion()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTE']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVTiposEducaciones').filter();" style="width:100px; position: relative; left: 65px;" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVTiposEducaciones.filter();" style="width:100px; position: relative; left: 65px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{tiposEducaciones.nombre}" width="100" filterMatchMode="contains" > 
@@ -807,7 +807,7 @@
                             <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarProfesion()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVProfesiones').filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVProfesiones.filter();" style="width:100px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{profesiones.descripcion}" width="100" filterMatchMode="contains" > 
@@ -838,7 +838,7 @@
                             <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarInstitucionF()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarI']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVInstituciones').filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVInstituciones.filter();" style="width:100px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{instituciones.descripcion}" width="100" filterMatchMode="contains" > 
@@ -869,7 +869,7 @@
                             <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarAdiestramientoF}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarA']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVAdiestramientosF').filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVAdiestramientosF.filter();" style="width:100px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{adiestramientosF.descripcion}" width="100" filterMatchMode="contains" > 
@@ -900,7 +900,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlPersonaEducacion.actualizarCursos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVCursos').filter();" style="width:100px; position: relative; left: 10px;" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVCursos.filter();" style="width:100px; position: relative; left: 10px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{cursos.nombre}" width="100" filterMatchMode="contains" > 
@@ -931,7 +931,7 @@
                             <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarInstitucion()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarI']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVInstitucionesNF').filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVInstitucionesNF.filter();" style="width:100px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{institucionesNF.descripcion}" width="100" filterMatchMode="contains" > 
@@ -962,7 +962,7 @@
                             <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarAdiestramientoNF()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarA']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVAdiestramientosNF').filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVAdiestramientosNF.filter();" style="width:100px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{adiestramientosNF.desccripcion}" width="100" filterMatchMode="contains" > 

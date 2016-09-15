@@ -22,5 +22,7 @@ public interface AdministrarTiposEducacionesInterface {
     
     public List<TiposEducaciones>  lovTiposEducaciones();
     public List<TiposEducaciones> TiposEducaciones();
-    
+    public void crear (List<TiposEducaciones> listaCrear);
+    public void editar (List<TiposEducaciones> listaEditar);
+    public void borrar (List<TiposEducaciones> listaBorrar);
 }

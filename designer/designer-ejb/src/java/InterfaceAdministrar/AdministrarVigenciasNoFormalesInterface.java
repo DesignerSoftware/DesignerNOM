@@ -31,7 +31,7 @@ public interface AdministrarVigenciasNoFormalesInterface {
     public List<Instituciones> lovInstituciones();
     public List<AdiestramientosNF> lovAdiestramientosNF();
     public void modificarVigenciaNoFormal(List<VigenciasNoFormales> listaVigenciasNoFormalesModificar);
-    public void borrarVigenciaNoFormal(VigenciasNoFormales vigenciasNoFormales);
-    public void crearVigenciaNoFormal(VigenciasNoFormales vigenciasNoFormales);
+    public void borrarVigenciaNoFormal(List<VigenciasNoFormales> listaVigenciasNoFormalesBorrar);
+    public void crearVigenciaNoFormal(List<VigenciasNoFormales> listaVigenciasNoFormalesCrear);
     public Empleados empleadoActual(BigInteger secuenciaE);
 }

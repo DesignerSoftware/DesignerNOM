@@ -110,7 +110,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{telefono.fechavigencia}">
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFecha" value="#{telefono.fechavigencia}">
                                                 <p:ajax event="dateSelect"  update="editFecha"/>
                                                 <p:ajax event="change" />
                                                 <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 0)}" />
@@ -172,7 +172,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 210px;" id="fooCiudad" value=" " action="ciudad"/>
+                                        <p:commandButton style="width: 210px;" id="fooCiudad" value=" " action="ciudad" onclick="#{controlCiudades.recibirPaginaEntrante('pertelefono')}"/>
                                     </f:facet>
                                 </p:column> 
                             </p:dataTable>  
@@ -190,7 +190,7 @@
                         <p:panel id="nuevoTelefono" style="border: none;">
                             <strong><h:outputText value="* #{msg['fechaN']}" style=" position: absolute; top: 85px;" /></strong>
                             <div style=" position: absolute; top: 80px; left: 150px;">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlPerTelefonos.nuevoTelefono.fechavigencia}">
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlPerTelefonos.nuevoTelefono.fechavigencia}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                 </p:calendar>
@@ -234,7 +234,7 @@
 
                             <strong><h:outputText value="* #{msg['fechaN']}" style=" position: absolute; top: 85px;" /></strong>
                             <div style=" position: absolute; top: 80px; left: 150px;">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlPerTelefonos.duplicarTelefono.fechavigencia}">
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlPerTelefonos.duplicarTelefono.fechavigencia}">
                                     <p:ajax event="dateSelect" update="duplicarFecha"/>
                                     <p:ajax event="change" update="duplicarFecha"/>
                                 </p:calendar>
@@ -308,7 +308,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlPerTelefonos.actualizarTiposTelefonos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVTiposTelefonos').filter();" style="width:100px; position: relative; left: 80px;" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVTiposTelefonos.filter();" style="width:100px; position: relative; left: 80px;" />  
                             </f:facet>
 
                             <p:column  filterBy="#{tipoTelefono.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 40px;" > 
@@ -345,7 +345,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlPerTelefonos.actualizarCiudad()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left:27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVCiudades').filter();" style="width:150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVCiudades.filter();" style="width:150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column  filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 100px;" > 

@@ -8,6 +8,7 @@ import InterfacePersistencia.PersistenciaProfesionesInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 /**
@@ -28,12 +29,64 @@ public class PersistenciaProfesiones implements PersistenciaProfesionesInterface
         public List<Profesiones> profesiones(EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT p FROM Profesiones p ORDER BY p.descripcion");
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql ="SELECT * FROM PROFESIONES";
+            Query query = em.createNativeQuery(sql,Profesiones.class);
             List<Profesiones> profesiones = query.getResultList();
             return profesiones;
         } catch (Exception e) {
             return null;
+        }
+    }
+
+        @Override
+    public void crear(EntityManager em, Profesiones profesion) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(profesion);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaProfesiones.crear: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    @Override
+    public void borrar(EntityManager em, Profesiones profesion) {
+       em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.merge(profesion));
+            tx.commit();
+
+        } catch (Exception e) {
+            try {
+                if (tx.isActive()) {
+                    tx.rollback();
+                }
+            } catch (Exception ex) {
+                System.out.println("Error PersistenciaProfesiones.borrar: " + e);
+            }
+        }
+    }
+
+    @Override
+    public void editar(EntityManager em, Profesiones profesion) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(profesion);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaProfesiones.editar: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
         }
     }
 }

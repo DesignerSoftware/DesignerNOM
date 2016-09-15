@@ -20,5 +20,8 @@ public interface AdministrarProfesionesInterface {
     public void obtenerConexion(String idSesion);
     public List<Profesiones> Profesiones();
     public List<Profesiones>  lovProfesiones();
+    public void crear (List<Profesiones> listaCrear);
+    public void editar (List<Profesiones> listaEditar);
+    public void borrar (List<Profesiones> listaBorrar);
     
 }

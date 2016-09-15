@@ -30,11 +30,8 @@ public interface AdministrarVigenciasFormalesInterface {
     public List<Instituciones> lovInstituciones();
     public List<AdiestramientosF> lovAdiestramientosF();
     public void modificarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesModificar);
-    public void borrarVigenciaFormal(VigenciasFormales vigenciasFormales);
-    public void crearVigenciaFormal(VigenciasFormales vigenciasFormales);
+    public void borrarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesBorrar);
+    public void crearVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesCrear);
     public Empleados empleadoActual(BigInteger secuenciaE);
-    
-            
-    
     
 }

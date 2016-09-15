@@ -8,13 +8,14 @@ import Entidades.Profesiones;
 import InterfaceAdministrar.AdministrarProfesionesInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaProfesionesInterface;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 
 @Stateful
-public class AdministrarProfesiones implements AdministrarProfesionesInterface {
+public class AdministrarProfesiones implements AdministrarProfesionesInterface,Serializable {
 
     @EJB
     PersistenciaProfesionesInterface persistenciaProfesiones;
@@ -43,5 +44,38 @@ public class AdministrarProfesiones implements AdministrarProfesionesInterface {
     @Override
     public List<Profesiones> lovProfesiones() {
         return persistenciaProfesiones.profesiones(em);
+    }
+
+    @Override
+    public void crear(List<Profesiones> listaCrear) {
+        try {
+            for (int i = 0; i < listaCrear.size(); i++) {
+                persistenciaProfesiones.crear(em, listaCrear.get(i));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en AdministrarProfesiones.crear : " + e.toString());
+        }
+    }
+
+    @Override
+    public void editar(List<Profesiones> listaEditar) {
+        try {
+            for (int i = 0; i < listaEditar.size(); i++) {
+                persistenciaProfesiones.editar(em, listaEditar.get(i));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en AdministrarProfesiones.editar : " + e.toString());
+        }
+    }
+
+    @Override
+    public void borrar(List<Profesiones> listaBorrar) {
+        try {
+            for (int i = 0; i < listaBorrar.size(); i++) {
+                persistenciaProfesiones.borrar(em, listaBorrar.get(i));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en AdministrarProfesiones.editar : " + e.toString());
+        }
     }
 }

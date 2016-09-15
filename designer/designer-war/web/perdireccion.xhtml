@@ -110,7 +110,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{direccion.fechavigencia}">
+                                            <p:calendar pattern="dd/MM/yyyy" id="editFecha" value="#{direccion.fechavigencia}">
                                                 <p:ajax event="dateSelect"  update="editFecha"/>
                                                 <p:ajax event="change" />
                                                 <p:ajax event="select" listener="#{controlPerDirecciones.cambiarIndice(direccion, 0)}" />
@@ -241,7 +241,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px;" id="fooCiudad" action="Ciudades" onclick="#{controlCiudades.recibirPaginaEntrante('Ciudades')}"  value=""/>
+                                        <p:commandButton style="width: 170px;" id="fooCiudad" action="ciudades" onclick="#{controlCiudades.recibirPaginaEntrante('perdireccion')}"  value=""/>
                                     </f:facet>
                                 </p:column> 
 
@@ -323,7 +323,7 @@
 
                             <strong><h:outputText value="*Fecha: " style=" position: absolute; top: 85px;" /></strong>
                             <div style=" position: absolute; top: 80px; left: 200px;">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlPerDirecciones.nuevaDireccion.fechavigencia}">
+                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlPerDirecciones.nuevaDireccion.fechavigencia}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                 </p:calendar>
@@ -422,7 +422,7 @@
                             
                             <strong><h:outputText value="*Fecha: " style=" position: absolute; top: 85px;" /></strong>
                             <div style=" position: absolute; top: 80px; left: 200px;">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlPerDirecciones.duplicarDireccion.fechavigencia}">
+                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlPerDirecciones.duplicarDireccion.fechavigencia}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                 </p:calendar>
@@ -538,7 +538,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlPerDirecciones.actualizarCiudades()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left:27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVCiudades').filter();" style="width:150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVCiudades.filter();" style="width:150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column  filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 100px;" > 

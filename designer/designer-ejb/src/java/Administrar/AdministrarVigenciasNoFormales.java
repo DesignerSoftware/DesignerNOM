@@ -93,37 +93,55 @@ public class AdministrarVigenciasNoFormales implements AdministrarVigenciasNoFor
             System.out.println("Modificando...");
             if (listaVigenciasNoFormalesModificar.get(i).getCurso().getSecuencia() == null) {
                 listaVigenciasNoFormalesModificar.get(i).setCurso(null);
-                vNF = listaVigenciasNoFormalesModificar.get(i);
-            } else {
-                vNF = listaVigenciasNoFormalesModificar.get(i);
             }
             if (listaVigenciasNoFormalesModificar.get(i).getInstitucion().getSecuencia() == null) {
                 listaVigenciasNoFormalesModificar.get(i).setInstitucion(null);
-                vNF = listaVigenciasNoFormalesModificar.get(i);
-            } else {
-                vNF = listaVigenciasNoFormalesModificar.get(i);
             }
             if (listaVigenciasNoFormalesModificar.get(i).getAdiestramientonf().getSecuencia() == null) {
                 listaVigenciasNoFormalesModificar.get(i).setAdiestramientonf(null);
-                vNF = listaVigenciasNoFormalesModificar.get(i);
-            } else {
-                vNF = listaVigenciasNoFormalesModificar.get(i);
             }
-            
-            
-            persistenciaVigenciasNoFormales.editar(em, vNF);
+            persistenciaVigenciasNoFormales.editar(em, listaVigenciasNoFormalesModificar.get(i));
         }
     }
 
     @Override
-    public void borrarVigenciaNoFormal(VigenciasNoFormales vigenciasNoFormales) {
-        persistenciaVigenciasNoFormales.borrar(em, vigenciasNoFormales);
+    public void borrarVigenciaNoFormal(List<VigenciasNoFormales> listaVigenciasNoFormalesBorrar) {
+        for (int i = 0; i < listaVigenciasNoFormalesBorrar.size(); i++) {
+            System.out.println("Modificando...");
+            if (listaVigenciasNoFormalesBorrar.get(i).getCurso().getSecuencia() == null) {
+                listaVigenciasNoFormalesBorrar.get(i).setCurso(null);
+            }
+            if (listaVigenciasNoFormalesBorrar.get(i).getInstitucion().getSecuencia() == null) {
+                listaVigenciasNoFormalesBorrar.get(i).setInstitucion(null);
+            }
+//            if (listaVigenciasNoFormalesBorrar.get(i).getAdiestramientonf().getSecuencia() == null) {
+//                listaVigenciasNoFormalesBorrar.get(i).setAdiestramientonf(null);
+//            }
+            persistenciaVigenciasNoFormales.borrar(em, listaVigenciasNoFormalesBorrar.get(i));
+        }
     }
 
 
     @Override
-    public void crearVigenciaNoFormal(VigenciasNoFormales vigenciasNoFormales) {
-        persistenciaVigenciasNoFormales.crear(em, vigenciasNoFormales);
+    public void crearVigenciaNoFormal(List<VigenciasNoFormales> listaVigenciasNoFormalesCrear) {
+        for (int i = 0; i < listaVigenciasNoFormalesCrear.size(); i++) {
+            System.out.println("Modificando...");
+            if (listaVigenciasNoFormalesCrear.get(i).getCurso().getSecuencia() == null) {
+                listaVigenciasNoFormalesCrear.get(i).setCurso(null);
+            }
+            if (listaVigenciasNoFormalesCrear.get(i).getInstitucion().getSecuencia() == null) {
+                listaVigenciasNoFormalesCrear.get(i).setInstitucion(null);
+            }
+            if (listaVigenciasNoFormalesCrear.get(i).getAdiestramientonf().getSecuencia() == null) {
+                listaVigenciasNoFormalesCrear.get(i).setAdiestramientonf(null);
+            }
+            if (listaVigenciasNoFormalesCrear.get(i).getAdiestramientonf().getDesccripcion() != null) {
+                listaVigenciasNoFormalesCrear.get(i).setAcargo("S");
+            } else {
+                listaVigenciasNoFormalesCrear.get(i).setAcargo("N");
+            }
+            persistenciaVigenciasNoFormales.crear(em, listaVigenciasNoFormalesCrear.get(i));
+        }
     }
     
     @Override

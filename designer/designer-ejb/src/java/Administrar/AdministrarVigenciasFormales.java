@@ -41,7 +41,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
     PersistenciaInstitucionesInterface persistenciaInstituciones;
     @EJB
     PersistenciaAdiestramientosFInterface persistenciaAdiestramientosF;
-     @EJB
+    @EJB
     PersistenciaEmpleadoInterface persistenciaEmpleado;
     /**
      * Enterprise JavaBean.<br>
@@ -50,10 +50,10 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
      */
     @EJB
     AdministrarSesionesInterface administrarSesiones;
-    
+
     private VigenciasFormales vF;
     private EntityManager em;
-    
+
     @Override
     public void obtenerConexion(String idSesion) {
         em = administrarSesiones.obtenerConexionSesion(idSesion);
@@ -89,66 +89,92 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
     public List<Instituciones> lovInstituciones() {
         return persistenciaInstituciones.instituciones(em);
     }
-    
+
     @Override
     public List<AdiestramientosF> lovAdiestramientosF() {
         return persistenciaAdiestramientosF.adiestramientosF(em);
     }
-    
-        @Override
+
+    @Override
     public void modificarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesModificar) {
         for (int i = 0; i < listaVigenciasFormalesModificar.size(); i++) {
             System.out.println("Modificando...");
             if (listaVigenciasFormalesModificar.get(i).getTipoeducacion().getSecuencia() == null) {
                 listaVigenciasFormalesModificar.get(i).setTipoeducacion(null);
-                vF = listaVigenciasFormalesModificar.get(i);
-            } else {
-                vF = listaVigenciasFormalesModificar.get(i);
             }
             if (listaVigenciasFormalesModificar.get(i).getProfesion().getSecuencia() == null) {
                 listaVigenciasFormalesModificar.get(i).setProfesion(null);
-                vF = listaVigenciasFormalesModificar.get(i);
-            } else {
-                vF = listaVigenciasFormalesModificar.get(i);
             }
             if (listaVigenciasFormalesModificar.get(i).getInstitucion().getSecuencia() == null) {
                 listaVigenciasFormalesModificar.get(i).setInstitucion(null);
-                vF = listaVigenciasFormalesModificar.get(i);
-            } else {
-                vF = listaVigenciasFormalesModificar.get(i);
             }
             if (listaVigenciasFormalesModificar.get(i).getAdiestramientof().getSecuencia() == null) {
                 listaVigenciasFormalesModificar.get(i).setAdiestramientof(null);
-                vF = listaVigenciasFormalesModificar.get(i);
-            } else {
-                vF = listaVigenciasFormalesModificar.get(i);
             }
-            
-            
-            persistenciaVigenciasFormales.editar(em, vF);
+            persistenciaVigenciasFormales.editar(em, listaVigenciasFormalesModificar.get(i));
         }
     }
 
     @Override
-    public void borrarVigenciaFormal(VigenciasFormales vigenciasFormales) {
-        persistenciaVigenciasFormales.borrar(em, vigenciasFormales);
+    public void borrarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesBorrar) {
+        for (int i = 0; i < listaVigenciasFormalesBorrar.size(); i++) {
+            System.out.println("Borrando...");
+            if (listaVigenciasFormalesBorrar.get(i).getTipoeducacion().getSecuencia() == null) {
+                listaVigenciasFormalesBorrar.get(i).setTipoeducacion(null);
+            }
+            if (listaVigenciasFormalesBorrar.get(i).getProfesion().getSecuencia() == null) {
+                listaVigenciasFormalesBorrar.get(i).setProfesion(null);
+            }
+            if (listaVigenciasFormalesBorrar.get(i).getInstitucion().getSecuencia() == null) {
+                listaVigenciasFormalesBorrar.get(i).setInstitucion(null);
+            }
+//            if (listaVigenciasFormalesBorrar.get(i).getAdiestramientof().getSecuencia() == null) {
+//                listaVigenciasFormalesBorrar.get(i).setAdiestramientof(null);
+//            }
+            persistenciaVigenciasFormales.borrar(em, listaVigenciasFormalesBorrar.get(i));
+        }
     }
 
+    @Override
+    public void crearVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesCrear) {
+        for (int i = 0; i < listaVigenciasFormalesCrear.size(); i++) {
+            System.out.println("Modificando...");
+            if (listaVigenciasFormalesCrear.get(i).getTipoeducacion().getSecuencia() == null) {
+                listaVigenciasFormalesCrear.get(i).setTipoeducacion(null);
+            }
+            if (listaVigenciasFormalesCrear.get(i).getProfesion().getSecuencia() == null) {
+                listaVigenciasFormalesCrear.get(i).setProfesion(null);
+            }
+            if (listaVigenciasFormalesCrear.get(i).getInstitucion().getSecuencia() == null) {
+                listaVigenciasFormalesCrear.get(i).setInstitucion(null);
+            }
+            if (listaVigenciasFormalesCrear.get(i).getAdiestramientof().getSecuencia() == null) {
+                listaVigenciasFormalesCrear.get(i).setAdiestramientof(null);
+            }
+            if (listaVigenciasFormalesCrear.get(i).getNumerotarjeta() != null) {
+                listaVigenciasFormalesCrear.get(i).setTarjetaprofesional("S");
+            } else {
+                listaVigenciasFormalesCrear.get(i).setTarjetaprofesional("N");
+            }
+
+            if (listaVigenciasFormalesCrear.get(i).getAdiestramientof().getDescripcion() != null) {
+                listaVigenciasFormalesCrear.get(i).setAcargo("S");
+            } else {
+                listaVigenciasFormalesCrear.get(i).setAcargo("N");
+            }
+            persistenciaVigenciasFormales.crear(em, listaVigenciasFormalesCrear.get(i));
+        }
+    }
 
     @Override
-    public void crearVigenciaFormal(VigenciasFormales vigenciasFormales) {
-        persistenciaVigenciasFormales.crear(em, vigenciasFormales);
-    }
-    
-    @Override
-    public Empleados empleadoActual(BigInteger secuenciaE){
-        try{
-        Empleados retorno = persistenciaEmpleado.buscarEmpleado(em, secuenciaE);
-        return retorno;
-        }catch(Exception  e){
-            System.out.println("Error empleadoActual Admi : "+e.toString());
+    public Empleados empleadoActual(BigInteger secuenciaE) {
+        try {
+            Empleados retorno = persistenciaEmpleado.buscarEmpleado(em, secuenciaE);
+            return retorno;
+        } catch (Exception e) {
+            System.out.println("Error empleadoActual Admi : " + e.toString());
             return null;
         }
     }
-    
+
 }

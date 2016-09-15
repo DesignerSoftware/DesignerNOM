@@ -1,0 +1,312 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <f:loadBundle basename="Recursos.profesion" var="msg" />
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:panel  id="PanelTotal" header="Profesiones" styleClass="panelTotal">  
+                        <p:toolbar styleClass="cssToolbar" >
+                            <p:toolbarGroup align="left">
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlProfesiones.guardarCambiosProfesion()}" process="@this" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlProfesiones.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png)" 
+                                                 disabled="#{controlProfesiones.activarLov}"  process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlProfesiones.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlProfesiones.exportXLS()}" />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlProfesiones.limpiarNuevaProfesion()}" ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosProfesionesExportar" fileName="ProfesionesXML" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlProfesiones.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroProfesion').show()" update=":formularioDialogos:nuevaProfesion" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlProfesiones.borrarProfesiones()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlProfesiones.duplicarProfesiones()}"  process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlProfesiones.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                                 oncomplete="PF('window.location.reload()" actionListener="#{controlProfesiones.cancelarModificacion()}" process="@this" />  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                                 action="#{controlProfesiones.redirigir()}"  process="@this" />  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+
+                        <p:commandButton style=" position: absolute; left: 675px; top: 462px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" disabled="#{controlProfesiones.guardado}" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosProfesiones" process="@this" />
+                        <p:commandButton style=" position: absolute; left: 765px; top: 462px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" " actionListener="#{controlProfesiones.salir()}" action="#{controlProfesiones.redirigir()}" process="@this" />
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 14px; color: blue"><strong>Profesiones</strong></legend>
+
+                            <p:dataTable id="datosProfesiones" widgetVar="datosProfesiones" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice"                           
+                                         value="#{controlProfesiones.listaProfesiones}" 
+                                         filteredValue="#{controlProfesiones.filtradoListaProfesiones}" 
+                                         editable="true" editMode="cell" scrollable="true" scrollWidth="830" 
+                                         emptyMessage="No se encontraron resultados para la búsqueda"
+                                         scrollHeight="#{controlProfesiones.altoTabla}" style="border: 1px;width: 830px"
+                                         selection="#{controlProfesiones.profesionSeleccionada}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlProfesiones.eventoFiltrar()}"/>
+                                <f:event type="preRenderView" listener="#{controlProfesiones.recordarSeleccionTT()}"/>
+
+                                <p:column id="profedionesCodigos" headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  width="80"  filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.codigo}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.codigo}" id="CodigosProfesiones" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
+                                                <p:keyFilter for="CodigosProfesiones" mask="num"/>
+                                                <p:ajax event="select" listener="#{controlProfesiones.cambiarIndice(info,0)}" />
+                                                <p:ajax event="change" listener="#{controlProfesiones.modificarProfesiones(info, 'N', info.codigo)}" update="@this"/>
+                                            </p:inputText> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column id="profesionesDescripcion" headerText="Descripción" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"    >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.descripcion}"  style="text-transform: uppercase;">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.descripcion}" id="NombresProfesiones" maxlength="20" style=" border-radius: 0px; width: 99%; text-transform: uppercase;height: 12px;"> 
+                                                <p:ajax event="select" listener="#{controlProfesiones.cambiarIndice(info,1)}" />
+                                                <p:ajax event="change" listener="#{controlProfesiones.modificarProfesiones(info, 'N', info.descripcion)}" update="@this" />
+                                            </p:inputText> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable>
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlProfesiones.inforegistro}" style="position: relative; left: 15px; top: 5px; font-weight: bold"/>
+                        </fieldset>
+
+
+                    </p:panel>
+                </h:form>
+
+                <h:form id="formularioDialogos" >
+
+                    <!-- Ya Existe Nombre-->
+
+                    <p:dialog id="sobrepasaCaracteres" header="#{msg['error']}" widgetVar="sobrepasaCaracteres"  resizable="false" draggable="false" modal="true" height="100" width="400px;"  closable ="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="El límite de Caracteres para el nombre del tipo de teléfono es 20" style="position: absolute; left: 70px; top: 25px; width: 300px; font-weight:bold;" />
+                        <p:commandButton value="Aceptar" onclick="PF('sobrepasaCaracteres').hide();" icon="ui-icon-circle-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                    </p:dialog>
+
+                    <!-- Ya Existe Codigo -->
+
+                    <p:dialog id="existeCodigo" header="#{msg['error']}" widgetVar="existeCodigo"  resizable="false" draggable="false" modal="true" height="100" width="400px;"  closable ="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="El código digitado ya está en uso. Por favor, ingrese otro código." style="position: absolute; left: 70px; top: 20px; width: 300px; font-weight:bold;" />
+                        <p:commandButton value="Aceptar" onclick="PF('existeCodigo').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="existeNombre" header="#{msg['error']}" widgetVar="existeNombre"  resizable="false" draggable="false" modal="true" height="100" width="400px;"  closable ="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="El nombre digitado ya está en uso. Por favor, ingrese otro nombre." style="position: absolute; left: 70px; top: 20px; width: 300px; font-weight:bold;" />
+                        <p:commandButton value="Aceptar" onclick="PF('existeNombre').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                    </p:dialog>
+
+
+                    <p:dialog id="NuevoRegistroProfesion" header="Nuevo Registro" widgetVar="NuevoRegistroProfesion" closable="false" resizable="false"  draggable="false" modal="true" height="200" width="320" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="Ingresar nueva Profesión" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+
+                        <p:panel id="nuevaProfesion" style="border: none;">
+                            <strong><h:outputText value="Código: " style=" position: absolute; top: 63px;" /></strong>
+                            <p:inputText id="nuevoCodigoProfesion" value="#{controlProfesiones.nuevaProfesion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoCodigoProfesion" value="Código" />
+
+                            <strong><h:outputText value="Nombre: " style=" position: absolute; top: 93px;" /></strong>
+                            <p:inputText id="nuevoNombreProfesion" value="#{controlProfesiones.nuevaProfesion.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+                            <p:watermark for="nuevoNombreProfesion" value="Nombre" />
+
+                            <p:commandButton id="limpiar" value="Limpiar" style=" position: absolute; left: 10px; top: 160px;" icon="ui-icon-trash" actionListener="#{controlProfesiones.limpiarNuevaProfesion()}" update="nuevaProfesion" process="@this"/>
+                            <p:commandButton id="agregarTT" value="Agregar" style=" position: absolute; left: 110px; top: 160px;" icon="ui-icon-circle-check" actionListener="#{controlProfesiones.agregarNuevaProfesion()}" process="@this"/>
+                            <p:commandButton id="cancelarTT" value="Cancelar" style=" position: absolute; left: 210px; top: 160px;" icon="ui-icon-circle-close" actionListener="#{controlProfesiones.limpiarNuevaProfesion()}" update="nuevaProfesion" onclick="PF('NuevoRegistroProfesion').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <!--DIALOGO DUPLICAR-->
+
+                    <p:dialog id="DuplicarRegistroProfesion" header="Duplicar Registro" widgetVar="DuplicarRegistroProfesion" closable="false" resizable="false"  draggable="false" modal="true"  height="200" width="320" style=" padding: 0px">  
+
+                        <center><strong><h:outputText value="Ingresar Profesión " style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+
+                        <p:panel id="duplicarProfesion" style="border: none;">
+
+                            <strong><h:outputText value="Codigo: " style=" position: absolute; top: 63px;" /></strong>
+                            <p:inputText id="duplicarCodigo" value="#{controlProfesiones.duplicarProfesion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                                <p:ajax event="change" update="duplicarProfesion"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCodigo" value="Código" />
+
+                            <strong><h:outputText value="Nombre: " style=" position: absolute; top: 93px;" /></strong>
+                            <p:inputText id="duplicarNombre" value="#{controlProfesiones.duplicarProfesion.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                                <p:ajax event="change" update="duplicarProfesion"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarNombre" value="Nombre" />
+
+                            <p:commandButton id="limpiarDuplicadoTipoEducacion" value="Limpiar" style=" position: absolute; left: 10px; top: 160px;" icon="ui-icon-trash" actionListener="#{controlProfesiones.limpiarduplicarProfesion()}" update="duplicarProfesion" process="@this"/>
+                            <p:commandButton id="agregarDuplicadoTipoEducacion" value="Agregar" style=" position: absolute; left: 110px; top: 160px;"  icon="ui-icon-circle-check" process="@this" actionListener="#{controlProfesiones.confirmarDuplicar()}" />
+                            <p:commandButton id="cancelarDuplicadoTipoEducacion" value="Cancelar" style=" position: absolute; left: 210px; top: 160px;" icon="ui-icon-circle-close" actionListener="#{controlProfesiones.limpiarduplicarProfesion()}" update="duplicarProfesion" onclick="PF('DuplicarRegistroProfesion').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="validacionNuevaProfesion" header="#{msg['atencion']}" widgetVar="validacionNuevaProfesion"  resizable="false" draggable="false" modal="true" height="95" width="440" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
+                        <h:outputText value="Para agregar una nueva Profesión es necesario adicionar: #{controlProfesiones.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaProfesion').hide();" icon="ui-icon-circle-check" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlProfesiones.guardarCambiosProfesion()}" action="#{controlProfesiones.redirigir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlProfesiones.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+                    <!-- DIALOGOS RASTROS -->
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 7px; width: 180px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProfesiones.profesionSeleccionada.getSecuencia(), 'Profesiones', 'profesiones')}" style="position: absolute; top: 65px; left: 205px;" action="rastro" process="@this" icon="ui-icon-circle-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" icon="ui-icon-circle-close"  />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Profesiones', 'tiposeducaciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 5px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProfesiones.profesionSeleccionada.getSecuencia(), 'Profesiones', 'profesiones')}" style="position: absolute; top: 70px; left: 170px;" action="rastro" process="@this" icon="ui-icon-circle-check" />
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 235px;" process="@this" icon="ui-icon-circle-close" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 5px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <!--HotKey-->
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlProfesiones.activarCtrlF11()}" process="@this"/>
+
+
+
+                    <!-- DIALOGOS EDITAR -->
+
+                    <p:dialog id="editarCodigosProfesiones" header="Código" widgetVar="editarCodigosProfesiones" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlProfesiones.editarProfesion.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarNombresProfesiones" header="Nombre" widgetVar="editarNombresProfesiones" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlProfesiones.editarProfesion.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    </p:dialog>
+
+                </h:form>
+
+                <!-- DIALOGOS EXPORTAR -->
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosProfesionesExportar" var="tiposEducaciones" style="visibility: hidden; display: none;"                           
+                                 value="#{controlProfesiones.listaProfesiones}"> 
+                        <p:column headerText="#{msg['codigo']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['codigo']}"/> </f:facet> 
+                            <h:outputText value="#{tiposEducaciones.codigo}" />
+                        </p:column>  
+
+
+                        <p:column headerText="Nombre">                                  
+                            <f:facet name="header"><h:outputText value="Nombre"/> </f:facet> 
+                            <h:outputText value="#{tiposEducaciones.descripcion}" />
+                        </p:column> 
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

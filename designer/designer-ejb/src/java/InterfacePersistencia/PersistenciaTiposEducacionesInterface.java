@@ -18,4 +18,8 @@ public interface PersistenciaTiposEducacionesInterface {
      * @return Retorna una lista de TiposEducaciones ordenados por nombre.
      */
     public List<TiposEducaciones> tiposEducaciones(EntityManager em);
+    public void crear(EntityManager em,TiposEducaciones tipoEducacion);
+    public void borrar(EntityManager em,TiposEducaciones tipoEducacion);
+    public void editar(EntityManager em,TiposEducaciones tipoEducacion);
+    
 }

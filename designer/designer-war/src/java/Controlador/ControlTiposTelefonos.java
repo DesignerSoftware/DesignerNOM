@@ -47,7 +47,7 @@ public class ControlTiposTelefonos implements Serializable {
     private TiposTelefonos tipoTelefonoSeleccionado;
 
     //Crear TiposTelefonos
-    public TiposTelefonos nuevoTipoTelefono;
+    private TiposTelefonos nuevoTipoTelefono;
     private List<TiposTelefonos> listaTiposTelefonosCrear;
     private BigInteger l;
     private int k;
@@ -91,7 +91,6 @@ public class ControlTiposTelefonos implements Serializable {
         cambioEditor = false;
         aceptarEditar = true;
         cualCelda = -1;
-        tipoLista = 0;
         nuevoTipoTelefono = new TiposTelefonos();
         altoTabla = "270";
         guardado = true;
@@ -336,9 +335,9 @@ public class ControlTiposTelefonos implements Serializable {
             System.out.println("TipoLista= " + tipoLista);
             FacesContext c = FacesContext.getCurrentInstance();
             tiposTelefonosCodigos = (Column) c.getViewRoot().findComponent("form:datosTiposTelefonos:tiposTelefonosCodigos");
-            tiposTelefonosCodigos.setFilterStyle("width: 85% !important;");
+            tiposTelefonosCodigos.setFilterStyle("width: 85%;");
             tiposTelefonosNombres = (Column) c.getViewRoot().findComponent("form:datosTiposTelefonos:tiposTelefonosNombres");
-            tiposTelefonosNombres.setFilterStyle("width: 85% !important;");
+            tiposTelefonosNombres.setFilterStyle("width: 85%;");
             altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosTiposTelefonos");
             bandera = 1;
@@ -366,8 +365,6 @@ public class ControlTiposTelefonos implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "TiposTelefonosPDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        tipoTelefonoSeleccionado = null;
-        tipoTelefonoSeleccionado = null;
     }
 
     public void exportXLS() throws IOException {
@@ -376,15 +373,11 @@ public class ControlTiposTelefonos implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "TiposTelefonosXLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        tipoTelefonoSeleccionado = null;
-        tipoTelefonoSeleccionado = null;
     }
 
     //LIMPIAR NUEVO REGISTRO DE TIPO DE TELEFONO
     public void limpiarNuevoTiposTelefonos() {
         nuevoTipoTelefono = new TiposTelefonos();
-        tipoTelefonoSeleccionado = null;
-        tipoTelefonoSeleccionado = null;
     }
 
     //BORRAR TIPO DE TELEFONO
@@ -458,7 +451,6 @@ public class ControlTiposTelefonos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoTelefono");
             PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTipoTelefono').show()");
-            tipoTelefonoSeleccionado = null;
         } else {
             PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
         }
@@ -569,25 +561,18 @@ public class ControlTiposTelefonos implements Serializable {
 
                     }
                 }
-                tipoTelefonoSeleccionado = null;
-                tipoTelefonoSeleccionado = null;
+            } else if (!listaTiposTelefonosCrear.contains(tipoTelefonoSeleccionado)) {
 
-            } else {
-                if (!listaTiposTelefonosCrear.contains(tipoTelefonoSeleccionado)) {
-
-                    if (listaTiposTelefonosModificar.isEmpty()) {
-                        listaTiposTelefonosModificar.add(tipoTelefonoSeleccionado);
-                    } else if (!listaTiposTelefonosModificar.contains(tipoTelefonoSeleccionado)) {
-                        listaTiposTelefonosModificar.add(tipoTelefonoSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    }
+                if (listaTiposTelefonosModificar.isEmpty()) {
+                    listaTiposTelefonosModificar.add(tipoTelefonoSeleccionado);
+                } else if (!listaTiposTelefonosModificar.contains(tipoTelefonoSeleccionado)) {
+                    listaTiposTelefonosModificar.add(tipoTelefonoSeleccionado);
                 }
-                tipoTelefonoSeleccionado = null;
-                tipoTelefonoSeleccionado = null;
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+                }
             }
             RequestContext.getCurrentInstance().update("form:datosTiposTelefonos");
         }
@@ -597,31 +582,26 @@ public class ControlTiposTelefonos implements Serializable {
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
         System.out.println("lol");
-            if (tipoTelefonoSeleccionado != null) {
-                System.out.println("lol 2");
-                int resultado = administrarRastros.obtenerTabla(tipoTelefonoSeleccionado.getSecuencia(), "TIPOSTELEFONOS");
-                System.out.println("resultado: " + resultado);
-                if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
-                }
+        if (tipoTelefonoSeleccionado != null) {
+            System.out.println("lol 2");
+            int resultado = administrarRastros.obtenerTabla(tipoTelefonoSeleccionado.getSecuencia(), "TIPOSTELEFONOS");
+            System.out.println("resultado: " + resultado);
+            if (resultado == 1) {
+                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
             }
-         else {
-            if (administrarRastros.verificarHistoricosTabla("TIPOSTELEFONOS")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
-            } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
-            }
-
+        } else if (administrarRastros.verificarHistoricosTabla("TIPOSTELEFONOS")) {
+            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+        } else {
+            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
         }
-        tipoTelefonoSeleccionado = null;
     }
 
     public void recordarSeleccionTT() {

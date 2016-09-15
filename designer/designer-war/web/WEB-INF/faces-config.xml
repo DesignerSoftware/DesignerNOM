@@ -5542,7 +5542,7 @@
         </navigation-case>
     </navigation-rule>
     
-        <navigation-rule>
+    <navigation-rule>
         <from-view-id>/claseausentismo.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>tiposausentismos</from-outcome>
@@ -5697,7 +5697,7 @@
         </navigation-case>
     </navigation-rule>
     
-      <navigation-rule>
+    <navigation-rule>
         <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>interfasecontabletercero</from-outcome>
@@ -5715,7 +5715,7 @@
         </navigation-case>
     </navigation-rule>
     
-      <navigation-rule>
+    <navigation-rule>
         <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>interfasecontableconcepto</from-outcome>
@@ -5751,7 +5751,7 @@
         </navigation-case>
     </navigation-rule>
    
-   <navigation-rule>
+    <navigation-rule>
         <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>interfasecontablecuenta</from-outcome>
@@ -5768,7 +5768,7 @@
         </navigation-case>
     </navigation-rule>
      
-       <navigation-rule>
+    <navigation-rule>
         <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>interfasecontableempleado</from-outcome>
@@ -5849,6 +5849,33 @@
         <navigation-case>
             <from-outcome>atrasformulacontrato</from-outcome>
             <to-view-id>/formulacontrato.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/perdireccion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ciudades</from-outcome>
+            <to-view-id>/ciudades.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/personaeducacion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipoEducacion</from-outcome>
+            <to-view-id>/tipoeducacion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/personaeducacion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>profesion</from-outcome>
+            <to-view-id>/profesiones.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>

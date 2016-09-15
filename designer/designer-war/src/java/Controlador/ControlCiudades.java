@@ -128,7 +128,7 @@ public class ControlCiudades implements Serializable {
     public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
         getListaCiudades();
-        contarRegistrosCiudad();
+//        contarRegistrosCiudad();
         if (listaCiudades != null) {
             ciudadSeleccionada = listaCiudades.get(0);
         }
@@ -353,13 +353,13 @@ public class ControlCiudades implements Serializable {
             tipoLista = 1;
             System.out.println("Activar");
             ciudadesCodigos = (Column) c.getViewRoot().findComponent("form:datosCiudades:ciudadesCodigos");
-            ciudadesCodigos.setFilterStyle("width: 85% !important");
+            ciudadesCodigos.setFilterStyle("width: 85%");
             ciudadesNombres = (Column) c.getViewRoot().findComponent("form:datosCiudades:ciudadesNombres");
-            ciudadesNombres.setFilterStyle("width: 85% !important");
+            ciudadesNombres.setFilterStyle("width: 85%");
             nombresDepartamentos = (Column) c.getViewRoot().findComponent("form:datosCiudades:nombresDepartamentos");
-            nombresDepartamentos.setFilterStyle("width: 85% !important");
+            nombresDepartamentos.setFilterStyle("width: 85%");
             ciudadesCodigosAlternativos = (Column) c.getViewRoot().findComponent("form:datosCiudades:ciudadesCodigosAlternativos");
-            ciudadesCodigosAlternativos.setFilterStyle("width: 85% !important");
+            ciudadesCodigosAlternativos.setFilterStyle("width: 85%");
             altoTabla = "290";
             RequestContext.getCurrentInstance().update("form:datosCiudades");
             bandera = 1;

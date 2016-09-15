@@ -133,8 +133,8 @@ public class ControlPerTelefonos implements Serializable {
         empleado = administrarTelefonos.empleadoActual(secuencia);
         getListaTelefonos();
         if (listaTelefonos == null || listaTelefonos.isEmpty()) {
-            telefonoSeleccionado= null;
-        } else{
+            telefonoSeleccionado = null;
+        } else {
             telefonoSeleccionado = listaTelefonos.get(0);
         }
         contarRegistros();
@@ -145,7 +145,7 @@ public class ControlPerTelefonos implements Serializable {
         aceptar = true;
         getListaTelefonos();
 //        RequestContext context = RequestContext.getCurrentInstance();
-       RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+        RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
     }
 
     //CANCELAR MODIFICACIONES
@@ -225,9 +225,9 @@ public class ControlPerTelefonos implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         //cualCelda = -1;
-        RequestContext.getCurrentInstance().update("form:tiposTelefonosDialogo");
-        RequestContext.getCurrentInstance().update("form:LOVTiposTelefonos");
-        RequestContext.getCurrentInstance().update("form:aceptarTT");
+        RequestContext.getCurrentInstance().update("formularioDialogos:tiposTelefonosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposTelefonos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTT");
 
         context.reset("formularioDialogos:LOVTiposTelefonos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVTiposTelefonos').clearFilters()");
@@ -243,9 +243,9 @@ public class ControlPerTelefonos implements Serializable {
         cualCelda = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:tiposTelefonosDialogo");
-        RequestContext.getCurrentInstance().update("form:LOVTiposTelefonos");
-        RequestContext.getCurrentInstance().update("form:aceptarTT");
+        RequestContext.getCurrentInstance().update("formularioDialogos:tiposTelefonosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposTelefonos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTT");
         context.reset("formularioDialogos:LOVTiposTelefonos:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVTiposTelefonos').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('tiposTelefonosDialogo').hide()");
@@ -483,13 +483,13 @@ public class ControlPerTelefonos implements Serializable {
             System.out.println("Activar");
             System.out.println("TipoLista= " + tipoLista);
             tFecha = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tFecha");
-            tFecha.setFilterStyle("width: 85% !important");
+            tFecha.setFilterStyle("width: 85%");
             tTipoTelefono = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tTipoTelefono");
-            tTipoTelefono.setFilterStyle("width: 85% !important");
+            tTipoTelefono.setFilterStyle("width: 85%");
             tNumero = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tNumero");
-            tNumero.setFilterStyle("width: 85% !important");
+            tNumero.setFilterStyle("width: 85%");
             tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
-            tCiudad.setFilterStyle("width: 85% !important");
+            tCiudad.setFilterStyle("width: 85%");
             altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
             bandera = 1;
@@ -644,7 +644,9 @@ public class ControlPerTelefonos implements Serializable {
         context.reset("formularioDialogos:LOVCiudades:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVCiudades').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').hide()");
-        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVCiudades");
+        RequestContext.getCurrentInstance().update("form:ciudadesDialogo");
+        RequestContext.getCurrentInstance().update("form:LOVCiudades");
+        RequestContext.getCurrentInstance().update("form:aceptarC");
     }
 
     public void cancelarCambioCiudad() {
@@ -658,6 +660,9 @@ public class ControlPerTelefonos implements Serializable {
         context.reset("formularioDialogos:LOVCiudades:globalFilter");
         PrimefacesContextUI.ejecutar("PF('LOVCiudades').clearFilters()");
         PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("form:ciudadesDialogo");
+        RequestContext.getCurrentInstance().update("form:LOVCiudades");
+        RequestContext.getCurrentInstance().update("form:aceptarC");
     }
 
     //Ubicacion Celda.
@@ -830,13 +835,11 @@ public class ControlPerTelefonos implements Serializable {
                     if (listaTelefonosBorrar.get(i).getTipotelefono().getSecuencia() == null) {
                         listaTelefonosBorrar.get(i).setTipotelefono(null);
                         administrarTelefonos.borrarTelefono(listaTelefonosBorrar.get(i));
+                    } else if (listaTelefonosBorrar.get(i).getCiudad().getSecuencia() == null) {
+                        listaTelefonosBorrar.get(i).setCiudad(null);
+                        administrarTelefonos.borrarTelefono(listaTelefonosBorrar.get(i));
                     } else {
-                        if (listaTelefonosBorrar.get(i).getCiudad().getSecuencia() == null) {
-                            listaTelefonosBorrar.get(i).setCiudad(null);
-                            administrarTelefonos.borrarTelefono(listaTelefonosBorrar.get(i));
-                        } else {
-                            administrarTelefonos.borrarTelefono(listaTelefonosBorrar.get(i));
-                        }
+                        administrarTelefonos.borrarTelefono(listaTelefonosBorrar.get(i));
                     }
                 }
                 listaTelefonosBorrar.clear();
@@ -848,13 +851,11 @@ public class ControlPerTelefonos implements Serializable {
                     if (listaTelefonosCrear.get(i).getTipotelefono().getSecuencia() == null) {
                         listaTelefonosCrear.get(i).setTipotelefono(null);
                         administrarTelefonos.crearTelefono(listaTelefonosCrear.get(i));
+                    } else if (listaTelefonosCrear.get(i).getCiudad().getSecuencia() == null) {
+                        listaTelefonosCrear.get(i).setCiudad(null);
+                        administrarTelefonos.crearTelefono(listaTelefonosCrear.get(i));
                     } else {
-                        if (listaTelefonosCrear.get(i).getCiudad().getSecuencia() == null) {
-                            listaTelefonosCrear.get(i).setCiudad(null);
-                            administrarTelefonos.crearTelefono(listaTelefonosCrear.get(i));
-                        } else {
-                            administrarTelefonos.crearTelefono(listaTelefonosCrear.get(i));
-                        }
+                        administrarTelefonos.crearTelefono(listaTelefonosCrear.get(i));
                     }
                 }
                 listaTelefonosCrear.clear();
@@ -1049,12 +1050,10 @@ public class ControlPerTelefonos implements Serializable {
                 PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
             }
             deshabilitarBotonLov();
+        } else if (administrarRastros.verificarHistoricosTabla("TELEFONOS")) {
+            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("TELEFONOS")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
-            } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
-            }
+            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
         }
     }
 
