@@ -183,7 +183,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlIdiomaPersona.actualizarIdioma()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarI']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovIdiomas.filter();" style="width:250px; position: relative; left: 50px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovIdiomas').filter();" style="width:250px; position: relative; left: 50px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{idiomas.nombre}" width="100" filterMatchMode="contains" filterStyle="width: 80px">

@@ -161,7 +161,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlEmpresasBancos.actualizarPais()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Empresa"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTiposFamiliares.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipofamiliar.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -194,7 +194,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlEmpresasBancos.actualizarBancos()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Bancos"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovBancos.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovBancos').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{personaFirmas.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
@@ -229,7 +229,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlEmpresasBancos.actualizarCiudades()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Ciudad"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovCiudades.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovCiudades').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{personaCiudades.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">

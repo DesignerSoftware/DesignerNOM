@@ -140,7 +140,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlReingresarEmpleado.actualizarEmpleados()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEM']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVEmpleados.filter();" style="width:100px; position: relative; left: 80px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width:100px; position: relative; left: 80px;" />  
                             </f:facet>
 
                             <p:column  filterBy="#{emp.codigoempleado}" width="50" filterMatchMode="contains" filterStyle="width: 40px;" > 
@@ -175,7 +175,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlReingresarEmpleado.actualizarEstructuras()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVEstructuras.filter();" style="width:100px; position: relative; left: 80px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVEstructuras').filter();" style="width:100px; position: relative; left: 80px;" />  
                             </f:facet>
 
                             <p:column  filterBy="#{es.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 40px;" > 

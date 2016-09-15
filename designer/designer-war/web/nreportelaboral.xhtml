@@ -149,7 +149,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNReporteLaboral.actualizarSeleccionInforeporte()}"  update=":form:reportesLaboral" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarR']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovReportesDialogo.filter();" style="width:150px; position: relative; left: -5px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" style="width:150px; position: relative; left: -5px;" />  
                             </f:facet>
                             <p:column  filterBy="#{reportes.codigo}" width="20" filterMatchMode="contains" filterStyle="width: 30px">
                                 <f:facet name="header">
@@ -190,7 +190,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNReporteLaboral.actualizarSeleccionCargo()}"  process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovCargoDialogo.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovCargoDialogo').filter();" style="width:150px; position: relative; left: 30px;" />  
                             </f:facet>
                             <p:column  filterBy="#{cargo.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 30px">
                                 <f:facet name="header">
@@ -224,7 +224,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNReporteLaboral.actualizarEmpleadoDesde()}"  process="@this"  />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpleadoDesde.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();" style="width:150px; position: relative; left: 30px;" />  
                             </f:facet>
                             <p:column filterBy="#{empleadoDesde.codigoempleado}" width="40" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -257,7 +257,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNReporteLaboral.actualizarEmpleadoHasta()}"  process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMPH']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpleadoHasta.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();" style="width:150px; position: relative; left: 30px;" />  
                             </f:facet>
                             <p:column filterBy="#{empleadoHasta.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -290,7 +290,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNReporteLaboral.actualizarEmpresa()}"  process="@this" onstart="PF('lovEmpresa').clearFilters()"  />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpresa.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpresa').filter();" style="width:150px; position: relative; left: 30px;" />  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 40px">
                                 <f:facet name="header">

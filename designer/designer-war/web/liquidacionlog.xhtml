@@ -194,7 +194,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Empleado"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTipoCentrosCostos.filter();" style="width:150px; position: relative; left: 60px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoCentrosCostos').filter();" style="width:150px; position: relative; left: 60px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{empleado.persona.numerodocumento}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                     <f:facet name="header">

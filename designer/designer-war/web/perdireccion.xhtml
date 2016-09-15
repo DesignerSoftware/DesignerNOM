@@ -538,7 +538,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlPerDirecciones.actualizarCiudades()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left:27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVCiudades.filter();" style="width:150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVCiudades').filter();" style="width:150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column  filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 100px;" > 

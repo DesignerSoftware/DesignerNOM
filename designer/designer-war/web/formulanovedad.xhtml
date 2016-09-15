@@ -262,7 +262,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlFormulaNovedad.actualizarFormula()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovFormula.filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovFormula').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{formula.nombrecorto}" filterMatchMode="contains">
                                 <f:facet name="header">

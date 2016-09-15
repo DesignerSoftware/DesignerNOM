@@ -370,7 +370,7 @@
                                         oncomplete="PF('lovMotivo').unselectAllRows(), lovMotivo').clearFilters()" update=":form:MotivoDialogo"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovMotivo.filter();" value="#{filtrado}" style="width:160px; position: relative; left: 5px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovMotivo').filter();" value="#{filtrado}" style="width:160px; position: relative; left: 5px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{motivo.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -408,7 +408,7 @@
                                         oncomplete="PF('CertificadosDialogo').hide(), PF('lovCertificado').clearFilters()" update=":form:CertificadosDialogo"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovCertificado.filter();" value="#{filtrado}" style="width:170px; position: relative; left: 40px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovCertificado').filter();" value="#{filtrado}" style="width:170px; position: relative; left: 40px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipoC.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">

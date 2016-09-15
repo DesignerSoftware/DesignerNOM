@@ -157,7 +157,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Grupo Tipo CC : "  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovGruposTiposCC.filter();" style="width:150px; position: relative; left: 70px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovGruposTiposCC').filter();" style="width:150px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{grupos.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                 <f:facet name="header">

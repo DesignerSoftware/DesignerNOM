@@ -142,7 +142,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlTiposEntidades.actualizarGrupoTipoEntidad()}" update=":form:gruposTiposEntidadesDialogo" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Grupo de Tipo Entidad : "  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" value="#{filtrado}" onkeyup="lovGruposTiposEntidades.filter();" style="width:110px; position: relative; left: 90px;" />  
+                                <p:inputText id="globalFilter" value="#{filtrado}" onkeyup="PF('lovGruposTiposEntidades').filter();" style="width:110px; position: relative; left: 90px;" />  
                             </f:facet>
                             <p:column filterBy="#{grupos.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                 <f:facet name="header">

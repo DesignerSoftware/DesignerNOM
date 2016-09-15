@@ -453,7 +453,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlAdminreportes.actualizarInforeportes()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarR']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVInforeportes.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVInforeportes').filter();" style="width:150px; position: relative; left: 30px;" />  
                             </f:facet>
                             <p:column filterBy="#{inforeportes.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -487,7 +487,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlAdminreportes.actualizarModulos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVModulos.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVModulos').filter();" style="width:150px; position: relative; left: 30px;" />  
                             </f:facet>
                             <p:column filterBy="#{modulo.nombre}" width="200"  filterMatchMode="contains">
                                 <f:facet name="header">

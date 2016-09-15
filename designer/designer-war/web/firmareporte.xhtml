@@ -175,7 +175,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlFirmasReportes.actualizarPais()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Empresa : "  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTiposFamiliares.filter();" style="width:200px; position: relative; left: 30px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" style="width:200px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipofamiliar.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -208,7 +208,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlFirmasReportes.actualizarPersonas()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Personas : "  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovPersonas.filter();" style="width: 200px; position: relative; left: 30px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovPersonas').filter();" style="width: 200px; position: relative; left: 30px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{personaFirmas.numerodocumento}" width="100" filterStyle="width:30px;" filterMatchMode="contains">
@@ -242,7 +242,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlFirmasReportes.actualizarCargos()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Cargo :"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovCargos.filter();" style=" width:200px; position: relative; left: 30px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovCargos').filter();" style=" width:200px; position: relative; left: 30px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{personaCargos.codigo}" width="100" filterStyle="width:30px;" filterMatchMode="contains">

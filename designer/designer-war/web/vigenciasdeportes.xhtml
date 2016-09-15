@@ -270,7 +270,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaDeporte.actualizarDeporte()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovDeportes.filter();" style="width:150px; position: relative; left: 5px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovDeportes').filter();" style="width:150px; position: relative; left: 5px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{deportes.nombre}" filterMatchMode="contains" filterStyle="width:80%">

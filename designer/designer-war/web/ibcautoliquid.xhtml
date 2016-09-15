@@ -237,7 +237,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlIbcAutoliquid.actualizarProceso()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovProcesos.filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovProcesos').filter();" style="width:150px; position: relative; left: 20px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{proceso.codigo}" filterStyle="width: 60px;" width="80" filterMatchMode="contains" >

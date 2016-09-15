@@ -497,7 +497,7 @@
                             <p:ajax event="filter" listener="#{cargarArchivoPlano.eventoFiltrarFormulas()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovFormulas.filter();" style="width:150px; position: relative; left: 5px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovFormulas').filter();" style="width:150px; position: relative; left: 5px;" />  
                             </f:facet>
                             <p:column filterBy="#{formula.nombrecorto}" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -529,7 +529,7 @@
                             <p:ajax event="rowDblselect" process="@this" listener="#{cargarArchivoPlano.seleccionarDocumentoSoporte()}" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarDS']}"  style="position: absolute; left: 27px; top: 16px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovDocumentoSoporte.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovDocumentoSoporte').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
                             <p:column filterBy="#{documentoSoporte}" width="300"  filterMatchMode="contains">
                                 <f:facet name="header">

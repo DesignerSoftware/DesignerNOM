@@ -246,7 +246,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlEstructura.actualizarEmpresa()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEM']}"  style="position: absolute; left: 27px; top: 16px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpresas.filter();" style="width:200px; position: relative; left: 40px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:200px; position: relative; left: 40px;" />  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">

@@ -434,17 +434,17 @@
                             
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVMotivos.filter();" style="width: 150px; position: relative; left: 75px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVMotivos').filter();" style="width: 150px; position: relative; left: 75px;" />  
                             </f:facet>
 
-                            <p:column sortBy="#{motivos.codigo}" filterBy="#{motivos.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 80%" > 
+                            <p:column sortBy="#{motivos.codigo}" filterBy="#{motivos.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 80% !important" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigoM']}" />
                                 </f:facet>
                                 <h:outputText value="#{motivos.codigo}" />  
                             </p:column>
 
-                            <p:column sortBy="#{motivos.nombre}" filterBy="#{motivos.nombre}" filterMatchMode="contains" filterStyle="width: 80%" > 
+                            <p:column sortBy="#{motivos.nombre}" filterBy="#{motivos.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreM']}" />
                                 </f:facet>
@@ -475,7 +475,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesDefinitivas.actualizarRetiros()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarR']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVRetiros.filter();" style="width: 150px; position: relative; left: 70px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVRetiros').filter();" style="width: 150px; position: relative; left: 70px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{retiros.codigo}" filterBy="#{retiros.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85% !important" > 
@@ -516,17 +516,17 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesDefinitivas.actualizarEmpleadosNovedad()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVEmpleados.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
-                            <p:column style="text-align: center" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains"  filterStyle="width: 80%" > 
+                            <p:column style="text-align: center" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains"  filterStyle="width: 80% !important" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigoE']}" />
                                 </f:facet>
                                 <h:outputText value="#{emp.codigoempleado}" />  
                             </p:column>
 
-                            <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80%" > 
+                            <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreE']}" />
                                 </f:facet>

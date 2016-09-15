@@ -241,7 +241,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.actualizarClaveDebito()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Clave Debito"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovClavesSap.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovClavesSap').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{idclavedebito.clave}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -274,7 +274,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.actualizarClaveCredito()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Clave Credito"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovClavesSapCredito.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovClavesSapCredito').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{idclavecredito.clave}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -434,7 +434,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.cambiarEmpresa()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Empresas:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpresas.filter();" style="width:100px; position: relative; left: 10px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 10px;" />  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -465,7 +465,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.seleccionConceptosPorEmpresa()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Conceptos"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovConceptosPorEmpresa.filter();" style="width:150px; position: relative; left: 65px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovConceptosPorEmpresa').filter();" style="width:150px; position: relative; left: 65px;" />  
                             </f:facet>
                             <p:column filterBy="#{conceptoslovporempresa.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                 <f:facet name="header">

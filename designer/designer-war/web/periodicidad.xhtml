@@ -185,7 +185,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Unidad"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTipoPeriodicidades.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoPeriodicidades').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{unidads.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                     <f:facet name="header">
@@ -217,7 +217,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Unidad Base"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovUnidadesBase.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovUnidadesBase').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{unidads.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                     <f:facet name="header">
@@ -413,7 +413,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlPeriodicidades.seleccionPeriodicidades()}" process="@this"  />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Periodicidad : "  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovPeriodicidades.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovPeriodicidades').filter();" style="width:150px; position: relative; left: 50px;" />  
                             </f:facet>
                             <p:column filterBy="#{centroscostosporempresa.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                 <f:facet name="header">

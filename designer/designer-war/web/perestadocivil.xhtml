@@ -144,7 +144,7 @@
                                 <!--<p:ajax event="filter" listener="#{controlVigenciasEstadosCiviles.eventoFiltrarEC()}"/>-->
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Estado Civil: "  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTiposFamiliares.filter();" style="width:150px; position: relative; left: 10px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" style="width:150px; position: relative; left: 10px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{estadocivil.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">

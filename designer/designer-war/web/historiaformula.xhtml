@@ -557,7 +557,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlHistoriaFormula.actualizarOperando()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Operando:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovOperando.filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovOperando').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{operando.nombre}" sortBy="#{operando.nombre}" width="120" filterMatchMode="contains" >
                                 <f:facet name="header">
@@ -598,7 +598,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlHistoriaFormula.actualizarOperador()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Operador:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovOperador.filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovOperador').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{operador.descripcion}" width="120" filterMatchMode="contains" >
                                 <f:facet name="header">

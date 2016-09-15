@@ -129,7 +129,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlConceptosRetroactivos.actualizarConceptos()}" process="@this" />
                                 <f:facet name="header">
                                     <h:outputText value="Buscar Conceptos:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovConceptos.filter();" style="width:200px; position: relative; left: 20px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovConceptos').filter();" style="width:200px; position: relative; left: 20px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{conceptodd.descripcion}" width="115px;" filterStyle="width:300px;" filterMatchMode="contains">
@@ -158,7 +158,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlConceptosRetroactivos.actualizarConceptosRetro()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Concepto Retroactivo: "  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovConceptosRetro.filter();" style="width:150px; position: relative; left: 85px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovConceptosRetro').filter();" style="width:150px; position: relative; left: 85px;" />  
                                 </f:facet>
                                
                                 <p:column filterBy="#{conceptoretroactivo.descripcion}" width="130px;" filterStyle="width:300px;" filterMatchMode="contains">

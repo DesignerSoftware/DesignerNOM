@@ -296,7 +296,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlDetalleLegislacion.actualizarFormula()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['lovBuscarFormula']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovFormula.filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovFormula').filter();" style="width:150px; position: relative; left: 20px;" />  
                             </f:facet>
                             <p:column filterBy="#{formula.estado}" width="80" filterMatchMode="contains" >
                                 <f:facet name="header">
@@ -338,7 +338,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlDetalleLegislacion.actualizarPeriodicidad()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarPeriodicidad']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovPeriodicidad.filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovPeriodicidad').filter();" style="width:150px; position: relative; left: 20px;" />  
                             </f:facet>
                             <p:column filterBy="#{periodicidad.nombre}" width="200" filterMatchMode="contains" >
                                 <f:facet name="header">
@@ -362,7 +362,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlDetalleLegislacion.actualizarTercero()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['lovBuscarTercero']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovTercero.filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovTercero').filter();" style="width:150px; position: relative; left: 20px;" />  
                             </f:facet>
                             <p:column filterBy="#{tercero.nit}" width="50" filterMatchMode="contains" >
                                 <f:facet name="header">
@@ -392,7 +392,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlDetalleLegislacion.actualizarFormula()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['lovBuscarFormula']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovBuscarFormula.filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovBuscarFormula').filter();" style="width:150px; position: relative; left: 20px;" />  
                             </f:facet>
                             <p:column filterBy="#{buscarF.strFechaIni}" width="100"  filterMatchMode="contains">
                                 <f:facet name="header">

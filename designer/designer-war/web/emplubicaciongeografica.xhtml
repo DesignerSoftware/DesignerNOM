@@ -159,7 +159,7 @@
                         <p:ajax event="rowDblselect" listener="#{controlVigenciasUbicaciones.actualizarUbicacion()}" update=":form:UbicacionesGeograficasDialogo" process="@this" />
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarU']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                           <p:inputText id="globalFilter" onkeyup="lovUbicaciones.filter();" value="#{filtrado}" style="width:150px; position: relative; left: -10px;" />  
+                           <p:inputText id="globalFilter" onkeyup="PF('lovUbicaciones').filter();" value="#{filtrado}" style="width:150px; position: relative; left: -10px;" />  
                         </f:facet>
                         <p:column filterBy="#{ubicaciones.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                            <f:facet name="header">

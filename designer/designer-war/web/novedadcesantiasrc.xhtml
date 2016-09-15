@@ -613,7 +613,7 @@
                             <p:ajax event="filter" listener="#{controlNovedadCesantiasRC.eventoFiltrarLovEmpleados()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="Nombre: " style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVEmpleados.filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width: 400px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column style="text-align: center" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 94%"> 
@@ -651,7 +651,7 @@
                             <p:ajax event="filter" listener="#{controlNovedadCesantiasRC.eventoFiltrarLovMotivosCesantias()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Periodo: "  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovmotivoscesantias.filter();" style="width: 230px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovmotivoscesantias').filter();" style="width: 230px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column style="text-align: center" sortBy="#{mov.codigo}" filterStyle="width: 94%" filterBy="#{mov.codigo}" width="70" filterMatchMode="contains" > 

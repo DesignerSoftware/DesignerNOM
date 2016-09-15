@@ -469,7 +469,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlCuenta.actualizarCuenta()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarCT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovContracuenta.filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovContracuenta').filter();" style="width:150px; position: relative; left: 20px;" />  
                             </f:facet>
                             <p:column filterBy="#{cuenta.codigo}" width="60" filterStyle="width: 50px;" filterMatchMode="contains" >
                                 <f:facet name="header">
@@ -508,7 +508,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlCuenta.actualizarRubro()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarRP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovRubros.filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovRubros').filter();" style="width:150px; position: relative; left: 20px;" />  
                             </f:facet>
                             <p:column filterBy="#{rubro.codigo}" width="60" filterStyle="width: 50px;" filterMatchMode="contains" >
                                 <f:facet name="header">
@@ -541,7 +541,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlCuenta.validarSeleccionCuenta()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovCuentas.filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovCuentas').filter();" style="width:150px; position: relative; left: 20px;" />  
                             </f:facet>
                             <p:column filterBy="#{buscarC.codigo}" width="60" filterStyle="width: 50px;"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -875,7 +875,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlCuenta.actualizarEmpresa()}" process="@this" onstart="PF('lovEmpresas').clearFilters()"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpresas.filter();" style="width:100px; position: relative; left: 10px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 10px;" />  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" filterMatchMode="contains" width="60" filterStyle="width: 50px">
                                 <f:facet name="header">

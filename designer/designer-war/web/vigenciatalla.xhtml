@@ -171,7 +171,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasTallas.actualizarTipoFamiliar()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Parentesco"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTiposTallas.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposTallas').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipotallita.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">

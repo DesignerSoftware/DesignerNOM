@@ -122,20 +122,20 @@
                            <f:facet name="header">
                               <h:outputText value="#{msg['fecha']}" />
                            </f:facet>
-<!--                           <p:cellEditor>  
+                           <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText value="#/{info.fechavigencia}" >
+                                 <h:outputText value="#{info.fechavigencia}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                  </h:outputText>
                               </f:facet>  
-                              <f:facet name="input">-->
+                              <f:facet name="input">
                                  <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}">
                                     <p:ajax event="dateSelect" listener="#{controlVigenciasCargos.modificarVC(info, 'N', info.fechavigencia)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'N', info.fechavigencia)}" update="@this" process="@this"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 0)}" process="@this"/> 
                                  </p:calendar>
-<!--                              </f:facet>
-                           </p:cellEditor>-->
+                              </f:facet>
+                           </p:cellEditor>
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -144,16 +144,16 @@
                         <p:column headerText="Estructura" sortBy="#{info.estructura.nombre}" filterBy="#{info.estructura.nombre}" filterMatchMode="contains" 
                                   id="vcEstructura" width="180" filterStyle="display: none; visibility: hidden;" >                                  
                            <f:facet name="header"><h:outputText value="#{msg['estructura']}"/> </f:facet> 
-<!--                           <p:cellEditor>  
+                           <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.estructura.nombre}" /></f:facet>  
-                              <f:facet name="input">-->
+                              <f:facet name="input">
                                  <p:inputText value="#{info.estructura.nombre}" id="editEstructura" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;"> 
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'ESTRUCTURA', info.estructura.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlVigenciasCargos.cargarEstructuras(info)}" update=":form:dlgEstructuras"/>
                                  </p:inputText>
-<!--                              </f:facet>  
-                           </p:cellEditor>-->
+                              </f:facet>  
+                           </p:cellEditor>
                            <f:facet name="footer">
                               <p:commandButton value="" style="width: 200px;" id="fooEstructuras" action="estructura" actionListener="#{controlEstructuraPlanta.inicializarPagina('atrasVcargo')}"/>
                            </f:facet>
@@ -161,16 +161,16 @@
 
                         <p:column headerText="Motivo" sortBy="#{info.motivocambiocargo.nombre}" filterBy="#{info.motivocambiocargo.nombre}" filterMatchMode="contains"  id="vcMotivo" width="180" filterStyle="display: none; visibility: hidden;" >      
                            <f:facet name="header"><h:outputText value="#{msg['motivo']}"/></f:facet>
-<!--                           <p:cellEditor>  
+                           <p:cellEditor>  
                               <f:facet name="output" ><h:outputText value="#{info.motivocambiocargo.nombre}"/></f:facet>  
-                              <f:facet name="input">-->
+                              <f:facet name="input">
                                  <p:inputText id="editMotivoC" value="#{info.motivocambiocargo.nombre}" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 250%;">
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'MOTIVOC', info.motivocambiocargo.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 2)}" />
                                     <p:ajax event="dblclick"  listener="#{controlVigenciasCargos.asignarIndex(info, 0)}"/>
                                  </p:inputText>
-<!--                              </f:facet>  
-                           </p:cellEditor>-->
+                              </f:facet>  
+                           </p:cellEditor>
                            <f:facet name="footer" >
                               <p:commandButton value="" style="width: 200px;" action="motivocambiocargo" onclick="#{controlMotivosCambiosCargos.recibirPag('atrasmotivocambiocargo')}" id="fooMotivos" />
                            </f:facet>
@@ -178,16 +178,16 @@
 
                         <p:column headerText="Nombre_Cargo" sortBy="#{info.cargo.nombre}" filterBy="#{info.cargo.nombre}" filterMatchMode="contains" id="vcNombreCargo" width="180" filterStyle="display: none; visibility: hidden;" >
                            <f:facet name="header"> <h:outputText value="#{msg['nombrecargo']}" /></f:facet>
-<!--                           <p:cellEditor>  
+                           <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.cargo.nombre}" /></f:facet>  
-                              <f:facet name="input">-->
+                              <f:facet name="input">
                                  <p:inputText value="#{info.cargo.nombre}" id="editNombreCargo" style="border-radius: 0px; text-transform: uppercase; height: 12px; width: 94%;" >
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'NOMBREC', info.cargo.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 3)}" />
                                     <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarIndex(info, 1)}"/>
                                  </p:inputText>
-<!--                              </f:facet>  
-                           </p:cellEditor>-->
+                              </f:facet>  
+                           </p:cellEditor>
                            <f:facet name="footer" >
                               <p:commandButton value="" style="width: 200px;" id="fooCargos" actionListener="#{controlCargo.recibirPaginaEntrante('atrasVcargo') }" action="cargo"/>
                            </f:facet>
@@ -195,15 +195,15 @@
 
                         <p:column headerText="Centro_Costo" sortBy="#{info.estructura.centrocosto.nombre}" filterBy="#{info.estructura.centrocosto.nombre}" filterMatchMode="contains" id="vcCentrosC" width="180" filterStyle="display: none; visibility: hidden;" >                                                                                              
                            <f:facet name="header"><h:outputText value="#{msg['centrocosto']}"/></f:facet>
-<!--                           <p:cellEditor>  
+                           <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.estructura.centrocosto.nombre}" /></f:facet>  
-                              <f:facet name="input">-->
+                              <f:facet name="input">
                                  <p:inputText value="#{info.estructura.centrocosto.nombre}" id="editCentroCosto"  style="border-radius: 0px; height: 12px;  width: 94%;">
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'N', info.estructura.centrocosto.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 4)}" />
                                  </p:inputText>
-<!--                              </f:facet>  
-                           </p:cellEditor>-->
+                              </f:facet>  
+                           </p:cellEditor>
                            <f:facet name="footer" >
                               <p:commandButton value="" style="width: 200px;" action="centrocostoemplvigenciacargo" actionListener="#{controlBetaCentrosCostos.recibirPagina('atrascentrocostoemplvigenciacargo')}" id="fooCentrosCostos" />
                            </f:facet>
@@ -212,16 +212,16 @@
                         <p:column headerText="Nombre_Jefe" sortBy="#{info.empleadojefe.persona.nombreCompleto}" filterBy="#{info.empleadojefe.persona.nombreCompleto}"
                                   filterMatchMode="contains" id="vcNombreJefe" width="180" filterStyle="display: none; visibility: hidden;" >                                                              
                            <f:facet name="header"><h:outputText value="#{msg['nombrejefe']}"/></f:facet>
-<!--                           <p:cellEditor>  
+                           <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.empleadojefe.persona.nombreCompleto}" /></f:facet>  
-                              <f:facet name="input">-->
+                              <f:facet name="input">
                                  <p:inputText value="#{info.empleadojefe.persona.nombreCompleto}" id="editNombreJefe" style=" border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;" >
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'EMPLEADOJ', info.empleadojefe.persona.nombreCompleto)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 5)}"  />
                                     <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarIndex(info, 2)}"/>
                                  </p:inputText>
-<!--                              </f:facet>  
-                           </p:cellEditor>-->
+                              </f:facet>  
+                           </p:cellEditor>
                            <f:facet name="footer" >
                               <p:commandButton value="" style="width: 200px;" id="fooJefe" />
                            </f:facet>
@@ -269,22 +269,24 @@
                                    filteredValue="#{controlVigenciasCargos.filterEstructuras}" emptyMessage="#{msg['lovvacio']}"
                                    selection="#{controlVigenciasCargos.estructuraSeleccionada}" selectionMode="single">
 
-                        <p:ajax event="filter" listener="#{controlVigenciasCargos.eventoFiltrarEstructuras()}"/>
+                        <p:ajax event="filter" listener="#{controlVigenciasCargos.contarRegistrosEstructuras()}"/>
                         <p:ajax event="rowSelect" listener="#{controlVigenciasCargos.activarAceptar()}" update=":form:aceptarE"/> 
                         <p:ajax event="rowDblselect" listener="#{controlVigenciasCargos.actualizarEstructura()}" 
                                 oncomplete="PF('dlgEstructuras').hide(), PF('estructurasLOV').clearFilters()" update=":form:dlgEstructuras" process="@this"/>
+                       
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                           <p:inputText id="globalFilter" onkeyup="estructurasLOV.filter();" value="#{filtrado}" style="width:150px; position: relative; left: -130px;" />  
+                           <p:inputText id="globalFilter" onkeyup="PF('estructurasLOV').filter();" value="#{filtrado}" style="width:150px; position: relative; left: -130px;" />  
                            <p:watermark for="globalFilter" value="#{msg['ingreseEJ']}" />
-                        </f:facet>                       
-                        <p:column headerText="#{msg['nombreE']}" width="200" filterBy="#{estr.nombre}" filterMatchMode="contains" filterStyle="width: 80%">  
+                        </f:facet>  
+                        
+                        <p:column headerText="#{msg['nombreE']}" filterBy="#{estr.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">  
                            <h:outputText value="#{estr.nombre}" style="height: 12px;" />  
                         </p:column>  
-                        <p:column headerText="#{msg['centroE']}" width="300" filterBy="#{estr.centrocosto.nombre}" filterMatchMode="contains" filterStyle="width: 80%">  
+                        <p:column headerText="#{msg['centroE']}" filterBy="#{estr.centrocosto.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">  
                            <h:outputText value="#{estr.centrocosto.codigo} - #{estr.centrocosto.nombre}" style="height: 12px;"/>  
                         </p:column>                             
-                        <p:column headerText="#{msg['empresaE']}" filterBy="#{estr.organigrama.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 80%">  
+                        <p:column headerText="#{msg['empresaE']}" filterBy="#{estr.organigrama.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">  
                            <h:outputText value="#{estr.organigrama.empresa.nombre}" style="height: 12px;" />  
                         </p:column>
                      </p:dataTable>          
@@ -307,25 +309,25 @@
                                   selection="#{controlVigenciasCargos.motivoSeleccionado}" selectionMode="single" widgetVar="motivosCambCargo" scrollable="true" scrollWidth="410" scrollHeight="250"
                                   filteredValue="#{controlVigenciasCargos.filterMotivos}" emptyMessage="#{msg['lovvacio']}">              
 
-                        <p:ajax event="filter" listener="#{controlVigenciasCargos.eventoFiltrarMotios()}"/>
+                        <p:ajax event="filter" listener="#{controlVigenciasCargos.contarRegistrosMotivos()}"/>
                         <p:ajax event="rowSelect" listener="#{controlVigenciasCargos.activarAceptar()}" update=":form:aceptarM"/>
                         <p:ajax event="rowDblselect" listener="#{controlVigenciasCargos.actualizarMotivo()}" 
                                 oncomplete="PF('dlgMotivos').hide(), PF('motivosCambCargo').clearFilters()" update=":form:dlgMotivos" process="@this"/>
                         
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarM']}" style="position: absolute; left: 27px; top: 14px"/>  
-                           <p:inputText id="globalFilter" onkeyup="motivosCambCargo.filter();" value="#{filtrado}" style="width: 150px; position: relative; left: 15px;"/>  
+                           <p:inputText id="globalFilter" onkeyup="PF('motivosCambCargo').filter();" value="#{filtrado}" style="width: 150px; position: relative; left: 15px;"/>  
                            <p:watermark for="globalFilter" value="#{msg['ingreseEJ']}" />
                         </f:facet>
                         
-                        <p:column filterBy="#{mot.codigo}" filterValue="" width="60" filterMatchMode="contains" filterStyle="width: 80%">
+                        <p:column filterBy="#{mot.codigo}" filterValue="" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center" value="#{msg['codigoM']}" />
                            </f:facet>
                            <h:outputText  value="#{mot.codigo}" />
                         </p:column>
                         
-                        <p:column filterBy="#{mot.nombre}" filterValue="" filterStyle="width: 80%" filterMatchMode="contains">
+                        <p:column filterBy="#{mot.nombre}" filterValue="" filterStyle="width: 80% !important" filterMatchMode="contains">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombreM']}" />
                            </f:facet>
@@ -353,25 +355,25 @@
                                    filteredValue="#{controlVigenciasCargos.filterCargos}" emptyMessage="#{msg['lovvacio']}"
                                    rowKey="#{carg.secuencia}" selection="#{controlVigenciasCargos.cargoSeleccionado}" selectionMode="single">
 
-                        <p:ajax event="filter" listener="#{controlVigenciasCargos.eventoFiltrarCargos()}"/>
+                        <p:ajax event="filter" listener="#{controlVigenciasCargos.contarRegistrosCargos()}"/>
                         <p:ajax event="rowSelect" listener="#{controlVigenciasCargos.activarAceptar()}" update=":form:aceptarC"/>
                         <p:ajax event="rowDblselect" listener="#{controlVigenciasCargos.actualizarCargo()}" 
                                 oncomplete="PF('dlgCargos').hide(), PF('lOVCargos').clearFilters()" update=":form:dlgCargos" process="@this" />
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                           <p:inputText id="globalFilter" value="#{filtrado}" onkeyup="lOVCargos.filter();" style="width:150px; position: relative; left: -40px;" />  
+                           <p:inputText id="globalFilter" value="#{filtrado}" onkeyup="PF('lOVCargos').filter();" style="width:150px; position: relative; left: -40px;" />  
                            <p:watermark for="globalFilter" value="#{msg['ingreseEJ']}" />
                         </f:facet>
 
-                        <p:column filterBy="#{carg.nombre}" filterMatchMode="contains" filterStyle="width: 80%"> 
+                        <p:column filterBy="#{carg.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombreC']}" />
                            </f:facet>
                            <h:outputText value="#{carg.nombre}" />  
                         </p:column>  
 
-                        <p:column filterBy="#{carg.empresa.nombre}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                        <p:column filterBy="#{carg.empresa.nombre}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                            <f:facet name="header">
                               <h:outputText value="#{msg['empresaC']}" />
                            </f:facet>
@@ -420,30 +422,30 @@
                                    filteredValue="#{controlVigenciasCargos.filtradoActualesTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}"
                                    rowKey="#{item.rfEmpleado}" selection="#{controlVigenciasCargos.tiposTrabajadorJefeSeleccionado}" selectionMode="single" >
 
-                        <p:ajax event="filter" listener="#{controlVigenciasCargos.eventoFiltrarJefe()}"/>
+                        <p:ajax event="filter" listener="#{controlVigenciasCargos.contarRegistrosJefe()}"/>
                         <p:ajax event="rowSelect" listener="#{controlVigenciasCargos.activarAceptar()}" update=":form:AceptarEmplJ"/>
                         <p:ajax event="rowDblselect" listener="#{controlVigenciasCargos.actualizarEmpleadoJefe()}" 
                                 oncomplete="PF('dialogoEmpleadoJefe').hide(), PF('lvEmpleadoJefe').clearFilters()" update=":form:dialogoEmpleadoJefe" process="@this"/>
 
                         <f:facet name="header" >  
                            <h:outputText value="#{msg['buscarEJ']}"  style="position: absolute; left: 22px; top: 18px;"/>  
-                           <p:inputText id="globalFilter" value="#{filtrado}" onkeyup="lvEmpleadoJefe.filter();" style="width:150px; position: relative; left: -150px;"/>
+                           <p:inputText id="globalFilter" onkeyup="PF('lvEmpleadoJefe').filter();" style="width: 150px; position: relative; left: -150px;"/>
                            <p:watermark for="globalFilter" value="#{msg['ingreseEJ']}" />
                         </f:facet>
 
-                        <p:column  headerText="#{msg['codigoEJ']}" filterOptions="" filterBy="#{item.codigoEmpleado}" filterMatchMode="contains" filterStyle="width: 80%">  
+                        <p:column  headerText="#{msg['codigoEJ']}" filterOptions="" filterBy="#{item.codigoEmpleado}" filterMatchMode="contains" filterStyle="width: 80% !important">  
                            <h:outputText value="#{item.codigoEmpleado}" />  
                         </p:column>  
 
-                        <p:column headerText="#{msg['primerapellidoEJ']}" filterBy="#{item.primerApellido}" filterMatchMode="contains"  filterStyle="width: 80%">  
+                        <p:column headerText="#{msg['primerapellidoEJ']}" filterBy="#{item.primerApellido}" filterMatchMode="contains"  filterStyle="width: 80% !important">  
                            <h:outputText value="#{item.primerApellido}" />  
                         </p:column>  
 
-                        <p:column headerText="#{msg['segundoapellidoEJ']}" filterBy="#{item.segundoApellido}" filterMatchMode="contains"  filterStyle="width: 80%">  
+                        <p:column headerText="#{msg['segundoapellidoEJ']}" filterBy="#{item.segundoApellido}" filterMatchMode="contains"  filterStyle="width: 80% !important">  
                            <h:outputText value="#{item.segundoApellido}" />  
                         </p:column>  
 
-                        <p:column headerText="#{msg['nombreEJ']}" width="160" filterBy="#{item.nombre}" filterMatchMode="contains" filterStyle="width: 80%">  
+                        <p:column headerText="#{msg['nombreEJ']}" width="160" filterBy="#{item.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">  
                            <h:outputText value="#{item.nombre}" />  
                         </p:column>  
                      </p:dataTable> 

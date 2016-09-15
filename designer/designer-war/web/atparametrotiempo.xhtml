@@ -311,7 +311,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpleado.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpleado').filter();" style="width:150px; position: relative; left: 30px;" />  
                             </f:facet>
                             <p:column filterBy="#{empleados.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -348,7 +348,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovCuadrilla.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovCuadrilla').filter();" style="width:150px; position: relative; left: 30px;" />  
                             </f:facet>
                             <p:column filterBy="#{cuadrilla.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">

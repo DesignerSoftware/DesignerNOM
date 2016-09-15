@@ -205,7 +205,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlTipoFormula.actualizarFormulas()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVFormulas.filter();" style="width: 200px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVFormulas').filter();" style="width: 200px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{formulas.estado}" filterBy="#{formulas.estado}" width="60" filterMatchMode="contains" filterStyle="width:40px;" > 

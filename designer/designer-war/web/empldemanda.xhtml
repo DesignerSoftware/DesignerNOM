@@ -150,7 +150,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlEmplDemanda.actualizarMotivo()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarMD']}"  style="position: absolute; left: 17px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovDemanda.filter();" style="width:150px; position: relative; left: 60px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovDemanda').filter();" style="width:150px; position: relative; left: 60px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{demanda.descripcion}" width="140"  filterMatchMode="contains">
                                     <f:facet name="header">

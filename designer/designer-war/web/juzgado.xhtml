@@ -162,7 +162,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Ciudad "  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTipoCentrosCostos.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoCentrosCostos').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{mostrarCiudad.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                     <f:facet name="header">
@@ -399,7 +399,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlJuzgados.cambiarCiudad()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Ciudades"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpresas.filter();" style="width:120px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:120px; position: relative; left: 60px;" />  
                             </f:facet>
                             <p:column filterBy="#{ciudades.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">

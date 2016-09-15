@@ -567,7 +567,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarMT']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovMotivoTurno.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovMotivoTurno').filter();" style="width:150px; position: relative; left: 30px;" />  
                             </f:facet>
                             <p:column filterBy="#{motivoT.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -600,7 +600,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEA']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEstructura.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEstructura').filter();" style="width:150px; position: relative; left: 30px;" />  
                             </f:facet>
                             <p:column filterBy="#{estructuraA.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -638,7 +638,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpleado.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpleado').filter();" style="width:150px; position: relative; left: 30px;" />  
                             </f:facet>
                             <p:column filterBy="#{empleados.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">

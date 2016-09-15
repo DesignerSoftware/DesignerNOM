@@ -1023,7 +1023,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadAutoLiquidacion.actualizarEmpresa()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Empresa"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpresas.filter();" style="width:150px; position: relative; left: 5px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:150px; position: relative; left: 5px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{empresa.nombre}" sortBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width:80%">
@@ -1056,7 +1056,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadAutoLiquidacion.actualizarTercero()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Tercero: "  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovTerceros.filter();" style="width:150px; position: relative; left: 5px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovTerceros').filter();" style="width:150px; position: relative; left: 5px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{terceros.nit}" sortBy="#{terceros.nit}" filterMatchMode="contains" filterStyle="width:80%">
@@ -1090,7 +1090,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadAutoLiquidacion.actualizarSucursal()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Sucursal: "  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovSucursales.filter();" style="width:150px; position: relative; left: 5px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovSucursales').filter();" style="width:150px; position: relative; left: 5px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{sucursal.descripcion}" sortBy="#{sucursal.descripcion}" filterMatchMode="contains" filterStyle="width:80%">
@@ -1123,7 +1123,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadAutoLiquidacion.actualizarTipoEntidad()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Tipo Entidad: "  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovTiposEntidades.filter();" style="width:150px; position: relative; left: 5px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovTiposEntidades').filter();" style="width:150px; position: relative; left: 5px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{tipoentidad.nombre}" sortBy="#{tipoentidad.nombre}" filterMatchMode="contains" filterStyle="width:80%">

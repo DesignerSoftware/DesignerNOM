@@ -726,7 +726,7 @@
 
                      <f:facet name="header">
                         <h:outputText value="#{msg['buscarE']}" style="position: absolute; left: 22px; top: 18px;"/>
-                        <p:inputText id="globalFilter" onkeyup="lvbusquedarapida.filter();" value="#{filtrado}" style="width: 200px; position: relative; left: -80px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lvbusquedarapida').filter();" value="#{filtrado}" style="width: 200px; position: relative; left: -80px;" />  
                         <p:watermark for="globalFilter" value="#{msg['ingresarvalor']}"/>
                      </f:facet>
 
@@ -773,7 +773,7 @@
 
                      <f:facet name="header" >  
                         <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 22px; top: 18px;"/>  
-                        <p:inputText id="globalFilter" onkeyup="lvbuscarempleado.filter();" style="width: 200px; position: relative; left: -120px;"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('lvbuscarempleado').filter();" style="width: 200px; position: relative; left: -120px;"/>
                         <p:watermark for="globalFilter" value="#{msg['ingresarvalor']}" />
                      </f:facet>
 
@@ -811,7 +811,7 @@
                      <p:ajax event="filter" listener="#{controlRemoto.eventoFiltrarBusquedaTablas()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovtablas.filter();" style="width:200px; position: relative; left: -50px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovtablas').filter();" style="width:200px; position: relative; left: -50px;" />  
                      </f:facet>
                      <p:column filterBy="#{tabla.nombre}" sortBy="#{tabla.nombre}" filterMatchMode="contains" filterStyle="width: 150px">
                         <f:facet name="header">
@@ -831,7 +831,7 @@
                   <p:commandButton id="atrasf" style="position: relative; left: 365px;" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('buscartablasdialogo').hide()" actionListener="#{controlRemoto.cancelarSeleccionTabla()}"  process="@this"/>
                </p:dialog>
 
-               <p:dialog id="LovEmpresasDialogo" widgetVar="LovEmpresasDialogo" header="#{msg['empresaM']}" draggable="false" resizable="false" closable="false" onShow="LovEmpresasTabla.filter();"
+               <p:dialog id="LovEmpresasDialogo" widgetVar="LovEmpresasDialogo" header="#{msg['empresaM']}" draggable="false" resizable="false" closable="false" onShow="LovEmpresasTabla').filter();"
                          showEffect="fade" hideEffect="fade" width="464" height="250">
                   <p:dataTable id="LovEmpresasTabla" widgetVar="LovEmpresasTabla" style=" width: 420px;" var="empresaIPV" value="#{controlRemoto.lovEmpresas}" rowKey="#{empresaIPV.secuencia}"
                                selection="#{controlRemoto.empresaSeleccionada}" scrollWidth="440" selectionMode="single" scrollable="true" scrollHeight="120"
@@ -844,7 +844,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarEIP']} :" style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="LovEmpresasTabla.filter();" style="width: 240px; position: relative; left: 40px; height: 12px; text-transform: uppercase;"/>  
+                        <p:inputText id="globalFilter" onkeyup="PF('LovEmpresasTabla').filter();" style="width: 240px; position: relative; left: 40px; height: 12px; text-transform: uppercase;"/>  
                      </f:facet>
 
                      <p:column filterBy="#{empresaIPV.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important; height: 12px; text-transform: uppercase;">

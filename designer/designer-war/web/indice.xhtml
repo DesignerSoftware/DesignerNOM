@@ -207,7 +207,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlIndices.actualizarTipoIndice()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Tipo Indice"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTiposIndices.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposIndices').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{tpoindice.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">

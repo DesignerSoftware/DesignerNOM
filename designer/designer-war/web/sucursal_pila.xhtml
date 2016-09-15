@@ -277,7 +277,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlSucursalesPila.cambiarEmpresa()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Empresas:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpresas.filter();" style="width:100px; position: relative; left: 10px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 10px;" />  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">

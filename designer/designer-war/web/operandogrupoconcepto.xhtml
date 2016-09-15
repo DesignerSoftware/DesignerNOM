@@ -214,7 +214,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlOperandoGrupoConcepto.actualizarOperandos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarO']}" style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVOperandos.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVOperandos').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{o.nombre}" filterBy="#{o.nombre}" width="80%" filterMatchMode="contains" > 
@@ -252,7 +252,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlOperandoGrupoConcepto.actualizarGrupos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarG']}" style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVGrupos.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVGrupos').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{g.descripcion}" filterBy="#{g.descripcion}"  filterMatchMode="contains" > 

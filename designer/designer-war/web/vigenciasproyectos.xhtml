@@ -292,7 +292,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlVigenciasProyectos.actualizarProyectos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarP']}" style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVProyectos.filter();" style="width:100px; position: relative; left: 65px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVProyectos').filter();" style="width:100px; position: relative; left: 65px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{proyectos.nombreproyecto}" width="150" filterMatchMode="contains" > 
@@ -322,7 +322,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlVigenciasProyectos.actualizarPryRoles()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarR']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVPryRoles.filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVPryRoles').filter();" style="width:100px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{pryroles.descripcion}" width="150" filterMatchMode="contains" > 
@@ -352,7 +352,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlVigenciasProyectos.actualizarCargos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVCargos.filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVCargos').filter();" style="width:100px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{cargos.nombre}" width="150" filterMatchMode="contains" > 

@@ -412,7 +412,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlUsuariosVistas.actualizarObjetosDB()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarOB']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVObjetosDB.filter();" style="width:120px; position: relative; left: 80px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVObjetosDB').filter();" style="width:120px; position: relative; left: 80px;" />  
                             </f:facet>
                             <p:column filterBy="#{objetos.nombre}" width="80" filterStyle="width:80px;" filterMatchMode="contains">
                                 <f:facet name="header">

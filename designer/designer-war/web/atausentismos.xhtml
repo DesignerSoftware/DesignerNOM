@@ -1097,7 +1097,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarTipo()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTA']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVTiposAusentismos.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVTiposAusentismos').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{tipo.codigo}" filterBy="#{tipo.codigo}" filterStyle="width: 20px;" width="20" filterMatchMode="contains" > 
@@ -1107,7 +1107,7 @@
                                 <h:outputText value="#{tipo.codigo}" />  
                             </p:column>
 
-                            <p:column sortBy="#{tipo.descripcion}" filterBy="#{tipo.descripcion}" width="170" filterMatchMode="contains" filterStyle=" width: 80%"> 
+                            <p:column sortBy="#{tipo.descripcion}" filterBy="#{tipo.descripcion}" width="170" filterMatchMode="contains" filterStyle=" width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['descripcion']}" />
                                 </f:facet>
@@ -1134,7 +1134,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarClase()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarCL']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVClasesAusentismos.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVClasesAusentismos').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{clase.codigo}" filterBy="#{clase.codigo}" filterStyle="width: 30px;" width="10" filterMatchMode="contains" > 
@@ -1144,7 +1144,7 @@
                                 <h:outputText value="#{clase.codigo}" />  
                             </p:column>
 
-                            <p:column sortBy="#{clase.descripcion}" filterBy="#{clase.descripcion}" width="150" filterMatchMode="contains" filterStyle="width: 80%" > 
+                            <p:column sortBy="#{clase.descripcion}" filterBy="#{clase.descripcion}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['descripcion']}" />
                                 </f:facet>
@@ -1174,17 +1174,17 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarCausa()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarCA']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVCausasAusentismos.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVCausasAusentismos').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
-                            <p:column sortBy="#{causa.codigo}" filterBy="#{causa.codigo}" filterStyle="width: 80%;" width="20" filterMatchMode="contains"> 
+                            <p:column sortBy="#{causa.codigo}" filterBy="#{causa.codigo}" filterStyle="width: 80% !important;" width="20" filterMatchMode="contains"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigo']}" />
                                 </f:facet>
                                 <h:outputText value="#{causa.codigo}" />  
                             </p:column>
 
-                            <p:column sortBy="#{causa.descripcion}" filterBy="#{causa.descripcion}" width="160" filterMatchMode="contains" filterStyle=" width: 80%"> 
+                            <p:column sortBy="#{causa.descripcion}" filterBy="#{causa.descripcion}" width="160" filterMatchMode="contains" filterStyle=" width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['descripcion']}" />
                                 </f:facet>
@@ -1211,7 +1211,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarEmpleadosLov()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVEmpleados.filter();" style="position: relative; left: 20px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="position: relative; left: 20px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="10" filterStyle="width:50px;" filterMatchMode="contains"> 
@@ -1250,10 +1250,10 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarPorcentaje()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVPorcentajes.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVPorcentajes').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
-                            <p:column sortBy="#{por}" filterBy="#{por}" width="60" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{por}" filterBy="#{por}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['porcentaje']}" />
                                 </f:facet>
@@ -1282,17 +1282,17 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarBase()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarI']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVIbcs.filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVIbcs').filter();" style="width: 400px; position: relative; left: 60px;" />  
                             </f:facet>
 
-                            <p:column sortBy="#{ibcs.valor}" filterBy="#{ibcs.valor}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{ibcs.valor}" filterBy="#{ibcs.valor}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['valor']}" />
                                 </f:facet>
                                 <h:outputText value="#{ibcs.valor}" />  
                             </p:column>
 
-                            <p:column sortBy="#{ibcs.fechainicial}" filterBy="#{ibcs.fechainicial}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{ibcs.fechainicial}" filterBy="#{ibcs.fechainicial}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['fechainicial']}" />
                                 </f:facet>
@@ -1302,7 +1302,7 @@
                                 </h:outputText>  
                             </p:column>
 
-                            <p:column sortBy="#{ibcs.fechafinal}" filterBy="#{ibcs.fechafinal}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{ibcs.fechafinal}" filterBy="#{ibcs.fechafinal}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['fechafinal']}" />
                                 </f:facet>
@@ -1333,10 +1333,10 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarForma()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVFormas.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVFormas').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
-                            <p:column sortBy="#{for}" filterBy="#{for}" width="10" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{for}" filterBy="#{for}" width="10" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['fliquidacion']}" />
                                 </f:facet>
@@ -1363,24 +1363,24 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarAccidente()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarA']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVAccidentes.filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVAccidentes').filter();" style="width: 400px; position: relative; left: 60px;" />  
                             </f:facet>
 
-                            <p:column sortBy="#{accidentes.hora}" filterBy="#{accidentes.hora}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{accidentes.hora}" filterBy="#{accidentes.hora}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['hora']}" />
                                 </f:facet>
                                 <h:outputText value="#{accidentes.hora}" />  
                             </p:column>
 
-                            <p:column sortBy="#{accidentes.expediente}" filterBy="#{accidentes.expediente}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{accidentes.expediente}" filterBy="#{accidentes.expediente}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['expediente']}" />
                                 </f:facet>
                                 <h:outputText value="#{accidentes.expediente}" />  
                             </p:column>
 
-                            <p:column sortBy="#{accidentes.fecha}" filterBy="#{accidentes.fecha}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{accidentes.fecha}" filterBy="#{accidentes.fecha}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['fecha']}" />
                                 </f:facet>
@@ -1390,7 +1390,7 @@
                                 </h:outputText>  
                             </p:column>
 
-                            <p:column sortBy="#{accidentes.descripcioncaso}" filterBy="#{accidentes.descripcioncaso}" width="150" filterMatchMode="contains" filterStyle="width: 80%" > 
+                            <p:column sortBy="#{accidentes.descripcioncaso}" filterBy="#{accidentes.descripcioncaso}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['descripcion']}" />
                                 </f:facet>
@@ -1417,7 +1417,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarDiagnosticos()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarD']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVDiagnosticos.filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVDiagnosticos').filter();" style="width: 400px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{diagnosticos.codigo}" filterBy="#{diagnosticos.codigo}" width="10" filterMatchMode="contains" filterStyle="width: 30px"> 
@@ -1427,7 +1427,7 @@
                                 <h:outputText value="#{diagnosticos.codigo}" />  
                             </p:column>
 
-                            <p:column sortBy="#{diagnosticos.descripcion}" filterBy="#{diagnosticos.descripcion}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{diagnosticos.descripcion}" filterBy="#{diagnosticos.descripcion}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['descripcion']}" />
                                 </f:facet>
@@ -1455,31 +1455,31 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarProrroga()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarPR']}" style="width: 120px; position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVProrrogas.filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVProrrogas').filter();" style="width: 400px; position: relative; left: 60px;" />  
                             </f:facet>
 
-                            <p:column sortBy="#{prorrogas.causa.descripcion}" filterBy="#{prorrogas.causa.descripcion}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{prorrogas.causa.descripcion}" filterBy="#{prorrogas.causa.descripcion}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['causa']}" />
                                 </f:facet>
                                 <h:outputText value="#{prorrogas.causa.descripcion}" />  
                             </p:column>
 
-                            <p:column sortBy="#{prorrogas.diagnosticocategoria.codigo}" filterBy="#{prorrogas.diagnosticocategoria.codigo}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{prorrogas.diagnosticocategoria.codigo}" filterBy="#{prorrogas.diagnosticocategoria.codigo}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigo']}" />
                                 </f:facet>
                                 <h:outputText value="#{prorrogas.diagnosticocategoria.codigo}" />  
                             </p:column>
 
-                            <p:column sortBy="#{prorrogas.diagnosticocategoria.descripcion}" filterBy="#{prorrogas.diagnosticocategoria.descripcion}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{prorrogas.diagnosticocategoria.descripcion}" filterBy="#{prorrogas.diagnosticocategoria.descripcion}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['descripcion']}" />
                                 </f:facet>
                                 <h:outputText value="#{prorrogas.diagnosticocategoria.descripcion}" />  
                             </p:column>
 
-                            <p:column sortBy="#{prorrogas.fecha}" filterBy="#{prorrogas.fecha}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{prorrogas.fecha}" filterBy="#{prorrogas.fecha}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['fechainicial']}" />
                                 </f:facet>
@@ -1488,7 +1488,7 @@
 
                                 </h:outputText>  
                             </p:column>
-                            <p:column sortBy="#{prorrogas.fechafinaus}" filterBy="#{prorrogas.fechafinaus}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{prorrogas.fechafinaus}" filterBy="#{prorrogas.fechafinaus}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['fechafinal']}" />
                                 </f:facet>
@@ -1497,21 +1497,21 @@
                                 </h:outputText>  
                             </p:column>
 
-                            <p:column sortBy="#{prorrogas.dias}" filterBy="#{prorrogas.dias}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{prorrogas.dias}" filterBy="#{prorrogas.dias}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['dias']}" />
                                 </f:facet>
                                 <h:outputText value="#{prorrogas.dias}" />  
                             </p:column>
 
-                            <p:column sortBy="#{prorrogas.horas}" filterBy="#{prorrogas.horas}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{prorrogas.horas}" filterBy="#{prorrogas.horas}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['horas']}" />
                                 </f:facet>
                                 <h:outputText value="#{prorrogas.horas}" />  
                             </p:column>
 
-                            <p:column sortBy="#{prorrogas.numerocertificado}" filterBy="#{prorrogas.numerocertificado}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{prorrogas.numerocertificado}" filterBy="#{prorrogas.numerocertificado}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['numero']}" />
                                 </f:facet>
@@ -1539,10 +1539,10 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarTerceros()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}" style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVTerceros.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVTerceros').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
-                            <p:column sortBy="#{terceros.nombre}" filterBy="#{terceros.nombre}" width="40" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{terceros.nombre}" filterBy="#{terceros.nombre}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombre']}" />
                                 </f:facet>
@@ -1568,10 +1568,10 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarEnfermedad()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEN']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVEnfermedades.filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVEnfermedades').filter();" style="width: 400px; position: relative; left: 60px;" />  
                             </f:facet>
 
-                            <p:column sortBy="#{enfermedades.fechanotificacion}" filterBy="#{enfermedades.fechanotificacion}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{enfermedades.fechanotificacion}" filterBy="#{enfermedades.fechanotificacion}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['fechanotificacion']}" />
                                 </f:facet>
@@ -1581,14 +1581,14 @@
                                 </h:outputText>  
                             </p:column>
 
-                            <p:column sortBy="#{enfermedades.categoria.descripcion}" filterBy="#{enfermedades.categoria.descripcion}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{enfermedades.categoria.descripcion}" filterBy="#{enfermedades.categoria.descripcion}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['descripcion']}" />
                                 </f:facet>
                                 <h:outputText value="#{enfermedades.categoria.descripcion}" />  
                             </p:column>
 
-                            <p:column sortBy="#{enfermedades.categoria.codigo}" filterBy="#{enfermedades.categoria.codigo}" width="150" filterMatchMode="contains" filterStyle="width: 80%"> 
+                            <p:column sortBy="#{enfermedades.categoria.codigo}" filterBy="#{enfermedades.categoria.codigo}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigo']}" />
                                 </f:facet>

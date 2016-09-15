@@ -330,7 +330,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlReformaLaboral.seleccionarReformaLaboralClonar()}"  process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarRL']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovReformaLaboral.filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovReformaLaboral').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{reforma.codigo}" filterMatchMode="contains">
                                 <f:facet name="header">

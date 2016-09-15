@@ -226,7 +226,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlLegislacion.actualizarTipoCotizante()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTC']}"  style="position: absolute; left: 27px; top: 16px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovTiposCotizantes.filter();" style="width:200px; position: relative; left: 50px;"/>  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovTiposCotizantes').filter();" style="width:200px; position: relative; left: 50px;"/>  
                                 <p:watermark for="globalFilter" value="" />
                             </f:facet>
                             <p:column filterBy="#{tipoCotizante.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -264,7 +264,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlLegislacion.seleccionContrato()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"   style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovContratos.filter();" style="width:200px; position: relative; left: 15px;"/>  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovContratos').filter();" style="width:200px; position: relative; left: 15px;"/>  
                             </f:facet>
                             <p:column filterBy="#{contratoLOV.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">

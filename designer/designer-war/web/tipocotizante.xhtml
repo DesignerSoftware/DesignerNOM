@@ -381,7 +381,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlTipoCotizante.actualizarTipoEntidad()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVTiposEntidades.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVTiposEntidades').filter();" style="width:150px; position: relative; left: 50px;" />  
                             </f:facet>
                             <p:column filterBy="#{tiposEntidades.codigo}" width="80"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -411,7 +411,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlTipoCotizante.actualizarTipoCotizante()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVTiposCotizantes.filter();" style="width:150px; position: relative; left: 65px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVTiposCotizantes').filter();" style="width:150px; position: relative; left: 65px;" />  
                             </f:facet>
                             <p:column filterBy="#{tiposCotizantes.codigo}" width="80"  filterMatchMode="contains">
                                 <f:facet name="header">

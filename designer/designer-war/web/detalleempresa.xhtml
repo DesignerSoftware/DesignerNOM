@@ -686,7 +686,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarEmpresa()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovEmpresas.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{empresa.nombre}"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -712,7 +712,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarCiudad()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovCiudad.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovCiudad').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -737,7 +737,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarCiudadDocumento()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovCiudadDocumento.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovCiudadDocumento').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{ciudadDoc.nombre}"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -762,7 +762,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarGerente()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarG']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovGerente.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovGerente').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{gerente.persona.nombreCompleto}" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -787,7 +787,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarPersona()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscaP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovPersona.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovPersona').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{persona.nombreCompleto}"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -812,7 +812,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarCargo()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscaCar']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovCargoFirma.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovCargoFirma').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{cargo.nombre}" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -837,7 +837,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarSubGerente()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarG']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovSubGerente.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovSubGerente').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{subGerente.persona.nombreCompleto}" width="140"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -862,7 +862,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarRepresentante()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarG']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovRepresentante.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovRepresentante').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{representante.persona.nombreCompleto}" width="140"  filterMatchMode="contains">globalFilter
                                     <f:facet name="header">

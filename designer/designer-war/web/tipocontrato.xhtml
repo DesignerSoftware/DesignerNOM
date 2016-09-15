@@ -427,7 +427,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlTipoContrato.actualizarTipoDia()}"  process="@this"   />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTD']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovTipoDia.filter();" style="width:140px; position: relative; left: -5px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovTipoDia').filter();" style="width:140px; position: relative; left: -5px;" />  
                             </f:facet>
                             <p:column filterBy="#{dias.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
@@ -455,7 +455,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlTipoContrato.seleccionarTipoContratoClonar()}"  process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovTipoContrato.filter();" style="width:140px; position: relative; left: 50px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovTipoContrato').filter();" style="width:140px; position: relative; left: 50px;" />  
                             </f:facet>
                             <p:column filterBy="#{tipoC.codigo}" width="90" filterStyle="width: 85% !important" filterMatchMode="contains">
                                 <f:facet name="header">

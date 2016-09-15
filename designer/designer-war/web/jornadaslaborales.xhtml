@@ -709,7 +709,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlJornadasLaborales.actualizarJornadas()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarj']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVJornadas.filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVJornadas').filter();" style="width:100px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{jornadas.descripcion}" width="100" filterMatchMode="contains" > 

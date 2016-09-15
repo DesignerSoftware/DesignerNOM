@@ -298,7 +298,7 @@
                             <p:ajax event="filter" listener="#{controlUnidad.eventoFiltrarTUnidades()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVTiposUnidades.filter();" style="width:120px; position: relative; left: 55px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVTiposUnidades').filter();" style="width:120px; position: relative; left: 55px;" />  
                             </f:facet>
                             <p:column filterBy="#{tiposunidades.codigo}" width="10" filterStyle="width:30px;" filterMatchMode="contains">
                                 <f:facet name="header">

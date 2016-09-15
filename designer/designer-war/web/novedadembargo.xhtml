@@ -1118,7 +1118,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarFormasDtos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarFD']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVFormasDtos.filter();" style="width: 100px; position: relative; left: 80px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVFormasDtos').filter();" style="width: 100px; position: relative; left: 80px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{formasdtos.descripcion}" filterBy="#{formasdtos.descripcion}" width="200" filterMatchMode="contains" > 
@@ -1147,7 +1147,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarMotivoEmbargo()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVMotivosEmbargos.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVMotivosEmbargos').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{motivos.nombre}" filterBy="#{motivos.nombre}" width="100" filterMatchMode="contains" > 
@@ -1176,7 +1176,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarJuzgado()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarJ']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVJuzgados.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVJuzgados').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{juzgados.nombre}" filterBy="#{juzgados.nombre}" width="100" filterMatchMode="contains" > 
@@ -1205,7 +1205,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarTipoEmbargo()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTE']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVTiposEmbargos.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVTiposEmbargos').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{tipos.descripcion}" filterBy="#{tipos.descripcion}" width="100" filterMatchMode="contains" > 
@@ -1236,7 +1236,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarDetallesFormasDtos()}" process="@this" onstart="PF('"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVFormas.filter();" style="width: 100px; position: relative; left: 80px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVFormas').filter();" style="width: 100px; position: relative; left: 80px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{formas.descripcion}" filterBy="#{formas.descripcion}" width="300" filterMatchMode="contains" > 
@@ -1279,7 +1279,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarPeriodicidades()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVPeriodicidades.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVPeriodicidades').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{periodicidades.codigo}" filterBy="#{periodicidades.codigo}" width="15%" filterMatchMode="contains" filterStyle="width:30px;" > 
@@ -1315,7 +1315,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarTerceros()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVTerceros.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVTerceros').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{terceros.nit}" filterBy="#{terceros.nit}" filterStyle="width: 55px;" width="7%" filterMatchMode="contains" > 
@@ -1358,7 +1358,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarDemandantes()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarD']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVDemandantes.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVDemandantes').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{demandantes.nit}" filterBy="#{demandantes.nit}" filterStyle="width: 55px;" width="7%" filterMatchMode="contains" > 
@@ -1400,7 +1400,7 @@
 
                             <f:facet name="header" >  
                                 <h:outputText value="#{msg['buscarB']}"  style="position: absolute; left: 22px; top: 18px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpleados.filter();" style="width:150px; position: relative; left: -150px;"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width:150px; position: relative; left: -150px;"/>
 
                             </f:facet>
 

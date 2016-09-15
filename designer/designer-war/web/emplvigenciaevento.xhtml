@@ -263,7 +263,7 @@
                                 <p:ajax event="filter" listener="#{controlEmplVigenciaEvento.eventoFiltrarEventos()}"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarEV']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovEventos.filter();" style="width:250px; position: relative; left: 55px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovEventos').filter();" style="width:250px; position: relative; left: 55px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{eventos.descripcion}" filterMatchMode="contains" >

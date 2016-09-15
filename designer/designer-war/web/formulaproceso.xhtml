@@ -233,7 +233,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovProceso.filter();" style="width: 160px; position: relative; left: 20px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovProceso').filter();" style="width: 160px; position: relative; left: 20px;" />  
                      </f:facet>
 
                      <p:column filterBy="#{proceso.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85% !important">

@@ -556,7 +556,7 @@ and open the template in the editor.
                             <p:ajax event="filter" listener="#{controlCausasAusentismos.eventoFiltrarLovClases()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarCLA']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVClasesAusentismos.filter();" style="width:120px; position: relative; left: 80px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVClasesAusentismos').filter();" style="width:120px; position: relative; left: 80px;" />  
                             </f:facet>
                             <p:column filterBy="#{clasesAusentismos.codigo}" width="10" filterStyle="width:30px;" filterMatchMode="contains">
                                 <f:facet name="header">

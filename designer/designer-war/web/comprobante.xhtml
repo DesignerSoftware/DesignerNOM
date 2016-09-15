@@ -712,7 +712,7 @@
 
                             <f:facet name="header" >  
                                 <h:outputText value="#{msg['buscar']}"  style="position: absolute; left: 22px; top: 18px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpleados.filter();" style="width:150px; position: relative; left: -150px;"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width:150px; position: relative; left: -150px;"/>
                                 <p:watermark for="globalFilter" value="#{msg['ingresar']}" />
                             </f:facet>
 

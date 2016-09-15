@@ -348,7 +348,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlEstructuraPlanta.actualizarEmpresa()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEM']}"  style="position: absolute; left: 27px; top: 16px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpresas.filter();" style="width:200px; position: relative; left: 40px;"/>  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:200px; position: relative; left: 40px;"/>  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
@@ -383,7 +383,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlEstructuraPlanta.actualizarCentroCosto()}"  process="@this"  />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarCC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovCentroCosto.filter();" style="width:140px; position: relative; left: 40px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovCentroCosto').filter();" style="width:140px; position: relative; left: 40px;" />  
                             </f:facet>
                             <p:column filterBy="#{centroCosto.codigoNombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                                 <f:facet name="header">
@@ -412,7 +412,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlEstructuraPlanta.actualizarEstructuraPadre()}"  process="@this"  />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEstructuraPadre.filter();" style="width:140px; position: relative; left: 30px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEstructuraPadre').filter();" style="width:140px; position: relative; left: 30px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{ePadre.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">

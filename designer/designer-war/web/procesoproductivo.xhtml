@@ -143,7 +143,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlProcesosProductivos.actualizarCentrosCostos()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Centro Costo:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovCentrosCostos.filter();" style="width:150px; position: relative; left: 20px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovCentrosCostos').filter();" style="width:150px; position: relative; left: 20px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{centrosCostosD.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">

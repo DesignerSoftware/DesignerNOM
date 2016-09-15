@@ -396,7 +396,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlOperando.actualizarOperandos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarO']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVOperandos.filter();" style="width:150px; position: relative; left: 8px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVOperandos').filter();" style="width:150px; position: relative; left: 8px;" />  
                             </f:facet>
                             <p:column filterBy="#{o.nombre}" width="100"  filterMatchMode="contains">
                                 <f:facet name="header">

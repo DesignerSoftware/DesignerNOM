@@ -487,7 +487,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlProceso.actualizarFormula()}"  process="@this"   />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovFormula.filter();" style="width:140px; position: relative; left: -50px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovFormula').filter();" style="width:140px; position: relative; left: -50px;" />  
                      </f:facet>
                      <p:column filterBy="#{formula.nombrelargo}" filterMatchMode="contains">
                         <f:facet name="header">
@@ -525,7 +525,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlProceso.actualizarTipoPago()}"  process="@this" />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarTP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovTipoPago.filter();" style="width:140px; position: relative; left: 25px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovTipoPago').filter();" style="width:140px; position: relative; left: 25px;" />  
                      </f:facet>
                      <p:column filterBy="#{tipoP.descripcion}" filterMatchMode="contains">
                         <f:facet name="header">
@@ -551,7 +551,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlProceso.seleccionarProcesoClonado()}"  process="@this" />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarP']}: "  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovProceso.filter();" style="width:140px; position: relative; left: -10px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovProceso').filter();" style="width:140px; position: relative; left: -10px;" />  
                      </f:facet>
                      <p:column filterBy="#{proceso.codigo}" filterMatchMode="contains">
                         <f:facet name="header">
@@ -583,7 +583,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlProceso.actualizarOperando()}"  process="@this"  />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarO']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovOperando.filter();" style="width:140px; position: relative; left: -40px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovOperando').filter();" style="width:140px; position: relative; left: -40px;" />  
                      </f:facet>
                      <p:column filterBy="#{operando.codigo}" filterMatchMode="contains">
                         <f:facet name="header">

@@ -152,7 +152,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlRastro.seleccionarFecha()}" process="@this" onstart="PF('lovFecha').clearFilters()"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovFecha.filter();" style="width:100px; position: relative; left: -40px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovFecha').filter();" style="width:100px; position: relative; left: -40px;" />  
                             </f:facet>
                             <p:column filterBy="#{lovF.direccion}" width="100" filterMatchMode="contains" filterStyle="width: 70px">
                                 <f:facet name="header">

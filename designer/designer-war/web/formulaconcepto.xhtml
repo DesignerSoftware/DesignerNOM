@@ -306,7 +306,7 @@
                      
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarO']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovOrden.filter();" style="width:140px; position: relative; left: -10px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovOrden').filter();" style="width:140px; position: relative; left: -10px;" />  
                      </f:facet>
                      
                      <p:column filterBy="#{orden.orden}" width="80" filterStyle="width : 60px;" filterMatchMode="contains">
@@ -339,7 +339,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlFormulaConcepto.actualizarConcepto()}" process="@this" />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovConcepto.filter();" style="width:140px; position: relative; left: -85px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovConcepto').filter();" style="width:140px; position: relative; left: -85px;" />  
                      </f:facet>
                      <p:column filterBy="#{concepto.codigo}" width="80" filterStyle="width : 60px;"  filterMatchMode="contains">
                         <f:facet name="header">

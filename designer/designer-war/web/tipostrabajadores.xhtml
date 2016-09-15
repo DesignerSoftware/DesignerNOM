@@ -615,15 +615,15 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarTC']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTiposCot.filter();" style="width:160px; position: relative; left: 40px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposCot').filter();" style="width:160px; position: relative; left: 40px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{tipocotiza.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 80%">
+                                <p:column filterBy="#{tipocotiza.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['codigo']}" />
                                     </f:facet>
                                     <h:outputText  value="#{tipocotiza.codigo}" />
                                 </p:column>
-                                <p:column filterBy="#{tipocotiza.descripcion}" filterMatchMode="contains" filterStyle="width: 80%">
+                                <p:column filterBy="#{tipocotiza.descripcion}" filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['descripcion']}" />
                                     </f:facet>
@@ -654,15 +654,15 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarTT']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTiposTra.filter();" style="width:160px; position: relative; left: 40px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposTra').filter();" style="width:160px; position: relative; left: 40px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{tipoTra.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 80%">
+                                <p:column filterBy="#{tipoTra.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['codigo']}" />
                                     </f:facet>
                                     <h:outputText  value="#{tipoTra.codigo}" />
                                 </p:column>
-                                <p:column filterBy="#{tipoTra.nombre}" filterMatchMode="contains" filterStyle="width: 80%">
+                                <p:column filterBy="#{tipoTra.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['descripcion']}" />
                                     </f:facet>

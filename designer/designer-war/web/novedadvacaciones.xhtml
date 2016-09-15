@@ -590,7 +590,7 @@
                             <p:ajax event="filter" listener="#{controlNovedadesVacaciones.eventoFiltrarLovEmpleados()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="Nombre: " style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVEmpleados.filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width: 400px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column style="text-align: center" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 94%"> 
@@ -637,7 +637,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesVacaciones.actualizarPeriodos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Periodo: "  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVPeriodos.filter();" style="width: 230px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVPeriodos').filter();" style="width: 230px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column style="text-align: center" sortBy="#{per.diaspendientes}" filterStyle="width: 94%" filterBy="#{per.diaspendientes}" width="70" filterMatchMode="contains" > 

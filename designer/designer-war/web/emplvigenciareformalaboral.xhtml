@@ -158,15 +158,15 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarRL']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovReformasLaborales.filter();" style="width:160px; position: relative; left: 40px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovReformasLaborales').filter();" style="width:160px; position: relative; left: 40px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{reformasLaborales.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80%">
+                                <p:column filterBy="#{reformasLaborales.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['codigoRL']}" />
                                     </f:facet>
                                     <h:outputText  value="#{reformasLaborales.codigo}" />
                                 </p:column>
-                                <p:column filterBy="#{reformasLaborales.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 80%">
+                                <p:column filterBy="#{reformasLaborales.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['descripcionRL']}" />
                                     </f:facet>

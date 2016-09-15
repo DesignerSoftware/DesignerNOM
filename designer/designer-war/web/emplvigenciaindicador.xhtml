@@ -191,7 +191,7 @@
                                 <p:ajax event="filter" listener="#{controlEmplVigenciaIndicador.eventoFiltrarTipo()}"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarTI']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTipos.filter();" style="width:150px; position: relative; left: 40px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipos').filter();" style="width:150px; position: relative; left: 40px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipo.descripcion}" width="140"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -220,7 +220,7 @@
                                 <p:ajax event="filter" listener="#{controlEmplVigenciaIndicador.eventoFiltrarIndicador()}"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarI']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovIndicador.filter();" style="width:150px; position: relative; left: 20px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovIndicador').filter();" style="width:150px; position: relative; left: 20px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{indicador.descripcion}" width="140" filterMatchMode="contains" >

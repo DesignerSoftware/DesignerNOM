@@ -209,7 +209,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlEmpleado.actualizarEmpleados()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovDeLOVEmpleados.filter();" style="width:150px; position: relative; left: 5px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovDeLOVEmpleados').filter();" style="width:150px; position: relative; left: 5px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{empl.codigoempleado}" filterMatchMode="contains" filterStyle="width:80%">

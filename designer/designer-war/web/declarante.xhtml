@@ -413,7 +413,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlDeclarantes.actualizarRetenciones()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarR']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVMinimas.filter();" style="width:150px; position: relative; left: 40px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVMinimas').filter();" style="width:150px; position: relative; left: 40px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{m.retencion}" filterBy="#{m.retencion}" width="70" filterStyle="width:60px;" filterMatchMode="contains" > 

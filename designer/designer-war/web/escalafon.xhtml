@@ -148,7 +148,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlEscalafon.actualizarCategoria()}" process="@this"  />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarCat']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovCategoria.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovCategoria').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{categoria.descripcion}" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -175,7 +175,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlEscalafon.actualizarSubCategoria()}"  process="@this"  />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarSCat']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovSubCategoria.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovSubCategoria').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{subCategoria.descripcion}" width="200"  filterMatchMode="contains">
                                     <f:facet name="header">

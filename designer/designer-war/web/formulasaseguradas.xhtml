@@ -158,7 +158,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlFormulasAseguradas.actualizarFormulas()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarFormulas']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovFormulas.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovFormulas').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{personaFirmas.nombrecorto}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
@@ -191,7 +191,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlFormulasAseguradas.actualizarProcesos()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarProcesos']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovProcesos.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovProcesos').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{procesosdi.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
@@ -225,7 +225,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlFormulasAseguradas.actualizarPeriocidades()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarPeriodicidades']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovPeriodicidades.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovPeriodicidades').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{periodicidadesdia.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
@@ -415,7 +415,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlFormulasAseguradas.seleccionFormulaAsegurada()}" process="@this" onstart="PF('lovCentrosCostos').clearFilters()" update="lovCentrosCostos, :form:datosFormulasAseguradas"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarFormulasD']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovCentrosCostos.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovCentrosCostos').filter();" style="width:150px; position: relative; left: 50px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{centroscostosporempresa.formula.nombrelargo}" width="200"  filterMatchMode="contains">

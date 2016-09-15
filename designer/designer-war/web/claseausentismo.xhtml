@@ -142,7 +142,7 @@
                                 <p:ajax event="filter" listener="#{controlClasesAusentismos.eventoFiltrarLovTiposAusentismos()}"/>
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Tipos Ausentismos:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTiposausentismos.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposausentismos').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{personaFirmas.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">

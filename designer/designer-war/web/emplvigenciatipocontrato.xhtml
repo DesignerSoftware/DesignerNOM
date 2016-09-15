@@ -234,7 +234,12 @@
                                         <p:tooltip for="headS" value="#{msg['scH']}"/>
                                     </f:facet>
                                     <p:commandButton value="" style="width: 21px; height: 21px;" id="selectButton" />
-                                </p:column>     
+                                </p:column>   
+                                
+                                
+                        <f:facet name="footer">
+                           <!--Registros : #{fn:length(controlVigenciasTiposContratos.datosVTCEmpleado)} Totales.-->
+                        </f:facet>
                             </p:dataTable> 
                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlVigenciasTiposContratos.infoRegistro}" style="position: relative; left: 15px; top: 3px; font-weight: bold"/>
                         </fieldset>
@@ -349,7 +354,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovCiudades.filter();" value="#{filtrado}" style="width:170px; position: relative; left: 30px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovCiudades').filter();" value="#{filtrado}" style="width:170px; position: relative; left: 30px;" />  
                             </f:facet>
                             <p:column filterBy="#{ItemCiudad.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
@@ -388,7 +393,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovTiposContrato.filter();" value="#{filtrado}" style="width:170px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovTiposContrato').filter();" value="#{filtrado}" style="width:170px; position: relative; left: 60px;" />  
                             </f:facet>
                             <p:column filterBy="#{TiposC.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
@@ -424,7 +429,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovMotivosContrato.filter();" value="#{filtrado}" style="width:170px; position: relative; left: 40px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovMotivosContrato').filter();" value="#{filtrado}" style="width:170px; position: relative; left: 40px;" />  
                             </f:facet>
                             <p:column filterBy="#{MotivosC.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">

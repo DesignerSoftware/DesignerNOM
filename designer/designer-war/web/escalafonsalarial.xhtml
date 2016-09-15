@@ -282,7 +282,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlEscalafonSalarial.actualizarTipoTrabajador()}"  process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovTipoTrabajador.filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{dias.nombre}"  filterMatchMode="contains">
                                 <f:facet name="header">

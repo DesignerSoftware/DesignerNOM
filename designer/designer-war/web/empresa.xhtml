@@ -484,7 +484,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlEmpresa.actualizarEmpresasClonado()}"  process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEmp']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpresa.filter();" style="width:140px; position: relative; left: 10px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpresa').filter();" style="width:140px; position: relative; left: 10px;" />  
                             </f:facet>
                             <p:column filterBy="#{empresa.codigo}" width="110" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -517,7 +517,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlEmpresa.actualizarMoneda()}"  process="@this"  />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovMoneda.filter();" style="width:140px; position: relative; left: 10px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovMoneda').filter();" style="width:140px; position: relative; left: 10px;" />  
                             </f:facet>
                             <p:column filterBy="#{moneda.codigo}" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -549,7 +549,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlEmpresa.actualizarCentroCosto()}"  process="@this"  />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarCC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovFormula.filter();" style="width:140px; position: relative; left: 45px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovFormula').filter();" style="width:140px; position: relative; left: 45px;" />  
                             </f:facet>
                             <p:column filterBy="#{centroCosto.nombre}" filterMatchMode="contains">
                                 <f:facet name="header">

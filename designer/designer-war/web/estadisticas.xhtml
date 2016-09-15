@@ -4257,24 +4257,24 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscardetalle']} :"  style="position: relative; left: -40px; top: 3px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lOVDetalles.filter();" style="width: 260px; position: relative; left: 30px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lOVDetalles').filter();" style="width: 260px; position: relative; left: 30px;" />  
                             </f:facet>
 
-                            <p:column filterBy="#{detalle.nombreEmpleado}" sortBy="#{detalle.nombreEmpleado}" width="200" filterMatchMode="contains" filterStyle="width: 80%">
+                            <p:column filterBy="#{detalle.nombreEmpleado}" sortBy="#{detalle.nombreEmpleado}" width="200" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombre']}"/>
                                 </f:facet>
                                 <h:outputText style="text-align: left;" value="#{detalle.nombreEmpleado}"/>
                             </p:column>
 
-                            <p:column filterBy="#{detalle.codigoEmpleado}" sortBy="#{detalle.codigoEmpleado}" width="70" filterMatchMode="contains" filterStyle="width: 80%">
+                            <p:column filterBy="#{detalle.codigoEmpleado}" sortBy="#{detalle.codigoEmpleado}" width="70" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigo']}"/>
                                 </f:facet>
                                 <h:outputText  value="#{detalle.codigoEmpleado}"/>
                             </p:column>
 
-                            <p:column filterBy="#{detalle.z}" sortBy="#{detalle.z}" width="70" filterMatchMode="contains" filterStyle="width: 80%">
+                            <p:column filterBy="#{detalle.z}" sortBy="#{detalle.z}" width="70" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['fechamin']}" />
                                 </f:facet>
@@ -4283,7 +4283,7 @@
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{detalle.nombreConcepto}" sortBy="#{detalle.nombreConcepto}" width="200" filterMatchMode="contains" filterStyle="width: 80%">
+                            <p:column filterBy="#{detalle.nombreConcepto}" sortBy="#{detalle.nombreConcepto}" width="200" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['concepto']}" />
                                 </f:facet>
@@ -4296,7 +4296,7 @@
                                 </f:facet>
                             </p:column>
 
-                            <p:column filterBy="#{detalle.unidadesActivo}" sortBy="#{detalle.unidadesActivo}" style="text-align: right;" width="40" filterMatchMode="contains" filterStyle="width: 80%">
+                            <p:column filterBy="#{detalle.unidadesActivo}" sortBy="#{detalle.unidadesActivo}" style="text-align: right;" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText id="headerUni" value="Uni.."/>
                                     <p:tooltip for="headerUni" value="#{msg['unidades']}" />
@@ -4307,7 +4307,7 @@
                                 </f:facet>
                             </p:column>
 
-                            <p:column filterBy="#{detalle.valor}" sortBy="#{detalle.valor}" width="90" style="text-align: right;" filterMatchMode="contains" filterStyle="width: 80%">
+                            <p:column filterBy="#{detalle.valor}" sortBy="#{detalle.valor}" width="90" style="text-align: right;" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['valor']}" />
                                 </f:facet>
@@ -4342,7 +4342,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']} :"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVConceptos.filter();" style="width: 200px; position: relative; left: 40px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVConceptos').filter();" style="width: 200px; position: relative; left: 40px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{conceptos.codigo}" filterBy="#{conceptos.codigo}" width="60" filterStyle="width: 85% !important;" filterMatchMode="contains" > 

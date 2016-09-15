@@ -801,7 +801,7 @@
                      <p:ajax event="filter" listener="#{controlNovedadesEmpleados.eventoFiltrarFormulas()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarF']}" style="position: absolute; left: 27px; top: 15px;"/>  
-                        <p:inputText id="globalFilter" onkeyup="LOVFormulas.filter();" style="width: 150px; position: relative; left: 60px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('LOVFormulas').filter();" style="width: 150px; position: relative; left: 60px;" />  
                      </f:facet>
 
                      <p:column sortBy="#{formulas.nombrecorto}" filterBy="#{formulas.nombrecorto}" width="60" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
@@ -839,7 +839,7 @@
                      <p:ajax event="filter" listener="#{controlNovedadesEmpleados.eventoFiltrarConceptos()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                        <p:inputText id="globalFilter" onkeyup="LOVConceptos.filter();" style="width: 400px; position: relative; left: 60px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('LOVConceptos').filter();" style="width: 400px; position: relative; left: 60px;" />  
                      </f:facet>
 
                      <p:column sortBy="#{conceptos.codigo}" filterBy="#{conceptos.codigo}" width="70" filterStyle="width: 85% !important;" filterMatchMode="contains" > 
@@ -884,7 +884,7 @@
                      <p:ajax event="filter" listener="#{controlNovedadesEmpleados.eventoFiltrarPeriodicidades()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                        <p:inputText id="globalFilter" onkeyup="LOVPeriodicidades.filter();" style="width: 150px; position: relative; left: 70px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('LOVPeriodicidades').filter();" style="width: 150px; position: relative; left: 70px;" />  
                      </f:facet>
 
                      <p:column sortBy="#{periodicidades.codigo}" filterBy="#{periodicidades.codigo}" width="30" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
@@ -920,7 +920,7 @@
                      <p:ajax event="filter" listener="#{controlNovedadesEmpleados.eventoFiltrarTerceros()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                        <p:inputText id="globalFilter" onkeyup="LOVTerceros.filter();" style="width: 200px; position: relative; left: 60px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('LOVTerceros').filter();" style="width: 200px; position: relative; left: 60px;" />  
                      </f:facet>
 
                      <p:column sortBy="#{terceros.nitalternativo}" filterStyle="width: 85% !important;" filterBy="#{terceros.nitalternativo}" width="100" filterMatchMode="contains" > 
@@ -957,7 +957,7 @@
                      
                      <f:facet name="header">  
                         <h:outputText value="#{msg['nombre']}:" style="position: absolute; left: 27px; top: 15px;"/>  
-                        <p:inputText id="globalFilter" onkeyup="LOVEmpleados.filter();" style="width: 300px; position: relative; left: -50px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width: 300px; position: relative; left: -50px;" />  
                      </f:facet>
 
                      <p:column sortBy="#{emp.nombre}" filterBy="#{emp.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;" > 

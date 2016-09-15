@@ -717,7 +717,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarunidad']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovUnidades.filter();" style="width: 200px; position: relative; left: 50px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovUnidades').filter();" style="width: 200px; position: relative; left: 50px;" />  
                      </f:facet>
                      <p:column filterBy="#{unidad.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
@@ -753,7 +753,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscartercero']}" style="position: absolute; left: 27px; top: 14px;"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovTerceros.filter();" style="width: 200px; position: relative; left: 40px;"/>  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovTerceros').filter();" style="width: 200px; position: relative; left: 40px;"/>  
                      </f:facet>
                      <p:column filterBy="#{tercero.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
@@ -790,7 +790,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarempresa']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovEmpresas.filter();" style="width: 200px; position: relative; left: 40px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width: 200px; position: relative; left: 40px;" />  
                      </f:facet>
                      <p:column filterBy="#{empresa.nit}" width="70" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
@@ -827,7 +827,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarconcepto']}" style="position: absolute; left: 20px;"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovConceptos.filter();" style="width: 60%; position: relative; left: 40px;"/>  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovConceptos').filter();" style="width: 60%; position: relative; left: 40px;"/>  
                      </f:facet>
                      <p:column filterBy="#{conceptoEstado.codigo}" width="70" filterMatchMode="contains" filterStyle="position: relative; width: 85% !important">
                         <f:facet name="header">

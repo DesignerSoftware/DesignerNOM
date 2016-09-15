@@ -503,7 +503,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaLocalizacion.actualizarEstructura()}" update=":form:LocalizacionDialogo" process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarL']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovLocalizacion.filter();" value="#{filtrado}" style="width:200px; position: relative;left: -110px"/>  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovLocalizacion').filter();" value="#{filtrado}" style="width:200px; position: relative;left: -110px"/>  
                                 </f:facet>
                                 <p:column filterBy="#{localizacion.centrocosto.codigoNombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -545,7 +545,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaLocalizacion.actualizarMotivoLocalizacion()}" update=":form:MotivoDialogo" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovMotivo.filter();" value="#{filtrado}" style="width:200px; position: relative; left: 10px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovMotivo').filter();" value="#{filtrado}" style="width:200px; position: relative; left: 10px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{motivo.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -579,7 +579,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaLocalizacion.actualizarProyecto()}" oncomplete="PF('ProyectosDialogo').hide()" update=":form:ProyectosDialogo" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovProyectos.filter();" value="#{filtrado}" style="width:200px; position: relative; left: -60px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovProyectos').filter();" value="#{filtrado}" style="width:200px; position: relative; left: -60px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{proyecto.codigo}" width="160" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -618,7 +618,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaLocalizacion.actualizarCentroCostoVP()}" update=":form:lovCentroCostos" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarLP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovCentroCostos.filter();" value="#{filtrado}" style="width:200px; position: relative; left: -100px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovCentroCostos').filter();" value="#{filtrado}" style="width:200px; position: relative; left: -100px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{centro.codigo}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">

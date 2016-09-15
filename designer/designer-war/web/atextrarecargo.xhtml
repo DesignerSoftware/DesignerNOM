@@ -510,7 +510,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlATExtraRecargo.actualizarTipoDia()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTD']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovTipoDia.filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovTipoDia').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{dias.codigo}" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -549,7 +549,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlATExtraRecargo.actualizarTipoJornada()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTJ']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovTipoJornada.filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovTipoJornada').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{jornada.codigo}"  filterMatchMode="contains">
@@ -612,7 +612,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlATExtraRecargo.actualizarLegislacion()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTL']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovLegislacion.filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovLegislacion').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{legislacion.codigo}" width="80" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -650,7 +650,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlATExtraRecargo.actualizarConcepto()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovConcepto.filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovConcepto').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{concepto.codigo}" filterMatchMode="contains">
                                 <f:facet name="header">

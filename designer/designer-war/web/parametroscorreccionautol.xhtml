@@ -1266,7 +1266,7 @@
                             <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.eventoFiltrarLovTipoTrabajador()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovTipoTrabajador.filter();" style="width: 150px; position: relative; left: 50px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" style="width: 150px; position: relative; left: 50px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{tipoT.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -1298,7 +1298,7 @@
                             <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.eventoFiltrarLovEmpresas()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpresa.filter();" style="width:150px; position: relative; left: -40px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpresa').filter();" style="width:150px; position: relative; left: -40px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
@@ -1342,7 +1342,7 @@
                             <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.eventoFiltrarLovTipoEntidades()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovTipoEntidad.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" style="width:150px; position: relative; left: 50px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{tipoE.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -1374,7 +1374,7 @@
                             <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.eventoFiltrarEmpleados()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMPL']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpleado.filter();" style="width:150px; position: relative; left: 50px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpleado').filter();" style="width:150px; position: relative; left: 50px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{empleado.codigoempleado}" filterStyle="width: 85% !important" width="80" filterMatchMode="contains">
@@ -1413,7 +1413,7 @@
                             <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.eventoFiltrarLovTerceros()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovTercero.filter();" style="width:200px; position: relative; left: -40px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovTercero').filter();" style="width:200px; position: relative; left: -40px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
@@ -1457,7 +1457,7 @@
                             <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.eventoFiltrarAporteEntidad()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarBA']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovBuscarAporte.filter();" style="width:200px; position: relative; left: -40px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovBuscarAporte').filter();" style="width:200px; position: relative; left: -40px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{buscarA.ano}" width="90" filterMatchMode="contains" filterStyle="width: 85% !important">

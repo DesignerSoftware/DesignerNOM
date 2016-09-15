@@ -141,7 +141,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlValoresConceptos.actualizarConceptos()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Conceptos:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovConceptos.filter();" style="width:150px; position: relative; left: 20px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovConceptos').filter();" style="width:150px; position: relative; left: 20px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{personaFirmas.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">

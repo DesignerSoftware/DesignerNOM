@@ -211,10 +211,8 @@ public class ControlVigenciasCargos implements Serializable {
       getVigenciasCargosEmpleado();
       if (vigenciasCargosEmpleado != null) {
          vigenciaSeleccionada = vigenciasCargosEmpleado.get(0);
-         modificarInfoRegistro(vigenciasCargosEmpleado.size());
-      } else {
-         modificarInfoRegistro(0);
       }
+//      contarRegistros();
    }
 
    public void recibirPaginaEntrante(String pagina, Empleados emp) {
@@ -252,11 +250,7 @@ public class ControlVigenciasCargos implements Serializable {
       System.out.println("forFecha : " + forFecha);
       dlgEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
       vigenciaSeleccionada = vCargo;
-      if (dlgEstructuras != null) {
-         modificarInfoRegistroEstructuras(dlgEstructuras.size());
-      } else {
-         modificarInfoRegistroEstructuras(0);
-      }
+      contarRegistrosEstructuras();
       RequestContext.getCurrentInstance().update("form:dlgEstructuras");
       RequestContext.getCurrentInstance().update("form:listaValores");
       PrimefacesContextUI.ejecutar("PF('dlgEstructuras').show()");
@@ -273,11 +267,7 @@ public class ControlVigenciasCargos implements Serializable {
             String forFecha = formatoFecha.format(nuevaVigencia.getFechavigencia());
             System.out.println("forFecha : " + forFecha);
             dlgEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
-            if (dlgEstructuras != null) {
-               modificarInfoRegistroEstructuras(dlgEstructuras.size());
-            } else {
-               modificarInfoRegistroEstructuras(0);
-            }
+            contarRegistrosEstructuras();
             RequestContext.getCurrentInstance().update("form:dlgEstructuras");
             PrimefacesContextUI.ejecutar("PF('dlgEstructuras').show()");
          }
@@ -290,11 +280,7 @@ public class ControlVigenciasCargos implements Serializable {
             String forFecha = formatoFecha.format(duplicarVC.getFechavigencia());
             System.out.println("forFecha : " + forFecha);
             dlgEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
-            if (dlgEstructuras != null) {
-               modificarInfoRegistroEstructuras(dlgEstructuras.size());
-            } else {
-               modificarInfoRegistroEstructuras(0);
-            }
+            contarRegistrosEstructuras();
             RequestContext.getCurrentInstance().update("form:dlgEstructuras");
             PrimefacesContextUI.ejecutar("PF('dlgEstructuras').show()");
          }
@@ -520,18 +506,18 @@ public class ControlVigenciasCargos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       activarLOV = false;
       if (dlg == 0) {
-         modificarInfoRegistroMotivos(motivosCambiosCargos.size());
+         contarRegistrosMotivos();
          motivoSeleccionado = null;
          RequestContext.getCurrentInstance().update("form:dlgMotivos");
          PrimefacesContextUI.ejecutar("PF('dlgMotivos').show()");
       } else if (dlg == 1) {
          cargoSeleccionado = null;
-         modificarInfoRegistroCargos(cargos.size());
+         contarRegistrosCargos();
          RequestContext.getCurrentInstance().update("form:dlgCargos");
          PrimefacesContextUI.ejecutar("PF('dlgCargos').show()");
       } else if (dlg == 2) {
          tiposTrabajadorJefeSeleccionado = null;
-         modificarInfoRegistroJefe(actualesTiposTrabajadores.size());
+         contarRegistrosJefe();
          RequestContext.getCurrentInstance().update("form:dialogoEmpleadoJefe");
          PrimefacesContextUI.ejecutar("PF('dialogoEmpleadoJefe').show()");
       }
@@ -547,7 +533,7 @@ public class ControlVigenciasCargos implements Serializable {
          tipoActualizacion = 2;
       }
       motivoSeleccionado = null;
-      modificarInfoRegistroMotivos(motivosCambiosCargos.size());
+      contarRegistrosMotivos();
       RequestContext.getCurrentInstance().update("form:dlgMotivos");
       PrimefacesContextUI.ejecutar("PF('dlgMotivos').show()");
    }
@@ -560,7 +546,7 @@ public class ControlVigenciasCargos implements Serializable {
          tipoActualizacion = 2;
       }
       cargoSeleccionado = null;
-      modificarInfoRegistroCargos(cargos.size());
+      contarRegistrosCargos();
       RequestContext.getCurrentInstance().update("form:dlgCargos");
       PrimefacesContextUI.ejecutar("PF('dlgCargos').show()");
    }
@@ -573,7 +559,7 @@ public class ControlVigenciasCargos implements Serializable {
          tipoActualizacion = 2;
       }
       tiposTrabajadorJefeSeleccionado = null;
-      modificarInfoRegistroJefe(actualesTiposTrabajadores.size());
+      contarRegistrosJefe();
       RequestContext.getCurrentInstance().update("form:dialogoEmpleadoJefe");
       PrimefacesContextUI.ejecutar("PF('dialogoEmpleadoJefe').show()");
    }
@@ -590,11 +576,7 @@ public class ControlVigenciasCargos implements Serializable {
       guardado = true;
       permitirIndex = true;
       getVigenciasCargosEmpleado();
-      if (vigenciasCargosEmpleado != null) {
-         modificarInfoRegistro(vigenciasCargosEmpleado.size());
-      } else {
-         modificarInfoRegistro(0);
-      }
+      contarRegistros();
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1058,12 +1040,7 @@ public class ControlVigenciasCargos implements Serializable {
          //System.out.println("Se guardaron los datos con exito");
          vigenciasCargosEmpleado = null;
          getVigenciasCargosEmpleado();
-         if (vigenciasCargosEmpleado != null) {
-            vigenciaSeleccionada = vigenciasCargosEmpleado.get(0);
-            modificarInfoRegistro(vigenciasCargosEmpleado.size());
-         } else {
-            modificarInfoRegistro(0);
-         }
+         contarRegistros();
          activarLOV = true;
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
@@ -1183,8 +1160,7 @@ public class ControlVigenciasCargos implements Serializable {
             nuevaVigencia.setEstructura(new Estructuras());
             nuevaVigencia.setMotivocambiocargo(new MotivosCambiosCargos());
             nuevaVigencia.setCargo(new Cargos());
-            modificarInfoRegistro(vigenciasCargosEmpleado.size());
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
             RequestContext.getCurrentInstance().update("form:listaValores");
             if (guardado == true) {
@@ -1268,7 +1244,7 @@ public class ControlVigenciasCargos implements Serializable {
             filterVC.remove(vigenciaSeleccionada);
          }
 
-         modificarInfoRegistro(vigenciasCargosEmpleado.size());
+         contarRegistros();
          vigenciaSeleccionada = null;
          activarLOV = true;
          RequestContext.getCurrentInstance().update("form:listaValores");
@@ -1343,7 +1319,7 @@ public class ControlVigenciasCargos implements Serializable {
          if (control == 0) {
             vigenciasCargosEmpleado.add(duplicarVC);
             listVCCrear.add(duplicarVC);
-            modificarInfoRegistro(vigenciasCargosEmpleado.size());
+            contarRegistros();
             vigenciaSeleccionada = vigenciasCargosEmpleado.get(vigenciasCargosEmpleado.indexOf(duplicarVC));
 
             if (guardado == true) {
@@ -1410,26 +1386,26 @@ public class ControlVigenciasCargos implements Serializable {
             String forFecha = formatoFecha.format(vigenciaSeleccionada.getFechavigencia());
             dlgEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
             estructuraSeleccionada = null;
-            modificarInfoRegistroEstructuras(dlgEstructuras.size());
+            contarRegistrosEstructuras();
             RequestContext.getCurrentInstance().update("form:dlgEstructuras");
             PrimefacesContextUI.ejecutar("PF('dlgEstructuras').show()");
             tipoActualizacion = 0;
          } else if (cualCelda == 2) {
             tipoActualizacion = 0;
             motivoSeleccionado = null;
-            modificarInfoRegistroMotivos(motivosCambiosCargos.size());
+            contarRegistrosMotivos();
             RequestContext.getCurrentInstance().update("form:dlgMotivos");
             PrimefacesContextUI.ejecutar("PF('dlgMotivos').show()");
          } else if (cualCelda == 3) {
             tipoActualizacion = 0;
             cargoSeleccionado = null;
-            modificarInfoRegistroCargos(cargos.size());
+            contarRegistrosCargos();
             RequestContext.getCurrentInstance().update("form:dlgCargos");
             PrimefacesContextUI.ejecutar("PF('dlgCargos').show()");
          } else if (cualCelda == 5) {
             tipoActualizacion = 0;
             tiposTrabajadorJefeSeleccionado = null;
-            modificarInfoRegistroJefe(actualesTiposTrabajadores.size());
+            contarRegistrosJefe();
             RequestContext.getCurrentInstance().update("form:dialogoEmpleadoJefe");
             PrimefacesContextUI.ejecutar("PF('dialogoEmpleadoJefe').show()");
          }
@@ -1548,48 +1524,33 @@ public class ControlVigenciasCargos implements Serializable {
       }
       activarLOV = true;
       vigenciaSeleccionada = null;
+      contarRegistros();
       RequestContext.getCurrentInstance().update("form:listaValores");
+   }
+
+   public void contarRegistros() {
+//      infoRegistro = String.valueOf(valor);
       RequestContext.getCurrentInstance().update("form:informacionRegistro");
    }
 
-   public void eventoFiltrarCargos() {
-      modificarInfoRegistroCargos(filterCargos.size());
+   public void contarRegistrosCargos() {
+//      infoRegistroCargos = String.valueOf(valor);
       RequestContext.getCurrentInstance().update("form:infoRegistroCargos");
    }
 
-   public void eventoFiltrarEstructuras() {
-      modificarInfoRegistroEstructuras(filterEstructuras.size());
+   public void contarRegistrosEstructuras() {
+//      infoRegistroEstructuras = String.valueOf(valor);
       RequestContext.getCurrentInstance().update("form:infoRegistroEstructuras");
    }
 
-   public void eventoFiltrarJefe() {
-      modificarInfoRegistroJefe(filtradoActualesTiposTrabajadores.size());
+   public void contarRegistrosJefe() {
+//      infoRegistroJefe = String.valueOf(valor);
       RequestContext.getCurrentInstance().update("form:informacionLOVEJ");
    }
 
-   public void eventoFiltrarMotios() {
-      modificarInfoRegistroMotivos(filterMotivos.size());
+   public void contarRegistrosMotivos() {
+//      infoRegistroMotivos = String.valueOf(valor);
       RequestContext.getCurrentInstance().update("form:infoRegistroMotivos");
-   }
-
-   private void modificarInfoRegistro(int valor) {
-      infoRegistro = String.valueOf(valor);
-   }
-
-   private void modificarInfoRegistroCargos(int valor) {
-      infoRegistroCargos = String.valueOf(valor);
-   }
-
-   private void modificarInfoRegistroEstructuras(int valor) {
-      infoRegistroEstructuras = String.valueOf(valor);
-   }
-
-   private void modificarInfoRegistroJefe(int valor) {
-      infoRegistroJefe = String.valueOf(valor);
-   }
-
-   private void modificarInfoRegistroMotivos(int valor) {
-      infoRegistroMotivos = String.valueOf(valor);
    }
 
    public void recordarSeleccion() {
@@ -1695,6 +1656,10 @@ public class ControlVigenciasCargos implements Serializable {
    }
 
    public String getInfoRegistroMotivos() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:motivosCambCargo");
+      System.out.println("Esta en la funcion getInfoRegistroMotivos(), Cantidad : " + tabla.getRowCount());
+      infoRegistroMotivos = String.valueOf(tabla.getRowCount());
       return infoRegistroMotivos;
    }
 
@@ -1740,6 +1705,10 @@ public class ControlVigenciasCargos implements Serializable {
    }
 
    public String getInfoRegistroCargos() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lOVCargos");
+      System.out.println("Esta en la funcion getInfoRegistroCargos(), Cantidad : " + tabla.getRowCount());
+      infoRegistroCargos = String.valueOf(tabla.getRowCount());
       return infoRegistroCargos;
    }
 
@@ -1851,16 +1820,10 @@ public class ControlVigenciasCargos implements Serializable {
    }
 
    public String getInfoRegistro() {
-      if (tipoLista == 1) {
-         FacesContext c = FacesContext.getCurrentInstance();
-         tablaC = (DataTable) c.getViewRoot().findComponent("form:datosVCEmpleado");
-         System.out.println("Esta en la funcion getInfoRegistro(), Cantidad : " + tablaC.getRowCount());
-         infoRegistro = String.valueOf(tablaC.getRowCount());
-      } else if (vigenciasCargosEmpleado != null) {
-         infoRegistro = String.valueOf(vigenciasCargosEmpleado.size());
-      } else {
-         infoRegistro = "0";
-      }
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosVCEmpleado");
+      System.out.println("Esta en la funcion getInfoRegistro(), Cantidad : " + tabla.getRowCount());
+      infoRegistro = String.valueOf(tabla.getRowCount());
       return infoRegistro;
    }
 
@@ -1869,10 +1832,18 @@ public class ControlVigenciasCargos implements Serializable {
    }
 
    public String getInfoRegistroJefe() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lvEmpleadoJefe");
+      System.out.println("Esta en la funcion getInfoRegistroJefe(), Cantidad : " + tabla.getRowCount());
+      infoRegistroJefe = String.valueOf(tabla.getRowCount());
       return infoRegistroJefe;
    }
 
    public String getInfoRegistroEstructuras() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:estructurasLOV");
+      System.out.println("Esta en la funcion getInfoRegistroEstructuras(), Cantidad : " + tabla.getRowCount());
+      infoRegistroEstructuras = String.valueOf(tabla.getRowCount());
       return infoRegistroEstructuras;
    }
 

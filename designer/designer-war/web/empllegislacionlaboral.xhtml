@@ -196,7 +196,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarL']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovContratos.filter();" value="#{filtrado}" style="width:150px; position: relative; left: 70px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovContratos').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 70px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{contratos.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -235,15 +235,15 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarT']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTiposContratos.filter();" value="#{filtrado}" style="width:170px; position: relative; left: 40px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposContratos').filter();" value="#{filtrado}" style="width:170px; position: relative; left: 40px;" />  
                                 </f:facet>
-                                <p:column filterBy="#{tiposContratos.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80%">
+                                <p:column filterBy="#{tiposContratos.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['codigoT']}" />
                                     </f:facet>
                                     <h:outputText value="#{tiposContratos.codigo}" />
                                 </p:column>
-                                <p:column filterBy="#{tiposContratos.nombre}" width="200" filterMatchMode="contains" filterStyle="width: 80%">
+                                <p:column filterBy="#{tiposContratos.nombre}" width="200" filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['descripcionT']}" />
                                     </f:facet>

@@ -775,7 +775,7 @@
                             <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarEducacion()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTE']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVTiposEducaciones.filter();" style="width:100px; position: relative; left: 65px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVTiposEducaciones').filter();" style="width:100px; position: relative; left: 65px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{tiposEducaciones.nombre}" width="100" filterMatchMode="contains" > 
@@ -807,7 +807,7 @@
                             <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarProfesion()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVProfesiones.filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVProfesiones').filter();" style="width:100px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{profesiones.descripcion}" width="100" filterMatchMode="contains" > 
@@ -838,7 +838,7 @@
                             <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarInstitucionF()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarI']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVInstituciones.filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVInstituciones').filter();" style="width:100px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{instituciones.descripcion}" width="100" filterMatchMode="contains" > 
@@ -869,7 +869,7 @@
                             <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarAdiestramientoF}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarA']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVAdiestramientosF.filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVAdiestramientosF').filter();" style="width:100px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{adiestramientosF.descripcion}" width="100" filterMatchMode="contains" > 
@@ -900,7 +900,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlPersonaEducacion.actualizarCursos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVCursos.filter();" style="width:100px; position: relative; left: 10px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVCursos').filter();" style="width:100px; position: relative; left: 10px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{cursos.nombre}" width="100" filterMatchMode="contains" > 
@@ -931,7 +931,7 @@
                             <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarInstitucion()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarI']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVInstitucionesNF.filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVInstitucionesNF').filter();" style="width:100px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{institucionesNF.descripcion}" width="100" filterMatchMode="contains" > 
@@ -962,7 +962,7 @@
                             <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarAdiestramientoNF()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarA']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVAdiestramientosNF.filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVAdiestramientosNF').filter();" style="width:100px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{adiestramientosNF.desccripcion}" width="100" filterMatchMode="contains" > 

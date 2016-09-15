@@ -274,7 +274,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVConcepto.filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVConcepto').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{concepto.codigo}" style="width:50px;" filterStyle="width:40px;" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -307,7 +307,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVTiposRedondeos.filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVTiposRedondeos').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{t.descripcion}" width="100" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -339,7 +339,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlConceptoRedondeo.actualizarConceptosRedondeos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarCR']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVConceptosRedondeos.filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVConceptosRedondeos').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{cr.concepto.descripcion}"  filterMatchMode="contains">
                                 <f:facet name="header">

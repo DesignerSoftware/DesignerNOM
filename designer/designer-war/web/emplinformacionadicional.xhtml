@@ -259,7 +259,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlEmplInformacionAdicional.actualizarGrupo()}" process="@this" onstart="PF('lovGrupo').clearFilters()"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarG']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovGrupo.filter();" style="width:150px; position: relative; left: 5px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovGrupo').filter();" style="width:150px; position: relative; left: 5px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{grupo.descripcion}" width="200"  filterMatchMode="contains">
                                     <f:facet name="header">

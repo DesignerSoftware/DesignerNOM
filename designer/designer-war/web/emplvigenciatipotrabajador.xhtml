@@ -376,7 +376,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlVigenciaTipoTrabajador.actualizarTipoTrabajador()}"  update=":formLovs:TipoTrabajadorDialogo" immediate="true" process="@this"  />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarT']}: "  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovTipoTrabajador.filter();" value="#{filtrado}" style="width:150px; position: relative; left: -35px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" value="#{filtrado}" style="width:150px; position: relative; left: -35px;" />  
                      </f:facet>
                      <p:column filterBy="#{tipoTrabajador.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                         <f:facet name="header">
@@ -420,7 +420,7 @@
                      <p:ajax event="rowSelect" listener="#{controlVigenciaTipoTrabajador.activarAceptar()}" update=":formLovs:aceptarMR"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarM']}: "  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovMotivosRetiros.filter();" style="width:150px; position: relative; left: 55px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovMotivosRetiros').filter();" style="width:150px; position: relative; left: 55px;" />  
                      </f:facet>
                      <p:column width="40" filterMatchMode="contains" filterStyle="width: 30px">
                         <f:facet name="header">
@@ -456,7 +456,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlVigenciaTipoTrabajador.actualizarClasePension()}" update=":formLovs:clasePensionDialogo" process="@this" />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarCP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovClasePension.filter();" style="width:150px; position: relative; left: 30px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovClasePension').filter();" style="width:150px; position: relative; left: 30px;" />  
                      </f:facet>
                      <p:column filterBy="#{clasePension.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                         <f:facet name="header">
@@ -491,7 +491,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlVigenciaTipoTrabajador.actualizarTipoPensionado()}" update=":formLovs:tipoPensionadoDialogo" process="@this" />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarTP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovTipoPensionado.filter();" value="#{filtrado}" style="width:150px; position: relative; left: 80px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovTipoPensionado').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 80px;" />  
                      </f:facet>
                      <p:column filterBy="#{tipoPensionado.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                         <f:facet name="header">
@@ -526,7 +526,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlVigenciaTipoTrabajador.actualizarCausaBiente()}" update=":formLovs:causaBientesDialogo" process="@this" />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarCB']}"  style="position: absolute; left: 27px; top: 14px; text-align: left"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovCausaBientes.filter();" value="#{filtrado}" style="width:150px; position: relative; left: 20px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovCausaBientes').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 20px;" />  
                      </f:facet>
                      <p:column filterBy="#{causaBiente.causabiente.codigoempleado}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                         <f:facet name="header">
@@ -561,7 +561,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlVigenciaTipoTrabajador.actualizarTutor()}" update=":formLovs:tutorDialogo"  process="@this" />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarTU']}" style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovTutor.filter();" value="#{filtrado}" style="width:150px; position: relative; left: 10px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovTutor').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 10px;" />  
                      </f:facet>
                      <p:column filterBy="#{tutor.nombreCompleto}" width="200"  filterMatchMode="contains">
                         <f:facet name="header">

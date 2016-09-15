@@ -572,7 +572,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarP']}" style="position: absolute; left: 27px; top: 14px"/>  
-                           <p:inputText id="globalFilter" onkeyup="lovProceso.filter();" style="width:150px; position: relative; left: -10px;" />  
+                           <p:inputText id="globalFilter" onkeyup="PF('lovProceso').filter();" style="width:150px; position: relative; left: -10px;" />  
                         </f:facet>
                         <p:column filterBy="#{proceso.descripcion}" width="200"  filterMatchMode="contains">
                            <f:facet name="header">
@@ -606,7 +606,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarE']}" style="position: absolute; left: 27px; top: 14px"/>  
-                           <p:inputText id="globalFilter" onkeyup="lovEmpresa.filter();" style="width:150px; position: relative; left: -10px;" />  
+                           <p:inputText id="globalFilter" onkeyup="PF('lovEmpresa').filter();" style="width:150px; position: relative; left: -10px;" />  
                         </f:facet>
                         <p:column filterBy="#{empresa.nombre}" width="200"  filterMatchMode="contains">
                            <f:facet name="header">
@@ -816,7 +816,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarED']}" style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovEmpleadoDesde.filter();" style="width:150px; position: relative; left: -10px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();" style="width:150px; position: relative; left: -10px;" />  
                      </f:facet>
                      <p:column filterBy="#{empleadoD.codigoempleado}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                         <f:facet name="header">
@@ -852,7 +852,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarEH']}" style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="lovEmpleadoHasta.filter();" style="width:150px; position: relative; left: -10px;" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();" style="width:150px; position: relative; left: -10px;" />  
                      </f:facet>
                      <p:column filterBy="#{empleadoH.codigoempleado}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                         <f:facet name="header">

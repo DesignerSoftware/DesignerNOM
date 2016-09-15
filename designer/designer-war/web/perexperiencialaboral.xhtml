@@ -267,7 +267,7 @@
                                 <p:ajax event="filter" listener="#{controlPerExperienciaLaboral.eventoFiltrarSector()}"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarS']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovSector.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovSector').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{sector.descripcion}" filterMatchMode="contains">
@@ -296,7 +296,7 @@
                                 <p:ajax event="filter" listener="#{controlPerExperienciaLaboral.eventoFiltrarMotivo()}"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovMotivos.filter();" style="width:150px; position: relative; left: 20px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovMotivos').filter();" style="width:150px; position: relative; left: 20px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{motivo.nombre}" filterMatchMode="contains" >

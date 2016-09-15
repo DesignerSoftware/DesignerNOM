@@ -255,7 +255,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlEmplVigenciaAfiliacion3.actualizarTipoEntidad()}" update=":form:TipoEntidadDialogo" process="@this"  />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarTE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTipoEntidad.filter();" value="#{filtrado}" style="width:150px; position: relative; left: 40px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 40px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipoE.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 25px;" >
                                     <f:facet name="header">
@@ -287,7 +287,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlEmplVigenciaAfiliacion3.actualizarTerceros()}" update=":form:TerceroDialogo"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTercero.filter();" value="#{filtrado}" style="width:150px; position: relative; left: -150px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTercero').filter();" value="#{filtrado}" style="width:150px; position: relative; left: -150px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{tercero.nombre}" width="220" filterMatchMode="contains" filterStyle="width: 190px">
                                     <f:facet name="header">
@@ -325,7 +325,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlEmplVigenciaAfiliacion3.actualizarEstadoAfiliacion()}" update=":form:EstadoAfiliacionDialogo" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarEA']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovEstadoAfiliacion.filter();" value="#{filtrado}" style="width:150px; position: relative; left: 70px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovEstadoAfiliacion').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 70px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{estado.codigo}" width="50"  filterMatchMode="contains" filterStyle="width: 30px">
                                     <f:facet name="header">

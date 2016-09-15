@@ -374,7 +374,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlUsuariosClon.asignarAliasClon()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarAU']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVUsuariosAlias.filter();" style="width:120px; position: relative; left: 80px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVUsuariosAlias').filter();" style="width:120px; position: relative; left: 80px;" />  
                             </f:facet>                            
                             <p:column filterBy="#{aliasU.alias}" width="130"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -401,7 +401,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlUsuariosClon.actualizarPersonas()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarPS']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVPersonas.filter();" style="width:120px; position: relative; left: 80px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVPersonas').filter();" style="width:120px; position: relative; left: 80px;" />  
                             </f:facet>                            
                             <p:column filterBy="#{personas.nombreCompleto}" width="130"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -428,7 +428,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlUsuariosClon.actualizarPerfiles()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarPF']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVPerfiles.filter();" style="width:120px; position: relative; left: 80px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVPerfiles').filter();" style="width:120px; position: relative; left: 80px;" />  
                             </f:facet>                            
                             <p:column filterBy="#{perfiles.descripcion}" width="130"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -455,7 +455,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlUsuariosClon.actualizarPantallas()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarPT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVPantallas.filter();" style="width:120px; position: relative; left: 80px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVPantallas').filter();" style="width:120px; position: relative; left: 80px;" />  
                             </f:facet>
                             <p:column filterBy="#{pantallas.codigo}" width="10" filterStyle="width:30px;" filterMatchMode="contains">
                                 <f:facet name="header">

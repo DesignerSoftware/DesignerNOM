@@ -122,7 +122,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlConfigurarColumnas.agregarColumnaEscenario()}"  process="@this"  />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarCE']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovColumnaEscenario.filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovColumnaEscenario').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{columna.nombrecolumna}" width="70" filterMatchMode="contains" >
                                     <f:facet name="header">

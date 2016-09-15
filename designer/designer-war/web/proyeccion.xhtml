@@ -415,7 +415,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlProyecciones.cambiarEmpleado()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Empleados :"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="lovEmpleados.filter();" style="width:100px; position: relative; left: 10px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width:100px; position: relative; left: 10px;" />  
                             </f:facet>
                             <p:column filterBy="#{empresa.persona.numerodocumento}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">

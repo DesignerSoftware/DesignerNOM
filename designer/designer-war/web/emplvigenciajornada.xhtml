@@ -322,7 +322,7 @@
                                         oncomplete="PF('JornadaLaboralDialogo').hide(), PF('lovJornadaLaboral').unselectAllRows()" update=":form:JornadaLaboralDialogo" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarJ']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovJornadaLaboral.filter();" value="#{filtrado}" style="width:130px; position: relative; left: 65px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovJornadaLaboral').filter();" value="#{filtrado}" style="width:130px; position: relative; left: 65px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{jLaboral.descripcion}" width="200" filterMatchMode="contains" filterStyle="width:85%">
                                     <f:facet name="header">
@@ -361,7 +361,7 @@
                                         oncomplete="PF('TiposDescansosDialogo').hide(), PF('lovTipoDescanso').unselectAllRows()" update=":form:TiposDescansosDialogo" process="@this"  />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarD']}:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="lovTipoDescanso.filter();" value="#{filtrado}" style="width:130px; position: relative; left: 65px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoDescanso').filter();" value="#{filtrado}" style="width:130px; position: relative; left: 65px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{tDescanso.descripcion}" width="200" filterMatchMode="contains" filterStyle="width:85%">
                                     <f:facet name="header">
