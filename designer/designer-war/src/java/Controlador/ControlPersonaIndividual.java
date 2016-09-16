@@ -479,6 +479,7 @@ public class ControlPersonaIndividual implements Serializable {
       try {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         System.out.println("ses : " + ses);
          administrarPersonaIndividual.obtenerConexion(ses.getId());
          administrarCarpetaPersonal.obtenerConexion(ses.getId());
       } catch (Exception e) {
@@ -487,7 +488,6 @@ public class ControlPersonaIndividual implements Serializable {
       }
       cargarLovEmpresas();
       getLovUnidades();
-      contarRegistros_EmpresaInfoP();
    }
 
    public void procesoDialogoEmpresa() {
@@ -6076,7 +6076,7 @@ public class ControlPersonaIndividual implements Serializable {
 //            aceptar = true;
 //        }
 //        contarRegistros_TipoTraTT(filtrarLovTiposTrabajadores.size());
-      RequestContext.getCurrentInstance().update("formLovs:formDTipoTrabajador:formDTipoTrabajador:infoRegistroTipoTrabajadorTipoTrabajador");
+      RequestContext.getCurrentInstance().update("formLovs:formDTipoTrabajador:infoRegistroTipoTrabajadorTipoTrabajador");
    }
 
    //private void contarRegistros_UbicacionUb(int valor) {
