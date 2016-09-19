@@ -942,7 +942,7 @@ public class ControlRemoto implements Serializable {
         }
         actualizarInformacionTipoTrabajador();
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:tabmenu");
+//        RequestContext.getCurrentInstance().update("form:tabmenu");
     }
 
     public void atrasTipoTrabajador() {
@@ -1007,7 +1007,7 @@ public class ControlRemoto implements Serializable {
     public void actualizarInformacionTipoTrabajador() {
         System.out.println("actualizarInformacionTipoTrabajador() 1");
         informacionTiposTrabajadores = "Reg. " + (posicion + 1) + " de " + totalRegistros;
-        RequestContext.getCurrentInstance().update("form:tabmenu:informaciontt");
+//        RequestContext.getCurrentInstance().update("form:tabmenu:informaciontt");
         System.out.println("actualizarInformacionTipoTrabajador() 2");
     }
 
@@ -1640,7 +1640,11 @@ public class ControlRemoto implements Serializable {
     }
 
     public void eventoFiltrarBusquedaEmpleado() {
-        modificarInfoRegistroBE(filterBuscarEmpleado.size());
+        if (filterBuscarEmpleado == null){
+            System.out.println("Filtrado de empleado, lista nula");
+        }else{
+            modificarInfoRegistroBE(filterBuscarEmpleado.size());
+        }
     }
 
     public void modificarInfoRegistroBT(int valor) {

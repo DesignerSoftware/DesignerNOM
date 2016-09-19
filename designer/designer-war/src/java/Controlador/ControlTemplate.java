@@ -95,6 +95,7 @@ public class ControlTemplate implements Serializable {
         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
         administrarTemplate.cerrarSession(ses.getId());
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+//        ses.setAttribute(ses.getId(), null); 
         ec.invalidateSession();
         ec.redirect(ec.getRequestContextPath() + "/iniciored.xhtml");
     }

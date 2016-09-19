@@ -6023,7 +6023,8 @@ public class ControlPersonaIndividual implements Serializable {
 //            aceptar = true;
 //        }
 //        contarRegistros_CiudadTel(filtrarLovCiudades.size());
-      RequestContext.getCurrentInstance().update("formLovs:formDTelefono:infoRegistroCiudadTelefono");
+//      RequestContext.getCurrentInstance().update("formLovs:formDTelefono:infoRegistroCiudadTelefono");
+      RequestContext.getCurrentInstance().update("formLovs:formDTelefono:formCiudadTel:infoRegistroCiudadTelefono");
    }
 
    //private void contarRegistros_NormaL(int valor) {
