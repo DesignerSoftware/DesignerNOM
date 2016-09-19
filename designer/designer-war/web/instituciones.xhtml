@@ -1,0 +1,352 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <f:loadBundle basename="Recursos.instituciones" var="msg" />
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:panel  id="PanelTotal" header="Instituciones" styleClass="panelTotal">  
+                        <p:toolbar styleClass="cssToolbar">
+                            <p:toolbarGroup align="left">
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlInstituciones.guardarCambiosInstituciones()}" process="@this" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlInstituciones.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png)" 
+                                                 disabled="#{controlInstituciones.activarLov}"  process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlInstituciones.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlInstituciones.exportXLS()}" />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlInstituciones.limpiarNuevaInstitucion()}" ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosInstitucionesExportar" fileName="InstitucionesXML" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlInstituciones.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroInstitucion').show()" update=":formularioDialogos:nuevaInstitucion" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlInstituciones.borrarInstituciones()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlInstituciones.duplicarInstituciones()}"  process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlInstituciones.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                                 oncomplete="PF('window.location.reload()" actionListener="#{controlInstituciones.cancelarModificacion()}" process="@this" />  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" action="#{controlInstituciones.redirigir()}"  process="@this" />  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+
+                        <p:commandButton style=" position: absolute; left: 675px; top: 462px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" disabled="#{controlInstituciones.guardado}" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosInstituciones" process="@this" />
+                        <p:commandButton style=" position: absolute; left: 765px; top: 462px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" " actionListener="#{controlInstituciones.salir()}" action="#{controlInstituciones.redirigir()}" process="@this" />
+
+
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 14px; color: blue"><strong>Tipos de Educación</strong></legend>
+                            <p:dataTable id="datosInstituciones" widgetVar="datosInstituciones" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice"
+                                         value="#{controlInstituciones.listaInstituciones}" filteredValue="#{controlInstituciones.filtradoListaInstituciones}"
+                                         editable="true" editMode="cell" scrollable="true" scrollWidth="830" emptyMessage="No se encontraton resultados para la búsqueda"
+                                         scrollHeight="#{controlInstituciones.altoTabla}" style="width: 830px;" selection="#{controlInstituciones.institucionSeleccionada}"
+                                         selectionMode="single">
+                                <p:ajax event="filter" listener="#{controlInstituciones.eventoFiltrar()}"/>
+                                <f:event type="preRenderView"  listener="#{controlInstituciones.recordarSeleccion()}"/>
+
+                                <p:column id="institucionCodigo" headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterStyle="display: none; visibility: hidden;"
+                                          filterBy="#{info.codigo}" filterMatchMode="contains" width="55">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.codigo}"  />  
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.codigo}" id="CodigoInstituciones" style="border-radius: 0px; width: 93.5%; text-transform: uppercase ;">
+                                                <p:keyFilter for="CodigoInstituciones" mask="num"/>
+                                                <p:ajax event="select" listener="#{controlInstituciones.cambiarIndice(info, 0)}" />
+                                                <p:ajax event="change" listener="#{controlInstituciones.modificarInstituciones(info, 'N', info.codigo)}" update="@this" />
+                                            </p:inputText>
+                                        </f:facet>
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column id="institucionDescripcion" headerText="#{msg['desc']}" sortBy="#{info.descripcion}" filterStyle="display: none; visibility: hidden;" 
+                                          filterBy="#{info.descripcion}" filterMatchMode="contains" width="400">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.descripcion}"/>    
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.descripcion}" id="DescInstituciones" style="border-radius: 0px; width: 93.5%; text-transform: uppercase ;">
+                                                <p:ajax event="select" listener="#{controlInstituciones.cambiarIndice(info, 0)}" />
+                                                <p:ajax event="change" listener="#{controlInstituciones.modificarInstituciones(info, 'N', info.descripcion)}" update="@this" />
+                                            </p:inputText>
+                                        </f:facet>
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column id="institucionContacto" headerText="Contacto" sortBy="#{info.contacto}" filterStyle="display: none; visibility: hidden;"
+                                          filterBy="#{info.contacto}" filterMatchMode="contains" >
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.contacto}"  />  
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.contacto}" id="ContactoInstituciones" style="border-radius: 0px; width: 93.5%; text-transform: uppercase ;">
+                                                <p:ajax event="select" listener="#{controlInstituciones.cambiarIndice(info, 0)}" />
+                                                <p:ajax event="change" listener="#{controlInstituciones.modificarInstituciones(info, 'N', info.contacto)}" update="@this" />
+                                            </p:inputText>
+                                        </f:facet>
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column id="institucionTelefono" headerText="#{msg['tel']}" sortBy="#{info.telefono}" filterStyle="display: none; visibility: hidden;"
+                                          filterBy="#{info.telefono}" filterMatchMode="contains" >
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.telefono}"/>    
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.telefono}" id="TelefonoInstituciones" style="border-radius: 0px; width: 93.5%; text-transform: uppercase ;">
+                                                <p:ajax event="select" listener="#{controlInstituciones.cambiarIndice(info, 0)}" />
+                                                <p:ajax event="change" listener="#{controlInstituciones.modificarInstituciones(info, 'N', info.telefono)}" update="@this" />
+                                            </p:inputText>
+                                        </f:facet>
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>     
+                            </p:dataTable>  
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlInstituciones.inforegistro}" style="position: relative; left: 15px; top: 5px; font-weight: bold"/>                 
+                        </fieldset>      
+                    </p:panel>         
+                </h:form>
+
+                <h:form id="formularioDialogos">
+                    <p:dialog id="existeCodigo" header="#{msg['error']}" widgetVar="existeCodigo"  resizable="false" draggable="false" modal="true" height="100" width="400px;"  closable ="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="El código digitado ya está en uso. Por favor, ingrese otro código." style="position: absolute; left: 70px; top: 20px; width: 300px; font-weight:bold;" />
+                        <p:commandButton value="Aceptar" onclick="PF('existeCodigo').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="NuevoRegistroInstitucion" header="Nuevo Registro" widgetVar="NuevoRegistroInstitucion" closable="false" resizable="false"  draggable="false" modal="true" height="210" width="320" style=" padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nueva Institución" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <p:panel id="nuevaInstitucion" style="border: none;">
+                            <strong><h:outputText value="Código: " style=" position: absolute; top: 63px;" /></strong>
+                            <p:inputText id="nuevoCodigoInstitucion" value="#{controlInstituciones.nuevoInstitucion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoCodigoInstitucion" value="#{msg['codigo']}" />
+
+                            <strong><h:outputText value="Nombre: " style=" position: absolute; top: 93px;" /></strong>
+                            <p:inputText id="nuevaDescripcionInstitucion" value="#{controlInstituciones.nuevoInstitucion.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+                            <p:watermark for="nuevaDescripcionInstitucion" value="#{msg['desc']}" />
+
+                            <strong><h:outputText value="Contacto: " style=" position: absolute; top: 124px;" /></strong>
+                            <p:inputText id="nuevoContactoInstitucion" value="#{controlInstituciones.nuevoInstitucion.contacto}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="PF('select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+                            <p:watermark for="nuevoContactoInstitucion" value="Contacto" />
+                            
+                            <strong><h:outputText value="#{msg['tel']} " style=" position: absolute; top: 154px;" /></strong>
+                            <p:inputText id="nuevoTelefonoInstitucion" value="#{controlInstituciones.nuevoInstitucion.telefono}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 149px; text-transform: uppercase" onclick="PF('select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+                            <p:watermark for="nuevoTelefonoInstitucion" value="#{msg['tel']}" />
+
+                            <p:commandButton id="limpiarI" value="Limpiar" style=" position: absolute; left: 10px; top: 170px;" icon="ui-icon-trash" actionListener="#{controlInstituciones.limpiarNuevaInstitucion()}" update="nuevaInstitucion" process="@this"/>
+                            <p:commandButton id="agregarTT" value="Agregar" style=" position: absolute; left: 110px; top: 170px;" icon="ui-icon-circle-check" actionListener="#{controlInstituciones.agregarInstitucion()}" process="@this"/>
+                            <p:commandButton id="cancelarTT" value="Cancelar" style=" position: absolute; left: 210px; top: 170px;" icon="ui-icon-circle-close" actionListener="#{controlInstituciones.limpiarNuevaInstitucion()}" update="nuevaInstitucion" onclick="PF('NuevoRegistroInstitucion').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+                    
+                     <p:dialog id="DuplicarRegistroInstitucion" header="Duplicar Registro" widgetVar="DuplicarRegistroInstitucion" closable="false" resizable="false"  draggable="false" modal="true" height="210" width="320" style=" padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nueva Institución" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <p:panel id="duplicarInstitucion" style="border: none;">
+                            <strong><h:outputText value="Código: " style=" position: absolute; top: 63px;" /></strong>
+                            <p:inputText id="duplicarCodigoInstitucion" value="#{controlInstituciones.duplicarInstitucion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCodigoInstitucion" value="#{msg['codigo']}" />
+
+                            <strong><h:outputText value="Nombre: " style=" position: absolute; top: 93px;" /></strong>
+                            <p:inputText id="duplicarDescripcionInstitucion" value="#{controlInstituciones.duplicarInstitucion.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+                            <p:watermark for="duplicarDescripcionInstitucion" value="#{msg['desc']}" />
+
+                            <strong><h:outputText value="Contacto: " style=" position: absolute; top: 124px;" /></strong>
+                            <p:inputText id="duplicarContactoInstitucion" value="#{controlInstituciones.duplicarInstitucion.contacto}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="PF('select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+                            <p:watermark for="duplicarContactoInstitucion" value="Contacto" />
+                            
+                            <strong><h:outputText value="#{msg['tel']} " style=" position: absolute; top: 154px;" /></strong>
+                            <p:inputText id="duplicarTelefonoInstitucion" value="#{controlInstituciones.duplicarInstitucion.telefono}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 149px; text-transform: uppercase" onclick="PF('select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+                            <p:watermark for="duplicarTelefonoInstitucion" value="#{msg['tel']}" />
+
+                            <p:commandButton id="limpiar" value="Limpiar" style=" position: absolute; left: 10px; top: 170px;" icon="ui-icon-trash" actionListener="#{controlInstituciones.limpiarduplicarInstituciones()}" update="duplicarInstitucion" process="@this"/>
+                            <p:commandButton id="agregarI" value="Agregar" style=" position: absolute; left: 110px; top: 170px;" icon="ui-icon-circle-check" actionListener="#{controlInstituciones.confirmarDuplicar()}" process="@this"/>
+                            <p:commandButton id="cancelarI" value="Cancelar" style=" position: absolute; left: 210px; top: 170px;" icon="ui-icon-circle-close" actionListener="#{controlInstituciones.limpiarduplicarInstituciones()}" update="duplicarInstitucion" onclick="PF('DuplicarRegistroInstitucion').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+                    
+                    <p:dialog id="validacionNuevaInstitucion" header="#{msg['atencion']}" widgetVar="validacionNuevaInstitucion"  resizable="false" draggable="false" modal="true" height="95" width="440" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
+                        <h:outputText value="Para agregar una nueva institución es necesario adicionar: #{controlInstituciones.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaInstitucion').hide();" icon="ui-icon-circle-check" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlInstituciones.guardarCambiosInstituciones()}" action="#{controlInstituciones.redirigir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlInstituciones.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+                    
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 7px; width: 180px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInstituciones.institucionSeleccionada.getSecuencia(), 'Instituciones', 'Instituciones')}" style="position: absolute; top: 65px; left: 205px;" action="rastro" process="@this" icon="ui-icon-circle-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" icon="ui-icon-circle-close"  />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Instituciones', 'tiposeducaciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 5px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInstituciones.institucionSeleccionada.getSecuencia(), 'Instituciones', 'Instituciones')}" style="position: absolute; top: 70px; left: 170px;" action="rastro" process="@this" icon="ui-icon-circle-check" />
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 235px;" process="@this" icon="ui-icon-circle-close" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+                    
+                             <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 5px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlInstituciones.activarCtrlF11()}" process="@this"/>
+                    
+                    <p:dialog id="editarCodigosInstituciones" header="Código" widgetVar="editarCodigosInstituciones" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlInstituciones.editarInstitucion.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarDescripcionInstituciones" header="Nombre" widgetVar="editarDescripcionInstituciones" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlInstituciones.editarInstitucion.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarTelefonoInstituciones" header="NivelEducativo" widgetVar="editarTelefonoInstituciones" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlInstituciones.editarInstitucion.contacto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarNivelInstituciones" header="NivelEducativo" widgetVar="editarNivelInstituciones" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                        <p:inputTextarea value="#{controlInstituciones.editarInstitucion.telefono}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    </p:dialog>
+                </h:form>   
+                
+                <h:form id="formExportar">
+                    <p:dataTable id="datosInstitucionesExportar" var="institucion" style="visibility: hidden; display: none;"                           
+                                 value="#{controlInstituciones.listaInstituciones}"> 
+                        <p:column headerText="#{msg['codigo']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['codigo']}"/> </f:facet> 
+                            <h:outputText value="#{institucion.codigo}" />
+                        </p:column>  
+
+
+                        <p:column headerText="#{msg['desc']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['desc']}"/> </f:facet> 
+                            <h:outputText value="#{institucion.descripcion}" />
+                        </p:column> 
+                        
+                        <p:column headerText="Contacto">                                  
+                            <f:facet name="header"><h:outputText value="Contacto"/> </f:facet> 
+                            <h:outputText value="#{institucion.contacto}" />
+                        </p:column>  
+                        
+                        <p:column headerText="#{msg['tel']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['tel']}"/> </f:facet> 
+                            <h:outputText value="#{institucion.telefono}" />
+                        </p:column>  
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

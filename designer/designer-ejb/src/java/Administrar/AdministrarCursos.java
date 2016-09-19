@@ -50,6 +50,39 @@ public class AdministrarCursos implements AdministrarCursosInterface {
         listaCursos = persistenciaCursos.cursos(em);
         return listaCursos;
     }
+
+    @Override
+    public void crear(List<Cursos> listaCrear) {
+        try {
+            for (int i = 0; i < listaCrear.size(); i++) {
+                persistenciaCursos.crear(em, listaCrear.get(i));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en AdministrarCursos.crear : " + e.toString());
+        }
+    }
+
+    @Override
+    public void editar(List<Cursos> listaEditar) {
+        try {
+            for (int i = 0; i < listaEditar.size(); i++) {
+                persistenciaCursos.editar(em, listaEditar.get(i));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en AdministrarCursos.editar : " + e.toString());
+        }
+    }
+
+    @Override
+    public void borrar(List<Cursos> listaBorrar) {
+        try {
+            for (int i = 0; i < listaBorrar.size(); i++) {
+                persistenciaCursos.borrar(em, listaBorrar.get(i));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en AdministrarCursos.borrar : " + e.toString());
+        }
+    }
 }
 
 

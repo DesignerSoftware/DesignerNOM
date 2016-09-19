@@ -19,8 +19,10 @@ public class TiposCursos implements Serializable {
     @NotNull
     @Column(name = "SECUENCIA")
     private BigInteger secuencia;
+    @NotNull
     @Column(name = "CODIGO")
     private Integer codigo;
+    @NotNull
     @Column(name = "DESCRIPCION")
     private String descripcion;
 

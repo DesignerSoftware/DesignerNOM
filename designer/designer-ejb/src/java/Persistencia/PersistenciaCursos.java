@@ -3,23 +3,25 @@
  */
 package Persistencia;
 
-
 import Entidades.Cursos;
 import InterfacePersistencia.PersistenciaCursosInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
  * Clase Stateless. <br>
- * Clase encargada de realizar operaciones sobre la tabla 'Cursos'
- * de la base de datos
+ * Clase encargada de realizar operaciones sobre la tabla 'Cursos' de la base de
+ * datos
+ *
  * @author betelgeuse
  */
 @Stateless
-public class PersistenciaCursos implements PersistenciaCursosInterface{
+public class PersistenciaCursos implements PersistenciaCursosInterface {
+
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
      */
@@ -27,8 +29,9 @@ public class PersistenciaCursos implements PersistenciaCursosInterface{
     private EntityManager em;*/
 
     @Override
-        public List<Cursos> cursos(EntityManager em) {
-        try {em.clear();
+    public List<Cursos> cursos(EntityManager em) {
+        try {
+            em.clear();
             Query query = em.createQuery("SELECT c FROM Cursos c ORDER BY c.nombre");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Cursos> cursos = query.getResultList();
@@ -37,6 +40,56 @@ public class PersistenciaCursos implements PersistenciaCursosInterface{
             return null;
         }
     }
+
+    @Override
+    public void crear(EntityManager em, Cursos curso) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(curso);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaCursos.crear: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    @Override
+    public void borrar(EntityManager em, Cursos curso) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.merge(curso));
+            tx.commit();
+
+        } catch (Exception e) {
+            try {
+                if (tx.isActive()) {
+                    tx.rollback();
+                }
+            } catch (Exception ex) {
+                System.out.println("Error PersistenciaCursos.borrar: " + e);
+            }
+        }
+    }
+
+    @Override
+    public void editar(EntityManager em, Cursos curso) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(curso);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaCursos.editar: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
 }
-
-

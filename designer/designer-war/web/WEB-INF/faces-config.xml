@@ -5880,5 +5880,23 @@
         </navigation-case>
     </navigation-rule>
     
+    <navigation-rule>
+        <from-view-id>/personaeducacion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>institucion</from-outcome>
+            <to-view-id>/instituciones.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/personaeducacion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>curso</from-outcome>
+            <to-view-id>/cursos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
 </faces-config>
 

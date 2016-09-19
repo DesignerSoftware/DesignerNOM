@@ -181,7 +181,6 @@ public class ControlTiposEducaciones implements Serializable {
             tipoLista = 0;
             altoTabla = "270";
             RequestContext.getCurrentInstance().update("form:datosTiposEducaciones");
-            tipoLista = 0;
 
         }
 
@@ -194,7 +193,6 @@ public class ControlTiposEducaciones implements Serializable {
         listaTiposEducaciones = null;
         guardado = true;
         permitirIndex = true;
-        guardado = true;
 
     }
 
@@ -211,7 +209,6 @@ public class ControlTiposEducaciones implements Serializable {
             mensajeValidacion = mensajeValidacion + " * Codigo \n";
             pasa++;
         }
-        System.out.println("Lista Tipos Telefonos tiene: " + listaTiposEducaciones.size());
 
         for (int i = 0; i < listaTiposEducaciones.size(); i++) {
             System.out.println("Nombres: " + listaTiposEducaciones.get(i).getNombre());
@@ -266,7 +263,6 @@ public class ControlTiposEducaciones implements Serializable {
                 tipoLista = 0;
                 altoTabla = "270";
                 RequestContext.getCurrentInstance().update("form:datosTiposEducaciones");
-                tipoLista = 0;
             }
             //AGREGAR REGISTRO A LA LISTA CIUDADES.
             k++;
@@ -489,11 +485,9 @@ public class ControlTiposEducaciones implements Serializable {
             filtradoListaTiposEducaciones = null;
             tipoLista = 0;
             altoTabla = "270";
-            RequestContext.getCurrentInstance().update("form:datosTiposTelefonos");
+            RequestContext.getCurrentInstance().update("form:datosTiposEducaciones");
             tipoLista = 0;
-
         }
-
         listaTiposEducacionesBorrar.clear();
         listaTiposEducacionesCrear.clear();
         listaTiposEducacionesModificar.clear();
@@ -577,7 +571,6 @@ public class ControlTiposEducaciones implements Serializable {
             tipoLista = 1;
         }
         deshabilitarBotonLov();
-        tipoEducacionSeleccionado = null;
         modificarInfoRegistro(filtradoListaTiposEducaciones.size());
         RequestContext.getCurrentInstance().update("form:infoRegistro");
     }

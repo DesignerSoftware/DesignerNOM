@@ -45,4 +45,37 @@ public class AdministrarInstituciones implements AdministrarInstitucionesInterfa
     public List<Instituciones>  lovInstituciones(){
         return persistenciaInstituciones.instituciones(em);
     }
+
+    @Override
+    public void crear(List<Instituciones> listaCrear) {
+        try {
+            for (int i = 0; i < listaCrear.size(); i++) {
+                persistenciaInstituciones.crear(em, listaCrear.get(i));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en AdministrarInstituciones.crear : " + e.toString());
+        }
+    }
+
+    @Override
+    public void editar(List<Instituciones> listaEditar) {
+        try {
+            for (int i = 0; i < listaEditar.size(); i++) {
+                persistenciaInstituciones.editar(em, listaEditar.get(i));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en AdministrarInstituciones.editar : " + e.toString());
+        }
+    }
+
+    @Override
+    public void borrar(List<Instituciones> listaBorrar) {
+        try {
+            for (int i = 0; i < listaBorrar.size(); i++) {
+                persistenciaInstituciones.borrar(em, listaBorrar.get(i));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en AdministrarInstituciones.borrar : " + e.toString());
+        }
+    }
 }

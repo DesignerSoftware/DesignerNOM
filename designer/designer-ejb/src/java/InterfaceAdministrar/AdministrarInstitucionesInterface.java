@@ -18,5 +18,8 @@ public interface AdministrarInstitucionesInterface {
  
     public List<Instituciones> Instituciones();
     public List<Instituciones>  lovInstituciones();
+    public void crear (List<Instituciones> listaCrear);
+    public void editar (List<Instituciones> listaEditar);
+    public void borrar (List<Instituciones> listaBorrar);
     
 }

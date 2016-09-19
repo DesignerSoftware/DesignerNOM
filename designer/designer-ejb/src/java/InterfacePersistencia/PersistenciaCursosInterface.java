@@ -18,4 +18,7 @@ public interface PersistenciaCursosInterface {
      * @return Retorna una lista de Cursos.
      */
     public List<Cursos> cursos(EntityManager em);
+    public void crear(EntityManager em,Cursos curso);
+    public void borrar(EntityManager em,Cursos curso);
+    public void editar(EntityManager em,Cursos curso);
 }

@@ -2,6 +2,7 @@ package Administrar;
 
 import ClasesAyuda.SessionEntityManager;
 import InterfaceAdministrar.AdministrarSesionesInterface;
+import java.io.Serializable;
 //import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import javax.persistence.EntityManager;
  * @author Felipe Triviño
  */
 @Singleton
-public class AdministrarSesiones implements AdministrarSesionesInterface {
+public class AdministrarSesiones implements AdministrarSesionesInterface, Serializable {
 
     private List<SessionEntityManager> sessionesActivas;
 

@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "INSTITUCIONES")
 public class Instituciones implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -25,6 +25,12 @@ public class Instituciones implements Serializable {
     @Size(max = 100)
     @Column(name = "DESCRIPCION")
     private String descripcion;
+    @Size(max = 50)
+    @Column(name = "CONTACTO")
+    private String contacto;
+    @Size(max = 30)
+    @Column(name = "TELEFONO")
+    private String telefono;
 
     public Instituciones() {
     }
@@ -61,7 +67,33 @@ public class Instituciones implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+
+    public String getContacto() {
+        if (contacto == null) {
+            contacto = " ";
+            return contacto;
+        } else {
+            return contacto.toUpperCase();
+        }
+    }
+
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
+    }
+
+    public String getTelefono() {
+        if (telefono == null) {
+            telefono = " ";
+            return telefono;
+        } else {
+            return telefono.toUpperCase();
+        }
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -86,5 +118,5 @@ public class Instituciones implements Serializable {
     public String toString() {
         return "Entidades.Instituciones[ secuencia=" + secuencia + " ]";
     }
-    
+
 }

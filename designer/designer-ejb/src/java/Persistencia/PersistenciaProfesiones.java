@@ -9,7 +9,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 /**
  * Clase Stateless. <br> 
@@ -21,6 +20,7 @@ import javax.persistence.Query;
 public class PersistenciaProfesiones implements PersistenciaProfesionesInterface{
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
+     * @param em
      */
 //    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
 //    private EntityManager em;

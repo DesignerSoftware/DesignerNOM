@@ -28,4 +28,7 @@ public interface AdministrarCursosInterface {
      * @param idSesion Identificador se la sesion.
      */
     public void obtenerConexion(String idSesion);
+    public void crear (List<Cursos> listaCrear);
+    public void editar (List<Cursos> listaEditar);
+    public void borrar (List<Cursos> listaBorrar);
 }

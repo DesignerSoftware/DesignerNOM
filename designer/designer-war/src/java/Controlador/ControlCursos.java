@@ -1,0 +1,814 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Controlador;
+
+import Entidades.Cursos;
+import Entidades.TiposCursos;
+import Exportar.ExportarPDF;
+import Exportar.ExportarXLS;
+import InterfaceAdministrar.AdministrarCursosInterface;
+import InterfaceAdministrar.AdministrarRastrosInterface;
+import InterfaceAdministrar.AdministrarTiposCursosInterface;
+import java.io.IOException;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
+import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+import org.primefaces.component.column.Column;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.component.export.Exporter;
+import org.primefaces.context.RequestContext;
+import utilidadesUI.PrimefacesContextUI;
+
+/**
+ *
+ * @author user
+ */
+@ManagedBean
+@Named(value = "controlCursos")
+@SessionScoped
+public class ControlCursos implements Serializable {
+
+    @EJB
+    AdministrarRastrosInterface administrarRastros;
+    @EJB
+    AdministrarCursosInterface administrarCursos;
+    @EJB
+    AdministrarTiposCursosInterface administrarTiposCursos;
+
+    private List<Cursos> listaCursos;
+    private List<Cursos> filtradoListaCursos;
+    private List<Cursos> listaCursosCrear;
+    private List<Cursos> listaCursosBorrar;
+    private List<Cursos> listaCursosModificar;
+    private Cursos cursoSeleccionado;
+    private Cursos nuevoCurso;
+    private Cursos duplicarCurso;
+    private Cursos editarCurso;
+
+    private List<TiposCursos> lovTiposCursos;
+    private List<TiposCursos> lovFiltrarTiposCursos;
+    private TiposCursos tipocursoSeleccionado;
+    private BigInteger l;
+    private int k, bandera, tipoLista, cualCelda, tipoActualizacion;
+    private Column codigo, descripcion, tipocurso, objetivo;
+    private boolean aceptar, permitirIndex, guardado, activarLov;
+    private String altoTabla, inforegistro, paginaanterior, mensajeValidacion, infoRegistroLov;
+    private DataTable tablaC;
+
+    public ControlCursos() {
+        listaCursosCrear = new ArrayList<Cursos>();
+        listaCursosBorrar = new ArrayList<Cursos>();
+        listaCursosModificar = new ArrayList<Cursos>();
+        permitirIndex = true;
+        aceptar = true;
+        tipoLista = 0;
+        cursoSeleccionado = null;
+        editarCurso = new Cursos();
+        nuevoCurso = new Cursos();
+        duplicarCurso = new Cursos();
+        cualCelda = -1;
+        altoTabla = "270";
+        guardado = true;
+        activarLov = true;
+        listaCursos = null;
+    }
+
+    @PostConstruct
+    public void inicializarAdministrador() {
+        try {
+            FacesContext x = FacesContext.getCurrentInstance();
+            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+            administrarRastros.obtenerConexion(ses.getId());
+            administrarCursos.obtenerConexion(ses.getId());
+        } catch (Exception e) {
+            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+            System.out.println("Causa: " + e.getCause());
+        }
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaanterior = pagina;
+        listaCursos = null;
+        getListaCursos();
+        lovTiposCursos = null;
+        deshabilitarBotonLov();
+        if (listaCursos != null) {
+            cursoSeleccionado = listaCursos.get(0);
+        }
+        contarRegistros();
+    }
+
+    public String redirigir() {
+        return paginaanterior;
+    }
+
+    public void editarCelda() {
+        if (cursoSeleccionado != null) {
+            editarCurso = cursoSeleccionado;
+            RequestContext context = RequestContext.getCurrentInstance();
+            if (cualCelda == 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigosCurso");
+                PrimefacesContextUI.ejecutar("PF('editarCodigosCurso').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 1) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionCurso");
+                PrimefacesContextUI.ejecutar("PF('editarDescripcionCurso').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 2) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoCurso");
+                PrimefacesContextUI.ejecutar("PF('editarTipoCurso').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 3) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarObjetivoCurso");
+                PrimefacesContextUI.ejecutar("PF('editarObjetivoCurso').show()");
+                cualCelda = -1;
+            }
+        } else {
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+        }
+    }
+
+    public void asignarIndex(int celda, int LND) {
+        tipoActualizacion = LND;
+        cualCelda = celda;
+        if (cualCelda == 2) {
+            getLovTiposCursos();
+            modificarInfoRegistroLov(lovTiposCursos.size());
+            RequestContext.getCurrentInstance().execute("PF('tipoCursoDialogo').show()");
+        }
+    }
+
+    public void guardarCambiosCurso() {
+        try {
+            if (guardado == false) {
+                if (!listaCursosBorrar.isEmpty()) {
+                    administrarCursos.borrar(listaCursosBorrar);
+                    listaCursosBorrar.clear();
+                }
+                if (!listaCursosCrear.isEmpty()) {
+                    administrarCursos.crear(listaCursosCrear);
+                    listaCursosCrear.clear();
+                }
+                if (!listaCursosModificar.isEmpty()) {
+                    administrarCursos.editar(listaCursosModificar);
+                    listaCursosModificar.clear();
+                }
+
+                listaCursos = null;
+                getListaCursos();
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                k = 0;
+                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                RequestContext.getCurrentInstance().update("form:growl");
+                contarRegistros();
+                cursoSeleccionado = null;
+            }
+            guardado = true;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosCursos");
+            deshabilitarBotonLov();
+        } catch (Exception e) {
+            System.out.println("Error guardarCambios : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+    }
+
+    public void salir() {
+        if (bandera == 1) {
+            System.out.println("Desactivar");
+            FacesContext c = FacesContext.getCurrentInstance();
+            codigo = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoCodigos");
+            codigo.setFilterStyle("display: none; visibility: hidden;");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoDescripcion");
+            descripcion.setFilterStyle("display: none; visibility: hidden;");
+            tipocurso = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoTipo");
+            tipocurso.setFilterStyle("display: none; visibility: hidden;");
+            objetivo = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoObjetivo");
+            objetivo.setFilterStyle("display: none; visibility: hidden;");
+            bandera = 0;
+            filtradoListaCursos = null;
+            tipoLista = 0;
+            altoTabla = "270";
+            RequestContext.getCurrentInstance().update("form:datosCursos");
+
+        }
+
+        listaCursosBorrar.clear();
+        listaCursosCrear.clear();
+        listaCursosModificar.clear();
+        cursoSeleccionado = null;
+        contarRegistros();
+        k = 0;
+        listaCursos = null;
+        guardado = true;
+        permitirIndex = true;
+
+    }
+
+    public void agregarNuevoCurso() {
+        int pasa = 0;
+        int pasaA = 0;
+        RequestContext context = RequestContext.getCurrentInstance();
+        mensajeValidacion = " ";
+        if (nuevoCurso.getNombre().equals(" ") || nuevoCurso.getNombre().equals("")) {
+            mensajeValidacion = mensajeValidacion + " * Nombre del Curso\n";
+            pasa++;
+        }
+        if (nuevoCurso.getTipocurso().getDescripcion().equals(" ") || nuevoCurso.getTipocurso().getDescripcion().equals("")) {
+            mensajeValidacion = mensajeValidacion + " * Tipo del Curso\n";
+            pasa++;
+        }
+        if (nuevoCurso.getObjetivo().equals(" ") || nuevoCurso.getObjetivo().equals("")) {
+            mensajeValidacion = mensajeValidacion + " * Objetivo del Curso\n";
+            pasa++;
+        }
+
+        for (int i = 0; i < listaCursos.size(); i++) {
+            if (nuevoCurso.getCodigo() == listaCursos.get(i).getCodigo()) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
+                PrimefacesContextUI.ejecutar("PF('existeCodigo').show()");
+                pasa++;
+            }
+            if (pasa != 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoCurso");
+                PrimefacesContextUI.ejecutar("PF('validacionNuevoCurso').show()");
+
+            }
+        }
+
+        if (pasa == 0 && pasaA == 0) {
+            if (bandera == 1) {
+                //CERRAR FILTRADO
+                System.out.println("Desactivar");
+                FacesContext c = FacesContext.getCurrentInstance();
+                codigo = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoCodigos");
+                codigo.setFilterStyle("display: none; visibility: hidden;");
+                descripcion = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoDescripcion");
+                descripcion.setFilterStyle("display: none; visibility: hidden;");
+                tipocurso = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoTipo");
+                tipocurso.setFilterStyle("display: none; visibility: hidden;");
+                objetivo = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoObjetivo");
+                objetivo.setFilterStyle("display: none; visibility: hidden;");
+                bandera = 0;
+                filtradoListaCursos = null;
+                tipoLista = 0;
+                altoTabla = "270";
+                RequestContext.getCurrentInstance().update("form:datosCursos");
+            }
+            //AGREGAR REGISTRO A LA LISTA CIUDADES.
+            k++;
+            l = BigInteger.valueOf(k);
+            nuevoCurso.setSecuencia(l);
+            listaCursosCrear.add(nuevoCurso);
+            listaCursos.add(nuevoCurso);
+            modificarInfoRegistro(listaCursos.size());
+            cursoSeleccionado = nuevoCurso;
+            nuevoCurso = new Cursos();
+
+            RequestContext.getCurrentInstance().update("form:datosCursos");
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            PrimefacesContextUI.ejecutar("PF('NuevoRegistroCurso').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoCurso");
+            PrimefacesContextUI.ejecutar("PF('validacionNuevoCurso').show()");
+        }
+    }
+
+    public void activarCtrlF11() {
+        if (bandera == 0) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            codigo = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoCodigos");
+            codigo.setFilterStyle("width: 85%");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoDescripcion");
+            descripcion.setFilterStyle("width: 85%");
+            tipocurso = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoTipo");
+            tipocurso.setFilterStyle("width: 85%");
+            objetivo = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoObjetivo");
+            objetivo.setFilterStyle("width: 85%");
+            altoTabla = "250";
+            RequestContext.getCurrentInstance().update("form:datosCursos");
+            bandera = 1;
+            tipoLista = 1;
+        } else if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            codigo = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoCodigos");
+            codigo.setFilterStyle("display: none; visibility: hidden;");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoDescripcion");
+            descripcion.setFilterStyle("display: none; visibility: hidden;");
+            tipocurso = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoTipo");
+            tipocurso.setFilterStyle("display: none; visibility: hidden;");
+            objetivo = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoObjetivo");
+            objetivo.setFilterStyle("display: none; visibility: hidden;");
+            altoTabla = "270";
+            RequestContext.getCurrentInstance().update("form:datosCursos");
+            bandera = 0;
+            filtradoListaCursos = null;
+            tipoLista = 0;
+        }
+    }
+
+    public void exportPDF() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosCursosExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarPDF();
+        exporter.export(context, tabla, "CursosPDF", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void exportXLS() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosCursosExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarXLS();
+        exporter.export(context, tabla, "CursosXLS", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void limpiarNuevoCurso() {
+        nuevoCurso = new Cursos();
+    }
+
+    public void borrarCursos() {
+
+        if (cursoSeleccionado != null) {
+
+            if (!listaCursosModificar.isEmpty() && listaCursosModificar.contains(cursoSeleccionado)) {
+                listaCursosModificar.remove(listaCursosModificar.indexOf(cursoSeleccionado));
+                listaCursosBorrar.add(cursoSeleccionado);
+            } else if (!listaCursosCrear.isEmpty() && listaCursosCrear.contains(cursoSeleccionado)) {
+                listaCursosCrear.remove(listaCursosCrear.indexOf(cursoSeleccionado));
+            } else {
+                listaCursosBorrar.add(cursoSeleccionado);
+            }
+            listaCursos.remove(cursoSeleccionado);
+
+            if (tipoLista == 1) {
+                filtradoListaCursos.remove(cursoSeleccionado);
+            }
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            RequestContext.getCurrentInstance().update("form:datosCursos");
+            modificarInfoRegistro(listaCursos.size());
+            cursoSeleccionado = null;
+            guardado = true;
+
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+        } else {
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+        }
+    }
+
+    public void cambiarIndice(Cursos curso, int celda) {
+        if (permitirIndex == true) {
+            cursoSeleccionado = curso;
+            cualCelda = celda;
+            if (cualCelda == 0) {
+                cursoSeleccionado.getCodigo();
+
+            } else if (cualCelda == 1) {
+                cursoSeleccionado.getNombre();
+            } else if (cualCelda == 2) {
+                cursoSeleccionado.getTipocurso().getDescripcion();
+            } else if (cualCelda == 3) {
+                cursoSeleccionado.getObjetivo();
+            }
+        }
+    }
+
+    public void duplicarCursos() {
+        if (cursoSeleccionado != null) {
+            duplicarCurso = new Cursos();
+            k++;
+            l = BigInteger.valueOf(k);
+
+            if (tipoLista == 0) {
+                duplicarCurso.setSecuencia(l);
+                duplicarCurso.setCodigo(cursoSeleccionado.getCodigo());
+                duplicarCurso.setNombre(cursoSeleccionado.getNombre());
+                duplicarCurso.setTipocurso(cursoSeleccionado.getTipocurso());
+                duplicarCurso.setObjetivo(cursoSeleccionado.getObjetivo());
+            }
+            if (tipoLista == 1) {
+                duplicarCurso.setSecuencia(l);
+                duplicarCurso.setCodigo(cursoSeleccionado.getCodigo());
+                duplicarCurso.setNombre(cursoSeleccionado.getNombre());
+                duplicarCurso.setTipocurso(cursoSeleccionado.getTipocurso());
+                duplicarCurso.setObjetivo(cursoSeleccionado.getObjetivo());
+                altoTabla = "270";
+            }
+
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCurso");
+            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCurso').show()");
+        } else {
+            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+        }
+    }
+
+    public void limpiarduplicarCurso() {
+        duplicarCurso = new Cursos();
+    }
+
+    public void confirmarDuplicar() {
+
+        RequestContext context = RequestContext.getCurrentInstance();
+        int pasa = 0;
+
+        for (int i = 0; i < listaCursos.size(); i++) {
+            if (duplicarCurso.getCodigo() == listaCursos.get(i).getCodigo()) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
+                PrimefacesContextUI.ejecutar("PF('existeCodigo').show()");
+                pasa++;
+            }
+        }
+
+        if (pasa == 0) {
+
+            listaCursos.add(duplicarCurso);
+            listaCursosCrear.add(duplicarCurso);
+            cursoSeleccionado = duplicarCurso;
+            modificarInfoRegistro(listaCursos.size());
+            RequestContext.getCurrentInstance().update("form:datosCursos");
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            if (bandera == 1) {
+                System.out.println("Desactivar");
+                FacesContext c = FacesContext.getCurrentInstance();
+                codigo = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoCodigos");
+                codigo.setFilterStyle("display: none; visibility: hidden;");
+                descripcion = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoDescripcion");
+                descripcion.setFilterStyle("display: none; visibility: hidden;");
+                tipocurso = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoTipo");
+                tipocurso.setFilterStyle("display: none; visibility: hidden;");
+                objetivo = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoObjetivo");
+                objetivo.setFilterStyle("display: none; visibility: hidden;");
+                bandera = 0;
+                filtradoListaCursos = null;
+                tipoLista = 0;
+                RequestContext.getCurrentInstance().update("form:datosCursos");
+                tipoLista = 0;
+            }
+            duplicarCurso = new Cursos();
+        }
+        RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTipoEducacion");
+        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTipoEducacion').hide()");
+    }
+
+    public void cancelarModificacion() {
+        if (bandera == 1) {
+            //CERRAR FILTRADO
+            FacesContext c = FacesContext.getCurrentInstance();
+            codigo = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoCodigos");
+            codigo.setFilterStyle("display: none; visibility: hidden;");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoDescripcion");
+            descripcion.setFilterStyle("display: none; visibility: hidden;");
+            tipocurso = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoTipo");
+            tipocurso.setFilterStyle("display: none; visibility: hidden;");
+            objetivo = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoObjetivo");
+            objetivo.setFilterStyle("display: none; visibility: hidden;");
+            bandera = 0;
+            filtradoListaCursos = null;
+            tipoLista = 0;
+            altoTabla = "270";
+            RequestContext.getCurrentInstance().update("form:datosCursos");
+            tipoLista = 0;
+        }
+        listaCursosBorrar.clear();
+        listaCursosCrear.clear();
+        listaCursosModificar.clear();
+        contarRegistros();
+        cursoSeleccionado = null;
+        k = 0;
+        listaCursos = null;
+        guardado = true;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:datosCursos");
+    }
+
+    public void modificarCursos(Cursos curso, String confirmarCambio, String valorConfirmar) {
+        cursoSeleccionado = curso;
+        int coincidencias = 0;
+        int indiceUnicoElemento = 0;
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (confirmarCambio.equalsIgnoreCase("N")) {
+            if (tipoLista == 0) {
+                if (!listaCursosCrear.contains(cursoSeleccionado)) {
+                    if (listaCursosModificar.isEmpty()) {
+                        listaCursosModificar.add(cursoSeleccionado);
+                    } else if (!listaCursosModificar.contains(cursoSeleccionado)) {
+                        listaCursosModificar.add(cursoSeleccionado);
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    }
+                }
+            } else if (!listaCursosCrear.contains(cursoSeleccionado)) {
+
+                if (listaCursosModificar.isEmpty()) {
+                    listaCursosModificar.add(cursoSeleccionado);
+                } else if (!listaCursosModificar.contains(cursoSeleccionado)) {
+                    listaCursosModificar.add(cursoSeleccionado);
+                }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
+            }
+            RequestContext.getCurrentInstance().update("form:datosCursos");
+        }
+    }
+
+    public void actualizarTiposCursos() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            if (tipoLista == 0) {
+                cursoSeleccionado.setTipocurso(tipocursoSeleccionado);
+                if (!listaCursosCrear.contains(cursoSeleccionado)) {
+                    if (listaCursosModificar.isEmpty()) {
+                        listaCursosModificar.add(cursoSeleccionado);
+                    } else if (!listaCursosModificar.contains(cursoSeleccionado)) {
+                        listaCursosModificar.add(cursoSeleccionado);
+                    }
+                }
+            } else {
+                cursoSeleccionado.setTipocurso(tipocursoSeleccionado);
+                if (!listaCursosCrear.contains(cursoSeleccionado)) {
+                    if (listaCursosModificar.isEmpty()) {
+                        listaCursosModificar.add(cursoSeleccionado);
+                    } else if (!listaCursosModificar.contains(cursoSeleccionado)) {
+                        listaCursosModificar.add(cursoSeleccionado);
+                    }
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosCursos");
+        } else if (tipoActualizacion == 1) {
+            nuevoCurso.setTipocurso(tipocursoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCurso");
+        } else if (tipoActualizacion == 2) {
+            duplicarCurso.setTipocurso(tipocursoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCurso");
+        }
+        filtradoListaCursos = null;
+        tipocursoSeleccionado = null;
+        aceptar = true;
+        cursoSeleccionado = null;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        context.reset("formularioDialogos:lovTipoCurso:globalFilter");
+        PrimefacesContextUI.ejecutar("PF('lovTipoCurso').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('tipoCursoDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:tipoCursoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovTipoCurso");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptart");
+    }
+
+    public void cancelarCambioTiposCursos() {
+        filtradoListaCursos = null;
+        tipocursoSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formularioDialogos:lovTipoCurso:globalFilter");
+        PrimefacesContextUI.ejecutar("PF('lovTipoCurso').clearFilters()");
+        PrimefacesContextUI.ejecutar("PF('tipoCursoDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:tipoCursoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovTipoCurso");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptart");
+    }
+
+    public void verificarRastro() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (cursoSeleccionado != null) {
+            int resultado = administrarRastros.obtenerTabla(cursoSeleccionado.getSecuencia(), "CURSOS");
+            System.out.println("resultado: " + resultado);
+            if (resultado == 1) {
+                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+            }
+        } else if (administrarRastros.verificarHistoricosTabla("CURSOS")) {
+            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+        } else {
+            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+        }
+    }
+
+    public void recordarSeleccionTT() {
+        if (cursoSeleccionado != null) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosCursos");
+            tablaC.setSelection(cursoSeleccionado);
+        }
+    }
+
+    public void eventoFiltrar() {
+        if (tipoLista == 0) {
+            tipoLista = 1;
+        }
+        deshabilitarBotonLov();
+        modificarInfoRegistro(filtradoListaCursos.size());
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
+    }
+
+    public void modificarInfoRegistro(int valor) {
+        inforegistro = String.valueOf(valor);
+    }
+
+    public void modificarInfoRegistroLov(int valor) {
+        infoRegistroLov = String.valueOf(valor);
+    }
+
+    public void eventoFiltrarLov() {
+        modificarInfoRegistroLov(lovFiltrarTiposCursos.size());
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistrolov");
+    }
+
+    public void contarRegistros() {
+        if (listaCursos != null) {
+            modificarInfoRegistro(listaCursos.size());
+        } else {
+            modificarInfoRegistro(0);
+        }
+    }
+
+    public void deshabilitarBotonLov() {
+        activarLov = true;
+    }
+
+    public void activarAceptar() {
+        aceptar = false;
+    }
+
+    ///////GETS Y SETS/////////
+    public List<Cursos> getListaCursos() {
+        if (listaCursos == null) {
+            listaCursos = administrarCursos.consultarCursos();
+        }
+        return listaCursos;
+    }
+
+    public void setListaCursos(List<Cursos> listaCursos) {
+        this.listaCursos = listaCursos;
+    }
+
+    public List<Cursos> getFiltradoListaCursos() {
+        return filtradoListaCursos;
+    }
+
+    public void setFiltradoListaCursos(List<Cursos> filtradoListaCursos) {
+        this.filtradoListaCursos = filtradoListaCursos;
+    }
+
+    public Cursos getCursoSeleccionado() {
+        return cursoSeleccionado;
+    }
+
+    public void setCursoSeleccionado(Cursos cursoSeleccionado) {
+        this.cursoSeleccionado = cursoSeleccionado;
+    }
+
+    public boolean isAceptar() {
+        return aceptar;
+    }
+
+    public void setAceptar(boolean aceptar) {
+        this.aceptar = aceptar;
+    }
+
+    public boolean isGuardado() {
+        return guardado;
+    }
+
+    public void setGuardado(boolean guardado) {
+        this.guardado = guardado;
+    }
+
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
+
+    public String getAltoTabla() {
+        return altoTabla;
+    }
+
+    public void setAltoTabla(String altoTabla) {
+        this.altoTabla = altoTabla;
+    }
+
+    public String getInforegistro() {
+        return inforegistro;
+    }
+
+    public void setInforegistro(String inforegistro) {
+        this.inforegistro = inforegistro;
+    }
+
+    public String getMensajeValidacion() {
+        return mensajeValidacion;
+    }
+
+    public void setMensajeValidacion(String mensajeValidacion) {
+        this.mensajeValidacion = mensajeValidacion;
+    }
+
+    public List<TiposCursos> getLovTiposCursos() {
+        if (lovTiposCursos == null) {
+            lovTiposCursos = administrarTiposCursos.consultarTiposCursos();
+        }
+        return lovTiposCursos;
+    }
+
+    public void setLovTiposCursos(List<TiposCursos> lovTiposCursos) {
+        this.lovTiposCursos = lovTiposCursos;
+    }
+
+    public List<TiposCursos> getLovFiltrarTiposCursos() {
+        return lovFiltrarTiposCursos;
+    }
+
+    public void setLovFiltrarTiposCursos(List<TiposCursos> lovFiltrarTiposCursos) {
+        this.lovFiltrarTiposCursos = lovFiltrarTiposCursos;
+    }
+
+    public TiposCursos getTipocursoSeleccionado() {
+        return tipocursoSeleccionado;
+    }
+
+    public void setTipocursoSeleccionado(TiposCursos tipocursoSeleccionado) {
+        this.tipocursoSeleccionado = tipocursoSeleccionado;
+    }
+
+    public String getInfoRegistroLov() {
+        return infoRegistroLov;
+    }
+
+    public void setInfoRegistroLov(String infoRegistroLov) {
+        this.infoRegistroLov = infoRegistroLov;
+    }
+
+    public Cursos getNuevoCurso() {
+        return nuevoCurso;
+    }
+
+    public void setNuevoCurso(Cursos nuevoCurso) {
+        this.nuevoCurso = nuevoCurso;
+    }
+
+    public Cursos getDuplicarCurso() {
+        return duplicarCurso;
+    }
+
+    public void setDuplicarCurso(Cursos duplicarCurso) {
+        this.duplicarCurso = duplicarCurso;
+    }
+
+    public Cursos getEditarCurso() {
+        return editarCurso;
+    }
+
+    public void setEditarCurso(Cursos editarCurso) {
+        this.editarCurso = editarCurso;
+    }
+
+}

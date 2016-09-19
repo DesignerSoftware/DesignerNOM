@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -35,7 +36,7 @@ import utilidadesUI.PrimefacesContextUI;
  */
 @ManagedBean
 @Named(value = "controlProfesiones")
-@Dependent
+@SessionScoped
 public class ControlProfesiones implements Serializable {
 
     @EJB
@@ -82,8 +83,8 @@ public class ControlProfesiones implements Serializable {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-            administrarProfesiones.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
+            administrarProfesiones.obtenerConexion(ses.getId());
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
@@ -94,6 +95,7 @@ public class ControlProfesiones implements Serializable {
         paginaanterior = pagina;
         listaProfesiones = null;
         getListaProfesiones();
+        contarRegistros();
         deshabilitarBotonLov();
         if (listaProfesiones != null) {
             profesionSeleccionada = listaProfesiones.get(0);
@@ -175,7 +177,6 @@ public class ControlProfesiones implements Serializable {
             altoTabla = "270";
             RequestContext.getCurrentInstance().update("form:datosProfesiones");
             tipoLista = 0;
-
         }
 
         listaProfesionesBorrar.clear();
@@ -205,6 +206,8 @@ public class ControlProfesiones implements Serializable {
             pasa++;
         }
 
+        if(listaProfesiones != null){
+            
         for (int i = 0; i < listaProfesiones.size(); i++) {
 
             if (listaProfesiones.get(i).getDescripcion().equals(nuevaProfesion.getDescripcion())) {
@@ -231,6 +234,7 @@ public class ControlProfesiones implements Serializable {
                 PrimefacesContextUI.ejecutar("PF('validacionNuevaProfesion').show()");
 
             }
+        }
         }
 
         if (nuevaProfesion.getDescripcion().length() > 40) {
@@ -365,8 +369,9 @@ public class ControlProfesiones implements Serializable {
     }
 
     public void cambiarIndice(Profesiones profesion, int celda) {
-        if (permitirIndex == true) {
             profesionSeleccionada = profesion;
+            System.out.println("profesion seleccionada : " + profesionSeleccionada );
+        if (permitirIndex == true) {
             cualCelda = celda;
             if (cualCelda == 0) {
                 profesionSeleccionada.getCodigo();
@@ -463,8 +468,7 @@ public class ControlProfesiones implements Serializable {
             filtradoListaProfesiones = null;
             tipoLista = 0;
             altoTabla = "270";
-            RequestContext.getCurrentInstance().update("form:datosTiposTelefonos");
-            tipoLista = 0;
+            RequestContext.getCurrentInstance().update("form:datosProfesiones");
 
         }
 

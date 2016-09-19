@@ -54,7 +54,7 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
             em.merge(instituciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInstituciones.crear: " + e);
+            System.out.println("Error PersistenciaInstituciones.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -96,8 +96,8 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
     public List<Instituciones> instituciones(EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT i FROM Instituciones i");
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql="SELECT * FROM INSTITUCIONES ORDER by CODIGO";
+            Query query = em.createNativeQuery(sql, Instituciones.class);
             List<Instituciones> listaInstituciones = query.getResultList();
             return listaInstituciones;
         } catch (Exception e) {

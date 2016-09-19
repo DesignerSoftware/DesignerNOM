@@ -1,5 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package Administrar;
@@ -8,25 +9,22 @@ import Entidades.Profesiones;
 import InterfaceAdministrar.AdministrarProfesionesInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaProfesionesInterface;
-import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 
+/**
+ *
+ * @author user
+ */
 @Stateful
-public class AdministrarProfesiones implements AdministrarProfesionesInterface,Serializable {
+public class AdministrarProfesiones implements AdministrarProfesionesInterface {
 
     @EJB
-    PersistenciaProfesionesInterface persistenciaProfesiones;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
+    PersistenciaProfesionesInterface persistenciaprofesiones;
     @EJB
     AdministrarSesionesInterface administrarSesiones;
-
     private EntityManager em;
 
     @Override
@@ -35,22 +33,22 @@ public class AdministrarProfesiones implements AdministrarProfesionesInterface,S
     }
 
     @Override
-    public List<Profesiones> Profesiones() {
+    public List<Entidades.Profesiones> Profesiones() {
         List<Profesiones> listaProfesiones;
-        listaProfesiones = persistenciaProfesiones.profesiones(em);
+        listaProfesiones = persistenciaprofesiones.profesiones(em);
         return listaProfesiones;
     }
 
     @Override
-    public List<Profesiones> lovProfesiones() {
-        return persistenciaProfesiones.profesiones(em);
+    public List<Entidades.Profesiones> lovProfesiones() {
+        return persistenciaprofesiones.profesiones(em);
     }
 
     @Override
-    public void crear(List<Profesiones> listaCrear) {
+    public void crear(List<Entidades.Profesiones> listaCrear) {
         try {
             for (int i = 0; i < listaCrear.size(); i++) {
-                persistenciaProfesiones.crear(em, listaCrear.get(i));
+                persistenciaprofesiones.crear(em, listaCrear.get(i));
             }
         } catch (Exception e) {
             System.out.println("Error en AdministrarProfesiones.crear : " + e.toString());
@@ -58,24 +56,29 @@ public class AdministrarProfesiones implements AdministrarProfesionesInterface,S
     }
 
     @Override
-    public void editar(List<Profesiones> listaEditar) {
-        try {
-            for (int i = 0; i < listaEditar.size(); i++) {
-                persistenciaProfesiones.editar(em, listaEditar.get(i));
-            }
-        } catch (Exception e) {
-            System.out.println("Error en AdministrarProfesiones.editar : " + e.toString());
-        }
+    public void editar(List<Entidades.Profesiones> listaEditar) {
+       try{
+           for (int i = 0; i < listaEditar.size(); i++) {
+            persistenciaprofesiones.editar(em, listaEditar.get(i));
+           }
+    
+       }catch(Exception e){
+           System.out.println("Error en AdministrarProfesiones.editar : " + e.toString());
+       }
     }
 
     @Override
-    public void borrar(List<Profesiones> listaBorrar) {
-        try {
+    public void borrar(List<Entidades.Profesiones> listaBorrar) {
+        try{
             for (int i = 0; i < listaBorrar.size(); i++) {
-                persistenciaProfesiones.borrar(em, listaBorrar.get(i));
+            persistenciaprofesiones.borrar(em, listaBorrar.get(i));
             }
-        } catch (Exception e) {
-            System.out.println("Error en AdministrarProfesiones.editar : " + e.toString());
+   
+        } catch(Exception e){
+            System.out.println("Error en AdministrarProfesiones.borrar : " + e.toString());
         }
     }
+
+    // Add business logic below. (Right-click in editor and choose
+    // "Insert Code > Add Business Method")
 }
